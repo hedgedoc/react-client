@@ -1,20 +1,3 @@
 {
-  "allowAnonymous": true,
-  "authProviders": {
-    "facebook": true,
-    "github": true,
-    "twitter": true,
-    "gitlab": true,
-    "dropbox": true,
-    "ldap": true,
-    "google": false,
-    "saml": false,
-    "oauth2": false,
-    "email": true
-  },
-  "specialLinks": {
-    "privacy": "test",
-    "termsOfUse": "test",
-    "imprint": "test"
-  }
+"backendUrl": "http://localhost:3000"
 }

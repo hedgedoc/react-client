@@ -1,9 +1,8 @@
-export interface ApplicationConfigState {
+export interface BackendConfigState {
     allowAnonymous: boolean,
     authProviders: AuthProvidersState,
     specialLinks: SpecialLinks,
 }
-
 
 export interface AuthProvidersState {
     facebook: true,

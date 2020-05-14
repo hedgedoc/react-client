@@ -3,26 +3,23 @@ import ReactDOM from 'react-dom'
 import {BrowserRouter as Router} from 'react-router-dom'
 import * as serviceWorker from './service-worker';
 import {ApplicationStateStoreProvider} from "./redux/application-state-store-provider/application-state-store-provider";
-import {setUpI18n} from "./initializers/i18n";
 import {InitializeUserStateFromApi} from "./components/initialize/initialize-user-state-from-api";
 import {Landing} from "./components/landing/layout";
 import {setUpFontAwesome} from "./initializers/fontAwesome";
-import {InitializeConfigStateFromApi} from "./components/initialize/initalize-config-state-from-api";
+import {ApplicationLoader} from "./components/loader/application-loader";
 
 setUpFontAwesome();
-setUpI18n().then(
-    () => {
-        ReactDOM.render(
-            <ApplicationStateStoreProvider>
-                <InitializeUserStateFromApi/>
-                <InitializeConfigStateFromApi/>
-                <Router>
-                    <Landing/>
-                </Router>
-            </ApplicationStateStoreProvider>
-            , document.getElementById('root')
-        )
-    }
+
+ReactDOM.render(
+    <ApplicationStateStoreProvider>
+        <ApplicationLoader>
+            <InitializeUserStateFromApi/>
+            <Router>
+                <Landing/>
+            </Router>
+        </ApplicationLoader>
+    </ApplicationStateStoreProvider>
+    , document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
