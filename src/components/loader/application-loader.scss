@@ -1,9 +1,10 @@
 .loader {
-  .animate-rotate {
-    animation: spinner 1s ease-in-out infinite;
+
+  .animation-pulse {
+    animation: pulse 2s ease-in-out infinite;
   }
 
-  .animate-shake {
+  .animation-shake {
     animation: shake 0.3s ease-in-out;
   }
 
@@ -25,6 +26,21 @@
 
   .progress {
     width: 50%;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1, 1);
+      filter: drop-shadow(0 0 0px black);
+    }
+    10% {
+      transform: scale(1.5, 1.5);
+      filter: drop-shadow(0 0 100px white);
+    }
+    100% {
+      transform: scale(1, 1);
+      filter: drop-shadow(0 0 0px black);
+    }
   }
 
   @keyframes shake {
@@ -60,15 +76,6 @@
     }
     100% {
       transform: translate(1px, -2px) rotate(-1deg);
-    }
-  }
-
-  @keyframes spinner {
-    from {
-      transform: rotateZ(0deg);
-    }
-    to {
-      transform: rotateZ(360deg);
     }
   }
 }
