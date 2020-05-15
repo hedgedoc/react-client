@@ -12,14 +12,11 @@ const ViaEMail: React.FC = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
-        postEmailLogin(email, password).then(response => {
-            if (response.status !== 200) {
+        postEmailLogin(email, password).then(loginJson => {
+            console.log(loginJson)
+            getAndSetUser(dispatch);
+        }).catch(_reason => {
                 setError(true);
-            } else {
-                // ToDo Extract auth data and set
-                console.log(response)
-                getAndSetUser(dispatch);
-            }
         })
         event.preventDefault();
     }
