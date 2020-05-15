@@ -12,7 +12,8 @@ const ViaEMail: React.FC = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
-        postEmailLogin(email, password).then(loginJson => {
+        postEmailLogin(email, password)
+            .then(loginJson => {
             console.log(loginJson)
             getAndSetUser(dispatch);
         }).catch(_reason => {
