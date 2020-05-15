@@ -1,15 +1,11 @@
 import {getMe} from "../api/user";
-import {LoginStatus, UserState} from "../redux/user/types";
+import {LoginStatus} from "../redux/user/types";
 import {setUser} from "../redux/user/methods";
 import {store} from "./store";
 
 export const getAndSetUser = () => {
     getMe()
-        .then((me) => {
-            if (me.status === 200) {
-                return (me.json() as Promise<UserState>);
-            }
-        })
+        .then(expectResponseCode())
         .then(user => {
             if (!user) {
                 return;
