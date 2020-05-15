@@ -1,5 +1,5 @@
 import {Trans, useTranslation} from "react-i18next";
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, Alert} from "react-bootstrap";
 import React, {Fragment, useState} from "react";
 import {postEmailLogin} from "../../../../../api/user";
 import {useDispatch} from "react-redux";
@@ -10,19 +10,17 @@ const ViaEMail: React.FC = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(true);
     const login = (event: any) => {
         postEmailLogin(email, password)
             .then(loginJson => {
-            console.log(loginJson)
-            getAndSetUser(dispatch);
+                console.log(loginJson)
+                getAndSetUser(dispatch);
         }).catch(_reason => {
                 setError(true);
         })
         event.preventDefault();
     }
-
-    const feedback = (<Form.Control.Feedback type="invalid"><Trans i18nKey="errorEmailLogin"/></Form.Control.Feedback>);
 
     return (
         <Fragment>
@@ -38,7 +36,6 @@ const ViaEMail: React.FC = () => {
                         placeholder={t("email")}
                         onChange={(event) => setEmail(event.currentTarget.value)}
                     />
-                    {feedback}
                 </Form.Group>
 
                 <Form.Group controlId="password">
@@ -49,8 +46,12 @@ const ViaEMail: React.FC = () => {
                         placeholder={t("password")}
                         onChange={(event) => setPassword(event.currentTarget.value)}
                     />
-                    {feedback}
                 </Form.Group>
+
+                <Alert className="small" show={error} variant="danger">
+                    <Trans i18nKey="errorEmailLogin"/>
+                </Alert>
+
                 <Button
                     type="submit"
                     size="sm"
