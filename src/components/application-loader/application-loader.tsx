@@ -18,8 +18,9 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({children, i
                 setDoneTasks(prevDoneTasks => {
                     return prevDoneTasks + 1;
                 }))
-                .catch(() => {
+                .catch((reason) => {
                     setFailed(true);
+                    console.error(reason);
                 })
         )
     }, [initTasks]);
