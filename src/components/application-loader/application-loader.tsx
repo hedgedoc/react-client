@@ -25,7 +25,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({children, i
         )
     }, [initTasks]);
 
-    return (<>{
+    return (<Fragment>{
         doneTasks < initTasks.length || initTasks.length === 0 ? (
             <div className="loader middle">
                 <div className="icon">
