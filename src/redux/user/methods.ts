@@ -1,6 +1,5 @@
-import {UserState} from "./types";
+import {CLEAR_USER_ACTION_TYPE, ClearUserAction, SET_USER_ACTION_TYPE, SetUserAction, UserState} from "./types";
 import {store} from "../../utils/store";
-import {CLEAR_USER_ACTION_TYPE, ClearUserAction, SET_USER_ACTION_TYPE, SetUserAction} from "./actions";
 
 export const setUser = (state: UserState) => {
     const action: SetUserAction = {

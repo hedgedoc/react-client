@@ -1,6 +1,5 @@
 import {Reducer} from 'redux';
-import {FrontendConfigState} from './types';
-import {FrontendConfigActions, SET_FRONTEND_CONFIG_ACTION_TYPE} from "./actions";
+import {FrontendConfigActions, FrontendConfigState, SET_FRONTEND_CONFIG_ACTION_TYPE} from './types';
 
 export const initialState: FrontendConfigState = {
     backendUrl: ""

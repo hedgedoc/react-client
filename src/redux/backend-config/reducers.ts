@@ -1,6 +1,5 @@
 import {Reducer} from 'redux';
-import {BackendConfigState} from './types';
-import {BackendConfigActions, SET_BACKEND_CONFIG_ACTION_TYPE} from "./actions";
+import {BackendConfigActions, BackendConfigState, SET_BACKEND_CONFIG_ACTION_TYPE} from './types';
 
 export const initialState: BackendConfigState = {
     allowAnonymous: true,
