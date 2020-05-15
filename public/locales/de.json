@@ -119,8 +119,8 @@
   "Help us translating": "Hilf uns beim Übersetzen",
   "Join the community": "Tritt der Community bei",
   "imprint": "Impressum",
-  "errorEmailLogin": "E-Mail/Passwort nicht korrekt",
-  "errorLdapLogin": "Benutzername/Passwort nicht korrekt",
+  "errorEmailLogin": "E-Mail oder Passwort nicht korrekt",
+  "errorLdapLogin": "Benutzername oder Passwort nicht korrekt",
   "email": "E-Mail",
   "password": "Passwort"
 }
