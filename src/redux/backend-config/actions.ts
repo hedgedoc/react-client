@@ -1,7 +1,7 @@
 import {Action, ActionCreator} from 'redux';
 import {BackendConfigState} from "./types";
 
-export const SET_BACKEND_CONFIG_ACTION_TYPE = 'config/set';
+export const SET_BACKEND_CONFIG_ACTION_TYPE = 'frontend-config/set';
 
 export interface SetBackendConfigAction extends Action {
     type: string;
