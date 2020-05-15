@@ -1,6 +1,6 @@
 import {Action} from "redux";
 
-export const SET_BACKEND_CONFIG_ACTION_TYPE = 'frontend-config/set';
+export const SET_BACKEND_CONFIG_ACTION_TYPE = 'backend-config/set';
 
 export interface BackendConfigState {
     allowAnonymous: boolean,
