@@ -4,7 +4,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {ApplicationState} from "../../../../../redux";
 import {LinkContainer} from "react-router-bootstrap";
-import {clearUser} from "../../../../../redux/user/actions";
+import {clearUser} from "../../../../../redux/user/methods";
 import "./user-dropdown.scss";
 import {Trans} from "react-i18next";
 
@@ -43,7 +43,7 @@ export const UserDropdown: React.FC = () => {
                 </Dropdown.Item>
                 <Dropdown.Item
                     onClick={() => {
-                        dispatch(clearUser());
+                        clearUser();
                     }}>
                     <FontAwesomeIcon icon="sign-out-alt"/>&nbsp;
                     <Trans i18nKey="signOut"/>

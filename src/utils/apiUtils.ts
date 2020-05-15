@@ -1,6 +1,6 @@
 import {getMe} from "../api/user";
 import {LoginStatus, UserState} from "../redux/user/types";
-import {setUser} from "../redux/user/actions";
+import {setUser} from "../redux/user/methods";
 
 export const getAndSetUser = () => {
     getMe()

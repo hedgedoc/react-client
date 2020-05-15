@@ -1,6 +1,6 @@
 import {getBackendConfig, getFrontendConfig} from "../api/config";
-import {setFrontendConfig} from "../redux/frontend-config/actions";
-import {setBackendConfig} from "../redux/backend-config/actions";
+import {setFrontendConfig} from "../redux/frontend-config/methods";
+import {setBackendConfig} from "../redux/backend-config/methods";
 import {getAndSetUser} from "../utils/apiUtils";
 
 export function loadAllConfig() {
