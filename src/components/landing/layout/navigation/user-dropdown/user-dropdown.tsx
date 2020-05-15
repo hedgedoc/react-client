@@ -1,7 +1,7 @@
 import {Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {ApplicationState} from "../../../../../redux";
 import {LinkContainer} from "react-router-bootstrap";
 import {clearUser} from "../../../../../redux/user/methods";
@@ -10,7 +10,6 @@ import {Trans} from "react-i18next";
 
 export const UserDropdown: React.FC = () => {
     const user = useSelector((state: ApplicationState) => state.user);
-    const dispatch = useDispatch()
 
     return (
         <Dropdown alignRight>
