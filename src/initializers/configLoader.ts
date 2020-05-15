@@ -7,14 +7,14 @@ export function loadAllConfig() {
     return getFrontendConfig()
         .then((frontendConfig) => {
             if (!frontendConfig) {
-                return Promise.reject("Frontend config invalid");
+                return Promise.reject("Frontend config empty!");
             }
             setFrontendConfig(frontendConfig);
             return getBackendConfig()
         })
         .then((backendConfig) => {
             if (!backendConfig) {
-                return Promise.reject("Backend config invalid");
+                return Promise.reject("Backend config empty!");
             }
             setBackendConfig(backendConfig)
         }).then(() => {
