@@ -37,5 +37,5 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({children, i
                 }
             </div>
         ) : children
-    }</>);
+    }</Fragment>);
 }
