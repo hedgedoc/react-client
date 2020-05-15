@@ -15,8 +15,9 @@ const ViaEMail: React.FC = () => {
                 console.log(loginJson)
                 getAndSetUser();
             }).catch(_reason => {
-            setError(true);
-        })
+                setError(true);
+            }
+        )
         event.preventDefault();
     }
 
