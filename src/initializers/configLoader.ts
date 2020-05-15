@@ -10,7 +10,7 @@ export function loadAllConfig() {
                 return Promise.reject("Frontend config invalid");
             }
             setFrontendConfig(frontendConfig);
-            return getBackendConfig(frontendConfig.backendUrl)
+            return getBackendConfig()
         })
         .then((backendConfig) => {
             if (!backendConfig) {

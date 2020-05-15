@@ -1,15 +1,15 @@
 import {FrontendConfigState} from "../redux/frontend-config/types";
 import {BackendConfigState} from "../redux/backend-config/types";
-import {expectResponseCode} from "../utils/apiUtils";
+import {expectResponseCode, getBackendUrl} from "../utils/apiUtils";
 
-export const getBackendConfig = async (backendUrl: string) => {
-    return fetch(backendUrl + '/backend-config.json')
+export const getBackendConfig = async () => {
+    return fetch(getBackendUrl() + '/backend-config.json')
         .then(expectResponseCode())
         .then(response => response.json() as Promise<BackendConfigState>);
 }
 
 export const getFrontendConfig = async () => {
-    return fetch('/config.json')
+    return fetch(getBackendUrl() + '/config.json')
         .then(expectResponseCode())
         .then(response => response.json() as Promise<FrontendConfigState>);
 }

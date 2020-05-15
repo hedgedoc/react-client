@@ -1,6 +1,7 @@
 import {getMe} from "../api/user";
 import {LoginStatus, UserState} from "../redux/user/types";
 import {setUser} from "../redux/user/methods";
+import {store} from "./store";
 
 export const getAndSetUser = () => {
     getMe()
@@ -20,6 +21,10 @@ export const getAndSetUser = () => {
                 photo: user.photo,
             });
         });
+}
+
+export const getBackendUrl = () => {
+    return store.getState().frontendConfig.backendUrl;
 }
 
 export const expectResponseCode = (code: number = 200): ((response: Response) => Promise<any>) => {

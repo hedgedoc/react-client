@@ -1,11 +1,11 @@
-import {expectResponseCode} from "../utils/apiUtils";
+import {expectResponseCode, getBackendUrl} from "../utils/apiUtils";
 
 export const getMe = async () => {
     return fetch('/me');
 }
 
 export const postEmailLogin = async (email: string, password: string) => {
-    return fetch("/login", {
+    return fetch(getBackendUrl() + "/login", {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
