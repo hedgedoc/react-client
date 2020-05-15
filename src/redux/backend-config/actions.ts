@@ -1,5 +1,6 @@
-import {Action, ActionCreator} from 'redux';
+import {Action} from 'redux';
 import {BackendConfigState} from "./types";
+import {store} from "../../utils/store";
 
 export const SET_BACKEND_CONFIG_ACTION_TYPE = 'frontend-config/set';
 
@@ -10,11 +11,14 @@ export interface SetBackendConfigAction extends Action {
     };
 }
 
-export const setBackendConfig: ActionCreator<SetBackendConfigAction> = (state: BackendConfigState) => ({
-    type: SET_BACKEND_CONFIG_ACTION_TYPE,
-    payload: {
-        state
-    },
-})
+export const setBackendConfig = (state: BackendConfigState) => {
+    const action: SetBackendConfigAction = {
+        type: SET_BACKEND_CONFIG_ACTION_TYPE,
+        payload: {
+            state
+        }
+    };
+    store.dispatch(action)
+}
 
 export type BackendConfigActions = SetBackendConfigAction;

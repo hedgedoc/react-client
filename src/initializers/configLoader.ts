@@ -1,25 +1,22 @@
 import {getBackendConfig, getFrontendConfig} from "../api/config";
-import {Dispatch} from "redux";
-import {FrontendConfigActions, setFrontendConfig} from "../redux/frontend-config/actions";
-import {BackendConfigActions, setBackendConfig} from "../redux/backend-config/actions";
-import {getMe} from "../api/user";
-import {LoginStatus, UserState} from "../redux/user/types";
-import {setUser, UserActions} from "../redux/user/actions";
+import {setFrontendConfig} from "../redux/frontend-config/actions";
+import {setBackendConfig} from "../redux/backend-config/actions";
+import {getAndSetUser} from "../utils/apiUtils";
 
-export function loadAllConfig(dispatch: Dispatch<FrontendConfigActions | BackendConfigActions | UserActions>) {
+export function loadAllConfig() {
     return getFrontendConfig()
         .then((frontendConfig) => {
             if (!frontendConfig) {
                 return Promise.reject("Frontend config invalid");
             }
-            dispatch(setFrontendConfig(frontendConfig));
+            setFrontendConfig(frontendConfig);
             return getBackendConfig(frontendConfig.backendUrl)
         })
         .then((backendConfig) => {
             if (!backendConfig) {
                 return Promise.reject("Backend config invalid");
             }
-            dispatch(setBackendConfig({
+            setBackendConfig({
                 allowAnonymous: backendConfig.allowAnonymous,
                 authProviders: {
                     facebook: backendConfig.authProviders.facebook,
@@ -38,25 +35,9 @@ export function loadAllConfig(dispatch: Dispatch<FrontendConfigActions | Backend
                     termsOfUse: backendConfig.specialLinks.termsOfUse,
                     imprint: backendConfig.specialLinks.imprint,
                 }
-            }))
+            })
         }).then(() => {
-            getMe()
-                .then((me) => {
-                    if (me.status === 200) {
-                        return (me.json() as Promise<UserState>);
-                    }
-                })
-                .then(user => {
-                    if (!user) {
-                        return;
-                    }
-                    dispatch(setUser({
-                        status: LoginStatus.ok,
-                        id: user.id,
-                        name: user.name,
-                        photo: user.photo,
-                    }));
-                });
+            getAndSetUser();
         })
 }
 

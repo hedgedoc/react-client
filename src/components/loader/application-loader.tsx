@@ -2,21 +2,18 @@ import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./application-loader.scss";
 import {Alert} from "react-bootstrap";
-import {setUpI18n} from "../../initializers/i18n";
-import {loadAllConfig} from "../../initializers/configLoader";
-import {useDispatch} from "react-redux";
 
-export const ApplicationLoader: React.FC = ({children}) => {
+interface ApplicationLoaderProps {
+    initTasks: Promise<any>[]
+}
 
-    var dispatch = useDispatch();
-
+export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({children, initTasks}) => {
     const [failed, setFailed] = useState<boolean>(false);
-    const [initTasks, setInitTasks] = useState<Promise<any>[]>([]);
     const [doneTasks, setDoneTasks] = useState<number>(0);
 
     useEffect(() => {
-        const tasks: Promise<any>[] = [setUpI18n(), loadAllConfig(dispatch), new Promise((resolve => setTimeout(resolve, 3000)))];
-        const preparedTasks = tasks.map(task =>
+        setDoneTasks(0);
+        initTasks.map(task =>
             task.then(() =>
                 setDoneTasks(prevDoneTasks => {
                     return prevDoneTasks + 1;
@@ -25,8 +22,7 @@ export const ApplicationLoader: React.FC = ({children}) => {
                     setFailed(true);
                 })
         )
-        setInitTasks(preparedTasks);
-    }, [dispatch]);
+    }, [initTasks]);
 
     return (<>{
         doneTasks < initTasks.length || initTasks.length === 0 ? (
