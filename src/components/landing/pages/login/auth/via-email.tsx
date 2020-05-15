@@ -8,10 +8,10 @@ import {getAndSetUser} from "../../../../initialize/initialize-user-state-from-a
 const ViaEMail: React.FC = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
-        const email = event.currentTarget[0].value
-        const password = event.currentTarget[1].value
         postEmailLogin(email, password).then(response => {
             if (response.status !== 200) {
                 setError(true);
@@ -33,12 +33,24 @@ const ViaEMail: React.FC = () => {
             </h5>
             <Form onSubmit={login}>
                 <Form.Group controlId="email">
-                    <Form.Control isInvalid={error} type="email" size="sm" placeholder={t("email")} />
+                    <Form.Control
+                        isInvalid={error}
+                        type="email"
+                        size="sm"
+                        placeholder={t("email")}
+                        onChange={(event) => setEmail(event.currentTarget.value)}
+                    />
                     {feedback}
                 </Form.Group>
 
                 <Form.Group controlId="password">
-                    <Form.Control isInvalid={error} type="password" size="sm" placeholder={t("password")} />
+                    <Form.Control
+                        isInvalid={error}
+                        type="password"
+                        size="sm"
+                        placeholder={t("password")}
+                        onChange={(event) => setPassword(event.currentTarget.value)}
+                    />
                     {feedback}
                 </Form.Group>
                 <Button
