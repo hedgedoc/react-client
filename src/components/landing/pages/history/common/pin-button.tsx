@@ -1,6 +1,7 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 import "./pin-button.scss"
+import {Button} from "react-bootstrap";
 
 export interface PinButtonProps {
     pin: boolean;
@@ -9,11 +10,13 @@ export interface PinButtonProps {
 
 const PinButton: React.FC<PinButtonProps> = ({pin, onPinClick}) => {
     return (
-        <FontAwesomeIcon
-            icon="thumbtack"
-            className={`history-pin ${pin ? 'active' : ''}`}
-            onClick={onPinClick}
-        />
+        <Button variant={"light"}
+                onClick={onPinClick}>
+            <FontAwesomeIcon
+                icon="thumbtack"
+                className={`history-pin ${pin ? 'active' : ''}`}
+            />
+        </Button>
     );
 }
 

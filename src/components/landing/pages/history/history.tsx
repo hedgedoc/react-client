@@ -1,12 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react'
-import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import {HistoryContent} from './history-content/history-content';
+import {HistoryToolbar, HistoryToolbarState, initState as toolbarInitState} from './history-toolbar/history-toolbar';
 import {loadHistoryFromLocalStore, sortAndFilterEntries} from "../../../../utils/historyUtils";
-
-export enum ViewStateEnum {
-    card,
-    table
-}
 
 export interface HistoryEntry {
     id: string,
@@ -20,7 +15,7 @@ export type pinClick = (entryId: string) => void;
 
 export const History: React.FC = () => {
     const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
-    const [viewState, setViewState] = useState<ViewStateEnum>(ViewStateEnum.card)
+    const [viewState, setViewState] = useState<HistoryToolbarState>(toolbarInitState)
 
     useEffect(() => {
         const history = loadHistoryFromLocalStore();
@@ -45,13 +40,9 @@ export const History: React.FC = () => {
     return (
         <Fragment>
             <h1>History</h1>
-            <ToggleButtonGroup type="radio" name="options" defaultValue={ViewStateEnum.card} className="mb-2"
-                               onChange={(newState: ViewStateEnum) => setViewState(newState)}>
-                <ToggleButton value={ViewStateEnum.card}>Card</ToggleButton>
-                <ToggleButton value={ViewStateEnum.table}>Table</ToggleButton>
-            </ToggleButtonGroup>
+            <HistoryToolbar onSettingsChange={setViewState}/>
             <div className="d-flex flex-wrap justify-content-center">
-                <HistoryContent viewState={viewState} entries={sortAndFilterEntries(historyEntries)}
+                <HistoryContent viewState={viewState.viewState} entries={sortAndFilterEntries(historyEntries)}
                                 onPinClick={pinClick}/>
             </div>
         </Fragment>

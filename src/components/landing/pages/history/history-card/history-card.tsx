@@ -13,7 +13,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({entry, onPinClick}) =>
     return (
         <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <Card className="p-0" text={"dark"} bg={"light"}>
-                <div className="d-flex justify-content-between p-2">
+                <div className="d-flex justify-content-between p-2 align-items-start">
                     <PinButton pin={entry.pinned} onPinClick={() => {
                         onPinClick(entry.id)
                     }}/>
