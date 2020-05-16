@@ -26,7 +26,7 @@ export const HistoryContent: React.FC<HistoryContentProps> = ({viewState, entrie
     if (entries.length === 0) {
         return (
             <Alert variant={"secondary"}>
-                <Trans i18nKey={"nohistory"}/>
+                <Trans i18nKey={"noHistory"}/>
             </Alert>
         );
     }
