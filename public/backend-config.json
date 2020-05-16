@@ -16,7 +16,6 @@
   "customAuthNames": {
     "ldap": "FooBar",
     "oauth2": "Olaf2",
-    "openid": "ideal solution",
     "saml": "aufSAMLn.de"
   },
   "specialLinks": {

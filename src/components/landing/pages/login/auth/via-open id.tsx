@@ -3,12 +3,9 @@ import {Trans, useTranslation} from "react-i18next";
 import {Alert, Button, Form} from "react-bootstrap";
 import {postOpenIdLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
-import {useSelector} from "react-redux";
-import {ApplicationState} from "../../../../../redux";
 
 const ViaOpenId: React.FC = () => {
     useTranslation();
-    const openIdCustomName = useSelector((state: ApplicationState) => state.backendConfig.customAuthNames.openid);
     const [openId, setOpenId] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
@@ -23,12 +20,10 @@ const ViaOpenId: React.FC = () => {
         event.preventDefault();
     }
 
-    const name = openIdCustomName ? openIdCustomName : "OpenID";
-
     return (
         <Fragment>
             <h5 className="center">
-                <Trans i18nKey="signInVia" values={{service: name}}/>
+                <Trans i18nKey="signInVia" values={{service: "OpenID"}}/>
             </h5>
             <Form onSubmit={login}>
                 <Form.Group controlId="openid">

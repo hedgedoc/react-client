@@ -26,7 +26,6 @@ export interface AuthProvidersState {
 export interface CustomAuthNames {
     ldap: string;
     oauth2: string;
-    openid: string;
     saml: string;
 }
 

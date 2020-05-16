@@ -19,7 +19,6 @@ export const initialState: BackendConfigState = {
     customAuthNames: {
         ldap: "",
         oauth2: "",
-        openid: "",
         saml: ""
     },
     specialLinks: {
