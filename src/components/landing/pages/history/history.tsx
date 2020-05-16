@@ -41,7 +41,7 @@ export const History: React.FC = () => {
     return (
         <Fragment>
             <h1>History</h1>
-            <Row className={"justify-content-center"}>
+            <Row className={"justify-content-center mb-3"}>
                 <HistoryToolbar onSettingsChange={setViewState}/>
             </Row>
             <div className="d-flex flex-wrap justify-content-center">
