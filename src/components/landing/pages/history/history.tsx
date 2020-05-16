@@ -28,6 +28,14 @@ interface HistoryEntry {
     pinned: boolean
 }
 
+interface OldHistoryEntry {
+    id: string;
+    text: string;
+    time: number;
+    tags: string[];
+    pinned: boolean;
+}
+
 function loadHistoryFromLocalStore() {
     const historyJsonString = window.localStorage.getItem("history");
     if (historyJsonString === null) {
@@ -35,7 +43,7 @@ function loadHistoryFromLocalStore() {
         // and convert it to the new format
         const oldHistoryJsonString = window.localStorage.getItem("notehistory")
         const oldHistory = oldHistoryJsonString ? JSON.parse(JSON.parse(oldHistoryJsonString)) : [];
-        return oldHistory.map((entry: { id: string; text: string; time: number; tags: string[]; pinned: boolean; }) => {
+        return oldHistory.map((entry: OldHistoryEntry) => {
             return {
                 id: entry.id,
                 title: entry.text,
