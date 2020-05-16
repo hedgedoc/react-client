@@ -8,7 +8,7 @@ export const HistoryTableRow: React.FC<HistoryInput> = ({pinned, title, lastVisi
     return (
         <tr>
             <td>{title}</td>
-            <td>{moment(lastVisited).format("ddd, MMM DD, YYYY, h:mm A")}</td>
+            <td>{moment(lastVisited).format("llll")}</td>
             <td>
                 <PinButton pin={pinned} onPinChange={onPinChange}/>
                 &nbsp;
