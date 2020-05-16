@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react'
-import "../common/button.scss"
 import {HistoryEntriesProps} from "../history-content/history-content";
 import {HistoryCard} from "./history-card";
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import {Badge, Card} from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import "../common/button.scss"
 import {PinButton} from "../common/pin-button";
 import {CloseButton} from "../common/close-button";
 import moment from "moment";
