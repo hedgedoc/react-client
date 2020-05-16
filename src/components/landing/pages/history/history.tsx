@@ -1,26 +1,19 @@
 import React, {Fragment, useEffect, useState} from 'react'
-import {HistoryCard} from "./history-card/history-card";
-import {HistoryTable} from "./history-table/history-table";
-import {HistoryTableRow} from './history-table/history-table-row';
-import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import {Alert, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import moment from "moment";
+import {Trans} from 'react-i18next';
+import {HistoryContent} from './history-content/history-content';
 
 interface HistoryChange {
     onPinChange: () => void,
 }
 
-interface ViewState {
-    viewState: ViewStateEnum
-}
-
-enum ViewStateEnum {
+export enum ViewStateEnum {
     card,
     table
 }
 
-export type HistoryInput = HistoryEntry & HistoryChange
-
-interface HistoryEntry {
+export interface HistoryEntry {
     id: string,
     title: string,
     lastVisited: Date,
@@ -59,9 +52,7 @@ function loadHistoryFromLocalStore() {
 
 const History: React.FC = () => {
     const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
-    const [viewState, setViewState] = useState<ViewState>({
-        viewState: ViewStateEnum.card
-    })
+    const [viewState, setViewState] = useState<ViewStateEnum>(ViewStateEnum.card)
 
     useEffect(() => {
         const history = loadHistoryFromLocalStore();
@@ -72,55 +63,20 @@ const History: React.FC = () => {
         <Fragment>
             <h1>History</h1>
             <ToggleButtonGroup type="radio" name="options" defaultValue={ViewStateEnum.card} className="mb-2"
-                               onChange={(newState: ViewStateEnum) => setViewState(() => ({viewState: newState}))}>
+                               onChange={(newState: ViewStateEnum) => setViewState(newState)}>
                 <ToggleButton value={ViewStateEnum.card}>Card</ToggleButton>
                 <ToggleButton value={ViewStateEnum.table}>Table</ToggleButton>
             </ToggleButtonGroup>
-            {
-                viewState.viewState === ViewStateEnum.card ? (
-                    <div className="d-flex flex-wrap">
-                        {
-                            historyEntries.length === 0 ?
-                                ''
-                            :
-                                historyEntries.map((entry) =>
-                                    <HistoryCard
-                                        id={entry.id}
-                                        tags={entry.tags}
-                                        pinned={entry.pinned}
-                                        title={entry.title}
-                                        lastVisited={entry.lastVisited}
-                                        onPinChange={() => {
-                                            //   setHistoryEntries((prev: HistoryEntry) => {
-                                            //        return {...prev, pinned: !prev.pinned};
-                                            //     });
-                                        }}
-                                    />)
-                        }
-                    </div>
-                ) : (
-                    <HistoryTable>
-                        {
-                            historyEntries.length === 0 ?
-                                ''
-                            :
-                                historyEntries.map((entry) =>
-                                    <HistoryTableRow
-                                        id={entry.id}
-                                        tags={entry.tags}
-                                        pinned={entry.pinned}
-                                        title={entry.title}
-                                        lastVisited={entry.lastVisited}
-                                        onPinChange={() => {
-                                            //    setEntry((prev: HistoryEntry) => {
-                                            //       return {...prev, pinned: !prev.pinned};
-                                            //   });
-                                        }}
-                                    />)
-                        }
-                    </HistoryTable>
-                )
-            }
+            <div className="d-flex flex-wrap justify-content-center">
+                {
+                    historyEntries.length === 0 ?
+                        <Alert variant={"secondary"}>
+                            <Trans i18nKey={"nohistory"}/>
+                        </Alert>
+                        :
+                        <HistoryContent viewState={viewState} entries={historyEntries}/>
+                }
+            </div>
         </Fragment>
     )
 }
