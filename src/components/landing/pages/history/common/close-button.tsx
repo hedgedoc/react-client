@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
-import "./pin-button.scss"
+import "./close-button.scss"
 
 const CloseButton: React.FC = () => {
     return (
