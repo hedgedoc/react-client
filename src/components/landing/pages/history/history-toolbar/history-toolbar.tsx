@@ -1,15 +1,15 @@
 import {Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
-import {IconButton} from "../../../../icon-button/icon-button";
 import {Trans, useTranslation} from "react-i18next";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
-//(newState: ViewStateEnum) => setViewState(newState)
+import {SortButton, SortModeEnum} from "../../../../sort-button/sort-button";
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
 export interface HistoryToolbarState {
     viewState: ViewStateEnum
+    titleSortDirection: SortModeEnum
+    lastVisitedSortDirection: SortModeEnum
 }
 
 export enum ViewStateEnum {
@@ -22,13 +22,31 @@ export interface HistoryToolbarProps {
 }
 
 export const initState: HistoryToolbarState = {
-    viewState: ViewStateEnum.card
+    viewState: ViewStateEnum.card,
+    titleSortDirection: SortModeEnum.no,
+    lastVisitedSortDirection: SortModeEnum.no
 }
 
 export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}) => {
 
     const [t] = useTranslation()
     const [state, setState] = useState<HistoryToolbarState>(initState);
+
+    const titleSortChanged = (direction: SortModeEnum) => {
+        setState(prevState => ({
+            ...prevState,
+            titleSortDirection: direction,
+            lastVisitedSortDirection: SortModeEnum.no
+        }))
+    }
+
+    const lastVisitedSortChanged = (direction: SortModeEnum) => {
+        setState(prevState => ({
+            ...prevState,
+            lastVisitedSortDirection: direction,
+            titleSortDirection: SortModeEnum.no
+        }))
+    }
 
     useEffect(() => {
         onSettingsChange(state);
@@ -49,10 +67,12 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
                 />
             </InputGroup>
             <InputGroup className={"mr-1"}>
-                <IconButton variant={"light"} icon={"sort"}><Trans i18nKey={"title"}/></IconButton>
+                <SortButton onChange={titleSortChanged} direction={state.titleSortDirection} variant={"light"}><Trans
+                    i18nKey={"title"}/></SortButton>
             </InputGroup>
             <InputGroup className={"mr-1"}>
-                <IconButton variant={"light"} icon={"sort"}><Trans i18nKey={"time"}/></IconButton>
+                <SortButton onChange={lastVisitedSortChanged} direction={state.lastVisitedSortDirection}
+                            variant={"light"}><Trans i18nKey={"lastVisited"}/></SortButton>
             </InputGroup>
             <InputGroup className={"mr-1"}>
                 <Button variant={"light"}>

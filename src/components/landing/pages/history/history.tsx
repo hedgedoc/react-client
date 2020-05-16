@@ -45,7 +45,8 @@ export const History: React.FC = () => {
                 <HistoryToolbar onSettingsChange={setViewState}/>
             </Row>
             <div className="d-flex flex-wrap justify-content-center">
-                <HistoryContent viewState={viewState.viewState} entries={sortAndFilterEntries(historyEntries)}
+                <HistoryContent viewState={viewState.viewState}
+                                entries={sortAndFilterEntries(historyEntries, viewState)}
                                 onPinClick={pinClick}/>
             </div>
         </Fragment>

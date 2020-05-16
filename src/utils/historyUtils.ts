@@ -1,11 +1,13 @@
 import {HistoryEntry} from "../components/landing/pages/history/history";
 import moment from "moment";
+import {HistoryToolbarState} from "../components/landing/pages/history/history-toolbar/history-toolbar";
+import {SortModeEnum} from "../components/sort-button/sort-button";
 
-export function sortAndFilterEntries(entries: HistoryEntry[]): HistoryEntry[] {
-    return sortEntries(entries);
+export function sortAndFilterEntries(entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] {
+    return sortEntries(entries, viewState);
 }
 
-function sortEntries(entries: HistoryEntry[]): HistoryEntry[] {
+function sortEntries(entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] {
     return entries.sort((a, b) => {
         if (a.pinned && !b.pinned) {
             return -1;
@@ -13,12 +15,20 @@ function sortEntries(entries: HistoryEntry[]): HistoryEntry[] {
         if (!a.pinned && b.pinned) {
             return 1;
         }
-        if (a.lastVisited > b.lastVisited) {
-            return -1;
+
+        if (viewState.titleSortDirection !== SortModeEnum.no) {
+            return a.title.localeCompare(b.title) * viewState.titleSortDirection;
         }
-        if (a.lastVisited < b.lastVisited) {
-            return 1;
+
+        if (viewState.lastVisitedSortDirection !== SortModeEnum.no) {
+            if (a.lastVisited > b.lastVisited) {
+                return 1 * viewState.lastVisitedSortDirection;
+            }
+            if (a.lastVisited < b.lastVisited) {
+                return -1 * viewState.lastVisitedSortDirection;
+            }
         }
+
         return 0;
     })
 }

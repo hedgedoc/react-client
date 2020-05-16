@@ -6,12 +6,13 @@ import {Button, ButtonProps} from "react-bootstrap";
 
 export interface SocialButtonProps extends ButtonProps {
     icon: IconProp
-    title?: string
+    onClick?: () => void
 }
 
-export const IconButton: React.FC<SocialButtonProps> = ({icon, children, variant}) => {
+export const IconButton: React.FC<SocialButtonProps> = ({icon, children, variant, onClick}) => {
     return (
-        <Button variant={variant} className={"btn-icon p-0 d-inline-flex align-items-stretch"}>
+        <Button variant={variant} className={"btn-icon p-0 d-inline-flex align-items-stretch"}
+                onClick={() => onClick?.()}>
             <span className="icon-part d-flex align-items-center">
                 <FontAwesomeIcon icon={icon} className={"icon"}/>
             </span>
