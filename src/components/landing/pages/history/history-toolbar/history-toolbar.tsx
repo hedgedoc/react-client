@@ -66,8 +66,8 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
         <Form inline={true}>
             <InputGroup className={"mr-1"}>
                 <FormControl
-                    placeholder={t("chooseTags")}
-                    aria-label={t("chooseTags")}
+                    placeholder={t("filterTags")}
+                    aria-label={t("filterTags")}
                 />
             </InputGroup>
             <InputGroup className={"mr-1"}>
@@ -79,29 +79,29 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
             </InputGroup>
             <InputGroup className={"mr-1"}>
                 <SortButton onChange={titleSortChanged} direction={state.titleSortDirection} variant={"light"}><Trans
-                    i18nKey={"title"}/></SortButton>
+                    i18nKey={"sortByTitle"}/></SortButton>
             </InputGroup>
             <InputGroup className={"mr-1"}>
                 <SortButton onChange={lastVisitedSortChanged} direction={state.lastVisitedSortDirection}
-                            variant={"light"}><Trans i18nKey={"lastVisited"}/></SortButton>
+                            variant={"light"}><Trans i18nKey={"sortByLastVisited"}/></SortButton>
             </InputGroup>
             <InputGroup className={"mr-1"}>
-                <Button variant={"light"}>
+                <Button variant={"light"} title={t("exportHistory")}>
                     <FontAwesomeIcon icon={"download"}/>
                 </Button>
             </InputGroup>
             <InputGroup className={"mr-1"}>
-                <Button variant={"light"}>
+                <Button variant={"light"} title={t("importHistory")}>
                     <FontAwesomeIcon icon={"upload"}/>
                 </Button>
             </InputGroup>
             <InputGroup className={"mr-1"}>
-                <Button variant={"light"}>
+                <Button variant={"light"} title={t("deleteHistory")}>
                     <FontAwesomeIcon icon={"trash"}/>
                 </Button>
             </InputGroup>
             <InputGroup className={"mr-1"}>
-                <Button variant={"light"}>
+                <Button variant={"light"} title={t("refreshHistory")}>
                     <FontAwesomeIcon icon={"sync"}/>
                 </Button>
             </InputGroup>

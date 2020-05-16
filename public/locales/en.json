@@ -124,5 +124,13 @@
   "email": "Email",
   "password": "Password",
   "username": "Username",
+  "filterTags": "Filter tags",
+  "searchKeywords": "Search keywords",
+  "sortByTitle": "Sort by title",
+  "sortByLastVisited": "Sort by last visited",
+  "deleteHistory": "Delete history",
+  "refreshHistory": "Refresh history",
+  "importHistory": "Import history",
+  "exportHistory": "Export history",
   "errorOpenIdLogin": "Invalid OpenID provided"
 }
