@@ -13,10 +13,10 @@ function sortEntries(entries: HistoryEntry[]): HistoryEntry[] {
         if (!a.pinned && b.pinned) {
             return 1;
         }
-        if (a.lastVisited < b.lastVisited) {
+        if (a.lastVisited > b.lastVisited) {
             return -1;
         }
-        if (a.lastVisited > b.lastVisited) {
+        if (a.lastVisited < b.lastVisited) {
             return 1;
         }
         return 0;
@@ -37,7 +37,7 @@ export interface OldHistoryEntry {
 
 export function loadHistoryFromLocalStore(): HistoryEntry[] {
     const historyJsonString = window.localStorage.getItem("history");
-    if (historyJsonString === null) {
+    if (!historyJsonString) {
         // if localStorage["history"] is empty we check the old localStorage["notehistory"]
         // and convert it to the new format
         const oldHistoryJsonString = window.localStorage.getItem("notehistory")
