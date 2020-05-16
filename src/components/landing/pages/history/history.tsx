@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react'
 import {HistoryContent} from './history-content/history-content';
 import {HistoryToolbar, HistoryToolbarState, initState as toolbarInitState} from './history-toolbar/history-toolbar';
 import {loadHistoryFromLocalStore, sortAndFilterEntries} from "../../../../utils/historyUtils";
+import {Row} from 'react-bootstrap';
 
 export interface HistoryEntry {
     id: string,
@@ -40,7 +41,9 @@ export const History: React.FC = () => {
     return (
         <Fragment>
             <h1>History</h1>
-            <HistoryToolbar onSettingsChange={setViewState}/>
+            <Row className={"justify-content-center"}>
+                <HistoryToolbar onSettingsChange={setViewState}/>
+            </Row>
             <div className="d-flex flex-wrap justify-content-center">
                 <HistoryContent viewState={viewState.viewState} entries={sortAndFilterEntries(historyEntries)}
                                 onPinClick={pinClick}/>

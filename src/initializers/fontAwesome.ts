@@ -10,6 +10,7 @@ import {
     faGlobe,
     faPlus,
     faSignOutAlt,
+    faSort,
     faThumbtack,
     faTimes,
     faTrash,
@@ -31,5 +32,5 @@ export function setUpFontAwesome() {
     library.add(faBolt, faPlus, faChartBar, faTv, faFileAlt, faCloudDownloadAlt,
         faTrash, faSignOutAlt, faComment, faDiscourse, faMastodon, faGlobe,
         faThumbtack, faClock, faTimes, faGithub, faGitlab, faGoogle, faFacebook,
-        faDropbox, faTwitter, faUsers, faAddressCard)
+        faDropbox, faTwitter, faUsers, faAddressCard, faSort)
 }
