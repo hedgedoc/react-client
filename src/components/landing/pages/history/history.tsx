@@ -3,7 +3,7 @@ import {HistoryCard} from "./history-card/history-card";
 import {HistoryTable} from "./history-table/history-table";
 import {HistoryTableRow} from './history-table/history-table-row';
 import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
-import {fromUnixTime} from "date-fns";
+import {toDate} from "date-fns";
 
 interface HistoryChange {
     onPinChange: () => void,
@@ -39,7 +39,7 @@ function loadHistoryFromLocalStore() {
             return {
                 id: entry.id,
                 title: entry.text,
-                lastVisited: fromUnixTime(entry.time),
+                lastVisited: toDate(entry.time),
                 tags: entry.tags,
                 pinned: entry.pinned,
             }
