@@ -1,7 +1,11 @@
 import {HistoryEntry} from "../components/landing/pages/history/history";
 import moment from "moment";
 
-export function sortEntries(entries: HistoryEntry[]): HistoryEntry[] {
+export function sortAndFilterEntries(entries: HistoryEntry[]): HistoryEntry[] {
+    return sortEntries(entries);
+}
+
+function sortEntries(entries: HistoryEntry[]): HistoryEntry[] {
     return entries.sort((a, b) => {
         if (a.pinned && !b.pinned) {
             return -1;
