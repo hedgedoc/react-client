@@ -3,15 +3,15 @@ import React from "react";
 
 export interface PinButtonProps {
     pin: boolean;
-    onPinChange: () => void;
+    onPinClick: () => void;
 }
 
-const PinButton: React.FC<PinButtonProps> = ({pin, onPinChange}) => {
+const PinButton: React.FC<PinButtonProps> = ({pin, onPinClick}) => {
     return (
         <FontAwesomeIcon
             icon="thumbtack"
-            className={`history-pin ${pin? 'active' : ''}`}
-            onClick={onPinChange}
+            className={`history-pin ${pin ? 'active' : ''}`}
+            onClick={onPinClick}
         />
     );
 }

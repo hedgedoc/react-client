@@ -29,7 +29,7 @@ interface OldHistoryEntry {
     pinned: boolean;
 }
 
-function loadHistoryFromLocalStore() {
+function loadHistoryFromLocalStore(): HistoryEntry[] {
     const historyJsonString = window.localStorage.getItem("history");
     if (historyJsonString === null) {
         // if localStorage["history"] is empty we check the old localStorage["notehistory"]
@@ -59,6 +59,17 @@ const History: React.FC = () => {
         setHistoryEntries(history);
     }, [])
 
+    const pinClick = (entryId: string) => {
+        const modifiedEntries = historyEntries.map((entry) => {
+            if (entry.id === entryId) {
+                entry.pinned = !entry.pinned;
+            }
+            return entry;
+        });
+
+        setHistoryEntries(modifiedEntries);
+    }
+
     return (
         <Fragment>
             <h1>History</h1>
@@ -74,7 +85,7 @@ const History: React.FC = () => {
                             <Trans i18nKey={"nohistory"}/>
                         </Alert>
                         :
-                        <HistoryContent viewState={viewState} entries={historyEntries}/>
+                        <HistoryContent viewState={viewState} entries={historyEntries} onPinClick={pinClick}/>
                 }
             </div>
         </Fragment>

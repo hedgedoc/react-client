@@ -1,5 +1,4 @@
 import React from 'react'
-import {HistoryEntry} from '../history'
 import {Badge, Card} from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import "../common/button.scss"
@@ -7,18 +6,16 @@ import {PinButton} from "../common/pin-button";
 import {CloseButton} from "../common/close-button";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
+import {HistoryContentChildrenProps} from "../history-content/history-content";
 
-interface HistoryCardProp {
-    entry: HistoryEntry
-}
-
-export const HistoryCard: React.FC<HistoryCardProp> = ({entry}) => {
+export const HistoryCard: React.FC<HistoryContentChildrenProps> = ({entry, onPinClick}) => {
     useTranslation()
     return (
         <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <Card className="p-0" text={"dark"} bg={"light"}>
                 <div className="d-flex justify-content-between p-2">
-                    <PinButton pin={entry.pinned} onPinChange={() => {
+                    <PinButton pin={entry.pinned} onPinClick={() => {
+                        onPinClick(entry.id)
                     }}/>
                     <Card.Title className="m-0 mt-3">{entry.title}</Card.Title>
                     <CloseButton/>
