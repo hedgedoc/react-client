@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react'
 import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import {HistoryContent} from './history-content/history-content';
-import {loadHistoryFromLocalStore, sortEntries} from "../../../../utils/historyUtils";
+import {loadHistoryFromLocalStore, sortAndFilterEntries} from "../../../../utils/historyUtils";
 
 export enum ViewStateEnum {
     card,
