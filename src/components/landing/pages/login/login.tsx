@@ -16,6 +16,7 @@ const Login: React.FC = () => {
     const ldapForm = authProviders.ldap ? <ViaLdap/> : null
     const openIdForm = authProviders.openid ? <ViaOpenId/> : null
     const emailLdapSeparator = authProviders.email && authProviders.ldap ? <hr className="w-100 bg-white"/> : null
+    const emailOpenIdSeparator = authProviders.email && !authProviders.ldap && authProviders.openid ? <hr className="w-100 bg-white"/> : null
     const ldapOpenIdSeparator = authProviders.ldap && authProviders.openid ? <hr className="w-100 bg-white"/> : null
 
     const oneClickCustomName: (type: OneClickType) => string | undefined = (type) => {
@@ -39,6 +40,7 @@ const Login: React.FC = () => {
                                 {emailForm}
                                 {emailLdapSeparator}
                                 {ldapForm}
+                                {emailOpenIdSeparator}
                                 {ldapOpenIdSeparator}
                                 {openIdForm}
                                 <hr className="w-100 d-lg-none d-block bg-white"/>
