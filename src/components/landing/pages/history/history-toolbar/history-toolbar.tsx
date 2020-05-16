@@ -1,5 +1,5 @@
 import {Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {SortButton, SortModeEnum} from "../../../../sort-button/sort-button";
@@ -10,6 +10,7 @@ export interface HistoryToolbarState {
     viewState: ViewStateEnum
     titleSortDirection: SortModeEnum
     lastVisitedSortDirection: SortModeEnum
+    keywordSearch: string
 }
 
 export enum ViewStateEnum {
@@ -24,7 +25,8 @@ export interface HistoryToolbarProps {
 export const initState: HistoryToolbarState = {
     viewState: ViewStateEnum.card,
     titleSortDirection: SortModeEnum.no,
-    lastVisitedSortDirection: SortModeEnum.no
+    lastVisitedSortDirection: SortModeEnum.no,
+    keywordSearch: ""
 }
 
 export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}) => {
@@ -48,6 +50,14 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
         }))
     }
 
+    const keywordSearchChanged = (event: ChangeEvent<HTMLInputElement>) => {
+        setState(prevState => ({...prevState, keywordSearch: event.currentTarget.value}));
+    }
+
+    const toggleViewChanged = (newViewState: ViewStateEnum) => {
+        setState((prevState) => ({...prevState, viewState: newViewState}))
+    }
+
     useEffect(() => {
         onSettingsChange(state);
     }, [onSettingsChange, state])
@@ -64,6 +74,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
                 <FormControl
                     placeholder={t("searchKeywords")}
                     aria-label={t("searchKeywords")}
+                    onChange={keywordSearchChanged}
                 />
             </InputGroup>
             <InputGroup className={"mr-1"}>
@@ -97,7 +108,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
             <InputGroup className={"mr-1"}>
                 <ToggleButtonGroup type="radio" name="options" value={state.viewState}
                                    onChange={(newViewState: ViewStateEnum) => {
-                                       setState((prevState) => ({...prevState, viewState: newViewState}))
+                                       toggleViewChanged(newViewState)
                                    }}>
                     <ToggleButton className={"btn-light"} value={ViewStateEnum.card}>Card</ToggleButton>
                     <ToggleButton className={"btn-light"} value={ViewStateEnum.table}>Table</ToggleButton>
