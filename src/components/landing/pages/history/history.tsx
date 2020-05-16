@@ -3,6 +3,7 @@ import {HistoryCard} from "./history-card/history-card";
 import {HistoryTable} from "./history-table/history-table";
 import {HistoryTableRow} from './history-table/history-table-row';
 import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import {fromUnixTime} from "date-fns";
 
 interface HistoryChange {
     onPinChange: () => void,
@@ -28,8 +29,24 @@ interface HistoryEntry {
 }
 
 function loadHistoryFromLocalStore() {
-    const historyJsonString = window.localStorage.getItem("notehistory");
-    return historyJsonString ? JSON.parse(historyJsonString) : [];
+    const historyJsonString = window.localStorage.getItem("history");
+    if (historyJsonString === null) {
+        // if localStorage["history"] is empty we check the old localStorage["notehistory"]
+        // and convert it to the new format
+        const oldHistoryJsonString = window.localStorage.getItem("notehistory")
+        const oldHistory = oldHistoryJsonString ? JSON.parse(JSON.parse(oldHistoryJsonString)) : [];
+        return oldHistory.map((entry: { id: string; text: string; time: number; tags: string[]; pinned: boolean; }) => {
+            return {
+                id: entry.id,
+                title: entry.text,
+                lastVisited: fromUnixTime(entry.time),
+                tags: entry.tags,
+                pinned: entry.pinned,
+            }
+        })
+    } else {
+        return JSON.parse(historyJsonString)
+    }
 }
 
 const History: React.FC = () => {
@@ -39,7 +56,7 @@ const History: React.FC = () => {
     })
 
     useEffect(() => {
-        let history = loadHistoryFromLocalStore();
+        const history = loadHistoryFromLocalStore();
         setHistoryEntries(history);
     }, [])
 
