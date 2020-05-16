@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react'
 import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
-import moment from "moment";
 import {HistoryContent} from './history-content/history-content';
+import {loadHistoryFromLocalStore} from "../../../../utils/historyUtils";
 
 export enum ViewStateEnum {
     card,
@@ -16,38 +16,9 @@ export interface HistoryEntry {
     pinned: boolean
 }
 
-interface OldHistoryEntry {
-    id: string;
-    text: string;
-    time: number;
-    tags: string[];
-    pinned: boolean;
-}
-
-function loadHistoryFromLocalStore(): HistoryEntry[] {
-    const historyJsonString = window.localStorage.getItem("history");
-    if (historyJsonString === null) {
-        // if localStorage["history"] is empty we check the old localStorage["notehistory"]
-        // and convert it to the new format
-        const oldHistoryJsonString = window.localStorage.getItem("notehistory")
-        const oldHistory = oldHistoryJsonString ? JSON.parse(JSON.parse(oldHistoryJsonString)) : [];
-        return oldHistory.map((entry: OldHistoryEntry) => {
-            return {
-                id: entry.id,
-                title: entry.text,
-                lastVisited: moment(entry.time).toDate(),
-                tags: entry.tags,
-                pinned: entry.pinned,
-            }
-        })
-    } else {
-        return JSON.parse(historyJsonString)
-    }
-}
-
 export type pinClick = (entryId: string) => void;
 
-const History: React.FC = () => {
+export const History: React.FC = () => {
     const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
     const [viewState, setViewState] = useState<ViewStateEnum>(ViewStateEnum.card)
 
@@ -56,7 +27,7 @@ const History: React.FC = () => {
         setHistoryEntries(history);
     }, [])
 
-    const pinClick = (entryId: string) => {
+    const pinClick: pinClick = (entryId: string) => {
         const modifiedEntries = historyEntries.map((entry) => {
             if (entry.id === entryId) {
                 entry.pinned = !entry.pinned;
@@ -82,5 +53,3 @@ const History: React.FC = () => {
         </Fragment>
     )
 }
-
-export {History}
