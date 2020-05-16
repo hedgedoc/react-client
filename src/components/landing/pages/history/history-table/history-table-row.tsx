@@ -1,16 +1,16 @@
 import React from "react";
 import {PinButton} from "../common/pin-button";
 import {CloseButton} from "../common/close-button";
-import moment from "moment";
 import {useTranslation} from "react-i18next";
-import {HistoryContentChildrenProps} from "../history-content/history-content";
+import {HistoryEntryProps} from "../history-content/history-content";
+import {formatHistoryDate} from "../../../../../utils/historyUtils";
 
-export const HistoryTableRow: React.FC<HistoryContentChildrenProps> = ({entry, onPinClick}) => {
+export const HistoryTableRow: React.FC<HistoryEntryProps> = ({entry, onPinClick}) => {
     useTranslation()
     return (
         <tr>
             <td>{entry.title}</td>
-            <td>{moment(entry.lastVisited).format("llll")}</td>
+            <td>{formatHistoryDate(entry.lastVisited)}</td>
             <td>
                 <PinButton pin={entry.pinned} onPinClick={() => {
                     onPinClick(entry.id)

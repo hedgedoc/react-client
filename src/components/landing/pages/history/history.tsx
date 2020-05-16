@@ -1,12 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react'
-import {Alert, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import moment from "moment";
-import {Trans} from 'react-i18next';
 import {HistoryContent} from './history-content/history-content';
-
-interface HistoryChange {
-    onPinChange: () => void,
-}
 
 export enum ViewStateEnum {
     card,
@@ -50,6 +45,8 @@ function loadHistoryFromLocalStore(): HistoryEntry[] {
     }
 }
 
+export type pinClick = (entryId: string) => void;
+
 const History: React.FC = () => {
     const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
     const [viewState, setViewState] = useState<ViewStateEnum>(ViewStateEnum.card)
@@ -80,14 +77,7 @@ const History: React.FC = () => {
                 <ToggleButton value={ViewStateEnum.table}>Table</ToggleButton>
             </ToggleButtonGroup>
             <div className="d-flex flex-wrap justify-content-center">
-                {
-                    historyEntries.length === 0 ?
-                        <Alert variant={"secondary"}>
-                            <Trans i18nKey={"nohistory"}/>
-                        </Alert>
-                        :
-                        <HistoryContent viewState={viewState} entries={historyEntries} onPinClick={pinClick}/>
-                }
+                <HistoryContent viewState={viewState} entries={historyEntries} onPinClick={pinClick}/>
             </div>
         </Fragment>
     )
