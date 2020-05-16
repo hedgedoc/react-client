@@ -4,20 +4,19 @@ import "./pin-button.scss"
 import {Button} from "react-bootstrap";
 
 export interface PinButtonProps {
-    pin: boolean;
+    isPinned: boolean;
     onPinClick: () => void;
+    isDark: boolean;
 }
 
-const PinButton: React.FC<PinButtonProps> = ({pin, onPinClick}) => {
+export const PinButton: React.FC<PinButtonProps> = ({isPinned, onPinClick, isDark}) => {
     return (
-        <Button variant={"light"}
+        <Button variant={isDark ? "secondary" : "light"}
                 onClick={onPinClick}>
             <FontAwesomeIcon
                 icon="thumbtack"
-                className={`history-pin ${pin ? 'active' : ''}`}
+                className={`history-pin ${isPinned ? 'active' : ''}`}
             />
         </Button>
     );
 }
-
-export { PinButton }
