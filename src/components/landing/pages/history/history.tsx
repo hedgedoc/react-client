@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react'
 import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import {HistoryContent} from './history-content/history-content';
-import {loadHistoryFromLocalStore} from "../../../../utils/historyUtils";
+import {loadHistoryFromLocalStore, sortEntries} from "../../../../utils/historyUtils";
 
 export enum ViewStateEnum {
     card,
@@ -22,13 +22,15 @@ export const History: React.FC = () => {
     const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
     const [viewState, setViewState] = useState<ViewStateEnum>(ViewStateEnum.card)
 
+    const preparedHistorieEntries = sortEntries(historyEntries);
+
     useEffect(() => {
         const history = loadHistoryFromLocalStore();
         setHistoryEntries(history);
     }, [])
 
     const pinClick: pinClick = (entryId: string) => {
-        const modifiedEntries = historyEntries.map((entry) => {
+        const modifiedEntries = preparedHistorieEntries.map((entry) => {
             if (entry.id === entryId) {
                 entry.pinned = !entry.pinned;
             }
@@ -48,7 +50,7 @@ export const History: React.FC = () => {
                 <ToggleButton value={ViewStateEnum.table}>Table</ToggleButton>
             </ToggleButtonGroup>
             <div className="d-flex flex-wrap justify-content-center">
-                <HistoryContent viewState={viewState} entries={historyEntries} onPinClick={pinClick}/>
+                <HistoryContent viewState={viewState} entries={preparedHistorieEntries} onPinClick={pinClick}/>
             </div>
         </Fragment>
     )

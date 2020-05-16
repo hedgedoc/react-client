@@ -1,7 +1,6 @@
 import React from "react";
 import {Table} from "react-bootstrap"
 import {HistoryTableRow} from "./history-table-row";
-import {sortEntries} from "../../../../../utils/historyUtils";
 import {HistoryEntriesProps} from "../history-content/history-content";
 
 const HistoryTable: React.FC<HistoryEntriesProps> = ({entries, onPinClick}) => {
@@ -16,7 +15,7 @@ const HistoryTable: React.FC<HistoryEntriesProps> = ({entries, onPinClick}) => {
             </thead>
             <tbody>
             {
-                sortEntries(entries).map((entry) =>
+                entries.map((entry) =>
                     <HistoryTableRow
                         key={entry.id}
                         entry={entry}
