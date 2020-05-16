@@ -2,10 +2,10 @@ import React from 'react'
 import {HistoryInput} from '../history'
 import {Badge, Card} from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {format, formatDistance} from 'date-fns'
 import "../common/button.scss"
 import {PinButton} from "../common/pin-button";
 import {CloseButton} from "../common/close-button";
+import moment from "moment";
 
 export const HistoryCard: React.FC<HistoryInput> = ({pinned, title, lastVisited, tags, onPinChange}) => {
     return (
@@ -18,8 +18,8 @@ export const HistoryCard: React.FC<HistoryInput> = ({pinned, title, lastVisited,
                 </div>
                 <Card.Body>
                     <div className="text-black-50">
-                        <FontAwesomeIcon icon="clock"/> {formatDistance(lastVisited, new Date())}<br/>
-                        {format(lastVisited, 'EEE, LLL d, YYY h:mm a')}
+                        <FontAwesomeIcon icon="clock"/> {moment(lastVisited).fromNow()}<br/>
+                        {moment(lastVisited).format("ddd, MMM DD, YYYY, h:mm A")}
                         <div children=
                                  {
                                      tags.map((tag) => <Badge variant={"dark"} key={tag}>{tag}</Badge>)
