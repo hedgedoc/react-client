@@ -68,6 +68,7 @@ const History: React.FC = () => {
         });
 
         setHistoryEntries(modifiedEntries);
+        window.localStorage.setItem("history", JSON.stringify(modifiedEntries));
     }
 
     return (
