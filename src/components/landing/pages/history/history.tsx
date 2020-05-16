@@ -22,23 +22,24 @@ export const History: React.FC = () => {
     const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
     const [viewState, setViewState] = useState<ViewStateEnum>(ViewStateEnum.card)
 
-    const preparedHistorieEntries = sortEntries(historyEntries);
-
     useEffect(() => {
         const history = loadHistoryFromLocalStore();
         setHistoryEntries(history);
     }, [])
 
-    const pinClick: pinClick = (entryId: string) => {
-        const modifiedEntries = preparedHistorieEntries.map((entry) => {
-            if (entry.id === entryId) {
-                entry.pinned = !entry.pinned;
-            }
-            return entry;
-        });
+    useEffect(() => {
+        window.localStorage.setItem("history", JSON.stringify(historyEntries));
+    }, [historyEntries])
 
-        setHistoryEntries(modifiedEntries);
-        window.localStorage.setItem("history", JSON.stringify(modifiedEntries));
+    const pinClick: pinClick = (entryId: string) => {
+        setHistoryEntries((entries) => {
+            return entries.map((entry) => {
+                if (entry.id === entryId) {
+                    entry.pinned = !entry.pinned;
+                }
+                return entry;
+            });
+        })
     }
 
     return (
@@ -50,7 +51,8 @@ export const History: React.FC = () => {
                 <ToggleButton value={ViewStateEnum.table}>Table</ToggleButton>
             </ToggleButtonGroup>
             <div className="d-flex flex-wrap justify-content-center">
-                <HistoryContent viewState={viewState} entries={preparedHistorieEntries} onPinClick={pinClick}/>
+                <HistoryContent viewState={viewState} entries={sortAndFilterEntries(historyEntries)}
+                                onPinClick={pinClick}/>
             </div>
         </Fragment>
     )
