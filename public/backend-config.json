@@ -6,7 +6,7 @@
     "twitter": true,
     "gitlab": true,
     "dropbox": true,
-    "ldap": false,
+    "ldap": true,
     "google": true,
     "saml": true,
     "oauth2": true,
