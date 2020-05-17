@@ -1,10 +1,10 @@
 import React, {Fragment} from "react";
 
-export interface HrSeparatorProps {
+export interface ElementSeparatorProps {
     separator: React.ReactElement
 }
 
-export const ElementSeparator: React.FC<HrSeparatorProps> = ({children, separator}) => {
+export const ElementSeparator: React.FC<ElementSeparatorProps> = ({children, separator}) => {
     return (
         <Fragment>
             {
