@@ -24,6 +24,9 @@ export const History: React.FC = () => {
     }, [])
 
     useEffect(() => {
+        if (historyEntries === []) {
+            return;
+        }
         window.localStorage.setItem("history", JSON.stringify(historyEntries));
     }, [historyEntries])
 
@@ -38,15 +41,25 @@ export const History: React.FC = () => {
         })
     }
 
+    const tags = historyEntries.map(entry => entry.tags)
+        .reduce((a, b) => ([...a, ...b]), [])
+        .filter((value, index, array) => {
+            if (index === 0) {
+                return true;
+            }
+            return (value !== array[index - 1])
+        })
+    const entriesToShow = sortAndFilterEntries(historyEntries, viewState);
+
     return (
         <Fragment>
             <h1>History</h1>
             <Row className={"justify-content-center mb-3"}>
-                <HistoryToolbar onSettingsChange={setViewState}/>
+                <HistoryToolbar onSettingsChange={setViewState} tags={tags}/>
             </Row>
             <div className="d-flex flex-wrap justify-content-center">
                 <HistoryContent viewState={viewState.viewState}
-                                entries={sortAndFilterEntries(historyEntries, viewState)}
+                                entries={entriesToShow}
                                 onPinClick={pinClick}/>
             </div>
         </Fragment>

@@ -3,6 +3,8 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {SortButton, SortModeEnum} from "../../../../sort-button/sort-button";
+import {Typeahead} from 'react-bootstrap-typeahead';
+import "./typeahead-hacks.scss";
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
@@ -11,6 +13,7 @@ export interface HistoryToolbarState {
     titleSortDirection: SortModeEnum
     lastVisitedSortDirection: SortModeEnum
     keywordSearch: string
+    selectedTags: string[]
 }
 
 export enum ViewStateEnum {
@@ -20,16 +23,18 @@ export enum ViewStateEnum {
 
 export interface HistoryToolbarProps {
     onSettingsChange: HistoryToolbarChange
+    tags: string[]
 }
 
 export const initState: HistoryToolbarState = {
     viewState: ViewStateEnum.card,
     titleSortDirection: SortModeEnum.no,
     lastVisitedSortDirection: SortModeEnum.no,
-    keywordSearch: ""
+    keywordSearch: "",
+    selectedTags: []
 }
 
-export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}) => {
+export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange, tags}) => {
 
     const [t] = useTranslation()
     const [state, setState] = useState<HistoryToolbarState>(initState);
@@ -58,6 +63,10 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
         setState((prevState) => ({...prevState, viewState: newViewState}))
     }
 
+    const selectedTagsChanged = (selected: string[]) => {
+        setState((prevState => ({...prevState, selectedTags: selected})))
+    }
+
     useEffect(() => {
         onSettingsChange(state);
     }, [onSettingsChange, state])
@@ -65,10 +74,8 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange}
     return (
         <Form inline={true}>
             <InputGroup className={"mr-1"}>
-                <FormControl
-                    placeholder={t("filterTags")}
-                    aria-label={t("filterTags")}
-                />
+                <Typeahead id={"tagsSelection"} options={tags} multiple={true} placeholder={t("chooseTags")}
+                           onChange={selectedTagsChanged}/>
             </InputGroup>
             <InputGroup className={"mr-1"}>
                 <FormControl

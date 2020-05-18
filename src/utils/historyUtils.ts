@@ -4,11 +4,26 @@ import {HistoryToolbarState} from "../components/landing/pages/history/history-t
 import {SortModeEnum} from "../components/sort-button/sort-button";
 
 export function sortAndFilterEntries(entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] {
-    return sortEntries(filterEntries(entries, viewState), viewState);
+    return sortEntries(filterByKeywordSearch(filterBySelectedTags(entries, viewState.selectedTags), viewState.keywordSearch), viewState);
 }
 
-function filterEntries(entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] {
-    const searchTerm = viewState.keywordSearch.toLowerCase();
+function filterBySelectedTags(entries: HistoryEntry[], selectedTags: string[]): HistoryEntry[] {
+    return entries.filter(entry => {
+            return (selectedTags.length === 0 || arrayCommonCheck(entry.tags, selectedTags))
+        }
+    )
+}
+
+function arrayCommonCheck<T>(array1: T[], array2: T[]): boolean {
+    return !!array1.find((element1) =>
+        array2.find((element2) =>
+            element2 === element1
+        )
+    )
+}
+
+function filterByKeywordSearch(entries: HistoryEntry[], keywords: string): HistoryEntry[] {
+    const searchTerm = keywords.toLowerCase();
     return entries.filter(entry => entry.title.toLowerCase().indexOf(searchTerm) !== -1);
 }
 
