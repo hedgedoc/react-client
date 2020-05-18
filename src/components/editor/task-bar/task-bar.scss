@@ -1,0 +1,19 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+
+a, a:hover {
+  text-decoration: none;
+}
+
+.button-space-left {
+  margin-left: 10px;
+}
+
+.button-space-right {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.all-caps {
+  text-transform: uppercase;
+}
