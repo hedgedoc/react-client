@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {BrowserRouter as Router, Switch} from 'react-router-dom'
+import {BrowserRouter as Router} from 'react-router-dom'
 import * as serviceWorker from './service-worker';
 import {Landing} from "./components/landing/layout";
 import {ApplicationLoader} from "./components/application-loader/application-loader";
@@ -14,9 +14,7 @@ ReactDOM.render(
     <Provider store={store}>
         <ApplicationLoader initTasks={initTasks}>
             <Router>
-                <Switch>
-                    <Landing/>
-                </Switch>
+                <Landing/>
             </Router>
         </ApplicationLoader>
     </Provider>
