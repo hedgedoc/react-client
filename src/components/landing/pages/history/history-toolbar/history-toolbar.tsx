@@ -74,7 +74,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange,
     return (
         <Form inline={true}>
             <InputGroup className={"mr-1"}>
-                <Typeahead id={"tagsSelection"} options={tags} multiple={true} placeholder={t("chooseTags")}
+                <Typeahead id={"tagsSelection"} options={tags} multiple={true} placeholder={t("selectTags")}
                            onChange={selectedTagsChanged}/>
             </InputGroup>
             <InputGroup className={"mr-1"}>
