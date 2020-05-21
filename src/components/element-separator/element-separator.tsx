@@ -12,15 +12,14 @@ export const ElementSeparator: React.FC<ElementSeparatorProps> = ({children, sep
                     .toArray(children)
                     .filter(child => child !== null)
                     .map((child, index) => {
-                    if (child !== null) {
-                        return <Fragment>
-                            {
-                                (index > 0 ) ? separator : null
-                            }
-                            {child}
-                        </Fragment>
-
-                    }
+                        return (
+                            <Fragment>
+                                {
+                                    (index > 0 ) ? separator : null
+                                }
+                                {child}
+                            </Fragment>
+                        )
                 })
             }
         </Fragment>
