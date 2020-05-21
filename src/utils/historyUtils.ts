@@ -15,11 +15,12 @@ function filterBySelectedTags(entries: HistoryEntry[], selectedTags: string[]): 
 }
 
 function arrayCommonCheck<T>(array1: T[], array2: T[]): boolean {
-    return !!array1.find((element1) =>
+    const foundElement = array1.find((element1) =>
         array2.find((element2) =>
             element2 === element1
         )
     )
+    return !!foundElement;
 }
 
 function filterByKeywordSearch(entries: HistoryEntry[], keywords: string): HistoryEntry[] {
@@ -28,23 +29,23 @@ function filterByKeywordSearch(entries: HistoryEntry[], keywords: string): Histo
 }
 
 function sortEntries(entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] {
-    return entries.sort((a, b) => {
-        if (a.pinned && !b.pinned) {
+    return entries.sort((firstEntry, secondEntry) => {
+        if (firstEntry.pinned && !secondEntry.pinned) {
             return -1;
         }
-        if (!a.pinned && b.pinned) {
+        if (!firstEntry.pinned && secondEntry.pinned) {
             return 1;
         }
 
         if (viewState.titleSortDirection !== SortModeEnum.no) {
-            return a.title.localeCompare(b.title) * viewState.titleSortDirection;
+            return firstEntry.title.localeCompare(secondEntry.title) * viewState.titleSortDirection;
         }
 
         if (viewState.lastVisitedSortDirection !== SortModeEnum.no) {
-            if (a.lastVisited > b.lastVisited) {
+            if (firstEntry.lastVisited > secondEntry.lastVisited) {
                 return 1 * viewState.lastVisitedSortDirection;
             }
-            if (a.lastVisited < b.lastVisited) {
+            if (firstEntry.lastVisited < secondEntry.lastVisited) {
                 return -1 * viewState.lastVisitedSortDirection;
             }
         }
