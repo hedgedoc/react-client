@@ -103,7 +103,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange,
                 </Button>
             </InputGroup>
             <InputGroup className={"mr-1"}>
-                <Button variant={"light"} title={t("deleteHistory")}>
+                <Button variant={"light"} title={t("clearHistory")}>
                     <FontAwesomeIcon icon={"trash"}/>
                 </Button>
             </InputGroup>
@@ -117,8 +117,10 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({onSettingsChange,
                                    onChange={(newViewState: ViewStateEnum) => {
                                        toggleViewChanged(newViewState)
                                    }}>
-                    <ToggleButton className={"btn-light"} value={ViewStateEnum.card}>Card</ToggleButton>
-                    <ToggleButton className={"btn-light"} value={ViewStateEnum.table}>Table</ToggleButton>
+                    <ToggleButton className={"btn-light"} value={ViewStateEnum.card}><Trans
+                        i18nKey={"cards"}/></ToggleButton>
+                    <ToggleButton className={"btn-light"} value={ViewStateEnum.table}><Trans
+                        i18nKey={"table"}/></ToggleButton>
                 </ToggleButtonGroup>
             </InputGroup>
         </Form>
