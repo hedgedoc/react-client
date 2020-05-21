@@ -26,7 +26,8 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({entry, onPinClick}) =>
                         {formatHistoryDate(entry.lastVisited)}
                         <div>
                             {
-                                entry.tags.map((tag) => <Badge variant={"dark"} key={tag}>{tag}</Badge>)
+                                entry.tags.map((tag) => <Badge variant={"dark"} className={"mr-1 mb-1"}
+                                                               key={tag}>{tag}</Badge>)
                             }
                         </div>
                     </div>
