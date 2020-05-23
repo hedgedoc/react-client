@@ -1,16 +1,15 @@
+import React, {Fragment, useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
 import {Alert, Button, Form} from "react-bootstrap";
-import React, {Fragment, useState} from "react";
-import {postEmailLogin} from "../../../../../api/user";
+import {postOpenIdLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
 
-const ViaEMail: React.FC = () => {
-    const {t} = useTranslation();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+const ViaOpenId: React.FC = () => {
+    useTranslation();
+    const [openId, setOpenId] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
-        postEmailLogin(email, password)
+        postOpenIdLogin(openId)
             .then(loginJson => {
                 console.log(loginJson)
                 getAndSetUser();
@@ -25,33 +24,22 @@ const ViaEMail: React.FC = () => {
         <div className="card bg-dark mb-4">
             <div className="card-body">
                 <h5 className="card-title">
-                    <Trans i18nKey="signInVia" values={{service: "E-Mail"}}/>
+                    <Trans i18nKey="signInVia" values={{service: "OpenID"}}/>
                 </h5>
                 <Form onSubmit={login}>
-                    <Form.Group controlId="email">
+                    <Form.Group controlId="openid">
                         <Form.Control
                             isInvalid={error}
-                            type="email"
+                            type="text"
                             size="sm"
-                            placeholder={t("email")}
-                            onChange={(event) => setEmail(event.currentTarget.value)}
+                            placeholder={"OpenID"}
+                            onChange={(event) => setOpenId(event.currentTarget.value)}
                             className="bg-dark text-white"
-                            />
-                    </Form.Group>
-
-                    <Form.Group controlId="password">
-                        <Form.Control
-                            isInvalid={error}
-                            type="password"
-                            size="sm"
-                            placeholder={t("password")}
-                            onChange={(event) => setPassword(event.currentTarget.value)}
-                            className="bg-dark text-white"
-                            />
+                        />
                     </Form.Group>
 
                     <Alert className="small" show={error} variant="danger">
-                        <Trans i18nKey="errorEmailLogin"/>
+                        <Trans i18nKey="errorOpenIdLogin"/>
                     </Alert>
 
                     <Button
@@ -64,6 +52,6 @@ const ViaEMail: React.FC = () => {
             </div>
         </div>
     );
-}
+};
 
-export {ViaEMail}
+export { ViaOpenId }

@@ -6,7 +6,7 @@ import {OneClickType, ViaOneClick} from "./auth/via-one-click";
 import {ViaLdap} from "./auth/via-ldap";
 import {useSelector} from "react-redux";
 import {ApplicationState} from "../../../../redux";
-import {ViaOpenId} from "./auth/via-open id";
+import {ViaOpenId} from "./auth/via-openid";
 import "./login.scss";
 import {ElementSeparator} from "../../../element-separator/element-separator";
 
@@ -30,48 +30,47 @@ const Login: React.FC = () => {
     }
 
     return (
-        <Jumbotron className="bg-dark">
-            <div className="my-3">
-                <Row className="h-100 flex justify-content-center">
-                    {
-                        authProviders.email || authProviders.ldap || authProviders.openid ?
-                            <Col xs={12} sm={10} lg={3}>
-                                <ElementSeparator separator={<hr className="w-100 bg-white"/>}>
-                                    {emailForm}
-                                    {ldapForm}
-                                    {openIdForm}
-                                </ElementSeparator>
-                                <hr className="w-100 d-lg-none d-block bg-white"/>
-                            </Col>
-                            : null
-                    }
-                    <Col xs={12} sm={10} lg={5}>
-                        <h5>
-                            <Trans i18nKey="signInVia" values={{service: ""}}/>
-                        </h5>
-                        <div className={"d-flex flex-wrap one-click-login justify-content-center"}>
-                            {
-                                Object.values(OneClickType)
-                                    .filter((value) => authProviders[value])
-                                    .map((value) => {
-                                        return (
-                                            <div
-                                                className="p-2 d-flex flex-column social-button-container"
-                                                key={value}
-                                            >
-                                                <ViaOneClick
-                                                    oneClickType={value}
-                                                    optionalName={oneClickCustomName(value)}
-                                                />
-                                            </div>
-                                        )
-                                    })
-                            }
+        <div className="my-3">
+            <Row className="h-100 flex justify-content-center">
+                {
+                    authProviders.email || authProviders.ldap || authProviders.openid ?
+                        <Col xs={12} sm={10} lg={4}>
+                            {emailForm}
+                            {ldapForm}
+                            {openIdForm}
+                        </Col>
+                        : null
+                }
+                <Col xs={12} sm={10} lg={4}>
+                    <div className="card bg-dark">
+                        <div className="card-body">
+                            <h5 className="card-title">
+                                <Trans i18nKey="signInVia" values={{service: ""}}/>
+                            </h5>
+                            <div className={"d-flex align-items-center flex-column flex-wrap one-click-login justify-content-center"}>
+                                {
+                                    Object.values(OneClickType)
+                                        .filter((value) => authProviders[value])
+                                        .map((value) => {
+                                            return (
+                                                <div
+                                                    className="p-2 d-flex flex-column social-button-container"
+                                                    key={value}
+                                                >
+                                                    <ViaOneClick
+                                                        oneClickType={value}
+                                                        optionalName={oneClickCustomName(value)}
+                                                    />
+                                                </div>
+                                            )
+                                        })
+                                }
+                            </div>
                         </div>
-                    </Col>
-                </Row>
-            </div>
-        </Jumbotron>
+                    </div>
+                </Col>
+            </Row>
+        </div>
     )
 }
 

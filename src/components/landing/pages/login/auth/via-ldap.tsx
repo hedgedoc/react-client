@@ -27,43 +27,47 @@ const ViaLdap: React.FC = () => {
     const name = ldapCustomName ? `${ldapCustomName} (LDAP)` : "LDAP";
 
     return (
-        <Fragment>
-            <h5 className="center">
-                <Trans i18nKey="signInVia" values={{service: name}}/>
-            </h5>
-            <Form onSubmit={login}>
-                <Form.Group controlId="username">
-                    <Form.Control
-                        isInvalid={error}
-                        type="text"
+        <div className="card bg-dark mb-4">
+            <div className="card-body">
+                <h5 className="card-title">
+                    <Trans i18nKey="signInVia" values={{service: name}}/>
+                </h5>
+                <Form onSubmit={login}>
+                    <Form.Group controlId="username">
+                        <Form.Control
+                            isInvalid={error}
+                            type="text"
+                            size="sm"
+                            placeholder={t("username")}
+                            onChange={(event) => setUsername(event.currentTarget.value)}
+                            className="bg-dark text-white"
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId="password">
+                        <Form.Control
+                            isInvalid={error}
+                            type="password"
+                            size="sm"
+                            placeholder={t("password")}
+                            onChange={(event) => setPassword(event.currentTarget.value)}
+                            className="bg-dark text-white"
+                        />
+                    </Form.Group>
+
+                    <Alert className="small" show={error} variant="danger">
+                        <Trans i18nKey="errorLdapLogin"/>
+                    </Alert>
+
+                    <Button
+                        type="submit"
                         size="sm"
-                        placeholder={t("username")}
-                        onChange={(event) => setUsername(event.currentTarget.value)}
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="password">
-                    <Form.Control
-                        isInvalid={error}
-                        type="password"
-                        size="sm"
-                        placeholder={t("password")}
-                        onChange={(event) => setPassword(event.currentTarget.value)}
-                    />
-                </Form.Group>
-
-                <Alert className="small" show={error} variant="danger">
-                    <Trans i18nKey="errorLdapLogin"/>
-                </Alert>
-
-                <Button
-                    type="submit"
-                    size="sm"
-                    variant="primary">
-                    <Trans i18nKey="signIn"/>
-                </Button>
-            </Form>
-        </Fragment>
+                        variant="primary">
+                        <Trans i18nKey="signIn"/>
+                    </Button>
+                </Form>
+            </div>
+        </div>
     );
 };
 

@@ -17,7 +17,7 @@ export const SocialLinkButton: React.FC<SocialButtonProps> = ({title, background
             <span className="icon-part d-flex align-items-center">
                 <FontAwesomeIcon icon={icon} className={"social-icon"}/>
             </span>
-            <span className="text-part d-flex align-items-center">
+            <span className="text-part d-flex align-items-center mx-auto">
                 {children}
             </span>
         </a>
