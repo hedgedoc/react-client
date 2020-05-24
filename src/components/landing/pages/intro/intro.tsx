@@ -3,7 +3,7 @@ import screenshot from './img/screenshot.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Trans, useTranslation} from "react-i18next";
 import {FeatureLinks} from "./feature-links";
-import {CoverButtons} from "./cover-buttons";
+import {CoverButtons} from "./cover-buttons/cover-buttons";
 
 const Intro: React.FC = () => {
     useTranslation();

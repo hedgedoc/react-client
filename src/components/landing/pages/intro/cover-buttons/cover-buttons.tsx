@@ -1,10 +1,10 @@
-import {LoginStatus} from "../../../../redux/user/types";
+import {LoginStatus} from "../../../../../redux/user/types";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Trans, useTranslation} from "react-i18next";
 import React from "react";
 import {useSelector} from "react-redux";
-import {ApplicationState} from "../../../../redux";
+import {ApplicationState} from "../../../../../redux";
 
 export const CoverButtons: React.FC = () => {
     useTranslation();
@@ -18,9 +18,9 @@ export const CoverButtons: React.FC = () => {
         <div className="mb-5">
             <Link to="/login">
                 <Button
+                    className="cover-button"
                     variant="success"
                     size="lg"
-                    style={{minWidth: "200px"}}
                 >
                     <Trans i18nKey="signIn"/>
                 </Button>
@@ -33,9 +33,9 @@ export const CoverButtons: React.FC = () => {
 
             <Link to="/features">
                 <Button
+                    className="cover-button"
                     variant="primary"
                     size="lg"
-                    style={{minWidth: "200px"}}
                 >
                     <Trans i18nKey="exploreFeatures"/>
                 </Button>
