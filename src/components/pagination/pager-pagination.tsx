@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {Pagination} from "react-bootstrap";
-import {PageItem} from "./page-item/page-item";
+import {PagerItem} from "./pager-item";
 
 export interface PaginationProps {
     numberOfPageButtonsToShowAfterAndBeforeCurrent: number
@@ -57,12 +57,12 @@ export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsT
 
     const paginationItemsBefore = Array.from(new Array(correctedPageIndex - correctedLowerPageIndex)).map((k, index) => {
         const itemIndex = correctedLowerPageIndex + index;
-        return <PageItem key={itemIndex} index={itemIndex} onClick={setPageIndex}/>
+        return <PagerItem key={itemIndex} index={itemIndex} onClick={setPageIndex}/>
     });
 
     const paginationItemsAfter = Array.from(new Array(correctedUpperPageIndex - correctedPageIndex)).map((k, index) => {
         const itemIndex = correctedPageIndex + index + 1;
-        return <PageItem key={itemIndex} index={itemIndex} onClick={setPageIndex}/>
+        return <PagerItem key={itemIndex} index={itemIndex} onClick={setPageIndex}/>
     });
 
     return (
@@ -70,7 +70,7 @@ export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsT
             {
                 correctedLowerPageIndex > 0 ?
                     <Fragment>
-                        <PageItem key={0} index={0} onClick={setPageIndex}/>
+                        <PagerItem key={0} index={0} onClick={setPageIndex}/>
                         <Pagination.Ellipsis disabled/>
                     </Fragment>
                     : null
@@ -82,7 +82,7 @@ export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsT
                 correctedUpperPageIndex < lastPageIndex ?
                     <Fragment>
                         <Pagination.Ellipsis disabled/>
-                        <PageItem key={lastPageIndex} index={lastPageIndex} onClick={setPageIndex}/>
+                        <PagerItem key={lastPageIndex} index={lastPageIndex} onClick={setPageIndex}/>
                     </Fragment>
                     : null
             }

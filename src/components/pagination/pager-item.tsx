@@ -6,7 +6,7 @@ export interface PageItemProps {
 }
 
 
-export const PageItem: React.FC<PageItemProps> = ({index, onClick}) => {
+export const PagerItem: React.FC<PageItemProps> = ({index, onClick}) => {
     return (
         <li className="page-item">
             <a href={"#"} className="page-link" role="button" onClick={() => onClick(index)}>
