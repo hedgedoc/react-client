@@ -9,11 +9,12 @@ import {ApplicationState} from "../../../../../redux";
 const ViaLdap: React.FC = () => {
     const {t} = useTranslation();
     const ldapCustomName = useSelector((state: ApplicationState) => state.backendConfig.customAuthNames.ldap);
-    const name = ldapCustomName ? `${ldapCustomName} (LDAP)` : "LDAP";
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+
+    const name = ldapCustomName ? `${ldapCustomName} (LDAP)` : "LDAP";
 
     const doAsyncLogin = () => {
         (async () => {
