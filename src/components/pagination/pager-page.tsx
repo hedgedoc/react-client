@@ -12,7 +12,7 @@ export const PagerPage: React.FC<PagerPageProps> = ({children, numberOfElementsP
         const lastPageIndex = Math.ceil(React.Children.count(children) / numberOfElementsPerPage) - 1;
         console.log(lastPageIndex);
         onLastPageIndexChange(lastPageIndex)
-    }, [children, onLastPageIndexChange])
+    }, [children, numberOfElementsPerPage, onLastPageIndexChange])
 
     return <Fragment>
         {

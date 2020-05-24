@@ -9,9 +9,9 @@ export interface PageItemProps {
 export const PagerItem: React.FC<PageItemProps> = ({index, onClick}) => {
     return (
         <li className="page-item">
-            <a href={"#"} className="page-link" role="button" onClick={() => onClick(index)}>
+            <span className="page-link" role="button" onClick={() => onClick(index)}>
                 {index + 1}
-            </a>
+            </span>
         </li>
     );
 }
