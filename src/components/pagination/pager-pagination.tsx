@@ -22,12 +22,6 @@ export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsT
         onPageChange(pageIndex)
     }, [onPageChange, pageIndex])
 
-    useEffect(() => {
-        if (pageIndex !== correctedPageIndex) {
-            setPageIndex(correctedPageIndex);
-        }
-    }, [pageIndex, correctedPageIndex]);
-
     const correctedLowerPageIndex =
         Math.min(
             Math.max(
