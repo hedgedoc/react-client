@@ -5,6 +5,7 @@ import {Trans, useTranslation} from "react-i18next";
 import React from "react";
 import {useSelector} from "react-redux";
 import {ApplicationState} from "../../../../../redux";
+import "./cover-buttons.scss";
 
 export const CoverButtons: React.FC = () => {
     useTranslation();
