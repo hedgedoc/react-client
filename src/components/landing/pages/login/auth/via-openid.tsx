@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
 import {Alert, Button, Form} from "react-bootstrap";
 import {postOpenIdLogin} from "../../../../../api/user";

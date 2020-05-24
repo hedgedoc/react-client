@@ -1,5 +1,5 @@
 import React from "react"
-import {Col, Jumbotron, Row} from "react-bootstrap"
+import {Col, Row} from "react-bootstrap"
 import {Trans, useTranslation} from "react-i18next";
 import {ViaEMail} from "./auth/via-email";
 import {OneClickType, ViaOneClick} from "./auth/via-one-click";
@@ -8,7 +8,6 @@ import {useSelector} from "react-redux";
 import {ApplicationState} from "../../../../redux";
 import {ViaOpenId} from "./auth/via-openid";
 import "./login.scss";
-import {ElementSeparator} from "../../../element-separator/element-separator";
 
 const Login: React.FC = () => {
     useTranslation();

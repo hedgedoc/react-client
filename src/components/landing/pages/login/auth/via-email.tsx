@@ -1,6 +1,6 @@
 import {Trans, useTranslation} from "react-i18next";
 import {Alert, Button, Form} from "react-bootstrap";
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
 import {postEmailLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
 
