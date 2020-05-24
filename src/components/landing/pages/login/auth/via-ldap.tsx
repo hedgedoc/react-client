@@ -31,7 +31,6 @@ const ViaLdap: React.FC = () => {
         event.preventDefault();
     }
 
-
     return (
         <Fragment>
             <h5 className="center">
