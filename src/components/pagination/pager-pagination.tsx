@@ -10,7 +10,6 @@ export interface PaginationProps {
 
 export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsToShowAfterAndBeforeCurrent, onPageChange, lastPageIndex}) => {
 
-    console.log(lastPageIndex);
     useEffect(() => {
         if (numberOfPageButtonsToShowAfterAndBeforeCurrent % 2 !== 0) {
             throw new Error("number of pages to show must be even!")
@@ -25,6 +24,13 @@ export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsT
 
     const wantedLowerPageIndex = pageIndex - numberOfPageButtonsToShowAfterAndBeforeCurrent;
     const wantedUpperPageIndex = pageIndex + numberOfPageButtonsToShowAfterAndBeforeCurrent;
+    const correctedPageIndex = Math.min(pageIndex, lastPageIndex);
+
+    useEffect(() => {
+        if (pageIndex !== correctedPageIndex) {
+            setPageIndex(correctedPageIndex);
+        }
+    }, [pageIndex, correctedPageIndex]);
 
     const correctedLowerPageIndex =
         Math.min(
@@ -49,13 +55,13 @@ export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsT
             )
         );
 
-    const paginationItemsBefore = Array.from(new Array(pageIndex - correctedLowerPageIndex)).map((k, index) => {
+    const paginationItemsBefore = Array.from(new Array(correctedPageIndex - correctedLowerPageIndex)).map((k, index) => {
         const itemIndex = correctedLowerPageIndex + index;
         return <PageItem key={itemIndex} index={itemIndex} onClick={setPageIndex}/>
     });
 
-    const paginationItemsAfter = Array.from(new Array(correctedUpperPageIndex - pageIndex)).map((k, index) => {
-        const itemIndex = pageIndex + index + 1;
+    const paginationItemsAfter = Array.from(new Array(correctedUpperPageIndex - correctedPageIndex)).map((k, index) => {
+        const itemIndex = correctedPageIndex + index + 1;
         return <PageItem key={itemIndex} index={itemIndex} onClick={setPageIndex}/>
     });
 
@@ -70,7 +76,7 @@ export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsT
                     : null
             }
             {paginationItemsBefore}
-            <Pagination.Item active>{pageIndex + 1}</Pagination.Item>
+            <Pagination.Item active>{correctedPageIndex + 1}</Pagination.Item>
             {paginationItemsAfter}
             {
                 correctedUpperPageIndex < lastPageIndex ?
