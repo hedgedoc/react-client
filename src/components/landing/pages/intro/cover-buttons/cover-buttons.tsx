@@ -27,7 +27,6 @@ export const CoverButtons: React.FC = () => {
                 </Button>
             </Link>
 
-
             <span className="m-2">
                 <Trans i18nKey="or"/>
             </span>
