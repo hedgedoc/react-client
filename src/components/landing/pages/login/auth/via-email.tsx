@@ -9,16 +9,20 @@ export const ViaEMail: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
-    const login = (event: any) => {
+
+    const doAsyncLogin = () => {
         (async () => {
             try {
-                const loginJson = await postEmailLogin(email, password);
-                console.log(loginJson)
+                await postEmailLogin(email, password);
                 await getAndSetUser();
             } catch {
                 setError(true);
             }
         })();
+    }
+
+    const onFormSubmit = (event: any) => {
+        doAsyncLogin();
         event.preventDefault();
     };
 
@@ -27,7 +31,7 @@ export const ViaEMail: React.FC = () => {
             <h5 className="center">
                 <Trans i18nKey="signInVia" values={{service: "E-Mail"}}/>
             </h5>
-            <Form onSubmit={login}>
+            <Form onSubmit={onFormSubmit}>
                 <Form.Group controlId="email">
                     <Form.Control
                         isInvalid={error}

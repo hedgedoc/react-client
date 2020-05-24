@@ -8,16 +8,20 @@ const ViaOpenId: React.FC = () => {
     useTranslation();
     const [openId, setOpenId] = useState("");
     const [error, setError] = useState(false);
-    const login = (event: any) => {
+
+    const doAsyncLogin = () => {
         (async () => {
             try {
-                const loginJson = await postOpenIdLogin(openId);
-                console.log(loginJson)
+                await postOpenIdLogin(openId);
                 await getAndSetUser();
             } catch {
                 setError(true);
             }
         })();
+    }
+
+    const onFormSubmit = (event: any) => {
+        doAsyncLogin();
         event.preventDefault();
     }
 
@@ -26,7 +30,7 @@ const ViaOpenId: React.FC = () => {
             <h5 className="center">
                 <Trans i18nKey="signInVia" values={{service: "OpenID"}}/>
             </h5>
-            <Form onSubmit={login}>
+            <Form onSubmit={onFormSubmit}>
                 <Form.Group controlId="openid">
                     <Form.Control
                         isInvalid={error}
