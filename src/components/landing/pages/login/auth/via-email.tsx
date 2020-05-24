@@ -57,7 +57,6 @@ const ViaEMail: React.FC = () => {
 
                     <Button
                         type="submit"
-                        size="sm"
                         variant="primary">
                         <Trans i18nKey="signIn"/>
                     </Button>
