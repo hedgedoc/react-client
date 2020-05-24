@@ -9,14 +9,15 @@ const ViaOpenId: React.FC = () => {
     const [openId, setOpenId] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
-        postOpenIdLogin(openId)
-            .then(loginJson => {
+        (async () => {
+            try {
+                const loginJson = await postOpenIdLogin(openId);
                 console.log(loginJson)
-                getAndSetUser();
-            }).catch(_reason => {
+                await getAndSetUser();
+            } catch {
                 setError(true);
             }
-        )
+        })();
         event.preventDefault();
     }
 

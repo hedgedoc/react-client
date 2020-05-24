@@ -4,22 +4,23 @@ import React, {Fragment, useState} from "react";
 import {postEmailLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
 
-const ViaEMail: React.FC = () => {
+export const ViaEMail: React.FC = () => {
     const {t} = useTranslation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
-        postEmailLogin(email, password)
-            .then(loginJson => {
+        (async () => {
+            try {
+                const loginJson = await postEmailLogin(email, password);
                 console.log(loginJson)
-                getAndSetUser();
-            }).catch(_reason => {
+                await getAndSetUser();
+            } catch {
                 setError(true);
             }
-        )
+        })();
         event.preventDefault();
-    }
+    };
 
     return (
         <Fragment>
@@ -61,5 +62,3 @@ const ViaEMail: React.FC = () => {
         </Fragment>
     );
 }
-
-export {ViaEMail}

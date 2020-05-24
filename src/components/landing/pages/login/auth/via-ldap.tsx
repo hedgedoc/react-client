@@ -13,14 +13,15 @@ const ViaLdap: React.FC = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const login = (event: any) => {
-        postLdapLogin(username, password)
-            .then(loginJson => {
+        (async () => {
+            try {
+                const loginJson = await postLdapLogin(username, password);
                 console.log(loginJson)
-                getAndSetUser();
-            }).catch(_reason => {
+                await getAndSetUser();
+            } catch {
                 setError(true);
             }
-        )
+        })();
         event.preventDefault();
     }
 
