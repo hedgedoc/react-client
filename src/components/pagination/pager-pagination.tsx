@@ -10,17 +10,15 @@ export interface PaginationProps {
 
 export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsToShowAfterAndBeforeCurrent, onPageChange, lastPageIndex}) => {
 
-    useEffect(() => {
-        if (numberOfPageButtonsToShowAfterAndBeforeCurrent % 2 !== 0) {
-            throw new Error("number of pages to show must be even!")
-        }
-    }, [numberOfPageButtonsToShowAfterAndBeforeCurrent])
+    if (numberOfPageButtonsToShowAfterAndBeforeCurrent % 2 !== 0) {
+        throw new Error("number of pages to show must be even!")
+    }
 
     const [pageIndex, setPageIndex] = useState(0);
 
     useEffect(() => {
         onPageChange(pageIndex)
-    })
+    }, [pageIndex])
 
     const wantedLowerPageIndex = pageIndex - numberOfPageButtonsToShowAfterAndBeforeCurrent;
     const wantedUpperPageIndex = pageIndex + numberOfPageButtonsToShowAfterAndBeforeCurrent;
