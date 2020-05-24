@@ -15,7 +15,6 @@ const LanguagePicker: React.FC = () => {
         <Form.Control
             as="select"
             size="sm"
-            id="language-picker"
             className="mb-2 mx-auto w-auto"
             value={i18n.language}
             onChange={onChangeLang}
