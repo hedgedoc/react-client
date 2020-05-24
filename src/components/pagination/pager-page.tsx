@@ -10,7 +10,6 @@ export const PagerPage: React.FC<PagerPageProps> = ({children, numberOfElementsP
 
     useEffect(() => {
         const lastPageIndex = Math.ceil(React.Children.count(children) / numberOfElementsPerPage) - 1;
-        console.log(lastPageIndex);
         onLastPageIndexChange(lastPageIndex)
     }, [children, numberOfElementsPerPage, onLastPageIndexChange])
 
