@@ -4,22 +4,27 @@ import React, {useState} from "react";
 import {postEmailLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
 
-const ViaEMail: React.FC = () => {
+export const ViaEMail: React.FC = () => {
     const {t} = useTranslation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
-    const login = (event: any) => {
-        postEmailLogin(email, password)
-            .then(loginJson => {
-                console.log(loginJson)
-                getAndSetUser();
-            }).catch(_reason => {
+
+    const doAsyncLogin = () => {
+        (async () => {
+            try {
+                await postEmailLogin(email, password);
+                await getAndSetUser();
+            } catch {
                 setError(true);
             }
-        )
-        event.preventDefault();
+        })();
     }
+
+    const onFormSubmit = (event: any) => {
+        doAsyncLogin();
+        event.preventDefault();
+    };
 
     return (
         <Card className="bg-dark mb-4">
@@ -28,7 +33,7 @@ const ViaEMail: React.FC = () => {
                     <Trans i18nKey="signInVia" values={{service: "E-Mail"}}/>
                 </Card.Title>
 
-                <Form onSubmit={login}>
+                <Form onSubmit={onFormSubmit}>
                     <Form.Group controlId="email">
                         <Form.Control
                             isInvalid={error}
@@ -65,5 +70,3 @@ const ViaEMail: React.FC = () => {
         </Card>
     );
 }
-
-export {ViaEMail}

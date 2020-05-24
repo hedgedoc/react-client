@@ -7,11 +7,14 @@ import {ViaLdap} from "./auth/via-ldap";
 import {useSelector} from "react-redux";
 import {ApplicationState} from "../../../../redux";
 import {ViaOpenId} from "./auth/via-openid";
+import {Redirect} from "react-router";
+import {LoginStatus} from "../../../../redux/user/types";
 
 const Login: React.FC = () => {
     useTranslation();
     const authProviders = useSelector((state: ApplicationState) => state.backendConfig.authProviders);
     const customAuthNames = useSelector((state: ApplicationState) => state.backendConfig.customAuthNames);
+    const userLoginState = useSelector((state: ApplicationState) => state.user.status);
     const emailForm = authProviders.email ? <ViaEMail/> : null
     const ldapForm = authProviders.ldap ? <ViaLdap/> : null
     const openIdForm = authProviders.openid ? <ViaOpenId/> : null
@@ -25,6 +28,13 @@ const Login: React.FC = () => {
             default:
                 return undefined;
         }
+    }
+    
+    if (userLoginState === LoginStatus.ok) {
+        // TODO Redirect to previous page?
+        return (
+            <Redirect to='/history' />
+        )
     }
 
     return (
