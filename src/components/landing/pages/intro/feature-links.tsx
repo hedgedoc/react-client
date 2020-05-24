@@ -1,10 +1,11 @@
 import {Col, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const FeatureLinks: React.FC = () => {
+export const FeatureLinks: React.FC = () => {
+    useTranslation();
     return (
         <Row className="mb-5">
             <Col md={4}>
@@ -34,5 +35,3 @@ const FeatureLinks: React.FC = () => {
         </Row>
     );
 }
-
-export { FeatureLinks }
