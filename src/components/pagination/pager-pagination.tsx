@@ -3,18 +3,19 @@ import {Pagination} from "react-bootstrap";
 import {PageItem} from "./page-item/page-item";
 
 export interface PaginationProps {
-    numberOfPagesToShow: number
-    numberOfElementsPerPage: number
+    numberOfPageButtonsToShowAfterAndBeforeCurrent: number
     onPageChange: (pageIndex: number) => void
+    lastPageIndex: number
 }
 
-export const PagerPagination: React.FC<PaginationProps> = ({children, numberOfPagesToShow, numberOfElementsPerPage, onPageChange}) => {
+export const PagerPagination: React.FC<PaginationProps> = ({numberOfPageButtonsToShowAfterAndBeforeCurrent, onPageChange, lastPageIndex}) => {
 
+    console.log(lastPageIndex);
     useEffect(() => {
-        if (numberOfPagesToShow % 2 !== 0) {
+        if (numberOfPageButtonsToShowAfterAndBeforeCurrent % 2 !== 0) {
             throw new Error("number of pages to show must be even!")
         }
-    }, [numberOfPagesToShow])
+    }, [numberOfPageButtonsToShowAfterAndBeforeCurrent])
 
     const [pageIndex, setPageIndex] = useState(0);
 
@@ -22,13 +23,31 @@ export const PagerPagination: React.FC<PaginationProps> = ({children, numberOfPa
         onPageChange(pageIndex)
     })
 
-    const lastPageIndex = React.Children.count(children) / numberOfElementsPerPage - 1;
+    const wantedLowerPageIndex = pageIndex - numberOfPageButtonsToShowAfterAndBeforeCurrent;
+    const wantedUpperPageIndex = pageIndex + numberOfPageButtonsToShowAfterAndBeforeCurrent;
 
-    const wantedLowerPageIndex = pageIndex - numberOfPagesToShow;
-    const wantedUpperPageIndex = pageIndex + numberOfPagesToShow;
+    const correctedLowerPageIndex =
+        Math.min(
+            Math.max(
+                Math.min(
+                    wantedLowerPageIndex,
+                    wantedLowerPageIndex + lastPageIndex - wantedUpperPageIndex
+                ),
+                0
+            ),
+            lastPageIndex
+        );
 
-    const correctedLowerPageIndex = Math.max(Math.min(wantedLowerPageIndex, wantedLowerPageIndex + lastPageIndex - wantedUpperPageIndex), 0);
-    const correctedUpperPageIndex = Math.min(Math.max(wantedUpperPageIndex, wantedUpperPageIndex - wantedLowerPageIndex), lastPageIndex);
+    const correctedUpperPageIndex =
+        Math.max(0,
+            Math.min(
+                Math.max(
+                    wantedUpperPageIndex,
+                    wantedUpperPageIndex - wantedLowerPageIndex
+                ),
+                lastPageIndex
+            )
+        );
 
     const paginationItemsBefore = Array.from(new Array(pageIndex - correctedLowerPageIndex)).map((k, index) => {
         const itemIndex = correctedLowerPageIndex + index;

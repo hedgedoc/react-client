@@ -23,7 +23,6 @@ export interface HistoryEntriesProps {
 }
 
 export const HistoryContent: React.FC<HistoryContentProps> = ({viewState, entries, onPinClick}) => {
-
     if (entries.length === 0) {
         return (
             <Alert variant={"secondary"}>
@@ -37,6 +36,6 @@ export const HistoryContent: React.FC<HistoryContentProps> = ({viewState, entrie
         case ViewStateEnum.card:
             return <HistoryCardList entries={entries} onPinClick={onPinClick}/>
         case ViewStateEnum.table:
-            return <HistoryTable entries={entries} onPinClick={onPinClick}/>;
+            return <HistoryTable entries={entries} onPinClick={onPinClick}/>
     }
 }
