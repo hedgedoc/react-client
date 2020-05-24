@@ -7,7 +7,6 @@ import {ViaLdap} from "./auth/via-ldap";
 import {useSelector} from "react-redux";
 import {ApplicationState} from "../../../../redux";
 import {ViaOpenId} from "./auth/via-openid";
-import "./login.scss";
 
 const Login: React.FC = () => {
     useTranslation();
@@ -46,25 +45,23 @@ const Login: React.FC = () => {
                             <Card.Title>
                                 <Trans i18nKey="signInVia" values={{service: ""}}/>
                             </Card.Title>
-                            <div className={"d-flex align-items-center flex-column flex-wrap one-click-login justify-content-center"}>
-                                {
-                                    Object.values(OneClickType)
-                                        .filter((value) => authProviders[value])
-                                        .map((value) => {
-                                            return (
-                                                <div
-                                                    className="p-2 d-flex flex-column social-button-container"
-                                                    key={value}
-                                                >
-                                                    <ViaOneClick
-                                                        oneClickType={value}
-                                                        optionalName={oneClickCustomName(value)}
-                                                    />
-                                                </div>
-                                            )
-                                        })
-                                }
-                            </div>
+                            {
+                                Object.values(OneClickType)
+                                    .filter((value) => authProviders[value])
+                                    .map((value) => {
+                                        return (
+                                            <div
+                                                className="p-2 d-flex flex-column social-button-container"
+                                                key={value}
+                                            >
+                                                <ViaOneClick
+                                                    oneClickType={value}
+                                                    optionalName={oneClickCustomName(value)}
+                                                />
+                                            </div>
+                                        )
+                                    })
+                            }
                         </Card.Body>
                     </Card>
                 </Col>
