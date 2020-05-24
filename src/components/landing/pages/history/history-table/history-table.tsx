@@ -3,7 +3,7 @@ import {Table} from "react-bootstrap"
 import {HistoryTableRow} from "./history-table-row";
 import {HistoryEntriesProps} from "../history-content/history-content";
 import {Trans} from "react-i18next";
-import {PagerPage} from "../../../../pagination/pager-page";
+import {Pager} from "../../../../pagination/pager";
 
 export const HistoryTable: React.FC<HistoryEntriesProps> = ({entries, onPinClick, pageIndex, onLastPageIndexChange}) => {
     return (
@@ -17,7 +17,7 @@ export const HistoryTable: React.FC<HistoryEntriesProps> = ({entries, onPinClick
             </tr>
             </thead>
             <tbody>
-            <PagerPage numberOfElementsPerPage={6} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
+            <Pager numberOfElementsPerPage={6} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
                 {
                     entries.map((entry) =>
                         <HistoryTableRow
@@ -26,7 +26,7 @@ export const HistoryTable: React.FC<HistoryEntriesProps> = ({entries, onPinClick
                             onPinClick={onPinClick}
                         />)
                 }
-            </PagerPage>
+            </Pager>
             </tbody>
         </Table>
     )

@@ -1,14 +1,14 @@
 import React from 'react'
 import {HistoryEntriesProps} from "../history-content/history-content";
 import {HistoryCard} from "./history-card";
-import {PagerPage} from '../../../../pagination/pager-page';
+import {Pager} from '../../../../pagination/pager';
 import {Row} from 'react-bootstrap';
 
 export const HistoryCardList: React.FC<HistoryEntriesProps> = ({entries, onPinClick, pageIndex, onLastPageIndexChange}) => {
 
     return (
         <Row className="justify-content-center">
-            <PagerPage numberOfElementsPerPage={6} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
+            <Pager numberOfElementsPerPage={6} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
                 {
                     entries.map((entry) => (
                         <HistoryCard
@@ -17,7 +17,7 @@ export const HistoryCardList: React.FC<HistoryEntriesProps> = ({entries, onPinCl
                             onPinClick={onPinClick}
                         />))
                 }
-            </PagerPage>
+            </Pager>
         </Row>
     );
 }
