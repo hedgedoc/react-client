@@ -1,5 +1,5 @@
 import React from "react"
-import {Col, Row} from "react-bootstrap"
+import {Card, Col, Row} from "react-bootstrap"
 import {Trans, useTranslation} from "react-i18next";
 import {ViaEMail} from "./auth/via-email";
 import {OneClickType, ViaOneClick} from "./auth/via-one-click";
@@ -41,11 +41,11 @@ const Login: React.FC = () => {
                         : null
                 }
                 <Col xs={12} sm={10} lg={4}>
-                    <div className="card bg-dark">
-                        <div className="card-body">
-                            <h5 className="card-title">
+                    <Card className="bg-dark mb-4">
+                        <Card.Body>
+                            <Card.Title>
                                 <Trans i18nKey="signInVia" values={{service: ""}}/>
-                            </h5>
+                            </Card.Title>
                             <div className={"d-flex align-items-center flex-column flex-wrap one-click-login justify-content-center"}>
                                 {
                                     Object.values(OneClickType)
@@ -65,8 +65,8 @@ const Login: React.FC = () => {
                                         })
                                 }
                             </div>
-                        </div>
-                    </div>
+                        </Card.Body>
+                    </Card>
                 </Col>
             </Row>
         </div>

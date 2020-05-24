@@ -1,5 +1,5 @@
 import {Trans, useTranslation} from "react-i18next";
-import {Alert, Button, Form} from "react-bootstrap";
+import {Alert, Button, Card, Form} from "react-bootstrap";
 import React, {useState} from "react";
 import {postEmailLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
@@ -22,11 +22,12 @@ const ViaEMail: React.FC = () => {
     }
 
     return (
-        <div className="card bg-dark mb-4">
-            <div className="card-body">
-                <h5 className="card-title">
+        <Card className="bg-dark mb-4">
+            <Card.Body>
+                <Card.Title>
                     <Trans i18nKey="signInVia" values={{service: "E-Mail"}}/>
-                </h5>
+                </Card.Title>
+
                 <Form onSubmit={login}>
                     <Form.Group controlId="email">
                         <Form.Control
@@ -61,8 +62,8 @@ const ViaEMail: React.FC = () => {
                         <Trans i18nKey="signIn"/>
                     </Button>
                 </Form>
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     );
 }
 

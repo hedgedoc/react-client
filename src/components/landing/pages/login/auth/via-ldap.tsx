@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
-import {Alert, Button, Form} from "react-bootstrap";
+import {Alert, Button, Card, Form} from "react-bootstrap";
 import {postLdapLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
 import {useSelector} from "react-redux";
@@ -27,11 +27,12 @@ const ViaLdap: React.FC = () => {
     const name = ldapCustomName ? `${ldapCustomName} (LDAP)` : "LDAP";
 
     return (
-        <div className="card bg-dark mb-4">
-            <div className="card-body">
-                <h5 className="card-title">
+        <Card className="bg-dark mb-4">
+            <Card.Body>
+                <Card.Title>
                     <Trans i18nKey="signInVia" values={{service: name}}/>
-                </h5>
+                </Card.Title>
+
                 <Form onSubmit={login}>
                     <Form.Group controlId="username">
                         <Form.Control
@@ -66,8 +67,8 @@ const ViaLdap: React.FC = () => {
                         <Trans i18nKey="signIn"/>
                     </Button>
                 </Form>
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     );
 };
 
