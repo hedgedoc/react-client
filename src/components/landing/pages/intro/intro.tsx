@@ -6,11 +6,11 @@ import {Trans, useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {ApplicationState} from "../../../../redux";
-import {Features} from "./features/features";
+import {FeatureLinks} from "./feature-links";
+import {LoginStatus} from "../../../../redux/user/types";
 
 const Intro: React.FC = () => {
     useTranslation();
-    const url =  useSelector((state: ApplicationState) => state.frontendConfig.backendUrl);
     const user = useSelector((state: ApplicationState) => state.user);
 
     return (
@@ -23,7 +23,7 @@ const Intro: React.FC = () => {
             </p>
 
             {
-                user.status === "forbidden" ?
+                user.status === LoginStatus.forbidden ?
                     <div className="mb-5">
                         <Link to="/login">
                             <Button
@@ -40,21 +40,22 @@ const Intro: React.FC = () => {
                             <Trans i18nKey="or"/>
                         </span>
 
-                        <Button
-                            variant="primary"
-                            size="lg"
-                            href={`${url}/features`}
-                            style={{minWidth: "200px"}}
-                        >
-                            <Trans i18nKey="exploreFeatures"/>
-                        </Button>
+                        <Link to="/features">
+                            <Button
+                                variant="primary"
+                                size="lg"
+                                style={{minWidth: "200px"}}
+                            >
+                                <Trans i18nKey="exploreFeatures"/>
+                            </Button>
+                        </Link>
                     </div>
                 :
                     null
             }
 
             <img alt="CodiMD Screenshot" src={screenshot} className="img-fluid mb-5"/>
-            <Features/>
+            <FeatureLinks/>
         </div>
     )
 }
