@@ -54,7 +54,7 @@ function sortEntries (entries: HistoryEntry[], viewState: HistoryToolbarState): 
   })
 }
 
-export function formatHistoryDate (date: Date) {
+export function formatHistoryDate (date: Date): string {
   return moment(date).format('llll')
 }
 
@@ -72,7 +72,7 @@ export function loadHistoryFromLocalStore (): HistoryEntry[] {
     // if localStorage["history"] is empty we check the old localStorage["notehistory"]
     // and convert it to the new format
     const oldHistoryJsonString = window.localStorage.getItem('notehistory')
-    const oldHistory = oldHistoryJsonString ? JSON.parse(JSON.parse(oldHistoryJsonString)) : []
+    const oldHistory = oldHistoryJsonString ? JSON.parse(JSON.parse(oldHistoryJsonString)) as OldHistoryEntry[] : []
     return oldHistory.map((entry: OldHistoryEntry) => {
       return {
         id: entry.id,
@@ -83,6 +83,6 @@ export function loadHistoryFromLocalStore (): HistoryEntry[] {
       }
     })
   } else {
-    return JSON.parse(historyJsonString)
+    return JSON.parse(historyJsonString) as HistoryEntry[]
   }
 }

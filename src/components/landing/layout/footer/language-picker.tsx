@@ -6,9 +6,9 @@ import { Form } from 'react-bootstrap'
 const LanguagePicker: React.FC = () => {
   const { i18n } = useTranslation()
 
-  const onChangeLang = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const onChangeLang = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     moment.locale(event.currentTarget.value)
-    i18n.changeLanguage(event.currentTarget.value)
+    await i18n.changeLanguage(event.currentTarget.value)
   }
 
   return (

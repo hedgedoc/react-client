@@ -3,7 +3,7 @@ import './application-loader.scss'
 import { LoadingScreen } from './loading-screen'
 
 interface ApplicationLoaderProps {
-  initTasks: Promise<any>[]
+  initTasks: Promise<void>[]
 }
 
 export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ children, initTasks }) => {
@@ -12,7 +12,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ children, 
 
   useEffect(() => {
     setDoneTasks(0)
-    initTasks.forEach(task => {
+    for (const task of initTasks) {
       (async () => {
         try {
           await task
@@ -24,7 +24,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ children, 
           console.error(reason)
         }
       })()
-    })
+    }
   }, [initTasks])
 
   return (

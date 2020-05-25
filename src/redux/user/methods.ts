@@ -1,7 +1,7 @@
 import { CLEAR_USER_ACTION_TYPE, ClearUserAction, SET_USER_ACTION_TYPE, SetUserAction, UserState } from './types'
 import { store } from '../../utils/store'
 
-export const setUser = (state: UserState) => {
+export const setUser: (state: UserState) => void = (state: UserState) => {
   const action: SetUserAction = {
     type: SET_USER_ACTION_TYPE,
     payload: {
@@ -11,10 +11,10 @@ export const setUser = (state: UserState) => {
   store.dispatch(action)
 }
 
-export const clearUser = () => {
+export const clearUser: () => void = () => {
   const action: ClearUserAction = {
     type: CLEAR_USER_ACTION_TYPE,
-    payload: {}
+    payload: null
   }
   store.dispatch(action)
 }

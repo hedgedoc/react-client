@@ -3,7 +3,7 @@ import {Alert, Button, Card, Form} from "react-bootstrap";
 import React, {useState} from "react";
 import {postEmailLogin} from "../../../../../api/user";
 import {getAndSetUser} from "../../../../../utils/apiUtils";
-import React, { Fragment, useState } from 'react'
+import React, { FormEvent, Fragment, useState } from 'react'
 import { Alert, Button, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { postEmailLogin } from '../../../../../api/user'
@@ -15,19 +15,17 @@ export const ViaEMail: React.FC = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
 
-  const doAsyncLogin = () => {
-    (async () => {
-      try {
-        await postEmailLogin(email, password)
-        await getAndSetUser()
-      } catch {
-        setError(true)
-      }
-    })()
+  const doAsyncLogin = async () => {
+    try {
+      await postEmailLogin(email, password)
+      await getAndSetUser()
+    } catch {
+      setError(true)
+    }
   }
 
-  const onFormSubmit = (event: any) => {
-    doAsyncLogin()
+  const onFormSubmit = async (event: FormEvent) => {
+    await doAsyncLogin()
     event.preventDefault()
   }
 

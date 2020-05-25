@@ -1,4 +1,5 @@
 import React, {  useState } from 'react'
+import React, { FormEvent, Fragment, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Alert, Button, Card,Form } from 'react-bootstrap'
 import { postLdapLogin } from '../../../../../api/user'
@@ -16,19 +17,17 @@ const ViaLdap: React.FC = () => {
 
   const name = ldapCustomName ? `${ldapCustomName} (LDAP)` : 'LDAP'
 
-  const doAsyncLogin = () => {
-    (async () => {
-      try {
-        await postLdapLogin(username, password)
-        await getAndSetUser()
-      } catch {
-        setError(true)
-      }
-    })()
+  const doAsyncLogin = async () => {
+    try {
+      await postLdapLogin(username, password)
+      await getAndSetUser()
+    } catch {
+      setError(true)
+    }
   }
 
-  const onFormSubmit = (event: any) => {
-    doAsyncLogin()
+  const onFormSubmit = async (event: FormEvent) => {
+    await doAsyncLogin()
     event.preventDefault()
   }
 

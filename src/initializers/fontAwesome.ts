@@ -33,7 +33,7 @@ import {
   faTwitter
 } from '@fortawesome/free-brands-svg-icons'
 
-export function setUpFontAwesome () {
+export const setUpFontAwesome: () => void = () => {
   library.add(faBolt, faPlus, faChartBar, faTv, faFileAlt, faCloudDownloadAlt,
     faTrash, faSignOutAlt, faComment, faDiscourse, faMastodon, faGlobe,
     faThumbtack, faClock, faTimes, faGithub, faGitlab, faGoogle, faFacebook,

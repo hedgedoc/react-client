@@ -12,7 +12,7 @@ export interface SetUserAction extends Action {
 
 export interface ClearUserAction extends Action {
     type: string;
-    payload: {};
+    payload: null;
 }
 
 export interface UserState {
