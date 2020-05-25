@@ -1,7 +1,7 @@
-import {Action} from "redux";
+import { Action } from 'redux'
 
-export const SET_USER_ACTION_TYPE = 'user/set';
-export const CLEAR_USER_ACTION_TYPE = 'user/clear';
+export const SET_USER_ACTION_TYPE = 'user/set'
+export const CLEAR_USER_ACTION_TYPE = 'user/clear'
 
 export interface SetUserAction extends Action {
     type: string;
@@ -23,8 +23,8 @@ export interface UserState {
 }
 
 export enum LoginStatus {
-    forbidden = "forbidden",
-    ok = "ok"
+    forbidden = 'forbidden',
+    ok = 'ok'
 }
 
 export type UserActions = SetUserAction | ClearUserAction;
