@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux'
 import {ApplicationState} from '../../../../../redux'
 
 export const ViaLdap: React.FC = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const ldapCustomName = useSelector((state: ApplicationState) => state.backendConfig.customAuthNames.ldap)
 
   const [username, setUsername] = useState('')
@@ -35,7 +35,7 @@ export const ViaLdap: React.FC = () => {
     <Card className="bg-dark mb-4">
       <Card.Body>
         <Card.Title>
-          <Trans i18nKey="signInVia" values={{service: name}}/>
+          <Trans i18nKey="signInVia" values={{ service: name }}/>
         </Card.Title>
         <Form onSubmit={onFormSubmit}>
           <Form.Group controlId="username">

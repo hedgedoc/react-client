@@ -1,10 +1,18 @@
-import { expectResponseCode, getBackendUrl } from '../utils/apiUtils'
+import {expectResponseCode, getBackendUrl} from '../utils/apiUtils'
 
-export const getMe = async () => {
-  return fetch('/me')
+export const getMe: (() => Promise<meResponse>) = async () => {
+  const response = await fetch('/me')
+  expectResponseCode(response)
+  return (await response.json()) as meResponse
 }
 
-export const postEmailLogin = async (email: string, password: string) => {
+export interface meResponse {
+  id: string
+  name: string
+  photo: string
+}
+
+export const postEmailLogin: ((email: string, password: string) => Promise<void>) = async (email, password) => {
   const response = await fetch(getBackendUrl() + '/auth/email', {
     method: 'POST',
     mode: 'cors',
@@ -22,10 +30,9 @@ export const postEmailLogin = async (email: string, password: string) => {
   })
 
   expectResponseCode(response)
-  return await response.json()
 }
 
-export const postLdapLogin = async (username: string, password: string) => {
+export const postLdapLogin: ((email: string, password: string) => Promise<void>) = async (username, password) => {
   const response = await fetch(getBackendUrl() + '/auth/ldap', {
     method: 'POST',
     mode: 'cors',
@@ -43,10 +50,9 @@ export const postLdapLogin = async (username: string, password: string) => {
   })
 
   expectResponseCode(response)
-  return await response.json()
 }
 
-export const postOpenIdLogin = async (openId: string) => {
+export const postOpenIdLogin: ((openid: string) => Promise<void>) = async (openId: string) => {
   const response = await fetch(getBackendUrl() + '/auth/openid', {
     method: 'POST',
     mode: 'cors',
@@ -63,5 +69,4 @@ export const postOpenIdLogin = async (openId: string) => {
   })
 
   expectResponseCode(response)
-  return await response.json()
 }
