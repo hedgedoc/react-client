@@ -19,11 +19,11 @@ jobs:
           key: node_modules
       - name: Install dependencies
         uses: borales/actions-yarn@v2.1.0
-          with:
-            cmd: install
+        with:
+          cmd: install
       - name: Lint
         run: node_modules/.bin/eslint src --ext .ts,.tsx
       - name: build project
         uses: borales/actions-yarn@v2.1.0
-          with:
-            cmd: build
+        with:
+          cmd: build
