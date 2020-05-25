@@ -1,29 +1,16 @@
-import React from "react"
-import {Card, Col, Row} from "react-bootstrap"
-import {Trans, useTranslation} from "react-i18next";
-import {ViaEMail} from "./auth/via-email";
-import {OneClickType, ViaOneClick} from "./auth/via-one-click";
-import {ViaLdap} from "./auth/via-ldap";
-import {useSelector} from "react-redux";
-import {ApplicationState} from "../../../../redux";
-import {ViaOpenId} from "./auth/via-openid";
-import {Redirect} from "react-router";
-import {LoginStatus} from "../../../../redux/user/types";
 import React from 'react'
-import { Col, Jumbotron, Row } from 'react-bootstrap'
-import { Trans, useTranslation } from 'react-i18next'
-import { ViaEMail } from './auth/via-email'
-import { OneClickType, ViaOneClick } from './auth/via-one-click'
-import { ViaLdap } from './auth/via-ldap'
-import { useSelector } from 'react-redux'
-import { ApplicationState } from '../../../../redux'
-import { ViaOpenId } from './auth/via-open id'
-import './login.scss'
-import { ElementSeparator } from '../../../element-separator/element-separator'
-import { Redirect } from 'react-router'
-import { LoginStatus } from '../../../../redux/user/types'
+import {Card, Col, Row} from 'react-bootstrap'
+import {Trans, useTranslation} from 'react-i18next'
+import {ViaEMail} from './auth/via-email'
+import {OneClickType, ViaOneClick} from './auth/via-one-click'
+import {ViaLdap} from './auth/via-ldap'
+import {useSelector} from 'react-redux'
+import {ApplicationState} from '../../../../redux'
+import {ViaOpenId} from './auth/via-openid'
+import {Redirect} from 'react-router'
+import {LoginStatus} from '../../../../redux/user/types'
 
-const Login: React.FC = () => {
+export const Login: React.FC = () => {
   useTranslation()
   const authProviders = useSelector((state: ApplicationState) => state.backendConfig.authProviders)
   const customAuthNames = useSelector((state: ApplicationState) => state.backendConfig.customAuthNames)
@@ -50,47 +37,45 @@ const Login: React.FC = () => {
     )
   }
 
-    return (
-        <div className="my-3">
-            <Row className="h-100 flex justify-content-center">
-                {
-                    authProviders.email || authProviders.ldap || authProviders.openid ?
-                        <Col xs={12} sm={10} lg={4}>
-                            {emailForm}
-                            {ldapForm}
-                            {openIdForm}
-                        </Col>
-                        : null
-                }
-                <Col xs={12} sm={10} lg={4}>
-                    <Card className="bg-dark mb-4">
-                        <Card.Body>
-                            <Card.Title>
-                                <Trans i18nKey="signInVia" values={{service: ""}}/>
-                            </Card.Title>
-                            {
-                                Object.values(OneClickType)
-                                    .filter((value) => authProviders[value])
-                                    .map((value) => {
-                                        return (
-                                            <div
-                                                className="p-2 d-flex flex-column social-button-container"
-                                                key={value}
-                                            >
-                                                <ViaOneClick
-                                                    oneClickType={value}
-                                                    optionalName={oneClickCustomName(value)}
-                                                />
-                                            </div>
-                                        )
-                                    })
-                            }
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </div>
-    )
+  return (
+    <div className="my-3">
+      <Row className="h-100 flex justify-content-center">
+        {
+          authProviders.email || authProviders.ldap || authProviders.openid
+            ? <Col xs={12} sm={10} lg={4}>
+              {emailForm}
+              {ldapForm}
+              {openIdForm}
+            </Col>
+            : null
+        }
+        <Col xs={12} sm={10} lg={4}>
+          <Card className="bg-dark mb-4">
+            <Card.Body>
+              <Card.Title>
+                <Trans i18nKey="signInVia" values={{service: ''}}/>
+              </Card.Title>
+              {
+                Object.values(OneClickType)
+                  .filter((value) => authProviders[value])
+                  .map((value) => {
+                    return (
+                      <div
+                        className="p-2 d-flex flex-column social-button-container"
+                        key={value}
+                      >
+                        <ViaOneClick
+                          oneClickType={value}
+                          optionalName={oneClickCustomName(value)}
+                        />
+                      </div>
+                    )
+                  })
+              }
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  )
 }
-
-export { Login }
