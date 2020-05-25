@@ -3,21 +3,21 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { SocialLinkButton } from './social-link-button/social-link-button'
 
 export enum OneClickType {
-    'DROPBOX' = 'dropbox',
-    'FACEBOOK' = 'facebook',
-    'GITHUB' = 'github',
-    'GITLAB' = 'gitlab',
-    'GOOGLE' = 'google',
-    'OAUTH2' = 'oauth2',
-    'SAML' = 'saml',
-    'TWITTER' = 'twitter'
+  'DROPBOX' = 'dropbox',
+  'FACEBOOK' = 'facebook',
+  'GITHUB' = 'github',
+  'GITLAB' = 'gitlab',
+  'GOOGLE' = 'google',
+  'OAUTH2' = 'oauth2',
+  'SAML' = 'saml',
+  'TWITTER' = 'twitter'
 }
 
 type OneClick2Map = (oneClickType: OneClickType) => {
-    name: string,
-    icon: IconProp,
-    className: string,
-    url: string
+  name: string,
+  icon: IconProp,
+  className: string,
+  url: string
 };
 
 const buildBackendAuthUrl = (backendName: string) => {
@@ -93,8 +93,8 @@ const getMetadata: OneClick2Map = (oneClickType: OneClickType) => {
 }
 
 export interface ViaOneClickProps {
-    oneClickType: OneClickType;
-    optionalName?: string;
+  oneClickType: OneClickType;
+  optionalName?: string;
 }
 
 const ViaOneClick: React.FC<ViaOneClickProps> = ({ oneClickType, optionalName }) => {
