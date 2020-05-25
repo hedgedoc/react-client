@@ -10,20 +10,20 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ children, 
   const [failed, setFailed] = useState<boolean>(false)
   const [doneTasks, setDoneTasks] = useState<number>(0)
 
+  const runTask:((task: Promise<void>) => (Promise<void>)) = async (task) => {
+    await task
+    setDoneTasks(prevDoneTasks => {
+      return prevDoneTasks + 1
+    })
+  }
+
   useEffect(() => {
     setDoneTasks(0)
     for (const task of initTasks) {
-      (async () => {
-        try {
-          await task
-          setDoneTasks(prevDoneTasks => {
-            return prevDoneTasks + 1
-          })
-        } catch (reason) {
-          setFailed(true)
-          console.error(reason)
-        }
-      })()
+      runTask(task).catch(reason => {
+        setFailed(true)
+        console.error(reason)
+      })
     }
   }, [initTasks])
 
