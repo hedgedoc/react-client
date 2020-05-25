@@ -1,4 +1,4 @@
-import {expectResponseCode, getBackendUrl} from '../utils/apiUtils'
+import { expectResponseCode, getBackendUrl } from '../utils/apiUtils'
 
 export const getMe: (() => Promise<meResponse>) = async () => {
   const response = await fetch('/me')

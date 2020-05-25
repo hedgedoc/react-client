@@ -1,7 +1,7 @@
-import {getMe} from '../api/user'
-import {LoginStatus} from '../redux/user/types'
-import {setUser} from '../redux/user/methods'
-import {store} from './store'
+import { getMe } from '../api/user'
+import { LoginStatus } from '../redux/user/types'
+import { setUser } from '../redux/user/methods'
+import { store } from './store'
 
 export const getAndSetUser: () => (Promise<void>) = async () => {
   const me = await getMe()
@@ -17,6 +17,6 @@ export const getBackendUrl: (() => string) = () => {
   return store.getState().frontendConfig.backendUrl
 }
 
-export const expectResponseCode:((response: Response, code?: number) => boolean) = (response, code = 200) => {
+export const expectResponseCode: ((response: Response, code?: number) => boolean) = (response, code = 200) => {
   return response.status !== code
 }

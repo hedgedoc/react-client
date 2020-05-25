@@ -1,8 +1,8 @@
-import React, {FormEvent, useState} from 'react'
-import {Trans, useTranslation} from 'react-i18next'
-import {Alert, Button, Card, Form} from 'react-bootstrap'
-import {postOpenIdLogin} from '../../../../../api/user'
-import {getAndSetUser} from '../../../../../utils/apiUtils'
+import React, { FormEvent, useState } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
+import { Alert, Button, Card, Form } from 'react-bootstrap'
+import { postOpenIdLogin } from '../../../../../api/user'
+import { getAndSetUser } from '../../../../../utils/apiUtils'
 
 export const ViaOpenId: React.FC = () => {
   useTranslation()
@@ -22,7 +22,7 @@ export const ViaOpenId: React.FC = () => {
     <Card className="bg-dark mb-4">
       <Card.Body>
         <Card.Title>
-          <Trans i18nKey="signInVia" values={{service: 'OpenID'}}/>
+          <Trans i18nKey="signInVia" values={{ service: 'OpenID' }}/>
         </Card.Title>
 
         <Form onSubmit={onFormSubmit}>

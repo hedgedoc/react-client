@@ -1,14 +1,14 @@
 import React from 'react'
-import {Card, Col, Row} from 'react-bootstrap'
-import {Trans, useTranslation} from 'react-i18next'
-import {ViaEMail} from './auth/via-email'
-import {OneClickType, ViaOneClick} from './auth/via-one-click'
-import {ViaLdap} from './auth/via-ldap'
-import {useSelector} from 'react-redux'
-import {ApplicationState} from '../../../../redux'
-import {ViaOpenId} from './auth/via-openid'
-import {Redirect} from 'react-router'
-import {LoginStatus} from '../../../../redux/user/types'
+import { Card, Col, Row } from 'react-bootstrap'
+import { Trans, useTranslation } from 'react-i18next'
+import { ViaEMail } from './auth/via-email'
+import { OneClickType, ViaOneClick } from './auth/via-one-click'
+import { ViaLdap } from './auth/via-ldap'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../../../../redux'
+import { ViaOpenId } from './auth/via-openid'
+import { Redirect } from 'react-router'
+import { LoginStatus } from '../../../../redux/user/types'
 
 export const Login: React.FC = () => {
   useTranslation()
@@ -53,7 +53,7 @@ export const Login: React.FC = () => {
           <Card className="bg-dark mb-4">
             <Card.Body>
               <Card.Title>
-                <Trans i18nKey="signInVia" values={{service: ''}}/>
+                <Trans i18nKey="signInVia" values={{ service: '' }}/>
               </Card.Title>
               {
                 Object.values(OneClickType)
