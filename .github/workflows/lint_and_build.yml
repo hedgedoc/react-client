@@ -13,10 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Cache node_modules
-          uses: actions/cache@v1.1.0
-          with:
-            path: node_modules
-            key: node_modules
+        uses: actions/cache@v1.1.0
+        with:
+          path: node_modules
+          key: node_modules
       - name: Install yarn
         run: npm -g install yarn
       - name: Install dependencies
