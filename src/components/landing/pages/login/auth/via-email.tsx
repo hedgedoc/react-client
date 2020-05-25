@@ -1,26 +1,22 @@
-import {Trans, useTranslation} from 'react-i18next'
-import {Alert, Button, Card, Form} from 'react-bootstrap'
-import React, {FormEvent, useState} from 'react'
-import {postEmailLogin} from '../../../../../api/user'
-import {getAndSetUser} from '../../../../../utils/apiUtils'
+import { Trans, useTranslation } from 'react-i18next'
+import { Alert, Button, Card, Form } from 'react-bootstrap'
+import React, { FormEvent, useState } from 'react'
+import { postEmailLogin } from '../../../../../api/user'
+import { getAndSetUser } from '../../../../../utils/apiUtils'
 
 export const ViaEMail: React.FC = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
 
   const doAsyncLogin = async () => {
-    try {
-      await postEmailLogin(email, password)
-      await getAndSetUser()
-    } catch {
-      setError(true)
-    }
+    await postEmailLogin(email, password)
+    await getAndSetUser()
   }
 
-  const onFormSubmit = async (event: FormEvent) => {
-    await doAsyncLogin()
+  const onFormSubmit = (event: FormEvent) => {
+    doAsyncLogin().catch(() => setError(true))
     event.preventDefault()
   }
 
@@ -28,7 +24,7 @@ export const ViaEMail: React.FC = () => {
     <Card className="bg-dark mb-4">
       <Card.Body>
         <Card.Title>
-          <Trans i18nKey="signInVia" values={{service: 'E-Mail'}}/>
+          <Trans i18nKey="signInVia" values={{ service: 'E-Mail' }}/>
         </Card.Title>
         <Form onSubmit={onFormSubmit}>
           <Form.Group controlId="email">

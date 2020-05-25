@@ -1,11 +1,11 @@
-import React, {FormEvent, useState} from 'react'
+import React, { FormEvent, useState } from 'react'
 
-import {Trans, useTranslation} from 'react-i18next'
-import {Alert, Button, Card, Form} from 'react-bootstrap'
-import {postLdapLogin} from '../../../../../api/user'
-import {getAndSetUser} from '../../../../../utils/apiUtils'
-import {useSelector} from 'react-redux'
-import {ApplicationState} from '../../../../../redux'
+import { Trans, useTranslation } from 'react-i18next'
+import { Alert, Button, Card, Form } from 'react-bootstrap'
+import { postLdapLogin } from '../../../../../api/user'
+import { getAndSetUser } from '../../../../../utils/apiUtils'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../../../../../redux'
 
 export const ViaLdap: React.FC = () => {
   const { t } = useTranslation()
@@ -26,8 +26,8 @@ export const ViaLdap: React.FC = () => {
     }
   }
 
-  const onFormSubmit = async (event: FormEvent) => {
-    await doAsyncLogin()
+  const onFormSubmit = (event: FormEvent) => {
+    doAsyncLogin().catch(() => setError(true))
     event.preventDefault()
   }
 
