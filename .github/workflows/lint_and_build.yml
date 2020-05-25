@@ -1,0 +1,41 @@
+name: lint and build
+
+on:
+  push:
+    branches: [master, dev]
+  pull_request:
+    branches: [master, dev]
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Cache node_modules
+          uses: actions/cache@v1.1.0
+          with:
+            path: node_modules
+            key: node_modules
+      - name: Install yarn
+        run: npm -g install yarn
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint
+        run: node_modules/.bin/eslint src --ext .ts,.tsx
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Cache node_modules
+          uses: actions/cache@v1.1.0
+          with:
+            path: node_modules
+            key: node_modules
+      - name: Install yarn
+        run: npm -g install yarn
+      - name: Install dependencies
+        run: yarn install
+      - name: build project
+        run: yarn build
