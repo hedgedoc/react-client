@@ -1,14 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react'
+import { Row } from 'react-bootstrap'
+import { Trans, useTranslation } from 'react-i18next'
+import { loadHistoryFromLocalStore, sortAndFilterEntries } from '../../../../utils/historyUtils'
 import { HistoryContent } from './history-content/history-content'
 import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } from './history-toolbar/history-toolbar'
-import { loadHistoryFromLocalStore, sortAndFilterEntries } from '../../../../utils/historyUtils'
-import { Row } from 'react-bootstrap'
-import React, {Fragment, useEffect, useState} from 'react'
-import {HistoryContent} from './history-content/history-content';
-import {HistoryToolbar, HistoryToolbarState, initState as toolbarInitState} from './history-toolbar/history-toolbar';
-import {loadHistoryFromLocalStore, sortAndFilterEntries} from "../../../../utils/historyUtils";
-import {Row} from 'react-bootstrap';
-import {Trans, useTranslation} from "react-i18next";
 
 export interface HistoryEntry {
   id: string,
@@ -21,7 +16,8 @@ export interface HistoryEntry {
 export type pinClick = (entryId: string) => void;
 
 export const History: React.FC = () => {
-  useTranslation();const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
+  useTranslation()
+  const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([])
   const [viewState, setViewState] = useState<HistoryToolbarState>(toolbarInitState)
 
   useEffect(() => {
