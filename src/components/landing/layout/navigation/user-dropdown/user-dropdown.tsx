@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../../../redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { clearUser } from '../../../../../redux/user/methods'
-import { Trans, useTranslation } from 'react-i18next'
+import { Trans } from 'react-i18next'
 import { UserAvatar } from '../../user-avatar/user-avatar'
 
 export const UserDropdown: React.FC = () => {
@@ -25,16 +25,12 @@ export const UserDropdown: React.FC = () => {
             <Trans i18nKey="editor.help.documents.features"/>
           </Dropdown.Item>
         </LinkContainer>
-        <LinkContainer to={'/me/export'}>
+        <LinkContainer to={'/profile'}>
           <Dropdown.Item>
-            <FontAwesomeIcon icon="cloud-download-alt" fixedWidth={true} className="mr-2"/>
-            <Trans i18nKey="profile.exportUserData"/>
+            <FontAwesomeIcon icon="user" fixedWidth={true} className="mr-2"/>
+            <Trans i18nKey="userProfile"/>
           </Dropdown.Item>
         </LinkContainer>
-        <Dropdown.Item href="#">
-          <FontAwesomeIcon icon="trash" fixedWidth={true} className="mr-2"/>
-          <Trans i18nKey="profile.deleteUser"/>
-        </Dropdown.Item>
         <Dropdown.Item
           onClick={() => {
             clearUser()
