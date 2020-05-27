@@ -1,4 +1,3 @@
-import { IconLookup, IconName, IconPrefix } from '@fortawesome/fontawesome-common-types'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './icon-button.scss'
