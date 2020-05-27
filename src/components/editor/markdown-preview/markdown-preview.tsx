@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 const MarkdownPreview: React.FC = () => {
-    return (
-        <div style={{backgroundColor: "red"}}>
+  return (
+    <div style={{ backgroundColor: 'red' }}>
             Hello, MarkdownPreview!
-        </div>
-    );
+    </div>
+  )
 }
 
-export {MarkdownPreview}
+export { MarkdownPreview }

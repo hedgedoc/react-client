@@ -1,13 +1,24 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
+  faDiscourse,
+  faDropbox,
+  faFacebook,
+  faGithub,
+  faGitlab,
+  faGoogle,
+  faMastodon,
+  faTwitter
+} from '@fortawesome/free-brands-svg-icons'
+import {
   faAddressCard,
   faBolt,
   faChartBar,
+  faCircle,
   faClock,
   faCloudDownloadAlt,
-  faCircle,
   faColumns,
   faComment,
+  faDownload,
   faEye,
   faFileAlt,
   faFileCode,
@@ -17,13 +28,8 @@ import {
   faPaste,
   faPencilAlt,
   faPlus,
-  faShareSquare,
-  faSignOutAlt,
-  faThumbtack,
-  faTimes,
-  faTrash,
-  faTv,
   faQuestionCircle,
+  faShareSquare,
   faUsers,
   faAddressCard,
   faBolt,
@@ -59,7 +65,7 @@ import {
   faTwitter
 } from '@fortawesome/free-brands-svg-icons'
 
-export function setUpFontAwesome () {
+export const setUpFontAwesome :(() => void) = () => {
   library.add(faBolt, faPlus, faChartBar, faTv, faFileAlt, faCloudDownloadAlt,
     faTrash, faSignOutAlt, faComment, faDiscourse, faMastodon, faGlobe,
     faThumbtack, faClock, faTimes, faGithub, faGitlab, faGoogle, faFacebook,

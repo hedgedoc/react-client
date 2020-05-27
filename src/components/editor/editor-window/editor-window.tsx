@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 const EditorWindow: React.FC = () => {
-    return (
-        <div style={{backgroundColor: "green"}}>
+  return (
+    <div style={{ backgroundColor: 'green' }}>
             Hello, EditorWindow!
-        </div>
-    );
+    </div>
+  )
 }
 
-export {EditorWindow}
+export { EditorWindow }

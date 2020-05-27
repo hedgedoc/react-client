@@ -1,13 +1,12 @@
-import {Dropdown} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React from "react";
-import {useSelector} from "react-redux";
-import {ApplicationState} from "../../../../../redux";
-import {LinkContainer} from "react-router-bootstrap";
-import {clearUser} from "../../../../../redux/user/methods";
-import "./user-dropdown.scss";
-import {Trans} from "react-i18next";
-import {UserAvatar} from "../../user-avatar/user-avatar";
+import { Dropdown } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../../../../../redux'
+import { LinkContainer } from 'react-router-bootstrap'
+import { clearUser } from '../../../../../redux/user/methods'
+import { Trans } from 'react-i18next'
+import { UserAvatar } from '../../user-avatar/user-avatar'
 
 export const UserDropdown: React.FC = () => {
   const user = useSelector((state: ApplicationState) => state.user)
