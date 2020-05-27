@@ -1,6 +1,6 @@
 import React from 'react'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { ButtonProps } from 'react-bootstrap'
+import { IconProp } from '../../utils/iconProp'
 import { IconButton } from '../icon-button/icon-button'
 
 export enum SortModeEnum {

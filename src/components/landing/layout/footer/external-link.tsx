@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconProp } from '../../../../utils/iconProp'
 
 export interface ExternalLinkProp {
   href: string;

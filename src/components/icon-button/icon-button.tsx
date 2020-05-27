@@ -1,8 +1,9 @@
+import { IconLookup, IconName, IconPrefix } from '@fortawesome/fontawesome-common-types'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './icon-button.scss'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { Button, ButtonProps } from 'react-bootstrap'
+import { IconProp } from '../../utils/iconProp'
 
 export interface SocialButtonProps extends ButtonProps {
   icon: IconProp

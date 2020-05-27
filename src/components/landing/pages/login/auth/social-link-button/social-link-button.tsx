@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './social-link-button.scss'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { IconProp } from '../../../../../../utils/iconProp'
 
 export interface SocialButtonProps {
   backgroundClass: string,

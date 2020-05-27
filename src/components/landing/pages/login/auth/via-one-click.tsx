@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { IconProp } from '../../../../../utils/iconProp'
 import { SocialLinkButton } from './social-link-button/social-link-button'
 
 export enum OneClickType {
