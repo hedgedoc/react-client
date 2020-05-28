@@ -134,5 +134,6 @@
   "serverVersion": "Server version",
   "clientVersion": "Client version",
   "youAreUsing": "You are using",
-  "close": "Close"
+  "close": "Close",
+  "issueTracker": "Issue tracker"
 }

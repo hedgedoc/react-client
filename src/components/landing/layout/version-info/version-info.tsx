@@ -21,12 +21,20 @@ export const VersionInfo: React.FC = () => {
     <Col md={6} className={'flex-column'}>
       <h5>{title}</h5>
       <VersionInputField version={version}/>
-      <a target="_blank"
-        rel="noopener noreferrer"
-        href={sourceCodeLink}
-        className={'btn btn-sm btn-primary d-block'}>
-        <Trans i18nKey={'sourceCode'}/>
-      </a>
+      { sourceCodeLink
+        ? <a target="_blank"
+          rel="noopener noreferrer"
+          href={sourceCodeLink}
+          className={'btn btn-sm btn-primary d-block mb-2'}>
+          <Trans i18nKey={'sourceCode'}/>
+        </a> : null }
+      { issueTrackerLink
+        ? <a target="_blank"
+          rel="noopener noreferrer"
+          href={issueTrackerLink}
+          className={'btn btn-sm btn-primary d-block'}>
+          <Trans i18nKey={'issueTracker'}/>
+        </a> : null }
     </Col>
   )
 
