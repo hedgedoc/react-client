@@ -28,7 +28,8 @@ export const initialState: BackendConfigState = {
   },
   version: {
     version: '',
-    sourceCodeUrl: ''
+    sourceCodeUrl: '',
+    issueTrackerUrl: ''
   }
 }
 

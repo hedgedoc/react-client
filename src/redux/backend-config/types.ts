@@ -13,6 +13,7 @@ export interface BackendConfigState {
 export interface BackendVersion {
   version: string,
   sourceCodeUrl: string
+  issueTrackerUrl: string
 }
 
 export interface AuthProvidersState {
