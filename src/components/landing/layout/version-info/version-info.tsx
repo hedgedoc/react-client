@@ -19,14 +19,12 @@ export const VersionInfo: React.FC = () => {
     <Col md={6} className={'flex-column'}>
       <h5>{title}</h5>
       <VersionInputField version={version}/>
-      <Row className={'justify-content-center'}>
-        <Button href={sourceCodeLink} size={'sm'} className={'mb-1 mr-1'}>
+      <a target="_blank"
+        rel="noopener noreferrer"
+        href={sourceCodeLink}
+        className={'btn btn-sm btn-primary d-block'}>
           Source code
-        </Button>
-        <Button href={issueTrackerLink} size={'sm'} className={'mb-1 mr-1'}>
-          Issue tracker
-        </Button>
-      </Row>
+      </a>
     </Col>
   )
 
