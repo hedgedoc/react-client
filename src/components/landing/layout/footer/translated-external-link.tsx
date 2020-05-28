@@ -1,5 +1,5 @@
 import React from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { ExternalLink } from './external-link'
 
 export interface TranslatedLinkProps {
