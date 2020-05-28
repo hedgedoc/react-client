@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import * as serviceWorker from './service-worker'
 import { LandingLayout } from './components/landing/landing-layout'
 import { ApplicationLoader } from './components/application-loader/application-loader'
@@ -35,7 +35,10 @@ ReactDOM.render(
             </LandingLayout>
           </Route>
           <Route path="/n/:id">
-            <Editor/>
+            <Editor />
+          </Route>
+          <Route path="/">
+            <Redirect to="/intro"/>
           </Route>
         </Switch>
       </Router>
