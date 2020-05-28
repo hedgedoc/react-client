@@ -11,15 +11,13 @@ export const VersionInputField: React.FC<VersionInputFieldProps> = ({ version })
   const inputField = useRef<HTMLInputElement>(null)
   const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
 
-  const copyToClipboard = (element: HTMLInputElement|null) => {
-    if (!element) {
-      return
-    }
-    element.select()
-    element.setSelectionRange(0, 99999)
-    document.execCommand('copy')
-    setShowCopiedTooltip(true)
-    setTimeout(() => { setShowCopiedTooltip(false) }, 2000)
+  const copyToClipboard = (content: string) => {
+    navigator.clipboard.writeText(content).then(() => {
+      setShowCopiedTooltip(true)
+      setTimeout(() => { setShowCopiedTooltip(false) }, 2000)
+    }).catch(() => {
+      console.error("couldn't copy")
+    })
   }
 
   return (
@@ -35,7 +33,7 @@ export const VersionInputField: React.FC<VersionInputFieldProps> = ({ version })
       <InputGroup className="mb-3">
         <FormControl readOnly={true} ref={inputField} className={'text-center'} value={version} />
         <InputGroup.Append>
-          <Button variant="outline-secondary" onClick={() => copyToClipboard(inputField.current)} title={'Copy'}>
+          <Button variant="outline-secondary" onClick={() => copyToClipboard(version)} title={'Copy'}>
             <FontAwesomeIcon icon={'copy'}/>
           </Button>
         </InputGroup.Append>
