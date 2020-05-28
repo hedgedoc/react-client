@@ -23,7 +23,6 @@ export const VersionInputField: React.FC<VersionInputFieldProps> = ({ version })
 
   return (
     <Fragment>
-
       <Overlay target={inputField} show={showCopiedTooltip} placement="top">
         {(props) => (
           <Tooltip id={'copied_' + version} {...props}>
