@@ -128,5 +128,6 @@
   "username": "Username",
   "cards": "Cards",
   "table": "Table",
-  "errorOpenIdLogin": "Invalid OpenID provided"
+  "errorOpenIdLogin": "Invalid OpenID provided",
+  "versionInfo": "Version info"
 }
