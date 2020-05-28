@@ -129,5 +129,10 @@
   "cards": "Cards",
   "table": "Table",
   "errorOpenIdLogin": "Invalid OpenID provided",
-  "versionInfo": "Version info"
+  "versionInfo": "Version info",
+  "successfullyCopied": "Copied!",
+  "serverVersion": "Server version",
+  "clientVersion": "Client version",
+  "youAreUsing": "You are using",
+  "close": "Close"
 }

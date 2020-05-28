@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Button, Col, Modal, Row } from 'react-bootstrap'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ApplicationState } from '../../../../redux'
@@ -13,6 +13,8 @@ export const VersionInfo: React.FC = () => {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
+  const { t } = useTranslation()
+
   const serverVersion = useSelector((state:ApplicationState) => state.backendConfig.version)
 
   const column = (title: string, version: string, sourceCodeLink: string, issueTrackerLink: string) => (
@@ -23,7 +25,7 @@ export const VersionInfo: React.FC = () => {
         rel="noopener noreferrer"
         href={sourceCodeLink}
         className={'btn btn-sm btn-primary d-block'}>
-          Source code
+        <Trans i18nKey={'sourceCode'}/>
       </a>
     </Col>
   )
@@ -33,15 +35,15 @@ export const VersionInfo: React.FC = () => {
       <Link to={'#'} className={'text-light'} onClick={handleShow}><Trans i18nKey={'versionInfo'}/></Link>
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Body className="text-dark">
-          <h3>You are using</h3>
+          <h3><Trans i18nKey={'youAreUsing'}/></h3>
           <Row>
-            {column('Server version', serverVersion.version, serverVersion.sourceCodeUrl, serverVersion.issueTrackerUrl)}
-            {column('Client version', frontendVersion.version, frontendVersion.sourceCodeUrl, frontendVersion.issueTrackerUrl)}
+            {column(t('serverVersion'), serverVersion.version, serverVersion.sourceCodeUrl, serverVersion.issueTrackerUrl)}
+            {column(t('clientVersion'), frontendVersion.version, frontendVersion.sourceCodeUrl, frontendVersion.issueTrackerUrl)}
           </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            <Trans i18nKey={'close'}/>
           </Button>
         </Modal.Footer>
       </Modal>
