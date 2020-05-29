@@ -9,7 +9,7 @@ export interface UserAvatarProps {
 
 const UserAvatar: React.FC<UserAvatarProps> = ({ name, photo, additionalClasses = '' }) => {
   return (
-    <span className={'d-flex align-items-center ' + additionalClasses}>
+    <span className={'d-inline-flex align-items-center ' + additionalClasses}>
       <img
         src={photo}
         className="user-avatar"
