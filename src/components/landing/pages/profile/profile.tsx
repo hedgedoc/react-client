@@ -25,7 +25,6 @@ export const Profile: React.FC = () => {
     )
   }
 
-  // TODO General: Add translations
   return (
     <div className="my-3">
       <Row className="h-100 flex justify-content-center">
@@ -37,7 +36,7 @@ export const Profile: React.FC = () => {
               </Card.Title>
               <Form onSubmit={updateProfileSubmit} className="text-left">
                 <Form.Group controlId="userName">
-                  <Form.Label>Display name</Form.Label>
+                  <Form.Label><Trans i18nKey="displayName"/></Form.Label>
                   <Form.Control
                     type="text"
                     size="sm"
@@ -46,7 +45,7 @@ export const Profile: React.FC = () => {
                     className="bg-dark text-white"
                     required
                   />
-                  <Form.Text>This name will be shown publicly on notes you created or edited.</Form.Text>
+                  <Form.Text><Trans i18nKey="displayNameInfo"/></Form.Text>
                 </Form.Group>
 
                 <Button
@@ -60,10 +59,10 @@ export const Profile: React.FC = () => {
 
           <Card className="bg-dark mb-4">
             <Card.Body>
-              <Card.Title>Change password</Card.Title>
+              <Card.Title><Trans i18nKey="changePassword"/></Card.Title>
               <Form onSubmit={updatePasswordSubmit} className="text-left">
                 <Form.Group controlId="oldPassword">
-                  <Form.Label>Old password</Form.Label>
+                  <Form.Label><Trans i18nKey="oldPassword"/></Form.Label>
                   <Form.Control
                     type="password"
                     size="sm"
@@ -72,7 +71,7 @@ export const Profile: React.FC = () => {
                   />
                 </Form.Group>
                 <Form.Group controlId="newPassword">
-                  <Form.Label>New password</Form.Label>
+                  <Form.Label><Trans i18nKey="newPassword"/></Form.Label>
                   <Form.Control
                     type="password"
                     size="sm"
@@ -81,7 +80,7 @@ export const Profile: React.FC = () => {
                   />
                 </Form.Group>
                 <Form.Group controlId="newPasswordAgain">
-                  <Form.Label>New password again</Form.Label>
+                  <Form.Label><Trans i18nKey="newPasswordAgain"/></Form.Label>
                   <Form.Control
                     type="password"
                     size="sm"
@@ -101,14 +100,14 @@ export const Profile: React.FC = () => {
 
           <Card className="bg-dark mb-4">
             <Card.Body>
-              <Card.Title>Export data and delete account</Card.Title>
+              <Card.Title><Trans i18nKey="advancedAccountOptions"/></Card.Title>
               <Button variant="secondary" block>
                 <FontAwesomeIcon icon="cloud-download-alt" fixedWidth={true} className="mr-2" />
-                <span>Export all my data</span>
+                <Trans i18nKey="exportAccountData"/>
               </Button>
               <Button variant="danger" block>
                 <FontAwesomeIcon icon="trash" fixedWidth={true} className="mr-2" />
-                <span>Delete my account</span>
+                <Trans i18nKey="deleteAccount"/>
               </Button>
             </Card.Body>
           </Card>
