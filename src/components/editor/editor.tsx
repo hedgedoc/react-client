@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { RouteComponentProps, RouterProps, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { ApplicationState } from '../../redux'
 import { EditorMode } from '../../redux/editor/types'
 import { EditorWindow } from './editor-window/editor-window'

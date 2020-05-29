@@ -5,7 +5,7 @@ import {
 } from './types'
 import { store } from '../../utils/store'
 
-export const setEditorModeConfig = (editorMode: EditorMode) => {
+export const setEditorModeConfig = (editorMode: EditorMode): void => {
   const action: SetEditorConfigAction = {
     type: SET_EDITOR_CONFIG_MODE_ACTION_TYPE,
     payload: editorMode
