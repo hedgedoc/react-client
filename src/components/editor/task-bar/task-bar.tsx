@@ -1,6 +1,5 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './task-bar.scss'
 import { Link } from 'react-router-dom'
 import { Button, Nav, Navbar } from 'react-bootstrap'
 import { DarkModeButton } from './dark-mode-button'
@@ -21,22 +20,22 @@ const TaskBar: React.FC = () => {
         </Navbar.Brand>
         <EditorViewMode/>
         <DarkModeButton/>
-        <Button className="button-space-left text-secondary" size="sm"
+        <Button className="ml-2 text-secondary" size="sm"
           variant="outline-light">
           <FontAwesomeIcon icon="question-circle"/>
         </Button>
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
-        <Button className="button-space-left text-secondary" size="sm" variant="outline-light">
+        <Button className="ml-2 text-secondary" size="sm" variant="outline-light">
           <FontAwesomeIcon icon="plus"/> <Trans i18nKey="new"/>
         </Button>
-        <Button className="button-space-left text-secondary" size="sm" variant="outline-light">
+        <Button className="ml-2 text-secondary" size="sm" variant="outline-light">
           <FontAwesomeIcon icon="share-square"/> <Trans i18nKey="publish"/>
         </Button>
         <div className="text-secondary">
           <EditorMenu/>
         </div>
-        <div className="button-space-right">
+        <div className="mr-2">
           <ConnectionIndicator/>
         </div>
       </Nav>

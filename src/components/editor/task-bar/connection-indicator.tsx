@@ -6,17 +6,17 @@ import './connection-indicator.scss'
 import { UserLine } from './user-line'
 
 const ConnectionIndicator: React.FC = () => {
-  const userOnline = 1
+  const userOnline = 2
   return (
     <Dropdown className="small" alignRight>
-      <Dropdown.Toggle id="connection-indicator" size="sm" variant="primary" className="all-caps">
+      <Dropdown.Toggle id="connection-indicator" size="sm" variant="primary" className="upper-case">
         <FontAwesomeIcon icon="users"/> {userOnline} Online
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item className="d-flex align-items-center connection-dropdown-item">
+        <Dropdown.Item disabled={true} className="d-flex align-items-center connection-dropdown-item">
           <UserLine name="Philip Molares" photo="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp" color="red" status={ActiveIndicatorStatus.INACTIVE}/>
         </Dropdown.Item>
-        <Dropdown.Item className="d-flex align-items-center connection-dropdown-item">
+        <Dropdown.Item disabled={true} className="d-flex align-items-center connection-dropdown-item">
           <UserLine name="Philip Molares" photo="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp" color="blue" status={ActiveIndicatorStatus.ACTIVE}/>
         </Dropdown.Item>
       </Dropdown.Menu>
