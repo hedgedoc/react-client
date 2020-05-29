@@ -1,6 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ActiveIndicatorStatus } from './active-indicator'
 import './connection-indicator.scss'
 import { UserLine } from './user-line'
 
@@ -13,10 +14,10 @@ const ConnectionIndicator: React.FC = () => {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item className="d-flex align-items-center connection-dropdown-item">
-          <UserLine name="Philip Molares" photo="https://robohash.org/dermolly.png" color="red"/> <FontAwesomeIcon icon="circle"/>
+          <UserLine name="Philip Molares" photo="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp" color="red" status={ActiveIndicatorStatus.INACTIVE}/>
         </Dropdown.Item>
         <Dropdown.Item className="d-flex align-items-center connection-dropdown-item">
-          <UserLine name="Philip Molares" photo="https://robohash.org/dermolly.png" color="blue"/> <FontAwesomeIcon icon="circle"/>
+          <UserLine name="Philip Molares" photo="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp" color="blue" status={ActiveIndicatorStatus.ACTIVE}/>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

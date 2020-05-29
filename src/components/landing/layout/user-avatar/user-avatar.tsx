@@ -4,17 +4,19 @@ import './user-avatar.scss'
 export interface UserAvatarProps {
     name: string;
     photo: string;
+    additionalClasses?: string;
 }
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ name, photo }) => {
+const UserAvatar: React.FC<UserAvatarProps> = ({ name, photo, additionalClasses = '' }) => {
   return (
-    <Fragment>
+    <span className={'d-flex align-items-center ' + additionalClasses}>
       <img
         src={photo}
         className="user-avatar"
         alt={`Avatar of ${name}`}
-      /><span className="user-name">{name}</span>
-    </Fragment>
+      />
+      <span className="ml-1 user-name">{name}</span>
+    </span>
   )
 }
 
