@@ -2,7 +2,6 @@ import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './editor-menu.scss'
 
 const EditorMenu: React.FC = () => {
   useTranslation()
@@ -16,10 +15,10 @@ const EditorMenu: React.FC = () => {
         <Dropdown.Header>
           <Trans i18nKey="extra"/>
         </Dropdown.Header>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon="history"/> <Trans i18nKey="revision"/>
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon="tv"/> <Trans i18nKey="slideMode"/>
         </Dropdown.Item>
 
@@ -28,10 +27,10 @@ const EditorMenu: React.FC = () => {
         <Dropdown.Header>
           <Trans i18nKey="export"/>
         </Dropdown.Header>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon={['fab', 'dropbox']}/> Dropbox
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon={['fab', 'github']}/> Gist
         </Dropdown.Item>
 
@@ -40,13 +39,13 @@ const EditorMenu: React.FC = () => {
         <Dropdown.Header>
           <Trans i18nKey="import"/>
         </Dropdown.Header>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon={['fab', 'dropbox']}/> Dropbox
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon={['fab', 'github']}/> Gist
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon="paste"/> <Trans i18nKey="clipboard"/>
         </Dropdown.Item>
 
@@ -55,13 +54,13 @@ const EditorMenu: React.FC = () => {
         <Dropdown.Header>
           <Trans i18nKey="download"/>
         </Dropdown.Header>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon="file-alt"/> Markdown
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon="file-code"/> HTML
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item className="small">
           <FontAwesomeIcon icon="file-code"/> Raw HTML
         </Dropdown.Item>
 
