@@ -128,5 +128,7 @@
   "username": "Username",
   "cards": "Cards",
   "table": "Table",
-  "errorOpenIdLogin": "Invalid OpenID provided"
+  "errorOpenIdLogin": "Invalid OpenID provided",
+  "clearHistoryQuestion": "Do you want to clear the history?",
+  "clearHistoryDisclaimer": "This won't delete any notes."
 }

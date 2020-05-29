@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SortButton, SortModeEnum } from '../../../../sort-button/sort-button'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import './typeahead-hacks.scss'
+import { ClearHistoryButton } from './clear-history-button'
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
@@ -103,9 +104,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
         </Button>
       </InputGroup>
       <InputGroup className={'mr-1'}>
-        <Button variant={'light'} title={t('clearHistory')} onClick={onClearHistory}>
-          <FontAwesomeIcon icon={'trash'}/>
-        </Button>
+        <ClearHistoryButton onClearHistory={onClearHistory}/>
       </InputGroup>
       <InputGroup className={'mr-1'}>
         <Button variant={'light'} title={t('refreshHistory')}>
