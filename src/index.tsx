@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import { setUpFontAwesome } from './initializers/fontAwesome'
 import * as serviceWorker from './service-worker'
 import { LandingLayout } from './components/landing/landing-layout'
 import { ApplicationLoader } from './components/application-loader/application-loader'
@@ -12,12 +13,12 @@ import { History } from './components/landing/pages/history/history'
 import { Intro } from './components/landing/pages/intro/intro'
 import { Login } from './components/landing/pages/login/login'
 
-const initTasks = setUp()
+setUpFontAwesome()
 
 ReactDOM.render(
   <Provider store={store}>
-    <ApplicationLoader initTasks={initTasks}>
-      <Router>
+    <Router>
+      <ApplicationLoader>
         <Switch>
           <Route path="/history">
             <LandingLayout>
@@ -35,14 +36,14 @@ ReactDOM.render(
             </LandingLayout>
           </Route>
           <Route path="/n/:id">
-            <Editor />
+            <Editor/>
           </Route>
           <Route path="/">
             <Redirect to="/intro"/>
           </Route>
         </Switch>
-      </Router>
-    </ApplicationLoader>
+      </ApplicationLoader>
+    </Router>
   </Provider>
   , document.getElementById('root')
 )
