@@ -10,7 +10,7 @@ export const ApplicationLoader: React.FC = ({ children }) => {
   const [initTasks, setInitTasks] = useState<Promise<void>[]>([])
   const { pathname } = useLocation()
 
-  const runTask: ((task: Promise<void>) => (Promise<void>)) = async (task) => {
+  const runTask = async (task: Promise<void>): Promise<void> => {
     await task
     setDoneTasks(prevDoneTasks => {
       return prevDoneTasks + 1
