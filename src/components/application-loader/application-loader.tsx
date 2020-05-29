@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import './application-loader.scss'
+import { InitTask } from '../../initializers'
 import { LoadingScreen } from './loading-screen'
 
 interface ApplicationLoaderProps {
-  initTasks: Promise<void>[]
+  initTasks: InitTask[]
 }
 
 export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ children, initTasks }) => {
-  const [failed, setFailed] = useState<boolean>(false)
+  const [failedTitle, setFailedTitle] = useState<string>('')
   const [doneTasks, setDoneTasks] = useState<number>(0)
 
   const runTask:((task: Promise<void>) => (Promise<void>)) = async (task) => {
@@ -20,16 +21,16 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ children, 
   useEffect(() => {
     setDoneTasks(0)
     for (const task of initTasks) {
-      runTask(task).catch(reason => {
-        setFailed(true)
+      runTask(task.task).catch((reason: Error) => {
         console.error(reason)
+        setFailedTitle(task.name)
       })
     }
   }, [initTasks])
 
   return (
     doneTasks < initTasks.length || initTasks.length === 0
-      ? <LoadingScreen failed={failed}/>
+      ? <LoadingScreen failedTitle={failedTitle}/>
       : <Fragment>{children}</Fragment>
   )
 }
