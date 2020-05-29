@@ -1,6 +1,5 @@
-import { setUpFontAwesome } from './fontAwesome'
-import { setUpI18n } from './i18n'
 import { loadAllConfig } from './configLoader'
+import { setUpI18n } from './i18n'
 
 const customDelay: () => Promise<void> = async () => {
   if (window.localStorage.getItem('customDelay')) {
