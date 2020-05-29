@@ -1,4 +1,5 @@
 import { expectResponseCode, getBackendUrl } from '../utils/apiUtils'
+import { defaultFetchConfig } from './default'
 
 export const getMe: (() => Promise<meResponse>) = async () => {
   const response = await fetch('/me')
@@ -14,15 +15,8 @@ export interface meResponse {
 
 export const postEmailLogin: ((email: string, password: string) => Promise<void>) = async (email, password) => {
   const response = await fetch(getBackendUrl() + '/auth/email', {
+    ...defaultFetchConfig,
     method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
     body: JSON.stringify({
       email: email,
       password: password
@@ -34,15 +28,8 @@ export const postEmailLogin: ((email: string, password: string) => Promise<void>
 
 export const postLdapLogin: ((email: string, password: string) => Promise<void>) = async (username, password) => {
   const response = await fetch(getBackendUrl() + '/auth/ldap', {
+    ...defaultFetchConfig,
     method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
     body: JSON.stringify({
       username: username,
       password: password
@@ -54,15 +41,8 @@ export const postLdapLogin: ((email: string, password: string) => Promise<void>)
 
 export const postOpenIdLogin: ((openid: string) => Promise<void>) = async (openId: string) => {
   const response = await fetch(getBackendUrl() + '/auth/openid', {
+    ...defaultFetchConfig,
     method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
     body: JSON.stringify({
       openId: openId
     })

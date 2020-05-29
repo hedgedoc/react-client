@@ -1,5 +1,6 @@
 import { HistoryEntry } from '../components/landing/pages/history/history'
 import { expectResponseCode, getBackendUrl } from '../utils/apiUtils'
+import { defaultFetchConfig } from './default'
 
 export const getHistory = async (): Promise<HistoryEntry[]> => {
   const response = await fetch(getBackendUrl() + '/history')
@@ -9,15 +10,8 @@ export const getHistory = async (): Promise<HistoryEntry[]> => {
 
 export const setHistory = async (entries: HistoryEntry[]): Promise<void> => {
   const response = await fetch(getBackendUrl() + '/history', {
+    ...defaultFetchConfig,
     method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
     body: JSON.stringify({
       history: entries
     })
@@ -27,30 +21,16 @@ export const setHistory = async (entries: HistoryEntry[]): Promise<void> => {
 
 export const deleteHistory = async (): Promise<void> => {
   const response = await fetch(getBackendUrl() + '/history', {
-    method: 'DELETE',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
+    ...defaultFetchConfig,
+    method: 'DELETE'
   })
   expectResponseCode(response)
 }
 
 export const updateHistoryEntry = async (noteId: string, entry: HistoryEntry): Promise<HistoryEntry> => {
   const response = await fetch(getBackendUrl() + '/history/' + noteId, {
+    ...defaultFetchConfig,
     method: 'PUT',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
     body: JSON.stringify(entry)
   })
   expectResponseCode(response)
@@ -59,15 +39,8 @@ export const updateHistoryEntry = async (noteId: string, entry: HistoryEntry): P
 
 export const deleteHistoryEntry = async (noteId: string): Promise<void> => {
   const response = await fetch(getBackendUrl() + '/history/' + noteId, {
-    method: 'DELETE',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
+    ...defaultFetchConfig,
+    method: 'DELETE'
   })
   expectResponseCode(response)
 }
