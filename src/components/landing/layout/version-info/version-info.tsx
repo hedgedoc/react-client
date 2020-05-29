@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ApplicationState } from '../../../../redux'
 import frontendVersion from '../../../../version.json'
+import { TranslatedExternalLink } from '../../../links/translated-external-link'
 import { VersionInputField } from './version-input-field'
 
 export const VersionInfo: React.FC = () => {
@@ -15,26 +16,16 @@ export const VersionInfo: React.FC = () => {
 
   const { t } = useTranslation()
 
-  const serverVersion = useSelector((state:ApplicationState) => state.backendConfig.version)
+  const serverVersion = useSelector((state: ApplicationState) => state.backendConfig.version)
 
   const column = (title: string, version: string, sourceCodeLink: string, issueTrackerLink: string) => (
     <Col md={6} className={'flex-column'}>
       <h5>{title}</h5>
       <VersionInputField version={version}/>
-      { sourceCodeLink
-        ? <a target="_blank"
-          rel="noopener noreferrer"
-          href={sourceCodeLink}
-          className={'btn btn-sm btn-primary d-block mb-2'}>
-          <Trans i18nKey={'sourceCode'}/>
-        </a> : null }
-      { issueTrackerLink
-        ? <a target="_blank"
-          rel="noopener noreferrer"
-          href={issueTrackerLink}
-          className={'btn btn-sm btn-primary d-block'}>
-          <Trans i18nKey={'issueTracker'}/>
-        </a> : null }
+      {sourceCodeLink
+        ? <TranslatedExternalLink i18nKey={'sourceCode'} className={'btn btn-sm btn-primary d-block mb-2'} href={sourceCodeLink}/> : null}
+      {issueTrackerLink
+        ? <TranslatedExternalLink i18nKey={'issueTracker'} className={'btn btn-sm btn-primary d-block mb-2'} href={issueTrackerLink}/> : null}
     </Col>
   )
 
