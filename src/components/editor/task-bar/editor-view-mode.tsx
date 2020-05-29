@@ -14,13 +14,13 @@ const EditorViewMode: React.FC = () => {
       name="options"
       defaultValue={editorConfig.editorMode}
       onChange={(value: EditorMode) => { setEditorModeConfig(value) }}>
-      <ToggleButton value={EditorMode.PREVIEW} variant="outline-secondary">
+      <ToggleButton value={EditorMode.PREVIEW} variant="outline-secondary" className="no-active-focus">
         <FontAwesomeIcon icon="eye"/>
       </ToggleButton>
-      <ToggleButton value={EditorMode.BOTH} variant="outline-secondary">
+      <ToggleButton value={EditorMode.BOTH} variant="outline-secondary" className="no-active-focus">
         <FontAwesomeIcon icon="columns"/>
       </ToggleButton>
-      <ToggleButton value={EditorMode.EDITOR} variant="outline-secondary">
+      <ToggleButton value={EditorMode.EDITOR} variant="outline-secondary" className="no-active-focus">
         <FontAwesomeIcon icon="pencil-alt"/>
       </ToggleButton>
     </ToggleButtonGroup>
