@@ -21,7 +21,7 @@ export const ExternalLink: React.FC<ExternalLinkProp & ExternalLinkTextProp> = (
       {
         icon
           ? <Fragment>
-            <FontAwesomeIcon icon={icon}/>&nbsp;
+            <FontAwesomeIcon icon={icon} fixedWidth={true}/>&nbsp;
           </Fragment>
           : null
       }

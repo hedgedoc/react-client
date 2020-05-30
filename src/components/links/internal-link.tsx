@@ -20,7 +20,7 @@ export const InternalLink: React.FC<InternalLinkProp & InternalLinkTextProp> = (
       {
         icon
           ? <Fragment>
-            <FontAwesomeIcon icon={icon}/>&nbsp;
+            <FontAwesomeIcon icon={icon} fixedWidth={true}/>&nbsp;
           </Fragment>
           : null
       }
