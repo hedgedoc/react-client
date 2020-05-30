@@ -27,7 +27,7 @@ export const ApplicationLoader: React.FC = ({ children }) => {
     const baseUrl:string = window.location.pathname.replace(pathname, '') + '/'
     console.debug('Base URL is', baseUrl)
     setInitTasks(setUp(baseUrl))
-  }, [tasksAlreadyTriggered, pathname])
+  }, [tasksAlreadyTriggered, pathname, applicationLoading])
 
   useEffect(() => {
     for (const task of initTasks) {
