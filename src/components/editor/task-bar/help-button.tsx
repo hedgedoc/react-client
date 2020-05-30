@@ -6,7 +6,7 @@ import { TranslatedExternalLink } from '../../links/translated-external-link'
 
 export const HelpButton: React.FC = () => {
   const { t } = useTranslation()
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
 
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
