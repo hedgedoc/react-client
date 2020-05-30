@@ -13,7 +13,7 @@ export const HelpButton: React.FC = () => {
   return (
     <Fragment>
       <Button title={t('editor.menu.help')} className="ml-2 text-secondary" size="sm" variant="outline-light"
-              onClick={handleShow}>
+        onClick={handleShow}>
         <FontAwesomeIcon icon="question-circle"/>
       </Button>
       <Modal show={show} onHide={handleClose} animation={true} className="text-dark" size='lg'>
@@ -108,28 +108,28 @@ export const HelpButton: React.FC = () => {
                   <Card.Text>
                     <Table className="table-condensed table-cheatsheet">
                       <thead>
-                      <tr>
-                        <td><Trans i18nKey='editor.help.cheatsheet.example'/></td>
-                        <td><Trans i18nKey='editor.help.cheatsheet.syntax'/></td>
-                      </tr>
+                        <tr>
+                          <td><Trans i18nKey='editor.help.cheatsheet.example'/></td>
+                          <td><Trans i18nKey='editor.help.cheatsheet.syntax'/></td>
+                        </tr>
                       </thead>
                       <tbody className="markdown-body"
-                             style={{ fontFamily: 'inherit', fontSize: '14px', padding: 0, maxWidth: 'inherit' }}>
-                      <tr>
-                        <td><Trans i18nKey='editor.editorToolbar.header'/></td>
-                        <td>
-                          <pre># <Trans i18nKey='editor.editorToolbar.header'/></pre>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <ul>
-                            <li><Trans i18nKey='editor.editorToolbar.unorderedList'/></li>
-                          </ul>
-                        </td>
-                        <td>
-                          <pre>- <Trans i18nKey='editor.editorToolbar.unorderedList'/></pre>
-                        </td>
+                        style={{ fontFamily: 'inherit', fontSize: '14px', padding: 0, maxWidth: 'inherit' }}>
+                        <tr>
+                          <td><Trans i18nKey='editor.editorToolbar.header'/></td>
+                          <td>
+                            <pre># <Trans i18nKey='editor.editorToolbar.header'/></pre>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <ul>
+                              <li><Trans i18nKey='editor.editorToolbar.unorderedList'/></li>
+                            </ul>
+                          </td>
+                          <td>
+                            <pre>- <Trans i18nKey='editor.editorToolbar.unorderedList'/></pre>
+                          </td>
                         </tr>
                         <tr>
                           <td>
@@ -209,9 +209,9 @@ export const HelpButton: React.FC = () => {
                           </td>
                         </tr>
                         <tr>
-                          <td><a><Trans i18nKey='editor.editorToolbar.link'/></a></td>
+                          <td><a href='https://example.com'><Trans i18nKey='editor.editorToolbar.link'/></a></td>
                           <td>
-                            <pre>[link text](https:// "title")</pre>
+                            <pre>[link text](https://example.com)</pre>
                           </td>
                         </tr>
                         <tr>
@@ -220,14 +220,14 @@ export const HelpButton: React.FC = () => {
                             <pre>![image alt](https:// "title")</pre>
                           </td>
                         </tr>
-                      <tr>
-                        <td><code><Trans i18nKey='editor.editorToolbar.code'/></code></td>
-                        <td>
-                          <pre>`<Trans i18nKey='editor.editorToolbar.code'/>`</pre>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
+                        <tr>
+                          <td><code><Trans i18nKey='editor.editorToolbar.code'/></code></td>
+                          <td>
+                            <pre>`<Trans i18nKey='editor.editorToolbar.code'/>`</pre>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
                             <pre style={{ border: 'none !important' }}>
                               <code className="javascript hljs">
                                 <div className="wrapper">
@@ -240,42 +240,42 @@ export const HelpButton: React.FC = () => {
                                 </div>
                               </code>
                             </pre>
-                        </td>
-                        <td>
-                          <pre>```javascript<br/>var x = 5;<br/>```</pre>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><img alt=":smile:" className="emoji" src="./build/emojify.js/dist/images/basic/smile.png"
-                                 title=":smile:"/></td>
-                        <td>
-                          <pre>:smile:</pre>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Extern</td>
-                        <td>
-                          <pre>{'{'}%youtube youtube_id %{'}'}</pre>
-                        </td>
-                      </tr>
+                          </td>
+                          <td>
+                            <pre>```javascript<br/>var x = 5;<br/>```</pre>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><img alt=":smile:" className="emoji" src="./build/emojify.js/dist/images/basic/smile.png"
+                            title=":smile:"/></td>
+                          <td>
+                            <pre>:smile:</pre>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Extern</td>
+                          <td>
+                            <pre>{'{'}%youtube youtube_id %{'}'}</pre>
+                          </td>
+                        </tr>
                         <tr>
                           <td>L<sup>a</sup>T<sub>e</sub>X</td>
                           <td>
                             <pre>$L^aT_eX$</pre>
                           </td>
                         </tr>
-                      <tr>
-                        <td>
-                          <div className="alert alert-info">
-                            <p>
-                              <Trans i18nKey='editor.help.cheatsheet.exampleAlert'/>
-                            </p>
-                          </div>
-                        </td>
-                        <td>
-                          <pre>:::info<br/><Trans i18nKey='editor.help.cheatsheet.exampleAlert'/><br/>:::</pre>
-                        </td>
-                      </tr>
+                        <tr>
+                          <td>
+                            <div className="alert alert-info">
+                              <p>
+                                <Trans i18nKey='editor.help.cheatsheet.exampleAlert'/>
+                              </p>
+                            </div>
+                          </td>
+                          <td>
+                            <pre>:::info<br/><Trans i18nKey='editor.help.cheatsheet.exampleAlert'/><br/>:::</pre>
+                          </td>
+                        </tr>
                       </tbody>
                     </Table>
                   </Card.Text>
