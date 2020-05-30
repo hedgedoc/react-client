@@ -1,3 +1,4 @@
+import { LoginProvider } from '../redux/user/types'
 import { expectResponseCode, getBackendUrl } from '../utils/apiUtils'
 import { defaultFetchConfig } from './default'
 
@@ -11,6 +12,7 @@ export interface meResponse {
   id: string
   name: string
   photo: string
+  provider: LoginProvider
 }
 
 export const doEmailLogin = async (email: string, password: string): Promise<void> => {
@@ -47,6 +49,27 @@ export const doOpenIdLogin = async (openId: string): Promise<void> => {
       openId: openId
     })
   })
+
+  expectResponseCode(response)
+}
+
+export const doDisplayNameUpdate: ((displayName: string) => Promise<void>) = async (displayName: string) => {
+  // TODO Make this consistent with the API spec
+  const response = await fetch(getBackendUrl() + '/me/')
+
+  expectResponseCode(response)
+}
+
+export const doPasswordChange: ((password: string) => Promise<void>) = async (password: string) => {
+  // TODO From where does the required token originate?
+  const response = await fetch(getBackendUrl() + '/me/password')
+
+  expectResponseCode(response)
+}
+
+export const doUserDeletion: (() => Promise<void>) = async () => {
+  // TODO From where does the required token originate?
+  const response = await fetch(getBackendUrl() + '/me')
 
   expectResponseCode(response)
 }
