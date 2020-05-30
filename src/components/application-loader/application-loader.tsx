@@ -1,18 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
-import { setUp } from '../../initializers'
+import { setUp, InitTask } from '../../initializers'
 import './application-loader.scss'
-import { InitTask } from '../../initializers'
+
 import { LoadingScreen } from './loading-screen'
 
-interface ApplicationLoaderProps {
-  initTasks: InitTask[]
-}
-
-export const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ children, initTasks }) => {
+export const ApplicationLoader: React.FC = ({ children }) => {
   const [failedTitle, setFailedTitle] = useState<string>('')
   const [doneTasks, setDoneTasks] = useState<number>(0)
-  const [initTasks, setInitTasks] = useState<Promise<void>[]>([])
+  const [initTasks, setInitTasks] = useState<InitTask[]>([])
   const { pathname } = useLocation()
 
   const runTask = async (task: Promise<void>): Promise<void> => {
