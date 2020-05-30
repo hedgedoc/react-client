@@ -1,6 +1,5 @@
 import { loadAllConfig } from './configLoader'
 import { setUpI18n } from './i18n'
-import { setUpFontAwesome } from './fontAwesome'
 
 const customDelay: () => Promise<void> = async () => {
   if (window.localStorage.getItem('customDelay')) {
@@ -16,7 +15,6 @@ export interface InitTask {
 }
 
 export const setUp = (baseUrl: string): InitTask[] => {
-  setUpFontAwesome()
   return [{
     name: 'Load Translations',
     task: setUpI18n()
