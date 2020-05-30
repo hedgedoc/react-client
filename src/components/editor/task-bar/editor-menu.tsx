@@ -1,9 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 
-const EditorMenu: React.FC = () => {
+export const EditorMenu: React.FC = () => {
   useTranslation()
   return (
     <Dropdown className="small" alignRight={true}>
@@ -71,5 +72,3 @@ const EditorMenu: React.FC = () => {
     </Dropdown>
   )
 }
-
-export { EditorMenu }

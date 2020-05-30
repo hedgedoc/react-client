@@ -8,6 +8,7 @@ import { DarkModeButton } from './dark-mode-button'
 import { EditorMenu } from './editor-menu'
 import { EditorViewMode } from './editor-view-mode'
 import { HelpButton } from './help-button'
+import { PermissionMenu } from './permission-menu'
 
 const TaskBar: React.FC = () => {
   useTranslation()
@@ -24,12 +25,16 @@ const TaskBar: React.FC = () => {
         <HelpButton/>
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
+
         <Button className="ml-2 text-secondary" size="sm" variant="outline-light">
           <ForkAwesomeIcon icon="plus"/> <Trans i18nKey="editor.menu.new"/>
         </Button>
         <Button className="ml-2 text-secondary" size="sm" variant="outline-light">
           <ForkAwesomeIcon icon="share-square-o"/> <Trans i18nKey="editor.menu.publish"/>
         </Button>
+        <div className="text-secondary">
+          <PermissionMenu/>
+        </div>
         <div className="text-secondary">
           <EditorMenu/>
         </div>
