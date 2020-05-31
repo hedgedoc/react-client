@@ -1,3 +1,3 @@
 export interface FrontendConfig {
-  backendUrl: string,
+  backendUrl: string
 }
