@@ -9,7 +9,8 @@ import { getAndSetUser } from '../../../../../utils/apiUtils'
 export const ProfileDisplayName: React.FC = () => {
   const { t } = useTranslation()
   const user = useSelector((state: ApplicationState) => state.user)
-  const [submittable, setSubmittable] = useState(true)
+  const [submittable, setSubmittable] = useState(false)
+  const [error, setError] = useState(false)
   const [displayName, setDisplayName] = useState(user.name)
 
   const changeNameField = (event: ChangeEvent<HTMLInputElement>) => {
@@ -17,9 +18,13 @@ export const ProfileDisplayName: React.FC = () => {
     setDisplayName(event.target.value)
   }
 
-  const changeNameSubmit = async (event: FormEvent) => {
+  const doAsyncChange = async () => {
     await doDisplayNameUpdate(displayName)
     await getAndSetUser()
+  }
+
+  const changeNameSubmit = (event: FormEvent) => {
+    doAsyncChange().catch(() => setError(true))
     event.preventDefault()
   }
 
@@ -40,6 +45,7 @@ export const ProfileDisplayName: React.FC = () => {
               className="bg-dark text-white"
               onChange={changeNameField}
               isValid={submittable}
+              isInvalid={error}
               required
             />
             <Form.Text><Trans i18nKey="displayNameInfo"/></Form.Text>

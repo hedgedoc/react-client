@@ -55,21 +55,38 @@ export const doOpenIdLogin = async (openId: string): Promise<void> => {
 
 export const doDisplayNameUpdate: ((displayName: string) => Promise<void>) = async (displayName: string) => {
   // TODO Make this consistent with the API spec
-  const response = await fetch(getBackendUrl() + '/me/')
+  const response = await fetch(getBackendUrl() + '/me', {
+    ...defaultFetchConfig,
+    method: 'POST',
+    body: JSON.stringify({
+      name: displayName
+    })
+  })
 
   expectResponseCode(response)
 }
 
 export const doPasswordChange: ((password: string) => Promise<void>) = async (password: string) => {
-  // TODO From where does the required token originate?
-  const response = await fetch(getBackendUrl() + '/me/password')
+  const response = await fetch(getBackendUrl() + '/me/password', {
+    ...defaultFetchConfig,
+    method: 'POST',
+    body: JSON.stringify({
+      password,
+      token: undefined // TODO From where does the required token originate?
+    })
+  })
 
   expectResponseCode(response)
 }
 
 export const doUserDeletion: (() => Promise<void>) = async () => {
-  // TODO From where does the required token originate?
-  const response = await fetch(getBackendUrl() + '/me')
+  const response = await fetch(getBackendUrl() + '/me', {
+    ...defaultFetchConfig,
+    method: 'DELETE',
+    headers: {
+      'X-Token': '' // TODO From where does the required token originate?
+    }
+  })
 
   expectResponseCode(response)
 }

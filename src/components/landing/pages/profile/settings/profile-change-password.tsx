@@ -1,15 +1,29 @@
-import React, { FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
+import { doPasswordChange } from '../../../../../api/user'
 
 export const ProfileChangePassword: React.FC = () => {
   useTranslation()
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordAgain, setNewPasswordAgain] = useState('')
+  const [newPasswordValid, setNewPasswordValid] = useState(false)
+  const [newPasswordAgainValid, setNewPasswordAgainValid] = useState(false)
 
-  const updatePasswordSubmit = (event: FormEvent) => {
-    // TODO Add profile update feature
+  const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(event.target.value)
+    setNewPasswordValid(/^[^\s].{5,}$/.test(event.target.value))
+    setNewPasswordAgainValid(event.target.value === newPasswordAgain)
+  }
+
+  const onChangeNewPasswordAgain = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewPasswordAgain(event.target.value)
+    setNewPasswordAgainValid(event.target.value === newPassword)
+  }
+
+  const updatePasswordSubmit = async (event: FormEvent) => {
+    await doPasswordChange(newPassword)
     event.preventDefault()
   }
 
@@ -37,7 +51,10 @@ export const ProfileChangePassword: React.FC = () => {
               className="bg-dark text-white"
               required
               value={newPassword}
+              onChange={onChangeNewPassword}
+              isValid={newPasswordValid}
             />
+            <Form.Text><Trans i18nKey="newPasswordText"/></Form.Text>
           </Form.Group>
           <Form.Group controlId="newPasswordAgain">
             <Form.Label><Trans i18nKey="newPasswordAgain"/></Form.Label>
@@ -47,12 +64,16 @@ export const ProfileChangePassword: React.FC = () => {
               className="bg-dark text-white"
               required
               value={newPasswordAgain}
+              onChange={onChangeNewPasswordAgain}
+              isValid={newPasswordAgainValid}
+              isInvalid={newPasswordAgain !== '' && !newPasswordAgainValid}
             />
           </Form.Group>
 
           <Button
             type="submit"
-            variant="primary">
+            variant="primary"
+            disabled={!newPasswordValid || !newPasswordAgainValid}>
             <Trans i18nKey="save"/>
           </Button>
         </Form>
