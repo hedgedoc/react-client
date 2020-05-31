@@ -5,7 +5,7 @@ export enum FrontendConfigActionType {
   SET_FRONTEND_CONFIG = 'frontend-config/set'
 }
 
-export interface FrontendConfigActions extends Action<FrontendConfigActionType>{
+export interface FrontendConfigActions extends Action<FrontendConfigActionType> {
   type: FrontendConfigActionType;
 }
 
