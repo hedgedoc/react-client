@@ -1,6 +1,5 @@
 import { LoginProvider } from '../redux/user/types'
-import { expectResponseCode, getBackendUrl } from '../utils/apiUtils'
-import { defaultFetchConfig } from './default'
+import { expectResponseCode } from '../utils/apiUtils'
 
 export const getMe = async (): Promise<meResponse> => {
   const response = await fetch('/me')
