@@ -8,12 +8,9 @@ import { LandingLayout } from './components/landing/landing-layout'
 import { History } from './components/landing/pages/history/history'
 import { Intro } from './components/landing/pages/intro/intro'
 import { Login } from './components/landing/pages/login/login'
-import { setUpFontAwesome } from './initializers/fontAwesome'
 import * as serviceWorker from './service-worker'
 import { store } from './utils/store'
 import './style/index.scss'
-
-setUpFontAwesome()
 
 ReactDOM.render(
   <Provider store={store}>
