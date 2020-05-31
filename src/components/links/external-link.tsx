@@ -1,12 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Fragment } from 'react'
-import { GeneralLinkProp } from './types'
+import { LinkWithTextProps } from './types'
 
-export interface ExternalLinkProps extends GeneralLinkProp {
-  text: string;
-}
-
-export const ExternalLink: React.FC<ExternalLinkProps> = ({ href, text, icon, className = 'text-light' }) => {
+export const ExternalLink: React.FC<LinkWithTextProps> = ({ href, text, icon, className = 'text-light' }) => {
   return (
     <a href={href}
       target="_blank"

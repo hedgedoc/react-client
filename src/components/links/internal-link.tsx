@@ -1,13 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Fragment } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { GeneralLinkProp } from './types'
+import { LinkWithTextProps } from './types'
 
-export interface InternalLinkProps extends GeneralLinkProp{
-  text: string;
-}
-
-export const InternalLink: React.FC<InternalLinkProps> = ({ href, text, icon, className = 'text-light' }) => {
+export const InternalLink: React.FC<LinkWithTextProps> = ({ href, text, icon, className = 'text-light' }) => {
   return (
     <LinkContainer to={href}
       className={className}>
