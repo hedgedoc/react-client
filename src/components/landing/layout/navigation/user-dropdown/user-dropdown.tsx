@@ -25,16 +25,12 @@ export const UserDropdown: React.FC = () => {
             <Trans i18nKey="editor.help.documents.features"/>
           </Dropdown.Item>
         </LinkContainer>
-        <LinkContainer to={'/me/export'}>
+        <LinkContainer to={'/profile'}>
           <Dropdown.Item>
-            <ForkAwesomeIcon icon="cloud-download" fixedWidth={true} className="mr-2"/>
-            <Trans i18nKey="profile.exportUserData"/>
+            <ForkAwesomeIcon icon="user" fixedWidth={true} className="mr-2"/>
+            <Trans i18nKey="profile.userProfile"/>
           </Dropdown.Item>
         </LinkContainer>
-        <Dropdown.Item href="#">
-          <ForkAwesomeIcon icon="trash" fixedWidth={true} className="mr-2"/>
-          <Trans i18nKey="profile.deleteUser"/>
-        </Dropdown.Item>
         <Dropdown.Item
           onClick={() => {
             clearUser()
