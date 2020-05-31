@@ -1,4 +1,4 @@
-import { getMe } from '../api/user'
+import { getMe } from '../api/me'
 import { setUser } from '../redux/user/methods'
 import { LoginStatus } from '../redux/user/types'
 import { store } from './store'
