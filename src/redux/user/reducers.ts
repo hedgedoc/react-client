@@ -14,7 +14,7 @@ export const initialState: UserState = {
   name: '',
   photo: '',
   status: LoginStatus.forbidden,
-  provider: LoginProvider.email
+  provider: LoginProvider.EMAIL
 }
 
 export const UserReducer: Reducer<UserState, UserActions> = (state: UserState = initialState, action: UserActions) => {

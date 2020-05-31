@@ -29,17 +29,17 @@ export enum LoginStatus {
 }
 
 export enum LoginProvider {
-    facebook = 'facebook',
-    github = 'github',
-    twitter = 'twitter',
-    gitlab = 'gitlab',
-    dropbox = 'dropbox',
-    google = 'google',
-    saml = 'saml',
-    oauth2 = 'oauth2',
-    email = 'email',
-    ldap = 'ldap',
-    openid = 'openid'
+    FACEBOOK = 'facebook',
+    GITHUB = 'github',
+    TWITTER = 'twitter',
+    GITLAB = 'gitlab',
+    DROPBOX = 'dropbox',
+    GOOGLE = 'google',
+    SAML = 'saml',
+    OAUTH2 = 'oauth2',
+    EMAIL = 'email',
+    LDAP = 'ldap',
+    OPENID = 'openid'
 }
 
 export type UserActions = SetUserAction | ClearUserAction;

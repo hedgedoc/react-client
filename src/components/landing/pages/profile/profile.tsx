@@ -22,7 +22,7 @@ export const Profile: React.FC = () => {
       <Row className="h-100 flex justify-content-center">
         <Col lg={6}>
           <ProfileDisplayName/>
-          { user.provider === LoginProvider.email ? <ProfileChangePassword/> : null }
+          { user.provider === LoginProvider.EMAIL ? <ProfileChangePassword/> : null }
           <ProfileAccountManagement/>
         </Col>
       </Row>
