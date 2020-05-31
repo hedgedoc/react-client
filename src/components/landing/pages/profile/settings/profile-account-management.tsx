@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Button, Card, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { deleteUser } from '../../../../../api/user'
@@ -7,35 +7,44 @@ import { clearUser } from '../../../../../redux/user/methods'
 import { getBackendUrl } from '../../../../../utils/apiUtils'
 
 export const ProfileAccountManagement: React.FC = () => {
-  const { t } = useTranslation()
+  useTranslation()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [deletionButtonText, setDeletionButtonText] = useState('')
   const [deletionButtonActive, setDeletionButtonActive] = useState(false)
-  const [countdown, setCountdown] = useState(10)
+  const [countdown, setCountdown] = useState(0)
+  const interval = useRef<NodeJS.Timeout>()
+
+  const stopCountdown = ():void => {
+    if (interval.current) {
+      clearTimeout(interval.current)
+    }
+  }
+
+  const startCountdown = ():void => {
+    interval.current = setInterval(() => {
+      setCountdown((oldValue) => oldValue - 1)
+    }, 1000)
+  }
 
   const handleModalClose = () => {
     setShowDeleteModal(false)
+    stopCountdown()
   }
 
-  const doCountdown = () => {
+  useEffect(() => {
     if (!showDeleteModal) {
       return
     }
     if (countdown === 0) {
-      setDeletionButtonText(t('profile.modal.deleteUser.title'))
       setDeletionButtonActive(true)
-    } else {
-      setDeletionButtonText(countdown.toString())
-      setCountdown(countdown - 1)
-      setTimeout(() => doCountdown(), 1000)
+      stopCountdown()
     }
-  }
+  }, [countdown, showDeleteModal])
 
   const handleModalOpen = () => {
     setShowDeleteModal(true)
     setDeletionButtonActive(false)
     setCountdown(10)
-    doCountdown()
+    startCountdown()
   }
 
   const deleteUserAccount = async () => {
@@ -49,11 +58,11 @@ export const ProfileAccountManagement: React.FC = () => {
         <Card.Body>
           <Card.Title><Trans i18nKey="profile.accountManagement"/></Card.Title>
           <Button variant="secondary" block href={getBackendUrl() + '/me/export'} className="mb-2">
-            <FontAwesomeIcon icon="cloud-download-alt" fixedWidth={true} className="mr-2" />
+            <FontAwesomeIcon icon="cloud-download-alt" fixedWidth={true} className="mr-2"/>
             <Trans i18nKey="profile.exportUserData"/>
           </Button>
           <Button variant="danger" block onClick={handleModalOpen}>
-            <FontAwesomeIcon icon="trash" fixedWidth={true} className="mr-2" />
+            <FontAwesomeIcon icon="trash" fixedWidth={true} className="mr-2"/>
             <Trans i18nKey="profile.deleteUser"/>
           </Button>
         </Card.Body>
@@ -69,7 +78,7 @@ export const ProfileAccountManagement: React.FC = () => {
             <Trans i18nKey="common.close"/>
           </Button>
           <Button variant="danger" onClick={deleteUserAccount} disabled={!deletionButtonActive}>
-            {deletionButtonText}
+            {deletionButtonActive ? <Trans i18nKey={'profile.modal.deleteUser.title'}/> : countdown}
           </Button>
         </Modal.Footer>
       </Modal>
