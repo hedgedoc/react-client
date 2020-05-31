@@ -32,11 +32,11 @@ export const ProfileDisplayName: React.FC = () => {
     <Card className="bg-dark mb-4">
       <Card.Body>
         <Card.Title>
-          <Trans i18nKey="userProfile"/>
+          <Trans i18nKey="profile.userProfile"/>
         </Card.Title>
         <Form onSubmit={changeNameSubmit} className="text-left">
           <Form.Group controlId="displayName">
-            <Form.Label><Trans i18nKey="displayName"/></Form.Label>
+            <Form.Label><Trans i18nKey="profile.displayName"/></Form.Label>
             <Form.Control
               type="text"
               size="sm"
@@ -48,14 +48,14 @@ export const ProfileDisplayName: React.FC = () => {
               isInvalid={error}
               required
             />
-            <Form.Text><Trans i18nKey="displayNameInfo"/></Form.Text>
+            <Form.Text><Trans i18nKey="profile.displayNameInfo"/></Form.Text>
           </Form.Group>
 
           <Button
             type="submit"
             variant="primary"
             disabled={!submittable}>
-            <Trans i18nKey="save"/>
+            <Trans i18nKey="common.save"/>
           </Button>
         </Form>
       </Card.Body>

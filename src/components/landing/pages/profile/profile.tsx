@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router'
 import { ApplicationState } from '../../../../redux'
 import { LoginProvider, LoginStatus } from '../../../../redux/user/types'
-import { ProfileAdvancedOptions } from './settings/profile-advanced-options'
+import { ProfileAccountManagement } from './settings/profile-account-management'
 import { ProfileChangePassword } from './settings/profile-change-password'
 import { ProfileDisplayName } from './settings/profile-display-name'
 
@@ -23,7 +23,7 @@ export const Profile: React.FC = () => {
         <Col lg={6}>
           <ProfileDisplayName/>
           { user.provider === LoginProvider.email ? <ProfileChangePassword/> : null }
-          <ProfileAdvancedOptions/>
+          <ProfileAccountManagement/>
         </Col>
       </Row>
     </div>

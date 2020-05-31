@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../../../redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { clearUser } from '../../../../../redux/user/methods'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { UserAvatar } from '../../user-avatar/user-avatar'
 
 export const UserDropdown: React.FC = () => {
-  useTranslation();
+  useTranslation()
   const user = useSelector((state: ApplicationState) => state.user)
 
   return (
@@ -28,7 +28,7 @@ export const UserDropdown: React.FC = () => {
         <LinkContainer to={'/profile'}>
           <Dropdown.Item>
             <FontAwesomeIcon icon="user" fixedWidth={true} className="mr-2"/>
-            <Trans i18nKey="userProfile"/>
+            <Trans i18nKey="profile.userProfile"/>
           </Dropdown.Item>
         </LinkContainer>
         <Dropdown.Item

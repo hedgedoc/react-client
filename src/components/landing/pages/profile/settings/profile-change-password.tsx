@@ -30,10 +30,10 @@ export const ProfileChangePassword: React.FC = () => {
   return (
     <Card className="bg-dark mb-4">
       <Card.Body>
-        <Card.Title><Trans i18nKey="changePassword"/></Card.Title>
+        <Card.Title><Trans i18nKey="profile.changePassword.title"/></Card.Title>
         <Form onSubmit={updatePasswordSubmit} className="text-left">
           <Form.Group controlId="oldPassword">
-            <Form.Label><Trans i18nKey="oldPassword"/></Form.Label>
+            <Form.Label><Trans i18nKey="profile.changePassword.old"/></Form.Label>
             <Form.Control
               type="password"
               size="sm"
@@ -44,7 +44,7 @@ export const ProfileChangePassword: React.FC = () => {
             />
           </Form.Group>
           <Form.Group controlId="newPassword">
-            <Form.Label><Trans i18nKey="newPassword"/></Form.Label>
+            <Form.Label><Trans i18nKey="profile.changePassword.new"/></Form.Label>
             <Form.Control
               type="password"
               size="sm"
@@ -54,10 +54,10 @@ export const ProfileChangePassword: React.FC = () => {
               onChange={onChangeNewPassword}
               isValid={newPasswordValid}
             />
-            <Form.Text><Trans i18nKey="newPasswordText"/></Form.Text>
+            <Form.Text><Trans i18nKey="profile.changePassword.info"/></Form.Text>
           </Form.Group>
           <Form.Group controlId="newPasswordAgain">
-            <Form.Label><Trans i18nKey="newPasswordAgain"/></Form.Label>
+            <Form.Label><Trans i18nKey="profile.changePassword.newAgain"/></Form.Label>
             <Form.Control
               type="password"
               size="sm"
@@ -74,7 +74,7 @@ export const ProfileChangePassword: React.FC = () => {
             type="submit"
             variant="primary"
             disabled={!newPasswordValid || !newPasswordAgainValid}>
-            <Trans i18nKey="save"/>
+            <Trans i18nKey="common.save"/>
           </Button>
         </Form>
       </Card.Body>
