@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { doPasswordChange } from '../../../../../api/user'
+import { changePassword } from '../../../../../api/user'
 
 export const ProfileChangePassword: React.FC = () => {
   useTranslation()
@@ -11,9 +11,11 @@ export const ProfileChangePassword: React.FC = () => {
   const [newPasswordValid, setNewPasswordValid] = useState(false)
   const [newPasswordAgainValid, setNewPasswordAgainValid] = useState(false)
 
+  const regexPassword = /^[^\s].{5,}$/
+
   const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(event.target.value)
-    setNewPasswordValid(/^[^\s].{5,}$/.test(event.target.value))
+    setNewPasswordValid(regexPassword.test(event.target.value))
     setNewPasswordAgainValid(event.target.value === newPasswordAgain)
   }
 
@@ -23,7 +25,7 @@ export const ProfileChangePassword: React.FC = () => {
   }
 
   const updatePasswordSubmit = async (event: FormEvent) => {
-    await doPasswordChange(oldPassword, newPassword)
+    await changePassword(oldPassword, newPassword)
     event.preventDefault()
   }
 

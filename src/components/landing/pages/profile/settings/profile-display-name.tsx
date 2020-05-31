@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { doDisplayNameUpdate } from '../../../../../api/user'
+import { updateDisplayName } from '../../../../../api/user'
 import { ApplicationState } from '../../../../../redux'
 import { getAndSetUser } from '../../../../../utils/apiUtils'
 
@@ -13,13 +13,15 @@ export const ProfileDisplayName: React.FC = () => {
   const [error, setError] = useState(false)
   const [displayName, setDisplayName] = useState(user.name)
 
+  const regexInvalidDisplayName = /^\s*$/
+
   const changeNameField = (event: ChangeEvent<HTMLInputElement>) => {
-    setSubmittable(!/^\s*$/.test(event.target.value))
+    setSubmittable(!regexInvalidDisplayName.test(event.target.value))
     setDisplayName(event.target.value)
   }
 
   const doAsyncChange = async () => {
-    await doDisplayNameUpdate(displayName)
+    await updateDisplayName(displayName)
     await getAndSetUser()
   }
 
@@ -40,7 +42,7 @@ export const ProfileDisplayName: React.FC = () => {
             <Form.Control
               type="text"
               size="sm"
-              placeholder={t('displayName')}
+              placeholder={t('profile.displayName')}
               value={displayName}
               className="bg-dark text-white"
               onChange={changeNameField}

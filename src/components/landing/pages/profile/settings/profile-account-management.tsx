@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Fragment, useState } from 'react'
 import { Button, Card, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { doUserDeletion } from '../../../../../api/user'
+import { deleteUser } from '../../../../../api/user'
 import { clearUser } from '../../../../../redux/user/methods'
 import { getBackendUrl } from '../../../../../utils/apiUtils'
 
@@ -11,29 +11,35 @@ export const ProfileAccountManagement: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [deletionButtonText, setDeletionButtonText] = useState('')
   const [deletionButtonActive, setDeletionButtonActive] = useState(false)
+  const [countdown, setCountdown] = useState(10)
 
   const handleModalClose = () => {
     setShowDeleteModal(false)
   }
 
-  const doCountdown = (value: number) => {
-    if (value === 0) {
+  const doCountdown = () => {
+    if (!showDeleteModal) {
+      return
+    }
+    if (countdown === 0) {
       setDeletionButtonText(t('profile.modal.deleteUser.title'))
       setDeletionButtonActive(true)
     } else {
-      setDeletionButtonText(value.toString())
-      setTimeout(() => doCountdown(value - 1), 1000)
+      setDeletionButtonText(countdown.toString())
+      setCountdown(countdown - 1)
+      setTimeout(() => doCountdown(), 1000)
     }
   }
 
   const handleModalOpen = () => {
     setShowDeleteModal(true)
     setDeletionButtonActive(false)
-    doCountdown(10)
+    setCountdown(10)
+    doCountdown()
   }
 
   const deleteUserAccount = async () => {
-    await doUserDeletion()
+    await deleteUser()
     clearUser()
   }
 

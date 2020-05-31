@@ -53,7 +53,7 @@ export const doOpenIdLogin = async (openId: string): Promise<void> => {
   expectResponseCode(response)
 }
 
-export const doDisplayNameUpdate = async (displayName: string): Promise<void> => {
+export const updateDisplayName = async (displayName: string): Promise<void> => {
   const response = await fetch(getBackendUrl() + '/me', {
     ...defaultFetchConfig,
     method: 'POST',
@@ -65,7 +65,7 @@ export const doDisplayNameUpdate = async (displayName: string): Promise<void> =>
   expectResponseCode(response)
 }
 
-export const doPasswordChange = async (oldPassword: string, newPassword: string): Promise<void> => {
+export const changePassword = async (oldPassword: string, newPassword: string): Promise<void> => {
   const response = await fetch(getBackendUrl() + '/me/password', {
     ...defaultFetchConfig,
     method: 'POST',
@@ -78,7 +78,7 @@ export const doPasswordChange = async (oldPassword: string, newPassword: string)
   expectResponseCode(response)
 }
 
-export const doUserDeletion = async (): Promise<void> => {
+export const deleteUser = async (): Promise<void> => {
   const response = await fetch(getBackendUrl() + '/me', {
     ...defaultFetchConfig,
     method: 'DELETE'
