@@ -28,7 +28,7 @@ const HeaderBar: React.FC = () => {
       <div className="d-inline-flex">
         {user.status === LoginStatus.forbidden
           ? <Fragment>
-            <span className={'mr-1'}>
+            <span className={'mr-1 d-flex'}>
               <NewGuestNoteButton/>
             </span>
             <SignInButton/>
