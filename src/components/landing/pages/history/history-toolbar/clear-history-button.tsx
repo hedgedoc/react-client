@@ -26,11 +26,14 @@ export const ClearHistoryButton: React.FC<ClearHistoryButtonProps> = ({ onClearH
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-dark">
-            <h5><Trans i18nKey={'landing.history.modal.clearHistory.question'}/></h5>
+          <h5><Trans i18nKey={'landing.history.modal.clearHistory.question'}/></h5>
           <h6><Trans i18nKey={'landing.history.modal.clearHistory.disclaimer'}/></h6>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={onClearHistory}>
+          <Button variant="danger" onClick={() => {
+            onClearHistory()
+            handleClose()
+          }}>
             <Trans i18nKey={'landing.history.toolbar.clear'}/>
           </Button>
         </Modal.Footer>
