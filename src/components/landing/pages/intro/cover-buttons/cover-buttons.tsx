@@ -10,7 +10,7 @@ export const CoverButtons: React.FC = () => {
   useTranslation()
   const user = useSelector((state: ApplicationState) => state.user)
 
-  if (!user) {
+  if (user) {
     return null
   }
 
