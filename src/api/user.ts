@@ -65,12 +65,13 @@ export const doDisplayNameUpdate: ((displayName: string) => Promise<void>) = asy
   expectResponseCode(response)
 }
 
-export const doPasswordChange: ((password: string) => Promise<void>) = async (password: string) => {
+export const doPasswordChange: ((oldPassword: string, newPassword: string) => Promise<void>) = async (oldPassword: string, newPassword: string) => {
   const response = await fetch(getBackendUrl() + '/me/password', {
     ...defaultFetchConfig,
     method: 'POST',
     body: JSON.stringify({
-      password
+      oldPassword,
+      newPassword
     })
   })
 

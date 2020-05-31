@@ -23,7 +23,7 @@ export const ProfileChangePassword: React.FC = () => {
   }
 
   const updatePasswordSubmit = async (event: FormEvent) => {
-    await doPasswordChange(newPassword)
+    await doPasswordChange(oldPassword, newPassword)
     event.preventDefault()
   }
 
@@ -39,7 +39,6 @@ export const ProfileChangePassword: React.FC = () => {
               size="sm"
               className="bg-dark text-white"
               required
-              value={oldPassword}
               onChange={(event) => setOldPassword(event.target.value)}
             />
           </Form.Group>
@@ -50,7 +49,6 @@ export const ProfileChangePassword: React.FC = () => {
               size="sm"
               className="bg-dark text-white"
               required
-              value={newPassword}
               onChange={onChangeNewPassword}
               isValid={newPasswordValid}
             />
@@ -63,7 +61,6 @@ export const ProfileChangePassword: React.FC = () => {
               size="sm"
               className="bg-dark text-white"
               required
-              value={newPasswordAgain}
               onChange={onChangeNewPasswordAgain}
               isValid={newPasswordAgainValid}
               isInvalid={newPasswordAgain !== '' && !newPasswordAgainValid}
