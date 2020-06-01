@@ -25,7 +25,7 @@ export const History: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (historyEntries === []) {
+    if (!historyEntries || historyEntries === []) {
       return
     }
     setHistoryToLocalStore(historyEntries)
