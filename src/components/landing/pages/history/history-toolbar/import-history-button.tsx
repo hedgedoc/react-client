@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
-import './import-history-button.scss'
 import { HistoryEntry } from '../history'
+import './import-history-button.scss'
 
 export interface ImportHistoryButtonProps {
   onImportHistory: (entries: HistoryEntry[]) => void
@@ -20,12 +20,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
       const fileReader = new FileReader()
       fileReader.onload = (event) => {
         if (event.target && event.target.result) {
-          let result
-          if (typeof event.target.result !== 'string') {
-            result = String.fromCharCode.apply(null, new Uint8Array(event.target.result))
-          } else {
-            result = event.target.result
-          }
+          const result = event.target.result as string
           onImportHistory(
             JSON.parse(result) as HistoryEntry[]
           )
@@ -39,10 +34,11 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
 
   return (
     <div>
-      <input type='file' id='upload-history' className="invisible" accept=".json" onChange={handleUpload} ref={element => setInputRef(element)}/>
+      <input type='file' id='upload-history' className="invisible" accept=".json" onChange={handleUpload}
+        ref={element => setInputRef(element)}/>
       <Button variant={'light'}
         title={t('landing.history.toolbar.import')}
-        onClick={() => inputRef && inputRef.click()}
+        onClick={() => inputRef?.click()}
       >
         <ForkAwesomeIcon icon='upload'/>
       </Button>
