@@ -21,8 +21,7 @@ export const History: React.FC = () => {
   const [viewState, setViewState] = useState<HistoryToolbarState>(toolbarInitState)
 
   useEffect(() => {
-    const history = loadHistoryFromLocalStore()
-    setHistoryEntries(history)
+    refreshHistory()
   }, [])
 
   useEffect(() => {
@@ -31,6 +30,26 @@ export const History: React.FC = () => {
     }
     setHistoryToLocalStore(historyEntries)
   }, [historyEntries])
+
+  const exportHistory = () => {
+    const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(historyEntries))
+    const downloadLink = document.createElement('a')
+    downloadLink.setAttribute('href', data)
+    downloadLink.setAttribute('download', 'history.json')
+    document.body.appendChild(downloadLink)
+    downloadLink.click()
+    downloadLink.remove()
+  }
+
+  const importHistory = (entries: HistoryEntry[]):void => {
+    setHistoryToLocalStore(entries)
+    setHistoryEntries(entries)
+  }
+
+  const refreshHistory = () => {
+    const history = loadHistoryFromLocalStore()
+    setHistoryEntries(history)
+  }
 
   const clearHistory = () => {
     setHistoryToLocalStore([])
@@ -66,6 +85,9 @@ export const History: React.FC = () => {
           onSettingsChange={setViewState}
           tags={tags}
           onClearHistory={clearHistory}
+          onRefreshHistory={refreshHistory}
+          onExportHistory={exportHistory}
+          onImportHistory={importHistory}
         />
       </Row>
       <HistoryContent viewState={viewState.viewState}

@@ -4,8 +4,10 @@ import { Trans, useTranslation } from 'react-i18next'
 import { SortButton, SortModeEnum } from '../../../../sort-button/sort-button'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import './typeahead-hacks.scss'
+import { HistoryEntry } from '../history'
 import { ClearHistoryButton } from './clear-history-button'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
+import { ImportHistoryButton } from './import-history-button'
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
@@ -26,6 +28,9 @@ export interface HistoryToolbarProps {
   onSettingsChange: HistoryToolbarChange
   tags: string[]
   onClearHistory: () => void
+  onRefreshHistory: () => void
+  onExportHistory: () => void
+  onImportHistory: (entries: HistoryEntry[]) => void
 }
 
 export const initState: HistoryToolbarState = {
@@ -36,7 +41,7 @@ export const initState: HistoryToolbarState = {
   selectedTags: []
 }
 
-export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags, onClearHistory }) => {
+export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags, onClearHistory, onRefreshHistory, onExportHistory, onImportHistory }) => {
   const [t] = useTranslation()
   const [state, setState] = useState<HistoryToolbarState>(initState)
 
@@ -94,20 +99,18 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
           variant={'light'}><Trans i18nKey={'landing.history.toolbar.sortByLastVisited'}/></SortButton>
       </InputGroup>
       <InputGroup className={'mr-1 mb-1'}>
-        <Button variant={'light'} title={t('landing.history.toolbar.export')}>
+        <Button variant={'light'} title={t('landing.history.toolbar.export')} onClick={onExportHistory}>
           <ForkAwesomeIcon icon='download'/>
         </Button>
       </InputGroup>
       <InputGroup className={'mr-1 mb-1'}>
-        <Button variant={'light'} title={t('landing.history.toolbar.import')}>
-          <ForkAwesomeIcon icon='upload'/>
-        </Button>
+        <ImportHistoryButton onImportHistory={onImportHistory}/>
       </InputGroup>
       <InputGroup className={'mr-1 mb-1'}>
         <ClearHistoryButton onClearHistory={onClearHistory}/>
       </InputGroup>
       <InputGroup className={'mr-1 mb-1'}>
-        <Button variant={'light'} title={t('landing.history.toolbar.refresh')}>
+        <Button variant={'light'} title={t('landing.history.toolbar.refresh')} onClick={onRefreshHistory}>
           <ForkAwesomeIcon icon='refresh'/>
         </Button>
       </InputGroup>
