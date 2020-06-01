@@ -7,8 +7,8 @@ import { SortButton, SortModeEnum } from '../../../../sort-button/sort-button'
 import { HistoryEntry } from '../history'
 import { ClearHistoryButton } from './clear-history-button'
 import { ExportHistoryButton } from './export-history-button'
-import { ImportHistoryButton } from './import-history-button'
 import './typeahead-hacks.scss'
+import { ImportHistoryButton } from './import-history-button'
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
