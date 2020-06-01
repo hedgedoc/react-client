@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -10,6 +10,7 @@ import './cover-buttons.scss'
 export const CoverButtons: React.FC = () => {
   useTranslation()
   const user = useSelector((state: ApplicationState) => state.user)
+  const authProviders = useSelector((state: ApplicationState) => state.backendConfig.authProviders)
 
   if (user) {
     return null
@@ -17,15 +18,20 @@ export const CoverButtons: React.FC = () => {
 
   return (
     <div className="mb-5">
-      <SignInButton
-        className="cover-button"
-        variant="success"
-        size="lg"
-      />
-
-      <span className="m-2">
-        <Trans i18nKey="common.or"/>
-      </span>
+      {
+        Object.values(authProviders).includes(true)
+          ? <Fragment>
+            <SignInButton
+               className="cover-button"
+               variant="success"
+              size="lg"
+            />
+            <span className="m-2">
+              <Trans i18nKey="common.or"/>
+            </span>
+          </Fragment>
+          : null
+      }
 
       <Link to="/features">
         <Button
