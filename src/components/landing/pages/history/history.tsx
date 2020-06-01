@@ -35,13 +35,13 @@ export const History: React.FC = () => {
     const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(historyEntries))
     const downloadLink = document.createElement('a')
     downloadLink.setAttribute('href', data)
-    downloadLink.setAttribute('download', 'history.json')
+    downloadLink.setAttribute('download', `history_${(new Date()).getTime()}.json`)
     document.body.appendChild(downloadLink)
     downloadLink.click()
     downloadLink.remove()
   }
 
-  const importHistory = (entries: HistoryEntry[]):void => {
+  const importHistory = (entries: HistoryEntry[]): void => {
     setHistoryToLocalStore(entries)
     setHistoryEntries(entries)
   }

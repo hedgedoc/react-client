@@ -1,13 +1,14 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
-import { Trans, useTranslation } from 'react-i18next'
-import { SortButton, SortModeEnum } from '../../../../sort-button/sort-button'
 import { Typeahead } from 'react-bootstrap-typeahead'
-import './typeahead-hacks.scss'
+import { Trans, useTranslation } from 'react-i18next'
+import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
+import { SortButton, SortModeEnum } from '../../../../sort-button/sort-button'
 import { HistoryEntry } from '../history'
 import { ClearHistoryButton } from './clear-history-button'
-import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
+import { ExportHistoryButton } from './export-history-button'
 import { ImportHistoryButton } from './import-history-button'
+import './typeahead-hacks.scss'
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
@@ -99,9 +100,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
           variant={'light'}><Trans i18nKey={'landing.history.toolbar.sortByLastVisited'}/></SortButton>
       </InputGroup>
       <InputGroup className={'mr-1 mb-1'}>
-        <Button variant={'light'} title={t('landing.history.toolbar.export')} onClick={onExportHistory}>
-          <ForkAwesomeIcon icon='download'/>
-        </Button>
+        <ExportHistoryButton onExportHistory={onExportHistory}/>
       </InputGroup>
       <InputGroup className={'mr-1 mb-1'}>
         <ImportHistoryButton onImportHistory={onImportHistory}/>
