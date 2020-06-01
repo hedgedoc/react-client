@@ -18,6 +18,9 @@ export const Login: React.FC = () => {
   const ldapForm = authProviders.ldap ? <ViaLdap/> : null
   const openIdForm = authProviders.openid ? <ViaOpenId/> : null
 
+  const oneClickProviders = [authProviders.dropbox, authProviders.facebook, authProviders.github, authProviders.gitlab,
+    authProviders.google, authProviders.oauth2, authProviders.saml, authProviders.twitter]
+
   const oneClickCustomName: (type: OneClickType) => string | undefined = (type) => {
     switch (type) {
       case OneClickType.SAML:
@@ -48,30 +51,34 @@ export const Login: React.FC = () => {
             </Col>
             : null
         }
-        <Col xs={12} sm={10} lg={4}>
-          <Card className="bg-dark mb-4">
-            <Card.Body>
-              <Card.Title>
-                <Trans i18nKey="login.signInVia" values={{ service: '' }}/>
-              </Card.Title>
-              {
-                Object.values(OneClickType)
-                  .filter((value) => authProviders[value])
-                  .map((value) => (
-                    <div
-                      className="p-2 d-flex flex-column social-button-container"
-                      key={value}
-                    >
-                      <ViaOneClick
-                        oneClickType={value}
-                        optionalName={oneClickCustomName(value)}
-                      />
-                    </div>
-                  ))
-              }
-            </Card.Body>
-          </Card>
-        </Col>
+        {
+          oneClickProviders.includes(true)
+            ? <Col xs={12} sm={10} lg={4}>
+              <Card className="bg-dark mb-4">
+                <Card.Body>
+                  <Card.Title>
+                    <Trans i18nKey="login.signInVia" values={{ service: '' }}/>
+                  </Card.Title>
+                  {
+                    Object.values(OneClickType)
+                      .filter((value) => authProviders[value])
+                      .map((value) => (
+                          <div
+                            className="p-2 d-flex flex-column social-button-container"
+                            key={value}
+                          >
+                            <ViaOneClick
+                              oneClickType={value}
+                              optionalName={oneClickCustomName(value)}
+                            />
+                          </div>
+                       ))
+                  }
+                </Card.Body>
+              </Card>
+            </Col>
+            : null
+        }
       </Row>
     </div>
   )
