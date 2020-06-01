@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
 import { HistoryEntry } from '../history'
-import './import-history-button.scss'
 
 export interface ImportHistoryButtonProps {
   onImportHistory: (entries: HistoryEntry[]) => void
@@ -33,7 +32,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
 
   return (
     <div>
-      <input type='file' id='upload-history' className="invisible" accept=".json" onChange={handleUpload}
+      <input type='file' className="d-none" accept=".json" onChange={handleUpload}
         ref={uploadInput}/>
       <Button variant={'light'}
         title={t('landing.history.toolbar.import')}
