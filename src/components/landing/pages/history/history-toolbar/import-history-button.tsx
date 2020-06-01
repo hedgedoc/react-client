@@ -21,9 +21,8 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
       fileReader.onload = (event) => {
         if (event.target && event.target.result) {
           const result = event.target.result as string
-          onImportHistory(
-            JSON.parse(result) as HistoryEntry[]
-          )
+          const entries = JSON.parse(result) as HistoryEntry[]
+          onImportHistory(entries)
         }
       }
       fileReader.readAsText(file)
@@ -35,10 +34,10 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
   return (
     <div>
       <input type='file' id='upload-history' className="invisible" accept=".json" onChange={handleUpload}
-        ref={element => setInputRef(element)}/>
+             ref={element => setInputRef(element)}/>
       <Button variant={'light'}
-        title={t('landing.history.toolbar.import')}
-        onClick={() => inputRef?.click()}
+              title={t('landing.history.toolbar.import')}
+              onClick={() => inputRef?.click()}
       >
         <ForkAwesomeIcon icon='upload'/>
       </Button>
