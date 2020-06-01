@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
@@ -11,7 +11,7 @@ export interface ImportHistoryButtonProps {
 
 export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImportHistory }) => {
   const { t } = useTranslation()
-  const [inputRef, setInputRef] = useState<HTMLInputElement | null>()
+  const uploadInput = useRef<HTMLInputElement>(null)
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { validity, files } = event.target
@@ -34,10 +34,10 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
   return (
     <div>
       <input type='file' id='upload-history' className="invisible" accept=".json" onChange={handleUpload}
-             ref={element => setInputRef(element)}/>
+        ref={uploadInput}/>
       <Button variant={'light'}
-              title={t('landing.history.toolbar.import')}
-              onClick={() => inputRef?.click()}
+        title={t('landing.history.toolbar.import')}
+        onClick={() => uploadInput.current?.click()}
       >
         <ForkAwesomeIcon icon='upload'/>
       </Button>
