@@ -36,7 +36,8 @@
                 },
                 "importHistoryError": {
                     "title": "An error occurred",
-                    "text": "While trying to import history from '{{fileName}}' an error occurred."
+                    "textWithFile": "While trying to import history from '{{fileName}}' an error occurred.",
+                    "textWithoutFile": "You did not provide any files to upload the history from."
                 }
             },
             "tableHeader": {

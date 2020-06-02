@@ -62,7 +62,10 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-dark text-center">
-          <h5><Trans i18nKey={'landing.history.modal.importHistoryError.text'} values={{ fileName: fileName }} /></h5>
+          {fileName !== ''
+            ? <h5><Trans i18nKey={'landing.history.modal.importHistoryError.textWithFile'} values={{ fileName: fileName }}/></h5>
+            : <h5><Trans i18nKey={'landing.history.modal.importHistoryError.textWithOutFile'}/></h5>
+          }
         </Modal.Body>
       </Modal>
     </div>
