@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
-import { Button } from 'react-bootstrap'
-import { useTranslation } from 'react-i18next'
+import React, { useRef, useState } from 'react'
+import { Button, Modal } from 'react-bootstrap'
+import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
 import { HistoryEntry } from '../history'
 
@@ -11,22 +11,37 @@ export interface ImportHistoryButtonProps {
 export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImportHistory }) => {
   const { t } = useTranslation()
   const uploadInput = useRef<HTMLInputElement>(null)
+  const [show, setShow] = useState(false)
+  const [fileName, setFilename] = useState('')
+
+  const handleShow = () => setShow(true)
+
+  const handleClose = () => setShow(false)
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { validity, files } = event.target
     if (files && files[0] && validity.valid) {
       const file = files[0]
+      setFilename(file.name)
+      if (file.type !== 'application/json') {
+        handleShow()
+        return
+      }
       const fileReader = new FileReader()
       fileReader.onload = (event) => {
         if (event.target && event.target.result) {
-          const result = event.target.result as string
-          const entries = JSON.parse(result) as HistoryEntry[]
-          onImportHistory(entries)
+          try {
+            const result = event.target.result as string
+            const entries = JSON.parse(result) as HistoryEntry[]
+            onImportHistory(entries)
+          } catch {
+            handleShow()
+          }
         }
       }
       fileReader.readAsText(file)
     } else {
-      // Todo handle error
+      handleShow()
     }
   }
 
@@ -40,6 +55,16 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
       >
         <ForkAwesomeIcon icon='upload'/>
       </Button>
+      <Modal show={show} onHide={handleClose} animation={true} className="text-dark">
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <ForkAwesomeIcon icon='exclamation-circle'/>&nbsp;<Trans i18nKey={'landing.history.modal.importHistoryError.title'}/>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="text-dark text-center">
+          <h5><Trans i18nKey={'landing.history.modal.importHistoryError.text'} values={{ fileName: fileName }} /></h5>
+        </Modal.Body>
+      </Modal>
     </div>
   )
 }
