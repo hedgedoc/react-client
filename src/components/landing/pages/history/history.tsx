@@ -13,6 +13,11 @@ export interface HistoryEntry {
   pinned: boolean
 }
 
+export interface HistoryJson {
+  version: number,
+  entries: HistoryEntry[]
+}
+
 export type pinClick = (entryId: string) => void;
 
 export const History: React.FC = () => {
@@ -32,7 +37,11 @@ export const History: React.FC = () => {
   }, [historyEntries])
 
   const exportHistory = () => {
-    const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(historyEntries))
+    const dataObject: HistoryJson = {
+      version: 1,
+      entries: historyEntries
+    }
+    const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataObject))
     const downloadLink = document.createElement('a')
     downloadLink.setAttribute('href', data)
     downloadLink.setAttribute('download', `history_${(new Date()).getTime()}.json`)
