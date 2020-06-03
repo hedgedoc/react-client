@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
-import { HistoryEntry } from '../history'
+import { convertOldHistory, OldHistoryEntry } from '../../../../../utils/historyUtils'
+import { HistoryEntry, HistoryJson } from '../history'
 
 export interface ImportHistoryButtonProps {
   onImportHistory: (entries: HistoryEntry[]) => void
@@ -23,7 +24,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
     if (files && files[0] && validity.valid) {
       const file = files[0]
       setFilename(file.name)
-      if (file.type !== 'application/json') {
+      if (file.type !== 'application/json' && file.type !== '') {
         handleShow()
         return
       }
@@ -32,8 +33,15 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
         if (event.target && event.target.result) {
           try {
             const result = event.target.result as string
-            const entries = JSON.parse(result) as HistoryEntry[]
-            onImportHistory(entries)
+            const data = JSON.parse(result) as HistoryJson
+            if (data) {
+              if (data.version === 1) {
+                onImportHistory(data.entries)
+              } else {
+                const oldEntries = JSON.parse(result) as OldHistoryEntry[]
+                onImportHistory(convertOldHistory(oldEntries))
+              }
+            }
           } catch {
             handleShow()
           }
