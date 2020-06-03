@@ -13,16 +13,16 @@ type SignInButtonProps = {
 export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props }) => {
   const { t } = useTranslation()
   const authProviders = useSelector((state: ApplicationState) => state.backendConfig.authProviders)
-return Object.values(authProviders).includes(true)
+  return Object.values(authProviders).includes(true)
     ? (
-    <LinkContainer to="/login" title={t('login.signIn')}>
-      <Button
-        variant={variant || 'success'}
-        {...props}
-      >
-        <Trans i18nKey="login.signIn"/>
-      </Button>
-    </LinkContainer>
+      <LinkContainer to="/login" title={t('login.signIn')}>
+        <Button
+          variant={variant || 'success'}
+          {...props}
+        >
+          <Trans i18nKey="login.signIn"/>
+        </Button>
+      </LinkContainer>
     )
     : null
 }

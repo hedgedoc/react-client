@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -18,21 +18,20 @@ export const CoverButtons: React.FC = () => {
 
   return (
     <div className="mb-5">
+      <SignInButton
+        className="cover-button"
+        variant="success"
+        size="lg"
+      />
       {
         Object.values(authProviders).includes(true)
-          ? <Fragment>
-            <SignInButton
-               className="cover-button"
-               variant="success"
-              size="lg"
-            />
+          ? (
             <span className="m-2">
               <Trans i18nKey="common.or"/>
             </span>
-          </Fragment>
+          )
           : null
       }
-
       <Link to="/features">
         <Button
           className="cover-button"
