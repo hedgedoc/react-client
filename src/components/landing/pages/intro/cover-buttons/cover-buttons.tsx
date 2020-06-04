@@ -4,6 +4,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ApplicationState } from '../../../../../redux'
+import { ShowIf } from '../../../../common/show-if'
 import { SignInButton } from '../../../layout/navigation/sign-in-button'
 import './cover-buttons.scss'
 
@@ -23,15 +24,11 @@ export const CoverButtons: React.FC = () => {
         variant="success"
         size="lg"
       />
-      {
-        Object.values(authProviders).includes(true)
-          ? (
-            <span className="m-2">
-              <Trans i18nKey="common.or"/>
-            </span>
-          )
-          : null
-      }
+      <ShowIf condition={Object.values(authProviders).includes(true)}>
+        <span className="m-2">
+          <Trans i18nKey="common.or"/>
+        </span>
+      </ShowIf>
       <Link to="/features">
         <Button
           className="cover-button"
