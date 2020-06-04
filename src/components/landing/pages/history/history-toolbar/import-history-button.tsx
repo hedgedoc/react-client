@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
-import { convertV0History, V0HistoryEntry } from '../../../../../utils/historyUtils'
+import { convertV1History, V1HistoryEntry } from '../../../../../utils/historyUtils'
 import { HistoryEntry, HistoryJson } from '../history'
 
 export interface ImportHistoryButtonProps {
@@ -35,11 +35,16 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
             const result = event.target.result as string
             const data = JSON.parse(result) as HistoryJson
             if (data) {
-              if (data.version === 1) {
-                onImportHistory(data.entries)
+              if (data.version) {
+                if (data.version === 2) {
+                  onImportHistory(data.entries)
+                } else {
+                  // probably a newer version we can't support
+                  handleShow()
+                }
               } else {
-                const oldEntries = JSON.parse(result) as V0HistoryEntry[]
-                onImportHistory(convertV0History(oldEntries))
+                const oldEntries = JSON.parse(result) as V1HistoryEntry[]
+                onImportHistory(convertV1History(oldEntries))
               }
             }
           } catch {

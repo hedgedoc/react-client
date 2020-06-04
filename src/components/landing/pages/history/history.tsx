@@ -43,7 +43,7 @@ export const History: React.FC = () => {
 
   const exportHistory = () => {
     const dataObject: HistoryJson = {
-      version: 1,
+      version: 2,
       entries: historyEntries
     }
     downloadHistory(dataObject)

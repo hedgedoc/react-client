@@ -58,7 +58,7 @@ export function formatHistoryDate (date: Date): string {
   return moment(date).format('llll')
 }
 
-export interface V0HistoryEntry {
+export interface V1HistoryEntry {
   id: string;
   text: string;
   time: number;
@@ -66,8 +66,8 @@ export interface V0HistoryEntry {
   pinned: boolean;
 }
 
-export function convertV0History (oldHistory: V0HistoryEntry[]): HistoryEntry[] {
-  return oldHistory.map((entry: V0HistoryEntry) => {
+export function convertV1History (oldHistory: V1HistoryEntry[]): HistoryEntry[] {
+  return oldHistory.map((entry: V1HistoryEntry) => {
     return {
       id: entry.id,
       title: entry.text,
@@ -85,8 +85,8 @@ export function loadHistoryFromLocalStore (): HistoryEntry[] {
     // if localStorage["history"] is empty we check the old localStorage["notehistory"]
     // and convert it to the new format
     const oldHistoryJsonString = window.localStorage.getItem('notehistory')
-    const oldHistory = oldHistoryJsonString ? JSON.parse(JSON.parse(oldHistoryJsonString)) as V0HistoryEntry[] : []
-    return convertV0History(oldHistory)
+    const oldHistory = oldHistoryJsonString ? JSON.parse(JSON.parse(oldHistoryJsonString)) as V1HistoryEntry[] : []
+    return convertV1History(oldHistory)
   } else {
     return JSON.parse(historyJsonString) as HistoryEntry[]
   }
