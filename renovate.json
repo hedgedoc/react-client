@@ -34,7 +34,7 @@
     }
   ],
   "schedule": [
-    "after 2am every weekday",
-    "before 8am every weekday"
+    "after 2am",
+    "before 8am"
   ]
 }
