@@ -1,11 +1,12 @@
 import React from 'react'
-import { PinButton } from '../common/pin-button'
-import { CloseButton } from '../common/close-button'
-import { HistoryEntryProps } from '../history-content/history-content'
-import { formatHistoryDate } from '../../../../../utils/historyUtils'
 import { Badge } from 'react-bootstrap'
+import { formatHistoryDate } from '../../../../../utils/historyUtils'
+import { CloseButton } from '../common/close-button'
+import { PinButton } from '../common/pin-button'
+import { SyncStatus } from '../common/sync-status'
+import { HistoryEntryProps } from '../history-content/history-content'
 
-export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick }) => {
+export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onSyncClick }) => {
   return (
     <tr>
       <td>{entry.title}</td>
@@ -17,9 +18,9 @@ export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick
         }
       </td>
       <td>
-        <PinButton isDark={true} isPinned={entry.pinned} onPinClick={() => {
-          onPinClick(entry.id)
-        }}/>
+        <SyncStatus location={entry.location} onSync={() => onSyncClick(entry.id)}/>
+        &nbsp;
+        <PinButton isDark={true} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
         &nbsp;
         <CloseButton isDark={true}/>
       </td>

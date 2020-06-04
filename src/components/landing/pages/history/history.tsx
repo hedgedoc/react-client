@@ -33,8 +33,6 @@ export interface HistoryJson {
   entries: HistoryEntry[]
 }
 
-export type pinClick = (entryId: string) => void;
-
 export const History: React.FC = () => {
   useTranslation()
   const [localHistoryEntries, setLocalHistoryEntries] = useState<HistoryEntry[]>([])
@@ -103,7 +101,13 @@ export const History: React.FC = () => {
     setHistoryToLocalStore([])
   }
 
-  const pinClick: pinClick = (entryId: string) => {
+  const syncClick = (entryId: string): void => {
+    console.log(entryId)
+    // ToDo: add syncClick
+  }
+
+  const pinClick = (entryId: string): void => {
+    // ToDo: determine if entry is local or remote
     setLocalHistoryEntries((entries) => {
       return entries.map((entry) => {
         if (entry.id === entryId) {
@@ -144,7 +148,9 @@ export const History: React.FC = () => {
       </Row>
       <HistoryContent viewState={toolbarState.viewState}
         entries={entriesToShow}
-        onPinClick={pinClick}/>
+        onPinClick={pinClick}
+        onSyncClick={syncClick}
+      />
     </Fragment>
   )
 }

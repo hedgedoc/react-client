@@ -1,13 +1,14 @@
+import moment from 'moment'
 import React from 'react'
 import { Badge, Card } from 'react-bootstrap'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
-import { PinButton } from '../common/pin-button'
-import { CloseButton } from '../common/close-button'
-import moment from 'moment'
-import { HistoryEntryProps } from '../history-content/history-content'
 import { formatHistoryDate } from '../../../../../utils/historyUtils'
+import { CloseButton } from '../common/close-button'
+import { PinButton } from '../common/pin-button'
+import { SyncStatus } from '../common/sync-status'
+import { HistoryEntryProps } from '../history-content/history-content'
 
-export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick }) => {
+export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onSyncClick }) => {
   return (
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <Card className="p-0" text={'dark'} bg={'light'}>
@@ -16,6 +17,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick }) 
             onPinClick(entry.id)
           }}/>
           <Card.Title className="m-0 mt-3">{entry.title}</Card.Title>
+          <SyncStatus location={entry.location} onSync={() => onSyncClick(entry.id)}/>
           <CloseButton isDark={false}/>
         </div>
         <Card.Body>

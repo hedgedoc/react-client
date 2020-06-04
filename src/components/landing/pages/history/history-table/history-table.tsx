@@ -1,11 +1,11 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
-import { HistoryTableRow } from './history-table-row'
-import { HistoryEntriesProps } from '../history-content/history-content'
 import { Trans, useTranslation } from 'react-i18next'
 import { Pager } from '../../../../pagination/pager'
+import { HistoryEntriesProps } from '../history-content/history-content'
+import { HistoryTableRow } from './history-table-row'
 
-export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClick, pageIndex, onLastPageIndexChange }) => {
+export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClick, onSyncClick, pageIndex, onLastPageIndexChange }) => {
   useTranslation()
   return (
     <Table striped bordered hover size="sm" variant="dark">
@@ -25,6 +25,7 @@ export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClic
                 key={entry.id}
                 entry={entry}
                 onPinClick={onPinClick}
+                onSyncClick={onSyncClick}
               />)
           }
         </Pager>
