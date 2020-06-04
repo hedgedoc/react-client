@@ -14,10 +14,17 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
   const uploadInput = useRef<HTMLInputElement>(null)
   const [show, setShow] = useState(false)
   const [fileName, setFilename] = useState('')
+  const [i18nKey, setI18nKey] = useState('')
 
-  const handleShow = () => setShow(true)
+  const handleShow = (key: string) => {
+    setI18nKey(key)
+    setShow(true)
+  }
 
-  const handleClose = () => setShow(false)
+  const handleClose = () => {
+    setI18nKey('')
+    setShow(false)
+  }
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { validity, files } = event.target
@@ -25,7 +32,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
       const file = files[0]
       setFilename(file.name)
       if (file.type !== 'application/json' && file.type !== '') {
-        handleShow()
+        handleShow('landing.history.modal.importHistoryError.textWithFile')
         return
       }
       const fileReader = new FileReader()
@@ -40,7 +47,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
                   onImportHistory(data.entries)
                 } else {
                   // probably a newer version we can't support
-                  handleShow()
+                  handleShow('landing.history.modal.importHistoryError.tooNewVersion')
                 }
               } else {
                 const oldEntries = JSON.parse(result) as V1HistoryEntry[]
@@ -48,13 +55,13 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
               }
             }
           } catch {
-            handleShow()
+            handleShow('landing.history.modal.importHistoryError.textWithFile')
           }
         }
       }
       fileReader.readAsText(file)
     } else {
-      handleShow()
+      handleShow('landing.history.modal.importHistoryError.textWithOutFile')
     }
   }
 
@@ -76,8 +83,8 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
         </Modal.Header>
         <Modal.Body className="text-dark text-center">
           {fileName !== ''
-            ? <h5><Trans i18nKey={'landing.history.modal.importHistoryError.textWithFile'} values={{ fileName: fileName }}/></h5>
-            : <h5><Trans i18nKey={'landing.history.modal.importHistoryError.textWithOutFile'}/></h5>
+            ? <h5><Trans i18nKey={i18nKey} values={{ fileName: fileName }}/></h5>
+            : <h5><Trans i18nKey={i18nKey}/></h5>
           }
         </Modal.Body>
       </Modal>
