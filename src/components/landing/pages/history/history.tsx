@@ -41,9 +41,25 @@ export const History: React.FC = () => {
   const user = useSelector((state: ApplicationState) => state.user)
   const [error, setError] = useState('')
 
+  const refreshHistory = () => {
+    const localHistory = loadHistoryFromLocalStore()
+    setLocalHistoryEntries(localHistory)
+    if (user) {
+      getHistory()
+        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
+        .catch(() => setError('getHistory'))
+    }
+  }
+
   useEffect(() => {
-    refreshHistory()
-  })
+    const localHistory = loadHistoryFromLocalStore()
+    setLocalHistoryEntries(localHistory)
+    if (user) {
+      getHistory()
+        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
+        .catch(() => setError('getHistory'))
+    }
+  }, [user])
 
   useEffect(() => {
     if (!localHistoryEntries || localHistoryEntries === []) {
@@ -78,16 +94,6 @@ export const History: React.FC = () => {
     } else {
       setHistoryToLocalStore(entries)
       setLocalHistoryEntries(entries)
-    }
-  }
-
-  const refreshHistory = () => {
-    const localHistory = loadHistoryFromLocalStore()
-    setLocalHistoryEntries(localHistory)
-    if (user) {
-      getHistory()
-        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
-        .catch(() => setError('getHistory'))
     }
   }
 
@@ -130,9 +136,9 @@ export const History: React.FC = () => {
 
   return (
     <Fragment>
-      <ErrorModal show={error !== ''} onHide={resetError} title={`landing.history.error.${error}.title`}>
+      <ErrorModal show={error !== ''} onHide={resetError} title={error !== '' ? `landing.history.error.${error}.title` : ''}>
         <h5>
-          <Trans i18nKey={`landing.history.error.${error}.text`}/>
+          <Trans i18nKey={error !== '' ? `landing.history.error.${error}.text` : ''}/>
         </h5>
       </ErrorModal>
       <h1 className="mb-4"><Trans i18nKey="landing.navigation.history"/></h1>
