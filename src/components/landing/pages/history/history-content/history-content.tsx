@@ -1,25 +1,25 @@
 import React, { Fragment, useState } from 'react'
-import { HistoryEntry, pinClick } from '../history'
-import { HistoryTable } from '../history-table/history-table'
 import { Alert, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { HistoryCardList } from '../history-card/history-card-list'
-import { ViewStateEnum } from '../history-toolbar/history-toolbar'
 import { PagerPagination } from '../../../../pagination/pager-pagination'
+import { LocatedHistoryEntry, pinClick } from '../history'
+import { HistoryCardList } from '../history-card/history-card-list'
+import { HistoryTable } from '../history-table/history-table'
+import { ViewStateEnum } from '../history-toolbar/history-toolbar'
 
 export interface HistoryContentProps {
   viewState: ViewStateEnum
-  entries: HistoryEntry[]
+  entries: LocatedHistoryEntry[]
   onPinClick: pinClick
 }
 
 export interface HistoryEntryProps {
-  entry: HistoryEntry,
+  entry: LocatedHistoryEntry,
   onPinClick: pinClick
 }
 
 export interface HistoryEntriesProps {
-    entries: HistoryEntry[]
+    entries: LocatedHistoryEntry[]
     onPinClick: pinClick
     pageIndex: number
     onLastPageIndexChange: (lastPageIndex: number) => void

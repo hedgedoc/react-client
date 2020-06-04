@@ -1,13 +1,40 @@
 import moment from 'moment'
-import { HistoryEntry } from '../components/landing/pages/history/history'
+import { HistoryEntry, LocatedHistoryEntry, Location } from '../components/landing/pages/history/history'
 import { HistoryToolbarState } from '../components/landing/pages/history/history-toolbar/history-toolbar'
 import { SortModeEnum } from '../components/sort-button/sort-button'
 
-export function sortAndFilterEntries (entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] {
-  return sortEntries(filterByKeywordSearch(filterBySelectedTags(entries, viewState.selectedTags), viewState.keywordSearch), viewState)
+export function sortAndFilterEntries (localEntries: HistoryEntry[], remoteEntries: HistoryEntry[], toolbarState: HistoryToolbarState): LocatedHistoryEntry[] {
+  const locatedLocalEntries = locateEntries(localEntries, Location.LOCAL)
+  const locatedRemoteEntries = locateEntries(remoteEntries, Location.REMOTE)
+  return sortEntries(filterByKeywordSearch(filterBySelectedTags(mergeEntryArrays(locatedLocalEntries, locatedRemoteEntries), toolbarState.selectedTags), toolbarState.keywordSearch), toolbarState)
 }
 
-function filterBySelectedTags (entries: HistoryEntry[], selectedTags: string[]): HistoryEntry[] {
+function locateEntries (entries: HistoryEntry[], location: Location): LocatedHistoryEntry[] {
+  return entries.map(entry => {
+    return {
+      ...entry,
+      location: location
+    }
+  })
+}
+
+function mergeEntryArrays (locatedLocalEntries: LocatedHistoryEntry[], locatedRemoteEntries: LocatedHistoryEntry[]): LocatedHistoryEntry[] {
+  const duplicates: LocatedHistoryEntry[] = []
+  for (const remoteEntry of locatedRemoteEntries) {
+    for (const localEntry of locatedLocalEntries) {
+      if (localEntry.id === remoteEntry.id) {
+        duplicates.push(localEntry)
+      }
+    }
+  }
+  let filteredLocalEntries = locatedLocalEntries
+  for (const duplicate of duplicates) {
+    filteredLocalEntries = filteredLocalEntries.filter(entry => entry.id !== duplicate.id)
+  }
+  return filteredLocalEntries.concat(locatedRemoteEntries)
+}
+
+function filterBySelectedTags (entries: LocatedHistoryEntry[], selectedTags: string[]): LocatedHistoryEntry[] {
   return entries.filter(entry => {
     return (selectedTags.length === 0 || arrayCommonCheck(entry.tags, selectedTags))
   }
@@ -23,12 +50,12 @@ function arrayCommonCheck<T> (array1: T[], array2: T[]): boolean {
   return !!foundElement
 }
 
-function filterByKeywordSearch (entries: HistoryEntry[], keywords: string): HistoryEntry[] {
+function filterByKeywordSearch (entries: LocatedHistoryEntry[], keywords: string): LocatedHistoryEntry[] {
   const searchTerm = keywords.toLowerCase()
   return entries.filter(entry => entry.title.toLowerCase().indexOf(searchTerm) !== -1)
 }
 
-function sortEntries (entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] {
+function sortEntries (entries: LocatedHistoryEntry[], viewState: HistoryToolbarState): LocatedHistoryEntry[] {
   return entries.sort((firstEntry, secondEntry) => {
     if (firstEntry.pinned && !secondEntry.pinned) {
       return -1
