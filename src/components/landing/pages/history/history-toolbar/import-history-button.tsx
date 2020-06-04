@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
 import { convertV1History, V1HistoryEntry } from '../../../../../utils/historyUtils'
@@ -68,8 +68,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
 
   return (
     <div>
-      <input type='file' className="d-none" accept=".json" onChange={handleUpload}
-        ref={uploadInput}/>
+      <input type='file' className="d-none" accept=".json" onChange={handleUpload} ref={uploadInput}/>
       <Button variant={'light'}
         title={t('landing.history.toolbar.import')}
         onClick={() => uploadInput.current?.click()}
@@ -83,7 +82,9 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
         icon='exclamation-circle'
       >
         {fileName !== ''
-          ? <h5><Trans i18nKey={i18nKey} values={{ fileName: fileName }}/></h5>
+          ? <h5>
+            <Trans i18nKey={i18nKey} values={{ fileName: fileName }}/>
+          </h5>
           : <h5><Trans i18nKey={i18nKey}/></h5>
         }
       </ErrorModal>
