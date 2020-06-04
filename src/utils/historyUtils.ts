@@ -97,7 +97,7 @@ export function setHistoryToLocalStore (entries: HistoryEntry[]): void {
 }
 
 export function downloadHistory (dataObject: HistoryJson): void {
-  const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataObject))
+  const data = 'data:text/json;charset=utf-8;base64,' + Buffer.from(JSON.stringify(dataObject)).toString('base64')
   const downloadLink = document.createElement('a')
   downloadLink.setAttribute('href', data)
   downloadLink.setAttribute('download', `history_${(new Date()).getTime()}.json`)
