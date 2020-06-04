@@ -1,7 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { loadHistoryFromLocalStore, setHistoryToLocalStore, sortAndFilterEntries } from '../../../../utils/historyUtils'
+import {
+  downloadHistory,
+  loadHistoryFromLocalStore,
+  setHistoryToLocalStore,
+  sortAndFilterEntries
+} from '../../../../utils/historyUtils'
 import { HistoryContent } from './history-content/history-content'
 import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } from './history-toolbar/history-toolbar'
 
@@ -41,13 +46,7 @@ export const History: React.FC = () => {
       version: 1,
       entries: historyEntries
     }
-    const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataObject))
-    const downloadLink = document.createElement('a')
-    downloadLink.setAttribute('href', data)
-    downloadLink.setAttribute('download', `history_${(new Date()).getTime()}.json`)
-    document.body.appendChild(downloadLink)
-    downloadLink.click()
-    downloadLink.remove()
+    downloadHistory(dataObject)
   }
 
   const importHistory = (entries: HistoryEntry[]): void => {

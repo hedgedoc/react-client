@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { HistoryEntry } from '../components/landing/pages/history/history'
+import { HistoryEntry, HistoryJson } from '../components/landing/pages/history/history'
 import { HistoryToolbarState } from '../components/landing/pages/history/history-toolbar/history-toolbar'
 import { SortModeEnum } from '../components/sort-button/sort-button'
 
@@ -94,4 +94,14 @@ export function loadHistoryFromLocalStore (): HistoryEntry[] {
 
 export function setHistoryToLocalStore (entries: HistoryEntry[]): void {
   window.localStorage.setItem('history', JSON.stringify(entries))
+}
+
+export function downloadHistory (dataObject: HistoryJson): void {
+  const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataObject))
+  const downloadLink = document.createElement('a')
+  downloadLink.setAttribute('href', data)
+  downloadLink.setAttribute('download', `history_${(new Date()).getTime()}.json`)
+  document.body.appendChild(downloadLink)
+  downloadLink.click()
+  downloadLink.remove()
 }
