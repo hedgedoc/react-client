@@ -41,24 +41,9 @@ export const History: React.FC = () => {
   const user = useSelector((state: ApplicationState) => state.user)
   const [error, setError] = useState('')
 
-  const refreshHistory = () => {
-    const localHistory = loadHistoryFromLocalStore()
-    setLocalHistoryEntries(localHistory)
-    if (user) {
-      getHistory()
-        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
-        .catch(() => setError('getHistory'))
-    }
-  }
-
   useEffect(() => {
-    const localHistory = loadHistoryFromLocalStore()
-    setLocalHistoryEntries(localHistory)
-    if (user) {
-      getHistory()
-        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
-        .catch(() => setError('getHistory'))
-    }
+    refreshHistory()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   useEffect(() => {
@@ -94,6 +79,16 @@ export const History: React.FC = () => {
     } else {
       setHistoryToLocalStore(entries)
       setLocalHistoryEntries(entries)
+    }
+  }
+
+  const refreshHistory = () => {
+    const localHistory = loadHistoryFromLocalStore()
+    setLocalHistoryEntries(localHistory)
+    if (user) {
+      getHistory()
+        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
+        .catch(() => setError('getHistory'))
     }
   }
 
