@@ -4,14 +4,15 @@ import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
 import { Location } from '../history'
 
 export interface SyncStatusProps {
+  isDark: boolean
   location: Location
   onSync: () => void
 }
 
-export const SyncStatus: React.FC<SyncStatusProps> = ({ location, onSync }) => {
-  const color = location === Location.REMOTE ? 'text-success' : 'text-light'
+export const SyncStatus: React.FC<SyncStatusProps> = ({ isDark, location, onSync }) => {
+  const color = location === Location.REMOTE ? 'text-success' : 'text-danger'
   return (
-    <Button onClick={onSync}>
+    <Button variant={isDark ? 'secondary' : 'light'} onClick={onSync}>
       <ForkAwesomeIcon icon='refresh' className={color}/>
     </Button>
   )

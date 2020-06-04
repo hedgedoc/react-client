@@ -17,8 +17,10 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
             onPinClick(entry.id)
           }}/>
           <Card.Title className="m-0 mt-3">{entry.title}</Card.Title>
-          <SyncStatus location={entry.location} onSync={() => onSyncClick(entry.id)}/>
-          <CloseButton isDark={false}/>
+          <div>
+            <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}/>
+            <CloseButton isDark={false}/>
+          </div>
         </div>
         <Card.Body>
           <div className="text-black-50">

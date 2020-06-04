@@ -18,7 +18,7 @@ export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick
         }
       </td>
       <td>
-        <SyncStatus location={entry.location} onSync={() => onSyncClick(entry.id)}/>
+        <SyncStatus isDark={true} location={entry.location} onSync={() => onSyncClick(entry.id)}/>
         &nbsp;
         <PinButton isDark={true} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
         &nbsp;
