@@ -18,7 +18,7 @@ export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClic
         </tr>
       </thead>
       <tbody>
-        <Pager numberOfElementsPerPage={6} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
+        <Pager numberOfElementsPerPage={12} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
           {
             entries.map((entry) =>
               <HistoryTableRow

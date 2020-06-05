@@ -7,7 +7,7 @@ import { HistoryCard } from './history-card'
 export const HistoryCardList: React.FC<HistoryEntriesProps> = ({ entries, onPinClick, onSyncClick, pageIndex, onLastPageIndexChange }) => {
   return (
     <Row className="justify-content-start">
-      <Pager numberOfElementsPerPage={6} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
+      <Pager numberOfElementsPerPage={9} pageIndex={pageIndex} onLastPageIndexChange={onLastPageIndexChange}>
         {
           entries.map((entry) => (
             <HistoryCard
