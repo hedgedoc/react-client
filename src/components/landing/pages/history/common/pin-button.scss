@@ -5,11 +5,11 @@
     transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
   }
 
-  &:hover .fa{
+  &:hover .fa {
     opacity: 1;
   }
 
-  &.pinned .fa{
+  &.pinned .fa {
     color: #d43f3a;
     opacity: 1;
   }
