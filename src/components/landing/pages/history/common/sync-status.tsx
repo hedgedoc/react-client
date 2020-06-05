@@ -11,10 +11,10 @@ export interface SyncStatusProps {
 }
 
 export const SyncStatus: React.FC<SyncStatusProps> = ({ isDark, location, onSync }) => {
-  const status = location === Location.REMOTE ? 'synced' : ''
+  const icon = location === Location.REMOTE ? 'cloud' : 'laptop'
   return (
-    <Button variant={isDark ? 'secondary' : 'light'} onClick={onSync}>
-      <ForkAwesomeIcon icon='refresh' className={`sync-icon ${status}`}/>
+    <Button variant={isDark ? 'secondary' : 'light'} onClick={onSync} className={'mt-1'}>
+      <ForkAwesomeIcon icon={icon} className={'sync-icon'}/>
     </Button>
   )
 }

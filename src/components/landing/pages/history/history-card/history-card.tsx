@@ -12,14 +12,16 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
   return (
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <Card className="p-0" text={'dark'} bg={'light'}>
-        <div className="d-flex justify-content-between p-2 align-items-start">
-          <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
-          <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}/>
-          <CloseButton isDark={false}/>
-        </div>
-        <Card.Title className="m-0 mt-3">{entry.title}</Card.Title>
-        <Card.Body>
-          <div className="text-black-50">
+        <Card.Body className="p-2">
+          <div className={'d-flex justify-content-between align-items-start'}>
+            <div className={'d-flex flex-column'}>
+              <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
+              <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}/>
+            </div>
+            <Card.Title className="m-0 mt-1dot5">{entry.title}</Card.Title>
+            <CloseButton isDark={false}/>
+          </div>
+          <div className="text-black-50 mt-2">
             <ForkAwesomeIcon icon="clock-o"/> {moment(entry.lastVisited).fromNow()}<br/>
             {formatHistoryDate(entry.lastVisited)}
             <div>
