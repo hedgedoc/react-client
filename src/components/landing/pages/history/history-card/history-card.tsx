@@ -13,15 +13,11 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <Card className="p-0" text={'dark'} bg={'light'}>
         <div className="d-flex justify-content-between p-2 align-items-start">
-          <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => {
-            onPinClick(entry.id)
-          }}/>
-          <Card.Title className="m-0 mt-3">{entry.title}</Card.Title>
-          <div>
-            <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}/>
-            <CloseButton isDark={false}/>
-          </div>
+          <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
+          <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}/>
+          <CloseButton isDark={false}/>
         </div>
+        <Card.Title className="m-0 mt-3">{entry.title}</Card.Title>
         <Card.Body>
           <div className="text-black-50">
             <ForkAwesomeIcon icon="clock-o"/> {moment(entry.lastVisited).fromNow()}<br/>
