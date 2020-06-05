@@ -12,11 +12,9 @@ export interface PinButtonProps {
 
 export const PinButton: React.FC<PinButtonProps> = ({ isPinned, onPinClick, isDark, className }) => {
   return (
-    <Button variant={isDark ? 'secondary' : 'light'} className={className} onClick={onPinClick}>
-      <ForkAwesomeIcon
-        icon="thumb-tack"
-        className={`history-pin ${isPinned ? 'active' : ''}`}
-      />
+    <Button variant={isDark ? 'secondary' : 'light'}
+      className={`history-pin ${className || ''} ${isPinned ? 'pinned' : ''}`} onClick={onPinClick}>
+      <ForkAwesomeIcon icon="thumb-tack"/>
     </Button>
   )
 }

@@ -10,11 +10,8 @@ export interface CloseButtonProps {
 
 const CloseButton: React.FC<CloseButtonProps> = ({ isDark, className }) => {
   return (
-    <Button variant={isDark ? 'secondary' : 'light'} className={className}>
-      <ForkAwesomeIcon
-        className="history-close"
-        icon="times"
-      />
+    <Button variant={isDark ? 'secondary' : 'light'} className={`history-close ${className || ''}`}>
+      <ForkAwesomeIcon icon="times"/>
     </Button>
   )
 }

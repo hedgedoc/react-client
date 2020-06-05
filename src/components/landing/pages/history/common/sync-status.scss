@@ -1,4 +1,10 @@
 .sync-icon {
-  opacity: 0.2;
-  transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+  .fa {
+    opacity: 0.2;
+    transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+
+  &:hover .fa{
+    opacity: 1;
+  }
 }
