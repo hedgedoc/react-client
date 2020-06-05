@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
 import { Location } from '../history'
+import './sync-status.scss'
 
 export interface SyncStatusProps {
   isDark: boolean
@@ -10,10 +11,10 @@ export interface SyncStatusProps {
 }
 
 export const SyncStatus: React.FC<SyncStatusProps> = ({ isDark, location, onSync }) => {
-  const color = location === Location.REMOTE ? 'text-success' : 'text-danger'
+  const status = location === Location.REMOTE ? 'synced' : ''
   return (
     <Button variant={isDark ? 'secondary' : 'light'} onClick={onSync}>
-      <ForkAwesomeIcon icon='refresh' className={color}/>
+      <ForkAwesomeIcon icon='refresh' className={`sync-icon ${status}`}/>
     </Button>
   )
 }
