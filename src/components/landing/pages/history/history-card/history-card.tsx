@@ -17,9 +17,8 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
           <div className={'d-flex justify-content-between align-items-start'}>
             <div className={'d-flex flex-column'}>
               <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
-              <div className={'mt-1'}>
-                <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}/>
-              </div>
+              <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}
+                className={'mt-1'}/>
             </div>
             <Card.Title className="m-0 mt-1dot5">{entry.title}</Card.Title>
             <CloseButton isDark={false}/>
