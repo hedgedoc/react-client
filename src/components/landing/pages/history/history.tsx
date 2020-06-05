@@ -4,7 +4,12 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { deleteHistory, getHistory, setHistory } from '../../../../api/history'
 import { ApplicationState } from '../../../../redux'
-import { loadHistoryFromLocalStore, setHistoryToLocalStore, sortAndFilterEntries } from '../../../../utils/historyUtils'
+import {
+  downloadHistory,
+  loadHistoryFromLocalStore,
+  setHistoryToLocalStore,
+  sortAndFilterEntries
+} from '../../../../utils/historyUtils'
 import { ErrorModal } from '../../../error-modal/error-modal'
 import { HistoryContent } from './history-content/history-content'
 import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } from './history-toolbar/history-toolbar'
@@ -17,6 +22,11 @@ export interface HistoryEntry {
   pinned: boolean
 }
 
+export interface HistoryJson {
+  version: number,
+  entries: HistoryEntry[]
+}
+
 export type LocatedHistoryEntry = HistoryEntry & HistoryEntryLocation
 
 export interface HistoryEntryLocation {
@@ -26,11 +36,6 @@ export interface HistoryEntryLocation {
 export enum Location {
   LOCAL = 'local',
   REMOTE = 'remote'
-}
-
-export interface HistoryJson {
-  version: number,
-  entries: HistoryEntry[]
 }
 
 export const History: React.FC = () => {
@@ -57,20 +62,6 @@ export const History: React.FC = () => {
     setError('')
   }
 
-  const exportHistory = () => {
-    const dataObject: HistoryJson = {
-      version: 1,
-      entries: localHistoryEntries
-    }
-    const data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataObject))
-    const downloadLink = document.createElement('a')
-    downloadLink.setAttribute('href', data)
-    downloadLink.setAttribute('download', `history_${(new Date()).getTime()}.json`)
-    document.body.appendChild(downloadLink)
-    downloadLink.click()
-    downloadLink.remove()
-  }
-
   const importHistory = (entries: HistoryEntry[]): void => {
     if (user) {
       setHistory(entries)
@@ -90,6 +81,14 @@ export const History: React.FC = () => {
         .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
         .catch(() => setError('getHistory'))
     }
+  }
+
+  const exportHistory = () => {
+    const dataObject: HistoryJson = {
+      version: 2,
+      entries: localHistoryEntries
+    }
+    downloadHistory(dataObject)
   }
 
   const clearHistory = () => {

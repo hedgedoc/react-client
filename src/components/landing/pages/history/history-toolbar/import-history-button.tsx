@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
-import { convertOldHistory, OldHistoryEntry } from '../../../../../utils/historyUtils'
+import { convertV1History, V1HistoryEntry } from '../../../../../utils/historyUtils'
 import { ErrorModal } from '../../../../error-modal/error-modal'
 import { HistoryEntry, HistoryJson } from '../history'
 
@@ -15,10 +15,17 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
   const uploadInput = useRef<HTMLInputElement>(null)
   const [show, setShow] = useState(false)
   const [fileName, setFilename] = useState('')
+  const [i18nKey, setI18nKey] = useState('')
 
-  const handleShow = () => setShow(true)
+  const handleShow = (key: string) => {
+    setI18nKey(key)
+    setShow(true)
+  }
 
-  const handleClose = () => setShow(false)
+  const handleClose = () => {
+    setI18nKey('')
+    setShow(false)
+  }
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { validity, files } = event.target
@@ -26,7 +33,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
       const file = files[0]
       setFilename(file.name)
       if (file.type !== 'application/json' && file.type !== '') {
-        handleShow()
+        handleShow('landing.history.modal.importHistoryError.textWithFile')
         return
       }
       const fileReader = new FileReader()
@@ -36,21 +43,26 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
             const result = event.target.result as string
             const data = JSON.parse(result) as HistoryJson
             if (data) {
-              if (data.version === 1) {
-                onImportHistory(data.entries)
+              if (data.version) {
+                if (data.version === 2) {
+                  onImportHistory(data.entries)
+                } else {
+                  // probably a newer version we can't support
+                  handleShow('landing.history.modal.importHistoryError.tooNewVersion')
+                }
               } else {
-                const oldEntries = JSON.parse(result) as OldHistoryEntry[]
-                onImportHistory(convertOldHistory(oldEntries))
+                const oldEntries = JSON.parse(result) as V1HistoryEntry[]
+                onImportHistory(convertV1History(oldEntries))
               }
             }
           } catch {
-            handleShow()
+            handleShow('landing.history.modal.importHistoryError.textWithFile')
           }
         }
       }
       fileReader.readAsText(file)
     } else {
-      handleShow()
+      handleShow('landing.history.modal.importHistoryError.textWithOutFile')
     }
   }
 
@@ -71,9 +83,9 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
       >
         {fileName !== ''
           ? <h5>
-            <Trans i18nKey={'landing.history.modal.importHistoryError.textWithFile'} values={{ fileName: fileName }}/>
+            <Trans i18nKey={i18nKey} values={{ fileName: fileName }}/>
           </h5>
-          : <h5><Trans i18nKey={'landing.history.modal.importHistoryError.textWithOutFile'}/></h5>
+          : <h5><Trans i18nKey={i18nKey}/></h5>
         }
       </ErrorModal>
     </div>
