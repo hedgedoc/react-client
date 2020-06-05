@@ -20,18 +20,19 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
               <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}
                 className={'mt-1'}/>
             </div>
-            <Card.Title className="m-0 mt-1dot5">{entry.title}</Card.Title>
-            <CloseButton isDark={false}/>
-          </div>
-          <div className="text-black-50 mt-2">
-            <ForkAwesomeIcon icon="clock-o"/> {moment(entry.lastVisited).fromNow()}<br/>
-            {formatHistoryDate(entry.lastVisited)}
             <div>
-              {
-                entry.tags.map((tag) => <Badge variant={'dark'} className={'mr-1 mb-1'}
-                  key={tag}>{tag}</Badge>)
-              }
+              <Card.Title className="m-0 mt-1dot5">{entry.title}</Card.Title>
+              <div className="text-black-50 mt-2">
+                <ForkAwesomeIcon icon="clock-o"/> {moment(entry.lastVisited).fromNow()}<br/>
+                {formatHistoryDate(entry.lastVisited)}
+                <div>
+                  {
+                    entry.tags.map((tag) => <Badge variant={'dark'} className={'mr-1 mb-1'} key={tag}>{tag}</Badge>)
+                  }
+                </div>
+              </div>
             </div>
+            <CloseButton isDark={false}/>
           </div>
         </Card.Body>
       </Card>
