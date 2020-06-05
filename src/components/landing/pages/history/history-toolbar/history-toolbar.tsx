@@ -37,7 +37,7 @@ export interface HistoryToolbarProps {
 export const initState: HistoryToolbarState = {
   viewState: ViewStateEnum.CARD,
   titleSortDirection: SortModeEnum.no,
-  lastVisitedSortDirection: SortModeEnum.no,
+  lastVisitedSortDirection: SortModeEnum.down,
   keywordSearch: '',
   selectedTags: []
 }
