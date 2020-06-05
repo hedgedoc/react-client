@@ -7,6 +7,7 @@ import { ApplicationState } from '../../../../redux'
 import {
   downloadHistory,
   loadHistoryFromLocalStore,
+  mergeEntryArrays,
   setHistoryToLocalStore,
   sortAndFilterEntries
 } from '../../../../utils/historyUtils'
@@ -41,7 +42,13 @@ export enum Location {
 export const History: React.FC = () => {
   useTranslation()
   const [localHistoryEntries, setLocalHistoryEntries] = useState<HistoryEntry[]>([])
-  const [remoteHistoryEntries, setRemoteHistoryEntries] = useState<HistoryEntry[]>([])
+  const [remoteHistoryEntries, setRemoteHistoryEntries] = useState<HistoryEntry[]>([{
+    id: 'test',
+    title: 'test entry remote',
+    lastVisited: new Date(),
+    tags: [],
+    pinned: false
+  }])
   const [toolbarState, setToolbarState] = useState<HistoryToolbarState>(toolbarInitState)
   const user = useSelector((state: ApplicationState) => state.user)
   const [error, setError] = useState('')
@@ -86,7 +93,7 @@ export const History: React.FC = () => {
   const exportHistory = () => {
     const dataObject: HistoryJson = {
       version: 2,
-      entries: localHistoryEntries
+      entries: mergeEntryArrays(localHistoryEntries, remoteHistoryEntries)
     }
     downloadHistory(dataObject)
   }
