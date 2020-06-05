@@ -11,7 +11,7 @@ const LanguagePicker: React.FC = () => {
     await i18n.changeLanguage(event.currentTarget.value)
   }
 
-  const shortenLanguageCode = (language: string):string => {
+  const shortenLanguageCode = (language: string): string => {
     const languageWithoutArea = language.substr(0, 2)
     if (languageWithoutArea === 'zh') {
       return language
