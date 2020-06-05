@@ -13,10 +13,11 @@ const LanguagePicker: React.FC = () => {
 
   const shortenLanguageCode = ():string => {
     const language = i18n.language
-    if (language.substr(0, 2) === 'zh') {
+    const languagePart = language.substr(0, 2)
+    if (languagePart === 'zh') {
       return language
     } else {
-      return language.substr(0, 2)
+      return languagePart
     }
   }
 
