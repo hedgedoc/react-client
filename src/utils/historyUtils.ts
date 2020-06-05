@@ -6,7 +6,10 @@ import { SortModeEnum } from '../components/sort-button/sort-button'
 export function sortAndFilterEntries (localEntries: HistoryEntry[], remoteEntries: HistoryEntry[], toolbarState: HistoryToolbarState): LocatedHistoryEntry[] {
   const locatedLocalEntries = locateEntries(localEntries, Location.LOCAL)
   const locatedRemoteEntries = locateEntries(remoteEntries, Location.REMOTE)
-  return sortEntries(filterByKeywordSearch(filterBySelectedTags(mergeEntryArrays(locatedLocalEntries, locatedRemoteEntries), toolbarState.selectedTags), toolbarState.keywordSearch), toolbarState)
+  const everyEntry = mergeEntryArrays(locatedLocalEntries, locatedRemoteEntries)
+  const filteredBySelectedTagsEntries = filterBySelectedTags(everyEntry, toolbarState.selectedTags)
+  const filteredByKeywordSearchEntries = filterByKeywordSearch(filteredBySelectedTagsEntries, toolbarState.keywordSearch)
+  return sortEntries(filteredByKeywordSearchEntries, toolbarState)
 }
 
 function locateEntries (entries: HistoryEntry[], location: Location): LocatedHistoryEntry[] {
