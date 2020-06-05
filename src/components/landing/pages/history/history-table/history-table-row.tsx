@@ -13,7 +13,7 @@ export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick
       <td>{formatHistoryDate(entry.lastVisited)}</td>
       <td>
         {
-          entry.tags.map((tag) => <Badge variant={'dark'} className={'mr-1 mb-1'}
+          entry.tags.map((tag) => <Badge variant={'light'} className={'mr-1 mb-1'}
             key={tag}>{tag}</Badge>)
         }
       </td>
