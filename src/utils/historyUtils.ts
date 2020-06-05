@@ -19,18 +19,11 @@ function locateEntries (entries: HistoryEntry[], location: Location): LocatedHis
 }
 
 export function mergeEntryArrays<T extends HistoryEntry> (locatedLocalEntries: T[], locatedRemoteEntries: T[]): T[] {
-  const duplicates: T[] = []
-  for (const remoteEntry of locatedRemoteEntries) {
-    for (const localEntry of locatedLocalEntries) {
-      if (localEntry.id === remoteEntry.id) {
-        duplicates.push(localEntry)
-      }
-    }
-  }
-  let filteredLocalEntries = locatedLocalEntries
-  for (const duplicate of duplicates) {
-    filteredLocalEntries = filteredLocalEntries.filter(entry => entry.id !== duplicate.id)
-  }
+  const filteredLocalEntries = locatedLocalEntries.filter(localEntry => {
+    const entry = locatedRemoteEntries.find(remoteEntry => remoteEntry.id === localEntry.id)
+    return !entry
+  })
+
   return filteredLocalEntries.concat(locatedRemoteEntries)
 }
 
