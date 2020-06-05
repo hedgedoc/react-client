@@ -41,22 +41,22 @@ export enum Location {
 
 export const History: React.FC = () => {
   useTranslation()
-  const [localHistoryEntries, setLocalHistoryEntries] = useState<HistoryEntry[]>([])
+  const [localHistoryEntries, setLocalHistoryEntries] = useState<HistoryEntry[]>(loadHistoryFromLocalStore)
   const [remoteHistoryEntries, setRemoteHistoryEntries] = useState<HistoryEntry[]>([])
   const [toolbarState, setToolbarState] = useState<HistoryToolbarState>(toolbarInitState)
   const user = useSelector((state: ApplicationState) => state.user)
   const [error, setError] = useState('')
 
-  const historyWrite = (entries: HistoryEntry[]) => {
-    if (!entries || entries === [] || (entries as unknown as string) === '[]') {
+  const historyWrite = useCallback((entries: HistoryEntry[]) => {
+    if (!entries) {
       return
     }
     setHistoryToLocalStore(entries)
-  }
+  }, [])
 
   useEffect(() => {
     historyWrite(localHistoryEntries)
-  }, [localHistoryEntries])
+  }, [historyWrite, localHistoryEntries])
 
   const resetError = () => {
     setError('')
@@ -71,7 +71,7 @@ export const History: React.FC = () => {
       historyWrite(entries)
       setLocalHistoryEntries(entries)
     }
-  }, [user])
+  }, [historyWrite, user])
 
   const refreshHistory = useCallback(() => {
     const localHistory = loadHistoryFromLocalStore()
@@ -103,7 +103,7 @@ export const History: React.FC = () => {
         .catch(() => setError('deleteHistory'))
     }
     historyWrite([])
-  }, [user])
+  }, [historyWrite, user])
 
   const syncClick = (entryId: string): void => {
     console.log(entryId)
@@ -122,7 +122,7 @@ export const History: React.FC = () => {
     })
   }
 
-  const tags = useMemo(() => {
+  const tags = useMemo<string[]>(() => {
     return mergeEntryArrays(localHistoryEntries, remoteHistoryEntries).map(entry => entry.tags)
       .reduce((a, b) => ([...a, ...b]), [])
       .filter((value, index, array) => {
@@ -132,7 +132,8 @@ export const History: React.FC = () => {
         return (value !== array[index - 1])
       })
   }, [localHistoryEntries, remoteHistoryEntries])
-  const entriesToShow = useMemo(() =>
+
+  const entriesToShow = useMemo<LocatedHistoryEntry[]>(() =>
     sortAndFilterEntries(localHistoryEntries, remoteHistoryEntries, toolbarState),
   [localHistoryEntries, remoteHistoryEntries, toolbarState])
 
