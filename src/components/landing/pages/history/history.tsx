@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -47,60 +47,63 @@ export const History: React.FC = () => {
   const user = useSelector((state: ApplicationState) => state.user)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    refreshHistory()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
-
-  useEffect(() => {
-    if (!localHistoryEntries || localHistoryEntries === []) {
+  const historyWrite = (entries: HistoryEntry[]) => {
+    if (!entries || entries === [] || (entries as unknown as string) === '[]') {
       return
     }
-    setHistoryToLocalStore(localHistoryEntries)
+    setHistoryToLocalStore(entries)
+  }
+
+  useEffect(() => {
+    historyWrite(localHistoryEntries)
   }, [localHistoryEntries])
 
   const resetError = () => {
     setError('')
   }
 
-  const importHistory = (entries: HistoryEntry[]): void => {
+  const importHistory = useCallback((entries: HistoryEntry[]): void => {
     if (user) {
       setHistory(entries)
-        .then(() => setRemoteHistoryEntries(entries))
-        .catch(() => setError('setHistory'))
+      .then(() => setRemoteHistoryEntries(entries))
+      .catch(() => setError('setHistory'))
     } else {
-      setHistoryToLocalStore(entries)
+      historyWrite(entries)
       setLocalHistoryEntries(entries)
     }
-  }
+  }, [user])
 
-  const refreshHistory = () => {
+  const refreshHistory = useCallback(() => {
     const localHistory = loadHistoryFromLocalStore()
     setLocalHistoryEntries(localHistory)
     if (user) {
       getHistory()
-        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
-        .catch(() => setError('getHistory'))
+      .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
+      .catch(() => setError('getHistory'))
     }
-  }
+  }, [user])
 
-  const exportHistory = () => {
+  useEffect(() => {
+    refreshHistory()
+  }, [refreshHistory])
+
+  const exportHistory = useCallback(() => {
     const dataObject: HistoryJson = {
       version: 2,
       entries: mergeEntryArrays(localHistoryEntries, remoteHistoryEntries)
     }
     downloadHistory(dataObject)
-  }
+  }, [localHistoryEntries, remoteHistoryEntries])
 
-  const clearHistory = () => {
+  const clearHistory = useCallback(() => {
     setLocalHistoryEntries([])
     if (user) {
       deleteHistory()
-        .then(() => setRemoteHistoryEntries([]))
-        .catch(() => setError('deleteHistory'))
+      .then(() => setRemoteHistoryEntries([]))
+      .catch(() => setError('deleteHistory'))
     }
-    setHistoryToLocalStore([])
-  }
+    historyWrite([])
+  }, [user])
 
   const syncClick = (entryId: string): void => {
     console.log(entryId)
@@ -120,18 +123,19 @@ export const History: React.FC = () => {
   }
 
   const tags = localHistoryEntries.map(entry => entry.tags)
-    .reduce((a, b) => ([...a, ...b]), [])
-    .filter((value, index, array) => {
-      if (index === 0) {
-        return true
-      }
-      return (value !== array[index - 1])
-    })
+  .reduce((a, b) => ([...a, ...b]), [])
+  .filter((value, index, array) => {
+    if (index === 0) {
+      return true
+    }
+    return (value !== array[index - 1])
+  })
   const entriesToShow = sortAndFilterEntries(localHistoryEntries, remoteHistoryEntries, toolbarState)
 
   return (
     <Fragment>
-      <ErrorModal show={error !== ''} onHide={resetError} title={error !== '' ? `landing.history.error.${error}.title` : ''}>
+      <ErrorModal show={error !== ''} onHide={resetError}
+                  title={error !== '' ? `landing.history.error.${error}.title` : ''}>
         <h5>
           <Trans i18nKey={error !== '' ? `landing.history.error.${error}.text` : ''}/>
         </h5>
@@ -148,9 +152,9 @@ export const History: React.FC = () => {
         />
       </Row>
       <HistoryContent viewState={toolbarState.viewState}
-        entries={entriesToShow}
-        onPinClick={pinClick}
-        onSyncClick={syncClick}
+                      entries={entriesToShow}
+                      onPinClick={pinClick}
+                      onSyncClick={syncClick}
       />
     </Fragment>
   )
