@@ -11,13 +11,12 @@ const LanguagePicker: React.FC = () => {
     await i18n.changeLanguage(event.currentTarget.value)
   }
 
-  const shortenLanguageCode = ():string => {
-    const language = i18n.language
-    const languagePart = language.substr(0, 2)
-    if (languagePart === 'zh') {
+  const shortenLanguageCode = (language: string):string => {
+    const languageWithoutArea = language.substr(0, 2)
+    if (languageWithoutArea === 'zh') {
       return language
     } else {
-      return languagePart
+      return languageWithoutArea
     }
   }
 
@@ -26,7 +25,7 @@ const LanguagePicker: React.FC = () => {
       as="select"
       size="sm"
       className="mb-2 mx-auto w-auto"
-      value={shortenLanguageCode()}
+      value={shortenLanguageCode(i18n.language)}
       onChange={onChangeLang}
     >
       <option value="en">English</option>
