@@ -65,8 +65,8 @@ export const History: React.FC = () => {
   const importHistory = useCallback((entries: HistoryEntry[]): void => {
     if (user) {
       setHistory(entries)
-      .then(() => setRemoteHistoryEntries(entries))
-      .catch(() => setError('setHistory'))
+        .then(() => setRemoteHistoryEntries(entries))
+        .catch(() => setError('setHistory'))
     } else {
       historyWrite(entries)
       setLocalHistoryEntries(entries)
@@ -78,8 +78,8 @@ export const History: React.FC = () => {
     setLocalHistoryEntries(localHistory)
     if (user) {
       getHistory()
-      .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
-      .catch(() => setError('getHistory'))
+        .then((remoteHistory) => setRemoteHistoryEntries(remoteHistory))
+        .catch(() => setError('getHistory'))
     }
   }, [user])
 
@@ -99,8 +99,8 @@ export const History: React.FC = () => {
     setLocalHistoryEntries([])
     if (user) {
       deleteHistory()
-      .then(() => setRemoteHistoryEntries([]))
-      .catch(() => setError('deleteHistory'))
+        .then(() => setRemoteHistoryEntries([]))
+        .catch(() => setError('deleteHistory'))
     }
     historyWrite([])
   }, [user])
@@ -123,19 +123,19 @@ export const History: React.FC = () => {
   }
 
   const tags = localHistoryEntries.map(entry => entry.tags)
-  .reduce((a, b) => ([...a, ...b]), [])
-  .filter((value, index, array) => {
-    if (index === 0) {
-      return true
-    }
-    return (value !== array[index - 1])
-  })
+    .reduce((a, b) => ([...a, ...b]), [])
+    .filter((value, index, array) => {
+      if (index === 0) {
+        return true
+      }
+      return (value !== array[index - 1])
+    })
   const entriesToShow = sortAndFilterEntries(localHistoryEntries, remoteHistoryEntries, toolbarState)
 
   return (
     <Fragment>
       <ErrorModal show={error !== ''} onHide={resetError}
-                  title={error !== '' ? `landing.history.error.${error}.title` : ''}>
+        title={error !== '' ? `landing.history.error.${error}.title` : ''}>
         <h5>
           <Trans i18nKey={error !== '' ? `landing.history.error.${error}.text` : ''}/>
         </h5>
@@ -152,9 +152,9 @@ export const History: React.FC = () => {
         />
       </Row>
       <HistoryContent viewState={toolbarState.viewState}
-                      entries={entriesToShow}
-                      onPinClick={pinClick}
-                      onSyncClick={syncClick}
+        entries={entriesToShow}
+        onPinClick={pinClick}
+        onSyncClick={syncClick}
       />
     </Fragment>
   )
