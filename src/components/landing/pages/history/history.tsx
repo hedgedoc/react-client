@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -122,15 +122,19 @@ export const History: React.FC = () => {
     })
   }
 
-  const tags = localHistoryEntries.map(entry => entry.tags)
-    .reduce((a, b) => ([...a, ...b]), [])
-    .filter((value, index, array) => {
-      if (index === 0) {
-        return true
-      }
-      return (value !== array[index - 1])
-    })
-  const entriesToShow = sortAndFilterEntries(localHistoryEntries, remoteHistoryEntries, toolbarState)
+  const tags = useMemo(() => {
+    return mergeEntryArrays(localHistoryEntries, remoteHistoryEntries).map(entry => entry.tags)
+      .reduce((a, b) => ([...a, ...b]), [])
+      .filter((value, index, array) => {
+        if (index === 0) {
+          return true
+        }
+        return (value !== array[index - 1])
+      })
+  }, [localHistoryEntries, remoteHistoryEntries])
+  const entriesToShow = useMemo(() =>
+    sortAndFilterEntries(localHistoryEntries, remoteHistoryEntries, toolbarState),
+  [localHistoryEntries, remoteHistoryEntries, toolbarState])
 
   return (
     <Fragment>
