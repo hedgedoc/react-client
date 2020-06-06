@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert } from 'react-bootstrap'
-import { ForkAwesomeIcon } from '../../fork-awesome/fork-awesome-icon'
+import { ForkAwesomeIcon } from '../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../common/show-if'
 
 export interface LoadingScreenProps {
