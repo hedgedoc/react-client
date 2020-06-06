@@ -3,8 +3,10 @@
 This is the new, improved and better looking frontend for CodiMD 2.0.
 Our goal is to recreate the current frontend in react and to improve it.
 
-## Development mode
+## Preparation
+You'll need at least NodeJS 12. We use [yarn](https://yarnpkg.com/) for our dependencies, but npm can work too.
 
+## Development mode
 
 1. Clone this repo (e.g. `git clone https://github.com/codimd/react-client.git codimd-react-client`)
 2. Go inside the repo (e.g. `cd codimd-react-client`)
