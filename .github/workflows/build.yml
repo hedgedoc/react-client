@@ -17,9 +17,11 @@ jobs:
         with:
           path: node_modules
           key: node_modules
+      - name: Set up NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
       - name: Install dependencies
-        uses: docker://node:lts-alpine
         run: yarn install
       - name: Build project
-        uses: docker://node:lts-alpine
         run: yarn build
