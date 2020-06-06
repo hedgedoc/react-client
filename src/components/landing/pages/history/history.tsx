@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { deleteHistory, getHistory, setHistory } from '../../../../api/history'
 import { ApplicationState } from '../../../../redux'
 import {
+  collectEntries,
   downloadHistory,
   loadHistoryFromLocalStore,
   mergeEntryArrays,
@@ -57,10 +58,6 @@ export const History: React.FC = () => {
   useEffect(() => {
     historyWrite(localHistoryEntries)
   }, [historyWrite, localHistoryEntries])
-
-  const resetError = () => {
-    setError('')
-  }
 
   const importHistory = useCallback((entries: HistoryEntry[]): void => {
     if (user) {
@@ -122,8 +119,16 @@ export const History: React.FC = () => {
     })
   }
 
+  const resetError = () => {
+    setError('')
+  }
+
+  const allEntries = useMemo(() => {
+    return collectEntries(localHistoryEntries, remoteHistoryEntries)
+  }, [localHistoryEntries, remoteHistoryEntries])
+
   const tags = useMemo<string[]>(() => {
-    return mergeEntryArrays(localHistoryEntries, remoteHistoryEntries).map(entry => entry.tags)
+    return allEntries.map(entry => entry.tags)
       .reduce((a, b) => ([...a, ...b]), [])
       .filter((value, index, array) => {
         if (index === 0) {
@@ -131,11 +136,11 @@ export const History: React.FC = () => {
         }
         return (value !== array[index - 1])
       })
-  }, [localHistoryEntries, remoteHistoryEntries])
+  }, [allEntries])
 
   const entriesToShow = useMemo<LocatedHistoryEntry[]>(() =>
-    sortAndFilterEntries(localHistoryEntries, remoteHistoryEntries, toolbarState),
-  [localHistoryEntries, remoteHistoryEntries, toolbarState])
+    sortAndFilterEntries(allEntries, toolbarState),
+  [allEntries, toolbarState])
 
   return (
     <Fragment>

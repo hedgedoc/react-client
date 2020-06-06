@@ -3,11 +3,14 @@ import { HistoryEntry, HistoryJson, LocatedHistoryEntry, Location } from '../com
 import { HistoryToolbarState } from '../components/landing/pages/history/history-toolbar/history-toolbar'
 import { SortModeEnum } from '../components/sort-button/sort-button'
 
-export function sortAndFilterEntries (localEntries: HistoryEntry[], remoteEntries: HistoryEntry[], toolbarState: HistoryToolbarState): LocatedHistoryEntry[] {
+export function collectEntries (localEntries: HistoryEntry[], remoteEntries: HistoryEntry[]): LocatedHistoryEntry[] {
   const locatedLocalEntries = locateEntries(localEntries, Location.LOCAL)
   const locatedRemoteEntries = locateEntries(remoteEntries, Location.REMOTE)
-  const everyEntry = mergeEntryArrays(locatedLocalEntries, locatedRemoteEntries)
-  const filteredBySelectedTagsEntries = filterBySelectedTags(everyEntry, toolbarState.selectedTags)
+  return mergeEntryArrays(locatedLocalEntries, locatedRemoteEntries)
+}
+
+export function sortAndFilterEntries (entries: LocatedHistoryEntry[], toolbarState: HistoryToolbarState): LocatedHistoryEntry[] {
+  const filteredBySelectedTagsEntries = filterBySelectedTags(entries, toolbarState.selectedTags)
   const filteredByKeywordSearchEntries = filterByKeywordSearch(filteredBySelectedTagsEntries, toolbarState.keywordSearch)
   return sortEntries(filteredByKeywordSearchEntries, toolbarState)
 }
