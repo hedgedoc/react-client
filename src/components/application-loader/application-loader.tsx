@@ -18,12 +18,12 @@ export const ApplicationLoader: React.FC = ({ children }) => {
   const [doneTasks, setDoneTasks] = useState<number>(0)
   const [initTasks] = useState<InitTask[]>(setUpTasks)
 
-  const runTask = async (task: Promise<void>): Promise<void> => {
+  const runTask = useCallback(async (task: Promise<void>): Promise<void> => {
     await task
     setDoneTasks(prevDoneTasks => {
       return prevDoneTasks + 1
     })
-  }
+  }, [])
 
   useEffect(() => {
     for (const task of initTasks) {
@@ -32,7 +32,7 @@ export const ApplicationLoader: React.FC = ({ children }) => {
         setFailedTitle(task.name)
       })
     }
-  }, [initTasks])
+  }, [initTasks, runTask])
 
   return (
     doneTasks < initTasks.length || initTasks.length === 0
