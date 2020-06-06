@@ -4,11 +4,12 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Pager } from '../../../../pagination/pager'
 import { HistoryEntriesProps } from '../history-content/history-content'
 import { HistoryTableRow } from './history-table-row'
+import './history-table.scss'
 
 export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClick, onSyncClick, pageIndex, onLastPageIndexChange }) => {
   useTranslation()
   return (
-    <Table striped bordered hover size="sm" variant="dark">
+    <Table striped bordered hover size="sm" variant="dark" className={'history-table'}>
       <thead>
         <tr>
           <th><Trans i18nKey={'landing.history.tableHeader.title'}/></th>
