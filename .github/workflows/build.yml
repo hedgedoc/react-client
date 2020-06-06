@@ -18,10 +18,8 @@ jobs:
           path: node_modules
           key: node_modules
       - name: Install dependencies
-        uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: install
-      - name: build project
-        uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: build
+        uses: docker://node:lts-alpine
+        run: yarn install
+      - name: Build project
+        uses: docker://node:lts-alpine
+        run: yarn build
