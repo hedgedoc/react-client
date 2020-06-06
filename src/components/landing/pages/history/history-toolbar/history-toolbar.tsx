@@ -3,7 +3,7 @@ import { Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup 
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
-import { SortButton, SortModeEnum } from '../../../../sort-button/sort-button'
+import { SortButton, SortModeEnum } from '../../../../common/sort-button/sort-button'
 import { HistoryEntry } from '../history'
 import { ClearHistoryButton } from './clear-history-button'
 import { ExportHistoryButton } from './export-history-button'

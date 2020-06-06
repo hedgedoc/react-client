@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../../fork-awesome/fork-awesome-icon'
 import { convertV1History, V1HistoryEntry } from '../../../../../utils/historyUtils'
-import { ErrorModal } from '../../../../error-modal/error-modal'
+import { ErrorModal } from '../../../../common/error-modal/error-modal'
 import { HistoryEntry, HistoryJson } from '../history'
 
 export interface ImportHistoryButtonProps {
