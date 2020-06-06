@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ForkAwesomeIcon, IconName } from '../../../fork-awesome/fork-awesome-icon'
+import { ForkAwesomeIcon, IconName } from '../fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../common/show-if'
 import { LinkWithTextProps } from './types'
 

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Button, Card, Col, Modal, Row, Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../../fork-awesome/fork-awesome-icon'
+import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { TranslatedExternalLink } from '../../common/links/translated-external-link'
 
 export const HelpButton: React.FC = () => {

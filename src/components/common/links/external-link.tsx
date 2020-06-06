@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForkAwesomeIcon, IconName } from '../../../fork-awesome/fork-awesome-icon'
+import { ForkAwesomeIcon, IconName } from '../fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../common/show-if'
 import { LinkWithTextProps } from './types'
 
