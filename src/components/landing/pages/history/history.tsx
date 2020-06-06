@@ -102,12 +102,12 @@ export const History: React.FC = () => {
     historyWrite([])
   }, [historyWrite, user])
 
-  const syncClick = (entryId: string): void => {
+  const syncClick = useCallback((entryId: string): void => {
     console.log(entryId)
     // ToDo: add syncClick
-  }
+  }, [])
 
-  const pinClick = (entryId: string): void => {
+  const pinClick = useCallback((entryId: string): void => {
     // ToDo: determine if entry is local or remote
     setLocalHistoryEntries((entries) => {
       return entries.map((entry) => {
@@ -117,7 +117,7 @@ export const History: React.FC = () => {
         return entry
       })
     })
-  }
+  }, [])
 
   const resetError = () => {
     setError('')
