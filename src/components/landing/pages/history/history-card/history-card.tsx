@@ -15,7 +15,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
       <Card className="card-min-height" text={'dark'} bg={'light'}>
         <Card.Body className="p-2 d-flex flex-row justify-content-between">
           <div className={'d-flex flex-column'}>
-            <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
+            <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id, entry.location)}/>
             <SyncStatus isDark={false} location={entry.location} className={'mt-1'}/>
           </div>
           <div className={'d-flex flex-column justify-content-between'}>
@@ -33,7 +33,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
             </div>
           </div>
           <div className={'d-flex flex-column'}>
-            <EntryMenu id={entry.id} isDark={false} onSync={() => onSyncClick(entry.id)}/>
+            <EntryMenu id={entry.id} location={entry.location} isDark={false} onSync={() => onSyncClick(entry.id, entry.location)}/>
           </div>
         </Card.Body>
       </Card>

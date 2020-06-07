@@ -102,21 +102,24 @@ export const History: React.FC = () => {
     historyWrite([])
   }, [historyWrite, user])
 
-  const syncClick = useCallback((entryId: string): void => {
-    console.log(entryId)
+  const syncClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
+    console.log(entryId, location)
     // ToDo: add syncClick
   }, [])
 
-  const pinClick = useCallback((entryId: string): void => {
-    // ToDo: determine if entry is local or remote
-    setLocalHistoryEntries((entries) => {
-      return entries.map((entry) => {
-        if (entry.id === entryId) {
-          entry.pinned = !entry.pinned
-        }
-        return entry
+  const pinClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
+    if (location === HistoryEntryOrigin.LOCAL) {
+      setLocalHistoryEntries((entries) => {
+        return entries.map((entry) => {
+          if (entry.id === entryId) {
+            entry.pinned = !entry.pinned
+          }
+          return entry
+        })
       })
-    })
+    } else if (location === HistoryEntryOrigin.REMOTE) {
+      // ToDo: update remoteHistoryEntries and call api to do the same on the server
+    }
   }, [])
 
   const resetError = () => {
