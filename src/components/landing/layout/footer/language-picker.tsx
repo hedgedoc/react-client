@@ -2,22 +2,17 @@ import moment from 'moment'
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import { setHTMLDirection, shortenLanguageCode } from '../../../../initializers/i18n'
 
 const LanguagePicker: React.FC = () => {
   const { i18n } = useTranslation()
 
   const onChangeLang = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-    moment.locale(event.currentTarget.value)
-    await i18n.changeLanguage(event.currentTarget.value)
-  }
-
-  const shortenLanguageCode = (language: string): string => {
-    const languageWithoutArea = language.substr(0, 2)
-    if (languageWithoutArea === 'zh') {
-      return language
-    } else {
-      return languageWithoutArea
-    }
+    const language = event.currentTarget.value
+    console.log('onChangeLang', language)
+    moment.locale(language)
+    await i18n.changeLanguage(language)
+    setHTMLDirection(language)
   }
 
   return (
