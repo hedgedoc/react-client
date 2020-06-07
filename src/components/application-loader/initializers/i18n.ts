@@ -53,7 +53,6 @@ export const setUpI18n = async (): Promise<void> => {
 }
 
 export const setHTMLDirection = (language: string): void => {
-  console.log(language)
   const htmlTag = document.getElementsByTagName('html')[0]
   switch (language) {
     case 'ar':

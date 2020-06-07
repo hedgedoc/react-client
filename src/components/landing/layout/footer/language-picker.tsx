@@ -9,7 +9,6 @@ const LanguagePicker: React.FC = () => {
 
   const onChangeLang = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const language = event.currentTarget.value
-    console.log('onChangeLang', language)
     moment.locale(language)
     await i18n.changeLanguage(language)
     setHTMLDirection(language)
