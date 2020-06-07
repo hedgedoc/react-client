@@ -7,14 +7,13 @@ import './sync-status.scss'
 export interface SyncStatusProps {
   isDark: boolean
   location: HistoryEntryOrigin
-  onSync: () => void
   className?: string
 }
 
-export const SyncStatus: React.FC<SyncStatusProps> = ({ isDark, location, onSync, className }) => {
+export const SyncStatus: React.FC<SyncStatusProps> = ({ isDark, location, className }) => {
   const icon = location === HistoryEntryOrigin.REMOTE ? 'cloud' : 'laptop'
   return (
-    <Button variant={isDark ? 'secondary' : 'light'} onClick={onSync} className={`sync-icon ${className || ''}`}>
+    <Button disabled variant={isDark ? 'secondary' : 'light'} className={`sync-icon ${className || ''}`}>
       <ForkAwesomeIcon icon={icon}/>
     </Button>
   )
