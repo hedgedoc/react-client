@@ -31,8 +31,6 @@
             "noHistory": "No history",
             "localHistory": "Below is history from this browser",
             "toolbar": {
-                "cards": "Cards",
-                "table": "Table",
                 "selectTags": "Select tags…",
                 "searchKeywords": "Search keyword…",
                 "sortByTitle": "Sort by title",
@@ -60,6 +58,11 @@
                 "actions": "Actions",
                 "tags": "Tags",
                 "lastVisit": "Last Visit"
+            },
+            "menu": {
+              "uploadEntry": "Upload Entry",
+              "removeEntry": "Remove from History",
+              "deleteNote": "Delete Note"
             }
         },
         "navigation": {

@@ -3,7 +3,7 @@ import React from 'react'
 import { Badge, Card } from 'react-bootstrap'
 import { formatHistoryDate } from '../../../../../utils/historyUtils'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
-import { CloseButton } from '../common/close-button'
+import { EntryMenu } from '../common/entry-menu'
 import { PinButton } from '../common/pin-button'
 import { SyncStatus } from '../common/sync-status'
 import { HistoryEntryProps } from '../history-content/history-content'
@@ -16,8 +16,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
         <Card.Body className="p-2 d-flex flex-row justify-content-between">
           <div className={'d-flex flex-column'}>
             <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id)}/>
-            <SyncStatus isDark={false} location={entry.location} onSync={() => onSyncClick(entry.id)}
-              className={'mt-1'}/>
+            <SyncStatus isDark={false} location={entry.location} className={'mt-1'}/>
           </div>
           <div className={'d-flex flex-column justify-content-between'}>
             <Card.Title className="m-0 mt-1dot5">{entry.title}</Card.Title>
@@ -34,7 +33,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
             </div>
           </div>
           <div className={'d-flex flex-column'}>
-            <CloseButton isDark={false}/>
+            <EntryMenu id={entry.id} isDark={false} onSync={() => onSyncClick(entry.id)}/>
           </div>
         </Card.Body>
       </Card>
