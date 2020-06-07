@@ -2,7 +2,7 @@ import moment from 'moment'
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { setHTMLDirection, shortenLanguageCode } from '../../../../initializers/i18n'
+import { setHTMLDirection, shortenLanguageCode } from '../../../application-loader/initializers/i18n'
 
 const LanguagePicker: React.FC = () => {
   const { i18n } = useTranslation()
