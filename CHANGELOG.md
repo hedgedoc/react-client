@@ -6,6 +6,7 @@
 
 - A new table view for the history (besides the card view)
 - Better support for RTL-languages (and LTR-content in a RTL-page)
+- Users may now change their display name and password (only email accounts) on the new profile page
 
 ### Changed
 
