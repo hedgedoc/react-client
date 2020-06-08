@@ -14,42 +14,40 @@ import * as serviceWorker from './service-worker'
 import { store } from './utils/store'
 
 ReactDOM.render(
-  <div dir='auto'>
-    <Provider store={store}>
-      <Router>
-        <ApplicationLoader>
-          <Switch>
-            <Route path="/history">
-              <LandingLayout>
-                <History/>
-              </LandingLayout>
-            </Route>
-            <Route path="/intro">
-              <LandingLayout>
-                <Intro/>
-              </LandingLayout>
-            </Route>
-            <Route path="/login">
-              <LandingLayout>
-                <Login/>
-              </LandingLayout>
-            </Route>
-            <Route path="/profile">
-              <LandingLayout>
-                <Profile/>
-              </LandingLayout>
-            </Route>
-            <Route path="/n/:id">
-              <Editor/>
-            </Route>
-            <Route path="/">
-              <Redirect to="/intro"/>
-            </Route>
-          </Switch>
-        </ApplicationLoader>
-      </Router>
-    </Provider>
-  </div>
+  <Provider store={store}>
+    <Router>
+      <ApplicationLoader>
+        <Switch>
+          <Route path="/history">
+            <LandingLayout>
+              <History/>
+            </LandingLayout>
+          </Route>
+          <Route path="/intro">
+            <LandingLayout>
+              <Intro/>
+            </LandingLayout>
+          </Route>
+          <Route path="/login">
+            <LandingLayout>
+              <Login/>
+            </LandingLayout>
+          </Route>
+          <Route path="/profile">
+            <LandingLayout>
+              <Profile/>
+            </LandingLayout>
+          </Route>
+          <Route path="/n/:id">
+            <Editor/>
+          </Route>
+          <Route path="/">
+            <Redirect to="/intro"/>
+          </Route>
+        </Switch>
+      </ApplicationLoader>
+    </Router>
+  </Provider>
   , document.getElementById('root')
 )
 
