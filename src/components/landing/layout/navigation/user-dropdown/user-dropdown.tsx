@@ -22,20 +22,20 @@ export const UserDropdown: React.FC = () => {
         <UserAvatar name={user.name} photo={user.photo}/>
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu className='text-start'>
         <LinkContainer to={'/features'}>
-          <Dropdown.Item>
+          <Dropdown.Item dir='auto'>
             <ForkAwesomeIcon icon="bolt" fixedWidth={true} className="mx-2"/>
             <Trans i18nKey="editor.help.documents.features"/>
           </Dropdown.Item>
         </LinkContainer>
         <LinkContainer to={'/profile'}>
-          <Dropdown.Item>
+          <Dropdown.Item dir='auto'>
             <ForkAwesomeIcon icon="user" fixedWidth={true} className="mx-2"/>
             <Trans i18nKey="profile.userProfile"/>
           </Dropdown.Item>
         </LinkContainer>
-        <Dropdown.Item
+        <Dropdown.Item dir='auto'
           onClick={() => {
             clearUser()
           }}>
