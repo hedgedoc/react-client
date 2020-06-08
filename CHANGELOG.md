@@ -12,7 +12,7 @@
 - The sign-in/sign-up functions are now on a separate page
 - The history shows both the entries saved in LocalStorage and the entries saved on the server together
 
-## Footer
+---
 
 All notable changes to this project will be documented in this file.
 
