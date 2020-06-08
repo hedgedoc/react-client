@@ -13,10 +13,12 @@ export interface EntryMenuProps {
   location: HistoryEntryOrigin
   isDark: boolean;
   onSync: () => void
+  onRemove: () => void
+  onDelete: () => void
   className?: string
 }
 
-const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onSync, className }) => {
+const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onSync, onRemove, onDelete, className }) => {
   const user = useSelector((state: ApplicationState) => state.user)
   return (
     <Dropdown className={`${className || ''}`}>
@@ -31,11 +33,11 @@ const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onSync, cla
             <Trans i18nKey="landing.history.menu.uploadEntry"/>
           </Dropdown.Item>
         </ShowIf>
-        <Dropdown.Item>
+        <Dropdown.Item onClick={onRemove}>
           <ForkAwesomeIcon icon="archive" fixedWidth={true} className="mx-2"/>
           <Trans i18nKey="landing.history.menu.removeEntry"/>
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item onClick={onDelete}>
           <ForkAwesomeIcon icon="trash" fixedWidth={true} className="mx-2"/>
           <Trans i18nKey="landing.history.menu.deleteNote"/>
         </Dropdown.Item>

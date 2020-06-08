@@ -38,7 +38,8 @@
                 "export": "Export history",
                 "import": "Import history",
                 "clear": "Clear history",
-                "refresh": "Refresh history"
+                "refresh": "Refresh history",
+                "uploadAll": "Sync the complete history to the server"
             },
             "modal": {
                 "clearHistory": {
@@ -60,9 +61,9 @@
                 "lastVisit": "Last Visit"
             },
             "menu": {
-              "uploadEntry": "Upload Entry",
-              "removeEntry": "Remove from History",
-              "deleteNote": "Delete Note"
+              "uploadEntry": "Upload entry",
+              "removeEntry": "Remove from history",
+              "deleteNote": "Delete note"
             }
         },
         "navigation": {

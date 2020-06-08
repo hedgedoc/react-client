@@ -12,23 +12,29 @@ export interface HistoryContentProps {
   entries: LocatedHistoryEntry[]
   onPinClick: (entryId: string, location: HistoryEntryOrigin) => void
   onSyncClick: (entryId: string, location: HistoryEntryOrigin) => void
+  onRemoveClick: (entryId: string, location: HistoryEntryOrigin) => void
+  onDeleteClick: (entryId: string, location: HistoryEntryOrigin) => void
 }
 
 export interface HistoryEntryProps {
   entry: LocatedHistoryEntry,
   onPinClick: (entryId: string, location: HistoryEntryOrigin) => void
   onSyncClick: (entryId: string, location: HistoryEntryOrigin) => void
+  onRemoveClick: (entryId: string, location: HistoryEntryOrigin) => void
+  onDeleteClick: (entryId: string, location: HistoryEntryOrigin) => void
 }
 
 export interface HistoryEntriesProps {
     entries: LocatedHistoryEntry[]
     onPinClick: (entryId: string, location: HistoryEntryOrigin) => void
     onSyncClick: (entryId: string, location: HistoryEntryOrigin) => void
+    onRemoveClick: (entryId: string, location: HistoryEntryOrigin) => void
+    onDeleteClick: (entryId: string, location: HistoryEntryOrigin) => void
     pageIndex: number
     onLastPageIndexChange: (lastPageIndex: number) => void
 }
 
-export const HistoryContent: React.FC<HistoryContentProps> = ({ viewState, entries, onPinClick, onSyncClick }) => {
+export const HistoryContent: React.FC<HistoryContentProps> = ({ viewState, entries, onPinClick, onSyncClick, onRemoveClick, onDeleteClick }) => {
   useTranslation()
   const [pageIndex, setPageIndex] = useState(0)
   const [lastPageIndex, setLastPageIndex] = useState(0)
@@ -50,10 +56,17 @@ export const HistoryContent: React.FC<HistoryContentProps> = ({ viewState, entri
         return <HistoryCardList entries={entries}
           onPinClick={onPinClick}
           onSyncClick={onSyncClick}
+          onRemoveClick={onRemoveClick}
+          onDeleteClick={onDeleteClick}
           pageIndex={pageIndex}
           onLastPageIndexChange={setLastPageIndex}/>
       case ViewStateEnum.TABLE:
-        return <HistoryTable entries={entries} onPinClick={onPinClick} onSyncClick={onSyncClick} pageIndex={pageIndex}
+        return <HistoryTable entries={entries}
+          onPinClick={onPinClick}
+          onSyncClick={onSyncClick}
+          onRemoveClick={onRemoveClick}
+          onDeleteClick={onDeleteClick}
+          pageIndex={pageIndex}
           onLastPageIndexChange={setLastPageIndex}/>
     }
   }

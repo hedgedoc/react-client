@@ -102,6 +102,20 @@ export const History: React.FC = () => {
     historyWrite([])
   }, [historyWrite, user])
 
+  const uploadAll = useCallback((): void => {
+    // ToDo: add uploadAllClick
+  }, [])
+
+  const deleteClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
+    console.log(entryId, location)
+    // ToDo: add removeClick
+  }, [])
+
+  const removeClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
+    console.log(entryId, location)
+    // ToDo: add removeClick
+  }, [])
+
   const syncClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
     console.log(entryId, location)
     // ToDo: add syncClick
@@ -162,12 +176,16 @@ export const History: React.FC = () => {
           onRefreshHistory={refreshHistory}
           onExportHistory={exportHistory}
           onImportHistory={importHistory}
+          onUploadAll={uploadAll}
         />
       </Row>
-      <HistoryContent viewState={toolbarState.viewState}
+      <HistoryContent
+        viewState={toolbarState.viewState}
         entries={entriesToShow}
         onPinClick={pinClick}
         onSyncClick={syncClick}
+        onRemoveClick={removeClick}
+        onDeleteClick={deleteClick}
       />
     </Fragment>
   )

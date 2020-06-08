@@ -32,6 +32,7 @@ export interface HistoryToolbarProps {
   onRefreshHistory: () => void
   onExportHistory: () => void
   onImportHistory: (entries: HistoryEntry[]) => void
+  onUploadAll: () => void
 }
 
 export const initState: HistoryToolbarState = {
@@ -42,7 +43,7 @@ export const initState: HistoryToolbarState = {
   selectedTags: []
 }
 
-export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags, onClearHistory, onRefreshHistory, onExportHistory, onImportHistory }) => {
+export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags, onClearHistory, onRefreshHistory, onExportHistory, onImportHistory, onUploadAll }) => {
   const [t] = useTranslation()
   const [state, setState] = useState<HistoryToolbarState>(initState)
 
@@ -111,6 +112,11 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
       <InputGroup className={'mr-1 mb-1'}>
         <Button variant={'light'} title={t('landing.history.toolbar.refresh')} onClick={onRefreshHistory}>
           <ForkAwesomeIcon icon='refresh'/>
+        </Button>
+      </InputGroup>
+      <InputGroup className={'mr-1 mb-1'}>
+        <Button variant={'light'} title={t('landing.history.toolbar.uploadAll')} onClick={onUploadAll}>
+          <ForkAwesomeIcon icon='cloud-upload'/>
         </Button>
       </InputGroup>
       <InputGroup className={'mr-1 mb-1'}>

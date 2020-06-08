@@ -6,7 +6,7 @@ import { HistoryEntriesProps } from '../history-content/history-content'
 import { HistoryTableRow } from './history-table-row'
 import './history-table.scss'
 
-export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClick, onSyncClick, pageIndex, onLastPageIndexChange }) => {
+export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClick, onSyncClick, onRemoveClick, onDeleteClick, pageIndex, onLastPageIndexChange }) => {
   useTranslation()
   return (
     <Table striped bordered hover size="sm" variant="dark" className={'history-table'}>
@@ -27,6 +27,8 @@ export const HistoryTable: React.FC<HistoryEntriesProps> = ({ entries, onPinClic
                 entry={entry}
                 onPinClick={onPinClick}
                 onSyncClick={onSyncClick}
+                onRemoveClick={onRemoveClick}
+                onDeleteClick={onDeleteClick}
               />)
           }
         </Pager>
