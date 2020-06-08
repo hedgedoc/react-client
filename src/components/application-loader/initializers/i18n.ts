@@ -49,19 +49,6 @@ export const setUpI18n = async (): Promise<void> => {
     })
 
   moment.locale(i18n.language)
-  setHTMLDirection(shortenLanguageCode(i18n.language))
-}
-
-export const setHTMLDirection = (language: string): void => {
-  const htmlTag = document.getElementsByTagName('html')[0]
-  switch (language) {
-    case 'ar':
-      htmlTag.dir = 'rtl'
-      break
-    default:
-      htmlTag.dir = 'ltr'
-      break
-  }
 }
 
 export const shortenLanguageCode = (language: string): string => {
