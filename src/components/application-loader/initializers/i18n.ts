@@ -50,12 +50,3 @@ export const setUpI18n = async (): Promise<void> => {
 
   moment.locale(i18n.language)
 }
-
-export const shortenLanguageCode = (language: string): string => {
-  const languageWithoutArea = language.substr(0, 2)
-  if (languageWithoutArea === 'zh') {
-    return language
-  } else {
-    return languageWithoutArea
-  }
-}

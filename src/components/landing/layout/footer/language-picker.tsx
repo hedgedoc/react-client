@@ -2,7 +2,6 @@ import moment from 'moment'
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { shortenLanguageCode } from '../../../application-loader/initializers/i18n'
 
 const LanguagePicker: React.FC = () => {
   const { i18n } = useTranslation()
@@ -11,6 +10,15 @@ const LanguagePicker: React.FC = () => {
     const language = event.currentTarget.value
     moment.locale(language)
     await i18n.changeLanguage(language)
+  }
+
+  const shortenLanguageCode = (language: string): string => {
+    const languageWithoutArea = language.substr(0, 2)
+    if (languageWithoutArea === 'zh') {
+      return language
+    } else {
+      return languageWithoutArea
+    }
   }
 
   return (
