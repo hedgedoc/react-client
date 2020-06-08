@@ -10,7 +10,7 @@ const Intro: React.FC = () => {
 
   return (
     <div>
-      <h1 dir='ltr'>
+      <h1 dir='auto'>
         <ForkAwesomeIcon icon="file-text"/> CodiMD
       </h1>
       <p className="lead mb-5">
