@@ -31,6 +31,8 @@
             "noHistory": "No history",
             "localHistory": "Below is history from this browser",
             "toolbar": {
+                "cards": "Cards",
+                "table": "Table",
                 "selectTags": "Select tags…",
                 "searchKeywords": "Search keyword…",
                 "sortByTitle": "Sort by title",
