@@ -103,8 +103,17 @@ export const History: React.FC = () => {
   }, [historyWrite, user])
 
   const uploadAll = useCallback((): void => {
-    // ToDo: add uploadAllClick
-  }, [])
+    const newHistory = mergeEntryArrays(localHistoryEntries, remoteHistoryEntries)
+    if (user) {
+      setHistory(newHistory)
+        .then(() => {
+          setRemoteHistoryEntries(newHistory)
+          setLocalHistoryEntries([])
+          historyWrite([])
+        })
+        .catch(() => setError('setHistory'))
+    }
+  }, [historyWrite, localHistoryEntries, remoteHistoryEntries, user])
 
   const deleteClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
     console.log(entryId, location)
