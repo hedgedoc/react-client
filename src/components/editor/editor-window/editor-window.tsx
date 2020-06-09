@@ -1,22 +1,22 @@
+import 'codemirror/addon/comment/comment'
+import 'codemirror/addon/display/placeholder'
+import 'codemirror/addon/edit/closebrackets'
+import 'codemirror/addon/edit/closetag'
+import 'codemirror/addon/edit/continuelist'
+import 'codemirror/addon/edit/matchbrackets'
+import 'codemirror/addon/edit/matchtags'
+import 'codemirror/addon/fold/foldcode'
+import 'codemirror/addon/fold/foldgutter'
+import 'codemirror/addon/search/match-highlighter'
+import 'codemirror/addon/selection/active-line'
+import 'codemirror/keymap/sublime.js'
+import 'codemirror/mode/gfm/gfm.js'
 import React, { useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import './editor-window.scss'
-import 'codemirror/mode/gfm/gfm.js'
-import 'codemirror/keymap/sublime.js'
-import 'codemirror/addon/edit/matchtags'
-import 'codemirror/addon/edit/matchbrackets'
-import 'codemirror/addon/edit/closebrackets'
-import 'codemirror/addon/selection/active-line'
-import 'codemirror/addon/search/match-highlighter'
-import 'codemirror/addon/comment/comment'
-import 'codemirror/addon/edit/closetag'
-import 'codemirror/addon/edit/continuelist'
-import 'codemirror/addon/display/placeholder'
-import 'codemirror/addon/fold/foldcode'
-import 'codemirror/addon/fold/foldgutter'
 
 const EditorWindow: React.FC = () => {
-  const [content, setContent] = useState<string>('It\'s very easy to make some words **bold** and other words *italic* with Markdown.\nYou can even [link to Google!](http://google.com)')
+  const [content, setContent] = useState<string>('')
   return (
     <ControlledCodeMirror
       className="h-100 w-100"
