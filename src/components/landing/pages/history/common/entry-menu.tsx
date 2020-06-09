@@ -10,7 +10,6 @@ export interface EntryMenuProps {
   id: string;
   location: HistoryEntryOrigin
   isDark: boolean;
-  onSync: () => void
   onRemove: () => void
   onDelete: () => void
   className?: string
@@ -18,7 +17,7 @@ export interface EntryMenuProps {
 
 const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onRemove, onDelete, className }) => {
   return (
-    <Dropdown className={`${className || ''}`}>
+    <Dropdown className={className || ''}>
       <Dropdown.Toggle size="sm" variant={isDark ? 'secondary' : 'light'} id={`dropdown-card-${id}`} className='history-menu d-flex align-items-center'>
         <ForkAwesomeIcon icon="ellipsis-h" className='history-menu'/>
       </Dropdown.Toggle>

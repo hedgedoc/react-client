@@ -80,9 +80,9 @@
             },
             "menu": {
               "recentNotes": "Recent notes",
-              "entryLocal": "Saved in your browser",
-              "entryRemote": "Saved on the server",
-              "removeEntry": "Hide from history",
+              "entryLocal": "Saved in your browser history",
+              "entryRemote": "Saved in your user history",
+              "removeEntry": "Remove from history",
               "deleteNote": "Delete note"
             }
         },

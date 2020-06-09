@@ -123,13 +123,11 @@ export const History: React.FC = () => {
             setLocalHistoryEntries(entries => entries.filter(entry => entry.id !== entryId))
           } else if (location === HistoryEntryOrigin.REMOTE) {
             setRemoteHistoryEntries(entries => entries.filter(entry => entry.id !== entryId))
-            setHistory(remoteHistoryEntries)
-              .catch(() => setError('setHistory'))
           }
         })
         .catch(() => setError('deleteNote'))
     }
-  }, [remoteHistoryEntries, user])
+  }, [user])
 
   const removeClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
     if (location === HistoryEntryOrigin.LOCAL) {
@@ -139,11 +137,6 @@ export const History: React.FC = () => {
         .then(() => setRemoteHistoryEntries((entries) => entries.filter(entry => entry.id !== entryId)))
         .catch(() => setError('deleteEntry'))
     }
-  }, [])
-
-  const syncClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
-    console.log(entryId, location)
-    // ToDo: add syncClick
   }, [])
 
   const pinClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
@@ -223,7 +216,6 @@ export const History: React.FC = () => {
         viewState={toolbarState.viewState}
         entries={entriesToShow}
         onPinClick={pinClick}
-        onSyncClick={syncClick}
         onRemoveClick={removeClick}
         onDeleteClick={deleteClick}
       />
