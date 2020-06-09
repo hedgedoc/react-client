@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-//import { useParams } from 'react-router'
 import { ApplicationState } from '../../redux'
 import { ShowIf } from '../common/show-if/show-if'
 import { EditorWindow } from './editor-window/editor-window'
@@ -14,7 +13,6 @@ interface RouteParameters {
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
-  //const { id } = useParams<RouteParameters>()
 
   return (
     <div className={'d-flex flex-column vh-100'}>
