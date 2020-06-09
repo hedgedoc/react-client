@@ -2,7 +2,10 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { Trans, useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../../../../../redux'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
+import { ShowIf } from '../../../../common/show-if/show-if'
 import { SortButton, SortModeEnum } from '../../../../common/sort-button/sort-button'
 import { HistoryEntry } from '../history'
 import { ClearHistoryButton } from './clear-history-button'
@@ -46,6 +49,7 @@ export const initState: HistoryToolbarState = {
 export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags, onClearHistory, onRefreshHistory, onExportHistory, onImportHistory, onUploadAll }) => {
   const [t] = useTranslation()
   const [state, setState] = useState<HistoryToolbarState>(initState)
+  const user = useSelector((state: ApplicationState) => state.user)
 
   const titleSortChanged = (direction: SortModeEnum) => {
     setState(prevState => ({
@@ -114,11 +118,13 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
           <ForkAwesomeIcon icon='refresh'/>
         </Button>
       </InputGroup>
-      <InputGroup className={'mr-1 mb-1'}>
-        <Button variant={'light'} title={t('landing.history.toolbar.uploadAll')} onClick={onUploadAll}>
-          <ForkAwesomeIcon icon='cloud-upload'/>
-        </Button>
-      </InputGroup>
+      <ShowIf condition={!!user}>
+        <InputGroup className={'mr-1 mb-1'}>
+          <Button variant={'light'} title={t('landing.history.toolbar.uploadAll')} onClick={onUploadAll}>
+            <ForkAwesomeIcon icon='cloud-upload'/>
+          </Button>
+        </InputGroup>
+      </ShowIf>
       <InputGroup className={'mr-1 mb-1'}>
         <ToggleButtonGroup type="radio" name="options" value={state.viewState} className={'button-height'}
           onChange={(newViewState: ViewStateEnum) => {
