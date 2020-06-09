@@ -3,7 +3,6 @@ import { Badge } from 'react-bootstrap'
 import { formatHistoryDate } from '../../../../../utils/historyUtils'
 import { EntryMenu } from '../common/entry-menu'
 import { PinButton } from '../common/pin-button'
-import { SyncStatus } from '../common/sync-status'
 import { HistoryEntryProps } from '../history-content/history-content'
 
 export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onSyncClick, onRemoveClick }) => {
@@ -18,7 +17,6 @@ export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick
         }
       </td>
       <td>
-        <SyncStatus isDark={true} location={entry.location} className={'mb-1 mr-1'}/>
         <PinButton isDark={true} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id, entry.location)} className={'mb-1 mr-1'}/>
         <EntryMenu
           id={entry.id}

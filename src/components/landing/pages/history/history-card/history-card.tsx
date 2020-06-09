@@ -5,7 +5,6 @@ import { formatHistoryDate } from '../../../../../utils/historyUtils'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { EntryMenu } from '../common/entry-menu'
 import { PinButton } from '../common/pin-button'
-import { SyncStatus } from '../common/sync-status'
 import { HistoryEntryProps } from '../history-content/history-content'
 import './history-card.scss'
 
@@ -16,7 +15,6 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
         <Card.Body className="p-2 d-flex flex-row justify-content-between">
           <div className={'d-flex flex-column'}>
             <PinButton isDark={false} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id, entry.location)}/>
-            <SyncStatus isDark={false} location={entry.location} className={'mt-1'}/>
           </div>
           <div className={'d-flex flex-column justify-content-between'}>
             <Card.Title className="m-0 mt-1dot5">{entry.title}</Card.Title>
