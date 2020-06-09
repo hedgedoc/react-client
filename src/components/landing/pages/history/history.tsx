@@ -2,7 +2,8 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { deleteHistory, getHistory, setHistory } from '../../../../api/history'
+import { deleteHistory, deleteHistoryEntry, getHistory, setHistory, updateHistoryEntry } from '../../../../api/history'
+import { deleteNote } from '../../../../api/note'
 import { ApplicationState } from '../../../../redux'
 import {
   collectEntries,
@@ -65,10 +66,9 @@ export const History: React.FC = () => {
         .then(() => setRemoteHistoryEntries(entries))
         .catch(() => setError('setHistory'))
     } else {
-      historyWrite(entries)
       setLocalHistoryEntries(entries)
     }
-  }, [historyWrite, user])
+  }, [user])
 
   const refreshHistory = useCallback(() => {
     const localHistory = loadHistoryFromLocalStore()
@@ -116,13 +116,29 @@ export const History: React.FC = () => {
   }, [historyWrite, localHistoryEntries, remoteHistoryEntries, user])
 
   const deleteClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
-    console.log(entryId, location)
-    // ToDo: add removeClick
-  }, [])
+    if (user) {
+      deleteNote(entryId)
+        .then(() => {
+          if (location === HistoryEntryOrigin.LOCAL) {
+            setLocalHistoryEntries(entries => entries.filter(entry => entry.id !== entryId))
+          } else if (location === HistoryEntryOrigin.REMOTE) {
+            setRemoteHistoryEntries(entries => entries.filter(entry => entry.id !== entryId))
+            setHistory(remoteHistoryEntries)
+              .catch(() => setError('setHistory'))
+          }
+        })
+        .catch(() => setError('deleteNote'))
+    }
+  }, [remoteHistoryEntries, user])
 
   const removeClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
-    console.log(entryId, location)
-    // ToDo: add removeClick
+    if (location === HistoryEntryOrigin.LOCAL) {
+      setLocalHistoryEntries((entries) => entries.filter(entry => entry.id !== entryId))
+    } else if (location === HistoryEntryOrigin.REMOTE) {
+      deleteHistoryEntry(entryId)
+        .then(() => setRemoteHistoryEntries((entries) => entries.filter(entry => entry.id !== entryId)))
+        .catch(() => setError('deleteEntry'))
+    }
   }, [])
 
   const syncClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
@@ -141,9 +157,24 @@ export const History: React.FC = () => {
         })
       })
     } else if (location === HistoryEntryOrigin.REMOTE) {
-      // ToDo: update remoteHistoryEntries and call api to do the same on the server
+      const entry = remoteHistoryEntries.find(entry => entry.id === entryId)
+      if (!entry) {
+        setError('notFoundEntry')
+        return
+      }
+      entry.pinned = !entry.pinned
+      updateHistoryEntry(entryId, entry)
+        .then(() => setRemoteHistoryEntries((entries) => {
+          return entries.map((entry) => {
+            if (entry.id === entryId) {
+              entry.pinned = !entry.pinned
+            }
+            return entry
+          })
+        }))
+        .catch(() => setError('updateEntry'))
     }
-  }, [])
+  }, [remoteHistoryEntries])
 
   const resetError = () => {
     setError('')
