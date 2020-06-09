@@ -34,7 +34,7 @@ const Editor: React.FC = () => {
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={<EditorWindow/>}
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={<MarkdownPreview/>}
+          right={<MarkdownPreview content={'# hey\nowiheg'}/>}
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>
