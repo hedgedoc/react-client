@@ -1,5 +1,6 @@
 @import '../../../../node_modules/codemirror/lib/codemirror.css';
-@import '../../../../node_modules/codemirror-one-dark-theme/one-dark.css';
+@import 'themes/dark.css';
+@import 'themes/light.css';
 
 .CodeMirror {
   height: 100%;
