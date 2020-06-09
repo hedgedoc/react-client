@@ -12,6 +12,7 @@ import { TaskBar } from './task-bar/task-bar'
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
+  const [markdownContent, setMarkdownContent] = useState('')
   const isWide = useMedia({ minWidth: 576 })
   const [firstDraw, setFirstDraw] = useState(true)
 
@@ -32,9 +33,9 @@ const Editor: React.FC = () => {
         <TaskBar/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
-          left={<EditorWindow/>}
+          left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={<MarkdownPreview content={'# hey\nowiheg'}/>}
+          right={<MarkdownPreview content={markdownContent}/>}
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>
