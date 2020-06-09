@@ -3156,11 +3156,6 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror-one-dark-theme@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/codemirror-one-dark-theme/-/codemirror-one-dark-theme-1.1.1.tgz#e7f2b9e57e9945bed1720c61aa953a95ab96715c"
-  integrity sha512-SuGz+mjIhWZcU59PQT1KQL8YDdCZOB7zWyPSKC9T8KCjiFCsNaRnaOpI9LDamHUx8X+a7tEfiogemx6L/WDZCg==
-
 codemirror@^5.54.0:
   version "5.54.0"
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.54.0.tgz#82b6adf662b29eeb7b867fe7839d49e25e4a0b38"
