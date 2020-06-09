@@ -63,8 +63,10 @@
                 "lastVisit": "Last Visit"
             },
             "menu": {
-              "uploadEntry": "Upload entry",
-              "removeEntry": "Remove from history",
+              "recentNotes": "Recent notes",
+              "entryLocal": "Saved in your browser",
+              "entryRemote": "Saved on the server",
+              "removeEntry": "Hide from history",
               "deleteNote": "Delete note"
             }
         },

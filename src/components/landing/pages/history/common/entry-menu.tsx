@@ -1,8 +1,6 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import { ApplicationState } from '../../../../../redux'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../../../common/show-if/show-if'
 import { HistoryEntryOrigin } from '../history'
@@ -18,8 +16,7 @@ export interface EntryMenuProps {
   className?: string
 }
 
-const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onSync, onRemove, onDelete, className }) => {
-  const user = useSelector((state: ApplicationState) => state.user)
+const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onRemove, onDelete, className }) => {
   return (
     <Dropdown className={`${className || ''}`}>
       <Dropdown.Toggle size="sm" variant={isDark ? 'secondary' : 'light'} id={`dropdown-card-${id}`} className='history-menu d-flex align-items-center'>
@@ -27,16 +24,30 @@ const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onSync, onR
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <ShowIf condition={location === HistoryEntryOrigin.LOCAL && !!user}>
-          <Dropdown.Item onClick={onSync}>
-            <ForkAwesomeIcon icon="cloud-upload" fixedWidth={true} className="mx-2"/>
-            <Trans i18nKey="landing.history.menu.uploadEntry"/>
+
+        <Dropdown.Header>
+          <Trans i18nKey="landing.history.menu.recentNotes"/>
+        </Dropdown.Header>
+
+        <ShowIf condition={location === HistoryEntryOrigin.LOCAL}>
+          <Dropdown.Item disabled>
+            <ForkAwesomeIcon icon="laptop" fixedWidth={true} className="mx-2"/>
+            <Trans i18nKey="landing.history.menu.entryLocal"/>
+          </Dropdown.Item>
+        </ShowIf>
+        <ShowIf condition={location === HistoryEntryOrigin.REMOTE}>
+          <Dropdown.Item disabled>
+            <ForkAwesomeIcon icon="cloud" fixedWidth={true} className="mx-2"/>
+            <Trans i18nKey="landing.history.menu.entryRemote"/>
           </Dropdown.Item>
         </ShowIf>
         <Dropdown.Item onClick={onRemove}>
           <ForkAwesomeIcon icon="archive" fixedWidth={true} className="mx-2"/>
           <Trans i18nKey="landing.history.menu.removeEntry"/>
         </Dropdown.Item>
+
+        <Dropdown.Divider/>
+
         <Dropdown.Item onClick={onDelete}>
           <ForkAwesomeIcon icon="trash" fixedWidth={true} className="mx-2"/>
           <Trans i18nKey="landing.history.menu.deleteNote"/>
