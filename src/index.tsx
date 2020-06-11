@@ -12,6 +12,7 @@ import { Profile } from './components/landing/pages/profile/profile'
 import './global-style/index.scss'
 import * as serviceWorker from './service-worker'
 import { store } from './utils/store'
+import { Redirector } from './components/redirector/redirector'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -40,6 +41,9 @@ ReactDOM.render(
           </Route>
           <Route path="/n/:id">
             <Editor/>
+          </Route>
+          <Route path="/:id">
+            <Redirector/>
           </Route>
           <Route path="/">
             <Redirect to="/intro"/>
