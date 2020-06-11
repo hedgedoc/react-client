@@ -33,6 +33,7 @@
       "groupName": "JS test packages"
     }
   ],
+  "prHourlyLimit": 0,
   "schedule": [
     "on Saturday"
   ]
