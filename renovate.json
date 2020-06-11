@@ -34,7 +34,6 @@
     }
   ],
   "schedule": [
-    "after 2am",
-    "before 8am"
+    "on Saturday"
   ]
 }
