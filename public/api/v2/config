@@ -13,6 +13,7 @@
     "email": true,
     "openid": true
   },
+  "bannerText": "Dies ist ein Testbanner",
   "customAuthNames": {
     "ldap": "FooBar",
     "oauth2": "Olaf2",
