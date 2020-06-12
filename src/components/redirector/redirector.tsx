@@ -14,7 +14,7 @@ export const Redirector: React.FC = () => {
 
   useEffect(() => {
     getNote(id)
-      .then((noteFromAPI) => setError(noteFromAPI.preVersionTwoNote))
+      .then((noteFromAPI) => setError(!noteFromAPI.preVersionTwoNote))
       .catch(() => setError(true))
   }, [id])
 
