@@ -10,6 +10,6 @@ export const SplitDivider: React.FC<SplitDividerProps> = ({ onGrab }) => {
     <div
       onMouseDown={() => onGrab()}
       onTouchStart={() => onGrab()}
-      className={'editor-separator'}/>
+      className={'split-divider'}/>
   )
 }
