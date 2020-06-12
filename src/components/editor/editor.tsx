@@ -23,7 +23,6 @@ const Editor: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    console.log(isWide)
     if (!firstDraw && !isWide && editorMode === EditorMode.BOTH) {
       setEditorModeConfig(EditorMode.PREVIEW)
     }
