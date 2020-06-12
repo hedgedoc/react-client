@@ -35,3 +35,8 @@ body {
 .overflow-y-scroll {
   overflow-y: scroll;
 }
+
+@font-face {
+  font-family: "twemoji";
+  src: url("TwemojiMozilla.ttf") format("truetype");
+}
