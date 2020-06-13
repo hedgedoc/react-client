@@ -1,0 +1,11 @@
+button.link {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  color: #069;
+
+  &:hover, &:active {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

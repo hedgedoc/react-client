@@ -4,15 +4,11 @@ import useMedia from 'use-media'
 import { ApplicationState } from '../../redux'
 import { setEditorModeConfig } from '../../redux/editor/methods'
 import { Splitter } from '../common/splitter/splitter'
-import { InfoBanner } from '../landing/layout/info-banner'
+import { InfoBanner } from '../landing/layout/info-banner/info-banner'
 import { EditorWindow } from './editor-window/editor-window'
 import { MarkdownPreview } from './markdown-preview/markdown-preview'
 import { EditorMode } from './task-bar/editor-view-mode'
 import { TaskBar } from './task-bar/task-bar'
-
-interface RouteParameters {
-  id: string
-}
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)

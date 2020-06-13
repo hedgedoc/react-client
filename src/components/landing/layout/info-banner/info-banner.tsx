@@ -1,21 +1,33 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { ApplicationState } from '../../../redux'
+import { useHistory } from 'react-router-dom'
+import { ApplicationState } from '../../../../redux'
 import { Alert, Button } from 'react-bootstrap'
-import { setBanner } from '../../../redux/banner/methods'
-import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
-import { ShowIf } from '../../common/show-if/show-if'
+import { setBanner } from '../../../../redux/banner/methods'
+import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { ShowIf } from '../../../common/show-if/show-if'
+import './info-banner.scss'
 
 export const InfoBanner: React.FC = () => {
+  const history = useHistory()
   const bannerState = useSelector((state: ApplicationState) => state.banner)
+
   const dismissBanner = () => {
     setBanner({ ...bannerState, show: false })
     window.localStorage.setItem('lastBanner', bannerState.text)
   }
+
+  const clickLink = () => {
+    dismissBanner()
+    history.push(bannerState.link)
+  }
+
   return (
     <ShowIf condition={bannerState.show}>
       <Alert variant='primary' dir='auto' className='mb-0 text-center'>
-        {bannerState.text}
+        <button className='link' onClick={clickLink}>
+          {bannerState.text}
+        </button>
         <Button
           variant='outline-primary'
           size='sm'
