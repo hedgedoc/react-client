@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import { Footer } from './layout/footer/footer'
-import { InfoBanner } from './layout/info-banner/info-banner'
+import { InfoBanner } from './layout/info-banner'
 import { HeaderBar } from './layout/navigation/header-bar/header-bar'
 
 export const LandingLayout: React.FC = ({ children }) => {

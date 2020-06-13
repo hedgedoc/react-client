@@ -1,12 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { ApplicationState } from '../../../../redux'
+import { ApplicationState } from '../../../redux'
 import { Alert, Button } from 'react-bootstrap'
-import { setBanner } from '../../../../redux/banner/methods'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import { ShowIf } from '../../../common/show-if/show-if'
-import './info-banner.scss'
+import { setBanner } from '../../../redux/banner/methods'
+import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+import { ShowIf } from '../../common/show-if/show-if'
 
 export const InfoBanner: React.FC = () => {
   const bannerState = useSelector((state: ApplicationState) => state.banner)
