@@ -8,7 +8,8 @@ import {
 
 export const initialState: BannerState = {
   show: true,
-  text: ''
+  text: '',
+  link: ''
 }
 
 export const BannerReducer: Reducer<BannerState, BannerActions> = (state: BannerState = initialState, action: BannerActions) => {

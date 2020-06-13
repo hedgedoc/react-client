@@ -22,6 +22,7 @@ export const loadAllConfig: (baseUrl: string) => Promise<void> = async (baseUrl)
   const lastAcknowledgedText = window.localStorage.getItem('lastBanner') || ''
   setBanner({
     text: currentText,
+    link: backendConfig.bannerLink,
     show: currentText !== '' && currentText !== lastAcknowledgedText
   })
 

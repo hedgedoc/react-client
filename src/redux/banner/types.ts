@@ -15,4 +15,5 @@ export interface SetBannerAction extends BannerActions {
 export interface BannerState {
   show: boolean
   text: string
+  link: string
 }
