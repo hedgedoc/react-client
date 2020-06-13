@@ -9,7 +9,7 @@ import {
 export const initialState: BannerState = {
   show: true,
   text: '',
-  link: ''
+  timestamp: ''
 }
 
 export const BannerReducer: Reducer<BannerState, BannerActions> = (state: BannerState = initialState, action: BannerActions) => {

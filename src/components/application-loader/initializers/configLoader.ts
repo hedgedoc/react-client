@@ -1,5 +1,6 @@
 import { getBackendConfig } from '../../../api/backend-config'
 import { getFrontendConfig } from '../../../api/frontend-config'
+import { getNote } from '../../../api/note'
 import { setBackendConfig } from '../../../redux/backend-config/methods'
 import { setBanner } from '../../../redux/banner/methods'
 import { setFrontendConfig } from '../../../redux/frontend-config/methods'
@@ -19,12 +20,15 @@ export const loadAllConfig: (baseUrl: string) => Promise<void> = async (baseUrl)
   setBackendConfig(backendConfig)
 
   const currentText = backendConfig.bannerText
-  const lastAcknowledgedText = window.localStorage.getItem('lastBanner') || ''
-  setBanner({
-    text: currentText,
-    link: backendConfig.bannerLink,
-    show: currentText !== '' && currentText !== lastAcknowledgedText
-  })
+  if (currentText !== '') {
+    const bannerNote = await getNote('banner')
+    const lastAcknowledgedTimestamp = window.localStorage.getItem('bannerTimeStamp') || ''
+    setBanner({
+      text: currentText,
+      timestamp: bannerNote.createtime,
+      show: currentText !== '' && bannerNote.createtime !== lastAcknowledgedTimestamp
+    })
+  }
 
   await getAndSetUser()
 }

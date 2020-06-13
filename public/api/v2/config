@@ -14,7 +14,6 @@
     "openid": true
   },
   "bannerText": "Dies ist ein Testbanner",
-  "bannerLink": "/n/banner",
   "customAuthNames": {
     "ldap": "FooBar",
     "oauth2": "Olaf2",

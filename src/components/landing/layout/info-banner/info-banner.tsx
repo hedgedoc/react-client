@@ -14,12 +14,12 @@ export const InfoBanner: React.FC = () => {
 
   const dismissBanner = () => {
     setBanner({ ...bannerState, show: false })
-    window.localStorage.setItem('lastBanner', bannerState.text)
+    window.localStorage.setItem('bannerTimeStamp', bannerState.timestamp)
   }
 
   const clickLink = () => {
     dismissBanner()
-    history.push(bannerState.link)
+    history.push('/n/banner')
   }
 
   return (
