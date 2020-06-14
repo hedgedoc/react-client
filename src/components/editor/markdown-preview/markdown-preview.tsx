@@ -19,7 +19,6 @@ function escapeHtml (unsafe: string): string {
 }
 
 function highlightRender (code: string, lang: string): string {
-  console.log(code, lang)
   if (!lang || new RegExp('no(-?)highlight|plain|text').test(lang)) { return '' }
   code = escapeHtml(code)
   if (lang === 'sequence') {
@@ -33,6 +32,7 @@ function highlightRender (code: string, lang: string): string {
   } else if (lang === 'abc') {
     return `<div class="abc raw">${code}</div>`
   }
+  console.log(code, lang)
   const result = {
     value: code
   }
