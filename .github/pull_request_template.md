@@ -1,8 +1,8 @@
 ### Component/Part
-AwesomeComponent37
+<!-- e.g markdown editor -->
 
 ### Description
 This PR fixes/adds/improves/...
 
 ### Related Issue(s)
-#123
+<!-- e.g #123 -->
