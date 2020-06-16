@@ -4,6 +4,8 @@ import taskList from 'markdown-it-task-lists'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import './markdown-preview.scss'
+import markdownItRegex from 'markdown-it-regex'
+import { youtubePlugin } from './plugins/youtube'
 
 export interface MarkdownPreviewProps {
   content: string
@@ -65,6 +67,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     })
     md.use(taskList)
     md.use(emoji)
+    md.use(markdownItRegex, youtubePlugin)
     return md
   }, [])
   const result: ReactElement[] = useMemo(() => {
