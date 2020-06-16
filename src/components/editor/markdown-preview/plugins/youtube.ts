@@ -2,7 +2,7 @@ import { RegexOptions } from '../../../../external-types/markdown-it-regex/inter
 
 export const youtubePlugin: RegexOptions = {
   name: 'youtube',
-  regex: /^(?:(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:[^\\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\\/\s]{11}))$/gi,
+  regex: /^(?:(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:[^\\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\\/\s]{11}))$/,
   replace: (match) => {
     const thumbnailSrc = `//img.youtube.com/vi/${match}/hqdefault.jpg`
     return `<img src="${thumbnailSrc}" alt="youtube video"/>`
