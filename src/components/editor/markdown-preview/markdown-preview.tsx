@@ -1,11 +1,12 @@
 import MarkdownIt from 'markdown-it'
 import emoji from 'markdown-it-emoji'
+import markdownItRegex from 'markdown-it-regex'
 import taskList from 'markdown-it-task-lists'
 import React, { ReactElement, useMemo } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import './markdown-preview.scss'
-import markdownItRegex from 'markdown-it-regex'
-import { youtubePlugin } from './plugins/youtube'
+import { replaceLegacyYoutubeTagWithLink } from './regex-plugins/replace-legacy-youtube-tag-with-link'
+import { getYouTubeReplacement } from './replace-components/youtube-frame'
 
 export interface MarkdownPreviewProps {
   content: string
@@ -21,7 +22,9 @@ function escapeHtml (unsafe: string): string {
 }
 
 function highlightRender (code: string, lang: string): string {
-  if (!lang || new RegExp('no(-?)highlight|plain|text').test(lang)) { return '' }
+  if (!lang || new RegExp('no(-?)highlight|plain|text').test(lang)) {
+    return ''
+  }
   code = escapeHtml(code)
   if (lang === 'sequence') {
     return `<div class="sequence-diagram raw">${code}</div>`
@@ -42,9 +45,11 @@ function highlightRender (code: string, lang: string): string {
   if (showlinenumbers) {
     let startnumber = 1
     const matches = (new RegExp('=(d+)$')).exec(lang)
-    if (matches) { startnumber = parseInt(matches[1]) }
+    if (matches) {
+      startnumber = parseInt(matches[1])
+    }
     const lines = result.value.split('\n')
-    const linenumbers:string[] = []
+    const linenumbers: string[] = []
     for (let i = 0; i < lines.length - 1; i++) {
       linenumbers[i] = `<span data-linenumber='${startnumber + i}'></span>`
     }
@@ -67,12 +72,27 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     })
     md.use(taskList)
     md.use(emoji)
-    md.use(markdownItRegex, youtubePlugin)
+    md.use(markdownItRegex, replaceLegacyYoutubeTagWithLink)
+    md.use((md) => {
+      md.core.ruler.push('test', (state) => {
+        console.log(state)
+        return true
+      })
+    })
     return md
   }, [])
   const result: ReactElement[] = useMemo(() => {
     const html: string = markdownIt.render(content)
-    const ret: ReactElement[] = ReactHtmlParser(html)
+    const transform: Transform = (node, index) => {
+      const result = getYouTubeReplacement(node)
+      if (result) {
+        return result
+      }
+
+      console.log(node)
+      return convertNodeToElement(node, index, transform)
+    }
+    const ret: ReactElement[] = ReactHtmlParser(html, { transform: transform })
     return ret
   }, [content, markdownIt])
 
