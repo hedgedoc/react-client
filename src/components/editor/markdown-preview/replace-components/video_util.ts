@@ -1,6 +1,6 @@
 import { DomElement } from 'domhandler'
 
-export const testSingleVideoParagraph = (node: DomElement, regex: RegExp): (string | undefined) => {
+export const testSingleVideoParagraph = (node: DomElement, tagName: string): (string | undefined) => {
   if (!node.name || node.name !== 'p') {
     return
   }
@@ -8,26 +8,14 @@ export const testSingleVideoParagraph = (node: DomElement, regex: RegExp): (stri
     return
   }
   const childTag = node.children[0]
-  if (childTag.name !== 'a') {
+  if (childTag.name !== 'a' || !childTag.children || childTag.children.length !== 1) {
     return
   }
-  if (!childTag.attribs || !childTag.attribs.href) {
+  const videoTag = childTag.children[0]
+  if (videoTag.name !== `codimd-${tagName}` || !videoTag.attribs || !videoTag.attribs.id) {
     return
   }
-  if (!regex.test(childTag.attribs.href)) {
-    return
-  }
-  if (!childTag.children || !childTag.children[0] || childTag.children[0].type !== 'text') {
-    return
-  }
-  if (!childTag.children[0].data || childTag.children[0].data !== childTag.attribs.href) {
-    return
-  }
-  const matches = regex.exec(childTag.attribs.href)
-  if (!matches) {
-    return
-  }
-  return matches[1]
+  return videoTag.attribs.id
 }
 
 export interface VideoFrameProps {

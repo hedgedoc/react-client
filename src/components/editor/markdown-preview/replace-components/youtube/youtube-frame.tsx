@@ -1,19 +1,15 @@
 import { DomElement } from 'domhandler'
 import React, { ReactElement, useState } from 'react'
-import './youtube-frame.scss'
+import { ShowIf } from '../../../../common/show-if/show-if'
 import { testSingleVideoParagraph, VideoFrameProps } from '../video_util'
+import './youtube-frame.scss'
 
-const protocolRegex = /(?:http(?:s)?:\/\/)?/
-const subdomainRegex = /(?:www.)?/
-const domainRegex = /(?:youtube\.com\/(?:[^\\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)/
-const idRegex = /([^"&?\\/\s]{11})/
-const youtubeVideoUrlRegex = new RegExp(`(?:${protocolRegex.source}${subdomainRegex.source}${domainRegex.source}${idRegex.source})`)
-const linkRegex = new RegExp(`^${youtubeVideoUrlRegex.source}$`)
-
-const getElementReplacement = (node: DomElement): (ReactElement | undefined) => {
-  const result = testSingleVideoParagraph(node, linkRegex)
-  if (result) {
-    return <YouTubeFrame key={result} id={result}/>
+const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
+  const videoId = testSingleVideoParagraph(node, 'youtube')
+  if (videoId) {
+    const count = (counterMap.get(videoId) || 0) + 1
+    counterMap.set(videoId, count)
+    return <YouTubeFrame key={`youtube_${videoId}_${count}`} id={videoId}/>
   }
 }
 
@@ -26,15 +22,19 @@ export const YouTubeFrame: React.FC<VideoFrameProps> = ({ id }) => {
 
   return (
     <p>
-      {showFrame
-        ? <iframe frameBorder='0' title={`youtube video of ${id}`} width="560" height="315"
-          src={`https://www.youtube.com/embed/${id}?autoplay=1`}
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"/>
-        : <span className="preview youtube" onClick={showVideo}>
-          <img src={`//img.youtube.com/vi/${id}/hqdefault.jpg`} alt="youtube video"/>
-          <i className="fa fa-youtube-play fa-5x"/>
-        </span>
-      }
+      <div className='embed-responsive embed-responsive-16by9'>
+        <ShowIf condition={showFrame}>
+          <iframe className='embed-responsive-item' title={`youtube video of ${id}`} width="100%"
+            src={`//www.youtube-nocookie.com/embed/${id}?autoplay=1`}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"/>
+        </ShowIf>
+        <ShowIf condition={!showFrame}>
+          <span className='preview youtube embed-responsive-item' onClick={showVideo}>
+            <img src={`//i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="youtube video"/>
+            <i className="fa fa-youtube-play fa-5x"/>
+          </span>
+        </ShowIf>
+      </div>
     </p>
   )
 }

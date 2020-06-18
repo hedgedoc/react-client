@@ -5,60 +5,17 @@ import taskList from 'markdown-it-task-lists'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import './markdown-preview.scss'
-import { replaceLegacyYoutubeTagWithLink } from './regex-plugins/replace-legacy-youtube-tag-with-link'
+import { replaceLegacyGistShortCode } from './regex-plugins/replace-gist-short-code'
+import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
+import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
+import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
+import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
+import { getGistReplacement } from './replace-components/gist/gist-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
 
 export interface MarkdownPreviewProps {
   content: string
-}
-
-function escapeHtml (unsafe: string): string {
-  return unsafe
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
-}
-
-function highlightRender (code: string, lang: string): string {
-  if (!lang || new RegExp('no(-?)highlight|plain|text').test(lang)) {
-    return ''
-  }
-  code = escapeHtml(code)
-  if (lang === 'sequence') {
-    return `<div class="sequence-diagram raw">${code}</div>`
-  } else if (lang === 'flow') {
-    return `<div class="flow-chart raw">${code}</div>`
-  } else if (lang === 'graphviz') {
-    return `<div class="graphviz raw">${code}</div>`
-  } else if (lang === 'mermaid') {
-    return `<div class="mermaid raw">${code}</div>`
-  } else if (lang === 'abc') {
-    return `<div class="abc raw">${code}</div>`
-  }
-  console.log(code, lang)
-  const result = {
-    value: code
-  }
-  const showlinenumbers = new RegExp('=$|=\\d+$|=\\+$').test(lang)
-  if (showlinenumbers) {
-    let startnumber = 1
-    const matches = (new RegExp('=(d+)$')).exec(lang)
-    if (matches) {
-      startnumber = parseInt(matches[1])
-    }
-    const lines = result.value.split('\n')
-    const linenumbers: string[] = []
-    for (let i = 0; i < lines.length - 1; i++) {
-      linenumbers[i] = `<span data-linenumber='${startnumber + i}'></span>`
-    }
-    const continuelinenumber = /=\+$/.test(lang)
-    const linegutter = `<div class='gutter linenumber${continuelinenumber ? ' continue' : ''}'>${linenumbers.join('\n')}</div>`
-    result.value = `<div class='wrapper'>${linegutter}<div class='code'>${result.value}</div></div>`
-  }
-  return result.value
 }
 
 const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
@@ -68,12 +25,15 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
       breaks: true,
       langPrefix: '',
       linkify: true,
-      typographer: true,
-      highlight: highlightRender
+      typographer: true
     })
     md.use(taskList)
     md.use(emoji)
-    md.use(markdownItRegex, replaceLegacyYoutubeTagWithLink)
+    md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
+    md.use(markdownItRegex, replaceLegacyVimeoShortCode)
+    md.use(markdownItRegex, replaceYouTubeLink)
+    md.use(markdownItRegex, replaceVimeoLink)
+    md.use(markdownItRegex, replaceLegacyGistShortCode)
     md.use((md) => {
       md.core.ruler.push('test', (state) => {
         console.log(state)
@@ -82,20 +42,29 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     })
     return md
   }, [])
+
   const result: ReactElement[] = useMemo(() => {
+    const youtubeIdCounterMap = new Map<string, number>()
+    const vimeoIdCounterMap = new Map<string, number>()
+    const gistIdCounterMap = new Map<string, number>()
+
     const html: string = markdownIt.render(content)
     const transform: Transform = (node, index) => {
-      const result = getYouTubeReplacement(node)
-      if (result) {
-        return result
+      const resultYT = getYouTubeReplacement(node, youtubeIdCounterMap)
+      if (resultYT) {
+        return resultYT
       }
 
-      const result2 = getVimeoReplacement(node)
-      if (result2) {
-        return result2
+      const resultVimeo = getVimeoReplacement(node, vimeoIdCounterMap)
+      if (resultVimeo) {
+        return resultVimeo
       }
 
-      console.log(node)
+      const resultGist = getGistReplacement(node, gistIdCounterMap)
+      if (resultGist) {
+        return resultGist
+      }
+
       return convertNodeToElement(node, index, transform)
     }
     const ret: ReactElement[] = ReactHtmlParser(html, { transform: transform })
