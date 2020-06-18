@@ -12,7 +12,7 @@ import { TaskBar } from './task-bar/task-bar'
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
-  const [markdownContent, setMarkdownContent] = useState('{%gist schacon/4277%}\n\nhttps://www.youtube.com/watch?v=HBog-lu1tBE')
+  const [markdownContent, setMarkdownContent] = useState('# Embedding demo\n\n## Gist\n{%gist schacon/1%}\n\n## YouTube\nhttps://www.youtube.com/watch?v=KgMpKsp23yY\n\n## Vimeo\nhttps://vimeo.com/23237102')
   const isWide = useMedia({ minWidth: 576 })
   const [firstDraw, setFirstDraw] = useState(true)
 

@@ -72,7 +72,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
   }, [content, markdownIt])
 
   return (
-    <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll'}>
+    <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
       <div className={'markdown-body container-fluid'}>{result}</div>
     </div>
   )

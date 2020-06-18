@@ -2,7 +2,7 @@ import { DomElement } from 'domhandler'
 import React, { ReactElement, useState } from 'react'
 import { ShowIf } from '../../../../common/show-if/show-if'
 import { testSingleVideoParagraph, VideoFrameProps } from '../video_util'
-import './youtube-frame.scss'
+import '../../common-style/video-embedding.scss'
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
   const videoId = testSingleVideoParagraph(node, 'youtube')
@@ -29,7 +29,7 @@ export const YouTubeFrame: React.FC<VideoFrameProps> = ({ id }) => {
       </ShowIf>
       <ShowIf condition={!showFrame}>
         <span className='preview youtube embed-responsive-item' onClick={showVideo}>
-          <img src={`//i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="youtube video"/>
+          <img src={`//i.ytimg.com/vi/${id}/maxresdefault.jpg`} alt="youtube video"/>
           <i className="fa fa-youtube-play fa-5x"/>
         </span>
       </ShowIf>
