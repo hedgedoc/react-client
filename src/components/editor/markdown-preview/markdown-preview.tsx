@@ -5,11 +5,12 @@ import taskList from 'markdown-it-task-lists'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import './markdown-preview.scss'
-import { replaceLegacyGistShortCode } from './regex-plugins/replace-gist-short-code'
+import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
 import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
+import { replaceGistLink } from './regex-plugins/replace-gist-link'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
@@ -31,9 +32,10 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(emoji)
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
+    md.use(markdownItRegex, replaceLegacyGistShortCode)
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
-    md.use(markdownItRegex, replaceLegacyGistShortCode)
+    md.use(markdownItRegex, replaceGistLink)
     md.use((md) => {
       md.core.ruler.push('test', (state) => {
         console.log(state)
