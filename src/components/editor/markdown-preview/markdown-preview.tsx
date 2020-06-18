@@ -6,7 +6,8 @@ import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import './markdown-preview.scss'
 import { replaceLegacyYoutubeTagWithLink } from './regex-plugins/replace-legacy-youtube-tag-with-link'
-import { getYouTubeReplacement } from './replace-components/youtube-frame'
+import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
+import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
 
 export interface MarkdownPreviewProps {
   content: string
@@ -87,6 +88,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
       const result = getYouTubeReplacement(node)
       if (result) {
         return result
+      }
+
+      const result2 = getVimeoReplacement(node)
+      if (result2) {
+        return result2
       }
 
       console.log(node)
