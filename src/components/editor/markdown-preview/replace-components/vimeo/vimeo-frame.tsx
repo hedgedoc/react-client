@@ -52,20 +52,18 @@ export const VimeoFrame: React.FC<VideoFrameProps> = ({ id }) => {
   }, [id])
 
   return (
-    <p>
-      <div className='embed-responsive embed-responsive-16by9'>
-        <ShowIf condition={showFrame}>
-          <iframe className='embed-responsive-item' title={`youtube video of ${id}`} width="560" height="315"
-            src={`https://player.vimeo.com/video/${id}?autoplay=1`}
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"/>
-        </ShowIf>
-        <ShowIf condition={!showFrame}>
-          <span className="preview vimeo embed-responsive-item" onClick={showVideo}>
-            <img src={imageLink} alt="vimeo video"/>
-            <i className="fa fa-vimeo-square fa-5x"/>
-          </span>
-        </ShowIf>
-      </div>
+    <p className='embed-responsive embed-responsive-16by9'>
+      <ShowIf condition={showFrame}>
+        <iframe className='embed-responsive-item' title={`youtube video of ${id}`} width="560" height="315"
+          src={`https://player.vimeo.com/video/${id}?autoplay=1`}
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"/>
+      </ShowIf>
+      <ShowIf condition={!showFrame}>
+        <span className="preview vimeo embed-responsive-item" onClick={showVideo}>
+          <img src={imageLink} alt="vimeo video"/>
+          <i className="fa fa-vimeo-square fa-5x"/>
+        </span>
+      </ShowIf>
     </p>
   )
 }
