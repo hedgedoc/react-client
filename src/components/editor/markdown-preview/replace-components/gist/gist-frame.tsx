@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
-import { testSingleVideoParagraph } from '../video_util'
+import { testSingleVideoParagraph } from '../video-util'
 import './gist-frame.scss'
 import preview from './gist-preview.png'
 

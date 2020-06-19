@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import React, { ReactElement } from 'react'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
-import { testSingleVideoParagraph, VideoFrameProps } from '../video_util'
+import { testSingleVideoParagraph, VideoFrameProps } from '../video-util'
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
   const videoId = testSingleVideoParagraph(node, 'youtube')
