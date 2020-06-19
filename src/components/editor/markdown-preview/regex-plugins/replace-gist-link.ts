@@ -11,6 +11,7 @@ export const replaceGistLink: RegexOptions = {
   name: 'gist-link',
   regex: linkRegex,
   replace: (match) => {
-    return `<codimd-gist id="${match}"/>`
+    // noinspection CheckTagEmptyBody
+    return `<codimd-gist id="${match}"></codimd-gist>`
   }
 }

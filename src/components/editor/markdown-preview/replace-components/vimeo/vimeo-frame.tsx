@@ -1,8 +1,8 @@
 import { DomElement } from 'domhandler'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ShowIf } from '../../../../common/show-if/show-if'
-import { testSingleVideoParagraph, VideoFrameProps } from '../video_util'
 import '../../common-style/embedding-preview.scss'
+import { testSingleVideoParagraph, VideoFrameProps } from '../video_util'
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
   const videoId = testSingleVideoParagraph(node, 'vimeo')
@@ -52,7 +52,7 @@ export const VimeoFrame: React.FC<VideoFrameProps> = ({ id }) => {
   }, [id])
 
   return (
-    <p className='embed-responsive embed-responsive-16by9'>
+    <span className='embed-responsive embed-responsive-16by9'>
       <ShowIf condition={showFrame}>
         <iframe className='embed-responsive-item' title={`youtube video of ${id}`} width="560" height="315"
           src={`https://player.vimeo.com/video/${id}?autoplay=1`}
@@ -64,7 +64,7 @@ export const VimeoFrame: React.FC<VideoFrameProps> = ({ id }) => {
           <i className="fa fa-vimeo-square fa-5x"/>
         </span>
       </ShowIf>
-    </p>
+    </span>
   )
 }
 

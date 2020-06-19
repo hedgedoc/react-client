@@ -6,6 +6,7 @@ export const replaceLegacyGistShortCode: RegexOptions = {
   name: 'legacy-gist-short-code',
   regex: finalRegex,
   replace: (match) => {
-    return `<a><codimd-gist id="${match}"/></a>`
+    // noinspection CheckTagEmptyBody
+    return `<codimd-gist id="${match}"></codimd-gist>`
   }
 }

@@ -12,6 +12,7 @@ export const replaceYouTubeLink: RegexOptions = {
   name: 'youtube-link',
   regex: linkRegex,
   replace: (match) => {
-    return `<codimd-youtube id="${match}"/>`
+    // noinspection CheckTagEmptyBody
+    return `<codimd-youtube id="${match}"></codimd-youtube>`
   }
 }

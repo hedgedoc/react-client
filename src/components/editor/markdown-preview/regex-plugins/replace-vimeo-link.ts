@@ -11,6 +11,7 @@ export const replaceVimeoLink: RegexOptions = {
   name: 'vimeo-link',
   regex: linkRegex,
   replace: (match) => {
-    return `<codimd-vimeo id="${match}"/>`
+    // noinspection CheckTagEmptyBody
+    return `<codimd-vimeo id="${match}"></codimd-vimeo>`
   }
 }
