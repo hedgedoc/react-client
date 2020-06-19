@@ -11,7 +11,7 @@ const getElementReplacement = (node: DomElement, counterMap: Map<string, number>
     const count = (counterMap.get(gistId) || 0) + 1
     counterMap.set(gistId, count)
     return (
-      <OneClickEmbedding loadingImageUrl={preview} hoverIcon={'github'}>
+      <OneClickEmbedding loadingImageUrl={preview} hoverIcon={'github'} tooltip={'click to load gist'}>
         <GistFrame key={`gist_${gistId}_${count}`} id={gistId}/>
       </OneClickEmbedding>
     )
