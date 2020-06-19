@@ -37,7 +37,7 @@ export const VimeoFrame: React.FC<VideoFrameProps> = ({ id }) => {
   }, [id])
 
   return (
-    <OneClickEmbedding embedResponsive={'16by9'} loadingImageUrl={'https://i.vimeocdn.com/video/'} hoverIcon={'vimeo-square'}
+    <OneClickEmbedding containerClassName={'embed-responsive embed-responsive-16by9'} previewClassName={'embed-responsive-item'} loadingImageUrl={'https://i.vimeocdn.com/video/'} hoverIcon={'vimeo-square'}
       onImageFetch={getPreviewImageLink}>
       <iframe className='embed-responsive-item' title={`vimeo video of ${id}`}
         src={`https://player.vimeo.com/video/${id}?autoplay=1`}

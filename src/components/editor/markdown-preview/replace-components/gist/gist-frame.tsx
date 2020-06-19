@@ -2,6 +2,7 @@ import { DomElement } from 'domhandler'
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 import { testSingleVideoParagraph } from '../video_util'
+import './gist-frame.scss'
 import preview from './gist-preview.png'
 
 export interface GistFrameProps {
@@ -19,7 +20,7 @@ const getElementReplacement = (node: DomElement, counterMap: Map<string, number>
     const count = (counterMap.get(gistId) || 0) + 1
     counterMap.set(gistId, count)
     return (
-      <OneClickEmbedding key={`gist_${gistId}_${count}`} loadingImageUrl={preview} hoverIcon={'github'} tooltip={'click to load gist'}>
+      <OneClickEmbedding previewClassName={'gist-frame'} key={`gist_${gistId}_${count}`} loadingImageUrl={preview} hoverIcon={'github'} tooltip={'click to load gist'}>
         <GistFrame id={gistId}/>
       </OneClickEmbedding>
     )
