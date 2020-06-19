@@ -40,7 +40,7 @@ export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ previewClassNa
         <span className={`one-click-embedding ${previewClassName || ''}`} onClick={showChildren}>
           <img className={'one-click-embedding-preview'} src={previewImageLink} alt={tooltip || ''} title={tooltip || ''}/>
           <ShowIf condition={!!hoverIcon}>
-            <i className={`fa fa-${hoverIcon as string} fa-5x`}/>
+            <i className={`one-click-embedding-icon fa fa-${hoverIcon as string} fa-5x`}/>
           </ShowIf>
         </span>
       </ShowIf>

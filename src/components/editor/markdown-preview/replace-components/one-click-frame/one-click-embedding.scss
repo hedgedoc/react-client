@@ -5,11 +5,7 @@
   width: 100%;
   overflow: hidden;
 
-  img {
-    background: none;
-  }
-
-  i {
+  .one-click-embedding-icon {
     display: inline;
     position: absolute;
     top: 50%;
@@ -24,5 +20,10 @@
   &:hover > i {
     opacity: 0.8;
     text-shadow: #000000 0 0 10px;
+  }
+
+  .one-click-embedding-preview {
+    background: none;
+    height: 100%;
   }
 }
