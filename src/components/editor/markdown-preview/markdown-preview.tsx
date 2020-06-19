@@ -9,6 +9,7 @@ import './markdown-preview.scss'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
 import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
 import { replaceLegacySlideshareShortCode } from './regex-plugins/replace-legacy-slideshare-short-code'
+import { replaceLegacySpeakerdeckShortCode } from './regex-plugins/replace-legacy-speakerdeck-short-code'
 import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
@@ -36,6 +37,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
     md.use(markdownItRegex, replaceLegacyGistShortCode)
     md.use(markdownItRegex, replaceLegacySlideshareShortCode)
+    md.use(markdownItRegex, replaceLegacySpeakerdeckShortCode)
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
