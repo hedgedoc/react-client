@@ -1,4 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { DomElement } from 'domhandler'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
+import { testSingleVideoParagraph } from '../video_util'
+import preview from './gist-preview.png'
 
 export interface GistFrameProps {
   id: string
@@ -7,6 +11,19 @@ export interface GistFrameProps {
 interface resizeEvent {
   size: number
   id: string
+}
+
+const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
+  const gistId = testSingleVideoParagraph(node, 'gist')
+  if (gistId) {
+    const count = (counterMap.get(gistId) || 0) + 1
+    counterMap.set(gistId, count)
+    return (
+      <OneClickEmbedding key={`gist_${gistId}_${count}`} loadingImageUrl={preview} hoverIcon={'github'} tooltip={'click to load gist'}>
+        <GistFrame id={gistId}/>
+      </OneClickEmbedding>
+    )
+  }
 }
 
 export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
@@ -66,3 +83,5 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
       src={`data:text/html;base64,${btoa(iframeHtml)}`}/>
   )
 }
+
+export { getElementReplacement as getGistReplacement }

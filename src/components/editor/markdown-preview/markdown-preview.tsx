@@ -13,7 +13,7 @@ import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vime
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
-import { getGistReplacement } from './replace-components/gist/gist-embedding'
+import { getGistReplacement } from './replace-components/gist/gist-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
 
