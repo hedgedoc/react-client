@@ -39,7 +39,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
-     md.use(MarkdownItParserDebugger)
+    md.use(MarkdownItParserDebugger)
     return md
   }, [])
 
