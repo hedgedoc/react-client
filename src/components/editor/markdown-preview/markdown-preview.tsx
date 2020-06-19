@@ -8,10 +8,13 @@ import './markdown-preview.scss'
 import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
 import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
+import { replaceLegacySlideshareShortCode } from './regex-plugins/replace-legacy-slideshare-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
+import { replaceSlideshareLink } from './regex-plugins/replace-slideshare-link'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
+import { getSlideshareReplacement } from './replace-components/slideshare/slideshare-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
 
@@ -33,9 +36,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
     md.use(markdownItRegex, replaceLegacyGistShortCode)
+    md.use(markdownItRegex, replaceLegacySlideshareShortCode)
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
+    md.use(markdownItRegex, replaceSlideshareLink)
     md.use((md) => {
       md.core.ruler.push('test', (state) => {
         console.log(state)
@@ -49,6 +54,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     const youtubeIdCounterMap = new Map<string, number>()
     const vimeoIdCounterMap = new Map<string, number>()
     const gistIdCounterMap = new Map<string, number>()
+    const slideshareIdCounterMap = new Map<string, number>()
 
     const html: string = markdownIt.render(content)
     const transform: Transform = (node, index) => {
@@ -65,6 +71,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
       const resultGist = getGistReplacement(node, gistIdCounterMap)
       if (resultGist) {
         return resultGist
+      }
+
+      const resultSlideshare = getSlideshareReplacement(node, slideshareIdCounterMap)
+      if (resultSlideshare) {
+        return resultSlideshare
       }
 
       return convertNodeToElement(node, index, transform)

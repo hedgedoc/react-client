@@ -2,7 +2,7 @@ import { DomElement } from 'domhandler'
 import React, { ReactElement, useState } from 'react'
 import { ShowIf } from '../../../../common/show-if/show-if'
 import { testSingleVideoParagraph, VideoFrameProps } from '../video_util'
-import '../../common-style/video-embedding.scss'
+import '../../common-style/embedding-preview.scss'
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
   const videoId = testSingleVideoParagraph(node, 'youtube')
