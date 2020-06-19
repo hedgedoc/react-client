@@ -1,7 +1,6 @@
 import { DomElement } from 'domhandler'
 import React, { ReactElement, useCallback } from 'react'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
-import '../one-click-frame/one-click-embedding.scss'
 import { testSingleVideoParagraph, VideoFrameProps } from '../video-util'
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
@@ -37,7 +36,7 @@ export const VimeoFrame: React.FC<VideoFrameProps> = ({ id }) => {
   }, [id])
 
   return (
-    <OneClickEmbedding containerClassName={'embed-responsive embed-responsive-16by9'} previewClassName={'embed-responsive-item'} loadingImageUrl={'https://i.vimeocdn.com/video/'} hoverIcon={'vimeo-square'}
+    <OneClickEmbedding containerClassName={'embed-responsive embed-responsive-16by9'} previewContainerClassName={'embed-responsive-item'} loadingImageUrl={'https://i.vimeocdn.com/video/'} hoverIcon={'vimeo-square'}
       onImageFetch={getPreviewImageLink}>
       <iframe className='embed-responsive-item' title={`vimeo video of ${id}`}
         src={`https://player.vimeo.com/video/${id}?autoplay=1`}
