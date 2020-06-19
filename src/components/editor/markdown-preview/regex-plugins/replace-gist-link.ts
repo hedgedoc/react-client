@@ -11,6 +11,7 @@ export const replaceGistLink: RegexOptions = {
   name: 'gist-link',
   regex: linkRegex,
   replace: (match) => {
+    // ESLint wants to collapse this tag, but then the tag won't be valid html anymore.
     // noinspection CheckTagEmptyBody
     return `<codimd-gist id="${match}"></codimd-gist>`
   }

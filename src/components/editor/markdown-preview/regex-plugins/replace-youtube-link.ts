@@ -12,6 +12,7 @@ export const replaceYouTubeLink: RegexOptions = {
   name: 'youtube-link',
   regex: linkRegex,
   replace: (match) => {
+    // ESLint wants to collapse this tag, but then the tag won't be valid html anymore.
     // noinspection CheckTagEmptyBody
     return `<codimd-youtube id="${match}"></codimd-youtube>`
   }
