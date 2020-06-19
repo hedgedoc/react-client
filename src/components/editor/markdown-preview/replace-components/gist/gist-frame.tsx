@@ -20,8 +20,20 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
             * { font-size:12px; }
             body{ overflow:hidden; margin: 0;}
           </style>
+          <script type="text/javascript">
+            function doLoad() {
+                window.parent.postMessage({eventType: 'gistResize', size: document.body.scrollHeight, id: '${id}'}, '*')
+                tweakLinks();
+            }
+            function tweakLinks() {
+                document.querySelectorAll(".gist-meta > a").forEach((link) => {
+                    link.rel="noopener noreferer"
+                    link.target="_blank"
+                })
+            }
+          </script>
         </head>
-        <body onload="window.parent.postMessage({size: document.body.scrollHeight, id: '${id}'}, '*')">
+        <body onload="doLoad()">
           <script type="text/javascript" src="https://gist.github.com/${id}.js"></script>
         </body>
       </html>`)
@@ -46,7 +58,7 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
 
   return (
     <iframe
-      sandbox="allow-scripts"
+      sandbox="allow-scripts allow-top-navigation-by-user-activation allow-popups"
       width='100%'
       height={`${frameHeight}px`}
       frameBorder='0'
