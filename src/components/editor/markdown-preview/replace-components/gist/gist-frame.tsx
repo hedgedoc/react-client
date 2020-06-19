@@ -1,18 +1,7 @@
-import { DomElement } from 'domhandler'
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
-import { testSingleVideoParagraph } from '../video_util'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 export interface GistFrameProps {
   id: string
-}
-
-const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
-  const gistId = testSingleVideoParagraph(node, 'gist')
-  if (gistId) {
-    const count = (counterMap.get(gistId) || 0) + 1
-    counterMap.set(gistId, count)
-    return <GistFrame key={`gist_${gistId}_${count}`} id={gistId}/>
-  }
 }
 
 interface resizeEvent {
@@ -29,7 +18,7 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
           <title>gist</title>
           <style>
             * { font-size:12px; }
-            body{ overflow:hidden; }
+            body{ overflow:hidden; margin: 0;}
           </style>
         </head>
         <body onload="window.parent.postMessage({size: document.body.scrollHeight, id: '${id}'}, '*')">
@@ -65,5 +54,3 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
       src={`data:text/html;base64,${btoa(iframeHtml)}`}/>
   )
 }
-
-export { getElementReplacement as getGistReplacement }

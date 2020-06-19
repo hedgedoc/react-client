@@ -5,6 +5,10 @@
   width: 100%;
   overflow: hidden;
 
+  img {
+    background: none;
+  }
+
   i {
     display: inline;
     position: absolute;
@@ -14,10 +18,11 @@
     color: white;
     opacity: 0.4;
     transition: opacity 0.2s;
-
+    text-shadow: #000000 0 0 5px;
   }
 
   &:hover > i {
     opacity: 0.8;
+    text-shadow: #000000 0 0 10px;
   }
 }
