@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
-import { testSingleVideoParagraph } from '../video-util'
+import { getIdFromCodiMdTag } from '../video-util'
 import './gist-frame.scss'
 import preview from './gist-preview.png'
 
@@ -15,7 +15,7 @@ interface resizeEvent {
 }
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
-  const gistId = testSingleVideoParagraph(node, 'gist')
+  const gistId = getIdFromCodiMdTag(node, 'gist')
   if (gistId) {
     const count = (counterMap.get(gistId) || 0) + 1
     counterMap.set(gistId, count)

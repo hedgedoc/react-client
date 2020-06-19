@@ -1,10 +1,10 @@
 import { DomElement } from 'domhandler'
 import React, { ReactElement } from 'react'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
-import { testSingleVideoParagraph, VideoFrameProps } from '../video-util'
+import { getIdFromCodiMdTag, VideoFrameProps } from '../video-util'
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
-  const videoId = testSingleVideoParagraph(node, 'youtube')
+  const videoId = getIdFromCodiMdTag(node, 'youtube')
   if (videoId) {
     const count = (counterMap.get(videoId) || 0) + 1
     counterMap.set(videoId, count)
