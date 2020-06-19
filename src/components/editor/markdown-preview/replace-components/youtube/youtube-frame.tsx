@@ -1,7 +1,6 @@
 import { DomElement } from 'domhandler'
-import React, { ReactElement, useState } from 'react'
-import { ShowIf } from '../../../../common/show-if/show-if'
-import '../../common-style/embedding-preview.scss'
+import React, { ReactElement } from 'react'
+import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 import { testSingleVideoParagraph, VideoFrameProps } from '../video_util'
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
@@ -14,26 +13,12 @@ const getElementReplacement = (node: DomElement, counterMap: Map<string, number>
 }
 
 export const YouTubeFrame: React.FC<VideoFrameProps> = ({ id }) => {
-  const [showFrame, setShowFrame] = useState(false)
-
-  const showVideo = () => {
-    setShowFrame(true)
-  }
-
   return (
-    <span className='embed-responsive embed-responsive-16by9'>
-      <ShowIf condition={showFrame}>
-        <iframe className='embed-responsive-item' title={`youtube video of ${id}`} width="100%"
-          src={`//www.youtube-nocookie.com/embed/${id}?autoplay=1`}
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"/>
-      </ShowIf>
-      <ShowIf condition={!showFrame}>
-        <span className='preview youtube embed-responsive-item' onClick={showVideo}>
-          <img src={`//i.ytimg.com/vi/${id}/maxresdefault.jpg`} alt="youtube video"/>
-          <i className="fa fa-youtube-play fa-5x"/>
-        </span>
-      </ShowIf>
-    </span>
+    <OneClickEmbedding hoverIcon={'youtube-play'} loadingImageUrl={`//i.ytimg.com/vi/${id}/maxresdefault.jpg`}>
+      <iframe className='embed-responsive-item' title={`youtube video of ${id}`}
+        src={`//www.youtube-nocookie.com/embed/${id}?autoplay=1`}
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"/>
+    </OneClickEmbedding>
   )
 }
 
