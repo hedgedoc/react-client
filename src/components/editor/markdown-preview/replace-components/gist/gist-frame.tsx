@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback, useEffect, useMemo, useState } from '
 import { testSingleVideoParagraph } from '../video_util'
 
 export interface GistFrameProps {
-    id: string
+  id: string
 }
 
 const getElementReplacement = (node: DomElement, counterMap: Map<string, number>): (ReactElement | undefined) => {
@@ -22,11 +22,20 @@ interface resizeEvent {
 
 export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
   const iframeHtml = useMemo(() => {
-    const gistLink = `https://gist.github.com/${id}.js`
-    const gistScript = `<script type="text/javascript" src="${gistLink}"></script>`
-    const styles = '<style>*{font-size:12px;}\nbody{overflow:hidden}</style>'
-    const resizeScript = `onload="window.parent.postMessage({size: document.body.scrollHeight, id: '${id}'}, '*')"`
-    return `<html><head><base target="_parent">${styles}</head><body ${resizeScript}>${gistScript}</body></html>`
+    return (`
+      <html lang="en">
+        <head>
+          <base target="_parent">
+          <title>gist</title>
+          <style>
+            * { font-size:12px; }
+            body{ overflow:hidden; }
+          </style>
+        </head>
+        <body onload="window.parent.postMessage({size: document.body.scrollHeight, id: '${id}'}, '*')">
+          <script type="text/javascript" src="https://gist.github.com/${id}.js"></script>
+        </body>
+      </html>`)
   }, [id])
 
   const [frameHeight, setFrameHeight] = useState(0)
