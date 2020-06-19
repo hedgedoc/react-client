@@ -13,6 +13,7 @@ const getElementReplacement = (node: DomElement, counterMap: Map<string, number>
 }
 
 interface VimeoApiResponse {
+  // Vimeo uses strange names for their fields. ESLint doesn't like that.
   // eslint-disable-next-line camelcase
   thumbnail_large?: string
 }
