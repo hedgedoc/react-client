@@ -7,9 +7,10 @@ interface OneClickFrameProps {
   onImageFetch?: () => Promise<string>
   loadingImageUrl: string
   hoverIcon?: IconName
+  embedResponsive?: '1by1' | '4by3' | '16by9' | '21by9'
 }
 
-export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ onImageFetch, loadingImageUrl, children, hoverIcon }) => {
+export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ onImageFetch, loadingImageUrl, children, hoverIcon, embedResponsive }) => {
   const [showFrame, setShowFrame] = useState(false)
   const [previewImageLink, setPreviewImageLink] = useState<string>(loadingImageUrl)
 
@@ -29,12 +30,12 @@ export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ onImageFetch, 
   }, [onImageFetch])
 
   return (
-    <span className='embed-responsive embed-responsive-16by9'>
+    <span className={embedResponsive ? `embed-responsive embed-responsive-${embedResponsive}` : ''}>
       <ShowIf condition={showFrame}>
         {children}
       </ShowIf>
       <ShowIf condition={!showFrame}>
-        <span className="one-click-embedding embed-responsive-item" onClick={showChildren}>
+        <span className={`one-click-embedding ${embedResponsive ? 'embed-responsive-item' : ''}`} onClick={showChildren}>
           <img src={previewImageLink} alt={`preview of ${previewImageLink}`}/>
           <ShowIf condition={!!hoverIcon}>
             <i className={`fa fa-${hoverIcon as string} fa-5x`}/>

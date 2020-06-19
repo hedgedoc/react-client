@@ -14,7 +14,7 @@ const getElementReplacement = (node: DomElement, counterMap: Map<string, number>
 
 export const YouTubeFrame: React.FC<VideoFrameProps> = ({ id }) => {
   return (
-    <OneClickEmbedding hoverIcon={'youtube-play'} loadingImageUrl={`//i.ytimg.com/vi/${id}/maxresdefault.jpg`}>
+    <OneClickEmbedding embedResponsive={'16by9'} hoverIcon={'youtube-play'} loadingImageUrl={`//i.ytimg.com/vi/${id}/maxresdefault.jpg`}>
       <iframe className='embed-responsive-item' title={`youtube video of ${id}`}
         src={`//www.youtube-nocookie.com/embed/${id}?autoplay=1`}
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"/>
