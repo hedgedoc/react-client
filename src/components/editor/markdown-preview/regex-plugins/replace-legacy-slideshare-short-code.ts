@@ -6,6 +6,6 @@ export const replaceLegacySlideshareShortCode: RegexOptions = {
   name: 'legacy-slideshare-short-code',
   regex: finalRegex,
   replace: (match) => {
-    return `<a><codimd-slideshare id="${match}"/></a>`
+    return `<a href="https://www.slideshare.net/${match}">https://www.slideshare.net/${match}</a>`
   }
 }
