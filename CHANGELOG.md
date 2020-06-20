@@ -16,6 +16,10 @@
     - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
 - Speakerdeck embedding
     - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
+- Code highlighting for the follow languages
+    - tiddlywiki
+    - mediawiki
+    - jsx
 
 ### Added
 
