@@ -1,4 +1,5 @@
 import MarkdownIt from 'markdown-it'
+import markdownItContainer from 'markdown-it-container'
 import emoji from 'markdown-it-emoji'
 import markdownItRegex from 'markdown-it-regex'
 import taskList from 'markdown-it-task-lists'
@@ -10,6 +11,7 @@ import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
+import { createRenderContainer } from './container-plugins/alert'
 import './markdown-preview.scss'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
 import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
@@ -20,7 +22,6 @@ import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-yo
 import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
-import { getAlertReplacement } from './replace-components/alert/alert-banner'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
 import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
@@ -56,6 +57,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
+    md.use(markdownItContainer, 'success', { render: createRenderContainer('success') })
+    md.use(markdownItContainer, 'danger', { render: createRenderContainer('danger') })
+    md.use(markdownItContainer, 'info', { render: createRenderContainer('info') })
+    md.use(markdownItContainer, 'warning', { render: createRenderContainer('warning') })
+
     // md.use(MarkdownItParserDebugger)
     return md
   }, [])
