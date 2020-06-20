@@ -1,5 +1,6 @@
 import { DomElement } from 'domhandler'
 import MarkdownIt from 'markdown-it'
+import anchor from 'markdown-it-anchor'
 import abbreviation from 'markdown-it-abbr'
 import markdownItContainer from 'markdown-it-container'
 import definitionList from 'markdown-it-deflist'
@@ -11,6 +12,7 @@ import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import taskList from 'markdown-it-task-lists'
+import toc from 'markdown-it-table-of-contents'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
@@ -64,6 +66,15 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(inserted)
     md.use(marked)
     md.use(footnote)
+    md.use(anchor, {
+      permalink: true,
+      permalinkBefore: true,
+      permalinkClass: 'heading-anchor text-dark',
+      permalinkSymbol: '<i class="fa fa-link"></i>'
+    })
+    md.use(toc, {
+      markerPattern: /^\[TOC]$/i
+    })
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
     md.use(markdownItRegex, replaceLegacyGistShortCode)
