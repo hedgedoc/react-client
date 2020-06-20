@@ -1,11 +1,6 @@
 .markdown-body {
   @import '../../../../../../node_modules/highlight.js/styles/github-gist' ;
   code.hljs {
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    background-color: #f7f7f7;
-    border-radius: 3px;
+    padding: 16px 13px;
   }
 }
