@@ -34,13 +34,13 @@ export interface MarkdownPreviewProps {
 
 export type ComponentReplacer = (node: DomElement, counterMap: Map<string, number>) => (ReactElement | undefined);
 const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement]
-type Transformer2Id2CounterMap = Map<ComponentReplacer, Map<string, number>>
+type ComponentReplacer2Identifier2CounterMap = Map<ComponentReplacer, Map<string, number>>
 
-const findAReplacementComponent = (node: DomElement, transformer2Id2CounterMap: Transformer2Id2CounterMap) => {
+const tryReplaceComponent = (node: DomElement, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap) => {
   return allComponentReplacers
     .map((componentReplacer) => {
-      const id2CounterMap = transformer2Id2CounterMap.get(componentReplacer) || new Map<string, number>()
-      return componentReplacer(node, id2CounterMap)
+      const identifier2CounterMap = componentReplacer2Identifier2CounterMap.get(componentReplacer) || new Map<string, number>()
+      return componentReplacer(node, identifier2CounterMap)
     })
     .find((replacement) => !!replacement)
 }
@@ -81,10 +81,10 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
   }, [])
 
   const result: ReactElement[] = useMemo(() => {
-    const transformer2Id2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
+    const componentReplacer2Identifier2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
     const html: string = markdownIt.render(content)
     const transform: Transform = (node, index) => {
-      return findAReplacementComponent(node, transformer2Id2CounterMap) || convertNodeToElement(node, index, transform)
+      return tryReplaceComponent(node, componentReplacer2Identifier2CounterMap) || convertNodeToElement(node, index, transform)
     }
     const ret: ReactElement[] = ReactHtmlParser(html, { transform: transform })
     return ret
