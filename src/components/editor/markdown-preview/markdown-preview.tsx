@@ -36,7 +36,7 @@ export type ComponentReplacer = (node: DomElement, counterMap: Map<string, numbe
 const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement]
 type ComponentReplacer2Identifier2CounterMap = Map<ComponentReplacer, Map<string, number>>
 
-const tryReplaceComponent = (node: DomElement, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap) => {
+const tryToReplaceNode = (node: DomElement, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap) => {
   return allComponentReplacers
     .map((componentReplacer) => {
       const identifier2CounterMap = componentReplacer2Identifier2CounterMap.get(componentReplacer) || new Map<string, number>()
@@ -84,7 +84,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     const componentReplacer2Identifier2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
     const html: string = markdownIt.render(content)
     const transform: Transform = (node, index) => {
-      return tryReplaceComponent(node, componentReplacer2Identifier2CounterMap) || convertNodeToElement(node, index, transform)
+      return tryToReplaceNode(node, componentReplacer2Identifier2CounterMap) || convertNodeToElement(node, index, transform)
     }
     return ReactHtmlParser(html, { transform: transform })
   }, [content, markdownIt])
