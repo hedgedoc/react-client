@@ -3,6 +3,7 @@ import Token from 'markdown-it/lib/token'
 
 type RenderContainerReturn = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
 type ValidAlertLevels = ('warning' | 'danger' | 'success' | 'info')
+export const validAlertLevels = ['success', 'danger', 'info', 'warning']
 
 export const createRenderContainer = (level: ValidAlertLevels): RenderContainerReturn => {
   return (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {

@@ -11,7 +11,7 @@ import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
-import { createRenderContainer } from './container-plugins/alert'
+import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-preview.scss'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
@@ -58,11 +58,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
-    md.use(markdownItContainer, 'success', { render: createRenderContainer('success') })
-    md.use(markdownItContainer, 'danger', { render: createRenderContainer('danger') })
-    md.use(markdownItContainer, 'info', { render: createRenderContainer('info') })
-    md.use(markdownItContainer, 'warning', { render: createRenderContainer('warning') })
     md.use(MarkdownItParserDebugger)
+
+    validAlertLevels.forEach(level => {
+      md.use(markdownItContainer, level, { render: createRenderContainer(level) })
+    })
 
     return md
   }, [])
