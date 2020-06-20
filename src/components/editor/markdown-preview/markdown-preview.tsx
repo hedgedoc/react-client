@@ -3,6 +3,10 @@ import emoji from 'markdown-it-emoji'
 import markdownItRegex from 'markdown-it-regex'
 import taskList from 'markdown-it-task-lists'
 import definitionList from 'markdown-it-deflist'
+import subscript from 'markdown-it-sub'
+import superscript from 'markdown-it-sup'
+import inserted from 'markdown-it-ins'
+import marked from 'markdown-it-mark'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
@@ -13,9 +17,11 @@ import { replaceLegacySlideshareShortCode } from './regex-plugins/replace-legacy
 import { replaceLegacySpeakerdeckShortCode } from './regex-plugins/replace-legacy-speakerdeck-short-code'
 import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
+import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
+import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
 
@@ -35,11 +41,16 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(taskList)
     md.use(emoji)
     md.use(definitionList)
+    md.use(subscript)
+    md.use(superscript)
+    md.use(inserted)
+    md.use(marked)
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
     md.use(markdownItRegex, replaceLegacyGistShortCode)
     md.use(markdownItRegex, replaceLegacySlideshareShortCode)
     md.use(markdownItRegex, replaceLegacySpeakerdeckShortCode)
+    md.use(markdownItRegex, replacePdfShortCode)
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
@@ -67,6 +78,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
       const resultGist = getGistReplacement(node, gistIdCounterMap)
       if (resultGist) {
         return resultGist
+      }
+
+      const resultPdf = getPDFReplacement(node, gistIdCounterMap)
+      if (resultPdf) {
+        return resultPdf
       }
 
       return convertNodeToElement(node, index, transform)
