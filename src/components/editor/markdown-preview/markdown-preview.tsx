@@ -12,6 +12,7 @@ import marked from 'markdown-it-mark'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { createRenderContainer } from './container-plugins/alert'
+import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-preview.scss'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
 import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
@@ -61,8 +62,8 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItContainer, 'danger', { render: createRenderContainer('danger') })
     md.use(markdownItContainer, 'info', { render: createRenderContainer('info') })
     md.use(markdownItContainer, 'warning', { render: createRenderContainer('warning') })
+    md.use(MarkdownItParserDebugger)
 
-    // md.use(MarkdownItParserDebugger)
     return md
   }, [])
 
