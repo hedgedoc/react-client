@@ -17,8 +17,8 @@ const getElementReplacement = (node: DomElement, counterMap: Map<string, number>
 export const PdfFrame: React.FC<VideoFrameProps> = ({ id }) => {
   return (
     <OneClickEmbedding containerClassName={'embed-responsive embed-responsive-4by3'}
-      previewContainerClassName={'embed-responsive-item bg-danger'} hoverIcon={'file-pdf-o'}
-      loadingImageUrl={''}>
+                       previewContainerClassName={'embed-responsive-item bg-danger'} hoverIcon={'file-pdf-o'}
+                       loadingImageUrl={''}>
       <object type={'application/pdf'} data={id} className={'pdf-frame'}>
         <ExternalLink text={id} href={id}/>
       </object>

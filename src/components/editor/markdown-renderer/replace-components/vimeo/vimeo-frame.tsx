@@ -7,8 +7,8 @@ import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 
 const getElementReplacement:ComponentReplacer = (node, counterMap) => {
   const attributes = getAttributesFromCodiMdTag(node, 'vimeo')
-  if (attributes && attributes.videoId) {
-    const videoId = attributes.videoId
+  if (attributes && attributes.id) {
+    const videoId = attributes.id
     const count = (counterMap.get(videoId) || 0) + 1
     counterMap.set(videoId, count)
     return <VimeoFrame key={`vimeo_${videoId}_${count}`} id={videoId}/>

@@ -5,8 +5,8 @@ import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 
 const getElementReplacement: ComponentReplacer = (node, counterMap) => {
   const attributes = getAttributesFromCodiMdTag(node, 'youtube')
-  if (attributes && attributes.videoId) {
-    const videoId = attributes.videoId
+  if (attributes && attributes.id) {
+    const videoId = attributes.id
     const count = (counterMap.get(videoId) || 0) + 1
     counterMap.set(videoId, count)
     return <YouTubeFrame key={`youtube_${videoId}_${count}`} id={videoId}/>
