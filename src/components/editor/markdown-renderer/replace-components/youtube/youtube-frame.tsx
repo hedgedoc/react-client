@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentReplacer } from '../../markdown-preview'
+import { ComponentReplacer } from '../../markdown-renderer'
 import { getAttributesFromCodiMdTag } from '../codi-md-tag-utils'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 

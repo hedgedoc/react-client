@@ -1,8 +1,6 @@
-import { DomElement } from 'domhandler'
-import React, { ReactElement, useCallback } from 'react'
-import { getAttributesFromCodiMdTag } from '../codi-md-tag-utils'
 import React, { useCallback } from 'react'
-import { ComponentReplacer } from '../../markdown-preview'
+import { ComponentReplacer } from '../../markdown-renderer'
+import { getAttributesFromCodiMdTag } from '../codi-md-tag-utils'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 
 const getElementReplacement:ComponentReplacer = (node, counterMap) => {

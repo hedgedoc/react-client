@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { ComponentReplacer } from '../../markdown-preview'
-import { DomElement } from 'domhandler'
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import { ComponentReplacer } from '../../markdown-renderer'
 import { getAttributesFromCodiMdTag } from '../codi-md-tag-utils'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 import './gist-frame.scss'
