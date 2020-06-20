@@ -22,11 +22,9 @@ import { replaceLegacySlideshareShortCode } from './regex-plugins/replace-legacy
 import { replaceLegacySpeakerdeckShortCode } from './regex-plugins/replace-legacy-speakerdeck-short-code'
 import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
-import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
-import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
 
@@ -35,13 +33,13 @@ export interface MarkdownPreviewProps {
 }
 
 export type ComponentReplacer = (node: DomElement, counterMap: Map<string, number>) => (ReactElement | undefined);
-const allComponentReplacer: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement]
-type Transformer2id2CounterMap = Map<ComponentReplacer, Map<string, number>>
+const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement]
+type Transformer2Id2CounterMap = Map<ComponentReplacer, Map<string, number>>
 
-const findAReplacementComponent = (node: DomElement, transformer2id2CounterMap: Transformer2id2CounterMap) => {
-  return allComponentReplacer
+const findAReplacementComponent = (node: DomElement, transformer2Id2CounterMap: Transformer2Id2CounterMap) => {
+  return allComponentReplacers
     .map((componentReplacer) => {
-      const id2CounterMap = transformer2id2CounterMap.get(componentReplacer) || new Map<string, number>()
+      const id2CounterMap = transformer2Id2CounterMap.get(componentReplacer) || new Map<string, number>()
       return componentReplacer(node, id2CounterMap)
     })
     .find((replacement) => !!replacement)
@@ -83,10 +81,10 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
   }, [])
 
   const result: ReactElement[] = useMemo(() => {
-    const transformer2id2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
+    const transformer2Id2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
     const html: string = markdownIt.render(content)
     const transform: Transform = (node, index) => {
-      return findAReplacementComponent(node, transformer2id2CounterMap) || convertNodeToElement(node, index, transform)
+      return findAReplacementComponent(node, transformer2Id2CounterMap) || convertNodeToElement(node, index, transform)
     }
     const ret: ReactElement[] = ReactHtmlParser(html, { transform: transform })
     return ret
