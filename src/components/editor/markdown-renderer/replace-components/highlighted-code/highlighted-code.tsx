@@ -8,11 +8,11 @@ const getElementReplacement = (preNode: DomElement, counterMap: Map<string, numb
     return
   }
   const codeNode = preNode.children[0]
-  if (codeNode.name !== 'code' || !codeNode.attribs || !codeNode.attribs.language || codeNode.attribs.language === '' || !codeNode.children || !codeNode.children[0]) {
+  if (codeNode.name !== 'code' || !codeNode.attribs || !codeNode.attribs['data-highlight-language'] || codeNode.attribs['data-highlight-language'] === '' || !codeNode.children || !codeNode.children[0]) {
     return
   }
 
-  const language = codeNode.attribs.language
+  const language = codeNode.attribs['data-highlight-language']
   const count = (counterMap.get(language) || 0) + 1
   counterMap.set(language, count)
 
