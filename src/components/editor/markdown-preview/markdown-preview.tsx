@@ -86,8 +86,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     const transform: Transform = (node, index) => {
       return tryReplaceComponent(node, componentReplacer2Identifier2CounterMap) || convertNodeToElement(node, index, transform)
     }
-    const ret: ReactElement[] = ReactHtmlParser(html, { transform: transform })
-    return ret
+    return ReactHtmlParser(html, { transform: transform })
   }, [content, markdownIt])
 
   return (
