@@ -1,18 +1,24 @@
 import { DomElement } from 'domhandler'
+import { Alert } from 'react-bootstrap'
+import yaml from 'js-yaml'
 import MarkdownIt from 'markdown-it'
 import abbreviation from 'markdown-it-abbr'
 import markdownItContainer from 'markdown-it-container'
 import definitionList from 'markdown-it-deflist'
 import emoji from 'markdown-it-emoji'
 import footnote from 'markdown-it-footnote'
+import frontmatter from 'markdown-it-front-matter'
 import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import taskList from 'markdown-it-task-lists'
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
+import { Trans } from 'react-i18next'
+import { InternalLink } from '../../common/links/internal-link'
+import { ShowIf } from '../../common/show-if/show-if'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-renderer.scss'
@@ -48,12 +54,25 @@ const tryToReplaceNode = (node: DomElement, componentReplacer2Identifier2Counter
 }
 
 const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
+  const [yamlError, setYamlError] = useState(false)
+  const [metaData, setMetaData] = useState({})
+
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
       html: true,
       breaks: true,
       langPrefix: '',
       typographer: true
+    })
+    md.use(frontmatter, (rawMeta: string) => {
+      let meta: any // TODO this needs proper typings
+      try {
+        meta = yaml.safeLoad(rawMeta)
+        setYamlError(false)
+        setMetaData(meta)
+      } catch (e) {
+        setYamlError(true)
+      }
     })
     md.use(taskList)
     md.use(emoji)
@@ -93,7 +112,16 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
 
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
-      <div className={'markdown-body container-fluid'}>{result}</div>
+      <div className={'markdown-body container-fluid'}>
+        <ShowIf condition={yamlError}>
+          <Alert variant='warning' dir='auto'>
+            <Trans i18nKey='editor.invalidYaml'>
+              <InternalLink text='yaml-metdata' href='/n/yaml-metadata' />
+            </Trans>
+          </Alert>
+        </ShowIf>
+        {result}
+      </div>
     </div>
   )
 }
