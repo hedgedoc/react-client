@@ -10,7 +10,6 @@ import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
-import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-preview.scss'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
 import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
@@ -21,6 +20,7 @@ import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-yo
 import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
+import { getAlertReplacement } from './replace-components/alert/alert-banner'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
 import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
@@ -56,7 +56,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
-    md.use(MarkdownItParserDebugger)
+    // md.use(MarkdownItParserDebugger)
     return md
   }, [])
 
@@ -85,6 +85,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
       const resultPdf = getPDFReplacement(node, gistIdCounterMap)
       if (resultPdf) {
         return resultPdf
+      }
+
+      const resultAlert = getAlertReplacement(node)
+      if (resultAlert) {
+        return resultAlert
       }
 
       return convertNodeToElement(node, index, transform)
