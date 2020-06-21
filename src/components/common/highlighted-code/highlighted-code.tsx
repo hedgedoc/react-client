@@ -10,9 +10,19 @@ export interface HighlightedCodeProps {
   showGutter: boolean
 }
 
+export const escapeHtml = (unsafe: string): string => {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
+
 export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language, showGutter }) => {
   const highlightedCode = useMemo(() => {
-    const codeToProcess = !!language && (hljs.listLanguages().indexOf(language) > -1) ? hljs.highlight(language, code).value : code
+    const replacedLanguage = language === 'html' ? 'xml' : language
+    const codeToProcess = !!replacedLanguage && (hljs.listLanguages().indexOf(replacedLanguage) > -1) ? hljs.highlight(replacedLanguage, code).value : escapeHtml(code)
     return codeToProcess
       .split('\n')
       .filter(line => !!line)
