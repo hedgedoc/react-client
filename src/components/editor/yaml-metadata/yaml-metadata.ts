@@ -23,8 +23,15 @@ export class YAMLMetaData {
     this.GA = ''
     this.disqus = ''
     this.type = ''
-    this.slideOptions = undefined
-    this.opengraph = undefined
+    this.slideOptions = {
+      transition: 'none',
+      theme: 'white'
+    }
+    this.opengraph = {
+      title: '',
+      image: '',
+      'image:type': ''
+    }
     if (yamlData !== undefined) {
       this.title = yamlData.title ?? ''
       this.description = yamlData.description ?? ''
@@ -36,15 +43,15 @@ export class YAMLMetaData {
       this.GA = yamlData.GA ?? ''
       this.disqus = yamlData.disqus ?? ''
       this.type = yamlData.type ?? ''
-      this.slideOptions = yamlData.slideOptions ? {
-        transition: getTransition(yamlData.slideOptions.transition),
-        theme: getTheme(yamlData.slideOptions.theme)
-      } : undefined
-      this.opengraph = yamlData.opengraph ? {
-        title: yamlData.opengraph.title ?? '',
-        image: yamlData.opengraph.image ?? '',
-        'image:type': yamlData.opengraph['image:type'] ?? ''
-      } : undefined
+      this.slideOptions = {
+        transition: getTransition(yamlData.slideOptions?.transition),
+        theme: getTheme(yamlData.slideOptions?.theme)
+      }
+      this.opengraph = {
+        title: yamlData.opengraph?.title ?? '',
+        image: yamlData.opengraph?.image ?? '',
+        'image:type': yamlData.opengraph ? yamlData.opengraph['image:type'] ?? '' : ''
+      }
     }
   }
 }
@@ -61,14 +68,14 @@ export interface RawYAMLMetadata {
   disqus: string | undefined
   type: string | undefined
   slideOptions: {
-    transition: string
-    theme: string
-  } | undefined
+    transition: string | undefined
+    theme: string | undefined
+  } | undefined | null
   opengraph: {
-    title: string
-    image: string
-    'image:type': string
-  } | undefined
+    title: string | undefined
+    image: string | undefined
+    'image:type': string | undefined
+  } | undefined | null
 }
 
 export const isEqual = (rawMetaData1: RawYAMLMetadata | null, rawMetaData2: RawYAMLMetadata | null): boolean => {
@@ -92,11 +99,11 @@ export const isEqual = (rawMetaData1: RawYAMLMetadata | null, rawMetaData2: RawY
 }
 
 export interface SlideOptions {
-  transition: 'none' | 'fade' | 'slide' | 'convex' | 'concave' | 'zoom'
-  theme: 'black' | 'white' | 'league' | 'beige' | 'sky' | 'night' | 'serif' | 'simple' | 'solarized' | 'blood' | 'moon'
+  transition: 'none' | 'fade' | 'slide' | 'convex' | 'concave' | 'zoom' | undefined
+  theme: 'black' | 'white' | 'league' | 'beige' | 'sky' | 'night' | 'serif' | 'simple' | 'solarized' | 'blood' | 'moon' | undefined
 }
 
-const getTransition = (string: string): SlideOptions['transition'] => {
+const getTransition = (string: string | undefined): SlideOptions['transition'] => {
   switch (string) {
     case 'fade':
       return 'fade'
@@ -108,16 +115,18 @@ const getTransition = (string: string): SlideOptions['transition'] => {
       return 'concave'
     case 'zoom':
       return 'zoom'
+    case undefined:
     default:
       return 'none'
   }
 }
 
-const getTheme = (string: string): SlideOptions['theme'] => {
+const getTheme = (string: string | undefined): SlideOptions['theme'] => {
   switch (string) {
     case 'black':
       return 'black'
     case 'white':
+    case undefined:
     default:
       return 'white'
     case 'league':
@@ -142,7 +151,7 @@ const getTheme = (string: string): SlideOptions['theme'] => {
 }
 
 export interface OpenGraph {
-  title: string
-  image: string
-  'image:type': string
+  title: string | undefined
+  image: string | undefined
+  'image:type': string | undefined
 }
