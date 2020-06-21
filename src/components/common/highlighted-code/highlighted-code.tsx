@@ -26,7 +26,7 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
           {
             highlightedCode
               .map((line, index) => {
-                return <span data-line-number={index}/>
+                return <span data-line-number={index + 1}/>
               })
           }
         </span>
