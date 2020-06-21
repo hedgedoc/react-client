@@ -19,6 +19,7 @@ import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-par
 import { Trans } from 'react-i18next'
 import { InternalLink } from '../../common/links/internal-link'
 import { ShowIf } from '../../common/show-if/show-if'
+import { RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-renderer.scss'
@@ -55,7 +56,7 @@ const tryToReplaceNode = (node: DomElement, componentReplacer2Identifier2Counter
 
 const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
   const [yamlError, setYamlError] = useState(false)
-  const [metaData, setMetaData] = useState({})
+  const [metaData, setMetaData] = useState<YAMLMetaData>()
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -65,11 +66,11 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
       typographer: true
     })
     md.use(frontmatter, (rawMeta: string) => {
-      let meta: any // TODO this needs proper typings
+      let meta: RawYAMLMetadata
       try {
         meta = yaml.safeLoad(rawMeta)
         setYamlError(false)
-        setMetaData(meta)
+        setMetaData(new YAMLMetaData(meta))
       } catch (e) {
         setYamlError(true)
       }
