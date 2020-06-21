@@ -22,8 +22,7 @@ export const escapeHtml = (unsafe: string): string => {
 export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language, showGutter }) => {
   const highlightedCode = useMemo(() => {
     const replacedLanguage = language === 'html' ? 'xml' : language
-    const codeToProcess = !!replacedLanguage && (hljs.listLanguages().indexOf(replacedLanguage) > -1) ? hljs.highlight(replacedLanguage, code).value : escapeHtml(code)
-    return codeToProcess
+    return (!!replacedLanguage && hljs.listLanguages().indexOf(replacedLanguage) > -1) ? hljs.highlight(replacedLanguage, code).value : escapeHtml(code)
       .split('\n')
       .filter(line => !!line)
       .map(line => ReactHtmlParser(line))
