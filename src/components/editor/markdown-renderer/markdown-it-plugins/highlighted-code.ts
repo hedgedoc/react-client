@@ -1,11 +1,22 @@
 import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it/lib'
 
+const highlightRegex = /^(\w*)(=?)$/
+
 export const highlightedCode: MarkdownIt.PluginSimple = (md: MarkdownIt) => {
   md.core.ruler.push('highlighted-code', (state) => {
     state.tokens.forEach(token => {
-      if (token.type === 'fence' && token.info !== '' && hljs.listLanguages().indexOf(token.info) > -1) {
-        token.attrJoin('data-highlight-language', token.info)
+      if (token.type === 'fence') {
+        const highlightInfos = highlightRegex.exec(token.info)
+        if (!highlightInfos) {
+          return
+        }
+        if (highlightInfos[1] && hljs.listLanguages().indexOf(highlightInfos[1]) > -1) {
+          token.attrJoin('data-highlight-language', highlightInfos[1])
+        }
+        if (highlightInfos[2]) {
+          token.attrJoin('data-show-gutter', '')
+        }
       }
     })
     return true
