@@ -78,4 +78,137 @@ describe('yaml tests', () => {
       tags: ['test123', 'abc']
     })
   })
+
+  it('breaks only', () => {
+    testMetadata(`---
+    breaks: false
+    ___
+    `,
+    {
+      breaks: false
+    },
+    {
+      breaks: false
+    })
+  })
+
+  it('slideOptions nothing', () => {
+    testMetadata(`---
+    slideOptions:
+    ___
+    `,
+    {
+      slideOptions: null
+    },
+    {
+      slideOptions: {
+        theme: 'white',
+        transition: 'none'
+      }
+    })
+  })
+
+  it('slideOptions.theme only', () => {
+    testMetadata(`---
+    slideOptions:
+      theme: sky
+    ___
+    `,
+    {
+      slideOptions: {
+        theme: 'sky',
+        transition: undefined
+      }
+    },
+    {
+      slideOptions: {
+        theme: 'sky',
+        transition: 'none'
+      }
+    })
+  })
+
+  it('slideOptions full', () => {
+    testMetadata(`---
+    slideOptions:
+      transition: zoom
+      theme: sky
+    ___
+    `,
+    {
+      slideOptions: {
+        theme: 'sky',
+        transition: 'zoom'
+      }
+    },
+    {
+      slideOptions: {
+        theme: 'sky',
+        transition: 'zoom'
+      }
+    })
+  })
+
+  it('opengraph nothing', () => {
+    testMetadata(`---
+    opengraph:
+    ___
+    `,
+    {
+      opengraph: null
+    },
+    {
+      opengraph: {
+        title: '',
+        image: '',
+        'image:type': ''
+      }
+    })
+  })
+
+  it('opengraph title only', () => {
+    testMetadata(`---
+    opengraph:
+      title: Testtitle
+    ___
+    `,
+    {
+      opengraph: {
+        title: 'Testtitle',
+        image: undefined,
+        'image:type': undefined
+      }
+    },
+    {
+      opengraph: {
+        title: 'Testtitle',
+        image: '',
+        'image:type': ''
+      }
+    })
+  })
+
+  it('opengraph full', () => {
+    testMetadata(`---
+    opengraph:
+      title: Testtitle
+      image: TestyMcTestImage
+      image:type: mock
+    ___
+    `,
+    {
+      opengraph: {
+        title: 'Testtitle',
+        image: 'TestyMcTestImage',
+        'image:type': 'mock'
+      }
+    },
+    {
+      opengraph: {
+        title: 'Testtitle',
+        image: 'TestyMcTestImage',
+        'image:type': 'mock'
+      }
+    })
+  })
 })
