@@ -15,7 +15,7 @@ export class YAMLMetaData {
   constructor (yamlData: RawYAMLMetadata) {
     this.title = yamlData.title ?? ''
     this.description = yamlData.description ?? ''
-    this.tags = yamlData.tags.split(',') ?? []
+    this.tags = yamlData.tags?.split(',') ?? []
     this.robots = yamlData.robots ?? ''
     this.lang = yamlData.lang ?? 'en'
     this.dir = yamlData.dir ?? 'ltr'
@@ -36,25 +36,25 @@ export class YAMLMetaData {
 }
 
 export interface RawYAMLMetadata {
-  title: string,
-  description: string
-  tags: string
-  robots: string
-  lang: string
-  dir: string
-  breaks: boolean
-  GA: string
-  disqus: string
-  type: string
+  title: string | undefined
+  description: string | undefined
+  tags: string | undefined
+  robots: string | undefined
+  lang: string | undefined
+  dir: string | undefined
+  breaks: boolean | undefined
+  GA: string | undefined
+  disqus: string | undefined
+  type: string | undefined
   slideOptions: {
     transition: string
     theme: string
-  }
+  } | undefined
   opengraph: {
     title: string
     image: string
     'image:type': string
-  }
+  } | undefined
 }
 
 export interface SlideOptions {

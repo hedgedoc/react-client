@@ -68,10 +68,11 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(frontmatter, (rawMeta: string) => {
       let meta: RawYAMLMetadata
       try {
-        meta = yaml.safeLoad(rawMeta)
+        meta = yaml.safeLoad(rawMeta) as RawYAMLMetadata
         setYamlError(false)
         setMetaData(new YAMLMetaData(meta))
       } catch (e) {
+        console.log(e)
         setYamlError(true)
       }
     })
