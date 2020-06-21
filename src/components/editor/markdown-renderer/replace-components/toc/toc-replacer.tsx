@@ -1,5 +1,5 @@
 import { DomElement } from 'domhandler'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { SubNodeConverter } from '../../markdown-renderer'
 
 const getElementReplacement = (node: DomElement, index: number, counterMap: Map<string, number>, nodeConverter: SubNodeConverter): (ReactElement | undefined) => {
