@@ -1,4 +1,3 @@
-import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it/lib'
 
 const highlightRegex = /^(\w*)(=?)$/
@@ -11,7 +10,7 @@ export const highlightedCode: MarkdownIt.PluginSimple = (md: MarkdownIt) => {
         if (!highlightInfos) {
           return
         }
-        if (highlightInfos[1] && hljs.listLanguages().indexOf(highlightInfos[1]) > -1) {
+        if (highlightInfos[1]) {
           token.attrJoin('data-highlight-language', highlightInfos[1])
         }
         if (highlightInfos[2]) {

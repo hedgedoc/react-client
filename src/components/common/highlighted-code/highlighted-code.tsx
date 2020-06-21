@@ -11,11 +11,13 @@ export interface HighlightedCodeProps {
 }
 
 export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language, showGutter }) => {
-  const highlightedCode = useMemo(() =>
-    ((language) ? hljs.highlight(language, code).value : code)
+  const highlightedCode = useMemo(() => {
+    const codeToProcess = !!language && (hljs.listLanguages().indexOf(language) > -1) ? hljs.highlight(language, code).value : code
+    return codeToProcess
       .split('\n')
       .filter(line => !!line)
-      .map(line => ReactHtmlParser(line)), [code, language])
+      .map(line => ReactHtmlParser(line))
+  }, [code, language])
 
   return (
     <code className={'hljs'}>
