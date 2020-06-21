@@ -16,7 +16,7 @@
     - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
 - Speakerdeck embedding
     - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
-- Code highlighting for the follow languages
+- We are now using highlight.js instead of highlight.js+prism.js. The highlighting for the following languages has been dropped:
     - tiddlywiki
     - mediawiki
     - jsx
