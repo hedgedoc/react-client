@@ -1,6 +1,5 @@
 import equal from 'deep-equal'
 import { DomElement } from 'domhandler'
-import { Alert } from 'react-bootstrap'
 import yaml from 'js-yaml'
 import MarkdownIt from 'markdown-it'
 import abbreviation from 'markdown-it-abbr'
@@ -20,11 +19,12 @@ import superscript from 'markdown-it-sup'
 import taskList from 'markdown-it-task-lists'
 import toc from 'markdown-it-toc-done-right'
 import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import { Alert } from 'react-bootstrap'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { Trans } from 'react-i18next'
 import { InternalLink } from '../../common/links/internal-link'
 import { ShowIf } from '../../common/show-if/show-if'
-import { RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
+import { isEqual, RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import MathJaxReact from 'react-mathjax'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
 import { slugify } from '../../../utils/slugify'
@@ -59,6 +59,7 @@ import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 
 export interface MarkdownRendererProps {
   content: string
+  onMetaDataChange?: (yamlMetaData: YAMLMetaData | null) => void
   wide?: boolean
   className?: string
   onTocChange?: (ast: TocAst) => void
@@ -68,9 +69,18 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
   const [tocAst, setTocAst] = useState<TocAst>()
   const [lastTocAst, setLastTocAst] = useState<TocAst>()
 
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
+const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataChange }) => {
   const [yamlError, setYamlError] = useState(false)
-  const [metaData, setMetaData] = useState<YAMLMetaData>()
+  const [rawMetaData, setRawMetaData] = useState<RawYAMLMetadata>()
+  const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
+
+  useEffect(() => {
+    if (onMetaDataChange && rawMetaData && oldRawMetaData && !isEqual(oldRawMetaData, rawMetaData)) {
+      const newMetaData = new YAMLMetaData(rawMetaData)
+      onMetaDataChange(newMetaData)
+      setOldRawMetaData(rawMetaData)
+    }
+  }, [rawMetaData, onMetaDataChange, oldRawMetaData])
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -79,17 +89,19 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
       langPrefix: '',
       typographer: true
     })
-    md.use(frontmatter, (rawMeta: string) => {
-      let meta: RawYAMLMetadata
-      try {
-        meta = yaml.safeLoad(rawMeta) as RawYAMLMetadata
-        setYamlError(false)
-        setMetaData(new YAMLMetaData(meta))
-      } catch (e) {
-        console.log(e)
-        setYamlError(true)
-      }
-    })
+    if (onMetaDataChange) {
+      md.use(frontmatter, (rawMeta: string) => {
+        try {
+          const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
+          setYamlError(false)
+          setRawMetaData(meta)
+        } catch (e) {
+          console.error(e)
+          setYamlError(true)
+          setRawMetaData({} as RawYAMLMetadata)
+        }
+      })
+    }
     md.use(taskList)
     md.use(emoji)
     md.use(abbreviation)
@@ -145,7 +157,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     })
 
     return md
-  }, [])
+  }, [onMetaDataChange])
 
   useEffect(() => {
     if (onTocChange && tocAst && !equal(tocAst, lastTocAst)) {
@@ -188,7 +200,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
         <ShowIf condition={yamlError}>
           <Alert variant='warning' dir='auto'>
             <Trans i18nKey='editor.invalidYaml'>
-              <InternalLink text='yaml-metdata' href='/n/yaml-metadata' />
+              <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
             </Trans>
           </Alert>
         </ShowIf>

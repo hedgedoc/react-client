@@ -10,7 +10,7 @@ import { MarkdownRenderWindow } from './renderer-window/markdown-render-window'
 import { EditorMode } from './task-bar/editor-view-mode'
 import { TaskBar } from './task-bar/task-bar'
 
-const Editor: React.FC = () => {
+export const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const [markdownContent, setMarkdownContent] = useState(`# Embedding demo
 [TOC]
@@ -78,11 +78,9 @@ let a = 1
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={<MarkdownRenderWindow content={markdownContent} wide={editorMode === EditorMode.PREVIEW}/>}
+          right={<MarkdownRenderer content={markdownContent} onMetaDataChange={(metaData) => console.log(metaData)} wide={editorMode === EditorMode.PREVIEW}/>}
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>
   )
 }
-
-export { Editor }

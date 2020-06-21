@@ -57,6 +57,26 @@ export interface RawYAMLMetadata {
   } | undefined
 }
 
+export const isEqual = (rawMetaData1: RawYAMLMetadata | null, rawMetaData2: RawYAMLMetadata | null): boolean => {
+  return (
+    rawMetaData1?.title === rawMetaData2?.title &&
+    rawMetaData1?.description === rawMetaData2?.description &&
+    rawMetaData1?.tags === rawMetaData2?.tags &&
+    rawMetaData1?.robots === rawMetaData2?.robots &&
+    rawMetaData1?.lang === rawMetaData2?.lang &&
+    rawMetaData1?.dir === rawMetaData2?.dir &&
+    rawMetaData1?.breaks === rawMetaData2?.breaks &&
+    rawMetaData1?.GA === rawMetaData2?.GA &&
+    rawMetaData1?.disqus === rawMetaData2?.disqus &&
+    rawMetaData1?.type === rawMetaData2?.type &&
+    rawMetaData1?.slideOptions?.transition === rawMetaData2?.slideOptions?.transition &&
+    rawMetaData1?.slideOptions?.theme === rawMetaData2?.slideOptions?.theme &&
+    rawMetaData1?.opengraph?.title === rawMetaData2?.opengraph?.title &&
+    rawMetaData1?.opengraph?.image === rawMetaData2?.opengraph?.image &&
+    rawMetaData1?.opengraph?.['image:type'] === rawMetaData2?.opengraph?.['image:type']
+  )
+}
+
 export interface SlideOptions {
   transition: 'none' | 'fade' | 'slide' | 'convex' | 'concave' | 'zoom'
   theme: 'black' | 'white' | 'league' | 'beige' | 'sky' | 'night' | 'serif' | 'simple' | 'solarized' | 'blood' | 'moon'
