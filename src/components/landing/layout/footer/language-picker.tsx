@@ -35,9 +35,10 @@ const languages = {
 }
 
 const findLanguageCode = (wantedLanguage: string): string => {
-  const foundLanguage = Object.keys(languages).find((supportedLanguage) => {
-    return wantedLanguage === supportedLanguage || wantedLanguage.substr(0, 2) === supportedLanguage
-  })
+  let foundLanguage = Object.keys(languages).find((supportedLanguage) => wantedLanguage === supportedLanguage)
+  if (!foundLanguage) {
+    foundLanguage = Object.keys(languages).find((supportedLanguage) => wantedLanguage.substr(0, 2) === supportedLanguage)
+  }
   return foundLanguage || ''
 }
 
