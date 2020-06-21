@@ -10,7 +10,6 @@ import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
-
 import superscript from 'markdown-it-sup'
 import toc from 'markdown-it-table-of-contents'
 import taskList from 'markdown-it-task-lists'
