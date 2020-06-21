@@ -9,7 +9,7 @@ const getElementReplacement = (node: DomElement, index: number, counterMap: Map<
       possibleTocDiv.attribs.class === 'table-of-contents' && possibleTocDiv.children && possibleTocDiv.children.length === 1) {
       const listElement = possibleTocDiv.children[0]
       listElement.attribs = Object.assign(listElement.attribs || {}, { class: 'table-of-contents' })
-      return nodeConverter(possibleTocDiv.children[0], index)
+      return nodeConverter(listElement, index)
     }
   }
 }
