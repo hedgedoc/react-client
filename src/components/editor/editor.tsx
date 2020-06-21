@@ -31,7 +31,7 @@ https://vimeo.com/23237102
 {%pdf https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf %}
 
 ## Code highlighting
-\`\`\`javascript
+\`\`\`javascript=
 let a = 1
 \`\`\`
 
