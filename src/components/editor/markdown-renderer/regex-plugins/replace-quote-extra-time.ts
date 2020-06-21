@@ -6,6 +6,6 @@ export const replaceQuoteExtraTime: RegexOptions = {
   replace: (match) => {
     // ESLint wants to collapse this tag, but then the tag won't be valid html anymore.
     // noinspection CheckTagEmptyBody
-    return `<i class="fa fa-clock-o"></i> ${match}`
+    return `<span class="quote-extra"><i class="fa fa-clock-o mx-1"></i> ${match}</span>`
   }
 }
