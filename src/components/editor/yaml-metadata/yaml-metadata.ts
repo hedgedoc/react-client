@@ -78,7 +78,7 @@ export interface RawYAMLMetadata {
   } | undefined | null
 }
 
-export const isEqual = (rawMetaData1: RawYAMLMetadata | null, rawMetaData2: RawYAMLMetadata | null): boolean => {
+export const isEqual = (rawMetaData1: RawYAMLMetadata | undefined, rawMetaData2: RawYAMLMetadata | undefined): boolean => {
   return (
     rawMetaData1?.title === rawMetaData2?.title &&
     rawMetaData1?.description === rawMetaData2?.description &&
