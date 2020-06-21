@@ -1,5 +1,8 @@
 .markdown-body pre code {
 
+  display: flex;
+  flex-direction: row;
+
   .linenumbers {
     text-align: right;
     position: relative;
