@@ -32,15 +32,11 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
       <span className={'code'}>
         {
           highlightedCode
-            .map((line, index) => {
-              const m = Math.log10(highlightedCode.length)
-              const lineNumber = index + 1
-              return <div key={index} className={'line'}>
+            .map((line, index) =>
+              <div key={index} className={'line'}>
                 {line}
-              </div>
-            })
+              </div>)
         }
       </span>
-
     </code>)
 }
