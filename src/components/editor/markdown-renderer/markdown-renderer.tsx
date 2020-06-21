@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import MarkdownIt from 'markdown-it'
-import anchor from 'markdown-it-anchor'
 import abbreviation from 'markdown-it-abbr'
+import anchor from 'markdown-it-anchor'
 import markdownItContainer from 'markdown-it-container'
 import definitionList from 'markdown-it-deflist'
 import emoji from 'markdown-it-emoji'
@@ -11,8 +11,8 @@ import marked from 'markdown-it-mark'
 import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
-import taskList from 'markdown-it-task-lists'
 import toc from 'markdown-it-table-of-contents'
+import taskList from 'markdown-it-task-lists'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
@@ -29,24 +29,25 @@ import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
 import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
+import { getTOCReplacement } from './replace-components/toc/toc-replacer'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
-import { getTOCReplacement } from './replace-components/toc/toc-replacer'
 
 export interface MarkdownPreviewProps {
   content: string
 }
 
 export type SubNodeConverter = (node: DomElement, index: number) => ReactElement
-export type ComponentReplacer = (node: DomElement, counterMap: Map<string, number>, nodeConverter: SubNodeConverter) => (ReactElement | undefined);
-const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement, getTOCReplacement]
+export type ComponentReplacer = (node: DomElement, index: number, counterMap: Map<string, number>, nodeConverter: SubNodeConverter) => (ReactElement | undefined);
 type ComponentReplacer2Identifier2CounterMap = Map<ComponentReplacer, Map<string, number>>
 
-const tryToReplaceNode = (node: DomElement, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap, nodeConverter: SubNodeConverter) => {
+const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement, getTOCReplacement]
+
+const tryToReplaceNode = (node: DomElement, index:number, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap, nodeConverter: SubNodeConverter) => {
   return allComponentReplacers
     .map((componentReplacer) => {
       const identifier2CounterMap = componentReplacer2Identifier2CounterMap.get(componentReplacer) || new Map<string, number>()
-      return componentReplacer(node, identifier2CounterMap, nodeConverter)
+      return componentReplacer(node, index, identifier2CounterMap, nodeConverter)
     })
     .find((replacement) => !!replacement)
 }
@@ -99,7 +100,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     const componentReplacer2Identifier2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
     const html: string = markdownIt.render(content)
     const transform: Transform = (node, index) => {
-      const maybeReplacement = tryToReplaceNode(node, componentReplacer2Identifier2CounterMap,
+      const maybeReplacement = tryToReplaceNode(node, index, componentReplacer2Identifier2CounterMap,
         (subNode, subIndex) => convertNodeToElement(subNode, subIndex, transform))
       return maybeReplacement || convertNodeToElement(node, index, transform)
     }
