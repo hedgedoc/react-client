@@ -13,25 +13,39 @@ export class YAMLMetaData {
   opengraph: OpenGraph | undefined
 
   constructor (yamlData: RawYAMLMetadata) {
-    this.title = yamlData.title ?? ''
-    this.description = yamlData.description ?? ''
-    this.tags = yamlData.tags?.split(',') ?? []
-    this.robots = yamlData.robots ?? ''
-    this.lang = yamlData.lang ?? 'en'
-    this.dir = yamlData.dir ?? 'ltr'
-    this.breaks = yamlData.breaks ?? true
-    this.GA = yamlData.GA ?? ''
-    this.disqus = yamlData.disqus ?? ''
-    this.type = yamlData.type ?? ''
-    this.slideOptions = yamlData.slideOptions ? {
-      transition: getTransition(yamlData.slideOptions.transition),
-      theme: getTheme(yamlData.slideOptions.theme)
-    } : undefined
-    this.opengraph = yamlData.opengraph ? {
-      title: yamlData.opengraph.title ?? '',
-      image: yamlData.opengraph.image ?? '',
-      'image:type': yamlData.opengraph['image:type'] ?? ''
-    } : undefined
+    this.title = ''
+    this.description = ''
+    this.tags = []
+    this.robots = ''
+    this.lang = 'en'
+    this.dir = 'ltr'
+    this.breaks = true
+    this.GA = ''
+    this.disqus = ''
+    this.type = ''
+    this.slideOptions = undefined
+    this.opengraph = undefined
+    if (yamlData !== undefined) {
+      this.title = yamlData.title ?? ''
+      this.description = yamlData.description ?? ''
+      this.tags = yamlData.tags?.split(',').map(entry => entry.trim()) ?? []
+      this.robots = yamlData.robots ?? ''
+      this.lang = yamlData.lang ?? 'en'
+      this.dir = yamlData.dir ?? 'ltr'
+      this.breaks = yamlData.breaks ?? true
+      this.GA = yamlData.GA ?? ''
+      this.disqus = yamlData.disqus ?? ''
+      this.type = yamlData.type ?? ''
+      this.slideOptions = yamlData.slideOptions ? {
+        transition: getTransition(yamlData.slideOptions.transition),
+        theme: getTheme(yamlData.slideOptions.theme)
+      } : undefined
+      this.opengraph = yamlData.opengraph ? {
+        title: yamlData.opengraph.title ?? '',
+        image: yamlData.opengraph.image ?? '',
+        'image:type': yamlData.opengraph['image:type'] ?? ''
+      } : undefined
+    }
   }
 }
 
