@@ -26,6 +26,8 @@ import { replaceLegacySpeakerdeckShortCode } from './regex-plugins/replace-legac
 import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
 import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
+import { replaceQuoteExtraAuthor } from './regex-plugins/replace-quote-extra-author'
+import { replaceQuoteExtraTime } from './regex-plugins/replace-quote-extra-time'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
@@ -90,6 +92,8 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
     md.use(highlightedCode)
+    md.use(markdownItRegex, replaceQuoteExtraAuthor)
+    md.use(markdownItRegex, replaceQuoteExtraTime)
     md.use(MarkdownItParserDebugger)
 
     validAlertLevels.forEach(level => {
