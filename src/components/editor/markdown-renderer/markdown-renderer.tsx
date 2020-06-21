@@ -1,5 +1,4 @@
 import { DomElement } from 'domhandler'
-import { Alert } from 'react-bootstrap'
 import yaml from 'js-yaml'
 import MarkdownIt from 'markdown-it'
 import abbreviation from 'markdown-it-abbr'
@@ -14,12 +13,13 @@ import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import taskList from 'markdown-it-task-lists'
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import { Alert } from 'react-bootstrap'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { Trans } from 'react-i18next'
 import { InternalLink } from '../../common/links/internal-link'
 import { ShowIf } from '../../common/show-if/show-if'
-import { RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
+import { isEqual, RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-renderer.scss'
@@ -39,6 +39,7 @@ import { getYouTubeReplacement } from './replace-components/youtube/youtube-fram
 
 export interface MarkdownPreviewProps {
   content: string
+  onMetaDataChange?: (yamlMetaData: YAMLMetaData | null) => void
 }
 
 export type ComponentReplacer = (node: DomElement, counterMap: Map<string, number>) => (ReactElement | undefined);
@@ -54,9 +55,18 @@ const tryToReplaceNode = (node: DomElement, componentReplacer2Identifier2Counter
     .find((replacement) => !!replacement)
 }
 
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
+const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataChange }) => {
   const [yamlError, setYamlError] = useState(false)
-  const [metaData, setMetaData] = useState<YAMLMetaData>()
+  const [rawMetaData, setRawMetaData] = useState<RawYAMLMetadata>()
+  const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
+
+  useEffect(() => {
+    if (onMetaDataChange && rawMetaData && oldRawMetaData && !isEqual(oldRawMetaData, rawMetaData)) {
+      const newMetaData = new YAMLMetaData(rawMetaData)
+      onMetaDataChange(newMetaData)
+      setOldRawMetaData(rawMetaData)
+    }
+  }, [rawMetaData, onMetaDataChange, oldRawMetaData])
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -65,17 +75,19 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
       langPrefix: '',
       typographer: true
     })
-    md.use(frontmatter, (rawMeta: string) => {
-      let meta: RawYAMLMetadata
-      try {
-        meta = yaml.safeLoad(rawMeta) as RawYAMLMetadata
-        setYamlError(false)
-        setMetaData(new YAMLMetaData(meta))
-      } catch (e) {
-        console.log(e)
-        setYamlError(true)
-      }
-    })
+    if (onMetaDataChange) {
+      md.use(frontmatter, (rawMeta: string) => {
+        try {
+          const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
+          setYamlError(false)
+          setRawMetaData(meta)
+        } catch (e) {
+          console.error(e)
+          setYamlError(true)
+          setRawMetaData({} as RawYAMLMetadata)
+        }
+      })
+    }
     md.use(taskList)
     md.use(emoji)
     md.use(abbreviation)
@@ -101,7 +113,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     })
 
     return md
-  }, [])
+  }, [onMetaDataChange])
 
   const result: ReactElement[] = useMemo(() => {
     const componentReplacer2Identifier2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
@@ -118,7 +130,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
         <ShowIf condition={yamlError}>
           <Alert variant='warning' dir='auto'>
             <Trans i18nKey='editor.invalidYaml'>
-              <InternalLink text='yaml-metdata' href='/n/yaml-metadata' />
+              <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
             </Trans>
           </Alert>
         </ShowIf>
