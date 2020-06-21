@@ -15,6 +15,11 @@ const Editor: React.FC = () => {
   const [markdownContent, setMarkdownContent] = useState(`# Embedding demo
 [TOC]
 
+## Blockquote
+> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+> [color=red]
+
 ## Slideshare
 {%slideshare mazlan1/internet-of-things-the-tip-of-an-iceberg %}
 
