@@ -31,6 +31,7 @@ import { getGistReplacement } from './replace-components/gist/gist-frame'
 import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
 import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
+import { getTOCReplacement } from './replace-components/toc/toc-replacer'
 
 export interface MarkdownPreviewProps {
   content: string
@@ -38,7 +39,7 @@ export interface MarkdownPreviewProps {
 
 export type SubNodeConverter = (node: DomElement, index: number) => ReactElement
 export type ComponentReplacer = (node: DomElement, counterMap: Map<string, number>, nodeConverter: SubNodeConverter) => (ReactElement | undefined);
-const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement]
+const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement, getTOCReplacement]
 type ComponentReplacer2Identifier2CounterMap = Map<ComponentReplacer, Map<string, number>>
 
 const tryToReplaceNode = (node: DomElement, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap, nodeConverter: SubNodeConverter) => {
