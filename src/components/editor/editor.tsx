@@ -12,9 +12,7 @@ import { TaskBar } from './task-bar/task-bar'
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
-  const [markdownContent, setMarkdownContent] = useState(`
-# Embedding demo
-
+  const [markdownContent, setMarkdownContent] = useState(`# Embedding demo
 [TOC]
 
 ## Slideshare
