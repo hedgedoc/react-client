@@ -66,7 +66,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
   const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
 
   useEffect(() => {
-    if (onMetaDataChange && rawMetaData && oldRawMetaData && !isEqual(oldRawMetaData, rawMetaData)) {
+    if (onMetaDataChange && rawMetaData && !isEqual(oldRawMetaData, rawMetaData)) {
       const newMetaData = new YAMLMetaData(rawMetaData)
       onMetaDataChange(newMetaData)
       setOldRawMetaData(rawMetaData)
