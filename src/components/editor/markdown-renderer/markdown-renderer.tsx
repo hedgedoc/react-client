@@ -15,6 +15,7 @@ import toc from 'markdown-it-table-of-contents'
 import taskList from 'markdown-it-task-lists'
 import mathJax from 'markdown-it-mathjax'
 import React, { ReactElement, useMemo } from 'react'
+import MathJax from 'react-mathjax'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
@@ -81,12 +82,12 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
       markerPattern: /^\[TOC]$/i
     })
     md.use(mathJax, {
-      beforeMath: '<span class="mathjax raw">',
-      afterMath: '</span>',
-      beforeInlineMath: '<span class="mathjax raw">\\(',
-      afterInlineMath: '\\)</span>',
-      beforeDisplayMath: '<span class="mathjax raw">\\[',
-      afterDisplayMath: '\\]</span>'
+      beforeMath: '',
+      afterMath: '',
+      beforeInlineMath: '<MathJax.Node inline formula={\'',
+      afterInlineMath: '\'} />',
+      beforeDisplayMath: '<MathJax.Node formula={',
+      afterDisplayMath: '} />'
     })
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
@@ -119,7 +120,11 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
 
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
-      <div className={'markdown-body container-fluid'}>{result}</div>
+      <div className={'markdown-body container-fluid'}>
+        <MathJax.Provider>
+          {result}
+        </MathJax.Provider>
+      </div>
     </div>
   )
 }
