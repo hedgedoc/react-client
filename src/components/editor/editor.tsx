@@ -16,7 +16,6 @@ const Editor: React.FC = () => {
 [TOC]
 
 ## MathJax
-
 You can render *LaTeX* mathematical expressions using **MathJax**, as on [math.stackexchange.com](https://math.stackexchange.com/):
 
 The *Gamma function* satisfying $\\Gamma(n) = (n-1)!\\quad\\forall n\\in\\mathbb N$ is via the Euler integral
@@ -31,6 +30,11 @@ $$
 
 > More information about **LaTeX** mathematical expressions [here](https://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
 
+## Blockquote
+> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+> [color=red] [name=John Doe] [time=2020-06-21 22:50]
+
 ## Slideshare
 {%slideshare mazlan1/internet-of-things-the-tip-of-an-iceberg %}
 
@@ -44,7 +48,14 @@ https://www.youtube.com/watch?v=KgMpKsp23yY
 https://vimeo.com/23237102
 
 ## PDF
-{%pdf https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf %}`)
+{%pdf https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf %}
+
+## Code highlighting
+\`\`\`javascript=
+let a = 1
+\`\`\`
+
+`)
   const isWide = useMedia({ minWidth: 576 })
   const [firstDraw, setFirstDraw] = useState(true)
 
