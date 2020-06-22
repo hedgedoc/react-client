@@ -15,7 +15,7 @@ import toc from 'markdown-it-table-of-contents'
 import taskList from 'markdown-it-task-lists'
 import mathJax from 'markdown-it-mathjax'
 import React, { ReactElement, useMemo } from 'react'
-import MathJax from 'react-mathjax'
+import MathJaxReact from 'react-mathjax'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
@@ -122,9 +122,9 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
       <div className={'markdown-body container-fluid'}>
-        <MathJax.Provider>
+        <MathJaxReact.Provider>
           {result}
-        </MathJax.Provider>
+        </MathJaxReact.Provider>
       </div>
     </div>
   )
