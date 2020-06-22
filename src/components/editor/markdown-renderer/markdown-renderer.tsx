@@ -30,6 +30,7 @@ import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { getGistReplacement } from './replace-components/gist/gist-frame'
+import { getMathJaxReplacement } from './replace-components/mathjax/mathjax-replacer'
 import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
 import { getTOCReplacement } from './replace-components/toc/toc-replacer'
 import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
@@ -43,7 +44,7 @@ export type SubNodeConverter = (node: DomElement, index: number) => ReactElement
 export type ComponentReplacer = (node: DomElement, index: number, counterMap: Map<string, number>, nodeConverter: SubNodeConverter) => (ReactElement | undefined);
 type ComponentReplacer2Identifier2CounterMap = Map<ComponentReplacer, Map<string, number>>
 
-const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement, getTOCReplacement]
+const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement, getTOCReplacement, getMathJaxReplacement]
 
 const tryToReplaceNode = (node: DomElement, index:number, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap, nodeConverter: SubNodeConverter) => {
   return allComponentReplacers
@@ -82,12 +83,12 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
       markerPattern: /^\[TOC]$/i
     })
     md.use(mathJax, {
-      beforeMath: '',
-      afterMath: '',
-      beforeInlineMath: '<MathJax.Node inline formula={\'',
-      afterInlineMath: '\'} />',
-      beforeDisplayMath: '<MathJax.Node formula={',
-      afterDisplayMath: '} />'
+      beforeMath: '<codimd-mathjax>',
+      afterMath: '</codimd-mathjax>',
+      beforeInlineMath: '<codimd-mathjax inline>',
+      afterInlineMath: '</codimd-mathjax>',
+      beforeDisplayMath: '<codimd-mathjax>',
+      afterDisplayMath: '</codimd-mathjax>'
     })
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
