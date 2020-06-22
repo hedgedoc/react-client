@@ -1,27 +1,27 @@
 import React from 'react'
+import { DomElement } from 'domhandler'
 import { ComponentReplacer } from '../../markdown-renderer'
-import { getAttributesFromCodiMdTag } from '../codi-md-tag-utils'
 import MathJax from 'react-mathjax'
 
-const getElementReplacement: ComponentReplacer = (node, index: number, counterMap) => {
-  const attributes = getAttributesFromCodiMdTag(node, 'mathjax')
-  if (attributes && attributes.content) {
-    const mathJaxContent = attributes.content
-    const count = (counterMap.get('mathjax') || 0) + 1
-    counterMap.set('mathjax', count)
-    return <MathJaxReplacer key={`mathjax-${index}`} inline={!!attributes.inline} formula={mathJaxContent}/>
+const getNodeIfMathJaxBlock = (node: DomElement): (DomElement|undefined) => {
+  if (node.name !== 'p' || !node.children || node.children.length !== 1) {
+    return
   }
+  const mathJaxNode = node.children[0]
+  return (mathJaxNode.name === 'codimd-mathjax' && mathJaxNode.attribs?.inline === undefined) ? mathJaxNode : undefined
 }
 
-export interface MathJaxProps {
-  inline?: boolean
-  formula: string
+const getNodeIfInlineMathJax = (node: DomElement): (DomElement|undefined) => {
+  return (node.name === 'codimd-mathjax' && node.attribs?.inline !== undefined) ? node : undefined
 }
 
-export const MathJaxReplacer: React.FC<MathJaxProps> = ({ inline = false, formula }) => {
-  return (
-    <MathJax.Node inline={inline} formula={formula}/>
-  )
+const getElementReplacement: ComponentReplacer = (node, index: number, counterMap) => {
+  const mathJax = getNodeIfMathJaxBlock(node) || getNodeIfInlineMathJax(node)
+  if (mathJax?.children && mathJax.children[0]) {
+    const mathJaxContent = mathJax.children[0]?.data as string
+    const isInline = (mathJax.attribs?.inline) !== undefined
+    return <MathJax.Node key={index} inline={isInline} formula={mathJaxContent}/>
+  }
 }
 
 export { getElementReplacement as getMathJaxReplacement }

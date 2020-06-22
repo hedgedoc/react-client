@@ -82,14 +82,14 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(toc, {
       markerPattern: /^\[TOC]$/i
     })
-    md.use(mathJax, {
+    md.use(mathJax({
       beforeMath: '<codimd-mathjax>',
       afterMath: '</codimd-mathjax>',
       beforeInlineMath: '<codimd-mathjax inline>',
       afterInlineMath: '</codimd-mathjax>',
       beforeDisplayMath: '<codimd-mathjax>',
       afterDisplayMath: '</codimd-mathjax>'
-    })
+    }))
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
     md.use(markdownItRegex, replaceLegacyGistShortCode)
