@@ -19,24 +19,25 @@ const findQuoteOptionsParent = (nodes: DomElement[]): DomElement | undefined => 
 }
 
 const getElementReplacement = (node: DomElement, index: number, counterMap: Map<string, number>, nodeConverter: SubNodeConverter): (ReactElement | undefined) => {
-  if (node.name === 'blockquote' && node.children && node.children.length >= 1) {
-    const paragraph = findQuoteOptionsParent(node.children)
-    if (!paragraph) {
-      return
-    }
-    const childElements = paragraph.children || []
-    const optionsTag = childElements.find(isColorExtraElement)
-    if (!optionsTag) {
-      return
-    }
-    paragraph.children = childElements.filter(elem => !isColorExtraElement(elem))
-    const attributes = optionsTag.attribs
-    if (!attributes || !attributes['data-color']) {
-      return
-    }
-    node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes['data-color']};` })
-    return nodeConverter(node, index)
+  if (node.name !== 'blockquote' || !node.children || node.children.length < 1) {
+    return
   }
+  const paragraph = findQuoteOptionsParent(node.children)
+  if (!paragraph) {
+    return
+  }
+  const childElements = paragraph.children || []
+  const optionsTag = childElements.find(isColorExtraElement)
+  if (!optionsTag) {
+    return
+  }
+  paragraph.children = childElements.filter(elem => !isColorExtraElement(elem))
+  const attributes = optionsTag.attribs
+  if (!attributes || !attributes['data-color']) {
+    return
+  }
+  node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes['data-color']};` })
+  return nodeConverter(node, index)
 }
 
 export { getElementReplacement as getQuoteOptionsReplacement }
