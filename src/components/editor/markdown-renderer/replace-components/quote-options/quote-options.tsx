@@ -31,10 +31,11 @@ const getElementReplacement = (node: DomElement, index: number, counterMap: Map<
     }
     paragraph.children = childElements.filter(elem => !isColorExtraElement(elem))
     const attributes = optionsTag.attribs
-    if (attributes && attributes['data-color']) {
-      node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes['data-color']};` })
-      return nodeConverter(node, index)
+    if (!attributes || !attributes['data-color']) {
+      return
     }
+    node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes['data-color']};` })
+    return nodeConverter(node, index)
   }
 }
 
