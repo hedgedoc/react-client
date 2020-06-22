@@ -2,12 +2,19 @@ import { DomElement } from 'domhandler'
 import { ReactElement } from 'react'
 import { SubNodeConverter } from '../../markdown-renderer'
 
+const isColorExtraElement = (node: DomElement | undefined): boolean => {
+  if (!node || !node.attribs || !node.attribs.class || !node.attribs['data-color']) {
+    return false
+  }
+  return (node.name === 'span' && node.attribs.class === 'quote-extra')
+}
+
 const findQuoteOptionsParent = (nodes: DomElement[]): DomElement | undefined => {
   return nodes.find((child) => {
     if (child.name !== 'p' || !child.children || child.children.length < 1) {
       return false
     }
-    return child.children.find(elem => elem.name === 'codimd-quote-options') !== undefined
+    return child.children.find(isColorExtraElement) !== undefined
   })
 }
 
@@ -18,14 +25,14 @@ const getElementReplacement = (node: DomElement, index: number, counterMap: Map<
       return
     }
     const childElements = paragraph.children || []
-    const optionsTag = childElements.find((child) => child.name === 'codimd-quote-options')
+    const optionsTag = childElements.find(isColorExtraElement)
     if (!optionsTag) {
       return
     }
-    paragraph.children = childElements.filter((child) => child.name !== 'codimd-quote-options')
+    paragraph.children = childElements.filter(elem => !isColorExtraElement(elem))
     const attributes = optionsTag.attribs
-    if (attributes && attributes.color) {
-      node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes.color};` })
+    if (attributes && attributes['data-color']) {
+      node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes['data-color']};` })
       return nodeConverter(node, index)
     }
   }

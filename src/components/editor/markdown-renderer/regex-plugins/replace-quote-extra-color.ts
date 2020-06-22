@@ -8,6 +8,6 @@ export const replaceQuoteExtraColor: RegexOptions = {
   replace: (match) => {
     // ESLint wants to collapse this tag, but then the tag won't be valid html anymore.
     // noinspection CheckTagEmptyBody
-    return `<codimd-quote-options color='${match}'></codimd-quote-options>`
+    return `<span class="quote-extra" data-color='${match}' style='color: ${match}'><i class="fa fa-tag"></i></span>`
   }
 }
