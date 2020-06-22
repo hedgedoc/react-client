@@ -13,6 +13,7 @@ import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import toc from 'markdown-it-table-of-contents'
 import taskList from 'markdown-it-task-lists'
+import mathJax from 'markdown-it-mathjax'
 import React, { ReactElement, useMemo } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
@@ -69,6 +70,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     md.use(inserted)
     md.use(marked)
     md.use(footnote)
+    // noinspection CheckTagEmptyBody
     md.use(anchor, {
       permalink: true,
       permalinkBefore: true,
@@ -77,6 +79,14 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
     })
     md.use(toc, {
       markerPattern: /^\[TOC]$/i
+    })
+    md.use(mathJax, {
+      beforeMath: '<span class="mathjax raw">',
+      afterMath: '</span>',
+      beforeInlineMath: '<span class="mathjax raw">\\(',
+      afterInlineMath: '\\)</span>',
+      beforeDisplayMath: '<span class="mathjax raw">\\[',
+      afterDisplayMath: '\\]</span>'
     })
     md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
     md.use(markdownItRegex, replaceLegacyVimeoShortCode)
