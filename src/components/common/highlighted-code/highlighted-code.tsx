@@ -19,10 +19,23 @@ export const escapeHtml = (unsafe: string): string => {
     .replace(/'/g, '&#039;')
 }
 
+const checkIfLanguageIsSupported = (language: string):boolean => {
+  return hljs.listLanguages().indexOf(language) > -1
+}
+
+const correctLanguage = (language: string|undefined): string|undefined => {
+  switch (language) {
+    case 'html':
+      return 'xml'
+    default:
+      return language
+  }
+}
+
 export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language, showGutter }) => {
   const highlightedCode = useMemo(() => {
-    const replacedLanguage = language === 'html' ? 'xml' : language
-    return ((!!replacedLanguage && hljs.listLanguages().indexOf(replacedLanguage) > -1) ? hljs.highlight(replacedLanguage, code).value : escapeHtml(code))
+    const replacedLanguage = correctLanguage(language)
+    return ((!!replacedLanguage && checkIfLanguageIsSupported(replacedLanguage)) ? hljs.highlight(replacedLanguage, code).value : escapeHtml(code))
       .split('\n')
       .filter(line => !!line)
       .map(line => ReactHtmlParser(line))
