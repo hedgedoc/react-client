@@ -1,6 +1,5 @@
 import { DomElement } from 'domhandler'
-import { ReactElement } from 'react'
-import { SubNodeConverter } from '../../markdown-renderer'
+import { ComponentReplacer, SubNodeConverter } from '../ComponentReplacer'
 
 const isColorExtraElement = (node: DomElement | undefined): boolean => {
   if (!node || !node.attribs || !node.attribs.class || !node.attribs['data-color']) {
@@ -18,26 +17,26 @@ const findQuoteOptionsParent = (nodes: DomElement[]): DomElement | undefined => 
   })
 }
 
-const getElementReplacement = (node: DomElement, index: number, counterMap: Map<string, number>, nodeConverter: SubNodeConverter): (ReactElement | undefined) => {
-  if (node.name !== 'blockquote' || !node.children || node.children.length < 1) {
-    return
+export class QuoteOptionsReplacer implements ComponentReplacer {
+  getReplacement (node: DomElement, index: number, subNodeConverter: SubNodeConverter): React.ReactElement | undefined {
+    if (node.name !== 'blockquote' || !node.children || node.children.length < 1) {
+      return
+    }
+    const paragraph = findQuoteOptionsParent(node.children)
+    if (!paragraph) {
+      return
+    }
+    const childElements = paragraph.children || []
+    const optionsTag = childElements.find(isColorExtraElement)
+    if (!optionsTag) {
+      return
+    }
+    paragraph.children = childElements.filter(elem => !isColorExtraElement(elem))
+    const attributes = optionsTag.attribs
+    if (!attributes || !attributes['data-color']) {
+      return
+    }
+    node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes['data-color']};` })
+    return subNodeConverter(node, index)
   }
-  const paragraph = findQuoteOptionsParent(node.children)
-  if (!paragraph) {
-    return
-  }
-  const childElements = paragraph.children || []
-  const optionsTag = childElements.find(isColorExtraElement)
-  if (!optionsTag) {
-    return
-  }
-  paragraph.children = childElements.filter(elem => !isColorExtraElement(elem))
-  const attributes = optionsTag.attribs
-  if (!attributes || !attributes['data-color']) {
-    return
-  }
-  node.attribs = Object.assign(node.attribs || {}, { style: `border-left-color: ${attributes['data-color']};` })
-  return nodeConverter(node, index)
 }
-
-export { getElementReplacement as getQuoteOptionsReplacement }
