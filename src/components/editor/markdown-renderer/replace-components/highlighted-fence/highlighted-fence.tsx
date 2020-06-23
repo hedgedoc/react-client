@@ -2,7 +2,6 @@ import { DomElement } from 'domhandler'
 import React from 'react'
 import { HighlightedCode } from '../../../../common/highlighted-code/highlighted-code'
 import { ComponentReplacer, SubNodeConverter } from '../ComponentReplacer'
-import './highlighted-code.scss'
 
 export class HighlightedCodeReplacer implements ComponentReplacer {
   getReplacement (codeNode: DomElement, index: number, subNodeConverter: SubNodeConverter): React.ReactElement | undefined {
