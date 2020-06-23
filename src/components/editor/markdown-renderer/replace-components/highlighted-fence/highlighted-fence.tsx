@@ -12,6 +12,8 @@ export class HighlightedCodeReplacer implements ComponentReplacer {
 
     const language = codeNode.attribs['data-highlight-language']
     const showGutter = codeNode.attribs['data-show-gutter'] !== undefined
-    return <HighlightedCode key={index} language={language} showGutter={showGutter} code={codeNode.children[0].data as string}/>
+    const wrapLines = codeNode.attribs['data-wrap-lines'] !== undefined
+
+    return <HighlightedCode key={index} language={language} showGutter={showGutter} wrapLines={wrapLines} code={codeNode.children[0].data as string}/>
   }
 }

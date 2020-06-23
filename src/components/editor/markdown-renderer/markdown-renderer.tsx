@@ -6,6 +6,7 @@ import markdownItContainer from 'markdown-it-container'
 import definitionList from 'markdown-it-deflist'
 import emoji from 'markdown-it-emoji'
 import footnote from 'markdown-it-footnote'
+import imsize from 'markdown-it-imsize'
 import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import mathJax from 'markdown-it-mathjax'
@@ -63,6 +64,7 @@ const createMarkdownIt = ():MarkdownIt => {
   md.use(inserted)
   md.use(marked)
   md.use(footnote)
+  md.use(imsize)
   // noinspection CheckTagEmptyBody
   md.use(anchor, {
     permalink: true,
@@ -71,6 +73,7 @@ const createMarkdownIt = ():MarkdownIt => {
     permalinkSymbol: '<i class="fa fa-link"></i>'
   })
   md.use(toc, {
+    includeLevel: [1, 2, 3],
     markerPattern: /^\[TOC]$/i
   })
   md.use(mathJax({
