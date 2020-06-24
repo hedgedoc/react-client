@@ -1,3 +1,4 @@
+import equal from 'deep-equal'
 import { DomElement } from 'domhandler'
 import MarkdownIt from 'markdown-it'
 import abbreviation from 'markdown-it-abbr'
@@ -13,11 +14,12 @@ import mathJax from 'markdown-it-mathjax'
 import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
-import toc from 'markdown-it-table-of-contents'
 import taskList from 'markdown-it-task-lists'
-import React, { ReactElement, useMemo } from 'react'
+import toc from 'markdown-it-toc-done-right'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import MathJaxReact from 'react-mathjax'
+import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
@@ -48,65 +50,8 @@ import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 
 export interface MarkdownPreviewProps {
   content: string
-}
-
-const createMarkdownIt = ():MarkdownIt => {
-  const md = new MarkdownIt('default', {
-    html: true,
-    breaks: true,
-    langPrefix: '',
-    typographer: true
-  })
-  md.use(taskList)
-  md.use(emoji)
-  md.use(abbreviation)
-  md.use(definitionList)
-  md.use(subscript)
-  md.use(superscript)
-  md.use(inserted)
-  md.use(marked)
-  md.use(footnote)
-  md.use(imsize)
-  // noinspection CheckTagEmptyBody
-  md.use(anchor, {
-    permalink: true,
-    permalinkBefore: true,
-    permalinkClass: 'heading-anchor text-dark',
-    permalinkSymbol: '<i class="fa fa-link"></i>'
-  })
-  md.use(toc, {
-    includeLevel: [1, 2, 3],
-    markerPattern: /^\[TOC]$/i
-  })
-  md.use(mathJax({
-    beforeMath: '<codimd-mathjax>',
-    afterMath: '</codimd-mathjax>',
-    beforeInlineMath: '<codimd-mathjax inline>',
-    afterInlineMath: '</codimd-mathjax>',
-    beforeDisplayMath: '<codimd-mathjax>',
-    afterDisplayMath: '</codimd-mathjax>'
-  }))
-  md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
-  md.use(markdownItRegex, replaceLegacyVimeoShortCode)
-  md.use(markdownItRegex, replaceLegacyGistShortCode)
-  md.use(markdownItRegex, replaceLegacySlideshareShortCode)
-  md.use(markdownItRegex, replaceLegacySpeakerdeckShortCode)
-  md.use(markdownItRegex, replacePdfShortCode)
-  md.use(markdownItRegex, replaceYouTubeLink)
-  md.use(markdownItRegex, replaceVimeoLink)
-  md.use(markdownItRegex, replaceGistLink)
-  md.use(highlightedCode)
-  md.use(markdownItRegex, replaceQuoteExtraAuthor)
-  md.use(markdownItRegex, replaceQuoteExtraColor)
-  md.use(markdownItRegex, replaceQuoteExtraTime)
-  md.use(linkifyExtra)
-  md.use(MarkdownItParserDebugger)
-
-  validAlertLevels.forEach(level => {
-    md.use(markdownItContainer, level, { render: createRenderContainer(level) })
-  })
-
-  return md
+  className: string
+  onTocChange?: (ast: TocAst) => void
 }
 
 const tryToReplaceNode = (node: DomElement, index: number, allReplacers: ComponentReplacer[], nodeConverter: SubNodeConverter) => {
@@ -115,8 +60,79 @@ const tryToReplaceNode = (node: DomElement, index: number, allReplacers: Compone
     .find((replacement) => !!replacement)
 }
 
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
-  const markdownIt = useMemo(createMarkdownIt, [])
+const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, className, onTocChange }) => {
+  const [tocAst, setTocAst] = useState<TocAst>()
+  const [lastTocAst, setLastTocAst] = useState<TocAst>()
+
+  const markdownIt = useMemo(() => {
+    const md = new MarkdownIt('default', {
+      html: true,
+      breaks: true,
+      langPrefix: '',
+      typographer: true
+    })
+    md.use(taskList)
+    md.use(emoji)
+    md.use(abbreviation)
+    md.use(definitionList)
+    md.use(subscript)
+    md.use(superscript)
+    md.use(inserted)
+    md.use(marked)
+    md.use(footnote)
+    md.use(imsize)
+    // noinspection CheckTagEmptyBody
+    md.use(anchor, {
+      permalink: true,
+      permalinkBefore: true,
+      permalinkClass: 'heading-anchor text-dark',
+      permalinkSymbol: '<i class="fa fa-link"></i>'
+    })
+    md.use(mathJax({
+      beforeMath: '<codimd-mathjax>',
+      afterMath: '</codimd-mathjax>',
+      beforeInlineMath: '<codimd-mathjax inline>',
+      afterInlineMath: '</codimd-mathjax>',
+      beforeDisplayMath: '<codimd-mathjax>',
+      afterDisplayMath: '</codimd-mathjax>'
+    }))
+    md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
+    md.use(markdownItRegex, replaceLegacyVimeoShortCode)
+    md.use(markdownItRegex, replaceLegacyGistShortCode)
+    md.use(markdownItRegex, replaceLegacySlideshareShortCode)
+    md.use(markdownItRegex, replaceLegacySpeakerdeckShortCode)
+    md.use(markdownItRegex, replacePdfShortCode)
+    md.use(markdownItRegex, replaceYouTubeLink)
+    md.use(markdownItRegex, replaceVimeoLink)
+    md.use(markdownItRegex, replaceGistLink)
+    md.use(highlightedCode)
+    md.use(markdownItRegex, replaceQuoteExtraAuthor)
+    md.use(markdownItRegex, replaceQuoteExtraColor)
+    md.use(markdownItRegex, replaceQuoteExtraTime)
+    md.use(toc, {
+      placeholder: '(\\[TOC\\]|\\[toc\\])',
+      listType: 'ul',
+      level: [1, 2, 3],
+      callback: (code: string, ast: TocAst): void => {
+        setTocAst(ast)
+      }
+    })
+    md.use(linkifyExtra)
+  md.use(MarkdownItParserDebugger)
+
+    validAlertLevels.forEach(level => {
+      md.use(markdownItContainer, level, { render: createRenderContainer(level) })
+    })
+
+    return md
+  }, [])
+
+  useEffect(() => {
+    if (onTocChange && tocAst && !equal(tocAst, lastTocAst)) {
+      onTocChange(tocAst)
+      setLastTocAst(tocAst)
+    }
+  }, [tocAst, onTocChange, lastTocAst])
 
   const result: ReactElement[] = useMemo(() => {
     const allReplacers: ComponentReplacer[] = [
@@ -131,6 +147,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
       new MathjaxReplacer()
     ]
     const html: string = markdownIt.render(content)
+
     const transform: Transform = (node, index) => {
       const subNodeConverter = (subNode: DomElement, subIndex: number) => convertNodeToElement(subNode, subIndex, transform)
       return tryToReplaceNode(node, index, allReplacers, subNodeConverter) || convertNodeToElement(node, index, transform)
@@ -139,12 +156,10 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
   }, [content, markdownIt])
 
   return (
-    <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
-      <div className={'markdown-body container-fluid'}>
-        <MathJaxReact.Provider>
-          {result}
-        </MathJaxReact.Provider>
-      </div>
+    <div className={`markdown-body ${className}`}>
+      <MathJaxReact.Provider>
+        {result}
+      </MathJaxReact.Provider>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 @import '../../../../node_modules/github-markdown-css/github-markdown.css';
 
 .markdown-body {
+  position: relative;
   max-width: 758px;
   font-family: 'Source Sans Pro', "twemoji", sans-serif;
 
@@ -29,4 +30,14 @@
       }
     }
   }
+
+}
+
+.markdown-sidebar-scroller {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: green;
+  width: 100%;
+  max-width: 200px;
 }
