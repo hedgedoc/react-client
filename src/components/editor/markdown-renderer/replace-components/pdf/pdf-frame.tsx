@@ -11,7 +11,7 @@ export const PdfFrame: React.FC<PdfFrameProps> = ({ url }) => {
   const [activated, setActivated] = useState(false)
 
   return (
-    <OneClickEmbedding containerClassName={`embed-responsive embed-responsive-${activated ? '4by3' : '16by9'`}
+    <OneClickEmbedding containerClassName={`embed-responsive embed-responsive-${activated ? '4by3' : '16by9'}`}
       previewContainerClassName={'embed-responsive-item bg-danger'}
       hoverIcon={'file-pdf-o'}
       hoverTextI18nKey={'editor.embeddings.clickToLoad'}

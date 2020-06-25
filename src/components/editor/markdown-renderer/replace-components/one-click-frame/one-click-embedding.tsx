@@ -15,8 +15,6 @@ interface OneClickFrameProps {
   onActivate?: () => void
 }
 
-}
-
 export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ previewContainerClassName, containerClassName, onImageFetch, loadingImageUrl, children, tooltip, hoverIcon, hoverTextI18nKey, onActivate }) => {
   const [showFrame, setShowFrame] = useState(false)
   const [previewImageLink, setPreviewImageLink] = useState<string>(loadingImageUrl)
