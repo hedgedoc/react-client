@@ -8,8 +8,10 @@ import definitionList from 'markdown-it-deflist'
 import emoji from 'markdown-it-emoji'
 import footnote from 'markdown-it-footnote'
 import frontmatter from 'markdown-it-front-matter'
+import imsize from 'markdown-it-imsize'
 import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
+import mathJax from 'markdown-it-mathjax'
 import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
@@ -22,7 +24,10 @@ import { Trans } from 'react-i18next'
 import { InternalLink } from '../../common/links/internal-link'
 import { ShowIf } from '../../common/show-if/show-if'
 import { isEqual, RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
+import MathJaxReact from 'react-mathjax'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
+import { highlightedCode } from './markdown-it-plugins/highlighted-code'
+import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-renderer.scss'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
@@ -32,55 +37,46 @@ import { replaceLegacySpeakerdeckShortCode } from './regex-plugins/replace-legac
 import { replaceLegacyVimeoShortCode } from './regex-plugins/replace-legacy-vimeo-short-code'
 import { replaceLegacyYoutubeShortCode } from './regex-plugins/replace-legacy-youtube-short-code'
 import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
+import { replaceQuoteExtraAuthor } from './regex-plugins/replace-quote-extra-author'
+import { replaceQuoteExtraColor } from './regex-plugins/replace-quote-extra-color'
+import { replaceQuoteExtraTime } from './regex-plugins/replace-quote-extra-time'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
-import { getGistReplacement } from './replace-components/gist/gist-frame'
-import { getPDFReplacement } from './replace-components/pdf/pdf-frame'
-import { getTOCReplacement } from './replace-components/toc/toc-replacer'
-import { getVimeoReplacement } from './replace-components/vimeo/vimeo-frame'
-import { getYouTubeReplacement } from './replace-components/youtube/youtube-frame'
+import { ComponentReplacer, SubNodeConverter } from './replace-components/ComponentReplacer'
+import { GistReplacer } from './replace-components/gist/gist-replacer'
+import { HighlightedCodeReplacer } from './replace-components/highlighted-fence/highlighted-fence-replacer'
+import { PossibleWiderReplacer } from './replace-components/possible-wider/possible-wider-replacer'
+import { ImageReplacer } from './replace-components/image/image-replacer'
+import { MathjaxReplacer } from './replace-components/mathjax/mathjax-replacer'
+import { PdfReplacer } from './replace-components/pdf/pdf-replacer'
+import { QuoteOptionsReplacer } from './replace-components/quote-options/quote-options-replacer'
+import { TocReplacer } from './replace-components/toc/toc-replacer'
+import { VimeoReplacer } from './replace-components/vimeo/vimeo-replacer'
+import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 
 export interface MarkdownPreviewProps {
   content: string
+  wide?: boolean
   onMetaDataChange?: (yamlMetaData: YAMLMetaData | null) => void
 }
 
-export type SubNodeConverter = (node: DomElement, index: number) => ReactElement
-export type ComponentReplacer = (node: DomElement, index: number, counterMap: Map<string, number>, nodeConverter: SubNodeConverter) => (ReactElement | undefined);
-type ComponentReplacer2Identifier2CounterMap = Map<ComponentReplacer, Map<string, number>>
-
-const allComponentReplacers: ComponentReplacer[] = [getYouTubeReplacement, getVimeoReplacement, getGistReplacement, getPDFReplacement, getTOCReplacement]
-
-const tryToReplaceNode = (node: DomElement, index:number, componentReplacer2Identifier2CounterMap: ComponentReplacer2Identifier2CounterMap, nodeConverter: SubNodeConverter) => {
-  return allComponentReplacers
-    .map((componentReplacer) => {
-      const identifier2CounterMap = componentReplacer2Identifier2CounterMap.get(componentReplacer) || new Map<string, number>()
-      return componentReplacer(node, index, identifier2CounterMap, nodeConverter)
-    })
-    .find((replacement) => !!replacement)
-}
-
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataChange }) => {
-  const [yamlError, setYamlError] = useState(false)
-  const [rawMetaData, setRawMetaData] = useState<RawYAMLMetadata>()
-  const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
-
-  useEffect(() => {
-    if (onMetaDataChange && rawMetaData && !isEqual(oldRawMetaData, rawMetaData)) {
-      const newMetaData = new YAMLMetaData(rawMetaData)
-      onMetaDataChange(newMetaData)
-      setOldRawMetaData(rawMetaData)
-    }
-  }, [rawMetaData, onMetaDataChange, oldRawMetaData])
-
-  const markdownIt = useMemo(() => {
-    const md = new MarkdownIt('default', {
-      html: true,
-      breaks: true,
-      langPrefix: '',
-      typographer: true
-    })
-    if (onMetaDataChange) {
+const createMarkdownIt = ():MarkdownIt => {
+  const md = new MarkdownIt('default', {
+    html: true,
+    breaks: true,
+    langPrefix: '',
+    typographer: true
+  })
+  md.use(taskList)
+  md.use(emoji)
+  md.use(abbreviation)
+  md.use(definitionList)
+  md.use(subscript)
+  md.use(superscript)
+  md.use(inserted)
+  md.use(marked)
+  md.use(footnote)
+  if (onMetaDataChange) {
       md.use(frontmatter, (rawMeta: string) => {
         try {
           const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
@@ -92,65 +88,104 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
           setRawMetaData({} as RawYAMLMetadata)
         }
       })
+  }
+  md.use(imsize)
+  // noinspection CheckTagEmptyBody
+  md.use(anchor, {
+    permalink: true,
+    permalinkBefore: true,
+    permalinkClass: 'heading-anchor text-dark',
+    permalinkSymbol: '<i class="fa fa-link"></i>'
+  })
+  md.use(toc, {
+    includeLevel: [1, 2, 3],
+    markerPattern: /^\[TOC]$/i
+  })
+  md.use(mathJax({
+    beforeMath: '<codimd-mathjax>',
+    afterMath: '</codimd-mathjax>',
+    beforeInlineMath: '<codimd-mathjax inline>',
+    afterInlineMath: '</codimd-mathjax>',
+    beforeDisplayMath: '<codimd-mathjax>',
+    afterDisplayMath: '</codimd-mathjax>'
+  }))
+  md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
+  md.use(markdownItRegex, replaceLegacyVimeoShortCode)
+  md.use(markdownItRegex, replaceLegacyGistShortCode)
+  md.use(markdownItRegex, replaceLegacySlideshareShortCode)
+  md.use(markdownItRegex, replaceLegacySpeakerdeckShortCode)
+  md.use(markdownItRegex, replacePdfShortCode)
+  md.use(markdownItRegex, replaceYouTubeLink)
+  md.use(markdownItRegex, replaceVimeoLink)
+  md.use(markdownItRegex, replaceGistLink)
+  md.use(highlightedCode)
+  md.use(markdownItRegex, replaceQuoteExtraAuthor)
+  md.use(markdownItRegex, replaceQuoteExtraColor)
+  md.use(markdownItRegex, replaceQuoteExtraTime)
+  md.use(linkifyExtra)
+  md.use(MarkdownItParserDebugger)
+
+  validAlertLevels.forEach(level => {
+    md.use(markdownItContainer, level, { render: createRenderContainer(level) })
+  })
+
+  return md
+}
+
+const tryToReplaceNode = (node: DomElement, index: number, allReplacers: ComponentReplacer[], nodeConverter: SubNodeConverter) => {
+  return allReplacers
+    .map((componentReplacer) => componentReplacer.getReplacement(node, index, nodeConverter))
+    .find((replacement) => !!replacement)
+}
+
+const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, wide }) => {
+  const [yamlError, setYamlError] = useState(false)
+  const [rawMetaData, setRawMetaData] = useState<RawYAMLMetadata>()
+  const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
+
+  useEffect(() => {
+    if (onMetaDataChange && rawMetaData && !isEqual(oldRawMetaData, rawMetaData)) {
+      const newMetaData = new YAMLMetaData(rawMetaData)
+      onMetaDataChange(newMetaData)
+      setOldRawMetaData(rawMetaData)
     }
-    md.use(taskList)
-    md.use(emoji)
-    md.use(abbreviation)
-    md.use(definitionList)
-    md.use(subscript)
-    md.use(superscript)
-    md.use(inserted)
-    md.use(marked)
-    md.use(footnote)
-    md.use(anchor, {
-      permalink: true,
-      permalinkBefore: true,
-      permalinkClass: 'heading-anchor text-dark',
-      permalinkSymbol: '<i class="fa fa-link"></i>'
-    })
-    md.use(toc, {
-      markerPattern: /^\[TOC]$/i
-    })
-    md.use(markdownItRegex, replaceLegacyYoutubeShortCode)
-    md.use(markdownItRegex, replaceLegacyVimeoShortCode)
-    md.use(markdownItRegex, replaceLegacyGistShortCode)
-    md.use(markdownItRegex, replaceLegacySlideshareShortCode)
-    md.use(markdownItRegex, replaceLegacySpeakerdeckShortCode)
-    md.use(markdownItRegex, replacePdfShortCode)
-    md.use(markdownItRegex, replaceYouTubeLink)
-    md.use(markdownItRegex, replaceVimeoLink)
-    md.use(markdownItRegex, replaceGistLink)
-    md.use(MarkdownItParserDebugger)
-
-    validAlertLevels.forEach(level => {
-      md.use(markdownItContainer, level, { render: createRenderContainer(level) })
-    })
-
-    return md
-  }, [onMetaDataChange])
+  }, [rawMetaData, onMetaDataChange, oldRawMetaData])
+  const markdownIt = useMemo(createMarkdownIt, [onMetaDataChange])
 
   const result: ReactElement[] = useMemo(() => {
-    const componentReplacer2Identifier2CounterMap = new Map<ComponentReplacer, Map<string, number>>()
+    const allReplacers: ComponentReplacer[] = [
+      new PossibleWiderReplacer(),
+      new GistReplacer(),
+      new YoutubeReplacer(),
+      new VimeoReplacer(),
+      new PdfReplacer(),
+      new ImageReplacer(),
+      new TocReplacer(),
+      new HighlightedCodeReplacer(),
+      new QuoteOptionsReplacer(),
+      new MathjaxReplacer()
+    ]
     const html: string = markdownIt.render(content)
     const transform: Transform = (node, index) => {
-      const maybeReplacement = tryToReplaceNode(node, index, componentReplacer2Identifier2CounterMap,
-        (subNode, subIndex) => convertNodeToElement(subNode, subIndex, transform))
-      return maybeReplacement || convertNodeToElement(node, index, transform)
+      const subNodeConverter = (subNode: DomElement, subIndex: number) => convertNodeToElement(subNode, subIndex, transform)
+      return tryToReplaceNode(node, index, allReplacers, subNodeConverter) || convertNodeToElement(node, index, transform)
     }
     return ReactHtmlParser(html, { transform: transform })
   }, [content, markdownIt])
 
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
-      <div className={'markdown-body container-fluid'}>
-        <ShowIf condition={yamlError}>
+      <div className={`markdown-body d-flex flex-column align-items-center container-fluid ${wide ? 'wider' : ''}`}>
+		<ShowIf condition={yamlError}>
           <Alert variant='warning' dir='auto'>
             <Trans i18nKey='editor.invalidYaml'>
               <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
             </Trans>
           </Alert>
         </ShowIf>
-        {result}
+        <MathJaxReact.Provider>
+          {result}
+        </MathJaxReact.Provider>
       </div>
     </div>
   )

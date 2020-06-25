@@ -16,12 +16,19 @@
     - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
 - Speakerdeck embedding
     - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
+- We are now using `highlight.js` instead of `highlight.js` + `prism.js` for code highlighting. Check out the [highlight.js demo page](https://highlightjs.org/static/demo/) to see which languages are supported.
+ The highlighting for following languages isn't supported by `highlight.js`:
+    - tiddlywiki
+    - mediawiki
+    - jsx
 
 ### Added
 
 - A new table view for the history (besides the card view)
 - Better support for RTL-languages (and LTR-content in a RTL-page)
 - Users may now change their display name and password (only email accounts) on the new profile page
+- Highlighted code blocks can now use line wrapping and line numbers at once
+- Images, videos, and other non-text content is now wider in View Mode
 
 ### Changed
 
@@ -29,6 +36,7 @@
 - The history shows both the entries saved in LocalStorage and the entries saved on the server together
 - The gist and pdf embeddings now use a one-click aproach similar to vimeo and youtube
 - Use [Twemoji](https://twemoji.twitter.com/) as icon font
+- The `[name=...]`, `[time=...]` and `[color=...]` tags may now be used anywhere in the document and not just inside of blockquotes and lists.
 
 ---
 
