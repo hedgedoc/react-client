@@ -1,8 +1,27 @@
 .markdown-toc {
-  position: sticky;
-  top: 0;
-  left: 0;
-  background: green;
   width: 100%;
   max-width: 200px;
+  &.sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+
+  ul {
+    margin: 0;
+  }
+}
+.markdown-toc-sidebar-button {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+
+  &>.dropup {
+    position: sticky;
+    bottom: 20px;
+    right: 0px;
+  }
 }

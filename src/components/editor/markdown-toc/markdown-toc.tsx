@@ -6,6 +6,7 @@ import './markdown-toc.scss'
 export interface MarkdownTocProps {
   ast: TocAst
   maxDepth?: number
+  sticky?: boolean
 }
 
 const convertLevel = (toc: TocAst): ReactElement => {
@@ -21,9 +22,9 @@ const convertLevel = (toc: TocAst): ReactElement => {
   )
 }
 
-export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3 }) => {
+export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3, sticky,}) => {
   return (
-    <div className={'markdown-toc'}>
+    <div className={`markdown-toc ${sticky ? 'sticky' : ''}`}>
       {convertLevel(ast)}
     </div>
   )
