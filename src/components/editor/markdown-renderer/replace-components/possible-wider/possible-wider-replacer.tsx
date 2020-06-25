@@ -13,9 +13,8 @@ export class PossibleWiderReplacer implements ComponentReplacer {
     const childIsImage = node.children[0].name === 'img'
     const childIsYoutube = node.children[0].name === 'codimd-youtube'
     const childIsVimeo = node.children[0].name === 'codimd-vimeo'
-    const childIsGist = node.children[0].name === 'codimd-gist'
     const childIsPDF = node.children[0].name === 'codimd-pdf'
-    if (!(childIsImage || childIsYoutube || childIsVimeo || childIsGist || childIsPDF)) {
+    if (!(childIsImage || childIsYoutube || childIsVimeo || childIsPDF)) {
       return
     }
     return (<p className='wider-possible'>
