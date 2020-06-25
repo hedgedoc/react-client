@@ -17,8 +17,12 @@ export class PossibleWiderReplacer implements ComponentReplacer {
     if (!(childIsImage || childIsYoutube || childIsVimeo || childIsPDF)) {
       return
     }
-    return (<p className='wider-possible'>
-      {subNodeConverter(node, index)}
-    </p>)
+    if (!node.attribs) {
+      return
+    }
+    console.log(node)
+    node.attribs.class = `wider-possible ${node.attribs.class || ''}`
+
+    return subNodeConverter(node, index)
   }
 }
