@@ -13,8 +13,12 @@
     max-width: 900px;
   }
 
-  &.wider, &.wider > p.wider-possible, &.wider > div, &.wider > h1, &.wider > h2, &.wider > h3, &.wider > h4, &.wider > h5, &.wider > h6 {
-    max-width: 1500px
+  &.wider {
+    max-width: 1500px;
+
+    & > p.wider-possible, & > div, & > h1, & > h2, & > h3, & > h4, & > h5, & > h6 {
+      max-width: 1500px;
+    }
   }
 
   a.heading-anchor {
