@@ -13,7 +13,10 @@ export class ImageReplacer implements ComponentReplacer {
         id={node.attribs.id}
         className={node.attribs.class}
         src={node.attribs.src}
-        alt={node.attribs.alt}/>
+        alt={node.attribs.alt}
+        width={node.attribs.width}
+        height={node.attribs.height}
+      />
     }
   }
 }
