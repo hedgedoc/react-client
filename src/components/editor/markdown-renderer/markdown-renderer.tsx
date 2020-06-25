@@ -141,7 +141,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, wide }) => 
 
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
-      <div className={`markdown-body container-fluid ${wide ? 'wider' : ''}`}>
+      <div className={`markdown-body d-flex flex-column align-items-center container-fluid ${wide ? 'wider' : ''}`}>
         <MathJaxReact.Provider>
           {result}
         </MathJaxReact.Provider>
