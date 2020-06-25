@@ -8,7 +8,7 @@ interface OneClickFrameProps {
   onImageFetch?: () => Promise<string>
   loadingImageUrl: string
   hoverIcon?: IconName
-  hoverTextLocalized?: string
+  hoverTextI18nKey?: string
   tooltip?: string
   containerClassName?: string
   previewContainerClassName?: string
@@ -17,7 +17,7 @@ interface OneClickFrameProps {
 
 }
 
-export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ previewContainerClassName, containerClassName, onImageFetch, loadingImageUrl, children, tooltip, hoverIcon, hoverTextLocalized, onActivate }) => {
+export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ previewContainerClassName, containerClassName, onImageFetch, loadingImageUrl, children, tooltip, hoverIcon, hoverTextI18nKey, onActivate }) => {
   const [showFrame, setShowFrame] = useState(false)
   const [previewImageLink, setPreviewImageLink] = useState<string>(loadingImageUrl)
 
@@ -50,9 +50,9 @@ export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({ previewContain
           <ShowIf condition={!!hoverIcon}>
             <span className='one-click-embedding-icon text-center'>
               <i className={`fa fa-${hoverIcon as string} fa-5x mb-2`} />
-              <ShowIf condition={hoverTextLocalized !== undefined}>
+              <ShowIf condition={hoverTextI18nKey !== undefined}>
                 <br />
-                <Trans i18nKey={hoverTextLocalized} />
+                <Trans i18nKey={hoverTextI18nKey} />
               </ShowIf>
             </span>
           </ShowIf>
