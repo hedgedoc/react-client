@@ -5,10 +5,7 @@ import { ImageFrame } from './image-frame'
 
 export class ImageReplacer implements ComponentReplacer {
   getReplacement (node: DomElement): React.ReactElement | undefined {
-    if (node.name === 'img' &&
-      node.attribs &&
-      node.attribs.src) {
-      // single image in <p>
+    if (node.name === 'img' && node.attribs) {
       return <ImageFrame
         id={node.attribs.id}
         className={node.attribs.class}
