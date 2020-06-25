@@ -15,7 +15,6 @@ export const PdfFrame: React.FC<PdfFrameProps> = ({ url }) => {
       previewContainerClassName={'embed-responsive-item bg-danger'}
       hoverIcon={'file-pdf-o'}
       hoverTextI18nKey={'editor.embeddings.clickToLoad'}
-      loadingImageUrl={''}
       onActivate={() => setActivated(true)}>
       <object type={'application/pdf'} data={url} className={'pdf-frame'}>
         <ExternalLink text={url} href={url}/>
