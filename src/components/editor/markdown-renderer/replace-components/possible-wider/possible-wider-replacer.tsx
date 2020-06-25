@@ -20,9 +20,7 @@ export class PossibleWiderReplacer implements ComponentReplacer {
     if (!node.attribs) {
       return
     }
-    console.log(node)
     node.attribs.class = `wider-possible ${node.attribs.class || ''}`
-
     return subNodeConverter(node, index)
   }
 }
