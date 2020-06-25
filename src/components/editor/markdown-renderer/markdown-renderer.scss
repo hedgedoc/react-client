@@ -7,8 +7,8 @@
     margin-bottom: 0;
   }
 
-  & > p, & > blockquote, & > ul, & > ol, & > h1, & > h2, & > h3, & > h4, & > h5, & > h6, & > div {
-
+  // I know this is bad :( sry
+  & > * {
     width: 100%;
     max-width: 900px;
   }
@@ -16,7 +16,7 @@
   &.wider {
     max-width: 1500px;
 
-    & > p.wider-possible, & > div, & > h1, & > h2, & > h3, & > h4, & > h5, & > h6 {
+    & > .wider-possible {
       max-width: 1500px;
     }
   }
