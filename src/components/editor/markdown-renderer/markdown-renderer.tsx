@@ -47,6 +47,7 @@ import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 
 export interface MarkdownPreviewProps {
   content: string
+  wide?: boolean
 }
 
 const createMarkdownIt = ():MarkdownIt => {
@@ -114,7 +115,7 @@ const tryToReplaceNode = (node: DomElement, index: number, allReplacers: Compone
     .find((replacement) => !!replacement)
 }
 
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
+const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, wide }) => {
   const markdownIt = useMemo(createMarkdownIt, [])
 
   const result: ReactElement[] = useMemo(() => {
@@ -138,7 +139,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content }) => {
 
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
-      <div className={'markdown-body container-fluid'}>
+      <div className={`markdown-body container-fluid ${wide ? 'wider' : ''}`}>
         <MathJaxReact.Provider>
           {result}
         </MathJaxReact.Provider>

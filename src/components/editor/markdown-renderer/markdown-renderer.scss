@@ -1,11 +1,20 @@
 @import '../../../../node_modules/github-markdown-css/github-markdown.css';
 
 .markdown-body {
-  max-width: 758px;
   font-family: 'Source Sans Pro', "twemoji", sans-serif;
 
   .alert > p, .alert > ul {
     margin-bottom: 0;
+  }
+
+  & > p, & > blockquote, & > ul, & > ol, & > h1, & > h2, & > h3, & > h4, & > h5, & > h6, & > div {
+
+    width: 100%;
+    max-width: 900px;
+  }
+
+  &.wider, &.wider > p.wider-possible, &.wider > div, &.wider > h1, &.wider > h2, &.wider > h3, &.wider > h4, &.wider > h5, &.wider > h6 {
+    max-width: 1500px
   }
 
   a.heading-anchor {
