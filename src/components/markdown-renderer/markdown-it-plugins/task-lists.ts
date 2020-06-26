@@ -30,7 +30,7 @@ export function markdownItTaskLists (md: MarkdownIt, options: TaskListsOptions):
     const tokens = state.tokens
     for (let i = 2; i < tokens.length; i++) {
       if (isTodoItem(tokens, i)) {
-        todoify(tokens[i], state.Token)
+        todoify(tokens[i])
         attrSet(tokens[i - 2], 'class', 'task-list-item' + (!disableCheckboxes ? ' enabled' : ''))
         attrSet(tokens[parentToken(tokens, i - 2)], 'class', 'contains-task-list')
       }
@@ -70,9 +70,9 @@ function isTodoItem (tokens: Token[], index: number) {
     startsWithTodoMarkdown(tokens[index])
 }
 
-function todoify (token: Token, TokenConstructor: TokenConstructorType) {
+function todoify (token: Token) {
   if (token.children == null) return
-  token.children.unshift(makeCheckbox(token, TokenConstructor))
+  token.children.unshift(makeCheckbox(token))
   token.children[1].content = token.children[1].content.slice(3)
   token.content = token.content.slice(3)
 
@@ -83,16 +83,16 @@ function todoify (token: Token, TokenConstructor: TokenConstructorType) {
       // Use large random number as id property of the checkbox.
       const id = `task-item-${Math.ceil(Math.random() * (10000 * 1000) - 1000)}`
       token.children[0].content = token.children[0].content.slice(0, -1) + ' id="' + id + '">'
-      token.children.push(afterLabel(token.content, id, TokenConstructor))
+      token.children.push(afterLabel(token.content, id))
     } else {
-      token.children.unshift(beginLabel(TokenConstructor))
-      token.children.push(endLabel(TokenConstructor))
+      token.children.unshift(beginLabel())
+      token.children.push(endLabel())
     }
   }
 }
 
-function makeCheckbox (token: Token, TokenConstructor: TokenConstructorType) {
-  const checkbox = new TokenConstructor('html_inline', '', 0)
+function makeCheckbox (token: Token) {
+  const checkbox = new Token('html_inline', '', 0)
   const disabledAttr = disableCheckboxes ? ' disabled="" ' : ''
   const dataLine = token.map ? `data-line="${token.map[0]}"` : 'data-line=""'
 
@@ -106,20 +106,20 @@ function makeCheckbox (token: Token, TokenConstructor: TokenConstructorType) {
 
 // these next two functions are kind of hacky; probably should really be a
 // true block-level token with .tag=='label'
-function beginLabel (TokenConstructor: TokenConstructorType) {
-  const token = new TokenConstructor('html_inline', '', 0)
+function beginLabel () {
+  const token = new Token('html_inline', '', 0)
   token.content = '<label>'
   return token
 }
 
-function endLabel (TokenConstructor: TokenConstructorType) {
-  const token = new TokenConstructor('html_inline', '', 0)
+function endLabel () {
+  const token = new Token('html_inline', '', 0)
   token.content = '</label>'
   return token
 }
 
-function afterLabel (content: string, id: string, TokenConstructor: TokenConstructorType) {
-  const token = new TokenConstructor('html_inline', '', 0)
+function afterLabel (content: string, id: string) {
+  const token = new Token('html_inline', '', 0)
   token.content = '<label class="task-list-item-label" for="' + id + '">' + content + '</label>'
   token.attrs = [['for', 'id']]
   return token
