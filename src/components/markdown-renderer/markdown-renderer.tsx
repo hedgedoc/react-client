@@ -19,7 +19,6 @@ import plantuml from 'markdown-it-plantuml'
 import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
-import { markdownItTaskLists } from './markdown-it-plugins/task-lists'
 import toc from 'markdown-it-toc-done-right'
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
@@ -38,6 +37,7 @@ import { createRenderContainer, validAlertLevels } from './markdown-it-plugins/a
 import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { lineNumberMarker } from './markdown-it-plugins/line-number-marker'
 import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
+import { markdownItTaskLists } from './markdown-it-plugins/task-lists'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import { plantumlError } from './markdown-it-plugins/plantuml-error'
 import { replaceAsciinemaLink } from './regex-plugins/replace-asciinema-link'
@@ -77,10 +77,10 @@ export interface LineMarkerPosition {
 export interface MarkdownRendererProps {
   className?: string
   content: string
-  onContentChange: (content: string) => void
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
   onLineMarkerPositionChanged?: (lineMarkerPosition: LineMarkerPosition[]) => void
   onMetaDataChange?: (yamlMetaData: YAMLMetaData | undefined) => void
+  onTaskCheckedChange: (i: number, checked: boolean) => void
   onTocChange?: (ast: TocAst) => void
   wide?: boolean
 }
@@ -115,10 +115,10 @@ const forkAwesomeIconMap = Object.keys(ForkAwesomeIcons)
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
   className,
   content,
-  onContentChange,
   onFirstHeadingChange,
   onLineMarkerPositionChanged,
   onMetaDataChange,
+  onTaskCheckedChange,
   onTocChange,
   wide
 }) => {
@@ -325,7 +325,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       new HighlightedCodeReplacer(),
       new QuoteOptionsReplacer(),
       new KatexReplacer(),
-      new TaskListReplacer(content, onContentChange)
+      new TaskListReplacer(content, onTaskCheckedChange)
     ]
     if (onMetaDataChange) {
       // This is used if the front-matter callback is never called, because the user deleted everything regarding metadata from the document
@@ -338,7 +338,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       return tryToReplaceNode(node, index, allReplacers, subNodeConverter) || convertNodeToElement(node, index, transform)
     }
     return ReactHtmlParser(html, { transform: transform })
-  }, [content, markdownIt, onContentChange, onMetaDataChange])
+  }, [content, markdownIt, onMetaDataChange, onTaskCheckedChange])
 
   return (
     <div className={'bg-light flex-fill'}>

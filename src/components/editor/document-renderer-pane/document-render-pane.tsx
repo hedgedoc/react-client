@@ -12,19 +12,19 @@ import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 
 interface DocumentRenderPaneProps {
   content: string
-  onContentChange: (content: string) => void
   onFirstHeadingChange: (firstHeading: string | undefined) => void
   onMetadataChange: (metaData: YAMLMetaData | undefined) => void
+  onTaskCheckedChange: (i: number, checked: boolean) => void
   wide?: boolean
 }
 
 export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps> = ({
   content,
-  onContentChange,
   onFirstHeadingChange,
   onMakeScrollSource,
   onMetadataChange,
   onScroll,
+  onTaskCheckedChange,
   scrollState,
   wide
 }) => {
@@ -98,7 +98,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
       <MarkdownRenderer
         className={'flex-fill mb-3'}
         content={content}
-        onContentChange={onContentChange}
+        onTaskCheckedChange={onTaskCheckedChange}
         onFirstHeadingChange={onFirstHeadingChange}
         onLineMarkerPositionChanged={setLineMarks}
         onMetaDataChange={onMetadataChange}
