@@ -43,6 +43,7 @@ export const Cheatsheet: React.FC = () => {
                 <MarkdownRenderer
                   content={code}
                   wide={false}
+                  onContentChange={(_) => {}}
                   onTocChange={() => false}
                   onMetaDataChange={() => false}
                   onFirstHeadingChange={() => false}

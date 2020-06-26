@@ -116,14 +116,15 @@ export const Editor: React.FC = () => {
           right={
             <DocumentRenderPane
               content={markdownContent}
-              wide={editorMode === EditorMode.PREVIEW}
-              scrollState={scrollState.rendererScrollState}
-              onScroll={onMarkdownRendererScroll}
-              onMetadataChange={onMetadataChange}
+              onContentChange={content => setMarkdownContent(content)}
               onFirstHeadingChange={onFirstHeadingChange}
-              onMakeScrollSource={() => {
-                scrollSource.current = ScrollSource.RENDERER
-              }}/>}
+              onMakeScrollSource={() => { scrollSource.current = ScrollSource.RENDERER }}
+              onMetadataChange={onMetadataChange}
+              onScroll={onMarkdownRendererScroll}
+              scrollState={scrollState.rendererScrollState}
+              wide={editorMode === EditorMode.PREVIEW}
+            />
+          }
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>
