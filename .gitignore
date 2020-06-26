@@ -25,7 +25,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# IntelliJ IDEA
-/.idea
-!.idea/dictionaries/codimd.xml
