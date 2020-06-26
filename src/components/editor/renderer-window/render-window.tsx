@@ -35,7 +35,7 @@ export const RenderWindow: React.FC<RenderWindowProps> = ({ content }) => {
         <ShowIf condition={realWidth < 1280 && !!tocAst}>
           <div className={"markdown-toc-sidebar-button"}>
             <Dropdown drop={'up'}>
-              <Dropdown.Toggle id="toc-overlay-button" className={'no-arrow'}>
+              <Dropdown.Toggle id="toc-overlay-button" variant={'secondary'} className={'no-arrow'}>
                 <ForkAwesomeIcon icon={"bars"}/>
               </Dropdown.Toggle>
               <Dropdown.Menu>
