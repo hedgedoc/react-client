@@ -4,7 +4,7 @@ import { ComponentReplacer, SubNodeConverter } from '../ComponentReplacer'
 
 const REGEX = /(\s*[-*] )(\[[ xX]])( .*)/
 
-export class TodoListReplacer implements ComponentReplacer {
+export class TaskListReplacer implements ComponentReplacer {
   content: string
   onContentChange: (content: string) => void
 
@@ -16,14 +16,14 @@ export class TodoListReplacer implements ComponentReplacer {
   handleCheckboxChange = (event: React.MouseEvent<HTMLInputElement, MouseEvent>): void => {
     const checkbox = event.currentTarget
     const checked = checkbox.checked
-    const startline = Number(checkbox.dataset.startline)
+    const lineNum = Number(checkbox.dataset.line)
     const lines = this.content.split('\n')
-    const line = lines[startline]
+    const line = lines[lineNum]
     const results = REGEX.exec(line)
     if (results) {
       const before = results[1]
       const after = results[3]
-      lines[startline] = `${before}[${checked ? 'x' : ' '}]${after}`
+      lines[lineNum] = `${before}[${checked ? 'x' : ' '}]${after}`
       this.onContentChange(lines.join('\n'))
     }
   }
@@ -36,10 +36,9 @@ export class TodoListReplacer implements ComponentReplacer {
           type="checkbox"
           checked={node.attribs.checked !== undefined}
           onClick={this.handleCheckboxChange}
-          data-startline={node.attribs['data-startline']}
+          data-line={node.attribs['data-line']}
         />
       )
     }
-    return undefined
   }
 }

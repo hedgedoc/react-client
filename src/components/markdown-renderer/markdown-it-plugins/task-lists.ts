@@ -19,7 +19,7 @@ interface TaskListsOptions {
 
 type TokenConstructorType = typeof Token
 
-export default function markdownItTaskLists (md: MarkdownIt, options: TaskListsOptions): void {
+export function markdownItTaskLists (md: MarkdownIt, options: TaskListsOptions): void {
   if (options) {
     disableCheckboxes = !options.enabled
     useLabelWrapper = options.label
@@ -94,12 +94,12 @@ function todoify (token: Token, TokenConstructor: TokenConstructorType) {
 function makeCheckbox (token: Token, TokenConstructor: TokenConstructorType) {
   const checkbox = new TokenConstructor('html_inline', '', 0)
   const disabledAttr = disableCheckboxes ? ' disabled="" ' : ''
-  const dataStartline = token.map ? `data-startline="${token.map[0]}"` : 'data-startline=""'
+  const dataLine = token.map ? `data-line="${token.map[0]}"` : 'data-line=""'
 
   if (token.content.indexOf('[ ] ') === 0) {
-    checkbox.content = '<input class="task-list-item-checkbox"' + disabledAttr + 'type="checkbox" ' + dataStartline + '">'
+    checkbox.content = '<input class="task-list-item-checkbox"' + disabledAttr + 'type="checkbox" ' + dataLine + '">'
   } else if (token.content.indexOf('[x] ') === 0 || token.content.indexOf('[X] ') === 0) {
-    checkbox.content = '<input class="task-list-item-checkbox" checked=""' + disabledAttr + 'type="checkbox" ' + dataStartline + '>'
+    checkbox.content = '<input class="task-list-item-checkbox" checked=""' + disabledAttr + 'type="checkbox" ' + dataLine + '>'
   }
   return checkbox
 }

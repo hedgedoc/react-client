@@ -19,7 +19,7 @@ import plantuml from 'markdown-it-plantuml'
 import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
-import taskList from './markdown-it-plugins/task-lists'
+import { markdownItTaskLists } from './markdown-it-plugins/task-lists'
 import toc from 'markdown-it-toc-done-right'
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
@@ -64,7 +64,7 @@ import { KatexReplacer } from './replace-components/katex/katex-replacer'
 import { PdfReplacer } from './replace-components/pdf/pdf-replacer'
 import { PossibleWiderReplacer } from './replace-components/possible-wider/possible-wider-replacer'
 import { QuoteOptionsReplacer } from './replace-components/quote-options/quote-options-replacer'
-import { TodoListReplacer } from './replace-components/todo-list/todo-list-replacer'
+import { TaskListReplacer } from './replace-components/task-list/task-list-replacer'
 import { VimeoReplacer } from './replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 import './markdown-renderer.scss'
@@ -209,7 +209,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         }
       })
     }
-    md.use(taskList)
+    md.use(markdownItTaskLists)
     if (plantumlServer) {
       md.use(plantuml, {
         openMarker: '```plantuml',
@@ -325,7 +325,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       new HighlightedCodeReplacer(),
       new QuoteOptionsReplacer(),
       new KatexReplacer(),
-      new TodoListReplacer(content, onContentChange)
+      new TaskListReplacer(content, onContentChange)
     ]
     if (onMetaDataChange) {
       // This is used if the front-matter callback is never called, because the user deleted everything regarding metadata from the document
