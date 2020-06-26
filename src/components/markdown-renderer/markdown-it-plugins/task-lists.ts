@@ -97,9 +97,9 @@ function makeCheckbox (token: Token) {
   const dataLine = token.map ? `data-line="${token.map[0]}"` : 'data-line=""'
 
   if (token.content.indexOf('[ ] ') === 0) {
-    checkbox.content = '<input class="task-list-item-checkbox"' + disabledAttr + 'type="checkbox" ' + dataLine + '">'
+    checkbox.content = `<input class="task-list-item-checkbox" ${disabledAttr} type="checkbox" ${dataLine}">`
   } else if (token.content.indexOf('[x] ') === 0 || token.content.indexOf('[X] ') === 0) {
-    checkbox.content = '<input class="task-list-item-checkbox" checked=""' + disabledAttr + 'type="checkbox" ' + dataLine + '>'
+    checkbox.content = `<input class="task-list-item-checkbox" checked="" ${disabledAttr} type="checkbox" ${dataLine}>`
   }
   return checkbox
 }
@@ -120,7 +120,7 @@ function endLabel () {
 
 function afterLabel (content: string, id: string) {
   const token = new Token('html_inline', '', 0)
-  token.content = '<label class="task-list-item-label" for="' + id + '">' + content + '</label>'
+  token.content = `<label class="task-list-item-label" for="${id}">${content}</label>`
   token.attrs = [['for', 'id']]
   return token
 }
