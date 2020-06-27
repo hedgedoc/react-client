@@ -13,7 +13,7 @@ import {
   setHistoryToLocalStore,
   sortAndFilterEntries
 } from '../../../../utils/historyUtils'
-import { ErrorModal } from '../../../common/error-modal/error-modal'
+import { ErrorModal } from '../../../common/modals/error-modal'
 import { HistoryContent } from './history-content/history-content'
 import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } from './history-toolbar/history-toolbar'
 
