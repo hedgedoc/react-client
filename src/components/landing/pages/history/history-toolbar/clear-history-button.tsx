@@ -21,11 +21,11 @@ export const ClearHistoryButton: React.FC<ClearHistoryButtonProps> = ({ onClearH
         <ForkAwesomeIcon icon={'trash'}/>
       </Button>
       <DeletionModal
-        onDelete={() => {
+        onConfirm={() => {
           onClearHistory()
           handleClose()
         }}
-        deletionButtonText={'landing.history.toolbar.clear'}
+        deletionButtonI18nKey={'landing.history.toolbar.clear'}
         show={show}
         onHide={handleClose}
         titleI18nKey={'landing.history.modal.clearHistory.title'}

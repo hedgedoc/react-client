@@ -78,7 +78,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
       <ErrorModal
         show={show}
         onHide={handleClose}
-        title='landing.history.modal.importHistoryError.title'
+        titleI18nKey='landing.history.modal.importHistoryError.title'
         icon='exclamation-circle'
       >
         {fileName !== ''
