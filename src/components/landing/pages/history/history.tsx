@@ -195,7 +195,7 @@ export const History: React.FC = () => {
   return (
     <Fragment>
       <ErrorModal show={error !== ''} onHide={resetError}
-        title={error !== '' ? `landing.history.error.${error}.title` : ''}>
+        titleI18nKey={error !== '' ? `landing.history.error.${error}.title` : ''}>
         <h5>
           <Trans i18nKey={error !== '' ? `landing.history.error.${error}.text` : ''}/>
         </h5>

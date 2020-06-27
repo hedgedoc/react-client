@@ -28,7 +28,7 @@ export const ClearHistoryButton: React.FC<ClearHistoryButtonProps> = ({ onClearH
         deletionButtonText={'landing.history.toolbar.clear'}
         show={show}
         onHide={handleClose}
-        title={'landing.history.modal.clearHistory.title'}
+        titleI18nKey={'landing.history.modal.clearHistory.title'}
       >
         <h5><Trans i18nKey={'landing.history.modal.clearHistory.question'}/></h5>
         <h6><Trans i18nKey={'landing.history.modal.clearHistory.disclaimer'}/></h6>
