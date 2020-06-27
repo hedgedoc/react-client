@@ -9,7 +9,7 @@ import { PinButton } from '../common/pin-button'
 import { HistoryEntryProps } from '../history-content/history-content'
 import './history-card.scss'
 
-export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick }) => {
+export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
   return (
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <Card className="card-min-height" text={'dark'} bg={'light'}>
@@ -39,7 +39,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
               location={entry.location}
               isDark={false}
               onRemove={() => onRemoveClick(entry.id, entry.location)}
-              onDelete={() => onRemoveClick(entry.id, entry.location)}
+              onDelete={() => onDeleteClick(entry.id, entry.location)}
             />
           </div>
         </Card.Body>

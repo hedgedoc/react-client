@@ -6,7 +6,7 @@ import { EntryMenu } from '../common/entry-menu'
 import { PinButton } from '../common/pin-button'
 import { HistoryEntryProps } from '../history-content/history-content'
 
-export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick }) => {
+export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
   return (
     <tr>
       <td>
@@ -28,7 +28,7 @@ export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick
           location={entry.location}
           isDark={true}
           onRemove={() => onRemoveClick(entry.id, entry.location)}
-          onDelete={() => onRemoveClick(entry.id, entry.location)}
+          onDelete={() => onDeleteClick(entry.id, entry.location)}
         />
       </td>
     </tr>
