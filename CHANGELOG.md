@@ -30,6 +30,7 @@
 - Users may now change their display name and password (only email accounts) on the new profile page
 - Highlighted code blocks can now use line wrapping and line numbers at once
 - Images, videos, and other non-text content is now wider in View Mode
+- Notes may now be deleted directly from the history page
 
 ### Changed
 
