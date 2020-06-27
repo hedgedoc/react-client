@@ -19,8 +19,7 @@ export const CommonModal: React.FC<CommonModalProps> = ({ show, onHide, title, c
         <Modal.Title>
           <ShowIf condition={!!icon}>
             <Fragment>
-              {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-              <ForkAwesomeIcon icon={icon!}/>&nbsp;<Trans i18nKey={title}/>
+              <ForkAwesomeIcon icon={icon as IconName}/>&nbsp;<Trans i18nKey={title}/>
             </Fragment>
           </ShowIf>
           <ShowIf condition={!icon}>
