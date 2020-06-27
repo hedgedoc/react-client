@@ -10,7 +10,7 @@ const checkExternalLink = (selector, url) => {
 }
 
 describe('Links Intro', () => {
-  beforeEach(function () {
+  beforeEach(() => {
     cy.visit('http://localhost:3000/')
   })
 
@@ -93,6 +93,30 @@ describe('Links Intro', () => {
       cy.get('i.fa-television.fa-3x').click()
       cy.url()
         .should('include', '/features#Slide-Mode')
+    })
+  })
+
+  describe('Powered By Links', () => {
+    it('CodiMD', () => {
+      checkExternalLink('a#codimd', 'https://codimd.org')
+    })
+
+    it('Releases', () => {
+      cy.get('a#releases').click()
+      cy.url()
+        .should('include', '/n/release-notes')
+    })
+
+    it('Privacy', () => {
+      checkExternalLink('a#privacy', 'https://example.com/privacy')
+    })
+
+    it('TermsOfUse', () => {
+      checkExternalLink('a#termsOfUse', 'https://example.com/termsOfUse')
+    })
+
+    it('Imprint', () => {
+      checkExternalLink('a#imprint', 'https://example.com/imprint')
     })
   })
 
