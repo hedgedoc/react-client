@@ -20,6 +20,7 @@ import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import MathJaxReact from 'react-mathjax'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
+import { slugify } from '../../../utils/slugify'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
@@ -111,7 +112,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
       level: [1, 2, 3],
       callback: (code: string, ast: TocAst): void => {
         setTocAst(ast)
-      }
+      },
+      slugify: slugify
     })
     md.use(linkifyExtra)
     md.use(MarkdownItParserDebugger)
