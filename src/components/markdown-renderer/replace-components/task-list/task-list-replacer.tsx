@@ -11,7 +11,7 @@ export class TaskListReplacer implements ComponentReplacer {
     this.onTaskCheckedChange = onTaskCheckedChange
   }
 
-  handleCheckboxChange = (event: React.MouseEvent<HTMLInputElement, MouseEvent>): void => {
+  handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const lineNum = Number(event.currentTarget.dataset.line)
     this.onTaskCheckedChange(lineNum, event.currentTarget.checked)
   }
@@ -23,7 +23,7 @@ export class TaskListReplacer implements ComponentReplacer {
           className="task-list-item-checkbox"
           type="checkbox"
           checked={node.attribs.checked !== undefined}
-          onClick={this.handleCheckboxChange}
+          onChange={this.handleCheckboxChange}
           data-line={node.attribs['data-line']}
           key={`task-list-item-checkbox${node.attribs['data-line']}`}
         />
