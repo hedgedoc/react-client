@@ -11,7 +11,7 @@ interface RenderWindowProps {
   content: string
 }
 
-export const RenderWindow: React.FC<RenderWindowProps> = ({ content }) => {
+export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const renderer = useRef<HTMLDivElement>(null)
   const { width } = useResizeObserver({ ref: renderer })
@@ -33,10 +33,10 @@ export const RenderWindow: React.FC<RenderWindowProps> = ({ content }) => {
           </div>
         </ShowIf>
         <ShowIf condition={realWidth < 1280 && !!tocAst}>
-          <div className={"markdown-toc-sidebar-button"}>
+          <div className={'markdown-toc-sidebar-button'}>
             <Dropdown drop={'up'}>
               <Dropdown.Toggle id="toc-overlay-button" variant={'secondary'} className={'no-arrow'}>
-                <ForkAwesomeIcon icon={"bars"}/>
+                <ForkAwesomeIcon icon={'bars'}/>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <div className={'p-2'}>

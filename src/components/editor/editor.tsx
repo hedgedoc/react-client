@@ -6,9 +6,9 @@ import { setEditorModeConfig } from '../../redux/editor/methods'
 import { Splitter } from '../common/splitter/splitter'
 import { InfoBanner } from '../landing/layout/info-banner'
 import { EditorWindow } from './editor-window/editor-window'
+import { MarkdownRenderWindow } from './renderer-window/markdown-render-window'
 import { EditorMode } from './task-bar/editor-view-mode'
 import { TaskBar } from './task-bar/task-bar'
-import { RenderWindow } from './renderer-window/render-window'
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
@@ -78,7 +78,7 @@ let a = 1
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={<RenderWindow content={markdownContent}/>}
+          right={<MarkdownRenderWindow content={markdownContent}/>}
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>
