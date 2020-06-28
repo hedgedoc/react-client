@@ -12,20 +12,25 @@ export interface MarkdownTocProps {
 const convertLevel = (toc: TocAst): ReactElement => {
   return (
     <Fragment>
-      {toc.n}
+      <ShowIf condition={toc.l > 0}>
+        <a href={'#'}>{toc.n.trim()}</a>
+      </ShowIf>
       <ShowIf condition={toc.c.length > 0}>
         <ul>
-          {toc.c.map(convertLevel)}
+          {toc.c.map(child => {
+            return <li>{convertLevel(child)}</li>
+          })}
         </ul>
       </ShowIf>
     </Fragment>
   )
 }
 
-export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3, sticky,}) => {
+export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3, sticky }) => {
   return (
     <div className={`markdown-toc ${sticky ? 'sticky' : ''}`}>
       {convertLevel(ast)}
+
     </div>
   )
 }

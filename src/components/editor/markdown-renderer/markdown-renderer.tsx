@@ -40,29 +40,23 @@ import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { ComponentReplacer, SubNodeConverter } from './replace-components/ComponentReplacer'
 import { GistReplacer } from './replace-components/gist/gist-replacer'
 import { HighlightedCodeReplacer } from './replace-components/highlighted-fence/highlighted-fence-replacer'
-import { PossibleWiderReplacer } from './replace-components/possible-wider/possible-wider-replacer'
 import { ImageReplacer } from './replace-components/image/image-replacer'
 import { MathjaxReplacer } from './replace-components/mathjax/mathjax-replacer'
 import { PdfReplacer } from './replace-components/pdf/pdf-replacer'
+import { PossibleWiderReplacer } from './replace-components/possible-wider/possible-wider-replacer'
 import { QuoteOptionsReplacer } from './replace-components/quote-options/quote-options-replacer'
 import { TocReplacer } from './replace-components/toc/toc-replacer'
 import { VimeoReplacer } from './replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 
-export interface MarkdownPreviewProps {
+export interface MarkdownRendererProps {
   content: string
   wide?: boolean
-  className: string
+  className?: string
   onTocChange?: (ast: TocAst) => void
 }
 
-const tryToReplaceNode = (node: DomElement, index: number, allReplacers: ComponentReplacer[], nodeConverter: SubNodeConverter) => {
-  return allReplacers
-    .map((componentReplacer) => componentReplacer.getReplacement(node, index, nodeConverter))
-    .find((replacement) => !!replacement)
-}
-
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, className, onTocChange }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const [lastTocAst, setLastTocAst] = useState<TocAst>()
 
@@ -120,7 +114,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, className, 
       }
     })
     md.use(linkifyExtra)
-  md.use(MarkdownItParserDebugger)
+    md.use(MarkdownItParserDebugger)
 
     validAlertLevels.forEach(level => {
       md.use(markdownItContainer, level, { render: createRenderContainer(level) })
@@ -136,14 +130,11 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, className, 
     }
   }, [tocAst, onTocChange, lastTocAst])
 
-const tryToReplaceNode = (node: DomElement, index: number, allReplacers: ComponentReplacer[], nodeConverter: SubNodeConverter) => {
-  return allReplacers
-    .map((componentReplacer) => componentReplacer.getReplacement(node, index, nodeConverter))
-    .find((replacement) => !!replacement)
-}
-
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, wide }) => {
-  const markdownIt = useMemo(createMarkdownIt, [])
+  const tryToReplaceNode = (node: DomElement, index: number, allReplacers: ComponentReplacer[], nodeConverter: SubNodeConverter) => {
+    return allReplacers
+      .map((componentReplacer) => componentReplacer.getReplacement(node, index, nodeConverter))
+      .find((replacement) => !!replacement)
+  }
 
   const result: ReactElement[] = useMemo(() => {
     const allReplacers: ComponentReplacer[] = [
@@ -168,12 +159,10 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, wide }) => 
   }, [content, markdownIt])
 
   return (
-    <div className={`markdown-body ${className} d-flex flex-column align-items-center container-fluid ${wide ? 'wider' : ''}`}>
+    <div className={`markdown-body ${className || ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>
       <MathJaxReact.Provider>
         {result}
       </MathJaxReact.Provider>
     </div>
   )
 }
-
-export { MarkdownRenderer }

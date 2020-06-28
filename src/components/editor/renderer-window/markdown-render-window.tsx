@@ -9,9 +9,10 @@ import { MarkdownToc } from '../markdown-toc/markdown-toc'
 
 interface RenderWindowProps {
   content: string
+  wide?: boolean
 }
 
-export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content }) => {
+export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, wide }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const renderer = useRef<HTMLDivElement>(null)
   const { width } = useResizeObserver({ ref: renderer })
@@ -19,18 +20,17 @@ export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content }) =
   const realWidth = width || 0
 
   return (
-    <div className={'bg-light container-fluid flex-fill pb-5 flex-row d-flex min-h-100'} ref={renderer}>
+    <div className={'bg-light flex-fill pb-5 flex-row d-flex min-h-100'} ref={renderer}>
       <div className={'col-md'}/>
       <MarkdownRenderer
+        className={'flex-fill'}
         content={content}
-        className={'container-fluid'}
+        wide={wide}
         onTocChange={(tocAst) => setTocAst(tocAst)}/>
 
       <div className={`col-md d-flex flex-column ${realWidth < 1280 ? 'justify-content-end' : ''}`}>
         <ShowIf condition={realWidth >= 1280 && !!tocAst}>
-          <div className={'col-md d-flex flex-column'}>
-            <MarkdownToc ast={tocAst as TocAst} sticky={true}/>
-          </div>
+          <MarkdownToc ast={tocAst as TocAst} sticky={true}/>
         </ShowIf>
         <ShowIf condition={realWidth < 1280 && !!tocAst}>
           <div className={'markdown-toc-sidebar-button'}>
