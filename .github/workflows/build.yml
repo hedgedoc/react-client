@@ -2,9 +2,9 @@ name: lint and build
 
 on:
   push:
-    branches: [master, dev]
+    branches: [master]
   pull_request:
-    branches: [master, dev]
+    branches: [master]
 
 jobs:
   build:
@@ -27,11 +27,5 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: yarn install
-      - uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-      - uses: cypress-io/github-action@v2
-        with:
-          browser: firefox
       - name: Build project
         run: yarn build
