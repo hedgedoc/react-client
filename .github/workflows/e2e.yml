@@ -11,13 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     name: Test End2End
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Cache node_modules
+        uses: actions/cache@v1.1.0
+        with:
+          path: node_modules
+          key: node_modules
       - name: Install dependencies
         run: yarn install
       - name: Start Server
         run: yarn start
-      - uses: cypress-io/github-action@v2
+      - name: Run e2e in chrome
+        uses: cypress-io/github-action@v2
         with:
           browser: chrome
-      - uses: cypress-io/github-action@v2
+      - name: Run e2e in firefox
+        uses: cypress-io/github-action@v2
         with:
           browser: firefox
