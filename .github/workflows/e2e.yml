@@ -20,13 +20,15 @@ jobs:
           key: node_modules
       - name: Install dependencies
         run: yarn install
-      - name: Start Server
-        run: yarn start
       - name: Run e2e in chrome
         uses: cypress-io/github-action@v2
         with:
+          start: yarn start
+          wait-on: http://localhost:3000
           browser: chrome
       - name: Run e2e in firefox
         uses: cypress-io/github-action@v2
         with:
+          start: yarn start
+          wait-on: http://localhost:3000
           browser: firefox
