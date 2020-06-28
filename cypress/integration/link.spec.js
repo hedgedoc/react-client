@@ -1,22 +1,12 @@
-const logout = () => {
-  cy.get('#dropdown-user').click()
-  cy.get('.fa-sign-out').click()
-}
-
-const checkExternalLink = (selector, url) => {
-  cy.get(selector)
-    .should('have.attr', 'href', url)
-    .should('have.attr', 'target', '_blank')
-}
-
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 describe('Links Intro', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('/')
   })
 
   describe('Cover Buttons', () => {
     beforeEach(() => {
-      logout()
+      cy.logout()
     })
 
     it('Sign in Cover Button', () => {
@@ -32,9 +22,18 @@ describe('Links Intro', () => {
     })
   })
 
+  it('History', () => {
+    cy.get('#navLinkHistory').click()
+    cy.url()
+      .should('include', '/history')
+    cy.get('#navLinkIntro').click()
+    cy.url()
+      .should('include', '/intro')
+  })
+
   describe('Menu Buttons logged out', () => {
     beforeEach(() => {
-      logout()
+      cy.logout()
     })
 
     it('New guest note', () => {
@@ -98,7 +97,7 @@ describe('Links Intro', () => {
 
   describe('Powered By Links', () => {
     it('CodiMD', () => {
-      checkExternalLink('a#codimd', 'https://codimd.org')
+      cy.get('a#codimd').checkExternalLink('https://codimd.org')
     })
 
     it('Releases', () => {
@@ -108,37 +107,37 @@ describe('Links Intro', () => {
     })
 
     it('Privacy', () => {
-      checkExternalLink('a#privacy', 'https://example.com/privacy')
+      cy.get('a#privacy').checkExternalLink('https://example.com/privacy')
     })
 
     it('TermsOfUse', () => {
-      checkExternalLink('a#termsOfUse', 'https://example.com/termsOfUse')
+      cy.get('a#termsOfUse').checkExternalLink('https://example.com/termsOfUse')
     })
 
     it('Imprint', () => {
-      checkExternalLink('a#imprint', 'https://example.com/imprint')
+      cy.get('a#imprint').checkExternalLink('https://example.com/imprint')
     })
   })
 
   describe('Follow us Links', () => {
     it('Github', () => {
-      checkExternalLink('a#github', 'https://github.com/codimd/server')
+      cy.get('a#github').checkExternalLink('https://github.com/codimd/server')
     })
 
     it('Discourse', () => {
-      checkExternalLink('a#discourse', 'https://community.codimd.org')
+      cy.get('a#discourse').checkExternalLink('https://community.codimd.org')
     })
 
     it('Matrix', () => {
-      checkExternalLink('a#matrix', 'https://riot.im/app/#/room/#codimd:matrix.org')
+      cy.get('a#matrix').checkExternalLink('https://riot.im/app/#/room/#codimd:matrix.org')
     })
 
     it('Mastodon', () => {
-      checkExternalLink('a#mastodon', 'https://social.codimd.org/mastodon')
+      cy.get('a#mastodon').checkExternalLink('https://social.codimd.org/mastodon')
     })
 
     it('POEditor', () => {
-      checkExternalLink('a#poeditor', 'https://translate.codimd.org')
+      cy.get('a#poeditor').checkExternalLink('https://translate.codimd.org')
     })
   })
 })
