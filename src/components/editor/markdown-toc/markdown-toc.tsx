@@ -30,7 +30,6 @@ export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3, sti
   return (
     <div className={`markdown-toc ${sticky ? 'sticky' : ''}`}>
       {convertLevel(ast)}
-
     </div>
   )
 }
