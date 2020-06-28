@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement } from 'react'
+import React, { Fragment, ReactElement, useMemo } from 'react'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
 import { slugify } from '../../../utils/slugify'
 import { ShowIf } from '../../common/show-if/show-if'
@@ -49,9 +49,11 @@ const convertLevel = (toc: TocAst, levelsToShowUnderThis: number, headerCounts: 
 }
 
 export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3, sticky }) => {
+  const tocTree = useMemo(() => convertLevel(ast, maxDepth, new Map<string, number>(), false), [ast, maxDepth])
+
   return (
     <div className={`markdown-toc ${sticky ? 'sticky' : ''}`}>
-      {convertLevel(ast, maxDepth, new Map<string, number>(), false)}
+      {tocTree}
     </div>
   )
 }
