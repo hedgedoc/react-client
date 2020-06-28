@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "3.4.0",
     "bootstrap": "4.5.0",
     "codemirror": "5.55.0",
-    "deep-equal": "^2.0.3",
+    "deep-equal": "2.0.3",
     "eslint-config-react-app": "5.2.1",
     "eslint-config-standard": "14.1.1",
     "eslint-plugin-flowtype": "5.1.3",
