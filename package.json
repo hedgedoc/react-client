@@ -7,7 +7,7 @@
     "@testing-library/react": "10.4.3",
     "@testing-library/user-event": "12.0.11",
     "@types/codemirror": "0.0.96",
-    "@types/deep-equal": "^1.0.1",
+    "@types/deep-equal": "1.0.1",
     "@types/highlight.js": "9.12.4",
     "@types/jest": "26.0.3",
     "@types/markdown-it": "10.0.1",
@@ -59,7 +59,7 @@
     "markdown-it-sub": "1.0.0",
     "markdown-it-sup": "1.0.0",
     "markdown-it-task-lists": "2.1.1",
-    "markdown-it-toc-done-right": "^4.1.0",
+    "markdown-it-toc-done-right": "4.1.0",
     "mathjax": "3.0.5",
     "moment": "2.27.0",
     "node-sass": "4.14.1",
@@ -79,7 +79,7 @@
     "redux": "4.0.5",
     "typescript": "3.9.5",
     "use-media": "1.4.0",
-    "use-resize-observer": "^6.1.0"
+    "use-resize-observer": "6.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
