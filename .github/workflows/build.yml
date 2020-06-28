@@ -27,5 +27,11 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: yarn install
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: firefox
       - name: Build project
         run: yarn build
