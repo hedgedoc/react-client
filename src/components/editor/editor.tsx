@@ -12,7 +12,15 @@ import { TaskBar } from './task-bar/task-bar'
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
-  const [markdownContent, setMarkdownContent] = useState(`# Embedding demo
+  const [markdownContent, setMarkdownContent] = useState(`---
+title: Features
+description: Many features, such wow!
+robots: noindex
+tags: codimd, demo, react
+opengraph:
+  title: Features
+---
+# Embedding demo
 [TOC]
 
 ## MathJax

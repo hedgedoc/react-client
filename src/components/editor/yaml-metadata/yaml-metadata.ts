@@ -1,60 +1,6 @@
-export class YAMLMetaData {
-  title: string
-  description: string
-  tags: string[]
-  robots: string
-  lang: string
-  dir: string
-  breaks: boolean
-  GA: string
-  disqus: string
-  type: string
-  slideOptions: SlideOptions | undefined
-  opengraph: OpenGraph | undefined
+// import { RevealOptions } from 'reveal.js'
 
-  constructor (yamlData: RawYAMLMetadata) {
-    this.title = ''
-    this.description = ''
-    this.tags = []
-    this.robots = ''
-    this.lang = 'en'
-    this.dir = 'ltr'
-    this.breaks = true
-    this.GA = ''
-    this.disqus = ''
-    this.type = ''
-    this.slideOptions = {
-      transition: 'none',
-      theme: 'white'
-    }
-    this.opengraph = {
-      title: '',
-      image: '',
-      'image:type': ''
-    }
-    if (yamlData !== undefined) {
-      this.title = yamlData.title ?? ''
-      this.description = yamlData.description ?? ''
-      this.tags = yamlData.tags?.split(',').map(entry => entry.trim()) ?? []
-      this.robots = yamlData.robots ?? ''
-      this.lang = yamlData.lang ?? 'en'
-      this.dir = yamlData.dir ?? 'ltr'
-      this.breaks = yamlData.breaks ?? true
-      this.GA = yamlData.GA ?? ''
-      this.disqus = yamlData.disqus ?? ''
-      this.type = yamlData.type ?? ''
-      this.slideOptions = {
-        transition: getTransition(yamlData.slideOptions?.transition),
-        theme: getTheme(yamlData.slideOptions?.theme)
-      }
-      this.opengraph = {
-        title: yamlData.opengraph?.title ?? '',
-        image: yamlData.opengraph?.image ?? '',
-        'image:type': yamlData.opengraph ? yamlData.opengraph['image:type'] ?? '' : ''
-      }
-    }
-  }
-}
+type iso6391 = 'aa' | 'ab' | 'af' | 'am' | 'ar' | 'ar-ae' | 'ar-bh' | 'ar-dz' | 'ar-eg' | 'ar-iq' | 'ar-jo' | 'ar-kw' | 'ar-lb' | 'ar-ly' | 'ar-ma' | 'ar-om' | 'ar-qa' | 'ar-sa' | 'ar-sy' | 'ar-tn' | 'ar-ye' | 'as' | 'ay' | 'de-at' | 'de-ch' | 'de-li' | 'de-lu' | 'div' | 'dz' | 'el' | 'en' | 'en-au' | 'en-bz' | 'en-ca' | 'en-gb' | 'en-ie' | 'en-jm' | 'en-nz' | 'en-ph' | 'en-tt' | 'en-us' | 'en-za' | 'en-zw' | 'eo' | 'es' | 'es-ar' | 'es-bo' | 'es-cl' | 'es-co' | 'es-cr' | 'es-do' | 'es-ec' | 'es-es' | 'es-gt' | 'es-hn' | 'es-mx' | 'es-ni' | 'es-pa' | 'es-pe' | 'es-pr' | 'es-py' | 'es-sv' | 'es-us' | 'es-uy' | 'es-ve' | 'et' | 'eu' | 'fa' | 'fi' | 'fj' | 'fo' | 'fr' | 'fr-be' | 'fr-ca' | 'fr-ch' | 'fr-lu' | 'fr-mc' | 'fy' | 'ga' | 'gd' | 'gl' | 'gn' | 'gu' | 'ha' | 'he' | 'hi' | 'hr' | 'hu' | 'hy' | 'ia' | 'id' | 'ie' | 'ik' | 'in' | 'is' | 'it' | 'it-ch' | 'iw' | 'ja' | 'ji' | 'jw' | 'ka' | 'kk' | 'kl' | 'km' | 'kn' | 'ko' | 'kok' | 'ks' | 'ku' | 'ky' | 'kz' | 'la' | 'ln' | 'lo' | 'ls' | 'lt' | 'lv' | 'mg' | 'mi' | 'mk' | 'ml' | 'mn' | 'mo' | 'mr' | 'ms' | 'mt' | 'my' | 'na' | 'nb-no' | 'ne' | 'nl' | 'nl-be' | 'nn-no' | 'no' | 'oc' | 'om' | 'or' | 'pa' | 'pl' | 'ps' | 'pt' | 'pt-br' | 'qu' | 'rm' | 'rn' | 'ro' | 'ro-md' | 'ru' | 'ru-md' | 'rw' | 'sa' | 'sb' | 'sd' | 'sg' | 'sh' | 'si' | 'sk' | 'sl' | 'sm' | 'sn' | 'so' | 'sq' | 'sr' | 'ss' | 'st' | 'su' | 'sv' | 'sv-fi' | 'sw' | 'sx' | 'syr' | 'ta' | 'te' | 'tg' | 'th' | 'ti' | 'tk' | 'tl' | 'tn' | 'to' | 'tr' | 'ts' | 'tt' | 'tw' | 'uk' | 'ur' | 'us' | 'uz' | 'vi' | 'vo' | 'wo' | 'xh' | 'yi' | 'yo' | 'zh' | 'zh-cn' | 'zh-hk' | 'zh-mo' | 'zh-sg' | 'zh-tw' | 'zu'
 
 export interface RawYAMLMetadata {
   title: string | undefined
@@ -67,91 +13,41 @@ export interface RawYAMLMetadata {
   GA: string | undefined
   disqus: string | undefined
   type: string | undefined
-  slideOptions: {
-    transition: string | undefined
-    theme: string | undefined
-  } | undefined | null
-  opengraph: {
-    title: string | undefined
-    image: string | undefined
-    'image:type': string | undefined
-  } | undefined | null
+  // slideOptions: RevealOptions | undefined
+  opengraph: any
 }
 
-export const isEqual = (rawMetaData1: RawYAMLMetadata | undefined, rawMetaData2: RawYAMLMetadata | undefined): boolean => {
-  return (
-    rawMetaData1?.title === rawMetaData2?.title &&
-    rawMetaData1?.description === rawMetaData2?.description &&
-    rawMetaData1?.tags === rawMetaData2?.tags &&
-    rawMetaData1?.robots === rawMetaData2?.robots &&
-    rawMetaData1?.lang === rawMetaData2?.lang &&
-    rawMetaData1?.dir === rawMetaData2?.dir &&
-    rawMetaData1?.breaks === rawMetaData2?.breaks &&
-    rawMetaData1?.GA === rawMetaData2?.GA &&
-    rawMetaData1?.disqus === rawMetaData2?.disqus &&
-    rawMetaData1?.type === rawMetaData2?.type &&
-    rawMetaData1?.slideOptions?.transition === rawMetaData2?.slideOptions?.transition &&
-    rawMetaData1?.slideOptions?.theme === rawMetaData2?.slideOptions?.theme &&
-    rawMetaData1?.opengraph?.title === rawMetaData2?.opengraph?.title &&
-    rawMetaData1?.opengraph?.image === rawMetaData2?.opengraph?.image &&
-    rawMetaData1?.opengraph?.['image:type'] === rawMetaData2?.opengraph?.['image:type']
-  )
-}
+export class YAMLMetaData {
+  title: string
+  description: string
+  tags: string[]
+  robots: string
+  lang: iso6391
+  dir: 'ltr' | 'rtl'
+  breaks: boolean
+  GA: string
+  disqus: string
+  type: 'slide' | ''
+  // slideOptions: RevealOptions
+  opengraph: Map<string, string>
 
-export interface SlideOptions {
-  transition: 'none' | 'fade' | 'slide' | 'convex' | 'concave' | 'zoom' | undefined
-  theme: 'black' | 'white' | 'league' | 'beige' | 'sky' | 'night' | 'serif' | 'simple' | 'solarized' | 'blood' | 'moon' | undefined
-}
+  constructor (rawData: RawYAMLMetadata) {
+    this.title = rawData?.title ?? ''
+    this.description = rawData?.description ?? ''
+    this.robots = rawData?.robots ?? ''
+    this.breaks = rawData?.breaks ?? true
+    this.GA = rawData?.GA ?? ''
+    this.disqus = rawData?.disqus ?? ''
 
-const getTransition = (string: string | undefined): SlideOptions['transition'] => {
-  switch (string) {
-    case 'fade':
-      return 'fade'
-    case 'slide':
-      return 'slide'
-    case 'convex':
-      return 'convex'
-    case 'concave':
-      return 'concave'
-    case 'zoom':
-      return 'zoom'
-    case undefined:
-    default:
-      return 'none'
+    this.type = (rawData?.type as YAMLMetaData['type']) ?? ''
+    this.lang = (rawData?.lang as iso6391) ?? 'en'
+    this.dir = (rawData?.dir as YAMLMetaData['dir']) ?? 'ltr'
+
+    /* this.slideOptions = (rawData?.slideOptions as RevealOptions) ?? {
+      transition: 'none',
+      theme: 'white'
+    } */
+    this.tags = rawData?.tags?.split(',').map(entry => entry.trim()) ?? []
+    this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
   }
-}
-
-const getTheme = (string: string | undefined): SlideOptions['theme'] => {
-  switch (string) {
-    case 'black':
-      return 'black'
-    case 'white':
-    case undefined:
-    default:
-      return 'white'
-    case 'league':
-      return 'league'
-    case 'beige':
-      return 'beige'
-    case 'sky':
-      return 'sky'
-    case 'night':
-      return 'night'
-    case 'serif':
-      return 'serif'
-    case 'simple':
-      return 'simple'
-    case 'solarized':
-      return 'solarized'
-    case 'blood':
-      return 'blood'
-    case 'moon':
-      return 'moon'
-  }
-}
-
-export interface OpenGraph {
-  title: string | undefined
-  image: string | undefined
-  'image:type': string | undefined
 }

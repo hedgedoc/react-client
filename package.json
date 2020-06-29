@@ -3,6 +3,7 @@
   "license": "AGPL-3.0",
   "version": "0.1.0",
   "dependencies": {
+    "@polvtypes/reveal.js": "3.8.1",
     "@testing-library/jest-dom": "5.11.0",
     "@testing-library/react": "10.4.3",
     "@testing-library/user-event": "12.0.11",
@@ -10,7 +11,7 @@
     "@types/deep-equal": "1.0.1",
     "@types/highlight.js": "9.12.4",
     "@types/jest": "26.0.3",
-	"@types/js-yaml": "3.12.4",
+    "@types/js-yaml": "3.12.4",
     "@types/markdown-it": "10.0.1",
     "@types/markdown-it-anchor": "4.0.4",
     "@types/markdown-it-container": "2.0.3",
@@ -80,6 +81,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
     "redux": "4.0.5",
+    "reveal.js": "4.0.2",
     "typescript": "3.9.5",
     "use-media": "1.4.0",
     "use-resize-observer": "6.1.0"
