@@ -18,7 +18,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules
-      - name: Cache node_modules
+      - name: Cache ~/.cache
         uses: actions/cache@v1.1.0
         with:
           path: ~/.cache
