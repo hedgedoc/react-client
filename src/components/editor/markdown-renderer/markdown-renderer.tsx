@@ -65,7 +65,7 @@ export interface MarkdownRendererProps {
   onMetaDataChange?: (yamlMetaData: YAMLMetaData | null) => void
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide, onMetaDataChange }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const [lastTocAst, setLastTocAst] = useState<TocAst>()
   const [yamlError, setYamlError] = useState(false)
@@ -194,7 +194,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
 
   return (
     <div className={`markdown-body ${className || ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>
-	  <ShowIf condition={yamlError}>
+      <ShowIf condition={yamlError}>
         <Alert variant='warning' dir='auto'>
           <Trans i18nKey='editor.invalidYaml'>
             <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
