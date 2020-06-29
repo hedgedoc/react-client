@@ -27,7 +27,7 @@ jobs:
         run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - name: Install dependencies
         run: yarn install
-      - name: Run e2e in chrome
+      - name: Run e2e in chromium
         run: yarn e2e:chromium
       - name: Run e2e in firefox
         run: yarn e2e:firefox

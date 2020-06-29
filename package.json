@@ -88,7 +88,7 @@
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "e2e:chromeíum": "start-server-and-test start http-get://localhost:3000 cy:run --browser chromium",
+    "e2e:chromium": "start-server-and-test start http-get://localhost:3000 cy:run --browser chromium",
     "e2e:firefox": "start-server-and-test start http-get://localhost:3000 cy:run --browser firefox"
   },
   "eslintConfig": {
