@@ -65,7 +65,7 @@ export interface MarkdownRendererProps {
   onTocChange?: (ast: TocAst) => void
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide, onMetaDataChange }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const [lastTocAst, setLastTocAst] = useState<TocAst>()
 
@@ -197,17 +197,16 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
       <div className={'markdown-body container-fluid'}>
-        <ShowIf condition={yamlError}>
-          <Alert variant='warning' dir='auto'>
-            <Trans i18nKey='editor.invalidYaml'>
-              <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
-            </Trans>
-          </Alert>
-        </ShowIf>
-        <MathJaxReact.Provider>
-          {result}
-        </MathJaxReact.Provider>
-      </div>
+      <ShowIf condition={yamlError}>
+        <Alert variant='warning' dir='auto'>
+          <Trans i18nKey='editor.invalidYaml'>
+            <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
+          </Trans>
+        </Alert>
+      </ShowIf>
+      <MathJaxReact.Provider>
+        {result}
+      </MathJaxReact.Provider></div>
     </div>
   )
 }

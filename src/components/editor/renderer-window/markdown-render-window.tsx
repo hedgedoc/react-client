@@ -26,7 +26,8 @@ export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, wid
         className={'flex-fill'}
         content={content}
         wide={wide}
-        onTocChange={(tocAst) => setTocAst(tocAst)}/>
+        onTocChange={(tocAst) => setTocAst(tocAst)}
+        onMetaDataChange={(metaData) => console.log(metaData)}/>
 
       <div className={`col-md d-flex flex-column ${realWidth < 1280 ? 'justify-content-end' : ''}`}>
         <ShowIf condition={realWidth >= 1280 && !!tocAst}>
