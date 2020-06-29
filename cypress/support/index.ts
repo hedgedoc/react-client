@@ -13,9 +13,6 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+import './checkLinks'
 import './config'
 import './login'
-import './checkLinks'
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')

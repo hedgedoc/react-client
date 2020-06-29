@@ -95,8 +95,7 @@
       ]
     },
     "plugins": [
-      "@typescript-eslint",
-      "cypress"
+      "@typescript-eslint"
     ],
     "extends": [
       "react-app",
@@ -106,8 +105,7 @@
       "plugin:@typescript-eslint/recommended",
       "plugin:@typescript-eslint/recommended-requiring-type-checking",
       "plugin:import/recommended",
-      "plugin:import/typescript",
-      "plugin:cypress/recommended"
+      "plugin:import/typescript"
     ]
   },
   "browserslist": {
@@ -123,9 +121,12 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^6.0.0",
     "@types/redux-devtools": "3.0.47",
     "@types/redux-devtools-extension": "2.13.2",
+    "@types/testing-library__cypress": "^5.0.6",
     "cypress": "^4.9.0",
+    "eslint-plugin-chai-friendly": "^0.6.0",
     "eslint-plugin-cypress": "^2.11.1",
     "redux-devtools": "3.5.0",
     "redux-devtools-extension": "2.13.8"

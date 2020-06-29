@@ -1,3 +1,8 @@
+export const banner = {
+  text: 'This is the mock banner call',
+  timestamp: '2020-05-22T20:46:08.962Z'
+}
+
 beforeEach(() => {
   cy.server()
   cy.route({
@@ -17,10 +22,7 @@ beforeEach(() => {
         email: true,
         openid: true
       },
-      banner: {
-        text: 'This is the mock banner call',
-        timestamp: '2020-05-22T20:46:08.962Z'
-      },
+      banner: banner,
       customAuthNames: {
         ldap: 'FooBar',
         oauth2: 'Olaf2',

@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+import '../support/index'
+
 describe('Links Intro', () => {
   beforeEach(() => {
     cy.visit('/')
