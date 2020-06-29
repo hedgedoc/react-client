@@ -24,7 +24,7 @@ import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-par
 import { Trans } from 'react-i18next'
 import { InternalLink } from '../../common/links/internal-link'
 import { ShowIf } from '../../common/show-if/show-if'
-import { isEqual, RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
+import { RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import MathJaxReact from 'react-mathjax'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
 import { slugify } from '../../../utils/slugify'
@@ -75,7 +75,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
   const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
 
   useEffect(() => {
-    if (onMetaDataChange && rawMetaData && !isEqual(oldRawMetaData, rawMetaData)) {
+    if (onMetaDataChange && rawMetaData && !equal(oldRawMetaData, rawMetaData)) {
       const newMetaData = new YAMLMetaData(rawMetaData)
       onMetaDataChange(newMetaData)
       setOldRawMetaData(rawMetaData)
