@@ -5,7 +5,7 @@ describe('Languages', () => {
     cy.visit('/')
   })
 
-  it.skip('all languages are available', () => {
+  it('all languages are available', () => {
     cy.get('option').as('languages')
     cy.get('@languages').should('have.length', 28)
     languages.forEach(language => {

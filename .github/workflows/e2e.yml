@@ -18,17 +18,16 @@ jobs:
         with:
           path: node_modules
           key: node_modules
+      - name: Cache node_modules
+        uses: actions/cache@v1.1.0
+        with:
+          path: ~/.cache
+          key: cache
+      - name: install cypress dependencies
+        run: apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - name: Install dependencies
         run: yarn install
       - name: Run e2e in chrome
-        uses: cypress-io/github-action@v2
-        with:
-          start: yarn start
-          wait-on: http://localhost:3000
-          browser: chrome
+        run: yarn e2e:chromium
       - name: Run e2e in firefox
-        uses: cypress-io/github-action@v2
-        with:
-          start: yarn start
-          wait-on: http://localhost:3000
-          browser: firefox
+        run: yarn e2e:firefox
