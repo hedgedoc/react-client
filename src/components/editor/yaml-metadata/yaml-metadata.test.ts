@@ -21,9 +21,6 @@ describe('yaml tests', () => {
   md.render('---\n---')
   const defaultYAML = finished
 
-  raw = undefined
-  finished = undefined
-
   const testMetadata = (input: string, expectedRaw: Partial<RawYAMLMetadata>, expectedFinished: Partial<YAMLMetaData>) => {
     md.render(input)
     expect(raw).not.toBe(undefined)
@@ -92,6 +89,7 @@ describe('yaml tests', () => {
     })
   })
 
+  /*
   it('slideOptions nothing', () => {
     testMetadata(`---
     slideOptions:
@@ -148,6 +146,7 @@ describe('yaml tests', () => {
       }
     })
   })
+  */
 
   it('opengraph nothing', () => {
     testMetadata(`---
@@ -158,11 +157,7 @@ describe('yaml tests', () => {
       opengraph: null
     },
     {
-      opengraph: {
-        title: '',
-        image: '',
-        'image:type': ''
-      }
+      opengraph: new Map<string, string>()
     })
   })
 
@@ -174,41 +169,35 @@ describe('yaml tests', () => {
     `,
     {
       opengraph: {
-        title: 'Testtitle',
-        image: undefined,
-        'image:type': undefined
+        title: 'Testtitle'
       }
     },
     {
-      opengraph: {
-        title: 'Testtitle',
-        image: '',
-        'image:type': ''
-      }
+      opengraph: new Map<string, string>(Object.entries({ title: 'Testtitle' }))
     })
   })
 
-  it('opengraph full', () => {
+  it('opengraph more attributes', () => {
     testMetadata(`---
     opengraph:
       title: Testtitle
-      image: TestyMcTestImage
-      image:type: mock
+      image: https://dummyimage.com/48.png
+      image:type: image/png
     ___
     `,
     {
       opengraph: {
         title: 'Testtitle',
-        image: 'TestyMcTestImage',
-        'image:type': 'mock'
+        image: 'https://dummyimage.com/48.png',
+        'image:type': 'image/png'
       }
     },
     {
-      opengraph: {
+      opengraph: new Map<string, string>(Object.entries({
         title: 'Testtitle',
-        image: 'TestyMcTestImage',
-        'image:type': 'mock'
-      }
+        image: 'https://dummyimage.com/48.png',
+        'image:type': 'image/png'
+      }))
     })
   })
 })
