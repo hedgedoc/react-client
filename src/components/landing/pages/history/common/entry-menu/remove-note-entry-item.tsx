@@ -6,9 +6,10 @@ import { DeletionModal } from '../../../../../common/modals/deletion-modal'
 
 export interface RemoveNoteEntryItemProps {
   onRemove: () => void
+  noteTitle: string
 }
 
-export const RemoveNoteEntryItem: React.FC<RemoveNoteEntryItemProps> = ({ onRemove }) => {
+export const RemoveNoteEntryItem: React.FC<RemoveNoteEntryItemProps> = ({ onRemove, noteTitle }) => {
   useTranslation()
   const [showDialog, setShowDialog] = useState(false)
 
@@ -27,7 +28,7 @@ export const RemoveNoteEntryItem: React.FC<RemoveNoteEntryItemProps> = ({ onRemo
         show={showDialog}
         onHide={() => setShowDialog(false)}
         titleI18nKey={'landing.history.modal.removeNote.title'}>
-        <h5><Trans i18nKey={'landing.history.modal.removeNote.question'} /></h5>
+        <h5><Trans i18nKey={'landing.history.modal.removeNote.question'} values={{ noteTitle }} /></h5>
         <h6><Trans i18nKey={'landing.history.modal.removeNote.warning'} /></h6>
       </DeletionModal>
     </Fragment>

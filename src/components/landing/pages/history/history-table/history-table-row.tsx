@@ -25,6 +25,7 @@ export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick
         <PinButton isDark={true} isPinned={entry.pinned} onPinClick={() => onPinClick(entry.id, entry.location)} className={'mb-1 mr-1'}/>
         <EntryMenu
           id={entry.id}
+          title={entry.title}
           location={entry.location}
           isDark={true}
           onRemove={() => onRemoveClick(entry.id, entry.location)}

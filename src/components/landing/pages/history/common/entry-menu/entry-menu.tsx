@@ -10,6 +10,7 @@ import { RemoveNoteEntryItem } from './remove-note-entry-item'
 
 export interface EntryMenuProps {
   id: string;
+  title: string
   location: HistoryEntryOrigin
   isDark: boolean;
   onRemove: () => void
@@ -17,7 +18,7 @@ export interface EntryMenuProps {
   className?: string
 }
 
-const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onRemove, onDelete, className }) => {
+const EntryMenu: React.FC<EntryMenuProps> = ({ id, title, location, isDark, onRemove, onDelete, className }) => {
   useTranslation()
 
   return (
@@ -44,11 +45,11 @@ const EntryMenu: React.FC<EntryMenuProps> = ({ id, location, isDark, onRemove, o
             <Trans i18nKey="landing.history.menu.entryRemote"/>
           </Dropdown.Item>
         </ShowIf>
-        <RemoveNoteEntryItem onRemove={onRemove} />
+        <RemoveNoteEntryItem onRemove={onRemove} noteTitle={title} />
 
         <Dropdown.Divider/>
 
-        <DeleteNoteItem onDelete={onDelete} />
+        <DeleteNoteItem onDelete={onDelete} noteTitle={title} />
       </Dropdown.Menu>
     </Dropdown>
   )

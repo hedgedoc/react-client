@@ -36,6 +36,7 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
           <div className={'d-flex flex-column'}>
             <EntryMenu
               id={entry.id}
+              title={entry.title}
               location={entry.location}
               isDark={false}
               onRemove={() => onRemoveClick(entry.id, entry.location)}
