@@ -137,7 +137,6 @@
     "redux-devtools": "3.5.0",
     "redux-devtools-extension": "2.13.8",
     "start-server-and-test": "^1.11.0",
-    "ts-loader": "^7.0.5",
-    "webpack": "^4.43.0"
+    "ts-loader": "^7.0.5"
   }
 }
