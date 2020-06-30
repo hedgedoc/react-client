@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  chrome:
     runs-on: ubuntu-latest
     name: Test End2End
     steps:
@@ -29,5 +29,25 @@ jobs:
         run: yarn install
       - name: Run e2e in chrome
         run: yarn e2e:chrome
+  firefox:
+    runs-on: ubuntu-latest
+    name: Test End2End
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Cache node_modules
+        uses: actions/cache@v1.1.0
+        with:
+          path: node_modules
+          key: node_modules
+      - name: Cache ~/.cache
+        uses: actions/cache@v1.1.0
+        with:
+          path: ~/.cache
+          key: cache
+      - name: install cypress dependencies
+        run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - name: Install dependencies
+        run: yarn install
       - name: Run e2e in firefox
         run: yarn e2e:firefox
