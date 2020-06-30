@@ -38,7 +38,6 @@ beforeEach(() => {
         sourceCodeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         issueTrackerUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
       }
-    },
-    delay: 1000
+    }
   })
 })
