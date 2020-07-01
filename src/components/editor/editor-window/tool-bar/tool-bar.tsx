@@ -4,49 +4,53 @@ import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './tool-bar.scss'
 
 export const ToolBar: React.FC = () => {
+  const notImplemented = () => {
+    alert('This feature is not yet implemented')
+  }
+
   return (
     <ButtonToolbar>
       <ButtonGroup>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="bold"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="italic"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="strikethrough"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="header"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="quote-right"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="list"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="list-ol"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="check-square"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="link"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="file-image-o"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="upload"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="table"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="minus"/>
         </Button>
-        <Button>
+        <Button onClick={notImplemented}>
           <ForkAwesomeIcon icon="comment"/>
         </Button>
       </ButtonGroup>
