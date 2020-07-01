@@ -16,7 +16,7 @@ export const Branding: React.FC<BrandingProps> = ({ inline = false }) => {
 
   return (
     <ShowIf condition={showBranding}>
-      @ {
+      <strong>@</strong> {
         branding.logo !== ''
           ? <img
             src={branding.logo}
