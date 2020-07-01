@@ -73,7 +73,7 @@
                 },
                 "removeNote": {
                   "title": "Remove note from history",
-                  "question": "Do you really want to remove the note '{{noteTitle}}' from your history?",
+                  "question": "Do you really want to remove this note from your history?",
                   "warning": "This just removes the history entry and won't delete the note itself.",
                   "button": "Remove note from history"
                 }
@@ -257,7 +257,7 @@
             },
             "deleteNote": {
                 "title": "Delete note",
-                "question": "Do you really want to delete this note ('{{noteTitle}}')?",
+                "question": "Do you really want to delete this note?",
                 "warning": "All users will lose their connection. This process is irreversible.",
                 "button": "Delete note"
             }

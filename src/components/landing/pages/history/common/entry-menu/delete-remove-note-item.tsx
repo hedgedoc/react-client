@@ -38,7 +38,10 @@ export const DeleteRemoveNoteItem: React.FC<DeleteRemoveNoteItemProps> = ({
         show={showDialog}
         onHide={() => setShowDialog(false)}
         titleI18nKey={modalTitleI18nKey}>
-        <h5><Trans i18nKey={modalQuestionI18nKey} values={{ noteTitle }}/></h5>
+        <h5><Trans i18nKey={modalQuestionI18nKey}/></h5>
+        <ul>
+          <li>{ noteTitle }</li>
+        </ul>
         <h6><Trans i18nKey={modalWarningI18nKey}/></h6>
       </DeletionModal>
     </Fragment>
