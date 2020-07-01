@@ -1,5 +1,5 @@
 import React from 'react'
-import { DeleteRemoveNoteItem } from './delete-remove-note-item'
+import { DropdownItemWithDeletionModal } from './dropdown-item-with-deletion-modal'
 
 export interface RemoveNoteEntryItemProps {
   onConfirm: () => void
@@ -8,7 +8,7 @@ export interface RemoveNoteEntryItemProps {
 
 export const RemoveNoteEntryItem: React.FC<RemoveNoteEntryItemProps> = ({ noteTitle, onConfirm }) => {
   return (
-    <DeleteRemoveNoteItem
+    <DropdownItemWithDeletionModal
       onConfirm={onConfirm}
       itemI18nKey={'landing.history.menu.removeEntry'}
       modalButtonI18nKey={'landing.history.modal.removeNote.button'}

@@ -4,7 +4,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon, IconName } from '../../../../../common/fork-awesome/fork-awesome-icon'
 import { DeletionModal } from '../../../../../common/modals/deletion-modal'
 
-export interface DeleteRemoveNoteItemProps {
+export interface DropdownItemWithDeletionModalProps {
   onConfirm: () => void
   itemI18nKey: string
   modalButtonI18nKey: string
@@ -15,7 +15,7 @@ export interface DeleteRemoveNoteItemProps {
   noteTitle: string
 }
 
-export const DeleteRemoveNoteItem: React.FC<DeleteRemoveNoteItemProps> = ({
+export const DropdownItemWithDeletionModal: React.FC<DropdownItemWithDeletionModalProps> = ({
   onConfirm, noteTitle,
   modalTitleI18nKey, modalButtonI18nKey, itemI18nKey, modalIcon,
   modalQuestionI18nKey, modalWarningI18nKey
