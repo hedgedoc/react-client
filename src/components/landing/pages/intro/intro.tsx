@@ -11,8 +11,10 @@ const Intro: React.FC = () => {
 
   return (
     <Fragment>
-      <h1 dir='auto'>
-        <ForkAwesomeIcon icon="file-text"/> CodiMD <Branding/>
+      <h1 dir='auto' className={'align-items-center d-flex justify-content-center'}>
+        <ForkAwesomeIcon icon="file-text" className={'mr-2'}/>
+        <span>CodiMD</span>
+        <Branding/>
       </h1>
       <p className="lead mb-5">
         <Trans i18nKey="app.slogan"/>

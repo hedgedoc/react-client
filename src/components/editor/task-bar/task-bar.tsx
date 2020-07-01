@@ -16,8 +16,10 @@ const TaskBar: React.FC = () => {
     <Navbar bg={'light'}>
       <Nav className="mr-auto d-flex align-items-center">
         <Navbar.Brand>
-          <Link to="/intro" className="text-secondary text-decoration-none">
-            <ForkAwesomeIcon icon="file-text"/> CodiMD <Branding inline={true}/>
+          <Link to="/intro" className="text-secondary text-decoration-none d-flex align-items-center">
+            <ForkAwesomeIcon icon="file-text" className={'mr-2'}/>
+            <span>CodiMD</span>
+            <Branding inline={true}/>
           </Link>
         </Navbar.Brand>
         <EditorViewMode/>
