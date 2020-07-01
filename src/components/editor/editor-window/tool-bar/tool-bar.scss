@@ -1,14 +1,10 @@
 .btn-toolbar {
   background-color: #fafafa;
   border: 1px solid #ededed;
-  overflow-wrap: break-word;
+  flex-wrap: wrap;
 }
 
-.btn-toolbar > .btn-group {
-  overflow-wrap: break-word;
-}
-
-.btn-toolbar > .btn-group > .btn {
+.btn-toolbar > .btn {
   background-color: #fafafa;
   color: #555;
   border-radius: 0;
