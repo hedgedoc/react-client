@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Nav, Navbar } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { Branding } from '../../common/branding/branding'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ConnectionIndicator } from './connection-indicator'
 import { DarkModeButton } from './dark-mode-button'
@@ -16,7 +17,7 @@ const TaskBar: React.FC = () => {
       <Nav className="mr-auto d-flex align-items-center">
         <Navbar.Brand>
           <Link to="/intro" className="text-secondary">
-            <ForkAwesomeIcon icon="file-text"/> CodiMD
+            <ForkAwesomeIcon icon="file-text"/> CodiMD <Branding inline={true}/>
           </Link>
         </Navbar.Brand>
         <EditorViewMode/>
