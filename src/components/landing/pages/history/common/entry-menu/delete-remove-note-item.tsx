@@ -3,47 +3,43 @@ import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon, IconName } from '../../../../../common/fork-awesome/fork-awesome-icon'
 import { DeletionModal } from '../../../../../common/modals/deletion-modal'
-import { ShowIf } from '../../../../../common/show-if/show-if'
 
 export interface DeleteRemoveNoteItemProps {
   onConfirm: () => void
+  itemI18nKey: string
+  modalButtonI18nKey: string
+  modalIcon: IconName
+  modalTitleI18nKey: string
+  modalQuestionI18nKey: string
+  modalWarningI18nKey: string
   noteTitle: string
-  variant: 'removeHistoryItem' | 'deleteNote'
 }
 
-export const DeleteRemoveNoteItem: React.FC<DeleteRemoveNoteItemProps> = ({ variant, onConfirm, noteTitle }) => {
+export const DeleteRemoveNoteItem: React.FC<DeleteRemoveNoteItemProps> = ({
+  onConfirm, noteTitle,
+  modalTitleI18nKey, modalButtonI18nKey, itemI18nKey, modalIcon,
+  modalQuestionI18nKey, modalWarningI18nKey
+}) => {
   useTranslation()
   const [showDialog, setShowDialog] = useState(false)
-  const isDeletion = variant === 'deleteNote'
-
-  const i18nKeyItem = isDeletion ? 'landing.history.menu.deleteNote' : 'landing.history.menu.removeEntry'
-  const i18nKeyModalButton = isDeletion ? 'editor.modal.deleteNote.button' : 'landing.history.modal.removeNote.button'
-  const i18nKeyModalTitle = isDeletion ? 'editor.modal.deleteNote.title' : 'landing.history.modal.removeNote.title'
-  const modalIcon = isDeletion ? 'trash' : 'archive'
 
   return (
     <Fragment>
       <Dropdown.Item onClick={() => setShowDialog(true)}>
-        <ForkAwesomeIcon icon={modalIcon as IconName} fixedWidth={true} className="mx-2"/>
-        <Trans i18nKey={i18nKeyItem}/>
+        <ForkAwesomeIcon icon={modalIcon} fixedWidth={true} className="mx-2"/>
+        <Trans i18nKey={itemI18nKey}/>
       </Dropdown.Item>
       <DeletionModal
         onConfirm={() => {
           setShowDialog(false)
           onConfirm()
         }}
-        deletionButtonI18nKey={i18nKeyModalButton}
+        deletionButtonI18nKey={modalButtonI18nKey}
         show={showDialog}
         onHide={() => setShowDialog(false)}
-        titleI18nKey={i18nKeyModalTitle}>
-        <ShowIf condition={isDeletion}>
-          <h5><Trans i18nKey={'editor.modal.deleteNote.question'} values={{ noteTitle }} /></h5>
-          <h6><Trans i18nKey={'editor.modal.deleteNote.warning'} /></h6>
-        </ShowIf>
-        <ShowIf condition={!isDeletion}>
-          <h5><Trans i18nKey={'landing.history.modal.removeNote.question'} values={{ noteTitle }} /></h5>
-          <h6><Trans i18nKey={'landing.history.modal.removeNote.warning'} /></h6>
-        </ShowIf>
+        titleI18nKey={modalTitleI18nKey}>
+        <h5><Trans i18nKey={modalQuestionI18nKey} values={{ noteTitle }}/></h5>
+        <h6><Trans i18nKey={modalWarningI18nKey}/></h6>
       </DeletionModal>
     </Fragment>
   )

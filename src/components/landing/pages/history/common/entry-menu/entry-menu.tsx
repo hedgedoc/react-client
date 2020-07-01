@@ -5,7 +5,8 @@ import { ForkAwesomeIcon } from '../../../../../common/fork-awesome/fork-awesome
 import { ShowIf } from '../../../../../common/show-if/show-if'
 import { HistoryEntryOrigin } from '../../history'
 import './entry-menu.scss'
-import { DeleteRemoveNoteItem } from './delete-remove-note-item'
+import { DeleteNoteItem } from './delete-note-item'
+import { RemoveNoteEntryItem } from './remove-note-entry-item'
 
 export interface EntryMenuProps {
   id: string;
@@ -44,11 +45,11 @@ const EntryMenu: React.FC<EntryMenuProps> = ({ id, title, location, isDark, onRe
             <Trans i18nKey="landing.history.menu.entryRemote"/>
           </Dropdown.Item>
         </ShowIf>
-        <DeleteRemoveNoteItem onConfirm={onRemove} noteTitle={title} variant={'removeHistoryItem'} />
+        <RemoveNoteEntryItem onConfirm={onRemove} noteTitle={title} />
 
         <Dropdown.Divider/>
 
-        <DeleteRemoveNoteItem onConfirm={onDelete} noteTitle={title} variant={'deleteNote'} />
+        <DeleteNoteItem onConfirm={onDelete} noteTitle={title} />
       </Dropdown.Menu>
     </Dropdown>
   )
