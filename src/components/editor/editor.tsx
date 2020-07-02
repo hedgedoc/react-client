@@ -10,6 +10,7 @@ import { InfoBanner } from '../landing/layout/info-banner'
 import { EditorWindow } from './editor-window/editor-window'
 import { editorTestContent } from './editorTestContent'
 import { MarkdownRenderWindow } from './renderer-window/markdown-render-window'
+import { ScrollState } from './scroll/scroll-props'
 import { EditorMode } from './task-bar/editor-view-mode'
 import { TaskBar } from './task-bar/task-bar'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
@@ -24,6 +25,9 @@ export const Editor: React.FC = () => {
   const [documentTitle, setDocumentTitle] = useState(untitledNote)
   const noteMetadata = useRef<YAMLMetaData>()
   const firstHeading = useRef<string>()
+
+  const [editorScrollState, setEditorScrollState] = useState<ScrollState>(() => ({ firstLineInView: 1, scrolledPercentage: 0 }))
+  const [rendererScrollState, setRendererScrollState] = useState<ScrollState>(() => ({ firstLineInView: 1, scrolledPercentage: 0 }))
 
   const updateDocumentTitle = useCallback(() => {
     if (noteMetadata.current?.title && noteMetadata.current?.title !== '') {
@@ -55,6 +59,14 @@ export const Editor: React.FC = () => {
     }
   }, [editorMode, firstDraw, isWide])
 
+  const onEditorScroll = useCallback((newScrollState: ScrollState) => {
+    setRendererScrollState(() => newScrollState)
+  }, [])
+
+  const onMarkdownRendererScroll = useCallback((newScrollState: ScrollState) => {
+    setEditorScrollState(() => newScrollState)
+  }, [])
+
   return (
     <Fragment>
       <InfoBanner/>
@@ -63,9 +75,23 @@ export const Editor: React.FC = () => {
         <TaskBar/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
-          left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}
+          left={
+            <EditorWindow
+              onContentChange={content => setMarkdownContent(content)}
+              content={markdownContent}
+              scrollState={editorScrollState}
+              onScroll={onEditorScroll}
+            />
+          }
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={<MarkdownRenderWindow content={markdownContent} wide={editorMode === EditorMode.PREVIEW} onMetadataChange={onMetadataChange} onFirstHeadingChange={onFirstHeadingChange}/>}
+          right={
+            <MarkdownRenderWindow
+              content={markdownContent}
+              wide={editorMode === EditorMode.PREVIEW}
+              scrollState={rendererScrollState}
+              onScroll={onMarkdownRendererScroll}
+              onMetadataChange={onMetadataChange}
+              onFirstHeadingChange={onFirstHeadingChange}/>}
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>

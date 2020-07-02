@@ -7,7 +7,7 @@ import './markdown-toc.scss'
 export interface MarkdownTocProps {
   ast: TocAst
   maxDepth?: number
-  sticky?: boolean
+  className?: string
 }
 
 const convertLevel = (toc: TocAst, levelsToShowUnderThis: number, headerCounts: Map<string, number>, wrapInListItem: boolean): ReactElement | null => {
@@ -48,11 +48,11 @@ const convertLevel = (toc: TocAst, levelsToShowUnderThis: number, headerCounts: 
   }
 }
 
-export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3, sticky }) => {
+export const MarkdownToc: React.FC<MarkdownTocProps> = ({ ast, maxDepth = 3, className }) => {
   const tocTree = useMemo(() => convertLevel(ast, maxDepth, new Map<string, number>(), false), [ast, maxDepth])
 
   return (
-    <div className={`markdown-toc ${sticky ? 'sticky' : ''}`}>
+    <div className={`markdown-toc ${className ?? ''}`}>
       {tocTree}
     </div>
   )
