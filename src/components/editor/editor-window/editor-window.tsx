@@ -12,7 +12,7 @@ import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/keymap/sublime.js'
 import 'codemirror/mode/gfm/gfm.js'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
@@ -40,7 +40,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
   }, [content])
 
   return (
-    <Fragment>
+    <div className={'d-flex flex-column h-100'}>
       <ToolBar
         content={content}
         onContentChange={onContentChange}
@@ -48,7 +48,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
         endPosition={endPosition}
       />
       <ControlledCodeMirror
-        className="h-100 w-100 flex-fill"
+        className="overflow-hidden w-100 flex-fill"
         value={content}
         options={{
           mode: 'gfm',
@@ -118,7 +118,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
           })
         }}
       />
-    </Fragment>
+    </div>
   )
 }
 
