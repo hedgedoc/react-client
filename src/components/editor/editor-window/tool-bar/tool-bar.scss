@@ -10,6 +10,10 @@
   border-radius: 0;
   border-width: 0;
 
+  &:active, &:focus, &:visited {
+    background-color: #fafafa !important;
+  }
+
   &:hover {
     background-color: #e1e1e1;
   }

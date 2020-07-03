@@ -23,6 +23,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
     const selectionIncludeNewline = selection.includes('\n')
     if (startPosition.line === endPosition.line && startPosition.ch === endPosition.ch) {
       if (!selectionIncludeNewline) {
+        console.debug(lines[startPosition.line].slice(0, startPosition.ch) + selection + lines[startPosition.line].slice(startPosition.ch))
         lines[startPosition.line] = lines[startPosition.line].slice(0, startPosition.ch) + selection + lines[startPosition.line].slice(startPosition.ch)
       } else {
         for (let i = lines.length - 1; i > startPosition.line; i--) {
@@ -38,7 +39,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
         lines[extraLines + startPosition.line] += lastPart
       }
     }
-    if (startPosition.line === endPosition.line) {
+    if (startPosition.line === endPosition.line && startPosition.ch !== endPosition.ch) {
       if (!selectionIncludeNewline) {
         lines[startPosition.line] = lines[startPosition.line].slice(0, startPosition.ch) + selection + lines[startPosition.line].slice(endPosition.ch)
       } else {
@@ -54,7 +55,10 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
         }
         lines[extraLines + startPosition.line] += lastPart
       }
-    } else {
+    }
+    if (startPosition.line !== endPosition.line && startPosition.ch !== endPosition.ch) {
+      console.debug('not the same')
+      console.debug('before', lines)
       for (let i = lines.length - 1; i > endPosition.line; i--) {
         lines[i + extraLines] = lines[i]
       }
@@ -63,7 +67,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
         lines[i + startPosition.line] = newLines[j]
         j++
       }
-      console.debug('not the same')
+      console.debug('after', lines)
     }
     onContentChange(lines.join('\n'))
   }
@@ -95,53 +99,112 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
     if (selection === '') {
       return
     }
-    if (startPosition.line === endPosition.line) {
-      console.debug('single line')
-      changeSelection(`**${selection}**`)
-    } else {
-      console.debug('multi-line', selection)
-      changeSelection(`**\n${selection}**\n`)
-    }
+    changeSelection(`**${selection}**`)
   }
 
-  /*
   const makeSelectionItalic = () => {
-    if (content !== '') {
-      onChange(`*${content}*`)
+    const selection = getSelection()
+    if (selection === '') {
+      return
     }
+    changeSelection(`*${selection}*`)
   }
 
   const strikeThroughSelection = () => {
-    if (content !== '') {
-      onChange(`~~${content}~~`)
+    const selection = getSelection()
+    if (selection === '') {
+      return
+    }
+    changeSelection(`~~${selection}~~`)
+  }
+
+  const addHeaderLevel = () => {
+    const lines = content.split('\n')
+    const startLine = lines[startPosition.line]
+    const isHeadingAlready = startLine.startsWith('#')
+    lines[startPosition.line] = `#${!isHeadingAlready ? ' ' : ''}${startLine}`
+    onContentChange(lines.join('\n'))
+  }
+
+  const addCodeFences = () => {
+    const selection = getSelection()
+    if (selection === '') {
+      console.debug('no selection')
+      changeSelection('```\n\n```')
+    } else {
+      console.debug('selection')
+      changeSelection(`\`\`\`\n${selection}\n\`\`\``)
     }
   }
-  */
+
+  const addQuotes = () => {
+    const selection = getSelection()
+    if (selection === '') {
+      console.debug('no selection')
+      changeSelection('> ')
+    } else {
+      console.debug('selection')
+      const newLines = selection.split('\n')
+      for (let i = 0; i < newLines.length - 1; i++) {
+        newLines[i] = `> ${newLines[i]}`
+      }
+      changeSelection(newLines.join('\n'))
+    }
+  }
+
+  const addList = () => {
+    const lines = content.split('\n')
+    for (let i = startPosition.line; i <= endPosition.line; i++) {
+      lines[i] = `- ${lines[i]}`
+    }
+    onContentChange(lines.join('\n'))
+  }
+
+  const addOrderedList = () => {
+    const lines = content.split('\n')
+    let j = 1
+    for (let i = startPosition.line; i <= endPosition.line; i++) {
+      lines[i] = `${j}. ${lines[i]}`
+      j++
+    }
+    onContentChange(lines.join('\n'))
+  }
+
+  const addTaskList = () => {
+    const lines = content.split('\n')
+    for (let i = startPosition.line; i <= endPosition.line; i++) {
+      lines[i] = `- [ ] ${lines[i]}`
+    }
+    onContentChange(lines.join('\n'))
+  }
 
   return (
     <ButtonToolbar>
       <Button onClick={makeSelectionBold}>
         <ForkAwesomeIcon icon="bold"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={makeSelectionItalic}>
         <ForkAwesomeIcon icon="italic"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={strikeThroughSelection}>
         <ForkAwesomeIcon icon="strikethrough"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addHeaderLevel}>
         <ForkAwesomeIcon icon="header"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addCodeFences}>
+        <ForkAwesomeIcon icon="code"/>
+      </Button>
+      <Button onClick={addQuotes}>
         <ForkAwesomeIcon icon="quote-right"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addList}>
         <ForkAwesomeIcon icon="list"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addOrderedList}>
         <ForkAwesomeIcon icon="list-ol"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addTaskList}>
         <ForkAwesomeIcon icon="check-square"/>
       </Button>
       <Button onClick={notImplemented}>
