@@ -1156,6 +1156,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@codimd/markdown-it-task-lists@git+https://git@github.com/truh/markdown-it-task-lists.git":
+  version "1.0.0"
+  resolved "git+https://git@github.com/truh/markdown-it-task-lists.git#aa5a06023dd950f9c80d5c88844a17d74cd8550f"
+  dependencies:
+    "@types/markdown-it" "^10.0.1"
+    markdown-it "^11.0.0"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -1824,7 +1831,7 @@
   dependencies:
     "@types/markdown-it" "*"
 
-"@types/markdown-it@*", "@types/markdown-it@10.0.2":
+"@types/markdown-it@*", "@types/markdown-it@10.0.2", "@types/markdown-it@^10.0.1":
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/@types/markdown-it/-/markdown-it-10.0.2.tgz#f93334b9c7821ddb19865dfd91ecf688094c2626"
   integrity sha512-FGKiVW1UgeIEAChYAuHcfCd0W4LsMEyrSyTVaZiuJhwR4BwSVUD8JKnzmWAMK2FHNLZSPGUaEkpa/dkZj2uq1w==
@@ -8130,7 +8137,7 @@ markdown-it-toc-done-right@4.1.0:
   resolved "https://registry.yarnpkg.com/markdown-it-toc-done-right/-/markdown-it-toc-done-right-4.1.0.tgz#0f73ed531dda427c43c27716a2fc2208daa90605"
   integrity sha512-UhD2Oj6cZV3ycYPoelt4hTkwKIK3zbPP1wjjdpCq7UGtWQOFalDFDv1s2zBYV6aR2gMs/X8kpJcOYsQmUbiXDw==
 
-markdown-it@11.0.0:
+markdown-it@11.0.0, markdown-it@^11.0.0:
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-11.0.0.tgz#dbfc30363e43d756ebc52c38586b91b90046b876"
   integrity sha512-+CvOnmbSubmQFSA9dKz1BRiaSMV7rhexl3sngKqFyXSagoA3fBdJQ8oZWtRy2knXdpDXaBw44euz37DeJQ9asg==
