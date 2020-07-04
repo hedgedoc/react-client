@@ -6,11 +6,13 @@ describe('Intro', () => {
 
   describe('Cover Button are hidden when logged in', () => {
     it('Sign in Cover Button', () => {
-      cy.get('.cover-button.btn-success').should('not.exist')
+      cy.get('.cover-button.btn-success')
+        .should('not.exist')
     })
 
     it('Features Cover Button', () => {
-      cy.get('.cover-button.btn-primary').should('not.exist')
+      cy.get('.cover-button.btn-primary')
+        .should('not.exist')
     })
   })
 
@@ -20,27 +22,37 @@ describe('Intro', () => {
     })
 
     it('Sign in Cover Button', () => {
-      cy.get('.cover-button.btn-success').should('exist')
+      cy.get('.cover-button.btn-success')
+        .should('exist')
     })
 
     it('Features Cover Button', () => {
-      cy.get('.cover-button.btn-primary').should('exist')
+      cy.get('.cover-button.btn-primary')
+        .should('exist')
     })
   })
 
   describe('Version', () => {
     it('can be opened', () => {
-      cy.get('#versionModal').should('not.be.visible')
-      cy.get('#version').click()
-      cy.get('#versionModal').should('be.visible')
+      cy.get('#versionModal')
+        .should('not.be.visible')
+      cy.get('#version')
+        .click()
+      cy.get('#versionModal')
+        .should('be.visible')
     })
 
     it('can be closed', () => {
-      cy.get('#versionModal').should('not.be.visible')
-      cy.get('#version').click()
-      cy.get('#versionModal').should('be.visible')
-      cy.get('body').click()
-      cy.get('#versionModal').should('not.be.visible')
+      cy.get('#versionModal')
+        .should('not.be.visible')
+      cy.get('#version')
+        .click()
+      cy.get('#versionModal')
+        .should('be.visible')
+      cy.get('body')
+        .click()
+      cy.get('#versionModal')
+        .should('not.be.visible')
     })
   })
 })
