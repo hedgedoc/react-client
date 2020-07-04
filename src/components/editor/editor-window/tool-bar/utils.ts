@@ -43,18 +43,26 @@ export const extractSelection = (content: string, startPosition: CodeMirror.Posi
   const lines = content.split('\n')
 
   if (startPosition.line === endPosition.line) {
-    return lines[startPosition.line].slice(startPosition.ch, endPosition.ch)
+    const selection = lines[startPosition.line].slice(startPosition.ch, endPosition.ch)
+    return removeLastNewLine(selection)
   }
 
   let newSelection = lines[startPosition.line].slice(startPosition.ch) + '\n'
-  for (let i = startPosition.line; i <= endPosition.line; i++) {
+  for (let i = startPosition.line + 1; i <= endPosition.line; i++) {
     if (i === endPosition.line) {
       newSelection += lines[i].slice(0, endPosition.ch) + '\n'
     } else {
       newSelection += lines[i] + '\n'
     }
   }
-  return newSelection
+  return removeLastNewLine(newSelection)
+}
+
+export const removeLastNewLine = (selection: string): string => {
+  if (selection.endsWith('\n')) {
+    selection = selection.slice(0, selection.length - 1)
+  }
+  return selection
 }
 
 export const addMarkup = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, markUp: string): void => {
@@ -97,9 +105,12 @@ export const addQuotes = (content: string, startPosition: CodeMirror.Position, e
   const selection = extractSelection(content, startPosition, endPosition)
   if (selection === '') {
     updateSelection(content, startPosition, endPosition, onContentChange, '> ')
+  } else if (!selection.includes('\n')) {
+    const lines = content.split('\n')
+    updateSelection(content, startPosition, endPosition, onContentChange, '> ' + lines[startPosition.line])
   } else {
     const selectedLines = selection.split('\n')
-    for (let i = 0; i < selectedLines.length - 1; i++) {
+    for (let i = 0; i < selectedLines.length; i++) {
       selectedLines[i] = `> ${selectedLines[i]}`
     }
     updateSelection(content, startPosition, endPosition, onContentChange, selectedLines.join('\n'))
