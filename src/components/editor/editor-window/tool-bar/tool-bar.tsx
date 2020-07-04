@@ -64,6 +64,11 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
     }
   }
 
+  const addImage = () => {
+    const selection = getSelection()
+    changeSelection(`![${selection}](https://)`)
+  }
+
   const addLine = () => changeSelection('----')
   const addComment = () => changeSelection('> []')
   const addTable = () => changeSelection('| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |')
@@ -100,7 +105,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
       <Button onClick={addLink}>
         <ForkAwesomeIcon icon="link"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addImage}>
         <ForkAwesomeIcon icon="picture-o"/>
       </Button>
       <Button onClick={notImplemented}>
