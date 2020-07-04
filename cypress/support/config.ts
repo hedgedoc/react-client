@@ -22,6 +22,10 @@ beforeEach(() => {
         email: true,
         openid: true
       },
+      branding: {
+        name: 'ACME Corp',
+        logo: 'http://localhost:3000/acme.png'
+      },
       banner: banner,
       customAuthNames: {
         ldap: 'FooBar',
