@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './tool-bar.scss'
-import { addMarkup, extractSelection, updateSelection } from './utils'
+import { addMarkup, createList, extractSelection, updateSelection } from './utils'
 
 export interface ToolBarProps {
   content: string
@@ -24,6 +24,10 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
   const makeSelectionItalic = () => addMarkup(content, startPosition, endPosition, onContentChange, '*')
   const strikeThroughSelection = () => addMarkup(content, startPosition, endPosition, onContentChange, '~~')
 
+  const addList = () => createList(content, startPosition, endPosition, onContentChange, () => '-')
+  const addOrderedList = () => createList(content, startPosition, endPosition, onContentChange, j => `${j}.`)
+  const addTaskList = () => createList(content, startPosition, endPosition, onContentChange, () => '- [ ]')
+
   const addHeaderLevel = () => {
     const lines = content.split('\n')
     const startLine = lines[startPosition.line]
@@ -34,55 +38,35 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
 
   const addCodeFences = () => {
     const selection = getSelection()
-    if (selection === '') {
-      console.debug('no selection')
-      changeSelection('```\n\n```')
-    } else {
-      console.debug('selection')
-      changeSelection(`\`\`\`\n${selection}\n\`\`\``)
-    }
+    changeSelection(`\`\`\`\n${selection}\n\`\`\``)
   }
 
   const addQuotes = () => {
     const selection = getSelection()
     if (selection === '') {
-      console.debug('no selection')
       changeSelection('> ')
     } else {
-      console.debug('selection')
-      const newLines = selection.split('\n')
-      for (let i = 0; i < newLines.length - 1; i++) {
-        newLines[i] = `> ${newLines[i]}`
+      const selectedLines = selection.split('\n')
+      for (let i = 0; i < selectedLines.length - 1; i++) {
+        selectedLines[i] = `> ${selectedLines[i]}`
       }
-      changeSelection(newLines.join('\n'))
+      changeSelection(selectedLines.join('\n'))
     }
   }
 
-  const addList = () => {
-    const lines = content.split('\n')
-    for (let i = startPosition.line; i <= endPosition.line; i++) {
-      lines[i] = `- ${lines[i]}`
+  const addLink = () => {
+    const selection = getSelection()
+    // the link detection should be improved
+    if (selection.startsWith('http')) {
+      changeSelection(`[](${selection})`)
+    } else {
+      changeSelection(`[${selection}]()`)
     }
-    onContentChange(lines.join('\n'))
   }
 
-  const addOrderedList = () => {
-    const lines = content.split('\n')
-    let j = 1
-    for (let i = startPosition.line; i <= endPosition.line; i++) {
-      lines[i] = `${j}. ${lines[i]}`
-      j++
-    }
-    onContentChange(lines.join('\n'))
-  }
-
-  const addTaskList = () => {
-    const lines = content.split('\n')
-    for (let i = startPosition.line; i <= endPosition.line; i++) {
-      lines[i] = `- [ ] ${lines[i]}`
-    }
-    onContentChange(lines.join('\n'))
-  }
+  const addLine = () => changeSelection('----')
+  const addComment = () => changeSelection('> []')
+  const addTable = () => changeSelection('| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |')
 
   return (
     <ButtonToolbar>
@@ -113,7 +97,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
       <Button onClick={addTaskList}>
         <ForkAwesomeIcon icon="check-square"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addLink}>
         <ForkAwesomeIcon icon="link"/>
       </Button>
       <Button onClick={notImplemented}>
@@ -122,13 +106,13 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
       <Button onClick={notImplemented}>
         <ForkAwesomeIcon icon="upload"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addTable}>
         <ForkAwesomeIcon icon="table"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addLine}>
         <ForkAwesomeIcon icon="minus"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button onClick={addComment}>
         <ForkAwesomeIcon icon="comment"/>
       </Button>
     </ButtonToolbar>

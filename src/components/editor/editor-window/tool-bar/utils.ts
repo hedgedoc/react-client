@@ -64,3 +64,13 @@ export const addMarkup = (content: string, startPosition: CodeMirror.Position, e
   }
   updateSelection(content, startPosition, endPosition, onContentChange, `${markUp}${selection}${markUp}`)
 }
+
+export const createList = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, listMark: (j: number) => string): void => {
+  const lines = content.split('\n')
+  let j = 1
+  for (let i = startPosition.line; i <= endPosition.line; i++) {
+    lines[i] = `${listMark(j)} ${lines[i]}`
+    j++
+  }
+  onContentChange(lines.join('\n'))
+}
