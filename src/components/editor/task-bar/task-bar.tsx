@@ -10,7 +10,6 @@ import { ShowIf } from '../../common/show-if/show-if'
 import { SignInButton } from '../../landing/layout/navigation/sign-in-button'
 import { UserDropdown } from '../../landing/layout/navigation/user-dropdown/user-dropdown'
 import { DarkModeButton } from './dark-mode-button'
-import { EditorMenu } from './editor-menu'
 import { EditorViewMode } from './editor-view-mode'
 import { HelpButton } from './help-button'
 
@@ -36,9 +35,6 @@ const TaskBar: React.FC = () => {
         <Button className="ml-2 text-secondary" size="sm" variant="outline-light">
           <ForkAwesomeIcon icon="plus"/> <Trans i18nKey="editor.menu.new"/>
         </Button>
-        <div className="text-secondary">
-          <EditorMenu/>
-        </div>
         <ShowIf condition={!user}>
           <SignInButton />
         </ShowIf>
