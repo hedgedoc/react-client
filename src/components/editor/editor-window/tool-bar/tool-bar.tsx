@@ -41,50 +41,50 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
   const addTable = () => changeSelection('| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |')
 
   return (
-    <ButtonToolbar>
-      <Button onClick={makeSelectionBold}>
+    <ButtonToolbar className='flex-nowrap bg-light'>
+      <Button variant='light' onClick={makeSelectionBold}>
         <ForkAwesomeIcon icon="bold"/>
       </Button>
-      <Button onClick={makeSelectionItalic}>
+      <Button variant='light' onClick={makeSelectionItalic}>
         <ForkAwesomeIcon icon="italic"/>
       </Button>
-      <Button onClick={strikeThroughSelection}>
+      <Button variant='light' onClick={strikeThroughSelection}>
         <ForkAwesomeIcon icon="strikethrough"/>
       </Button>
-      <Button onClick={() => addHeaderLevel(content, startPosition, onContentChange)}>
+      <Button variant='light' onClick={() => addHeaderLevel(content, startPosition, onContentChange)}>
         <ForkAwesomeIcon icon="header"/>
       </Button>
-      <Button onClick={() => addCodeFences(content, startPosition, endPosition, onContentChange)}>
+      <Button variant='light' onClick={() => addCodeFences(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="code"/>
       </Button>
-      <Button onClick={() => addQuotes(content, startPosition, endPosition, onContentChange)}>
+      <Button variant='light' onClick={() => addQuotes(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="quote-right"/>
       </Button>
-      <Button onClick={addList}>
+      <Button variant='light' onClick={addList}>
         <ForkAwesomeIcon icon="list"/>
       </Button>
-      <Button onClick={addOrderedList}>
+      <Button variant='light' onClick={addOrderedList}>
         <ForkAwesomeIcon icon="list-ol"/>
       </Button>
-      <Button onClick={addTaskList}>
+      <Button variant='light' onClick={addTaskList}>
         <ForkAwesomeIcon icon="check-square"/>
       </Button>
-      <Button onClick={() => addLink(content, startPosition, endPosition, onContentChange)}>
+      <Button variant='light' onClick={() => addLink(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="link"/>
       </Button>
-      <Button onClick={() => addImage(content, startPosition, endPosition, onContentChange)}>
+      <Button variant='light' onClick={() => addImage(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="picture-o"/>
       </Button>
-      <Button onClick={notImplemented}>
+      <Button variant='light' onClick={notImplemented}>
         <ForkAwesomeIcon icon="upload"/>
       </Button>
-      <Button onClick={addTable}>
+      <Button variant='light' onClick={addTable}>
         <ForkAwesomeIcon icon="table"/>
       </Button>
-      <Button onClick={addLine}>
+      <Button variant='light' onClick={addLine}>
         <ForkAwesomeIcon icon="minus"/>
       </Button>
-      <Button onClick={addComment}>
+      <Button variant='light' onClick={addComment}>
         <ForkAwesomeIcon icon="comment"/>
       </Button>
     </ButtonToolbar>

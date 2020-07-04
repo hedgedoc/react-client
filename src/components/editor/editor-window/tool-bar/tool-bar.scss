@@ -1,20 +1,3 @@
 .btn-toolbar {
-  background-color: #fafafa;
   border: 1px solid #ededed;
-  flex-wrap: wrap;
-}
-
-.btn-toolbar > .btn {
-  background-color: #fafafa;
-  color: #555;
-  border-radius: 0;
-  border-width: 0;
-
-  &:active, &:focus, &:visited {
-    background-color: #fafafa !important;
-  }
-
-  &:hover {
-    background-color: #e1e1e1;
-  }
 }
