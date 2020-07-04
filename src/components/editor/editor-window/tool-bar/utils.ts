@@ -1,38 +1,34 @@
 import CodeMirror from 'codemirror'
 
-export const replaceSelection = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, selection: string): void => {
-  const lines = content.split('\n')
-  const newLines = selection.split('\n')
-  const extraLines = newLines.length - 1
-  const selectionIncludeNewline = selection.includes('\n')
+export const replaceSelection = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, replaceText: string): void => {
+  const contentLines = content.split('\n')
+  const replaceTextLines = replaceText.split('\n')
+  const numberOfExtraLines = replaceTextLines.length - 1
+  const selectionIncludeNewline = replaceText.includes('\n')
   if (startPosition.line === endPosition.line) {
     if (!selectionIncludeNewline) {
-      lines[startPosition.line] = lines[startPosition.line].slice(0, startPosition.ch) + selection + lines[startPosition.line].slice(endPosition.ch)
+      contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceText + contentLines[startPosition.line].slice(endPosition.ch)
     } else {
-      for (let i = lines.length - 1; i > startPosition.line; i--) {
-        lines[i + extraLines] = lines[i]
+      for (let i = contentLines.length - 1; i > startPosition.line; i--) {
+        contentLines[i + numberOfExtraLines] = contentLines[i]
       }
-      const lastPart = lines[startPosition.line].slice(endPosition.ch)
-      lines[startPosition.line] = lines[startPosition.line].slice(0, startPosition.ch) + newLines[0]
-      let j = 1
-      for (let i = 0; i < extraLines; i++) {
-        lines[i + startPosition.line + 1] = newLines[j]
-        j++
+      const lastPart = contentLines[startPosition.line].slice(endPosition.ch)
+      contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceTextLines[0]
+      for (let i = 0; i < numberOfExtraLines; i++) {
+        contentLines[i + startPosition.line + 1] = replaceTextLines[i + 1]
       }
-      lines[extraLines + startPosition.line] += lastPart
+      contentLines[numberOfExtraLines + startPosition.line] += lastPart
     }
   }
   if (startPosition.line !== endPosition.line && startPosition.ch !== endPosition.ch) {
-    for (let i = lines.length - 1; i > endPosition.line; i--) {
-      lines[i + extraLines] = lines[i]
+    for (let i = contentLines.length - 1; i > endPosition.line; i--) {
+      contentLines[i + numberOfExtraLines] = contentLines[i]
     }
-    let j = 0
-    for (let i = 0; i <= extraLines; i++) {
-      lines[i + startPosition.line] = newLines[j]
-      j++
+    for (let i = 0; i <= numberOfExtraLines; i++) {
+      contentLines[i + startPosition.line] = replaceTextLines[i]
     }
   }
-  onContentChange(lines.join('\n'))
+  onContentChange(contentLines.join('\n'))
 }
 
 export const extractSelection = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position): string => {
