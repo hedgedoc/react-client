@@ -32,11 +32,11 @@ const TaskBar: React.FC = () => {
         <HelpButton/>
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
-        <Button className="ml-2 text-secondary" size="sm" variant="outline-light">
+        <Button className="mx-2" size="sm" variant="primary">
           <ForkAwesomeIcon icon="plus"/> <Trans i18nKey="editor.menu.new"/>
         </Button>
         <ShowIf condition={!user}>
-          <SignInButton />
+          <SignInButton size={'sm'} />
         </ShowIf>
         <ShowIf condition={!!user}>
           <UserDropdown />

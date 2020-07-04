@@ -7,10 +7,10 @@ import { PermissionSelector } from './permission-selector'
 
 export const DocumentBar: React.FC = () => {
   return (
-    <div className={'document-bar bg-light px-2 py-2 d-flex flex-row align-items-center'}>
+    <div className={'document-bar bg-light px-3 py-2 d-flex flex-row align-items-center'}>
       <DocTimestampOwner/>
       <PermissionSelector/>
-      <div className="text-secondary ml-auto">
+      <div className="text-secondary ml-auto mr-2">
         <EditorMenu/>
       </div>
       <ConnectionIndicator/>
