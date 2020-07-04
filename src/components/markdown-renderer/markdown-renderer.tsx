@@ -209,7 +209,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         }
       })
     }
-    md.use(markdownItTaskLists)
+    md.use(markdownItTaskLists, { lineNumber: true })
     if (plantumlServer) {
       md.use(plantuml, {
         openMarker: '```plantuml',
