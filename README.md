@@ -1,5 +1,7 @@
 # CodiMD - React Client
 
+[![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/)
+
 This is the new, improved and better looking frontend for CodiMD 2.0.
 Our goal is to recreate the current frontend in react and to improve it.
 
