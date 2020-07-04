@@ -29,13 +29,13 @@ describe('Intro', () => {
   })
 
   describe('Version', () => {
-    it('open', () => {
+    it('can be opened', () => {
       cy.get('#versionModal').should('not.be.visible')
       cy.get('#version').click()
       cy.get('#versionModal').should('be.visible')
     })
 
-    it('close', () => {
+    it('can be closed', () => {
       cy.get('#versionModal').should('not.be.visible')
       cy.get('#version').click()
       cy.get('#versionModal').should('be.visible')
