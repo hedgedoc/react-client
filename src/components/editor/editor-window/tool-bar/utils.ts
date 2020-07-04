@@ -74,3 +74,44 @@ export const createList = (content: string, startPosition: CodeMirror.Position, 
   }
   onContentChange(lines.join('\n'))
 }
+
+export const addHeaderLevel = (content: string, startPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
+  const lines = content.split('\n')
+  const startLine = lines[startPosition.line]
+  const isHeadingAlready = startLine.startsWith('#')
+  lines[startPosition.line] = `#${!isHeadingAlready ? ' ' : ''}${startLine}`
+  onContentChange(lines.join('\n'))
+}
+
+export const addLink = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
+  const selection = extractSelection(content, startPosition, endPosition)
+  // the link detection should be improved
+  if (selection.startsWith('http')) {
+    updateSelection(content, startPosition, endPosition, onContentChange, `[](${selection})`)
+  } else {
+    updateSelection(content, startPosition, endPosition, onContentChange, `[${selection}]()`)
+  }
+}
+
+export const addQuotes = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
+  const selection = extractSelection(content, startPosition, endPosition)
+  if (selection === '') {
+    updateSelection(content, startPosition, endPosition, onContentChange, '> ')
+  } else {
+    const selectedLines = selection.split('\n')
+    for (let i = 0; i < selectedLines.length - 1; i++) {
+      selectedLines[i] = `> ${selectedLines[i]}`
+    }
+    updateSelection(content, startPosition, endPosition, onContentChange, selectedLines.join('\n'))
+  }
+}
+
+export const addCodeFences = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
+  const selection = extractSelection(content, startPosition, endPosition)
+  updateSelection(content, startPosition, endPosition, onContentChange, `\`\`\`\n${selection}\n\`\`\``)
+}
+
+export const addImage = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
+  const selection = extractSelection(content, startPosition, endPosition)
+  updateSelection(content, startPosition, endPosition, onContentChange, `![${selection}](https://)`)
+}

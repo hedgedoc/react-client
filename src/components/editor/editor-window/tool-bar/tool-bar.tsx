@@ -3,7 +3,16 @@ import React from 'react'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './tool-bar.scss'
-import { addMarkup, createList, extractSelection, updateSelection } from './utils'
+import {
+  addCodeFences,
+  addHeaderLevel,
+  addImage,
+  addLink,
+  addMarkup,
+  addQuotes,
+  createList,
+  updateSelection
+} from './utils'
 
 export interface ToolBarProps {
   content: string
@@ -18,7 +27,6 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
   }
 
   const changeSelection = (selection: string) => updateSelection(content, startPosition, endPosition, onContentChange, selection)
-  const getSelection = () => extractSelection(content, startPosition, endPosition)
 
   const makeSelectionBold = () => addMarkup(content, startPosition, endPosition, onContentChange, '**')
   const makeSelectionItalic = () => addMarkup(content, startPosition, endPosition, onContentChange, '*')
@@ -27,47 +35,6 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
   const addList = () => createList(content, startPosition, endPosition, onContentChange, () => '-')
   const addOrderedList = () => createList(content, startPosition, endPosition, onContentChange, j => `${j}.`)
   const addTaskList = () => createList(content, startPosition, endPosition, onContentChange, () => '- [ ]')
-
-  const addHeaderLevel = () => {
-    const lines = content.split('\n')
-    const startLine = lines[startPosition.line]
-    const isHeadingAlready = startLine.startsWith('#')
-    lines[startPosition.line] = `#${!isHeadingAlready ? ' ' : ''}${startLine}`
-    onContentChange(lines.join('\n'))
-  }
-
-  const addCodeFences = () => {
-    const selection = getSelection()
-    changeSelection(`\`\`\`\n${selection}\n\`\`\``)
-  }
-
-  const addQuotes = () => {
-    const selection = getSelection()
-    if (selection === '') {
-      changeSelection('> ')
-    } else {
-      const selectedLines = selection.split('\n')
-      for (let i = 0; i < selectedLines.length - 1; i++) {
-        selectedLines[i] = `> ${selectedLines[i]}`
-      }
-      changeSelection(selectedLines.join('\n'))
-    }
-  }
-
-  const addLink = () => {
-    const selection = getSelection()
-    // the link detection should be improved
-    if (selection.startsWith('http')) {
-      changeSelection(`[](${selection})`)
-    } else {
-      changeSelection(`[${selection}]()`)
-    }
-  }
-
-  const addImage = () => {
-    const selection = getSelection()
-    changeSelection(`![${selection}](https://)`)
-  }
 
   const addLine = () => changeSelection('----')
   const addComment = () => changeSelection('> []')
@@ -84,13 +51,13 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
       <Button onClick={strikeThroughSelection}>
         <ForkAwesomeIcon icon="strikethrough"/>
       </Button>
-      <Button onClick={addHeaderLevel}>
+      <Button onClick={() => addHeaderLevel(content, startPosition, onContentChange)}>
         <ForkAwesomeIcon icon="header"/>
       </Button>
-      <Button onClick={addCodeFences}>
+      <Button onClick={() => addCodeFences(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="code"/>
       </Button>
-      <Button onClick={addQuotes}>
+      <Button onClick={() => addQuotes(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="quote-right"/>
       </Button>
       <Button onClick={addList}>
@@ -102,10 +69,10 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
       <Button onClick={addTaskList}>
         <ForkAwesomeIcon icon="check-square"/>
       </Button>
-      <Button onClick={addLink}>
+      <Button onClick={() => addLink(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="link"/>
       </Button>
-      <Button onClick={addImage}>
+      <Button onClick={() => addImage(content, startPosition, endPosition, onContentChange)}>
         <ForkAwesomeIcon icon="picture-o"/>
       </Button>
       <Button onClick={notImplemented}>
