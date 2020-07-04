@@ -88,24 +88,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
         }}
         onSelection={(editor, data: SelectionData) => {
           const { anchor, head } = data.ranges[0]
-          let headFirst = false
-          if (anchor.line < head.line) {
-            headFirst = false
-          }
-
-          if (head.line < anchor.line) {
-            headFirst = true
-          }
-
-          if (anchor.line === head.line) {
-            if (anchor.ch < head.ch) {
-              headFirst = false
-            }
-
-            if (head.ch < anchor.ch) {
-              headFirst = true
-            }
-          }
+          const headFirst = head.line < anchor.line || (head.line === anchor.line && head.ch < anchor.ch)
 
           setStartPosition({
             line: headFirst ? head.line : anchor.line,
