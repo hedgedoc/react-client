@@ -67,6 +67,7 @@ export const HelpButton: React.FC = () => {
                   </Card.Text>
                 </Card.Body>
               </Card>
+              <br/>
               <Card>
                 <Card.Header><Trans i18nKey='editor.help.documents.title'/></Card.Header>
                 <Card.Body>
