@@ -12,7 +12,7 @@ import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/keymap/sublime.js'
 import 'codemirror/mode/gfm/gfm.js'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
@@ -23,19 +23,50 @@ export interface EditorWindowProps {
   content: string
 }
 
+export interface Position {
+  startPosition: CodeMirror.Position
+  endPosition: CodeMirror.Position
+}
+
 const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
   const { t } = useTranslation()
-  const [startPosition, setStartPosition] = useState<CodeMirror.Position>({ ch: 0, line: 0 })
-  const [endPosition, setEndPosition] = useState<CodeMirror.Position>({ ch: 0, line: 0 })
+  const [position, setPosition] = useState<Position>({
+    startPosition: {
+      ch: 0,
+      line: 0
+    },
+    endPosition: {
+      ch: 0,
+      line: 0
+    }
+  })
+
+  const onSelection = useCallback((editor, data: SelectionData) => {
+    const { anchor, head } = data.ranges[0]
+    const headFirst = head.line < anchor.line || (head.line === anchor.line && head.ch < anchor.ch)
+
+    setPosition({
+      startPosition: {
+        line: headFirst ? head.line : anchor.line,
+        ch: headFirst ? head.ch : anchor.ch
+      },
+      endPosition: {
+        line: headFirst ? anchor.line : head.line,
+        ch: headFirst ? anchor.ch : head.ch
+      }
+    })
+  }, [])
 
   useEffect(() => {
-    setStartPosition({
-      line: 0,
-      ch: 0
-    })
-    setEndPosition({
-      line: 0,
-      ch: 0
+    setPosition({
+      startPosition: {
+        ch: 0,
+        line: 0
+      },
+      endPosition: {
+        ch: 0,
+        line: 0
+      }
     })
   }, [content])
 
@@ -44,8 +75,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
       <ToolBar
         content={content}
         onContentChange={onContentChange}
-        startPosition={startPosition}
-        endPosition={endPosition}
+        position={position}
       />
       <ControlledCodeMirror
         className="overflow-hidden w-100 flex-fill"
@@ -86,20 +116,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
-        onSelection={(editor, data: SelectionData) => {
-          const { anchor, head } = data.ranges[0]
-          const headFirst = head.line < anchor.line || (head.line === anchor.line && head.ch < anchor.ch)
-
-          setStartPosition({
-            line: headFirst ? head.line : anchor.line,
-            ch: headFirst ? head.ch : anchor.ch
-          })
-
-          setEndPosition({
-            line: headFirst ? anchor.line : head.line,
-            ch: headFirst ? anchor.ch : head.ch
-          })
-        }}
+        onSelection={onSelection}
       />
     </div>
   )
