@@ -109,56 +109,56 @@ describe('Links Intro', () => {
 
   describe('Powered By Links', () => {
     it('CodiMD', () => {
-      cy.get('a#codimd')
+      cy.get('a[href="https://codimd.org"]')
         .checkExternalLink('https://codimd.org')
     })
 
     it('Releases', () => {
-      cy.get('a#releases')
+      cy.get('a[href*="/n/release-notes"]')
         .click()
       cy.url()
         .should('include', '/n/release-notes')
     })
 
     it('Privacy', () => {
-      cy.get('a#privacy')
+      cy.get('a[href="https://example.com/privacy"]')
         .checkExternalLink('https://example.com/privacy')
     })
 
     it('TermsOfUse', () => {
-      cy.get('a#termsOfUse')
+      cy.get('a[href="https://example.com/termsOfUse"]')
         .checkExternalLink('https://example.com/termsOfUse')
     })
 
     it('Imprint', () => {
-      cy.get('a#imprint')
+      cy.get('a[href="https://example.com/imprint"]')
         .checkExternalLink('https://example.com/imprint')
     })
   })
 
   describe('Follow us Links', () => {
     it('Github', () => {
-      cy.get('a#github')
+      cy.get('a[href="https://github.com/codimd/server"]')
         .checkExternalLink('https://github.com/codimd/server')
     })
 
     it('Discourse', () => {
-      cy.get('a#discourse')
+      cy.get('a[href="https://community.codimd.org"]')
         .checkExternalLink('https://community.codimd.org')
     })
 
     it('Matrix', () => {
-      cy.get('a#matrix')
+      cy.get('a[href="https://riot.im/app/#/room/#codimd:matrix.org"]')
         .checkExternalLink('https://riot.im/app/#/room/#codimd:matrix.org')
     })
 
     it('Mastodon', () => {
-      cy.get('a#mastodon')
+      cy.get('a[href="https://social.codimd.org/mastodon"]')
         .checkExternalLink('https://social.codimd.org/mastodon')
     })
 
     it('POEditor', () => {
-      cy.get('a#poeditor')
+      cy.get('a[href="https://translate.codimd.org"]')
         .checkExternalLink('https://translate.codimd.org')
     })
   })
