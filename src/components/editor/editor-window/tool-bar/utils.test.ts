@@ -7,7 +7,7 @@ import {
   addQuotes,
   createList,
   removeLastNewLine,
-  updateSelection
+  replaceSelection
 } from './utils'
 
 const testContent = '1st line\n2nd line\n3rd line'
@@ -248,21 +248,21 @@ describe('test addImage', () => {
 
 describe('test changeSelection', () => {
   it('just cursor', done => {
-    updateSelection(testContent, cursor.startPosition, cursor.endPosition, content => {
+    replaceSelection(testContent, cursor.startPosition, cursor.endPosition, content => {
       expect(content).toEqual('----' + testContent)
       done()
     }, '----')
   })
 
   it('1st line', done => {
-    updateSelection(testContent, firstLine.startPosition, firstLine.endPosition, content => {
+    replaceSelection(testContent, firstLine.startPosition, firstLine.endPosition, content => {
       expect(content).toEqual('----\n2nd line\n3rd line')
       done()
     }, '----')
   })
 
   it('multiple lines', done => {
-    updateSelection(testContent, multiline.startPosition, multiline.endPosition, content => {
+    replaceSelection(testContent, multiline.startPosition, multiline.endPosition, content => {
       expect(content).toEqual('1st line\n----\n3rd line')
       done()
     }, '----')

@@ -11,7 +11,7 @@ import {
   addMarkup,
   addQuotes,
   createList,
-  updateSelection
+  replaceSelection
 } from './utils'
 
 export interface ToolBarProps {
@@ -26,7 +26,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, startPosition, endPos
     alert('This feature is not yet implemented')
   }
 
-  const changeSelection = (selection: string) => updateSelection(content, startPosition, endPosition, onContentChange, selection)
+  const changeSelection = (selection: string) => replaceSelection(content, startPosition, endPosition, onContentChange, selection)
 
   const makeSelectionBold = () => addMarkup(content, startPosition, endPosition, onContentChange, '**')
   const makeSelectionItalic = () => addMarkup(content, startPosition, endPosition, onContentChange, '*')

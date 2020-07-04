@@ -1,6 +1,6 @@
 import CodeMirror from 'codemirror'
 
-export const updateSelection = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, selection: string): void => {
+export const replaceSelection = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, selection: string): void => {
   const lines = content.split('\n')
   const newLines = selection.split('\n')
   const extraLines = newLines.length - 1
@@ -70,7 +70,7 @@ export const addMarkup = (content: string, startPosition: CodeMirror.Position, e
   if (selection === '') {
     return
   }
-  updateSelection(content, startPosition, endPosition, onContentChange, `${markUp}${selection}${markUp}`)
+  replaceSelection(content, startPosition, endPosition, onContentChange, `${markUp}${selection}${markUp}`)
 }
 
 export const createList = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, listMark: (j: number) => string): void => {
@@ -95,34 +95,34 @@ export const addLink = (content: string, startPosition: CodeMirror.Position, end
   const selection = extractSelection(content, startPosition, endPosition)
   // the link detection should be improved
   if (selection.startsWith('http')) {
-    updateSelection(content, startPosition, endPosition, onContentChange, `[](${selection})`)
+    replaceSelection(content, startPosition, endPosition, onContentChange, `[](${selection})`)
   } else {
-    updateSelection(content, startPosition, endPosition, onContentChange, `[${selection}]()`)
+    replaceSelection(content, startPosition, endPosition, onContentChange, `[${selection}]()`)
   }
 }
 
 export const addQuotes = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
   const selection = extractSelection(content, startPosition, endPosition)
   if (selection === '') {
-    updateSelection(content, startPosition, endPosition, onContentChange, '> ')
+    replaceSelection(content, startPosition, endPosition, onContentChange, '> ')
   } else if (!selection.includes('\n')) {
     const lines = content.split('\n')
-    updateSelection(content, startPosition, endPosition, onContentChange, '> ' + lines[startPosition.line])
+    replaceSelection(content, startPosition, endPosition, onContentChange, '> ' + lines[startPosition.line])
   } else {
     const selectedLines = selection.split('\n')
     for (let i = 0; i < selectedLines.length; i++) {
       selectedLines[i] = `> ${selectedLines[i]}`
     }
-    updateSelection(content, startPosition, endPosition, onContentChange, selectedLines.join('\n'))
+    replaceSelection(content, startPosition, endPosition, onContentChange, selectedLines.join('\n'))
   }
 }
 
 export const addCodeFences = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
   const selection = extractSelection(content, startPosition, endPosition)
-  updateSelection(content, startPosition, endPosition, onContentChange, `\`\`\`\n${selection}\n\`\`\``)
+  replaceSelection(content, startPosition, endPosition, onContentChange, `\`\`\`\n${selection}\n\`\`\``)
 }
 
 export const addImage = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
   const selection = extractSelection(content, startPosition, endPosition)
-  updateSelection(content, startPosition, endPosition, onContentChange, `![${selection}](https://)`)
+  replaceSelection(content, startPosition, endPosition, onContentChange, `![${selection}](https://)`)
 }
