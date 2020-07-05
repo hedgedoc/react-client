@@ -23,14 +23,14 @@ export interface EditorWindowProps {
   content: string
 }
 
-export interface Position {
+export interface Positions {
   startPosition: CodeMirror.Position
   endPosition: CodeMirror.Position
 }
 
 const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
   const { t } = useTranslation()
-  const [position, setPosition] = useState<Position>({
+  const [positions, setPositions] = useState<Positions>({
     startPosition: {
       ch: 0,
       line: 0
@@ -45,7 +45,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
     const { anchor, head } = data.ranges[0]
     const headFirst = head.line < anchor.line || (head.line === anchor.line && head.ch < anchor.ch)
 
-    setPosition({
+    setPositions({
       startPosition: {
         line: headFirst ? head.line : anchor.line,
         ch: headFirst ? head.ch : anchor.ch
@@ -58,7 +58,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
   }, [])
 
   useEffect(() => {
-    setPosition({
+    setPositions({
       startPosition: {
         ch: 0,
         line: 0
@@ -75,7 +75,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
       <ToolBar
         content={content}
         onContentChange={onContentChange}
-        position={position}
+        positions={positions}
       />
       <ControlledCodeMirror
         className="overflow-hidden w-100 flex-fill"
