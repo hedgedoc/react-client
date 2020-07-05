@@ -14,6 +14,7 @@ import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import mathJax from 'markdown-it-mathjax'
 import markdownItRegex from 'markdown-it-regex'
+import plantuml from 'markdown-it-plantuml'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import taskList from 'markdown-it-task-lists'
@@ -127,6 +128,11 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       })
     }
     md.use(taskList)
+    md.use(plantuml, {
+      openMarker: '```plantuml',
+      closeMarker: '```',
+      server: 'http://www.plantuml.com/plantuml'
+    })
     md.use(emoji)
     md.use(abbreviation)
     md.use(definitionList)
