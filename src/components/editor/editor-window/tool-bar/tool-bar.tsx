@@ -25,8 +25,6 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, position, onContentCh
     alert('This feature is not yet implemented')
   }
 
-  const changeSelection = (selection: string) => replaceSelection(content, position.startPosition, position.endPosition, onContentChange, selection)
-
   const makeSelectionBold = () => addMarkup(content, position.startPosition, position.endPosition, onContentChange, '**')
   const makeSelectionItalic = () => addMarkup(content, position.startPosition, position.endPosition, onContentChange, '*')
   const strikeThroughSelection = () => addMarkup(content, position.startPosition, position.endPosition, onContentChange, '~~')
@@ -35,9 +33,9 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, position, onContentCh
   const addOrderedList = () => createList(content, position.startPosition, position.endPosition, onContentChange, j => `${j}.`)
   const addTaskList = () => createList(content, position.startPosition, position.endPosition, onContentChange, () => '- [ ]')
 
-  const addLine = () => changeSelection('----')
-  const addComment = () => changeSelection('> []')
-  const addTable = () => changeSelection('| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |')
+  const addLine = () => replaceSelection(content, position.startPosition, position.endPosition, onContentChange, '----')
+  const addComment = () => replaceSelection(content, position.startPosition, position.endPosition, onContentChange, '> []')
+  const addTable = () => replaceSelection(content, position.startPosition, position.endPosition, onContentChange, '| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |')
 
   return (
     <ButtonToolbar className='flex-nowrap bg-light'>
