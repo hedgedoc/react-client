@@ -13,7 +13,7 @@ export interface RawYAMLMetadata {
   GA: string | undefined
   disqus: string | undefined
   type: string | undefined
-  // slideOptions: RevealOptions | undefined
+  slideOptions: any
   opengraph: any
 }
 

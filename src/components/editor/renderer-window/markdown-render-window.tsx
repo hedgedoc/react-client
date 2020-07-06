@@ -6,13 +6,15 @@ import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../common/show-if/show-if'
 import { MarkdownRenderer } from '../markdown-renderer/markdown-renderer'
 import { MarkdownToc } from '../markdown-toc/markdown-toc'
+import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 
 interface RenderWindowProps {
   content: string
+  onMetadataChange: (metaData: YAMLMetaData | null) => void
   wide?: boolean
 }
 
-export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, wide }) => {
+export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, onMetadataChange, wide }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const renderer = useRef<HTMLDivElement>(null)
   const { width } = useResizeObserver({ ref: renderer })
@@ -27,7 +29,7 @@ export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, wid
         content={content}
         wide={wide}
         onTocChange={(tocAst) => setTocAst(tocAst)}
-        onMetaDataChange={(metaData) => console.log(metaData)}/>
+        onMetaDataChange={onMetadataChange}/>
 
       <div className={`col-md d-flex flex-column ${realWidth < 1280 ? 'justify-content-end' : ''}`}>
         <ShowIf condition={realWidth >= 1280 && !!tocAst}>

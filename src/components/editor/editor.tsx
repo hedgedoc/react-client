@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import useMedia from 'use-media'
 import { ApplicationState } from '../../redux'
@@ -9,6 +9,7 @@ import { EditorWindow } from './editor-window/editor-window'
 import { MarkdownRenderWindow } from './renderer-window/markdown-render-window'
 import { EditorMode } from './task-bar/editor-view-mode'
 import { TaskBar } from './task-bar/task-bar'
+import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
 const Editor: React.FC = () => {
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
@@ -66,6 +67,15 @@ let a = 1
 `)
   const isWide = useMedia({ minWidth: 576 })
   const [firstDraw, setFirstDraw] = useState(true)
+  const noteMetadata = useRef<YAMLMetaData>()
+
+  const onMetadataChange = useCallback((metaData: YAMLMetaData | null) => {
+    if (!metaData) {
+      return
+    }
+    noteMetadata.current = metaData
+    console.debug(metaData)
+  }, [])
 
   useEffect(() => {
     setFirstDraw(false)
@@ -86,7 +96,7 @@ let a = 1
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={<MarkdownRenderWindow content={markdownContent} wide={editorMode === EditorMode.PREVIEW} />}
+          right={<MarkdownRenderWindow content={markdownContent} wide={editorMode === EditorMode.PREVIEW} onMetadataChange={onMetadataChange} />}
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>
