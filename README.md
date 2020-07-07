@@ -18,6 +18,14 @@ This should run the app in the development mode and open [http://localhost:3000]
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 
+### Tests
+
+#### Unit
+
+Unit testing is done via jest.
+
+1. `yarn test`
+
 ## Production mode
 
 1. Clone this repo (e.g. `git clone https://github.com/codimd/react-client.git codimd-react-client`)
