@@ -18,7 +18,7 @@ export const replaceSelection = (content: string, startPosition: CodeMirror.Posi
     contentLines.splice(startPosition.line + 1, replaceTextLines.length - 1, ...replaceTextLines.slice(1))
     console.debug(contentLines)
     console.debug(lastPart, numberOfExtraLines + startPosition.line)
-    contentLines[numberOfExtraLines + startPosition.line] += lastPart
+    contentLines[numberOfExtraLines + endPosition.line] += lastPart
     console.debug(contentLines)
   }
   onContentChange(contentLines.join('\n'))
@@ -97,11 +97,11 @@ export const addQuotes = (content: string, startPosition: CodeMirror.Position, e
     const lines = content.split('\n')
     replaceSelection(content, startPosition, endPosition, onContentChange, '> ' + lines[startPosition.line])
   } else {
-    const selectedLines = selection.split('\n')
-    for (let i = 0; i < selectedLines.length; i++) {
-      selectedLines[i] = `> ${selectedLines[i]}`
+    const lines = content.split('\n')
+    for (let i = startPosition.line; i <= endPosition.line; i++) {
+      lines[i] = `> ${lines[i]}`
     }
-    replaceSelection(content, startPosition, endPosition, onContentChange, selectedLines.join('\n'))
+    onContentChange(lines.join('\n'))
   }
 }
 
