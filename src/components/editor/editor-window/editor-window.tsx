@@ -11,7 +11,7 @@ import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/keymap/sublime.js'
 import 'codemirror/mode/gfm/gfm.js'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
@@ -36,19 +36,6 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
     }
   })
 
-  const onCursor = useCallback((editor, data: CodeMirror.Position) => {
-    setPositions({
-      startPosition: {
-        line: data.line,
-        ch: data.ch
-      },
-      endPosition: {
-        line: data.line,
-        ch: data.ch
-      }
-    })
-  }, [])
-
   const onSelection = useCallback((editor, data: SelectionData) => {
     const { anchor, head } = data.ranges[0]
     const headFirst = head.line < anchor.line || (head.line === anchor.line && head.ch < anchor.ch)
@@ -64,19 +51,6 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
       }
     })
   }, [])
-
-  useEffect(() => {
-    setPositions({
-      startPosition: {
-        ch: 0,
-        line: 0
-      },
-      endPosition: {
-        ch: 0,
-        line: 0
-      }
-    })
-  }, [content])
 
   return (
     <div className={'d-flex flex-column h-100'}>
@@ -96,7 +70,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           styleActiveLine: true,
           lineNumbers: true,
           lineWrapping: true,
-          showCursorWhenSelecting: true,
+          showCursorWhenSelecting: false,
           highlightSelectionMatches: true,
           indentUnit: 4,
           //    continueComments: 'Enter',
@@ -123,7 +97,6 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
-        onCursor={onCursor}
         onSelection={onSelection}
       />
     </div>
