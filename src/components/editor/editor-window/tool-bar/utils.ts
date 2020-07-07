@@ -5,26 +5,21 @@ export const replaceSelection = (content: string, startPosition: CodeMirror.Posi
   const replaceTextLines = replaceText.split('\n')
   const numberOfExtraLines = replaceTextLines.length - 1 - (endPosition.line - startPosition.line)
   const replaceTextIncludeNewline = replaceText.includes('\n')
-  if (startPosition.line === endPosition.line) {
-    if (!replaceTextIncludeNewline) {
-      contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceText + contentLines[startPosition.line].slice(endPosition.ch)
-    } else {
-      for (let i = contentLines.length - 1; i > endPosition.line; i--) {
-        contentLines[i + numberOfExtraLines] = contentLines[i]
-      }
-      const lastPart = contentLines[startPosition.line].slice(endPosition.ch)
-      contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceTextLines[0]
-      for (let i = 1; i <= numberOfExtraLines; i++) {
-        contentLines[i + startPosition.line] = replaceTextLines[i]
-      }
-      contentLines[numberOfExtraLines + startPosition.line] += lastPart
-    }
-  }
-  if (startPosition.line !== endPosition.line && startPosition.ch !== endPosition.ch) {
+  if (!replaceTextIncludeNewline) {
+    contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceText + contentLines[startPosition.line].slice(endPosition.ch)
+  } else {
+    const lastPart = contentLines[endPosition.line].slice(endPosition.ch)
     for (let i = contentLines.length - 1; i > endPosition.line; i--) {
       contentLines[i + numberOfExtraLines] = contentLines[i]
     }
-    contentLines.splice(startPosition.line, replaceTextLines.length, ...replaceTextLines)
+    contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceTextLines[0]
+    console.debug(contentLines)
+    console.debug(startPosition, replaceTextLines.length, replaceTextLines)
+    contentLines.splice(startPosition.line + 1, replaceTextLines.length - 1, ...replaceTextLines.slice(1))
+    console.debug(contentLines)
+    console.debug(lastPart, numberOfExtraLines + startPosition.line)
+    contentLines[numberOfExtraLines + startPosition.line] += lastPart
+    console.debug(contentLines)
   }
   onContentChange(contentLines.join('\n'))
 }
@@ -86,7 +81,6 @@ export const addHeaderLevel = (content: string, startPosition: CodeMirror.Positi
 
 export const addLink = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
   const selection = extractSelection(content, startPosition, endPosition)
-  // the link detection should be improved
   const linkRegex = /^(?:https?|ftp|mailto):/
   if (linkRegex.exec(selection)) {
     replaceSelection(content, startPosition, endPosition, onContentChange, `[](${selection})`)

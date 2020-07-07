@@ -195,26 +195,26 @@ describe('test createList', () => {
 describe('test addLink', () => {
   it('just cursor', done => {
     addLink(testContent, cursor.startPosition, cursor.endPosition, content => {
-      expect(content).toEqual('[]()' + testContent)
+      expect(content).toEqual('[](https://)' + testContent)
       done()
     })
   })
 
   it('1st line', done => {
     addLink(testContent, firstLine.startPosition, firstLine.endPosition, content => {
-      expect(content).toEqual('[1st line]()\n2nd line\n3rd line')
+      expect(content).toEqual('[1st line](https://)\n2nd line\n3rd line')
       done()
     })
   })
 
   it('multiple lines', done => {
     addLink(testContent, multiline.startPosition, multiline.endPosition, content => {
-      expect(content).toEqual('1st line\n[2nd line\n3rd line]()')
+      expect(content).toEqual('1st line\n[2nd line\n3rd line](https://)')
       done()
     })
   })
 
-  it('line with ', done => {
+  it('line with link', done => {
     const link = 'http://example.com'
     addLink(link, firstLine.startPosition, { line: 0, ch: link.length }, content => {
       expect(content).toEqual(`[](${link})`)
