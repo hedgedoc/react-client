@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import { Positions } from '../editor-window'
+import { Positions } from '../interfaces'
 import './tool-bar.scss'
 import {
   addCodeFences,
