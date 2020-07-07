@@ -87,10 +87,11 @@ export const addHeaderLevel = (content: string, startPosition: CodeMirror.Positi
 export const addLink = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
   const selection = extractSelection(content, startPosition, endPosition)
   // the link detection should be improved
-  if (selection.startsWith('http')) {
+  const linkRegex = /^(?:https?|ftp|mailto):/
+  if (linkRegex.exec(selection)) {
     replaceSelection(content, startPosition, endPosition, onContentChange, `[](${selection})`)
   } else {
-    replaceSelection(content, startPosition, endPosition, onContentChange, `[${selection}]()`)
+    replaceSelection(content, startPosition, endPosition, onContentChange, `[${selection}](https://)`)
   }
 }
 
