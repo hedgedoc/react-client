@@ -20,4 +20,4 @@
   "env": {
     "cypress/globals": true
   }
-  }
+}
