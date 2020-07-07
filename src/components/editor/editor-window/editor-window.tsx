@@ -106,8 +106,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           // autoRefresh: true,
           // otherCursors: true
           placeholder: t('editor.placeholder')
-        }
-        }
+        }}
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
