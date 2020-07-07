@@ -1,4 +1,3 @@
-import CodeMirror from 'codemirror'
 import 'codemirror/addon/comment/comment'
 import 'codemirror/addon/display/placeholder'
 import 'codemirror/addon/edit/closebrackets'
@@ -16,6 +15,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
+import { Positions, SelectionData } from './interfaces'
 import { ToolBar } from './tool-bar/tool-bar'
 
 export interface EditorWindowProps {
@@ -23,12 +23,7 @@ export interface EditorWindowProps {
   content: string
 }
 
-export interface Positions {
-  startPosition: CodeMirror.Position
-  endPosition: CodeMirror.Position
-}
-
-const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
+export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
   const { t } = useTranslation()
   const [positions, setPositions] = useState<Positions>({
     startPosition: {
@@ -121,14 +116,3 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content })
     </div>
   )
 }
-
-interface SelectionData {
-  ranges: AnchorAndHead[]
-}
-
-interface AnchorAndHead {
-  anchor: CodeMirror.Position
-  head: CodeMirror.Position
-}
-
-export { EditorWindow }
