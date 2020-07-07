@@ -13,13 +13,8 @@ export const replaceSelection = (content: string, startPosition: CodeMirror.Posi
       contentLines[i + numberOfExtraLines] = contentLines[i]
     }
     contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceTextLines[0]
-    console.debug(contentLines)
-    console.debug(startPosition, replaceTextLines.length, replaceTextLines)
     contentLines.splice(startPosition.line + 1, replaceTextLines.length - 1, ...replaceTextLines.slice(1))
-    console.debug(contentLines)
-    console.debug(lastPart, numberOfExtraLines + startPosition.line)
     contentLines[numberOfExtraLines + endPosition.line] += lastPart
-    console.debug(contentLines)
   }
   onContentChange(contentLines.join('\n'))
 }
