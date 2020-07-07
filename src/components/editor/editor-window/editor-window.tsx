@@ -70,7 +70,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           styleActiveLine: true,
           lineNumbers: true,
           lineWrapping: true,
-          showCursorWhenSelecting: false,
+          showCursorWhenSelecting: true,
           highlightSelectionMatches: true,
           indentUnit: 4,
           //    continueComments: 'Enter',
