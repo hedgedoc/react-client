@@ -53,7 +53,7 @@ export const extractSelection = (content: string, startPosition: CodeMirror.Posi
 
 export const removeLastNewLine = (selection: string): string => {
   if (selection.endsWith('\n')) {
-    selection = selection.slice(0, selection.length - 1)
+    selection = selection.slice(0, -1)
   }
   return selection
 }
