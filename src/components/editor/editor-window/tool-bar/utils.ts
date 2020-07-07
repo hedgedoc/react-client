@@ -9,9 +9,7 @@ export const replaceSelection = (content: string, startPosition: CodeMirror.Posi
     contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceText + contentLines[startPosition.line].slice(endPosition.ch)
   } else {
     const lastPart = contentLines[endPosition.line].slice(endPosition.ch)
-    for (let i = contentLines.length - 1; i > endPosition.line; i--) {
-      contentLines[i + numberOfExtraLines] = contentLines[i]
-    }
+    contentLines.push(...contentLines.slice(endPosition.line + 1))
     contentLines[startPosition.line] = contentLines[startPosition.line].slice(0, startPosition.ch) + replaceTextLines[0]
     contentLines.splice(startPosition.line + 1, replaceTextLines.length - 1, ...replaceTextLines.slice(1))
     contentLines[numberOfExtraLines + endPosition.line] += lastPart
