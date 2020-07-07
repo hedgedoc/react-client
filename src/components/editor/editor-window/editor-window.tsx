@@ -36,6 +36,19 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
     }
   })
 
+  const onCursor = useCallback((editor, data: CodeMirror.Position) => {
+    setPositions({
+      startPosition: {
+        line: data.line,
+        ch: data.ch
+      },
+      endPosition: {
+        line: data.line,
+        ch: data.ch
+      }
+    })
+  }, [])
+
   const onSelection = useCallback((editor, data: SelectionData) => {
     const { anchor, head } = data.ranges[0]
     const headFirst = head.line < anchor.line || (head.line === anchor.line && head.ch < anchor.ch)
@@ -110,6 +123,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
+        onCursor={onCursor}
         onSelection={onSelection}
       />
     </div>
