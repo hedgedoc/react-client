@@ -4,16 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { Positions } from '../interfaces'
 import './tool-bar.scss'
-import {
-  addCodeFences,
-  addHeaderLevel,
-  addImage,
-  addLink,
-  addMarkup,
-  addQuotes,
-  createList,
-  replaceSelection
-} from './utils'
+import { addCodeFences, addHeaderLevel, addLink, addMarkup, addQuotes, createList, replaceSelection } from './utils'
 
 export interface ToolBarProps {
   content: string
@@ -71,7 +62,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ content, positions, onContentC
       <Button variant='light' onClick={() => addLink(content, positions.startPosition, positions.endPosition, onContentChange)} title={t('editor.editorToolbar.link')}>
         <ForkAwesomeIcon icon="link"/>
       </Button>
-      <Button variant='light' onClick={() => addImage(content, positions.startPosition, positions.endPosition, onContentChange)} title={t('editor.editorToolbar.image')}>
+      <Button variant='light' onClick={() => addLink(content, positions.startPosition, positions.endPosition, onContentChange, '!')} title={t('editor.editorToolbar.image')}>
         <ForkAwesomeIcon icon="picture-o"/>
       </Button>
       <Button variant='light' onClick={notImplemented} title={t('editor.editorToolbar.uploadImage')}>

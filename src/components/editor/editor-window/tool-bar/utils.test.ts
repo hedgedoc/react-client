@@ -1,7 +1,6 @@
 import {
   addCodeFences,
   addHeaderLevel,
-  addImage,
   addLink,
   addMarkup,
   addQuotes,
@@ -294,31 +293,31 @@ describe('test addLink', () => {
 
 describe('test addImage', () => {
   it('just cursor', done => {
-    addImage(testContent, cursor.startPosition, cursor.endPosition, content => {
+    addLink(testContent, cursor.startPosition, cursor.endPosition, content => {
       expect(content).toEqual('![](https://)' + testContent)
       done()
-    })
+    }, '!')
   })
 
   it('1st line', done => {
-    addImage(testContent, firstLine.startPosition, firstLine.endPosition, content => {
+    addLink(testContent, firstLine.startPosition, firstLine.endPosition, content => {
       expect(content).toEqual('![1st line](https://)\n2nd line\n3rd line')
       done()
-    })
+    }, '!')
   })
 
   it('multiple lines', done => {
-    addImage(testContent, multiline.startPosition, multiline.endPosition, content => {
+    addLink(testContent, multiline.startPosition, multiline.endPosition, content => {
       expect(content).toEqual('1st line\n![2nd line\n3rd line](https://)')
       done()
-    })
+    }, '!')
   })
 
   it('multiple lines with offset', done => {
-    addImage(testContent, multilineOffset.startPosition, multilineOffset.endPosition, content => {
+    addLink(testContent, multilineOffset.startPosition, multilineOffset.endPosition, content => {
       expect(content).toEqual('1st line\n2nd ![line\n3rd ](https://)line')
       done()
-    })
+    }, '!')
   })
 })
 

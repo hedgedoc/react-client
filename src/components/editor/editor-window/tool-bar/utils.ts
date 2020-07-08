@@ -72,13 +72,13 @@ export const addHeaderLevel = (content: string, startPosition: CodeMirror.Positi
   onContentChange(lines.join('\n'))
 }
 
-export const addLink = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
+export const addLink = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void, prefix?: string): void => {
   const selection = extractSelection(content, startPosition, endPosition)
   const linkRegex = /^(?:https?|ftp|mailto):/
   if (linkRegex.exec(selection)) {
-    replaceSelection(content, startPosition, endPosition, onContentChange, `[](${selection})`)
+    replaceSelection(content, startPosition, endPosition, onContentChange, `${prefix || ''}[](${selection})`)
   } else {
-    replaceSelection(content, startPosition, endPosition, onContentChange, `[${selection}](https://)`)
+    replaceSelection(content, startPosition, endPosition, onContentChange, `${prefix || ''}[${selection}](https://)`)
   }
 }
 
@@ -101,9 +101,4 @@ export const addQuotes = (content: string, startPosition: CodeMirror.Position, e
 export const addCodeFences = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
   const selection = extractSelection(content, startPosition, endPosition)
   replaceSelection(content, startPosition, endPosition, onContentChange, `\`\`\`\n${selection}\n\`\`\``)
-}
-
-export const addImage = (content: string, startPosition: CodeMirror.Position, endPosition: CodeMirror.Position, onContentChange: (content: string) => void): void => {
-  const selection = extractSelection(content, startPosition, endPosition)
-  replaceSelection(content, startPosition, endPosition, onContentChange, `![${selection}](https://)`)
 }
