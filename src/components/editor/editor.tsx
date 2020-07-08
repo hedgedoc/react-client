@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import useMedia from 'use-media'
 import { ApplicationState } from '../../redux'
 import { setEditorModeConfig } from '../../redux/editor/methods'
+import { DocumentTitle } from '../common/document-title/document-title'
 import { Splitter } from '../common/splitter/splitter'
 import { InfoBanner } from '../landing/layout/info-banner'
 import { EditorWindow } from './editor-window/editor-window'
@@ -90,6 +91,7 @@ let a = 1
   return (
     <Fragment>
       <InfoBanner/>
+      <DocumentTitle title={noteMetadata.current?.title}/>
       <div className={'d-flex flex-column vh-100'}>
         <TaskBar/>
         <Splitter
