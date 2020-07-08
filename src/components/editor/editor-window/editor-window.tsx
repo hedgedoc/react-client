@@ -1,4 +1,7 @@
 import 'codemirror/addon/comment/comment'
+import 'codemirror/addon/comment/continuecomment'
+import 'codemirror/addon/display/autorefresh'
+import 'codemirror/addon/display/fullscreen'
 import 'codemirror/addon/display/placeholder'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
@@ -17,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
 import { Positions, SelectionData } from './interfaces'
 import { ToolBar } from './tool-bar/tool-bar'
+import { defaultKeyMap } from './key-map'
 
 export interface EditorWindowProps {
   onContentChange: (content: string) => void
@@ -73,7 +77,6 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           showCursorWhenSelecting: true,
           highlightSelectionMatches: true,
           indentUnit: 4,
-          //    continueComments: 'Enter',
           inputStyle: 'textarea',
           matchBrackets: true,
           autoCloseBrackets: true,
@@ -87,11 +90,11 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
             'authorship-gutters',
             'CodeMirror-foldgutter'
           ],
-          // extraKeys: this.defaultExtraKeys,
+          extraKeys: defaultKeyMap,
           flattenSpans: true,
           addModeClass: true,
-          // autoRefresh: true,
-          // otherCursors: true
+          autoRefresh: true,
+          // otherCursors: true,
           placeholder: t('editor.placeholder')
         }}
         onBeforeChange={(editor, data, value) => {
