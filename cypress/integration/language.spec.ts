@@ -17,8 +17,7 @@ describe('Languages', () => {
 
   it('language changes affect the UI', () => {
     cy.get('select')
-      .find(':selected')
-      .contains('English')
+      .select('English')
     cy.get('.d-inline-flex.btn-primary')
       .find('span')
       .contains('New note')
