@@ -1,5 +1,6 @@
 import { Editor } from 'codemirror'
-import { BaseEmoji, CustomEmoji, EmojiData } from 'emoji-mart'
+import { EmojiData } from 'emoji-mart'
+import { getEmojiShortCode } from '../../../../utils/emoji'
 
 export const makeSelectionBold = (editor: Editor): void => wrapTextWith(editor, '**')
 export const makeSelectionItalic = (editor: Editor): void => wrapTextWith(editor, '*')
@@ -23,14 +24,8 @@ export const addLine = (editor: Editor): void => changeLines(editor, line => `${
 export const addComment = (editor: Editor): void => changeLines(editor, line => `${line}\n> []`)
 export const addTable = (editor: Editor): void => changeLines(editor, line => `${line}\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |`)
 
-export const addEmoji = (emoji: EmojiData, editor: Editor): void => {
-  let replacement = ''
-  if ((emoji as BaseEmoji).colons) {
-    replacement = (emoji as BaseEmoji).colons
-  } else if ((emoji as CustomEmoji).imageUrl) {
-    // noinspection CheckTagEmptyBody
-    replacement = `<i class="fa ${(emoji as CustomEmoji).name}"></i>`
-  }
+export const addEmoji = (editor: Editor, emoji: EmojiData): void => {
+  const replacement = getEmojiShortCode(emoji)
   insertAtCursor(editor, replacement)
 }
 

@@ -17,7 +17,7 @@ import {
   addOrderedList,
   addQuotes,
   addTable,
-  addTaskList,
+  addTaskList, insertAtCursor,
   makeSelectionBold,
   makeSelectionItalic,
   strikeThroughSelection,
@@ -101,7 +101,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         </Button>
         <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
           setShowEmojiPicker(false)
-          addEmoji(emoji, editor)
+          addEmoji(editor, emoji)
         }} onDismiss={() => setShowEmojiPicker(false)}/>
         <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={''}>
           <ForkAwesomeIcon icon="smile-o"/>
