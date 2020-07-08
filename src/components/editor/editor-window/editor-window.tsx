@@ -63,7 +63,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
         positions={positions}
       />
       <ControlledCodeMirror
-        className="overflow-hidden w-100 flex-fill"
+        className="h-100 w-100 flex-fill"
         value={content}
         options={{
           mode: 'gfm',
@@ -76,6 +76,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           showCursorWhenSelecting: true,
           highlightSelectionMatches: true,
           indentUnit: 4,
+          continueComments: 'Enter',
           inputStyle: 'textarea',
           matchBrackets: true,
           autoCloseBrackets: true,
@@ -99,7 +100,6 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
-        onSelection={onSelection}
       />
     </div>
   )
