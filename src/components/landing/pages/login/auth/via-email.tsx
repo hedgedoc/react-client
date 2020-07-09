@@ -1,23 +1,38 @@
 import React, { FormEvent, useState } from 'react'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { doEmailLogin } from '../../../../../api/auth'
+import { doEmailLogin, doEmailRegister } from '../../../../../api/auth'
 import { getAndSetUser } from '../../../../../utils/apiUtils'
+
+enum EmailError {
+  NONE,
+  LOGIN,
+  REGISTER
+}
 
 export const ViaEMail: React.FC = () => {
   const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(EmailError.NONE)
 
   const doAsyncLogin = async () => {
     await doEmailLogin(email, password)
     await getAndSetUser()
   }
 
+  const doAsyncRegister = async () => {
+    await doEmailRegister(email, password)
+    await getAndSetUser()
+  }
+
   const onFormSubmit = (event: FormEvent) => {
-    doAsyncLogin().catch(() => setError(true))
+    doAsyncLogin().catch(() => setError(EmailError.LOGIN))
     event.preventDefault()
+  }
+
+  const onRegisterClick = () => {
+    doAsyncRegister().catch(() => setError(EmailError.REGISTER))
   }
 
   return (
@@ -29,7 +44,7 @@ export const ViaEMail: React.FC = () => {
         <Form onSubmit={onFormSubmit}>
           <Form.Group controlId="email">
             <Form.Control
-              isInvalid={error}
+              isInvalid={error !== EmailError.NONE}
               type="email"
               size="sm"
               placeholder={t('login.auth.email')}
@@ -39,7 +54,7 @@ export const ViaEMail: React.FC = () => {
 
           <Form.Group controlId="password">
             <Form.Control
-              isInvalid={error}
+              isInvalid={error !== EmailError.NONE}
               type="password"
               size="sm"
               placeholder={t('login.auth.password')}
@@ -47,16 +62,29 @@ export const ViaEMail: React.FC = () => {
               className="bg-dark text-white"/>
           </Form.Group>
 
-          <Alert className="small" show={error} variant="danger">
+          <Alert className="small" show={error === EmailError.LOGIN} variant="danger">
             <Trans i18nKey="login.auth.error.emailLogin"/>
           </Alert>
 
-          <Button
-            type="submit"
+          <Alert className="small" show={error === EmailError.REGISTER} variant="danger">
+            <Trans i18nKey="login.auth.error.emailRegister"/>
+          </Alert>
 
-            variant="primary">
-            <Trans i18nKey="login.signIn"/>
-          </Button>
+          <div className='flex flex-row email-buttons'>
+            <Button
+              type="submit"
+              variant="primary"
+              className='mx-2'>
+              <Trans i18nKey="login.signIn"/>
+            </Button>
+            <Button
+              type='button'
+              variant='secondary'
+              className='mx-2'
+              onClick={onRegisterClick}>
+              <Trans i18nKey='login.register'/>
+            </Button>
+          </div>
         </Form>
       </Card.Body>
     </Card>

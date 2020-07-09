@@ -292,6 +292,7 @@
             "error": {
                 "openIdLogin": "Invalid OpenID provided",
                 "emailLogin": "Invalid email or password",
+                "emailRegister": "Signup via email failed. Maybe there is already an account with that email address.",
                 "ldapLogin": "Invalid username or password"
             }
         }
