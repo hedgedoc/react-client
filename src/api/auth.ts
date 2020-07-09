@@ -38,3 +38,16 @@ export const doOpenIdLogin = async (openId: string): Promise<void> => {
 
   expectResponseCode(response)
 }
+
+export const doEmailRegister = async (email: string, password: string): Promise<void> => {
+  const response = await fetch(getBackendUrl() + '/auth/register', {
+    ...defaultFetchConfig,
+    method: 'POST',
+    body: JSON.stringify({
+      email: email,
+      password: password
+    })
+  })
+
+  expectResponseCode(response)
+}
