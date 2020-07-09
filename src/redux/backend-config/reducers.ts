@@ -30,6 +30,7 @@ export const initialState: BackendConfig = {
     oauth2: '',
     saml: ''
   },
+  imageProxy: false,
   specialLinks: {
     privacy: '',
     termsOfUse: '',

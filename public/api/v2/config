@@ -26,6 +26,7 @@
     "oauth2": "Olaf2",
     "saml": "aufSAMLn.de"
   },
+  "imageProxy": false,
   "specialLinks": {
     "privacy": "test",
     "termsOfUse": "test",

@@ -4,6 +4,7 @@ export interface BackendConfig {
   branding: BrandingConfig,
   banner: BannerConfig,
   customAuthNames: CustomAuthNames,
+  imageProxy: boolean,
   specialLinks: SpecialLinks,
   version: BackendVersion,
 }
