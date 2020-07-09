@@ -13,6 +13,7 @@
     "email": true,
     "openid": true
   },
+  "allowEmailRegister": true,
   "branding": {
     "name": "ACME Corp",
     "logo": "http://localhost:3001/acme.png"

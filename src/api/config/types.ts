@@ -1,5 +1,6 @@
 export interface Config {
   allowAnonymous: boolean,
+  allowEmailRegister: boolean,
   authProviders: AuthProvidersState,
   branding: BrandingConfig,
   banner: BannerConfig,

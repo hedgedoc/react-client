@@ -4,6 +4,7 @@ import { ConfigActions, ConfigActionType, SetConfigAction } from './types'
 
 export const initialState: Config = {
   allowAnonymous: true,
+  allowEmailRegister: true,
   authProviders: {
     facebook: false,
     github: false,
