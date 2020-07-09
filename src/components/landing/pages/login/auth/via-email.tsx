@@ -30,7 +30,7 @@ export const ViaEMail: React.FC = () => {
     await getAndSetUser()
   }
 
-  const onFormSubmit = (event: FormEvent) => {
+  const onLoginClick = (event: FormEvent) => {
     doAsyncLogin().catch(() => setError(EmailError.LOGIN))
     event.preventDefault()
   }
@@ -45,7 +45,7 @@ export const ViaEMail: React.FC = () => {
         <Card.Title>
           <Trans i18nKey="login.signInVia" values={{ service: 'E-Mail' }}/>
         </Card.Title>
-        <Form onSubmit={onFormSubmit}>
+        <Form onSubmit={onLoginClick}>
           <Form.Group controlId="email">
             <Form.Control
               isInvalid={error !== EmailError.NONE}
@@ -74,7 +74,7 @@ export const ViaEMail: React.FC = () => {
             <Trans i18nKey="login.auth.error.emailRegister"/>
           </Alert>
 
-          <div className='flex flex-row email-buttons'>
+          <div className='flex flex-row' dir='auto'>
             <Button
               type="submit"
               variant="primary"
