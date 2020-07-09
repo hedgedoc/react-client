@@ -1,8 +1,11 @@
 import React, { FormEvent, useState } from 'react'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { doEmailLogin, doEmailRegister } from '../../../../../api/auth'
+import { ApplicationState } from '../../../../../redux'
 import { getAndSetUser } from '../../../../../utils/apiUtils'
+import { ShowIf } from '../../../../common/show-if/show-if'
 
 enum EmailError {
   NONE,
@@ -15,6 +18,7 @@ export const ViaEMail: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(EmailError.NONE)
+  const allowRegister = useSelector((state: ApplicationState) => state.backendConfig.allowEmailRegister)
 
   const doAsyncLogin = async () => {
     await doEmailLogin(email, password)
@@ -77,13 +81,15 @@ export const ViaEMail: React.FC = () => {
               className='mx-2'>
               <Trans i18nKey="login.signIn"/>
             </Button>
-            <Button
-              type='button'
-              variant='secondary'
-              className='mx-2'
-              onClick={onRegisterClick}>
-              <Trans i18nKey='login.register'/>
-            </Button>
+            <ShowIf condition={allowRegister}>
+              <Button
+                type='button'
+                variant='secondary'
+                className='mx-2'
+                onClick={onRegisterClick}>
+                <Trans i18nKey='login.register'/>
+              </Button>
+            </ShowIf>
           </div>
         </Form>
       </Card.Body>
