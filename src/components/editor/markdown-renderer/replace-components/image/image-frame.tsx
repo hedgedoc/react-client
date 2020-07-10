@@ -11,6 +11,7 @@ export const ImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (
     if (!imageProxyEnabled || !imageUrl) {
       return
     }
+    // This additional local function is needed because react-useEffect does not allow async functions as effect.
     const fetchProxiedUrl = async (): Promise<void> => {
       const proxiedUrlResponse = await getProxiedUrl(imageUrl)
       setImageUrl(proxiedUrlResponse.src)
