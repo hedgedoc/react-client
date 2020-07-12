@@ -13,7 +13,7 @@ export interface EmojiPickerProps {
 export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected }) => {
   return (
     <ShowIf condition={show}>
-      <NimblePicker data={emojiData} set={'twitter'} onSelect={onEmojiSelected} theme={'auto'}/>
+      <NimblePicker data={emojiData as unknown as Data} set={'twitter'} onSelect={onEmojiSelected} theme={'auto'}/>
     </ShowIf>
   )
 }
