@@ -24,7 +24,9 @@ import { Alert } from 'react-bootstrap'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { Trans } from 'react-i18next'
 import MathJaxReact from 'react-mathjax'
+import { useSelector } from 'react-redux'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
+import { ApplicationState } from '../../../redux'
 import { slugify } from '../../../utils/slugify'
 import { InternalLink } from '../../common/links/internal-link'
 import { ShowIf } from '../../common/show-if/show-if'
@@ -93,6 +95,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       oldFirstHeadingRef.current = firstHeadingRef.current
     }
   })
+  const plantumlServer: string | null = useSelector((state: ApplicationState) => state.backendConfig.plantumlServer)
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -128,11 +131,13 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       })
     }
     md.use(taskList)
-    md.use(plantuml, {
-      openMarker: '```plantuml',
-      closeMarker: '```',
-      server: 'http://www.plantuml.com/plantuml'
-    })
+    if (plantumlServer) {
+      md.use(plantuml, {
+        openMarker: '```plantuml',
+        closeMarker: '```',
+        server: plantumlServer
+      })
+    }
     md.use(emoji)
     md.use(abbreviation)
     md.use(definitionList)
@@ -201,7 +206,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     })
 
     return md
-  }, [onMetaDataChange, onFirstHeadingChange])
+  }, [onMetaDataChange, onFirstHeadingChange, plantumlServer])
 
   useEffect(() => {
     if (onTocChange && tocAst && !equal(tocAst, lastTocAst)) {
