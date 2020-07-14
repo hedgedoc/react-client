@@ -63,9 +63,11 @@ export interface MarkdownRendererProps {
   wide?: boolean
   className?: string
   onTocChange?: (ast: TocAst) => void
+  onMetaDataChange?: (yamlMetaData: YAMLMetaData | undefined) => void
+  onFirstHeadingChange?: (firstHeading: string | undefined) => void
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide, onMetaDataChange }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide, onMetaDataChange, onFirstHeadingChange }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const [lastTocAst, setLastTocAst] = useState<TocAst>()
 
@@ -73,14 +75,25 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
   const [yamlError, setYamlError] = useState(false)
   const [rawMetaData, setRawMetaData] = useState<RawYAMLMetadata>()
   const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
+  const [firstHeading, setFirstHeading] = useState('')
 
   useEffect(() => {
-    if (onMetaDataChange && rawMetaData && !equal(oldRawMetaData, rawMetaData)) {
-      const newMetaData = new YAMLMetaData(rawMetaData)
-      onMetaDataChange(newMetaData)
+    if (onMetaDataChange && !equal(oldRawMetaData, rawMetaData)) {
+      if (rawMetaData) {
+        const newMetaData = new YAMLMetaData(rawMetaData)
+        onMetaDataChange(newMetaData)
+      } else {
+        onMetaDataChange(rawMetaData)
+      }
       setOldRawMetaData(rawMetaData)
     }
   }, [rawMetaData, onMetaDataChange, oldRawMetaData])
+
+  useEffect(() => {
+    if (onFirstHeadingChange) {
+      onFirstHeadingChange(firstHeading || undefined)
+    }
+  }, [firstHeading, onFirstHeadingChange])
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -89,8 +102,24 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
       langPrefix: '',
       typographer: true
     })
+    if (onFirstHeadingChange) {
+      md.core.ruler.after('normalize', 'extract first L1 heading', (state) => {
+        const lines = state.src.split('\n')
+        for (const line of lines) {
+          if (line.startsWith('# ')) {
+            setFirstHeading(line.replace('# ', ''))
+            return true
+          }
+        }
+        setFirstHeading('')
+        return true
+      })
+    }
     if (onMetaDataChange) {
       md.use(frontmatter, (rawMeta: string) => {
+        if (rawMeta === '') {
+          setRawMetaData(undefined)
+        }
         try {
           const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
           setYamlError(false)
@@ -98,7 +127,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
         } catch (e) {
           console.error(e)
           setYamlError(true)
-          setRawMetaData({} as RawYAMLMetadata)
+          setRawMetaData(undefined)
         }
       })
     }
@@ -157,7 +186,7 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
     })
 
     return md
-  }, [onMetaDataChange])
+  }, [onMetaDataChange, onFirstHeadingChange])
 
   useEffect(() => {
     if (onTocChange && tocAst && !equal(tocAst, lastTocAst)) {

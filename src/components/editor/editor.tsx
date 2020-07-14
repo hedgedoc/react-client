@@ -62,21 +62,36 @@ https://vimeo.com/23237102
 
 ## Code highlighting
 \`\`\`javascript=
+
 let a = 1
 \`\`\`
 
 `)
   const isWide = useMedia({ minWidth: 576 })
   const [firstDraw, setFirstDraw] = useState(true)
+  const [documentTitle, setDocumentTile] = useState('Untitled')
   const noteMetadata = useRef<YAMLMetaData>()
+  const firstHeading = useRef<string>()
 
-  const onMetadataChange = useCallback((metaData: YAMLMetaData | null) => {
-    if (!metaData) {
-      return
+  const updateDocumentTitle = useCallback(() => {
+    if (noteMetadata.current?.title && noteMetadata.current?.title !== '') {
+      setDocumentTile(noteMetadata.current.title)
+    } else if (noteMetadata.current?.opengraph && noteMetadata.current?.opengraph.get('title') && noteMetadata.current?.opengraph.get('title') !== '') {
+      setDocumentTile(noteMetadata.current.opengraph.get('title') ?? 'Untitled')
+    } else {
+      setDocumentTile(firstHeading.current ?? 'Untitled')
     }
-    noteMetadata.current = metaData
-    console.debug(metaData)
   }, [])
+
+  const onMetadataChange = useCallback((metaData: YAMLMetaData | undefined) => {
+    noteMetadata.current = metaData
+    updateDocumentTitle()
+  }, [updateDocumentTitle])
+
+  const onFirstHeadingChange = useCallback((newFirstHeading: string | undefined) => {
+    firstHeading.current = newFirstHeading
+    updateDocumentTitle()
+  }, [updateDocumentTitle])
 
   useEffect(() => {
     setFirstDraw(false)
@@ -91,14 +106,14 @@ let a = 1
   return (
     <Fragment>
       <InfoBanner/>
-      <DocumentTitle title={noteMetadata.current?.title}/>
+      <DocumentTitle title={documentTitle}/>
       <div className={'d-flex flex-column vh-100'}>
         <TaskBar/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={<MarkdownRenderWindow content={markdownContent} wide={editorMode === EditorMode.PREVIEW} onMetadataChange={onMetadataChange} />}
+          right={<MarkdownRenderWindow content={markdownContent} wide={editorMode === EditorMode.PREVIEW} onMetadataChange={onMetadataChange} onFirstHeadingChange={onFirstHeadingChange}/>}
           containerClassName={'overflow-hidden'}/>
       </div>
     </Fragment>

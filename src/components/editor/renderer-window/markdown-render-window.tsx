@@ -10,11 +10,12 @@ import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 
 interface RenderWindowProps {
   content: string
-  onMetadataChange: (metaData: YAMLMetaData | null) => void
+  onMetadataChange: (metaData: YAMLMetaData | undefined) => void
+  onFirstHeadingChange: (firstHeading: string | undefined) => void
   wide?: boolean
 }
 
-export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, onMetadataChange, wide }) => {
+export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, onMetadataChange, onFirstHeadingChange, wide }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const renderer = useRef<HTMLDivElement>(null)
   const { width } = useResizeObserver({ ref: renderer })
@@ -29,7 +30,9 @@ export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, onM
         content={content}
         wide={wide}
         onTocChange={(tocAst) => setTocAst(tocAst)}
-        onMetaDataChange={onMetadataChange}/>
+        onMetaDataChange={onMetadataChange}
+        onFirstHeadingChange={onFirstHeadingChange}
+      />
 
       <div className={`col-md d-flex flex-column ${realWidth < 1280 ? 'justify-content-end' : ''}`}>
         <ShowIf condition={realWidth >= 1280 && !!tocAst}>
