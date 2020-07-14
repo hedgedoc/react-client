@@ -72,17 +72,17 @@ let a = 1
 `)
   const isWide = useMedia({ minWidth: 576 })
   const [firstDraw, setFirstDraw] = useState(true)
-  const [documentTitle, setDocumentTile] = useState(untitledNote)
+  const [documentTitle, setDocumentTitle] = useState(untitledNote)
   const noteMetadata = useRef<YAMLMetaData>()
   const firstHeading = useRef<string>()
 
   const updateDocumentTitle = useCallback(() => {
     if (noteMetadata.current?.title && noteMetadata.current?.title !== '') {
-      setDocumentTile(noteMetadata.current.title)
+      setDocumentTitle(noteMetadata.current.title)
     } else if (noteMetadata.current?.opengraph && noteMetadata.current?.opengraph.get('title') && noteMetadata.current?.opengraph.get('title') !== '') {
-      setDocumentTile(noteMetadata.current.opengraph.get('title') ?? untitledNote)
+      setDocumentTitle(noteMetadata.current.opengraph.get('title') ?? untitledNote)
     } else {
-      setDocumentTile(firstHeading.current ?? untitledNote)
+      setDocumentTitle(firstHeading.current ?? untitledNote)
     }
   }, [untitledNote])
 
