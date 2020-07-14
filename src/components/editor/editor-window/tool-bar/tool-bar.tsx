@@ -1,5 +1,4 @@
-import { CustomEmoji, EmojiData } from 'emoji-mart'
-import { BaseEmoji } from 'emoji-mart/dist-es/utils/emoji-index/nimble-emoji-index'
+import { BaseEmoji, CustomEmoji, EmojiData } from 'emoji-mart'
 import React, { Fragment, useState } from 'react'
 import { Editor } from 'codemirror'
 import React from 'react'
@@ -7,7 +6,7 @@ import { Button, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './tool-bar.scss'
-import { EmojiPicker } from './emoji-picker'
+import { EmojiPicker } from './emoji-picker/emoji-picker'
 import {
   addCodeFences,
   addComment,
@@ -46,7 +45,8 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
     if ((emoji as BaseEmoji).native) {
       replacement = (emoji as BaseEmoji).native
     } else if ((emoji as CustomEmoji).imageUrl) {
-      replacement = `<i class="fa fa-${(emoji as CustomEmoji).name}"></i>`
+      // noinspection CheckTagEmptyBody
+      replacement = `<i class="fa ${(emoji as CustomEmoji).name}"></i>`
     }
     replaceSelection(content, positions.startPosition, positions.endPosition, onContentChange, replacement)
   }
@@ -112,7 +112,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => addComment(editor)} title={t('editor.editorToolbar.comment')}>
           <ForkAwesomeIcon icon="comment"/>
         </Button>
-        <Button variant='light' onClick={() => setShowEmojiPicker(true)} title={''}>
+        <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={''}>
           <ForkAwesomeIcon icon="smile-o"/>
         </Button>
       </ButtonToolbar>
