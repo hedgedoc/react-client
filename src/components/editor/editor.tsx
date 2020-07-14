@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import useMedia from 'use-media'
 import { ApplicationState } from '../../redux'
@@ -13,6 +14,8 @@ import { TaskBar } from './task-bar/task-bar'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
 export const Editor: React.FC = () => {
+  const { t } = useTranslation()
+  const untitledNote = t('editor.untitledNote')
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const [markdownContent, setMarkdownContent] = useState(`---
 title: Features
@@ -69,7 +72,7 @@ let a = 1
 `)
   const isWide = useMedia({ minWidth: 576 })
   const [firstDraw, setFirstDraw] = useState(true)
-  const [documentTitle, setDocumentTile] = useState('Untitled')
+  const [documentTitle, setDocumentTile] = useState(untitledNote)
   const noteMetadata = useRef<YAMLMetaData>()
   const firstHeading = useRef<string>()
 
@@ -77,11 +80,11 @@ let a = 1
     if (noteMetadata.current?.title && noteMetadata.current?.title !== '') {
       setDocumentTile(noteMetadata.current.title)
     } else if (noteMetadata.current?.opengraph && noteMetadata.current?.opengraph.get('title') && noteMetadata.current?.opengraph.get('title') !== '') {
-      setDocumentTile(noteMetadata.current.opengraph.get('title') ?? 'Untitled')
+      setDocumentTile(noteMetadata.current.opengraph.get('title') ?? untitledNote)
     } else {
-      setDocumentTile(firstHeading.current ?? 'Untitled')
+      setDocumentTile(firstHeading.current ?? untitledNote)
     }
-  }, [])
+  }, [untitledNote])
 
   const onMetadataChange = useCallback((metaData: YAMLMetaData | undefined) => {
     noteMetadata.current = metaData
