@@ -296,7 +296,8 @@
         "register": {
           "title": "Register",
           "passwordAgain": "Password (again)",
-          "usernameInfo": "",
+          "usernameInfo": "The username is your unique identifier for login.",
+          "passwordInfo": "Choose a unique and secure password. It must contain at least 8 characters.",
           "usernameAlreadyExisting": "There is already an account with this username.",
           "registerError": "There was an error while registering your account. Just try it again.",
           "infoTermsPrivacy": "With the registration of my user account I agree to the following terms:"

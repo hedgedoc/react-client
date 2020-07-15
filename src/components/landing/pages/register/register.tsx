@@ -33,6 +33,7 @@ export const Register: React.FC = () => {
 
   const doRegisterSubmit = (event: FormEvent): void => {
     doAsyncRegister().catch(err => {
+      // TODO Determine which error occured
       setError(RegisterError.OTHER)
       console.error(err)
     })
@@ -93,6 +94,7 @@ export const Register: React.FC = () => {
                     autoComplete='new-password'
                     required
                   />
+                  <Form.Text><Trans i18nKey='login.register.passwordInfo'/></Form.Text>
                 </Form.Group>
                 <Form.Group controlId='re-password'>
                   <Form.Label><Trans i18nKey='login.register.passwordAgain'/></Form.Label>
