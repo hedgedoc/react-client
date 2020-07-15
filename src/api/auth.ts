@@ -24,6 +24,10 @@ export const doInternalRegister = async (username: string, password: string): Pr
     })
   })
 
+  if (response.status === 409) {
+    throw new Error('Username is already existing')
+  }
+
   expectResponseCode(response)
 }
 

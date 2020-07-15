@@ -32,9 +32,12 @@ export const Register: React.FC = () => {
   }
 
   const doRegisterSubmit = (event: FormEvent): void => {
-    doAsyncRegister().catch(err => {
-      // TODO Determine which error occured
-      setError(RegisterError.OTHER)
+    doAsyncRegister().catch((err: Error) => {
+      if (err.message === 'Username is already existing') {
+        setError(RegisterError.USERNAME_EXISTING)
+      } else {
+        setError(RegisterError.OTHER)
+      }
       console.error(err)
     })
     event.preventDefault()
