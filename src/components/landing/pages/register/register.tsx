@@ -9,7 +9,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { TranslatedInternalLink } from '../../../common/links/translated-internal-link'
 import { ShowIf } from '../../../common/show-if/show-if'
 
-enum RegisterError {
+export enum RegisterError {
   NONE,
   USERNAME_EXISTING,
   OTHER
@@ -33,7 +33,7 @@ export const Register: React.FC = () => {
 
   const doRegisterSubmit = (event: FormEvent): void => {
     doAsyncRegister().catch((err: Error) => {
-      if (err.message === 'Username is already existing') {
+      if (err.message === RegisterError[RegisterError.USERNAME_EXISTING]) {
         setError(RegisterError.USERNAME_EXISTING)
       } else {
         setError(RegisterError.OTHER)

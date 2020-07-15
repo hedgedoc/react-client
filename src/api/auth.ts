@@ -1,3 +1,4 @@
+import { RegisterError } from '../components/landing/pages/register/register'
 import { expectResponseCode, getApiUrl } from '../utils/apiUtils'
 import { defaultFetchConfig } from './default'
 
@@ -25,7 +26,7 @@ export const doInternalRegister = async (username: string, password: string): Pr
   })
 
   if (response.status === 409) {
-    throw new Error('Username is already existing')
+    throw new Error(RegisterError[RegisterError.USERNAME_EXISTING])
   }
 
   expectResponseCode(response)
