@@ -1,12 +1,25 @@
 import { expectResponseCode, getApiUrl } from '../utils/apiUtils'
 import { defaultFetchConfig } from './default'
 
-export const doEmailLogin = async (email: string, password: string): Promise<void> => {
-  const response = await fetch(getApiUrl() + '/auth/email', {
+export const doInternalLogin = async (username: string, password: string): Promise<void> => {
+  const response = await fetch(getApiUrl() + '/auth/internal', {
     ...defaultFetchConfig,
     method: 'POST',
     body: JSON.stringify({
-      email: email,
+      username: username,
+      password: password
+    })
+  })
+
+  expectResponseCode(response)
+}
+
+export const doInternalRegister = async (username: string, password: string): Promise<void> => {
+  const response = await fetch(getApiUrl() + '/auth/register', {
+    ...defaultFetchConfig,
+    method: 'POST',
+    body: JSON.stringify({
+      username: username,
       password: password
     })
   })
@@ -33,19 +46,6 @@ export const doOpenIdLogin = async (openId: string): Promise<void> => {
     method: 'POST',
     body: JSON.stringify({
       openId: openId
-    })
-  })
-
-  expectResponseCode(response)
-}
-
-export const doEmailRegister = async (email: string, password: string): Promise<void> => {
-  const response = await fetch(getBackendUrl() + '/auth/register', {
-    ...defaultFetchConfig,
-    method: 'POST',
-    body: JSON.stringify({
-      email: email,
-      password: password
     })
   })
 
