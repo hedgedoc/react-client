@@ -18,7 +18,7 @@ import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import taskList from 'markdown-it-task-lists'
 import toc from 'markdown-it-toc-done-right'
-import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { Trans } from 'react-i18next'
@@ -59,7 +59,6 @@ import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 
 export interface MarkdownRendererProps {
   content: string
-  onMetaDataChange?: (yamlMetaData: YAMLMetaData | null) => void
   wide?: boolean
   className?: string
   onTocChange?: (ast: TocAst) => void
@@ -67,33 +66,31 @@ export interface MarkdownRendererProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className, onTocChange, wide, onMetaDataChange, onFirstHeadingChange }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onMetaDataChange, onFirstHeadingChange, onTocChange }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const [lastTocAst, setLastTocAst] = useState<TocAst>()
-
-const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataChange }) => {
   const [yamlError, setYamlError] = useState(false)
-  const [rawMetaData, setRawMetaData] = useState<RawYAMLMetadata>()
-  const [oldRawMetaData, setOldRawMetaData] = useState<RawYAMLMetadata>()
-  const [firstHeading, setFirstHeading] = useState('')
+  const rawMetaRef = useRef<RawYAMLMetadata>()
+  const oldMetaRef = useRef<RawYAMLMetadata>()
+  const firstHeadingRef = useRef<string>()
+  const oldFirstHeadingRef = useRef<string>()
+  const [activateEffect, setEffect] = useState(false)
 
   useEffect(() => {
-    if (onMetaDataChange && !equal(oldRawMetaData, rawMetaData)) {
-      if (rawMetaData) {
-        const newMetaData = new YAMLMetaData(rawMetaData)
+    if (onMetaDataChange && !equal(oldMetaRef.current, rawMetaRef.current)) {
+      if (rawMetaRef.current) {
+        const newMetaData = new YAMLMetaData(rawMetaRef.current)
         onMetaDataChange(newMetaData)
       } else {
-        onMetaDataChange(rawMetaData)
+        onMetaDataChange(undefined)
       }
-      setOldRawMetaData(rawMetaData)
+      oldMetaRef.current = rawMetaRef.current
     }
-  }, [rawMetaData, onMetaDataChange, oldRawMetaData])
-
-  useEffect(() => {
-    if (onFirstHeadingChange) {
-      onFirstHeadingChange(firstHeading || undefined)
+    if (onFirstHeadingChange && !equal(firstHeadingRef.current, oldFirstHeadingRef.current)) {
+      onFirstHeadingChange(firstHeadingRef.current || undefined)
+      oldFirstHeadingRef.current = firstHeadingRef.current
     }
-  }, [firstHeading, onFirstHeadingChange])
+  }, [onMetaDataChange, onFirstHeadingChange, activateEffect])
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -107,27 +104,23 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
         const lines = state.src.split('\n')
         for (const line of lines) {
           if (line.startsWith('# ')) {
-            setFirstHeading(line.replace('# ', ''))
+            firstHeadingRef.current = line.replace('# ', '')
             return true
           }
         }
-        setFirstHeading('')
+        firstHeadingRef.current = undefined
         return true
       })
     }
     if (onMetaDataChange) {
       md.use(frontmatter, (rawMeta: string) => {
-        if (rawMeta === '') {
-          setRawMetaData(undefined)
-        }
         try {
           const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
           setYamlError(false)
-          setRawMetaData(meta)
+          rawMetaRef.current = meta
         } catch (e) {
           console.error(e)
           setYamlError(true)
-          setRawMetaData(undefined)
         }
       })
     }
@@ -214,28 +207,34 @@ const MarkdownRenderer: React.FC<MarkdownPreviewProps> = ({ content, onMetaDataC
       new QuoteOptionsReplacer(),
       new MathjaxReplacer()
     ]
+    if (onMetaDataChange) {
+      // This is used if the front-matter callback is never called, because the user deleted everything regarding metadata from the document
+      rawMetaRef.current = undefined
+    }
     const html: string = markdownIt.render(content)
+    // This triggers the callback calls, because we want to use a Effect for that
+    setEffect(effect => !effect)
 
     const transform: Transform = (node, index) => {
       const subNodeConverter = (subNode: DomElement, subIndex: number) => convertNodeToElement(subNode, subIndex, transform)
       return tryToReplaceNode(node, index, allReplacers, subNodeConverter) || convertNodeToElement(node, index, transform)
     }
     return ReactHtmlParser(html, { transform: transform })
-  }, [content, markdownIt])
+  }, [content, markdownIt, onMetaDataChange])
 
   return (
     <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
       <div className={'markdown-body container-fluid'}>
-      <ShowIf condition={yamlError}>
-        <Alert variant='warning' dir='auto'>
-          <Trans i18nKey='editor.invalidYaml'>
-            <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
-          </Trans>
-        </Alert>
-      </ShowIf>
-      <MathJaxReact.Provider>
-        {result}
-      </MathJaxReact.Provider></div>
+        <ShowIf condition={yamlError}>
+          <Alert variant='warning' dir='auto'>
+            <Trans i18nKey='editor.invalidYaml'>
+              <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
+            </Trans>
+          </Alert>
+        </ShowIf>
+        <MathJaxReact.Provider>
+          {result}
+        </MathJaxReact.Provider></div>
     </div>
   )
 }
