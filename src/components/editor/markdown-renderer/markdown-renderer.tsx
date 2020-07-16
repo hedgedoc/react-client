@@ -22,12 +22,12 @@ import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react
 import { Alert } from 'react-bootstrap'
 import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser'
 import { Trans } from 'react-i18next'
-import { InternalLink } from '../../common/links/internal-link'
-import { ShowIf } from '../../common/show-if/show-if'
-import { RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import MathJaxReact from 'react-mathjax'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
 import { slugify } from '../../../utils/slugify'
+import { InternalLink } from '../../common/links/internal-link'
+import { ShowIf } from '../../common/show-if/show-if'
+import { RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
@@ -132,6 +132,19 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     md.use(inserted)
     md.use(marked)
     md.use(footnote)
+    if (onMetaDataChange) {
+      md.use(frontmatter, (rawMeta: string) => {
+        try {
+          const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
+          setYamlError(false)
+          setRawMetaData(meta)
+        } catch (e) {
+          console.error(e)
+          setYamlError(true)
+          setRawMetaData({} as RawYAMLMetadata)
+        }
+      })
+    }
     md.use(imsize)
     // noinspection CheckTagEmptyBody
     md.use(anchor, {
