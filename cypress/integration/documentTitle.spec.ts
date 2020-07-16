@@ -51,5 +51,17 @@ describe('Document Title', () => {
         .type(`# ${title}`)
       cy.title().should('eq', `${title} - CodiMD @ ${branding.name}`)
     })
+
+    it('just first heading with alt-text instead of image', () => {
+      cy.get('.CodeMirror textarea')
+        .type(`# ${title} ![abc](https://dummyimage.com/48)`)
+      cy.title().should('eq', `${title} abc - CodiMD @ ${branding.name}`)
+    })
+
+    it('just first heading without link syntax', () => {
+      cy.get('.CodeMirror textarea')
+        .type(`# ${title} [link](https://hedgedoc.org)`)
+      cy.title().should('eq', `${title} link - CodiMD @ ${branding.name}`)
+    })
   })
 })
