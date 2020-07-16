@@ -237,7 +237,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       <ShowIf condition={yamlError}>
         <Alert variant='warning' dir='auto'>
           <Trans i18nKey='editor.invalidYaml'>
-            <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
+            <InternalLink text='yaml-metadata' href='/n/yaml-metadata' className='text-dark'/>
           </Trans>
         </Alert>
       </ShowIf>
