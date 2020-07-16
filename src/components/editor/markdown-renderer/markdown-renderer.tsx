@@ -137,11 +137,11 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
         try {
           const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
           setYamlError(false)
-          setRawMetaData(meta)
+          rawMetaRef.current = meta
         } catch (e) {
           console.error(e)
           setYamlError(true)
-          setRawMetaData({} as RawYAMLMetadata)
+          rawMetaRef.current = ({} as RawYAMLMetadata)
         }
       })
     }
