@@ -1,5 +1,7 @@
 # CodiMD - React Client
 
+![e2e](https://github.com/codimd/react-client/workflows/e2e/badge.svg)
+
 This is the new, improved and better looking frontend for CodiMD 2.0.
 Our goal is to recreate the current frontend in react and to improve it.
 
@@ -25,6 +27,15 @@ You will also see any lint errors in the console.
 Unit testing is done via jest.
 
 1. `yarn test`
+
+#### End2End
+
+We use [cypress](https://cypress.io) for e2e tests.
+
+1. Run the frontend with `yarn start`
+2. RUn `yarn cy:open` to open the cypress test loader
+3. Choose your browser and test
+4. Let the tests run
 
 ## Production mode
 
