@@ -103,7 +103,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
         const lines = state.src.split('\n')
         for (const line of lines) {
           if (line.startsWith('# ')) {
-            firstHeadingRef.current = line.replace('# ', '')
+            firstHeadingRef.current = line.replace('# ', '').replace(/!?\[([^\]]*)]\([^)]*\)/, '$1')
             return true
           }
         }
