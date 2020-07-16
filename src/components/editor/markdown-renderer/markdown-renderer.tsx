@@ -66,7 +66,7 @@ export interface MarkdownRendererProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onMetaDataChange, onFirstHeadingChange, onTocChange }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onMetaDataChange, onFirstHeadingChange, onTocChange, className, wide }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const [lastTocAst, setLastTocAst] = useState<TocAst>()
   const [yamlError, setYamlError] = useState(false)
@@ -233,18 +233,17 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
   }, [content, markdownIt, onMetaDataChange])
 
   return (
-    <div className={'bg-light container-fluid flex-fill h-100 overflow-y-scroll pb-5'}>
-      <div className={'markdown-body container-fluid'}>
-        <ShowIf condition={yamlError}>
-          <Alert variant='warning' dir='auto'>
-            <Trans i18nKey='editor.invalidYaml'>
-              <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
-            </Trans>
-          </Alert>
-        </ShowIf>
-        <MathJaxReact.Provider>
-          {result}
-        </MathJaxReact.Provider></div>
+    <div className={`markdown-body ${className || ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>
+      <ShowIf condition={yamlError}>
+        <Alert variant='warning' dir='auto'>
+          <Trans i18nKey='editor.invalidYaml'>
+            <InternalLink text='yaml-metdata' href='/n/yaml-metadata'/>
+          </Trans>
+        </Alert>
+      </ShowIf>
+      <MathJaxReact.Provider>
+        {result}
+      </MathJaxReact.Provider>
     </div>
   )
 }
