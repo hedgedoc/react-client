@@ -88,7 +88,6 @@ export const Register: React.FC = () => {
                   <Form.Control
                     type='password'
                     size='sm'
-                    value={password}
                     isValid={password !== '' && password.length >= 8}
                     onChange={(event) => setPassword(event.target.value)}
                     placeholder={t('login.auth.password')}
@@ -104,7 +103,6 @@ export const Register: React.FC = () => {
                   <Form.Control
                     type='password'
                     size='sm'
-                    value={passwordAgain}
                     isInvalid={passwordAgain !== '' && password !== passwordAgain}
                     isValid={passwordAgain !== '' && password === passwordAgain}
                     onChange={(event) => setPasswordAgain(event.target.value)}
