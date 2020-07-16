@@ -74,7 +74,6 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
   const oldMetaRef = useRef<RawYAMLMetadata>()
   const firstHeadingRef = useRef<string>()
   const oldFirstHeadingRef = useRef<string>()
-  const [activateEffect, setEffect] = useState(false)
 
   useEffect(() => {
     if (onMetaDataChange && !equal(oldMetaRef.current, rawMetaRef.current)) {
@@ -90,7 +89,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       onFirstHeadingChange(firstHeadingRef.current || undefined)
       oldFirstHeadingRef.current = firstHeadingRef.current
     }
-  }, [onMetaDataChange, onFirstHeadingChange, activateEffect])
+  })
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -212,8 +211,6 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       rawMetaRef.current = undefined
     }
     const html: string = markdownIt.render(content)
-    // This triggers the callback calls, because we want to use a Effect for that
-    setEffect(effect => !effect)
 
     const transform: Transform = (node, index) => {
       const subNodeConverter = (subNode: DomElement, subIndex: number) => convertNodeToElement(subNode, subIndex, transform)
