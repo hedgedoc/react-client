@@ -32,7 +32,7 @@
 - Images, videos, and other non-text content is now wider in View Mode
 - Notes may now be deleted directly from the history page
 - CodiMD instances can now be branded either with a '@ <custom string>' or '@ <custom logo>' after the CodiMD logo and text
-- The CodiMD frontend supports now optional image proxies defined in the backend.
+- The CodiMD frontend supports image proxies if defined in the backend.
 
 ### Changed
 
