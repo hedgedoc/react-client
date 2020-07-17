@@ -101,9 +101,10 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     if (onFirstHeadingChange) {
       md.core.ruler.after('normalize', 'extract first L1 heading', (state) => {
         const lines = state.src.split('\n')
+        const linkAltTextRegex = /!?\[([^\]]*)]\([^)]*\)/
         for (const line of lines) {
           if (line.startsWith('# ')) {
-            firstHeadingRef.current = line.replace('# ', '').replace(/!?\[([^\]]*)]\([^)]*\)/, '$1')
+            firstHeadingRef.current = line.replace('# ', '').replace(linkAltTextRegex, '$1')
             return true
           }
         }
