@@ -18,8 +18,8 @@ import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
 import { Positions, SelectionData } from './interfaces'
-import { ToolBar } from './tool-bar/tool-bar'
 import { defaultKeyMap } from './key-map'
+import { ToolBar } from './tool-bar/tool-bar'
 
 export interface EditorWindowProps {
   onContentChange: (content: string) => void
@@ -77,29 +77,29 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           highlightSelectionMatches: true,
           indentUnit: 4,
           inputStyle: 'textarea',
-        matchBrackets: true,
-        autoCloseBrackets: true,
-        matchTags: {
-          bothTags: true
-        },
-        autoCloseTags: true,
-        foldGutter: true,
-        gutters: [
-          'CodeMirror-linenumbers',
-          'authorship-gutters',
-          'CodeMirror-foldgutter'
-        ],
-        extraKeys: defaultKeyMap,
-        flattenSpans: true,
-        addModeClass: true,
-        autoRefresh: true,
-        // otherCursors: true,
-        placeholder: t('editor.placeholder')
-      }}
-      onBeforeChange={(editor, data, value) => {
-        onContentChange(value)
-      }}
-    onSelection={onSelection}
+          matchBrackets: true,
+          autoCloseBrackets: true,
+          matchTags: {
+            bothTags: true
+          },
+          autoCloseTags: true,
+          foldGutter: true,
+          gutters: [
+            'CodeMirror-linenumbers',
+            'authorship-gutters',
+            'CodeMirror-foldgutter'
+          ],
+          extraKeys: defaultKeyMap,
+          flattenSpans: true,
+          addModeClass: true,
+          autoRefresh: true,
+          // otherCursors: true,
+          placeholder: t('editor.placeholder')
+        }}
+        onBeforeChange={(editor, data, value) => {
+          onContentChange(value)
+        }}
+        onSelection={onSelection}
       />
     </div>
   )
