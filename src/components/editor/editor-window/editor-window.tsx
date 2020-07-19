@@ -1,5 +1,4 @@
 import 'codemirror/addon/comment/comment'
-import 'codemirror/addon/comment/continuecomment'
 import 'codemirror/addon/display/autorefresh'
 import 'codemirror/addon/display/fullscreen'
 import 'codemirror/addon/display/placeholder'
