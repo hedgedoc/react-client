@@ -16,6 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: cypress-io/github-action@v2
+        env:
+          MOZ_FORCE_DISABLE_E10S: 1
         with:
           browser: ${{ matrix.browser }}
           start: npm start
