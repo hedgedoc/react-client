@@ -11,7 +11,7 @@ export const loadAllConfig: (baseUrl: string) => Promise<void> = async (baseUrl)
 
   const config = await getConfig()
   if (!config) {
-    return Promise.reject(new Error('Backend config empty!'))
+    return Promise.reject(new Error('Config empty!'))
   }
   setConfig(config)
 

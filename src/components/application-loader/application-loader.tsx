@@ -9,7 +9,7 @@ export const ApplicationLoader: React.FC = ({ children }) => {
   const { pathname } = useLocation()
 
   const setUpTasks = useCallback(() => {
-    const baseUrl: string = window.location.protocol + '//' + window.location.host.replace(pathname, '')
+    const baseUrl: string = window.location.pathname.replace(pathname, '')
     return createSetUpTaskList(baseUrl)
   }, [pathname])
 
