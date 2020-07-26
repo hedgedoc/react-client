@@ -77,28 +77,29 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           highlightSelectionMatches: true,
           indentUnit: 4,
           inputStyle: 'textarea',
-        matchBrackets: true,
-        autoCloseBrackets: true,
-        matchTags: {
-          bothTags: true
-        },
-        autoCloseTags: true,
-        foldGutter: true,
-        gutters: [
-          'CodeMirror-linenumbers',
-          'authorship-gutters',
-          'CodeMirror-foldgutter'
-        ],
-        extraKeys: defaultKeyMap,
-        flattenSpans: true,
-        addModeClass: true,
-        autoRefresh: true,
-        // otherCursors: true,
-        placeholder: t('editor.placeholder')
-      }}
-      onBeforeChange={(editor, data, value) => {
-        onContentChange(value)
-      }}
-    /></div>
+          matchBrackets: true,
+          autoCloseBrackets: true,
+          matchTags: {
+            bothTags: true
+          },
+          autoCloseTags: true,
+          foldGutter: true,
+          gutters: [
+            'CodeMirror-linenumbers',
+            'authorship-gutters',
+            'CodeMirror-foldgutter'
+          ],
+          extraKeys: defaultKeyMap,
+          flattenSpans: true,
+          addModeClass: true,
+          autoRefresh: true,
+          // otherCursors: true,
+          placeholder: t('editor.placeholder')
+        }}
+        onSelection={onSelection}
+        onBeforeChange={(editor, data, value) => {
+          onContentChange(value)
+        }}
+      /></div>
   )
 }
