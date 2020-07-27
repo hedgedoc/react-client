@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './tool-bar.scss'
 import { EmojiPicker } from './emoji-picker/emoji-picker'
+import './tool-bar.scss'
 import {
   addCodeFences,
   addComment,
@@ -116,7 +117,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
           <ForkAwesomeIcon icon="smile-o"/>
         </Button>
       </ButtonToolbar>
-      <EmojiPicker show={showEmojiPicker} onEmojiSelected={addEmoji}/>
+      <EmojiPicker show={showEmojiPicker} onEmojiSelected={addEmoji} onDismiss={() => setShowEmojiPicker(false)}/>
     </Fragment>
   )
 }
