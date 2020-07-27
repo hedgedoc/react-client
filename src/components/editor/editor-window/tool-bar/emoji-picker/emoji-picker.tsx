@@ -24,7 +24,6 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
     <ShowIf condition={show}>
       <div ref={pickerRef}>
         <NimblePicker
-          ref={pickerRef}
           data={emojiData as unknown as Data}
           set={'twitter'}
           onSelect={onEmojiSelected}
