@@ -139,7 +139,9 @@
         }
     },
     "editor": {
+        "untitledNote": "Untitled",
         "placeholder": "← Start by entering a title here\n===\nVisit the features page if you don't know what to do.\nHappy hacking :)",
+        "invalidYaml": "The yaml-header is invalid. See <0></0> for more information.",
         "help": {
             "contacts": {
                 "title": "Contacts",
@@ -203,7 +205,7 @@
             "bold": "Bold",
             "italic": "Italic",
             "strikethrough": "Strikethrough",
-            "header": "Header",
+            "header": "Heading",
             "code": "Code",
             "blockquote": "Blockquote",
             "unorderedList": "Unordered List",
@@ -213,7 +215,7 @@
             "image": "Image",
             "uploadImage": "Upload Image",
             "table": "Table",
-            "line": "Line",
+            "line": "Horizontal line",
             "comment": "Comment"
         },
         "menu": {

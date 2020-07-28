@@ -33,6 +33,7 @@
 - Notes may now be deleted directly from the history page
 - CodiMD instances can now be branded either with a '@ <custom string>' or '@ <custom logo>' after the CodiMD logo and text
 - Images will be loaded via proxy if an image proxy is configured in the backend
+- Asciinema videos may now be embedded by pasting the URL of one video into a single line
 
 ### Changed
 
@@ -41,6 +42,7 @@
 - The gist and pdf embeddings now use a one-click aproach similar to vimeo and youtube
 - Use [Twemoji](https://twemoji.twitter.com/) as icon font
 - The `[name=...]`, `[time=...]` and `[color=...]` tags may now be used anywhere in the document and not just inside of blockquotes and lists.
+- The <i class="fa fa-picture-o"/> (add image) and <i class="fa fa-link"/> (add link) toolbar buttons, put selected links directly in the `()` instead of the `[]` part of the generated markdown
 
 ---
 
