@@ -25,7 +25,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
       <div ref={pickerRef}>
         <NimblePicker
           data={emojiData as unknown as Data}
-          set={'twitter'}
+          native={true}
           onSelect={onEmojiSelected}
           theme={'auto'}
           title=''
