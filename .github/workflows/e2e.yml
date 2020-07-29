@@ -9,7 +9,7 @@ on:
 jobs:
 
   end2end-macos:
-    runs-on: windows-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         browser: ['safari']
