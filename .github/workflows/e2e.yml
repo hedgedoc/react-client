@@ -7,7 +7,34 @@ on:
     branches: [master]
 
 jobs:
-  end2end:
+
+  end2end-macos:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        browser: ['safari']
+    name: e2e:${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: ${{ matrix.browser }}
+          start: npm start
+
+  end2end-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        browser: ['edge']
+    name: e2e:${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: ${{ matrix.browser }}
+          start: npm start
+
+  end2end-linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
