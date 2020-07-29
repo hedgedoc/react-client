@@ -1,15 +1,32 @@
+export const text = 'Fix the tests'
+
+it('always faile', () => {
+  expect(text).toEqual('')
+})
+
+/*
+import { Editor, Range } from 'codemirror'
+import { Mock } from 'ts-mocks'
 import {
   addCodeFences,
   addHeaderLevel,
   addLink,
-  addMarkup,
   addQuotes,
-  createList,
-  removeLastNewLine,
-  replaceSelection
+  createList, wrapTextWith
 } from './utils'
-
 const testContent = '1st line\n2nd line\n3rd line'
+
+const cursorRange = new Mock<Range>()
+cursorRange.extend({
+  from: () => ({ line: 0, ch: 0 }),
+  to: () => ({ line: 0, ch: 0 })
+})
+
+const cursorEditor = new Mock<Editor>()
+cursorEditor.extend({
+  getSelection: () => testContent,
+  getRange: (from, to) => testContent.slice(0, 9)
+})
 const cursor = {
   startPosition: { line: 0, ch: 0 },
   endPosition: { line: 0, ch: 0 }
@@ -27,33 +44,9 @@ const multilineOffset = {
   endPosition: { line: 2, ch: 4 }
 }
 
-describe('test removeLastNewLine', () => {
-  const testSentence = 'This is a test sentence'
-  const testMultiLine = 'This is a\ntest sentence over two lines'
-  it('single line without \\n at the end', () => {
-    expect(removeLastNewLine(testSentence)).toEqual(testSentence)
-  })
-
-  it('single line with \\n at the end', () => {
-    expect(removeLastNewLine(testSentence + '\n')).toEqual(testSentence)
-  })
-
-  it('multi line without \\n at the end', () => {
-    expect(removeLastNewLine(testMultiLine)).toEqual(testMultiLine)
-  })
-
-  it('multi line with \\n at the end', () => {
-    expect(removeLastNewLine(testMultiLine + '\n')).toEqual(testMultiLine)
-  })
-})
-
-describe('test addMarkUp', () => {
+describe('test wrapTextWith', () => {
   it('just cursor', done => {
-    let error = false
-    addMarkup(testContent, cursor.startPosition, cursor.endPosition, () => {
-      // This should never be called
-      error = true
-    }, '**')
+    wrapTextWith(editor, '**')
     expect(error).toBeFalsy()
     done()
   })
@@ -350,3 +343,4 @@ describe('test changeSelection', () => {
     }, '----')
   })
 })
+*/

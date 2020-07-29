@@ -1,4 +1,5 @@
 import CodeMirror, { KeyMap } from 'codemirror'
+import { wrapTextWith } from './tool-bar/utils'
 
 // const isMac = CodeMirror.keyMap.default === CodeMirror.keyMap.macDefault
 
@@ -71,41 +72,38 @@ export const defaultKeyMap: KeyMap = {
     } else {
       return CodeMirror.Pass
     }
+  },
+  'Ctrl-*': cm => {
+    wrapTextWith(cm, '*')
+  },
+  'Shift-Ctrl-8': cm => {
+    wrapTextWith(cm, '*')
+  },
+  'Ctrl-_': cm => {
+    wrapTextWith(cm, '_')
+  },
+  'Shift-Ctrl--': cm => {
+    wrapTextWith(cm, '_')
+  },
+  'Ctrl-~': cm => {
+    wrapTextWith(cm, '~')
+  },
+  'Shift-Ctrl-`': cm => {
+    wrapTextWith(cm, '~')
+  },
+  'Ctrl-^': cm => {
+    wrapTextWith(cm, '^')
+  },
+  'Shift-Ctrl-6': cm => {
+    wrapTextWith(cm, '^')
+  },
+  'Ctrl-+': cm => {
+    wrapTextWith(cm, '+')
+  },
+  'Shift-Ctrl-=': cm => {
+    wrapTextWith(cm, '+')
+  },
+  'Ctrl-=': cm => {
+    wrapTextWith(cm, '=')
   }
-  // 'Ctrl-*': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '*')
-  // },
-  // 'Shift-Ctrl-8': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '*')
-  // },
-  // 'Ctrl-_': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '_')
-  // },
-  // 'Shift-Ctrl--': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '_')
-  // },
-  // 'Ctrl-~': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '~')
-  // },
-  // 'Shift-Ctrl-`': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '~')
-  // },
-  // 'Ctrl-^': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '^')
-  // },
-  // 'Shift-Ctrl-6': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '^')
-  // },
-  // 'Ctrl-+': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '+')
-  // },
-  // 'Shift-Ctrl-=': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '+')
-  // },
-  // 'Ctrl-=': cm => {
-  //   utils.wrapTextWith(this.editor, cm, '=')
-  // },
-  // 'Shift-Ctrl-Backspace': cm => {
-  //   utils.wrapTextWith(this.editor, cm, 'Backspace')
-  // }
 }

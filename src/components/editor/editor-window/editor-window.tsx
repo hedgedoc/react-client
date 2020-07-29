@@ -1,3 +1,4 @@
+import { Editor } from 'codemirror'
 import 'codemirror/addon/comment/comment'
 import 'codemirror/addon/display/autorefresh'
 import 'codemirror/addon/display/fullscreen'
@@ -13,11 +14,10 @@ import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/keymap/sublime.js'
 import 'codemirror/mode/gfm/gfm.js'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
-import { Positions, SelectionData } from './interfaces'
 import { defaultKeyMap } from './key-map'
 import { ToolBar } from './tool-bar/tool-bar'
 
@@ -28,39 +28,12 @@ export interface EditorWindowProps {
 
 export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
   const { t } = useTranslation()
-  const [positions, setPositions] = useState<Positions>({
-    startPosition: {
-      ch: 0,
-      line: 0
-    },
-    endPosition: {
-      ch: 0,
-      line: 0
-    }
-  })
-
-  const onSelection = useCallback((editor, data: SelectionData) => {
-    const { anchor, head } = data.ranges[0]
-    const headFirst = head.line < anchor.line || (head.line === anchor.line && head.ch < anchor.ch)
-
-    setPositions({
-      startPosition: {
-        line: headFirst ? head.line : anchor.line,
-        ch: headFirst ? head.ch : anchor.ch
-      },
-      endPosition: {
-        line: headFirst ? anchor.line : head.line,
-        ch: headFirst ? anchor.ch : head.ch
-      }
-    })
-  }, [])
+  const [editor, setEditor] = useState<Editor>()
 
   return (
     <div className={'d-flex flex-column h-100'}>
       <ToolBar
-        content={content}
-        onContentChange={onContentChange}
-        positions={positions}
+        editor={editor}
       />
       <ControlledCodeMirror
         className="h-100 w-100 flex-fill"
@@ -96,7 +69,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           // otherCursors: true,
           placeholder: t('editor.placeholder')
         }}
-        onSelection={onSelection}
+        editorDidMount={mountedEditor => setEditor(mountedEditor)}
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
