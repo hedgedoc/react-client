@@ -9,13 +9,20 @@ export const ImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (
 
   useEffect(() => {
     if (!imageProxyEnabled || !src) {
-      setImageUrl(src || '')
       return
     }
-    getProxiedUrl(src).then(proxyResponse => setImageUrl(proxyResponse.src)).catch(err => console.error(err))
-  }, [src, imageProxyEnabled])
+    getProxiedUrl(src)
+      .then(proxyResponse => setImageUrl(proxyResponse.src))
+      .catch(err => console.error(err))
+  }, [imageProxyEnabled, src])
+
+  if (imageProxyEnabled) {
+    return (
+      <img alt={alt} src={imageUrl} {...props}/>
+    )
+  }
 
   return (
-    <img alt={alt} src={imageUrl} {...props}/>
+    <img alt={alt} src={src ?? ''} {...props}/>
   )
 }
