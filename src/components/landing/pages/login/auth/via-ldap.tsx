@@ -38,24 +38,27 @@ export const ViaLdap: React.FC = () => {
           <Trans i18nKey="login.signInVia" values={{ service: name }}/>
         </Card.Title>
         <Form onSubmit={onFormSubmit}>
-          <Form.Group controlId="username">
+          <Form.Group controlId="ldap-username">
             <Form.Control
               isInvalid={error}
               type="text"
               size="sm"
               placeholder={t('login.auth.username')}
               onChange={(event) => setUsername(event.currentTarget.value)} className="bg-dark text-white"
+              autoComplete='username'
             />
           </Form.Group>
 
-          <Form.Group controlId="password">
+          <Form.Group controlId="ldap-password">
             <Form.Control
               isInvalid={error}
               type="password"
               size="sm"
               placeholder={t('login.auth.password')}
               onChange={(event) => setPassword(event.currentTarget.value)}
-              className="bg-dark text-white"/>
+              className="bg-dark text-white"
+              autoComplete='current-password'
+            />
           </Form.Group>
 
           <Alert className="small" show={error} variant="danger">

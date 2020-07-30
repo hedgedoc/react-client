@@ -32,24 +32,27 @@ export const ViaInternal: React.FC = () => {
           <Trans i18nKey="login.signInVia" values={{ service: t('login.auth.username') }}/>
         </Card.Title>
         <Form onSubmit={onLoginClick}>
-          <Form.Group controlId="username">
+          <Form.Group controlId="internal-username">
             <Form.Control
               isInvalid={error}
               type="text"
               size="sm"
               placeholder={t('login.auth.username')}
               onChange={(event) => setUsername(event.currentTarget.value)} className="bg-dark text-white"
+              autoComplete='username'
             />
           </Form.Group>
 
-          <Form.Group controlId="password">
+          <Form.Group controlId="internal-password">
             <Form.Control
               isInvalid={error}
               type="password"
               size="sm"
               placeholder={t('login.auth.password')}
               onChange={(event) => setPassword(event.currentTarget.value)}
-              className="bg-dark text-white"/>
+              className="bg-dark text-white"
+              autoComplete='current-password'
+            />
           </Form.Group>
 
           <Alert className="small" show={error} variant="danger">
