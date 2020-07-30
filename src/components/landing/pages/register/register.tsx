@@ -6,7 +6,7 @@ import { ApplicationState } from '../../../../redux'
 import { getAndSetUser } from '../../../../utils/apiUtils'
 import { Row, Col, Card, Form, Button, Alert } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { TranslatedInternalLink } from '../../../common/links/translated-internal-link'
+import { TranslatedExternalLink } from '../../../common/links/translated-external-link'
 import { ShowIf } from '../../../common/show-if/show-if'
 
 export enum RegisterError {
@@ -118,12 +118,12 @@ export const Register: React.FC = () => {
                     <ul>
                       <ShowIf condition={!!config.specialLinks?.termsOfUse}>
                         <li>
-                          <TranslatedInternalLink i18nKey='landing.footer.termsOfUse' href={config.specialLinks.termsOfUse}/>
+                          <TranslatedExternalLink i18nKey='landing.footer.termsOfUse' href={config.specialLinks.termsOfUse}/>
                         </li>
                       </ShowIf>
                       <ShowIf condition={!!config.specialLinks?.privacy}>
                         <li>
-                          <TranslatedInternalLink i18nKey='landing.footer.privacy' href={config.specialLinks.privacy}/>
+                          <TranslatedExternalLink i18nKey='landing.footer.privacy' href={config.specialLinks.privacy}/>
                         </li>
                       </ShowIf>
                     </ul>
