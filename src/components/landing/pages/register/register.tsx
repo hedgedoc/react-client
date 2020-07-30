@@ -17,7 +17,7 @@ export enum RegisterError {
 
 export const Register: React.FC = () => {
   const { t } = useTranslation()
-  const config = useSelector((state: ApplicationState) => state.backendConfig)
+  const config = useSelector((state: ApplicationState) => state.config)
   const user = useSelector((state: ApplicationState) => state.user)
 
   const [username, setUsername] = useState('')

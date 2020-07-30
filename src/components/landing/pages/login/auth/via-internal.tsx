@@ -13,7 +13,7 @@ export const ViaInternal: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
-  const allowRegister = useSelector((state: ApplicationState) => state.backendConfig.allowRegister)
+  const allowRegister = useSelector((state: ApplicationState) => state.config.allowRegister)
 
   const doAsyncLogin = async () => {
     await doInternalLogin(username, password)
