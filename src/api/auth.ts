@@ -26,7 +26,7 @@ export const doInternalRegister = async (username: string, password: string): Pr
   })
 
   if (response.status === 409) {
-    throw new Error(RegisterError[RegisterError.USERNAME_EXISTING])
+    throw new Error(RegisterError.USERNAME_EXISTING)
   }
 
   expectResponseCode(response)

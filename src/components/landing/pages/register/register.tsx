@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router'
 import { doInternalRegister } from '../../../../api/auth'
@@ -10,9 +10,9 @@ import { TranslatedExternalLink } from '../../../common/links/translated-externa
 import { ShowIf } from '../../../common/show-if/show-if'
 
 export enum RegisterError {
-  NONE,
-  USERNAME_EXISTING,
-  OTHER
+  NONE = 'none',
+  USERNAME_EXISTING = 'usernameExisting',
+  OTHER = 'other'
 }
 
 export const Register: React.FC = () => {
@@ -26,22 +26,15 @@ export const Register: React.FC = () => {
   const [error, setError] = useState(RegisterError.NONE)
   const [ready, setReady] = useState(false)
 
-  const doAsyncRegister = async (): Promise<void> => {
-    await doInternalRegister(username, password)
-    await getAndSetUser()
-  }
-
-  const doRegisterSubmit = (event: FormEvent): void => {
-    doAsyncRegister().catch((err: Error) => {
-      if (err.message === RegisterError[RegisterError.USERNAME_EXISTING]) {
-        setError(RegisterError.USERNAME_EXISTING)
-      } else {
-        setError(RegisterError.OTHER)
-      }
+  const doRegisterSubmit = useCallback((event: FormEvent) => {
+    doInternalRegister(username, password).then(async () => {
+      await getAndSetUser()
+    }).catch((err: Error) => {
       console.error(err)
+      setError(err.message === RegisterError.USERNAME_EXISTING ? err.message : RegisterError.OTHER)
     })
     event.preventDefault()
-  }
+  }, [username, password])
 
   useEffect(() => {
     setReady(username !== '' && password !== '' && password.length >= 8 && password === passwordAgain)
@@ -113,21 +106,19 @@ export const Register: React.FC = () => {
                   />
                 </Form.Group>
                 <ShowIf condition={!!config.specialLinks?.termsOfUse || !!config.specialLinks?.privacy}>
-                  <p>
-                    <Trans i18nKey='login.register.infoTermsPrivacy'/>
-                    <ul>
-                      <ShowIf condition={!!config.specialLinks?.termsOfUse}>
-                        <li>
-                          <TranslatedExternalLink i18nKey='landing.footer.termsOfUse' href={config.specialLinks.termsOfUse}/>
-                        </li>
-                      </ShowIf>
-                      <ShowIf condition={!!config.specialLinks?.privacy}>
-                        <li>
-                          <TranslatedExternalLink i18nKey='landing.footer.privacy' href={config.specialLinks.privacy}/>
-                        </li>
-                      </ShowIf>
-                    </ul>
-                  </p>
+                  <Trans i18nKey='login.register.infoTermsPrivacy'/>
+                  <ul>
+                    <ShowIf condition={!!config.specialLinks?.termsOfUse}>
+                      <li>
+                        <TranslatedExternalLink i18nKey='landing.footer.termsOfUse' href={config.specialLinks.termsOfUse}/>
+                      </li>
+                    </ShowIf>
+                    <ShowIf condition={!!config.specialLinks?.privacy}>
+                      <li>
+                        <TranslatedExternalLink i18nKey='landing.footer.privacy' href={config.specialLinks.privacy}/>
+                      </li>
+                    </ShowIf>
+                  </ul>
                 </ShowIf>
                 <Button
                   variant='primary'
@@ -137,13 +128,9 @@ export const Register: React.FC = () => {
                   <Trans i18nKey='login.register.title'/>
                 </Button>
               </Form>
+              <br/>
               <Alert show={error !== RegisterError.NONE} variant='danger'>
-                <ShowIf condition={error === RegisterError.USERNAME_EXISTING}>
-                  <Trans i18nKey='login.register.usernameAlreadyExisting'/>
-                </ShowIf>
-                <ShowIf condition={error === RegisterError.OTHER}>
-                  <Trans i18nKey='login.register.registerError'/>
-                </ShowIf>
+                <Trans i18nKey={`login.register.error.${error}`}/>
               </Alert>
             </Card.Body>
           </Card>
