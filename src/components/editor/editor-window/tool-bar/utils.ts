@@ -5,7 +5,7 @@ export const makeSelectionItalic = (editor: Editor): void => wrapTextWith(editor
 export const strikeThroughSelection = (editor: Editor): void => wrapTextWith(editor, '~~')
 
 export const addHeaderLevel = (editor: Editor): void => changeLines(editor, line => line.startsWith('#') ? `#${line}` : `# ${line}`)
-export const addCodeFences = (editor: Editor): void => wrapTextWith(editor, '\'\'\'\n', '\n\'\'\'')
+export const addCodeFences = (editor: Editor): void => wrapTextWith(editor, '```\n', '\n```')
 export const addQuotes = (editor: Editor): void => insertOnStartOfLines(editor, '> ')
 
 export const addList = (editor: Editor): void => createList(editor, () => '- ')
@@ -14,9 +14,9 @@ export const addTaskList = (editor: Editor): void => createList(editor, () => '-
 
 export const addImage = (editor: Editor): void => addLink(editor, '!')
 
-export const addLine = (editor: Editor): void => changeLines(editor, () => '----')
-export const addComment = (editor: Editor): void => changeLines(editor, () => '> []')
-export const addTable = (editor: Editor): void => changeLines(editor, () => '| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |')
+export const addLine = (editor: Editor): void => changeLines(editor, line => `${line}\n----`)
+export const addComment = (editor: Editor): void => changeLines(editor, line => `${line}\n> []`)
+export const addTable = (editor: Editor): void => changeLines(editor, line => `${line}\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |`)
 
 export const wrapTextWith = (editor: Editor, symbol: string, endSymbol?: string): void => {
   if (!editor.getSelection()) {
@@ -46,10 +46,7 @@ export const insertOnStartOfLines = (editor: Editor, symbol: string): void => {
     const to = range.empty() ? { line: cursor.line, ch: editor.getLine(cursor.line).length } : range.to()
     const selection = editor.getRange(from, to)
     const lines = selection.split('\n')
-    for (let line of lines) {
-      line = `${symbol}${line}`
-    }
-    editor.replaceRange(lines.join('\n'), from, to, '+input')
+    editor.replaceRange(lines.map(line => `${symbol}${line}`).join('\n'), from, to, '+input')
   }
   editor.setSelections(ranges)
 }
@@ -68,35 +65,26 @@ export const changeLines = (editor: Editor, replaceFunction: (line: string) => s
   editor.setSelections(ranges)
 }
 
-export const createList = (editor: Editor, listMark: (j: number) => string): void => {
+export const createList = (editor: Editor, listMark: (i: number) => string): void => {
+  const cursor = editor.getCursor()
   const ranges = editor.listSelections()
   for (const range of ranges) {
-    if (range.empty()) {
-      continue
-    }
-    const from = range.from()
-    const to = range.to()
+    const from = range.empty() ? { line: cursor.line, ch: 0 } : range.from()
+    const to = range.empty() ? { line: cursor.line, ch: editor.getLine(cursor.line).length } : range.to()
 
     const selection = editor.getRange(from, to)
     const lines = selection.split('\n')
-    let j = 1
-    for (let line of lines) {
-      line = `${listMark(j)}${line}`
-      j++
-    }
-    editor.replaceRange(lines.join('\n'), from, to, '+input')
+    editor.replaceRange(lines.map((line, i) => `${listMark(i + 1)}${line}`).join('\n'), from, to, '+input')
   }
   editor.setSelections(ranges)
 }
 
 export const addLink = (editor: Editor, prefix?: string): void => {
+  const cursor = editor.getCursor()
   const ranges = editor.listSelections()
   for (const range of ranges) {
-    if (range.empty()) {
-      continue
-    }
-    const from = range.from()
-    const to = range.to()
+    const from = range.empty() ? { line: cursor.line, ch: cursor.ch } : range.from()
+    const to = range.empty() ? { line: cursor.line, ch: cursor.ch } : range.to()
     const selection = editor.getRange(from, to)
     const linkRegex = /^(?:https?|ftp|mailto):/
     if (linkRegex.exec(selection)) {
