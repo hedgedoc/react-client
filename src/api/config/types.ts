@@ -7,10 +7,7 @@ export interface Config {
   useImageProxy: boolean,
   specialLinks: SpecialLinks,
   version: BackendVersion,
-  plantuml: {
-    enable: boolean,
-    server: string | null,
-  },
+  plantumlServer: string | null,
 }
 
 export interface BrandingConfig {

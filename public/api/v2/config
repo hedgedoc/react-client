@@ -27,9 +27,7 @@
     "saml": "aufSAMLn.de"
   },
   "useImageProxy": false,
-  "plantuml": {
-    "enable": true
-  },
+  "plantumlServer": "http://www.plantuml.com/plantuml",
   "specialLinks": {
     "privacy": "https://example.com/privacy",
     "termsOfUse": "https://example.com/termsOfUse",

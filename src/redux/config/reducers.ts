@@ -31,10 +31,7 @@ export const initialState: Config = {
     saml: ''
   },
   useImageProxy: false,
-  plantuml: {
-    enable: false,
-    server: null
-  },
+  plantumlServer: null,
   specialLinks: {
     privacy: '',
     termsOfUse: '',

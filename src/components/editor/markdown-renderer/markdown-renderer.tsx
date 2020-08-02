@@ -97,7 +97,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     }
   })
 
-  const plantumlConfig = useSelector((state: ApplicationState) => state.config.plantuml)
+  const plantumlServer = useSelector((state: ApplicationState) => state.config.plantumlServer)
 
   const markdownIt = useMemo(() => {
     const md = new MarkdownIt('default', {
@@ -133,16 +133,14 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       })
     }
     md.use(taskList)
-    if (plantumlConfig?.enable) {
-      if (plantumlConfig?.server) {
-        md.use(plantuml, {
-          openMarker: '```plantuml',
-          closeMarker: '```',
-          server: plantumlConfig.server
-        })
-      } else {
-        md.use(plantumlError)
-      }
+    if (plantumlServer) {
+      md.use(plantuml, {
+        openMarker: '```plantuml',
+        closeMarker: '```',
+        server: plantumlServer
+      })
+    } else {
+      md.use(plantumlError)
     }
     md.use(emoji)
     md.use(abbreviation)
@@ -212,7 +210,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     })
 
     return md
-  }, [onMetaDataChange, onFirstHeadingChange, plantumlConfig])
+  }, [onMetaDataChange, onFirstHeadingChange, plantumlServer])
 
   useEffect(() => {
     if (onTocChange && tocAst && !equal(tocAst, lastTocAst)) {
