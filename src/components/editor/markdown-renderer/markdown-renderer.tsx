@@ -36,6 +36,7 @@ import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import './markdown-renderer.scss'
+import { plantumlError } from './markdown-it-plugins/plantuml-error'
 import { replaceAsciinemaLink } from './regex-plugins/replace-asciinema-link'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
 import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
@@ -132,13 +133,15 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       })
     }
     md.use(taskList)
-    if (plantumlConfig.enable) {
-      if (plantumlConfig.server) {
+    if (plantumlConfig?.enable) {
+      if (plantumlConfig?.server) {
         md.use(plantuml, {
           openMarker: '```plantuml',
           closeMarker: '```',
           server: plantumlConfig.server
         })
+      } else {
+        md.use(plantumlError)
       }
     }
     md.use(emoji)

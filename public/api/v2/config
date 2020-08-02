@@ -28,8 +28,7 @@
   },
   "useImageProxy": false,
   "plantuml": {
-    "enable": true,
-    "server": "http://www.plantuml.com/plantuml"
+    "enable": true
   },
   "specialLinks": {
     "privacy": "https://example.com/privacy",
