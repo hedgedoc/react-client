@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useCallback, useState } from 'react'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -15,15 +15,12 @@ export const ViaInternal: React.FC = () => {
   const [error, setError] = useState(false)
   const allowRegister = useSelector((state: ApplicationState) => state.config.allowRegister)
 
-  const doAsyncLogin = async () => {
-    await doInternalLogin(username, password)
-    await getAndSetUser()
-  }
-
-  const onLoginClick = (event: FormEvent) => {
-    doAsyncLogin().catch(() => setError(true))
+  const onLoginSubmit = useCallback((event: FormEvent) => {
+    doInternalLogin(username, password).then(() => {
+      getAndSetUser().catch(() => setError(true))
+    }).catch(() => setError(true))
     event.preventDefault()
-  }
+  }, [username, password])
 
   return (
     <Card className="bg-dark mb-4">
@@ -31,7 +28,7 @@ export const ViaInternal: React.FC = () => {
         <Card.Title>
           <Trans i18nKey="login.signInVia" values={{ service: t('login.auth.username') }}/>
         </Card.Title>
-        <Form onSubmit={onLoginClick}>
+        <Form onSubmit={onLoginSubmit}>
           <Form.Group controlId="internal-username">
             <Form.Control
               isInvalid={error}

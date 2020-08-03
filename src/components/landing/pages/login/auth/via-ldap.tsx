@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useCallback, useState } from 'react'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 
 import { Trans, useTranslation } from 'react-i18next'
@@ -17,19 +17,12 @@ export const ViaLdap: React.FC = () => {
 
   const name = ldapCustomName ? `${ldapCustomName} (LDAP)` : 'LDAP'
 
-  const doAsyncLogin = async () => {
-    try {
-      await doLdapLogin(username, password)
-      await getAndSetUser()
-    } catch {
-      setError(true)
-    }
-  }
-
-  const onFormSubmit = (event: FormEvent) => {
-    doAsyncLogin().catch(() => setError(true))
+  const onLoginSubmit = useCallback((event: FormEvent) => {
+    doLdapLogin(username, password).then(() => {
+      getAndSetUser().catch(() => setError(true))
+    }).catch(() => setError(true))
     event.preventDefault()
-  }
+  }, [username, password])
 
   return (
     <Card className="bg-dark mb-4">
@@ -37,7 +30,7 @@ export const ViaLdap: React.FC = () => {
         <Card.Title>
           <Trans i18nKey="login.signInVia" values={{ service: name }}/>
         </Card.Title>
-        <Form onSubmit={onFormSubmit}>
+        <Form onSubmit={onLoginSubmit}>
           <Form.Group controlId="ldap-username">
             <Form.Control
               isInvalid={error}
