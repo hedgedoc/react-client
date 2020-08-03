@@ -6,15 +6,13 @@ export const plantumlError: MarkdownIt.PluginSimple = (md) => {
   const defaultRenderer: RenderRule = md.renderer.rules.fence || (() => '')
   md.renderer.rules.fence = (tokens: Token[], idx: number, options: Options, env, slf: Renderer) => {
     const token = tokens[idx]
-    const defaultRender = defaultRenderer(tokens, idx, options, env, slf)
     if (token.info === 'plantuml') {
       return `
         <p class="alert alert-danger">
           PlantUML plugin is enabled but not properly configured.
         </p>
-        ${defaultRender}
       `
     }
-    return defaultRender
+    return defaultRenderer(tokens, idx, options, env, slf)
   }
 }
