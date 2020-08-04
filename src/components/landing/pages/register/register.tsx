@@ -27,12 +27,12 @@ export const Register: React.FC = () => {
   const [ready, setReady] = useState(false)
 
   const doRegisterSubmit = useCallback((event: FormEvent) => {
-    doInternalRegister(username, password).then(() => {
-      getAndSetUser().catch(() => setError(RegisterError.OTHER))
-    }).catch((err: Error) => {
-      console.error(err)
-      setError(err.message === RegisterError.USERNAME_EXISTING ? err.message : RegisterError.OTHER)
-    })
+    doInternalRegister(username, password)
+      .then(() => getAndSetUser())
+      .catch((err: Error) => {
+        console.error(err)
+        setError(err.message === RegisterError.USERNAME_EXISTING ? err.message : RegisterError.OTHER)
+      })
     event.preventDefault()
   }, [username, password])
 

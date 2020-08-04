@@ -16,9 +16,9 @@ export const ViaInternal: React.FC = () => {
   const allowRegister = useSelector((state: ApplicationState) => state.config.allowRegister)
 
   const onLoginSubmit = useCallback((event: FormEvent) => {
-    doInternalLogin(username, password).then(() => {
-      getAndSetUser().catch(() => setError(true))
-    }).catch(() => setError(true))
+    doInternalLogin(username, password)
+      .then(() => getAndSetUser())
+      .catch(() => setError(true))
     event.preventDefault()
   }, [username, password])
 

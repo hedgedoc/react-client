@@ -18,9 +18,9 @@ export const ViaLdap: React.FC = () => {
   const name = ldapCustomName ? `${ldapCustomName} (LDAP)` : 'LDAP'
 
   const onLoginSubmit = useCallback((event: FormEvent) => {
-    doLdapLogin(username, password).then(() => {
-      getAndSetUser().catch(() => setError(true))
-    }).catch(() => setError(true))
+    doLdapLogin(username, password)
+      .then(() => getAndSetUser())
+      .catch(() => setError(true))
     event.preventDefault()
   }, [username, password])
 
