@@ -1,8 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import CodeMirror from 'codemirror'
+import 'codemirror'
 
 declare module 'codemirror' {
-    interface EditorConfiguration {
-        fullScreen?: boolean;
-    }
+  // noinspection JSUnusedGlobalSymbols
+  interface EditorConfiguration {
+    fullScreen?: boolean;
+  }
 }
