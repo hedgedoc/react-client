@@ -36,7 +36,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
             text: '',
             emoticons: [],
             keywords: ['fork awesome'],
-            imageUrl: 'https://github.githubassets.com/images/icons/emoji/octocat.png',
+            imageUrl: '/img/forkawesome.png',
             customCategory: 'ForkAwesome'
           }))
           }
