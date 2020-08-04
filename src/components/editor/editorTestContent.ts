@@ -35,6 +35,9 @@ $$
 ## Gist
 https://gist.github.com/schacon/1
 
+## Twitter
+https://twitter.com/davebloggt/status/1287457428439785475
+
 ## YouTube
 https://www.youtube.com/watch?v=KgMpKsp23yY
 

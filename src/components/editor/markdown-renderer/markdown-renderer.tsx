@@ -44,6 +44,7 @@ import { replacePdfShortCode } from './regex-plugins/replace-pdf-short-code'
 import { replaceQuoteExtraAuthor } from './regex-plugins/replace-quote-extra-author'
 import { replaceQuoteExtraColor } from './regex-plugins/replace-quote-extra-color'
 import { replaceQuoteExtraTime } from './regex-plugins/replace-quote-extra-time'
+import { replaceTweetLink } from './regex-plugins/replace-tweet-link'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
 import { ComponentReplacer, SubNodeConverter } from './replace-components/ComponentReplacer'
@@ -56,6 +57,7 @@ import { PdfReplacer } from './replace-components/pdf/pdf-replacer'
 import { PossibleWiderReplacer } from './replace-components/possible-wider/possible-wider-replacer'
 import { QuoteOptionsReplacer } from './replace-components/quote-options/quote-options-replacer'
 import { TocReplacer } from './replace-components/toc/toc-replacer'
+import { TweetReplacer } from './replace-components/tweet/tweet-replacer'
 import { VimeoReplacer } from './replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
 
@@ -174,6 +176,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     md.use(markdownItRegex, replaceYouTubeLink)
     md.use(markdownItRegex, replaceVimeoLink)
     md.use(markdownItRegex, replaceGistLink)
+    md.use(markdownItRegex, replaceTweetLink)
     md.use(highlightedCode)
     md.use(markdownItRegex, replaceQuoteExtraAuthor)
     md.use(markdownItRegex, replaceQuoteExtraColor)
@@ -214,6 +217,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     const allReplacers: ComponentReplacer[] = [
       new PossibleWiderReplacer(),
       new GistReplacer(),
+      new TweetReplacer(),
       new YoutubeReplacer(),
       new VimeoReplacer(),
       new AsciinemaReplacer(),
