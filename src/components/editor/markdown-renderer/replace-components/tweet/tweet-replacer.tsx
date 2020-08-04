@@ -3,8 +3,8 @@ import React from 'react'
 import { getAttributesFromCodiMdTag } from '../codi-md-tag-utils'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
+import preview from './tweet-preview.png'
 import { TweetFrame } from './tweet-frame'
-import preview from './gist-preview.png'
 
 export class TweetReplacer implements ComponentReplacer {
   private counterMap: Map<string, number> = new Map<string, number>()
