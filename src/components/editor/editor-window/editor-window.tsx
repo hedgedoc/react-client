@@ -36,7 +36,7 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
         editor={editor}
       />
       <ControlledCodeMirror
-        className="h-100 w-100 flex-fill"
+        className="overflow-hidden w-100 flex-fill"
         value={content}
         options={{
           mode: 'gfm',

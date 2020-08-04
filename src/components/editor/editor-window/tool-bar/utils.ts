@@ -3,6 +3,10 @@ import { Editor } from 'codemirror'
 export const makeSelectionBold = (editor: Editor): void => wrapTextWith(editor, '**')
 export const makeSelectionItalic = (editor: Editor): void => wrapTextWith(editor, '*')
 export const strikeThroughSelection = (editor: Editor): void => wrapTextWith(editor, '~~')
+export const underlineSelection = (editor: Editor): void => wrapTextWith(editor, '++')
+export const subscriptSelection = (editor: Editor): void => wrapTextWith(editor, '~')
+export const superscriptSelection = (editor: Editor): void => wrapTextWith(editor, '^')
+export const markSelection = (editor: Editor): void => wrapTextWith(editor, '==')
 
 export const addHeaderLevel = (editor: Editor): void => changeLines(editor, line => line.startsWith('#') ? `#${line}` : `# ${line}`)
 export const addCodeFences = (editor: Editor): void => wrapTextWith(editor, '```\n', '\n```')
