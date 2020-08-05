@@ -7,7 +7,7 @@ import {
   underlineSelection
 } from './tool-bar/utils'
 
-const isMac = navigator.platform.includes('Mac')
+const isMac = navigator.platform.toLowerCase().includes('mac')
 
 const isVim = (keyMapName?: string) => (keyMapName?.substr(0, 3) === 'vim')
 
