@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ActiveIndicatorStatus } from './active-indicator'
 import './connection-indicator.scss'
-import { UserLine } from '../task-bar/user-line'
+import { UserLine } from './user-line'
 
 const ConnectionIndicator: React.FC = () => {
   const userOnline = 2
