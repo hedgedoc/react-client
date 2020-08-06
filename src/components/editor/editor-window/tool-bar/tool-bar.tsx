@@ -1,6 +1,6 @@
 import { Editor } from 'codemirror'
 import React, { Fragment, useState } from 'react'
-import { Button, ButtonToolbar } from 'react-bootstrap'
+import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { EmojiPicker } from './emoji-picker/emoji-picker'
@@ -45,6 +45,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
   return (
     <Fragment>
       <ButtonToolbar className='flex-nowrap bg-light'>
+        <ButtonGroup className={'mx-2'}>
         <Button variant='light' onClick={() => makeSelectionBold(editor)} title={t('editor.editorToolbar.bold')}>
           <ForkAwesomeIcon icon="bold"/>
         </Button>
@@ -63,6 +64,9 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => superscriptSelection(editor)} title={t('editor.editorToolbar.superscript')}>
           <ForkAwesomeIcon icon="superscript"/>
         </Button>
+      </ButtonGroup>
+      <span className={'divider'}>&nbsp;</span>
+      <ButtonGroup className={'mx-2'}>
         <Button variant='light' onClick={() => addHeaderLevel(editor)} title={t('editor.editorToolbar.header')}>
           <ForkAwesomeIcon icon="header"/>
         </Button>
@@ -81,6 +85,9 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => addTaskList(editor)} title={t('editor.editorToolbar.checkList')}>
           <ForkAwesomeIcon icon="check-square"/>
         </Button>
+        </ButtonGroup>
+      <span className={'divider'}>&nbsp;</span>
+      <ButtonGroup className={'mx-2'}>
         <Button variant='light' onClick={() => addLink(editor)} title={t('editor.editorToolbar.link')}>
           <ForkAwesomeIcon icon="link"/>
         </Button>
@@ -90,6 +97,9 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={notImplemented} title={t('editor.editorToolbar.uploadImage')}>
           <ForkAwesomeIcon icon="upload"/>
         </Button>
+        </ButtonGroup>
+      <span className={'divider'}>&nbsp;</span>
+      <ButtonGroup className={'mx-2'}>
         <Button variant='light' onClick={() => addTable(editor)} title={t('editor.editorToolbar.table')}>
           <ForkAwesomeIcon icon="table"/>
         </Button>
@@ -99,6 +109,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => addComment(editor)} title={t('editor.editorToolbar.comment')}>
           <ForkAwesomeIcon icon="comment"/>
         </Button>
+      </ButtonGroup>
         <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
           setShowEmojiPicker(false)
           addEmoji(emoji, editor)
