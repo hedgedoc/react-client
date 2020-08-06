@@ -62,7 +62,7 @@ const tab = (editor: Editor) => {
   }
 }
 
-export const defaultKeyMap: KeyMap = isMac ? {
+export const defaultKeyMap: KeyMap = !isMac ? {
   F10: f10,
   Esc: esc,
   'Ctrl-S': suppressSave,
