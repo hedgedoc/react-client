@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { UserAvatar } from '../../landing/layout/user-avatar/user-avatar'
-import { ActiveIndicator, ActiveIndicatorStatus } from './active-indicator'
+import { ActiveIndicator, ActiveIndicatorStatus } from '../document-bar/active-indicator'
 import './user-line.scss'
 
 export interface UserLineProps {

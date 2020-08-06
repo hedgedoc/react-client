@@ -1,0 +1,67 @@
+import React from 'react'
+import { Dropdown } from 'react-bootstrap'
+import { Trans, useTranslation } from 'react-i18next'
+import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+
+const EditorImportExportMenu: React.FC = () => {
+  useTranslation()
+  return (
+    <Dropdown className='small mx-1' alignRight={true}>
+      <Dropdown.Toggle variant='light' size='sm' id='editor-menu-import-export' className='text-secondary'>
+        <Trans i18nKey='editor.menu.importExport'/>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Header>
+          <Trans i18nKey='common.export'/>
+        </Dropdown.Header>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='dropbox' className={'mx-2'}/>
+          Dropbox
+        </Dropdown.Item>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='github' className={'mx-2'}/>
+          Gist
+        </Dropdown.Item>
+
+        <Dropdown.Divider/>
+
+        <Dropdown.Header>
+          <Trans i18nKey='common.import'/>
+        </Dropdown.Header>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='dropbox' className={'mx-2'}/>
+          Dropbox
+        </Dropdown.Item>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='github' className={'mx-2'}/>
+          Gist
+        </Dropdown.Item>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='clipboard' className={'mx-2'}/>
+          <Trans i18nKey='editor.import.clipboard'/>
+        </Dropdown.Item>
+
+        <Dropdown.Divider/>
+
+        <Dropdown.Header>
+          <Trans i18nKey='editor.menu.download'/>
+        </Dropdown.Header>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='file-text' className={'mx-2'}/>
+          Markdown
+        </Dropdown.Item>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='file-code-o' className={'mx-2'}/>
+          HTML
+        </Dropdown.Item>
+        <Dropdown.Item className='small'>
+          <ForkAwesomeIcon icon='file-code-o' className={'mx-2'}/>
+          <Trans i18nKey='editor.export.rawHtml'/>
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  )
+}
+
+export { EditorImportExportMenu }
