@@ -1,13 +1,13 @@
 import React from 'react'
-import './document-bar.scss'
+import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
-import { ConnectionIndicator } from './connection-indicator'
-import { EditorImportExportMenu } from './editor-import-export-menu'
+import { ConnectionIndicator } from '../connection-indicator/connection-indicator'
 import { DocTimestamps } from './doc-timestamps'
+import './document-bar.scss'
+import { EditorImportExportMenu } from './editor-import-export-menu'
 import { EditorMenu } from './editor-menu'
 import { PermissionSelector } from './permission-selector'
-import { Button } from 'react-bootstrap'
 
 export const DocumentBar: React.FC = () => {
   useTranslation()
