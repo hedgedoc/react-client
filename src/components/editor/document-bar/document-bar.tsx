@@ -6,7 +6,7 @@ import { CopyableField } from '../../common/copyable-field/copyable-field'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../common/modals/common-modal'
 import { ConnectionIndicator } from './connection-indicator/connection-indicator'
-import { DocumentTime } from './document-time'
+import { DocumentInfo } from './document-info'
 import { EditorMenu } from './editor-menu'
 import { ExportMenu } from './export-menu'
 import { ImportMenu } from './import-menu'
@@ -18,23 +18,8 @@ export const DocumentBar: React.FC = () => {
 
   return (
     <div className={'navbar navbar-expand navbar-light bg-light'}>
-      <div className={'navbar-nav'}>
-        <DocumentTime
-          additionalClassNames={'pr-2'}
-          createIcon={true}
-          dateTime={moment(Date.now()).subtract(11, 'minutes').toDate()}
-          name={'Philip Molares'}
-          photo={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}
-        />
-        <DocumentTime
-          additionalClassNames={'px-2'}
-          createIcon={false}
-          dateTime={moment(Date.now()).subtract(3, 'minutes').toDate()}
-          name={'Tilman Vatteroth'}
-          photo={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}
-        />
-      </div>
       <div className="ml-auto navbar-nav">
+        <DocumentInfo/>
         <PermissionSelector/>
         <Button variant={'light'} className={'mx-1'} size={'sm'}>
           <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>

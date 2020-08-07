@@ -261,6 +261,9 @@
                 "selectProject": "Select From Available Projects",
                 "selectSnippet": "Select From Available Snippets"
             },
+            "documentInfo": {
+              "title": "Document info"
+            },
             "gistImport": {
                 "title": "Import from Gist",
                 "insertGistUrl": "Paste your gist url here…"
