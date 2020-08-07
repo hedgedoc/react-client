@@ -22,14 +22,13 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
 
   return (
     <ShowIf condition={show}>
-      <div ref={pickerRef}>
+      <div className={'position-relative'} ref={pickerRef}>
         <NimblePicker
           data={emojiData as unknown as Data}
           native={true}
           onSelect={onEmojiSelected}
           theme={'auto'}
           title=''
-          style={{ top: '96px' }}
           custom={Object.keys(ForkAwesomeIcons).map((name) => ({
             name: `fa-${name}`,
             short_names: [`fa-${name.toLowerCase()}`],

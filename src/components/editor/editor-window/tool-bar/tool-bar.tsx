@@ -102,11 +102,11 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={''}>
           <ForkAwesomeIcon icon="smile-o"/>
         </Button>
+        <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
+          setShowEmojiPicker(false)
+          addEmoji(emoji, editor)
+        }} onDismiss={() => setShowEmojiPicker(false)}/>
       </ButtonToolbar>
-      <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
-        setShowEmojiPicker(false)
-        addEmoji(emoji, editor)
-      }} onDismiss={() => setShowEmojiPicker(false)}/>
     </Fragment>
   )
 }
