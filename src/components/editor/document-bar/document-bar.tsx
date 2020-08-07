@@ -21,6 +21,10 @@ export const DocumentBar: React.FC = () => {
         <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
         <Trans i18nKey={'editor.menu.revision'}/>
       </Button>
+      <Button variant={'light'} className={'mx-1'} size={'sm'}>
+        <ForkAwesomeIcon icon={'thumb-tack'} className={'mx-1'}/>
+        Pin note
+      </Button>
       <PermissionSelector/>
       <div className="ml-auto navbar-nav">
         <ImportMenu/>
