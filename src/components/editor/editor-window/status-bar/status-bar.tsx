@@ -32,7 +32,7 @@ export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, 
   const { t } = useTranslation()
 
   return (
-    <div className="d-flex flex-row status-bar">
+    <div className="d-flex flex-row status-bar px-2">
       <div>
         <span>{t('editor.statusBar.cursor', { line: position.line + 1, columns: position.ch })}</span>
         <ShowIf condition={selectedColumns !== 0 && selectedLines !== 0}>
@@ -46,7 +46,7 @@ export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, 
       </div>
       <div className="ml-auto">
         <span>{t('editor.statusBar.lines', { lines: linesInDocument })}</span>
-        <span className={'pr-2'} title={t('editor.statusBar.lengthTooltip')}>&nbsp;–&nbsp;{t('editor.statusBar.length', { length: charactersInDocument })}</span>
+        <span title={t('editor.statusBar.lengthTooltip')}>&nbsp;–&nbsp;{t('editor.statusBar.length', { length: charactersInDocument })}</span>
       </div>
     </div>
   )
