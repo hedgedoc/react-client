@@ -12,11 +12,11 @@ export const DocumentBar: React.FC = () => {
   useTranslation()
 
   return (
-    <div className={'document-bar bg-light px-3 py-2 d-flex flex-row align-items-center'}>
+    <div className={'navbar navbar-expand navbar-light bg-light'}>
       <DocTimestamps/>
       <PermissionSelector/>
-      <div className="text-secondary ml-auto d-flex flex-row">
-        <Button variant={'light'} className={'mx-1 text-secondary'} size={'sm'}>
+      <div className="ml-auto navbar-nav">
+        <Button variant={'light'} className={'mx-1'} size={'sm'}>
           <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
           <Trans i18nKey={'editor.menu.revision'}/>
         </Button>
