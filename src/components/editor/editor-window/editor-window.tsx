@@ -19,7 +19,7 @@ import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
 import { defaultKeyMap } from './key-map'
-import { StatusBar } from './status-bar/status-bar'
+import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 
 export interface EditorWindowProps {
@@ -30,6 +30,7 @@ export interface EditorWindowProps {
 export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
   const { t } = useTranslation()
   const [editor, setEditor] = useState<Editor>()
+  const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
 
   return (
     <div className={'d-flex flex-column h-100'}>
@@ -70,12 +71,16 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           // otherCursors: true,
           placeholder: t('editor.placeholder')
         }}
-        editorDidMount={mountedEditor => setEditor(mountedEditor)}
+        onCursorActivity={(editorWithActivity) => setStatusBarInfo(createStatusInfo(editorWithActivity))}
+        editorDidMount={mountedEditor => {
+          setStatusBarInfo(createStatusInfo(mountedEditor))
+          setEditor(mountedEditor)
+        }}
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
       />
-      <StatusBar editor={editor}/>
+      <StatusBar {...statusBarInfo} />
     </div>
   )
 }
