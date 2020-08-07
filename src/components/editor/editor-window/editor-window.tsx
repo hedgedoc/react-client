@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
 import { emojiHints, emojiWordRegex, findWordAtCursor } from './hints/emoji'
 import { defaultKeyMap } from './key-map'
-import { StatusBar } from './status-bar/status-bar'
+import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 
 export interface EditorWindowProps {
@@ -46,6 +46,7 @@ const onChange = (editor: Editor) => {
 export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
   const { t } = useTranslation()
   const [editor, setEditor] = useState<Editor>()
+  const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
 
   const onBeforeChange = useCallback((editor: Editor, data: EditorChange, value: string) => {
     onContentChange(value)
@@ -92,11 +93,15 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
           showHint: false,
           hintOptions: hintOptions
         }}
-        editorDidMount={mountedEditor => setEditor(mountedEditor)}
         onBeforeChange={onBeforeChange}
         onChange={onChange}
+        onCursorActivity={(editorWithActivity) => setStatusBarInfo(createStatusInfo(editorWithActivity))}
+        editorDidMount={mountedEditor => {
+          setStatusBarInfo(createStatusInfo(mountedEditor))
+          setEditor(mountedEditor)
+        }}
       />
-      <StatusBar editor={editor}/>
+      <StatusBar {...statusBarInfo} />
     </div>
   )
 }
