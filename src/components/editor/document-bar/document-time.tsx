@@ -5,7 +5,7 @@ import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { UserAvatar } from '../../landing/layout/user-avatar/user-avatar'
 
 export interface DocumentTimeProps {
-  additionalClassNames: string,
+  additionalClassNames?: string,
   dateTime: Date,
   name: string,
   photo: string,
@@ -18,8 +18,9 @@ export const DocumentTime: React.FC<DocumentTimeProps> = ({ name, photo, createI
   const title = createIcon ? t('editor.menu.created', { name, time }) : t('editor.menu.edited', { name, time })
   const icon = createIcon ? 'plus-square-o' : 'pencil-square-o'
   return (
-    <span className={`user-select-none nav-item text-secondary d-flex align-items-center ${additionalClassNames}`} title={title}>
-      <ForkAwesomeIcon icon={icon} fixedWidth={true}/>&nbsp;<UserAvatar photo={photo} name={name} showName={false}/>&nbsp;—&nbsp;{time}
+    <span className={`d-flex align-items-center ${additionalClassNames ?? ''}`} title={title}>
+      <ForkAwesomeIcon icon={icon} size={'3x'} fixedWidth={true}/>
+      <UserAvatar photo={photo} name={name} showName={false}/>&nbsp;—&nbsp;{time}
     </span>
   )
 }
