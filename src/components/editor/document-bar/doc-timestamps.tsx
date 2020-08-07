@@ -17,7 +17,7 @@ export const DocTimestamps: React.FC = () => {
           <span className="input-group-text">
             <img
               src="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&amp;r=pg&amp;d=mp"
-              className="user-avatar"
+              className="user-avatar mr-1"
               alt="Avatar of Test"/>  11 minutes ago
           </span>
         </div>
@@ -33,7 +33,7 @@ export const DocTimestamps: React.FC = () => {
           <span className="input-group-text">
             <img
               src="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&amp;r=pg&amp;d=mp"
-              className="user-avatar"
+              className="user-avatar mr-1"
               alt="Avatar of Test"/>  3 minutes ago
           </span>
         </div>
