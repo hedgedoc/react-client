@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { Fragment, useMemo, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Button, ListGroup } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
@@ -9,12 +9,7 @@ import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-i
 
 export const DocumentInfo: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
-  const { t } = useTranslation()
-
-  const editedTimestamp = useMemo(() => {
-    const a = moment(Date.now()).subtract(3, 'minutes').toDate()
-    return moment(a).fromNow(true)
-  }, [])
+  useTranslation()
 
   return (
     <Fragment>
