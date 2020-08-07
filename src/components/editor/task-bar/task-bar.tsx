@@ -14,7 +14,7 @@ import { EditorViewMode } from './editor-view-mode'
 import { HelpButton } from './help-button'
 
 const TaskBar: React.FC = () => {
-  useTranslation()
+  const { t } = useTranslation()
   const user = useSelector((state: ApplicationState) => state.user)
 
   return (
@@ -29,6 +29,9 @@ const TaskBar: React.FC = () => {
         </Navbar.Brand>
         <EditorViewMode/>
         <DarkModeButton/>
+        <Button title={t('editor.menu.slideMode')} className="ml-2 text-secondary" size="sm" variant="outline-light">
+          <ForkAwesomeIcon icon="television"/>
+        </Button>
         <HelpButton/>
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
