@@ -223,7 +223,8 @@
         },
         "menu": {
             "menu": "Menu",
-            "importExport": "Import/Export",
+            "import": "Import",
+            "export": "Export",
             "new": "New",
             "modes": "Modes",
             "publish": "Published",
