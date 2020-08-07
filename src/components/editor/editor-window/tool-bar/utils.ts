@@ -31,7 +31,7 @@ export const addEmoji = (emoji: EmojiData, editor: Editor): void => {
     // noinspection CheckTagEmptyBody
     replacement = `<i class="fa ${(emoji as CustomEmoji).name}"></i>`
   }
-  wrapTextWith(editor, replacement)
+  insertAtCursor(editor, replacement)
 }
 
 export const wrapTextWith = (editor: Editor, symbol: string, endSymbol?: string): void => {
@@ -108,5 +108,15 @@ export const addLink = (editor: Editor, prefix?: string): void => {
     } else {
       editor.replaceRange(`${prefix || ''}[${selection}](https://)`, from, to, '+input')
     }
+  }
+}
+
+export const insertAtCursor = (editor: Editor, text: string): void => {
+  const cursor = editor.getCursor()
+  const ranges = editor.listSelections()
+  for (const range of ranges) {
+    const from = range.empty() ? { line: cursor.line, ch: cursor.ch } : range.from()
+    const to = range.empty() ? { line: cursor.line, ch: cursor.ch } : range.to()
+    editor.replaceRange(`${text}`, from, to, '+input')
   }
 }
