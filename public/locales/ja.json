@@ -127,7 +127,7 @@
         "menu": {
             "menu": "メニュー",
             "new": "新規作成",
-            "publish": "公開する",
+            "share": "",
             "extra": "その他",
             "revision": "編集履歴",
             "slideMode": "スライドモード",
