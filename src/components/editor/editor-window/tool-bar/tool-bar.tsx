@@ -99,13 +99,13 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => addComment(editor)} title={t('editor.editorToolbar.comment')}>
           <ForkAwesomeIcon icon="comment"/>
         </Button>
-        <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={''}>
-          <ForkAwesomeIcon icon="smile-o"/>
-        </Button>
         <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
           setShowEmojiPicker(false)
           addEmoji(emoji, editor)
         }} onDismiss={() => setShowEmojiPicker(false)}/>
+        <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={''}>
+          <ForkAwesomeIcon icon="smile-o"/>
+        </Button>
       </ButtonToolbar>
     </Fragment>
   )
