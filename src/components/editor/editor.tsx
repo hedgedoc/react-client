@@ -62,13 +62,13 @@ export const Editor: React.FC = () => {
       <DocumentTitle title={documentTitle}/>
       <div className={'d-flex flex-column vh-100'}>
         <TaskBar/>
+        <DocumentBar/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
           right={<MarkdownRenderWindow content={markdownContent} wide={editorMode === EditorMode.PREVIEW} onMetadataChange={onMetadataChange} onFirstHeadingChange={onFirstHeadingChange}/>}
           containerClassName={'overflow-hidden'}/>
-        <DocumentBar/>
       </div>
     </Fragment>
   )
