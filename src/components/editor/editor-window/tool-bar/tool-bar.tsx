@@ -1,16 +1,14 @@
-import { BaseEmoji, CustomEmoji, EmojiData } from 'emoji-mart'
-import React, { Fragment, useState } from 'react'
 import { Editor } from 'codemirror'
-import React from 'react'
+import React, { Fragment, useState } from 'react'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import './tool-bar.scss'
 import { EmojiPicker } from './emoji-picker/emoji-picker'
 import './tool-bar.scss'
 import {
   addCodeFences,
   addComment,
+  addEmoji,
   addHeaderLevel,
   addImage,
   addLine,
@@ -40,18 +38,6 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
     alert('This feature is not yet implemented')
   }
 
-  const addEmoji = (emoji: EmojiData): void => {
-    setShowEmojiPicker(false)
-    let replacement = ''
-    if ((emoji as BaseEmoji).native) {
-      replacement = (emoji as BaseEmoji).native
-    } else if ((emoji as CustomEmoji).imageUrl) {
-      // noinspection CheckTagEmptyBody
-      replacement = `<i class="fa ${(emoji as CustomEmoji).name}"></i>`
-    }
-    replaceSelection(content, positions.startPosition, positions.endPosition, onContentChange, replacement)
-  }
-
   if (!editor) {
     return null
   }
@@ -64,18 +50,18 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         </Button>
         <Button variant='light' onClick={() => makeSelectionItalic(editor)} title={t('editor.editorToolbar.italic')}>
           <ForkAwesomeIcon icon="italic"/>
-      </Button>
-      <Button variant='light' onClick={() => underlineSelection(editor)} title={t('editor.editorToolbar.underline')}>
-        <ForkAwesomeIcon icon="underline"/>
+        </Button>
+        <Button variant='light' onClick={() => underlineSelection(editor)} title={t('editor.editorToolbar.underline')}>
+          <ForkAwesomeIcon icon="underline"/>
         </Button>
         <Button variant='light' onClick={() => strikeThroughSelection(editor)} title={t('editor.editorToolbar.strikethrough')}>
           <ForkAwesomeIcon icon="strikethrough"/>
-      </Button>
-      <Button variant='light' onClick={() => subscriptSelection(editor)} title={t('editor.editorToolbar.subscript')}>
-        <ForkAwesomeIcon icon="subscript"/>
-      </Button>
-      <Button variant='light' onClick={() => superscriptSelection(editor)} title={t('editor.editorToolbar.superscript')}>
-        <ForkAwesomeIcon icon="superscript"/>
+        </Button>
+        <Button variant='light' onClick={() => subscriptSelection(editor)} title={t('editor.editorToolbar.subscript')}>
+          <ForkAwesomeIcon icon="subscript"/>
+        </Button>
+        <Button variant='light' onClick={() => superscriptSelection(editor)} title={t('editor.editorToolbar.superscript')}>
+          <ForkAwesomeIcon icon="superscript"/>
         </Button>
         <Button variant='light' onClick={() => addHeaderLevel(editor)} title={t('editor.editorToolbar.header')}>
           <ForkAwesomeIcon icon="header"/>
@@ -117,7 +103,10 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
           <ForkAwesomeIcon icon="smile-o"/>
         </Button>
       </ButtonToolbar>
-      <EmojiPicker show={showEmojiPicker} onEmojiSelected={addEmoji} onDismiss={() => setShowEmojiPicker(false)}/>
+      <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
+        setShowEmojiPicker(false)
+        addEmoji(emoji, editor)
+      }} onDismiss={() => setShowEmojiPicker(false)}/>
     </Fragment>
   )
 }
