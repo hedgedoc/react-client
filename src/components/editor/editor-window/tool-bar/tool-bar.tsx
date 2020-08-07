@@ -44,7 +44,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
 
   return (
     <Fragment>
-      <ButtonToolbar className='flex-nowrap bg-light'>
+      <ButtonToolbar className='bg-light'>
         <ButtonGroup className={'mx-2'}>
         <Button variant='light' onClick={() => makeSelectionBold(editor)} title={t('editor.editorToolbar.bold')}>
           <ForkAwesomeIcon icon="bold"/>
