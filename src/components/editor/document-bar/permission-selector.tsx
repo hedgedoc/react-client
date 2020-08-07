@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 export const PermissionSelector: React.FC = () => {
   return (
-    <Fragment />
+    <span className='pl-2'>Permissons</span>
   )
 }

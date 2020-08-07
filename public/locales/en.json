@@ -228,12 +228,15 @@
             "new": "New",
             "modes": "Modes",
             "publish": "Published",
+            "publishText": "This links to an read-only version of this pad. You can use this for feedback from friends and colleagues.",
             "extra": "Extra",
             "revision": "Revision",
             "slideMode": "Slide Mode",
             "download": "Download",
             "help": "Help",
-            "deleteNote": "Delete note"
+            "deleteNote": "Delete note",
+            "created": "{{name}} created this note {{time}}",
+            "edited": "{{name}} edited this note {{time}}"
         },
         "export": {
             "rawHtml": "Raw HTML"
