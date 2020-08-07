@@ -8,7 +8,6 @@ import './tool-bar.scss'
 import {
   addCodeFences,
   addComment,
-  addEmoji,
   addHeaderLevel,
   addImage,
   addLine,
