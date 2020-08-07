@@ -1,6 +1,6 @@
 import { Editor } from 'codemirror'
 import React, { Fragment, useState } from 'react'
-import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap'
+import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { EmojiPicker } from './emoji-picker/emoji-picker'
@@ -108,6 +108,12 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         </Button>
         <Button variant='light' onClick={() => addComment(editor)} title={t('editor.editorToolbar.comment')}>
           <ForkAwesomeIcon icon="comment"/>
+        </Button>
+      </ButtonGroup>
+      <span className={'divider'}>&nbsp;</span>
+      <ButtonGroup className={'mx-2'}>
+        <Button variant='light' onClick={notImplemented} title={t('editor.editorToolbar.prefernces')}>
+          <ForkAwesomeIcon icon="wrench"/>
         </Button>
       </ButtonGroup>
         <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {

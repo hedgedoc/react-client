@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
 import { emojiHints, emojiWordRegex, findWordAtCursor } from './hints/emoji'
 import { defaultKeyMap } from './key-map'
+import { StatusBar } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 
 export interface EditorWindowProps {
@@ -94,6 +95,8 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
         editorDidMount={mountedEditor => setEditor(mountedEditor)}
         onBeforeChange={onBeforeChange}
         onChange={onChange}
-      /></div>
+      />
+      <StatusBar editor={editor}/>
+    </div>
   )
 }
