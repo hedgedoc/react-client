@@ -9,7 +9,7 @@ export const EditorMenu: React.FC = () => {
 
   return (
     <Dropdown className={'small mx-1'} alignRight={true}>
-      <Dropdown.Toggle variant='light' size='sm' id='editor-menu' className='text-secondary'>
+      <Dropdown.Toggle variant='light' size='sm' id='editor-menu'>
         <Trans i18nKey={'editor.menu.menu'}/>
       </Dropdown.Toggle>
 

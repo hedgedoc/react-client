@@ -7,7 +7,7 @@ const EditorImportExportMenu: React.FC = () => {
   useTranslation()
   return (
     <Dropdown className='small mx-1' alignRight={true}>
-      <Dropdown.Toggle variant='light' size='sm' id='editor-menu-import-export' className='text-secondary'>
+      <Dropdown.Toggle variant='light' size='sm' id='editor-menu-import-export' className=''>
         <Trans i18nKey='editor.menu.importExport'/>
       </Dropdown.Toggle>
 
