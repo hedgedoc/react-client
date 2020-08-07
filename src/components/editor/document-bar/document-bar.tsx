@@ -33,9 +33,9 @@ export const DocumentBar: React.FC = () => {
           name={'Tilman Vatteroth'}
           photo={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}
         />
-        <PermissionSelector/>
       </div>
       <div className="ml-auto navbar-nav">
+        <PermissionSelector/>
         <Button variant={'light'} className={'mx-1'} size={'sm'}>
           <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
           <Trans i18nKey={'editor.menu.revision'}/>
