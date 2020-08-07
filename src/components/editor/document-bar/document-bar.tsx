@@ -52,6 +52,7 @@ export const DocumentBar: React.FC = () => {
       <CommonModal
         show={showReadOnly}
         onHide={() => setShowReadOnly(false)}
+        closeButton={true}
         titleI18nKey={'editor.menu.publish'}>
         <div className={'mx-4 d-flex flex-column justify-items-between'}>
           <span className={'my-4'}><Trans i18nKey={'editor.menu.publishText'}/></span>

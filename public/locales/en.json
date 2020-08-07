@@ -219,7 +219,8 @@
             "uploadImage": "Upload Image",
             "table": "Table",
             "line": "Horizontal line",
-            "comment": "Comment"
+            "comment": "Comment",
+            "preferences": "Click to change preferences"
         },
         "menu": {
             "menu": "Menu",
@@ -237,6 +238,16 @@
             "deleteNote": "Delete note",
             "created": "{{name}} created this note {{time}}",
             "edited": "{{name}} edited this note {{time}}"
+        },
+        "statusBar": {
+            "cursor": "Line {{line}}, Columns {{columns}}",
+            "selection": {
+                "column": "Selected {{count}} columns",
+                "line": "Selected {{count}} lines"
+            },
+            "lines": "{{lines}} Lines",
+            "length": "Length {{length}}",
+            "lengthTooltip": "You can write up to 100000 characters in this document."
         },
         "export": {
             "rawHtml": "Raw HTML"

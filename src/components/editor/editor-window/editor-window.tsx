@@ -19,6 +19,7 @@ import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
 import { defaultKeyMap } from './key-map'
+import { StatusBar } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 
 export interface EditorWindowProps {
@@ -73,6 +74,8 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
         onBeforeChange={(editor, data, value) => {
           onContentChange(value)
         }}
-      /></div>
+      />
+      <StatusBar editor={editor}/>
+    </div>
   )
 }
