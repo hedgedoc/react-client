@@ -1,17 +1,25 @@
 import moment from 'moment'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 import { Button, ListGroup } from 'react-bootstrap'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
-import { DocumentTime } from './document-time'
 import { CommonModal } from '../../common/modals/common-modal'
+import { DocumentInfoLine } from './document-info-line'
+import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-info-time-line'
 
 export const DocumentInfo: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
+  const { t } = useTranslation()
+
+  const editedTimestamp = useMemo(() => {
+    const a = moment(Date.now()).subtract(3, 'minutes').toDate()
+    return moment(a).fromNow(true)
+  }, [])
+
   return (
     <Fragment>
       <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowModal(true)}>
-        <ForkAwesomeIcon icon={'info'} className={'mx-1'}/>
+        <ForkAwesomeIcon icon={'line-chart'} className={'mx-1'}/>
         <Trans i18nKey={'editor.modal.documentInfo.title'}/>
       </Button>
       <CommonModal
@@ -21,19 +29,15 @@ export const DocumentInfo: React.FC = () => {
         titleI18nKey={'editor.modal.documentInfo.title'}>
         <ListGroup>
           <ListGroup.Item>
-            <DocumentTime
-              createIcon={true}
-              dateTime={moment(Date.now()).subtract(11, 'minutes').toDate()}
-              name={'Philip Molares'}
-              photo={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
+            <DocumentInfoTimeLine mode={DocumentInfoLineWithTimeMode.CREATED} time={ moment().subtract(11, 'minutes') } userName={'Tilman'}/>
           </ListGroup.Item>
           <ListGroup.Item>
-            <DocumentTime
-              createIcon={false}
-              dateTime={moment(Date.now()).subtract(3, 'minutes').toDate()}
-              name={'Tilman Vatteroth'}
-              photo={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}
-            />
+            <DocumentInfoTimeLine mode={DocumentInfoLineWithTimeMode.EDITED} time={ moment().subtract(3, 'minutes') } userName={'Philip'}/>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <DocumentInfoLine icon={'users'}>
+              6172 Users contributed to this document
+            </DocumentInfoLine>
           </ListGroup.Item>
         </ListGroup>
       </CommonModal>
