@@ -4,8 +4,9 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ConnectionIndicator } from './connection-indicator/connection-indicator'
 import { DocTimestamps } from './doc-timestamps'
-import { EditorImportExportMenu } from './editor-import-export-menu'
 import { EditorMenu } from './editor-menu'
+import { ExportMenu } from './export-menu'
+import { ImportMenu } from './import-menu'
 import { PermissionSelector } from './permission-selector'
 
 export const DocumentBar: React.FC = () => {
@@ -20,7 +21,8 @@ export const DocumentBar: React.FC = () => {
           <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
           <Trans i18nKey={'editor.menu.revision'}/>
         </Button>
-        <EditorImportExportMenu/>
+        <ImportMenu/>
+        <ExportMenu/>
         <EditorMenu/>
         <ConnectionIndicator/>
       </div>
