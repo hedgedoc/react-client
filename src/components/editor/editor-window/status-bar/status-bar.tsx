@@ -34,7 +34,7 @@ export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, 
   return (
     <div className="d-flex flex-row status-bar">
       <div>
-        <span>{t('editor.statusBar.cursor', { line: position.line, columns: position.ch })}</span>
+        <span>{t('editor.statusBar.cursor', { line: position.line + 1, columns: position.ch })}</span>
         <ShowIf condition={selectedColumns !== 0 && selectedLines !== 0}>
           <ShowIf condition={selectedLines === 1}>
             <span>&nbsp;–&nbsp;{t('editor.statusBar.selection.column', { count: selectedColumns })}</span>
