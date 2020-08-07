@@ -1,4 +1,3 @@
-import moment from 'moment'
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
@@ -27,7 +26,7 @@ export const DocumentBar: React.FC = () => {
         </Button>
         <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowReadOnly(true)}>
           <ForkAwesomeIcon icon={'share'} className={'mx-1'}/>
-          <Trans i18nKey={'editor.menu.publish'}/>
+          <Trans i18nKey={'editor.menu.share'}/>
         </Button>
         <ImportMenu/>
         <ExportMenu/>
