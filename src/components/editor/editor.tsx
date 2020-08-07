@@ -15,6 +15,10 @@ import { EditorMode } from './task-bar/editor-view-mode'
 import { TaskBar } from './task-bar/task-bar'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
+export interface EditorPathParams {
+  id: string
+}
+
 export const Editor: React.FC = () => {
   const { t } = useTranslation()
   const untitledNote = t('editor.untitledNote')
