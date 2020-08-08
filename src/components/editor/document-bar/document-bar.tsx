@@ -11,7 +11,11 @@ import { PermissionSelector } from './permission-selector'
 import { PinToHistoryButton } from './pin-to-history-button'
 import { ShareButton } from './share-button'
 
-export const DocumentBar: React.FC = () => {
+export interface DocumentBarProps {
+  title: string
+}
+
+export const DocumentBar: React.FC<DocumentBarProps> = ({ title }) => {
   useTranslation()
 
   return (
@@ -27,7 +31,7 @@ export const DocumentBar: React.FC = () => {
       <div className="ml-auto navbar-nav">
         <ImportMenu/>
         <ExportMenu/>
-        <EditorMenu/>
+        <EditorMenu noteTitle={title}/>
         <ConnectionIndicator/>
       </div>
     </div>
