@@ -66,7 +66,7 @@ export const Editor: React.FC = () => {
       <DocumentTitle title={documentTitle}/>
       <div className={'d-flex flex-column vh-100'}>
         <TaskBar/>
-        <DocumentBar/>
+        <DocumentBar title={documentTitle}/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={<EditorWindow onContentChange={content => setMarkdownContent(content)} content={markdownContent}/>}

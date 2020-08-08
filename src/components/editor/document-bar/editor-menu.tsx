@@ -3,7 +3,11 @@ import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { DropdownItemWithDeletionModal } from '../../landing/pages/history/common/entry-menu/dropdown-item-with-deletion-modal'
 
-export const EditorMenu: React.FC = () => {
+export interface EditorMenuProps {
+  noteTitle: string
+}
+
+export const EditorMenu: React.FC<EditorMenuProps> = ({ noteTitle }) => {
   useTranslation()
 
   return (
@@ -20,7 +24,7 @@ export const EditorMenu: React.FC = () => {
           modalQuestionI18nKey={'editor.modal.deleteNote.question'}
           modalTitleI18nKey={'editor.modal.deleteNote.title'}
           modalWarningI18nKey={'editor.modal.deleteNote.warning'}
-          noteTitle={''}
+          noteTitle={noteTitle}
           className={'small'}
           onConfirm={() => console.log('deleted')}/>
 
