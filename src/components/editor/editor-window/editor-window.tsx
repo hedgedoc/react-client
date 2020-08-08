@@ -1,4 +1,4 @@
-import { Editor } from 'codemirror'
+import { Editor, EditorConfiguration } from 'codemirror'
 import 'codemirror/addon/comment/comment'
 import 'codemirror/addon/display/autorefresh'
 import 'codemirror/addon/display/fullscreen'
@@ -14,10 +14,11 @@ import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/keymap/sublime.js'
 import 'codemirror/mode/gfm/gfm.js'
-import React, { useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
+import { EditorConfig } from '../../../redux/editor/types'
 import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
@@ -32,6 +33,48 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
 
+  const onBeforeChange = useCallback((editor, data, value) => {
+    onContentChange(value)
+  }, [onContentChange])
+  const onEditorDidMount = useCallback(mountedEditor => {
+    setStatusBarInfo(createStatusInfo(mountedEditor))
+    setEditor(mountedEditor)
+  }, [])
+  const onCursorActivity = useCallback((editorWithActivity) => {
+    setStatusBarInfo(createStatusInfo(editorWithActivity))
+  }, [])
+  const codeMirrorOptions:EditorConfiguration = useMemo<EditorConfiguration>(() => ({
+    mode: 'gfm',
+    theme: 'one-dark',
+    keyMap: 'sublime',
+    viewportMargin: 20,
+    styleActiveLine: true,
+    lineNumbers: true,
+    lineWrapping: true,
+    showCursorWhenSelecting: true,
+    highlightSelectionMatches: true,
+    indentUnit: 4,
+    inputStyle: 'textarea',
+    matchBrackets: true,
+    autoCloseBrackets: true,
+    matchTags: {
+      bothTags: true
+    },
+    autoCloseTags: true,
+    foldGutter: true,
+    gutters: [
+      'CodeMirror-linenumbers',
+      'authorship-gutters',
+      'CodeMirror-foldgutter'
+    ],
+    extraKeys: defaultKeyMap,
+    flattenSpans: true,
+    addModeClass: true,
+    autoRefresh: true,
+    // otherCursors: true,
+    placeholder: t('editor.placeholder')
+  }), [t])
+
   return (
     <div className={'d-flex flex-column h-100'}>
       <ToolBar
@@ -40,45 +83,10 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
       <ControlledCodeMirror
         className="overflow-hidden w-100 flex-fill"
         value={content}
-        options={{
-          mode: 'gfm',
-          theme: 'one-dark',
-          keyMap: 'sublime',
-          viewportMargin: 20,
-          styleActiveLine: true,
-          lineNumbers: true,
-          lineWrapping: true,
-          showCursorWhenSelecting: true,
-          highlightSelectionMatches: true,
-          indentUnit: 4,
-          inputStyle: 'textarea',
-          matchBrackets: true,
-          autoCloseBrackets: true,
-          matchTags: {
-            bothTags: true
-          },
-          autoCloseTags: true,
-          foldGutter: true,
-          gutters: [
-            'CodeMirror-linenumbers',
-            'authorship-gutters',
-            'CodeMirror-foldgutter'
-          ],
-          extraKeys: defaultKeyMap,
-          flattenSpans: true,
-          addModeClass: true,
-          autoRefresh: true,
-          // otherCursors: true,
-          placeholder: t('editor.placeholder')
-        }}
-        onCursorActivity={(editorWithActivity) => setStatusBarInfo(createStatusInfo(editorWithActivity))}
-        editorDidMount={mountedEditor => {
-          setStatusBarInfo(createStatusInfo(mountedEditor))
-          setEditor(mountedEditor)
-        }}
-        onBeforeChange={(editor, data, value) => {
-          onContentChange(value)
-        }}
+        options={codeMirrorOptions}
+        onCursorActivity={onCursorActivity}
+        editorDidMount={onEditorDidMount}
+        onBeforeChange={onBeforeChange}
       />
       <StatusBar {...statusBarInfo} />
     </div>
