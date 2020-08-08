@@ -1,4 +1,4 @@
-import moment, { Moment } from 'moment'
+import { Moment } from 'moment'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconName } from '../../common/fork-awesome/fork-awesome-icon'
@@ -22,7 +22,7 @@ export const DocumentInfoTimeLine: React.FC<DocumentInfoLineWithTimeProps> = ({ 
   const icon: IconName = mode === DocumentInfoLineWithTimeMode.CREATED ? 'plus' : 'pencil'
 
   const editedTimestamp = useMemo(() => {
-    return moment(time).fromNow(true)
+    return time.fromNow(false)
   }, [time])
 
   return (
