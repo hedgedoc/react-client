@@ -31,7 +31,7 @@ export const DocumentInfo: React.FC = () => {
           </ListGroup.Item>
           <ListGroup.Item>
             <DocumentInfoLine icon={'users'}>
-              6172 Users contributed to this document
+              <i>42 <Trans i18nKey='editor.menu.usersContributed'/></i>
             </DocumentInfoLine>
           </ListGroup.Item>
         </ListGroup>
