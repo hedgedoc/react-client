@@ -1646,7 +1646,7 @@ describe('test addEmoji with native emoji', () => {
   const { cursor, firstLine, multiline, multilineOffset } = buildRanges()
   const textFirstLine = testContent.split('\n')[0]
   const emoji = Mock.of<EmojiData>({
-    native: '👍'
+    colons: ':+1:'
   })
   it('just cursor', done => {
     Mock.extend(editor).with({

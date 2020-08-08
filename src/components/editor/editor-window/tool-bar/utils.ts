@@ -25,7 +25,7 @@ export const addTable = (editor: Editor): void => changeLines(editor, line => `$
 
 export const addEmoji = (emoji: EmojiData, editor: Editor): void => {
   let replacement = ''
-  if ((emoji as BaseEmoji).native) {
+  if ((emoji as BaseEmoji).colons) {
     replacement = (emoji as BaseEmoji).colons
   } else if ((emoji as CustomEmoji).imageUrl) {
     // noinspection CheckTagEmptyBody
