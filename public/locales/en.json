@@ -236,8 +236,8 @@
             "download": "Download",
             "help": "Help",
             "deleteNote": "Delete note",
-            "created": "{{name}} created this note {{time}} ago",
-            "edited": "{{name}} edited this note {{time}} ago"
+            "created": "{{name}} created this note {{time}}",
+            "edited": "{{name}} edited this note {{time}}"
         },
         "statusBar": {
             "cursor": "Line {{line}}, Columns {{columns}}",
