@@ -238,7 +238,9 @@
             "deleteNote": "Delete note",
             "created": "created this note",
             "edited": "edited this note",
-            "usersContributed": "users contributed to this document"
+            "usersContributed": "users contributed to this document",
+            "pinNoteToHistory": "Pin note to history",
+            "pinnedToHistory": "Pinned to history"
         },
         "statusBar": {
             "cursor": "Line {{line}}, Columns {{columns}}",

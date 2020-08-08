@@ -8,6 +8,7 @@ import { EditorMenu } from './editor-menu'
 import { ExportMenu } from './export-menu'
 import { ImportMenu } from './import-menu'
 import { PermissionSelector } from './permission-selector'
+import { PinToHistoryButton } from './pin-to-history-button'
 import { ShareButton } from './share-button'
 
 export const DocumentBar: React.FC = () => {
@@ -21,10 +22,7 @@ export const DocumentBar: React.FC = () => {
         <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
         <Trans i18nKey={'editor.menu.revision'}/>
       </Button>
-      <Button variant={'light'} className={'mx-1'} size={'sm'}>
-        <ForkAwesomeIcon icon={'thumb-tack'} className={'mx-1'}/>
-        Pin note
-      </Button>
+      <PinToHistoryButton/>
       <PermissionSelector/>
       <div className="ml-auto navbar-nav">
         <ImportMenu/>
