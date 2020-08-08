@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useRef, useState } from 'react'
 import { Button, FormControl, InputGroup, Overlay, Tooltip } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../fork-awesome/fork-awesome-icon'
@@ -21,13 +21,13 @@ export const CopyableField: React.FC<CopyableFieldProps> = ({ content }) => {
     })
   }
 
-  const selectContent = () => {
+  const selectContent = useCallback(() => {
     if (!inputField.current) {
       return
     }
     inputField.current.focus()
     inputField.current.setSelectionRange(0, inputField.current.value.length)
-  }
+  }, [inputField])
 
   return (
     <Fragment>
