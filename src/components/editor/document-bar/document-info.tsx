@@ -24,10 +24,18 @@ export const DocumentInfo: React.FC = () => {
         titleI18nKey={'editor.modal.documentInfo.title'}>
         <ListGroup>
           <ListGroup.Item>
-            <DocumentInfoTimeLine mode={DocumentInfoLineWithTimeMode.CREATED} time={ moment().subtract(11, 'minutes') } userName={'Tilman'}/>
+            <DocumentInfoTimeLine
+              mode={DocumentInfoLineWithTimeMode.CREATED}
+              time={ moment().subtract(11, 'minutes') }
+              userName={'Tilman'}
+              profileImageSrc={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
           </ListGroup.Item>
           <ListGroup.Item>
-            <DocumentInfoTimeLine mode={DocumentInfoLineWithTimeMode.EDITED} time={ moment().subtract(3, 'minutes') } userName={'Philip'}/>
+            <DocumentInfoTimeLine
+              mode={DocumentInfoLineWithTimeMode.EDITED}
+              time={ moment().subtract(3, 'minutes') }
+              userName={'Philip'}
+              profileImageSrc={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
           </ListGroup.Item>
           <ListGroup.Item>
             <DocumentInfoLine icon={'users'}>
