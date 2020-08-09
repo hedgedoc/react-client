@@ -12,14 +12,14 @@ export const CopyableField: React.FC<CopyableFieldProps> = ({ content }) => {
   const inputField = useRef<HTMLInputElement>(null)
   const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
 
-  const copyToClipboard = (content: string) => {
+  const copyToClipboard = useCallback((content: string) => {
     navigator.clipboard.writeText(content).then(() => {
       setShowCopiedTooltip(true)
       setTimeout(() => { setShowCopiedTooltip(false) }, 2000)
     }).catch(() => {
       console.error("couldn't copy")
     })
-  }
+  }, [])
 
   const selectContent = useCallback(() => {
     if (!inputField.current) {
