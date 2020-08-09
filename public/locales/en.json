@@ -238,7 +238,6 @@
             "deleteNote": "Delete note",
             "permissions": "Permissions",
             "documentInfo": "Document info",
-            "usersContributed": "<0></0> users contributed to this document",
             "pinNoteToHistory": "Pin note to history",
             "pinnedToHistory": "Pinned to history"
         },
@@ -267,7 +266,9 @@
             "documentInfo": {
               "title": "Document info",
               "created": "<0></0> created this note <1></1> ago",
-              "edited": "<0></0> was the last editor <1></1> ago"
+              "edited": "<0></0> was the last editor <1></1> ago",
+              "usersContributed": "<0></0> users contributed to this document",
+              "revisions": "<0></0> revisions are saved"
             },
             "gistImport": {
                 "title": "Import from Gist",
