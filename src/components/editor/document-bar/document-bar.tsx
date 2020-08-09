@@ -1,7 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
-import { Trans, useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+import { useTranslation } from 'react-i18next'
 import { ConnectionIndicator } from './connection-indicator/connection-indicator'
 import { DocumentInfoButton } from './document-info-button'
 import { EditorMenu } from './editor-menu'
