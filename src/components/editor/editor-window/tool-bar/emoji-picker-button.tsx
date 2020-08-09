@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Button } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { EmojiPicker } from './emoji-picker/emoji-picker'
 import { addEmoji } from './utils'
@@ -9,6 +10,7 @@ export interface EmojiPickerButtonProps {
 }
 
 export const EmojiPickerButton: React.FC<EmojiPickerButtonProps> = ({ editor }) => {
+  const { t } = useTranslation()
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
 
   return (
@@ -17,7 +19,7 @@ export const EmojiPickerButton: React.FC<EmojiPickerButtonProps> = ({ editor }) 
         setShowEmojiPicker(false)
         addEmoji(emoji, editor)
       }} onDismiss={() => setShowEmojiPicker(false)}/>
-      <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={''}>
+      <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={t('editor.editorToolbar.emoji')}>
         <ForkAwesomeIcon icon="smile-o"/>
       </Button>
     </Fragment>

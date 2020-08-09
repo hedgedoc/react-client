@@ -111,7 +111,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         </ButtonGroup>
         <span className={'divider'}>&nbsp;</span>
         <ButtonGroup className={'mx-2 flex-wrap'}>
-          <Button variant='light' onClick={notImplemented} title={t('editor.editorToolbar.prefernces')}>
+          <Button variant='light' onClick={notImplemented} title={t('editor.editorToolbar.preferences')}>
             <ForkAwesomeIcon icon="wrench"/>
           </Button>
         </ButtonGroup>

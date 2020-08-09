@@ -220,7 +220,8 @@
             "table": "Table",
             "line": "Horizontal line",
             "comment": "Comment",
-            "preferences": "Click to change preferences"
+            "preferences": "Click to change preferences",
+            "emoji": "Open emoji picker"
         },
         "menu": {
             "menu": "Menu",
