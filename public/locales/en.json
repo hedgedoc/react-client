@@ -296,7 +296,7 @@
             },
             "shareLink": {
               "title": "Share link",
-              "description": "This link points to a read-only version of this note. You can use this e.g. for feedback from friends and colleagues."
+              "viewOnlyDescription": "This link points to a read-only version of this note. You can use this e.g. for feedback from friends and colleagues."
             }
         },
         "embeddings": {

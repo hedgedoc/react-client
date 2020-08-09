@@ -20,7 +20,7 @@ export const ShareLinkButton: React.FC = () => {
         closeButton={true}
         titleI18nKey={'editor.modal.shareLink.title'}>
         <Modal.Body>
-          <span className={'my-4'}><Trans i18nKey={'editor.modal.shareLink.description'}/></span>
+          <span className={'my-4'}><Trans i18nKey={'editor.modal.shareLink.viewOnlyDescription'}/></span>
           <CopyableField content={'https://example.com'}/>
         </Modal.Body>
       </CommonModal>
