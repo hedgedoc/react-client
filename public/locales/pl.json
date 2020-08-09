@@ -127,7 +127,7 @@
         "menu": {
             "menu": "Menu",
             "new": "Nowy",
-            "share": "",
+            "shareLink": "",
             "extra": "Ekstra",
             "revision": "Korekta",
             "slideMode": "Tryb slajdów",

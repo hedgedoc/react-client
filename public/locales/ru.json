@@ -127,7 +127,7 @@
         "menu": {
             "menu": "Меню",
             "new": "Новая",
-            "share": "",
+            "shareLink": "",
             "extra": "Дополнительно",
             "revision": "Изменения",
             "slideMode": "Режим слайдера",
