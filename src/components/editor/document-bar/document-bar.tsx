@@ -9,7 +9,7 @@ import { ExportMenu } from './export-menu'
 import { ImportMenu } from './import-menu'
 import { PermissionButton } from './permission-button'
 import { PinToHistoryButton } from './pin-to-history-button'
-import { ShareButton } from './share-button'
+import { ShareLinkButton } from './share-link-button'
 
 export interface DocumentBarProps {
   title: string
@@ -20,7 +20,7 @@ export const DocumentBar: React.FC<DocumentBarProps> = ({ title }) => {
 
   return (
     <div className={'navbar navbar-expand navbar-light bg-light'}>
-      <ShareButton/>
+      <ShareLinkButton/>
       <DocumentInfo/>
       <Button variant={'light'} className={'mx-1'} size={'sm'}>
         <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>

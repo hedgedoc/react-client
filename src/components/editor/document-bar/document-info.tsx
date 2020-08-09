@@ -16,7 +16,7 @@ export const DocumentInfo: React.FC = () => {
     <Fragment>
       <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowModal(true)}>
         <ForkAwesomeIcon icon={'line-chart'} className={'mx-1'}/>
-        <Trans i18nKey={'editor.modal.documentInfo.title'}/>
+        <Trans i18nKey={'editor.menu.documentInfo'}/>
       </Button>
       <CommonModal
         show={showModal}
