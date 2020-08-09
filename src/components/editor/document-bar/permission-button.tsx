@@ -1,8 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Trans } from 'react-i18next'
-import { CopyableField } from '../../common/copyable-field/copyable-field'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
-import { Button, Dropdown } from 'react-bootstrap'
+import { Button} from 'react-bootstrap'
 import { CommonModal } from '../../common/modals/common-modal'
 
 export const PermissionButton: React.FC = () => {
