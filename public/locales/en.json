@@ -237,7 +237,7 @@
             "help": "Help",
             "deleteNote": "Delete note",
             "created": "<0></0> created this note <1></1> ago",
-            "edited": "<0></0> edited this note <1></1> ago",
+            "edited": "<0></0> was the last editor <1></1> ago",
             "usersContributed": "<0></0> users contributed to this document",
             "pinNoteToHistory": "Pin note to history",
             "pinnedToHistory": "Pinned to history"
