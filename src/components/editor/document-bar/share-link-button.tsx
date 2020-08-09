@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Row, Modal } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { CopyableField } from '../../common/copyable-field/copyable-field'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
@@ -19,10 +19,10 @@ export const ShareLinkButton: React.FC = () => {
         onHide={() => setShowReadOnly(false)}
         closeButton={true}
         titleI18nKey={'editor.modal.shareLink.title'}>
-        <div className={'mx-4 d-flex flex-column justify-items-between'}>
+        <Modal.Body>
           <span className={'my-4'}><Trans i18nKey={'editor.modal.shareLink.description'}/></span>
           <CopyableField content={'https://example.com'}/>
-        </div>
+        </Modal.Body>
       </CommonModal>
     </Fragment>
   )

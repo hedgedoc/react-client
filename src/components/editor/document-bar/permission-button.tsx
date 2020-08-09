@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Trans } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import { CommonModal } from '../../common/modals/common-modal'
 
 export const PermissionButton: React.FC = () => {
@@ -18,9 +18,9 @@ export const PermissionButton: React.FC = () => {
         onHide={() => setShowReadOnly(false)}
         closeButton={true}
         titleI18nKey={'editor.modal.permissions.title'}>
-        <div>
+        <Modal.Body>
           <img className={'w-100'} src={'https://thumbs.gfycat.com/ImpassionedDeliriousIndianpalmsquirrel-size_restricted.gif'} alt={'Placeholder'}/>
-        </div>
+        </Modal.Body>
       </CommonModal>
     </Fragment>
   )
