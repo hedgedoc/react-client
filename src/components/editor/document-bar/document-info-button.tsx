@@ -8,7 +8,7 @@ import { DocumentInfoLine } from './document-info-line'
 import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-info-time-line'
 import { UnitalicBoldText } from './document-info-time-line-helper/unitalic-bold-text'
 
-export const DocumentInfo: React.FC = () => {
+export const DocumentInfoButton: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   useTranslation()
 
