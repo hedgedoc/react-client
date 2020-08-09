@@ -220,7 +220,7 @@
             "table": "Table",
             "line": "Horizontal line",
             "comment": "Comment",
-            "preferences": "Click to change preferences",
+            "preferences": "Editor settings",
             "emoji": "Open emoji picker"
         },
         "menu": {
@@ -229,17 +229,15 @@
             "export": "Export",
             "new": "New",
             "modes": "Modes",
-            "share": "Share",
-            "shareText": "This link points to a read-only version of this note. You can use this e.g. for feedback from friends and colleagues.",
+            "shareLink": "Share link",
             "extra": "Extra",
             "revision": "Revision",
             "slideMode": "Slide Mode",
             "download": "Download",
             "help": "Help",
             "deleteNote": "Delete note",
-            "created": "<0></0> created this note <1></1> ago",
-            "edited": "<0></0> was the last editor <1></1> ago",
-            "permission": "Permissions",
+            "permissions": "Permissions",
+            "documentInfo": "Document info",
             "usersContributed": "<0></0> users contributed to this document",
             "pinNoteToHistory": "Pin note to history",
             "pinnedToHistory": "Pinned to history"
@@ -267,7 +265,9 @@
                 "selectSnippet": "Select From Available Snippets"
             },
             "documentInfo": {
-              "title": "Document info"
+              "title": "Document info",
+              "created": "<0></0> created this note <1></1> ago",
+              "edited": "<0></0> was the last editor <1></1> ago"
             },
             "gistImport": {
                 "title": "Import from Gist",
@@ -290,6 +290,13 @@
                 "question": "Do you really want to delete this note?",
                 "warning": "All users will lose their connection. This process is irreversible.",
                 "button": "Delete note"
+            },
+            "permissions": {
+              "title": "Permissions"
+            },
+            "shareLink": {
+              "title": "Share link",
+              "description": "This link points to a read-only version of this note. You can use this e.g. for feedback from friends and colleagues."
             }
         },
         "embeddings": {
