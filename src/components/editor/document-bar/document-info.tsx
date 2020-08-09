@@ -41,8 +41,15 @@ export const DocumentInfo: React.FC = () => {
             </ListGroup.Item>
             <ListGroup.Item>
               <DocumentInfoLine icon={'users'}>
-                <Trans i18nKey='editor.menu.usersContributed'>
+                <Trans i18nKey='editor.modal.documentInfo.usersContributed'>
                   <UnitalicBoldText text={'42'}/>
+                </Trans>
+              </DocumentInfoLine>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <DocumentInfoLine icon={'history'}>
+                <Trans i18nKey='editor.modal.documentInfo.revisions'>
+                  <UnitalicBoldText text={'192'}/>
                 </Trans>
               </DocumentInfoLine>
             </ListGroup.Item>
