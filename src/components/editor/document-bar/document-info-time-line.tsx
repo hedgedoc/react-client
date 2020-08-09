@@ -4,6 +4,8 @@ import { Trans, useTranslation } from 'react-i18next'
 import { IconName } from '../../common/fork-awesome/fork-awesome-icon'
 import { DocumentInfoLine } from './document-info-line'
 import './document-info-time-line.scss'
+import { UnitalicBoldText } from './document-info-time-line-helper/unitalic-bold-text'
+import { ItalicTime } from './document-info-time-line-helper/italic-time'
 
 export interface DocumentInfoLineWithTimeProps {
   time: Moment,
@@ -26,13 +28,10 @@ export const DocumentInfoTimeLine: React.FC<DocumentInfoLineWithTimeProps> = ({ 
   return (
     <DocumentInfoLine icon={icon}>
       <img alt={`avatar icon of ${userName}`} src={profileImageSrc} className='mr-2 rounded document-info-avatar'/>
-      <b>{ userName }</b>
-      &nbsp;
-      <i>
-        <Trans i18nKey={i18nKey}/>
-        &nbsp;
-        <span title={time.format('LLLL')}>{ time.fromNow() }</span>
-      </i>
+      <Trans i18nKey={i18nKey} >
+        <UnitalicBoldText text={userName}/>
+        <ItalicTime time={time}/>
+      </Trans>
     </DocumentInfoLine>
   )
 }

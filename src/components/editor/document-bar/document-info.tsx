@@ -6,6 +6,7 @@ import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../common/modals/common-modal'
 import { DocumentInfoLine } from './document-info-line'
 import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-info-time-line'
+import { UnitalicBoldText } from './document-info-time-line-helper/unitalic-bold-text'
 
 export const DocumentInfo: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
@@ -26,7 +27,7 @@ export const DocumentInfo: React.FC = () => {
           <ListGroup.Item>
             <DocumentInfoTimeLine
               mode={DocumentInfoLineWithTimeMode.CREATED}
-              time={ moment().subtract(11, 'minutes') }
+              time={ moment().subtract(11, 'days') }
               userName={'Tilman'}
               profileImageSrc={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
           </ListGroup.Item>
@@ -39,7 +40,9 @@ export const DocumentInfo: React.FC = () => {
           </ListGroup.Item>
           <ListGroup.Item>
             <DocumentInfoLine icon={'users'}>
-              <i>42 <Trans i18nKey='editor.menu.usersContributed'/></i>
+              <Trans i18nKey='editor.menu.usersContributed'>
+                <UnitalicBoldText text={'42'}/>
+              </Trans>
             </DocumentInfoLine>
           </ListGroup.Item>
         </ListGroup>

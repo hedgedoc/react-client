@@ -236,9 +236,9 @@
             "download": "Download",
             "help": "Help",
             "deleteNote": "Delete note",
-            "created": "created this note",
-            "edited": "edited this note",
-            "usersContributed": "users contributed to this document",
+            "created": "<0></0> created this note <1></1> ago",
+            "edited": "<0></0> edited this note <1></1> ago",
+            "usersContributed": "<0></0> users contributed to this document",
             "pinNoteToHistory": "Pin note to history",
             "pinnedToHistory": "Pinned to history"
         },

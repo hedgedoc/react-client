@@ -9,7 +9,9 @@ export const DocumentInfoLine: React.FC<DocumentInfoLineProps> = ({ icon, childr
   return (
     <span className={'d-flex align-items-center'}>
       <ForkAwesomeIcon icon={icon} size={'2x'} fixedWidth={true} className={'mx-2'}/>
-      {children}
+      <i>
+        {children}
+      </i>
     </span>
   )
 }
