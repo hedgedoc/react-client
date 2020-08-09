@@ -1,17 +1,27 @@
-import CodeMirror from 'codemirror'
-import React, { useState, Fragment } from 'react'
+import CodeMirror, { EditorConfiguration } from 'codemirror'
+import React, { useState, Fragment, useCallback } from 'react'
 import { Button, ListGroup, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../../common/modals/common-modal'
+import { EditorPreferenceKeymap } from './editor-preference-keymap'
+import { EditorPreferenceTabchar } from './editor-preference-tabchar'
+import { EditorPreferenceTabsize } from './editor-preference-tabsize'
+import { EditorPreferenceTheme } from './editor-preference-theme'
 
 export interface EditorSettingsButtonProps {
   editor: CodeMirror.Editor
+  preferences: EditorConfiguration
+  onPreferencesChange: (config: EditorConfiguration) => void
 }
 
-export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor }) => {
+export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor, onPreferencesChange, preferences }) => {
   const { t } = useTranslation()
   const [showModal, setShowModal] = useState(false)
+
+  const sendPreferences = useCallback((newPreferences: EditorConfiguration) => {
+    onPreferencesChange(newPreferences)
+  }, [onPreferencesChange])
 
   return (
     <Fragment>
@@ -27,55 +37,25 @@ export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor 
         <Form>
           <ListGroup>
             <ListGroup.Item>
-              <Form.Group controlId='editorTheme'>
-                <Form.Label>
-                  <Trans i18nKey='editor.preferences.theme'/>
-                </Form.Label>
-                <Form.Control as='select' size='sm'>
-                  <option>Dark</option>
-                  <option>Light</option>
-                </Form.Control>
-              </Form.Group>
+              <EditorPreferenceTheme onChange={sendPreferences} preferences={preferences}/>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Form.Group controlId='editorKeymap'>
-                <Form.Label>
-                  <Trans i18nKey='editor.preferences.keymap'/>
-                </Form.Label>
-                <Form.Control as='select' size='sm'>
-                  <option>Sublime</option>
-                  <option>Emacs</option>
-                  <option>Vim</option>
-                </Form.Control>
-              </Form.Group>
+              <EditorPreferenceKeymap onChange={sendPreferences} preferences={preferences}/>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Form.Group controlId='editorTabCharacter'>
-                <Form.Label>
-                  <Trans i18nKey='editor.preferences.tabCharacter'/>
-                </Form.Label>
-                <Form.Control as='select' size='sm'>
-                  <option>Spaces</option>
-                  <option>Tab</option>
-                </Form.Control>
-              </Form.Group>
+              <EditorPreferenceTabchar onChange={sendPreferences} preferences={preferences}/>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Form.Group controlId='editorTabSize'>
-                <Form.Label>
-                  <Trans i18nKey='editor.preferences.tabSize'/>
-                </Form.Label>
-                <Form.Control type='number' as='input' size='sm' value={4}/>
-              </Form.Group>
+              <EditorPreferenceTabsize onChange={sendPreferences} preferences={preferences}/>
             </ListGroup.Item>
             <ListGroup.Item>
               <Form.Group controlId='editorSpellChecker'>
                 <Form.Label>
                   <Trans i18nKey='editor.preferences.spellChecker'/>
                 </Form.Label>
-                <Form.Control as='select' size='sm'>
-                  <option>off</option>
-                  <option>English</option>
+                <Form.Control as='select' size='sm' onChange={() => alert('This feature is not yet implemented.')}>
+                  <option value='off'>off</option>
+                  <option value='en'>English</option>
                 </Form.Control>
               </Form.Group>
             </ListGroup.Item>
