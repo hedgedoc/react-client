@@ -21,11 +21,13 @@ export const DocumentBar: React.FC<DocumentBarProps> = ({ title }) => {
 
   return (
     <div className={'navbar navbar-expand navbar-light bg-light'}>
-      <ShareLinkButton/>
-      <DocumentInfoButton/>
-      <RevisionButton/>
-      <PinToHistoryButton/>
-      <PermissionButton/>
+      <div className="navbar-nav">
+        <ShareLinkButton/>
+        <DocumentInfoButton/>
+        <RevisionButton/>
+        <PinToHistoryButton/>
+        <PermissionButton/>
+      </div>
       <div className="ml-auto navbar-nav">
         <ImportMenu/>
         <ExportMenu/>
