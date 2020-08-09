@@ -1,6 +1,6 @@
 import moment from 'moment'
 import React, { Fragment, useState } from 'react'
-import { Button, ListGroup } from 'react-bootstrap'
+import { Button, ListGroup, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../common/modals/common-modal'
@@ -23,29 +23,31 @@ export const DocumentInfo: React.FC = () => {
         onHide={() => setShowModal(false)}
         closeButton={true}
         titleI18nKey={'editor.modal.documentInfo.title'}>
-        <ListGroup>
-          <ListGroup.Item>
-            <DocumentInfoTimeLine
-              mode={DocumentInfoLineWithTimeMode.CREATED}
-              time={ moment().subtract(11, 'days') }
-              userName={'Tilman'}
-              profileImageSrc={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <DocumentInfoTimeLine
-              mode={DocumentInfoLineWithTimeMode.EDITED}
-              time={ moment().subtract(3, 'minutes') }
-              userName={'Philip'}
-              profileImageSrc={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <DocumentInfoLine icon={'users'}>
-              <Trans i18nKey='editor.menu.usersContributed'>
-                <UnitalicBoldText text={'42'}/>
-              </Trans>
-            </DocumentInfoLine>
-          </ListGroup.Item>
-        </ListGroup>
+        <Modal.Body>
+          <ListGroup>
+            <ListGroup.Item>
+              <DocumentInfoTimeLine
+                mode={DocumentInfoLineWithTimeMode.CREATED}
+                time={ moment().subtract(11, 'days') }
+                userName={'Tilman'}
+                profileImageSrc={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <DocumentInfoTimeLine
+                mode={DocumentInfoLineWithTimeMode.EDITED}
+                time={ moment().subtract(3, 'minutes') }
+                userName={'Philip'}
+                profileImageSrc={'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp'}/>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <DocumentInfoLine icon={'users'}>
+                <Trans i18nKey='editor.menu.usersContributed'>
+                  <UnitalicBoldText text={'42'}/>
+                </Trans>
+              </DocumentInfoLine>
+            </ListGroup.Item>
+          </ListGroup>
+        </Modal.Body>
       </CommonModal>
     </Fragment>
   )
