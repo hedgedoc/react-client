@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { EditorPreferences } from './editor-preferences/editor-preferences'
 import { EmojiPickerButton } from './emoji-picker-button'
 import './tool-bar.scss'
 import {
@@ -111,9 +112,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         </ButtonGroup>
         <span className={'divider'}>&nbsp;</span>
         <ButtonGroup className={'mx-2 flex-wrap'}>
-          <Button variant='light' onClick={notImplemented} title={t('editor.editorToolbar.preferences')}>
-            <ForkAwesomeIcon icon="wrench"/>
-          </Button>
+          <EditorPreferences editor={editor}/>
         </ButtonGroup>
       </ButtonToolbar>
     </Fragment>
