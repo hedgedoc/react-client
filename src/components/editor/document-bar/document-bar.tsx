@@ -7,7 +7,7 @@ import { DocumentInfo } from './document-info'
 import { EditorMenu } from './editor-menu'
 import { ExportMenu } from './export-menu'
 import { ImportMenu } from './import-menu'
-import { PermissionSelector } from './permission-selector'
+import { PermissionButton } from './permission-button'
 import { PinToHistoryButton } from './pin-to-history-button'
 import { ShareButton } from './share-button'
 
@@ -27,7 +27,7 @@ export const DocumentBar: React.FC<DocumentBarProps> = ({ title }) => {
         <Trans i18nKey={'editor.menu.revision'}/>
       </Button>
       <PinToHistoryButton/>
-      <PermissionSelector/>
+      <PermissionButton/>
       <div className="ml-auto navbar-nav">
         <ImportMenu/>
         <ExportMenu/>
