@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { Button, Row, Modal } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { CopyableField } from '../../common/copyable-field/copyable-field'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
