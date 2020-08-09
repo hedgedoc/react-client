@@ -1,4 +1,4 @@
-import { Editor } from 'codemirror'
+import { Editor, EditorConfiguration } from 'codemirror'
 import React, { Fragment } from 'react'
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
@@ -28,9 +28,11 @@ import {
 
 export interface ToolBarProps {
   editor: Editor | undefined
+  onPreferencesChange: (config: EditorConfiguration) => void
+  editorPreferences: EditorConfiguration
 }
 
-export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
+export const ToolBar: React.FC<ToolBarProps> = ({ editor, onPreferencesChange, editorPreferences }) => {
   const { t } = useTranslation()
 
   const notImplemented = () => {
@@ -112,7 +114,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         </ButtonGroup>
         <span className={'divider'}>&nbsp;</span>
         <ButtonGroup className={'mx-2 flex-wrap'}>
-          <EditorPreferences editor={editor}/>
+          <EditorPreferences editor={editor} onPreferencesChange={onPreferencesChange} preferences={editorPreferences}/>
         </ButtonGroup>
       </ButtonToolbar>
     </Fragment>

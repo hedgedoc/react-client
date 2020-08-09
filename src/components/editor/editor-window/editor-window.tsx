@@ -12,8 +12,10 @@ import 'codemirror/addon/fold/foldcode'
 import 'codemirror/addon/fold/foldgutter'
 import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
-import 'codemirror/keymap/sublime.js'
-import 'codemirror/mode/gfm/gfm.js'
+import 'codemirror/keymap/sublime'
+import 'codemirror/keymap/emacs'
+import 'codemirror/keymap/vim'
+import 'codemirror/mode/gfm/gfm'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
@@ -31,6 +33,12 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
   const { t } = useTranslation()
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
+  const [editorPreferences, setEditorPreferences] = useState<EditorConfiguration>({
+    theme: 'one-dark',
+    keyMap: 'sublime',
+    indentUnit: 4,
+    indentWithTabs: false
+  })
 
   const onBeforeChange = useCallback((editor, data, value) => {
     onContentChange(value)
@@ -42,17 +50,15 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
   const onCursorActivity = useCallback((editorWithActivity) => {
     setStatusBarInfo(createStatusInfo(editorWithActivity))
   }, [])
-  const codeMirrorOptions:EditorConfiguration = useMemo<EditorConfiguration>(() => ({
+  const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(() => ({
+    ...editorPreferences,
     mode: 'gfm',
-    theme: 'one-dark',
-    keyMap: 'sublime',
     viewportMargin: 20,
     styleActiveLine: true,
     lineNumbers: true,
     lineWrapping: true,
     showCursorWhenSelecting: true,
     highlightSelectionMatches: true,
-    indentUnit: 4,
     inputStyle: 'textarea',
     matchBrackets: true,
     autoCloseBrackets: true,
@@ -72,12 +78,14 @@ export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, con
     autoRefresh: true,
     // otherCursors: true,
     placeholder: t('editor.placeholder')
-  }), [t])
+  }), [t, editorPreferences])
 
   return (
     <div className={'d-flex flex-column h-100'}>
       <ToolBar
         editor={editor}
+        onPreferencesChange={config => setEditorPreferences(config)}
+        editorPreferences={editorPreferences}
       />
       <ControlledCodeMirror
         className="overflow-hidden w-100 flex-fill"
