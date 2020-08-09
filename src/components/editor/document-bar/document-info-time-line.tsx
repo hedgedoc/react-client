@@ -22,7 +22,7 @@ export enum DocumentInfoLineWithTimeMode {
 export const DocumentInfoTimeLine: React.FC<DocumentInfoLineWithTimeProps> = ({ time, mode, userName, profileImageSrc }) => {
   useTranslation()
 
-  const i18nKey = mode === DocumentInfoLineWithTimeMode.CREATED ? 'editor.menu.created' : 'editor.menu.edited'
+  const i18nKey = mode === DocumentInfoLineWithTimeMode.CREATED ? 'editor.modal.documentInfo.created' : 'editor.modal.documentInfo.edited'
   const icon: IconName = mode === DocumentInfoLineWithTimeMode.CREATED ? 'plus' : 'pencil'
 
   return (
