@@ -10,6 +10,7 @@ import { ImportMenu } from './import-menu'
 import { PermissionButton } from './permission-button'
 import { PinToHistoryButton } from './pin-to-history-button'
 import { ShareLinkButton } from './share-link-button'
+import { RevisionButton } from './revision-button'
 
 export interface DocumentBarProps {
   title: string
@@ -22,10 +23,7 @@ export const DocumentBar: React.FC<DocumentBarProps> = ({ title }) => {
     <div className={'navbar navbar-expand navbar-light bg-light'}>
       <ShareLinkButton/>
       <DocumentInfoButton/>
-      <Button variant={'light'} className={'mx-1'} size={'sm'}>
-        <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
-        <Trans i18nKey={'editor.menu.revision'}/>
-      </Button>
+      <RevisionButton/>
       <PinToHistoryButton/>
       <PermissionButton/>
       <div className="ml-auto navbar-nav">
