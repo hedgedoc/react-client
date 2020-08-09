@@ -240,6 +240,14 @@
             "pinNoteToHistory": "Pin note to history",
             "pinnedToHistory": "Pinned to history"
         },
+        "preferences": {
+            "title": "Preferences",
+            "theme": "Theme",
+            "keymap": "Keymap",
+            "tabCharacter": "Tab character",
+            "tabSize": "Tab size",
+            "spellChecker": "Spell checking"
+        },
         "statusBar": {
             "cursor": "Line {{line}}, Columns {{columns}}",
             "selection": {
