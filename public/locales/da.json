@@ -111,7 +111,7 @@
         "menu": {
             "menu": "Menu",
             "new": "Ny",
-            "share": "",
+            "shareLink": "",
             "extra": "Ekstra",
             "revision": "Revision",
             "slideMode": "Præsentationstilstand",
