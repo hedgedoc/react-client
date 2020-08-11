@@ -25,7 +25,7 @@ Thanks for your interest in contributing. Here are some common scenarios for wha
 
 #### Do you wan to work on a translations?
 
-If you want to improve a translation, we handle those via [POEditor][poeditor]. If you want to add a new translation altogether, ask in the [HedgeDoc Dev Channel][matrix-dev].
+If you want to improve a translation or add a new translation altogether, we handle those via [POEditor][poeditor].
 
 HedgeDoc is a volunteer effort. We encourage you to pitch in and to help us making this project even better.
 
