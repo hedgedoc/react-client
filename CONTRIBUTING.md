@@ -28,6 +28,6 @@ Thanks! :heart: :heart: :heart:
 
 [issues]: https://github.com/codimd/react-client/issues
 [new_issue]: https://github.com/codimd/react-client/issues/new/choose
-[matrix-support]: https://app.element.io/#/room/#hedgedoc:matrix.org
-[matrix-dev]: https://app.element.io/#/room/#hedgedoc-dev:matrix.org
+[matrix-support]: https://matrix.to/#/#hedgedoc:matrix.org
+[matrix-dev]: https://matrix.to/#/#hedgedoc-dev:matrix.org
 [discourse]: https://community.codimd.org/
