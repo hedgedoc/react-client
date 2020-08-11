@@ -7,7 +7,7 @@
 
 #### Did you find a bug?
 
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues][issues].
+* **Ensure the bug wasn't already reported** by searching on GitHub under [Issues][issues].
 
 * If you're unable to find an open issue addressing the problem, [open a new one][new_issue]. Be sure to use one of the templates we provide if your request applies to them. If not, use the 'Question / Other' template.
 
