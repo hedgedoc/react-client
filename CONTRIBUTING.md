@@ -4,7 +4,6 @@ Thanks for your interest in contributing. Here are some common scenarios for wha
 
 #### Do you have questions about the project?
 
-* Ask any question about HedgeDoc in our [Matrix Support Channel][matrix-support] or our [Discourse][discourse].
 * Feel free to join our [Matrix Support Channel][matrix-support] or post your question on our [Discourse][discourse].
 
 #### Did you find a bug?
