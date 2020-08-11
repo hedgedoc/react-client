@@ -23,7 +23,7 @@ Thanks for your interest in contributing. Here are some common scenarios for wha
 
 * Suggest your idea in the [HedgeDoc Dev Channel][matrix-dev] and start writing code. Our maintainers and other project developers can provide useful details about the architecture and show you relevant issues and discussions.
 
-#### Do you wan to work on a translations?
+#### Do you want to work on translations?
 
 If you want to improve a translation or add a new translation altogether, we handle those via [POEditor][poeditor].
 
