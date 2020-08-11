@@ -49,7 +49,7 @@ const ExportMenu: React.FC = () => {
           <ForkAwesomeIcon icon='file-pdf-o' className={'mx-2'}/>
           <Trans i18nKey={'editor.menu.pdf'}/>
           &nbsp;
-          <TranslatedExternalLink i18nKey={'editor.menu.why'} href={'https://github.com/codimd/server/wiki/FAQ#why-was-the-pdf-export-feature-removed'} className={'text-primary'}/>
+          <TranslatedExternalLink i18nKey={'editor.menu.why'} href={'https://community.codimd.org/t/frequently-asked-questions/190'} className={'text-primary'}/>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
