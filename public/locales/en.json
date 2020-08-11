@@ -247,7 +247,7 @@
             "tabCharacter": "Tab character",
             "tabSize": "Tab size",
             "spellChecker": "Spell checking",
-            "pdf": "PDF Export is unavailable.",
+            "pdf": "PDF export is unavailable.",
             "why": "Why?"
         },
         "statusBar": {
