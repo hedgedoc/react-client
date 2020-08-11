@@ -2,6 +2,7 @@ import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+import { TranslatedExternalLink } from '../../common/links/translated-external-link'
 
 const ExportMenu: React.FC = () => {
   useTranslation()
@@ -40,6 +41,15 @@ const ExportMenu: React.FC = () => {
         <Dropdown.Item className='small'>
           <ForkAwesomeIcon icon='file-code-o' className={'mx-2'}/>
           <Trans i18nKey='editor.export.rawHtml'/>
+        </Dropdown.Item>
+
+        <Dropdown.Divider/>
+
+        <Dropdown.Item className='small text-muted' dir={'auto'}>
+          <ForkAwesomeIcon icon='file-pdf-o' className={'mx-2'}/>
+          <Trans i18nKey={'editor.menu.pdf'}/>
+          &nbsp;
+          <TranslatedExternalLink i18nKey={'editor.menu.why'} href={'https://github.com/codimd/server/wiki/FAQ#why-was-the-pdf-export-feature-removed'} className={'text-primary'}/>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

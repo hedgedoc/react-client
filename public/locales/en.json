@@ -246,7 +246,9 @@
             "keymap": "Keymap",
             "tabCharacter": "Tab character",
             "tabSize": "Tab size",
-            "spellChecker": "Spell checking"
+            "spellChecker": "Spell checking",
+            "pdf": "PDF Export is unavailable.",
+            "why": "Why?"
         },
         "statusBar": {
             "cursor": "Line {{line}}, Columns {{columns}}",
