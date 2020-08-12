@@ -1,5 +1,6 @@
 import equal from 'deep-equal'
 import { DomElement } from 'domhandler'
+import emojiData from 'emoji-mart/data/twitter.json'
 import { Data } from 'emoji-mart/dist-es/utils/data'
 import yaml from 'js-yaml'
 import MarkdownIt from 'markdown-it'
@@ -14,8 +15,8 @@ import imsize from 'markdown-it-imsize'
 import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import mathJax from 'markdown-it-mathjax'
-import markdownItRegex from 'markdown-it-regex'
 import plantuml from 'markdown-it-plantuml'
+import markdownItRegex from 'markdown-it-regex'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import taskList from 'markdown-it-task-lists'
@@ -31,13 +32,14 @@ import { ApplicationState } from '../../../redux'
 import { slugify } from '../../../utils/slugify'
 import { InternalLink } from '../../common/links/internal-link'
 import { ShowIf } from '../../common/show-if/show-if'
+import { ForkAwesomeIcons } from '../editor-window/tool-bar/emoji-picker/icon-names'
 import { RawYAMLMetadata, YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import { createRenderContainer, validAlertLevels } from './container-plugins/alert'
 import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
-import './markdown-renderer.scss'
 import { plantumlError } from './markdown-it-plugins/plantuml-error'
+import './markdown-renderer.scss'
 import { replaceAsciinemaLink } from './regex-plugins/replace-asciinema-link'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
 import { replaceLegacyGistShortCode } from './regex-plugins/replace-legacy-gist-short-code'
@@ -51,8 +53,8 @@ import { replaceQuoteExtraColor } from './regex-plugins/replace-quote-extra-colo
 import { replaceQuoteExtraTime } from './regex-plugins/replace-quote-extra-time'
 import { replaceVimeoLink } from './regex-plugins/replace-vimeo-link'
 import { replaceYouTubeLink } from './regex-plugins/replace-youtube-link'
-import { ComponentReplacer, SubNodeConverter } from './replace-components/ComponentReplacer'
 import { AsciinemaReplacer } from './replace-components/asciinema/asciinema-replacer'
+import { ComponentReplacer, SubNodeConverter } from './replace-components/ComponentReplacer'
 import { GistReplacer } from './replace-components/gist/gist-replacer'
 import { HighlightedCodeReplacer } from './replace-components/highlighted-fence/highlighted-fence-replacer'
 import { ImageReplacer } from './replace-components/image/image-replacer'
@@ -63,7 +65,6 @@ import { QuoteOptionsReplacer } from './replace-components/quote-options/quote-o
 import { TocReplacer } from './replace-components/toc/toc-replacer'
 import { VimeoReplacer } from './replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
-import emojiData from 'emoji-mart/data/twitter.json'
 
 export interface MarkdownRendererProps {
   content: string
@@ -80,6 +81,14 @@ const markdownItTwitterEmojis = Object.keys((emojiData as unknown as Data).emoji
     if (emoji.unified) {
       reduceObject[emojiIdentifier] = emoji.unified.split('-').map(char => `&#x${char};`).join('')
     }
+    return reduceObject
+  }, {} as { [key: string]: string })
+
+const forkAwesomeIconMap = Object.keys(ForkAwesomeIcons)
+  .reduce((reduceObject, icon) => {
+    const shortcode = `fa-${icon}`
+    // noinspection CheckTagEmptyBody
+    reduceObject[shortcode] = `<i class="fa fa-${icon}"></i>`
     return reduceObject
   }, {} as { [key: string]: string })
 
@@ -154,7 +163,10 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
       md.use(plantumlError)
     }
     md.use(emoji, {
-      defs: markdownItTwitterEmojis
+      defs: {
+        ...markdownItTwitterEmojis,
+        ...forkAwesomeIconMap
+      }
     })
     md.use(abbreviation)
     md.use(definitionList)
