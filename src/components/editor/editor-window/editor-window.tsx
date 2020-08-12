@@ -59,7 +59,7 @@ const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
   }
 }
 
-const emojiWordRegex = /^:(\w+)$/
+const emojiWordRegex = /^:((\w|-|_)+)$/
 
 const emojiHints = (editor: Editor) => {
   return new Promise((resolve) => {
