@@ -47,9 +47,9 @@ const ExportMenu: React.FC = () => {
 
         <Dropdown.Item className='small text-muted' dir={'auto'}>
           <ForkAwesomeIcon icon='file-pdf-o' className={'mx-2'}/>
-          <Trans i18nKey={'editor.menu.pdf'}/>
+          <Trans i18nKey={'editor.export.pdf'}/>
           &nbsp;
-          <TranslatedExternalLink i18nKey={'editor.menu.why'} href={'https://community.codimd.org/t/frequently-asked-questions/190'} className={'text-primary'}/>
+          <TranslatedExternalLink i18nKey={'editor.export.why'} href={'https://community.codimd.org/t/frequently-asked-questions/190'} className={'text-primary'}/>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

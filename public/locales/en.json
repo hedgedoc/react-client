@@ -246,9 +246,7 @@
             "keymap": "Keymap",
             "tabCharacter": "Tab character",
             "tabSize": "Tab size",
-            "spellChecker": "Spell checking",
-            "pdf": "PDF export is unavailable.",
-            "why": "Why?"
+            "spellChecker": "Spell checking"
         },
         "statusBar": {
             "cursor": "Line {{line}}, Columns {{columns}}",
@@ -261,7 +259,9 @@
             "lengthTooltip": "You can write up to 100000 characters in this document."
         },
         "export": {
-            "rawHtml": "Raw HTML"
+            "rawHtml": "Raw HTML",
+            "pdf": "PDF export is unavailable.",
+            "why": "Why?"
         },
         "import": {
             "clipboard": "Clipboard"
