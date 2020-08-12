@@ -77,8 +77,8 @@ export interface MarkdownRendererProps {
 const markdownItTwitterEmojis = Object.keys((emojiData as unknown as Data).emojis)
   .reduce((reduceObject, emojiIdentifier) => {
     const emoji = (emojiData as unknown as Data).emojis[emojiIdentifier]
-    if (emoji.b) {
-      reduceObject[emojiIdentifier] = `&#x${emoji.b};`
+    if (emoji.unified) {
+      reduceObject[emojiIdentifier] = emoji.unified.split('-').map(char => `&#x${char};`).join('')
     }
     return reduceObject
   }, {} as { [key: string]: string })
