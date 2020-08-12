@@ -39,7 +39,7 @@ interface findWordAtCursorResponse {
   text: string
 }
 
-const allowedCharsInEmojiCodeRegex = /(:|\w|-)/
+const allowedCharsInEmojiCodeRegex = /(:|\w|-|_)/
 
 const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
   const cursor = editor.getCursor()
