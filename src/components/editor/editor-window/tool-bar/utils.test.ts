@@ -1739,9 +1739,10 @@ describe('test addEmoji with native emoji', () => {
   const { cursor, firstLine, multiline, multilineOffset } = buildRanges()
   const textFirstLine = testContent.split('\n')[0]
   // noinspection CheckTagEmptyBody
-  const forkAwesomeIcon = '<i class="fa star"></i>'
+  const forkAwesomeIcon = ':fa-star:'
   const emoji = Mock.of<EmojiData>({
     name: 'star',
+    colons: ':fa-star:',
     imageUrl: '/img/forkawesome.png'
   })
   it('just cursor', done => {
