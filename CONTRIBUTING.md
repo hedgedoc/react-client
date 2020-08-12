@@ -4,7 +4,7 @@ Thanks for your interest in contributing. Here are some common scenarios for wha
 
 #### Do you have questions about the project?
 
-* Feel free to join our [Matrix Support Channel][matrix-support] or post your question on our [Discourse][discourse].
+* Feel free to post your question on our [Discourse][discourse] or join our [Matrix Support Channel][matrix-support].
 
 #### Did you find a bug?
 
