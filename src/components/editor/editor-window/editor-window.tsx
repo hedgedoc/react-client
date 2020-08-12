@@ -26,7 +26,6 @@ import { getEmojiIcon, getEmojiShortCode } from '../../../utils/emoji'
 import { defaultKeyMap } from './key-map'
 import { customEmojis } from './tool-bar/emoji-picker/emoji-picker'
 import { ToolBar } from './tool-bar/tool-bar'
-import { addEmoji } from './tool-bar/utils'
 
 export interface EditorWindowProps {
   onContentChange: (content: string) => void
