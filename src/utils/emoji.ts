@@ -11,11 +11,5 @@ export const getEmojiIcon = (emoji: EmojiData):string => {
 }
 
 export const getEmojiShortCode = (emoji: EmojiData):string => {
-  if ((emoji as BaseEmoji).colons) {
-    return (emoji as BaseEmoji).colons
-  } else if ((emoji as CustomEmoji).imageUrl) {
-    // noinspection CheckTagEmptyBody
-    return `:${(emoji as CustomEmoji).name}:`
-  }
-  return ''
+  return (emoji as BaseEmoji).colons
 }
