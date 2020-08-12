@@ -17,7 +17,7 @@ import {
   addOrderedList,
   addQuotes,
   addTable,
-  addTaskList, insertAtCursor,
+  addTaskList,
   makeSelectionBold,
   makeSelectionItalic,
   strikeThroughSelection,
