@@ -87,8 +87,12 @@ const emojiHints = (editor: Editor) => {
     } else {
       resolve({
         list: search.map((emojiData: EmojiData) => ({
-          displayText: `${getEmojiIcon(emojiData)} - ${getEmojiShortCode(emojiData)}`,
-          text: getEmojiShortCode(emojiData)
+          text: getEmojiShortCode(emojiData),
+          render: (parent: HTMLBodyElement, data: unknown, cursor: unknown) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = `${getEmojiIcon(emojiData)} - ${getEmojiShortCode(emojiData)}`
+            parent.appendChild(wrapper)
+          }
         })),
         from: Pos(cursor.line, searchTerm.start),
         to: Pos(cursor.line, searchTerm.end)
