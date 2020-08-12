@@ -101,7 +101,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         </Button>
         <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
           setShowEmojiPicker(false)
-          addEmoji(editor, emoji)
+          addEmoji(emoji, editor)
         }} onDismiss={() => setShowEmojiPicker(false)}/>
         <Button variant='light' onClick={() => setShowEmojiPicker(old => !old)} title={''}>
           <ForkAwesomeIcon icon="smile-o"/>
