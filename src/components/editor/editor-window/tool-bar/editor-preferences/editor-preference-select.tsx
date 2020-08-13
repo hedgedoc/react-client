@@ -28,10 +28,10 @@ export const EditorPreferenceSelect: React.FC<EditorPreferenceSelectProps> = ({ 
       ...preferences,
       [property]: selectedItem
     })
-  }, [preferences, property, setSelected, onChange])
+  }, [preferences, property, setSelected, onChange, asInteger, asBoolean])
 
   return (
-    <Form.Group controlId='editorKeymap'>
+    <Form.Group controlId={`editor-pref-${property}`}>
       <Form.Label>
         <Trans i18nKey={`editor.preferences.${property}`}/>
       </Form.Label>
