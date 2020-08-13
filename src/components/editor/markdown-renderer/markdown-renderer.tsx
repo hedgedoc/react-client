@@ -84,6 +84,14 @@ const markdownItTwitterEmojis = Object.keys((emojiData as unknown as Data).emoji
     return reduceObject
   }, {} as { [key: string]: string })
 
+const emojiSkinToneModifierMap = [2, 3, 4, 5, 6]
+  .reduce((reduceObject, modifierValue) => {
+    const codepoint = 127995 + (modifierValue - 2)
+    const shortcode = `skin-tone-${modifierValue}`
+    reduceObject[shortcode] = `&#${codepoint};`
+    return reduceObject
+  }, {} as { [key: string]: string })
+
 const forkAwesomeIconMap = Object.keys(ForkAwesomeIcons)
   .reduce((reduceObject, icon) => {
     const shortcode = `fa-${icon}`
@@ -165,6 +173,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onM
     md.use(emoji, {
       defs: {
         ...markdownItTwitterEmojis,
+        ...emojiSkinToneModifierMap,
         ...forkAwesomeIconMap
       }
     })
