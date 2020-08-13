@@ -11,7 +11,6 @@ import 'codemirror/addon/edit/matchtags'
 import 'codemirror/addon/fold/foldcode'
 import 'codemirror/addon/fold/foldgutter'
 import 'codemirror/addon/hint/show-hint'
-import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/keymap/sublime.js'
@@ -38,7 +37,7 @@ interface findWordAtCursorResponse {
   text: string
 }
 
-const allowedCharsInEmojiCodeRegex = /(:|\w|-|_)/
+const allowedCharsInEmojiCodeRegex = /(:|\w|-|_|\+)/
 
 const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
   const cursor = editor.getCursor()
@@ -59,7 +58,7 @@ const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
   }
 }
 
-const emojiWordRegex = /^:((\w|-|_)+)$/
+const emojiWordRegex = /^:((\w|-|_|\+)+)$/
 
 const emojiHints = (editor: Editor) => {
   return new Promise((resolve) => {
@@ -90,7 +89,7 @@ const emojiHints = (editor: Editor) => {
           text: getEmojiShortCode(emojiData),
           render: (parent: HTMLBodyElement, data: unknown, cursor: unknown) => {
             const wrapper = document.createElement('div')
-            wrapper.innerHTML = `${getEmojiIcon(emojiData)} - ${getEmojiShortCode(emojiData)}`
+            wrapper.innerHTML = `${getEmojiIcon(emojiData)}   ${getEmojiShortCode(emojiData)}`
             parent.appendChild(wrapper)
           }
         })),
