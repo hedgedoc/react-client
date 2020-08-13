@@ -242,10 +242,10 @@
         },
         "preferences": {
             "title": "Preferences",
-            "theme": "Theme",
-            "keymap": "Keymap",
-            "tabCharacter": "Tab character",
-            "tabSize": "Tab size",
+            "theme": "Editor theme",
+            "keyMap": "Keymap",
+            "indentWithTabs": "Tab character",
+            "indentUnit": "Tab size (when using spaces)",
             "spellChecker": "Spell checking"
         },
         "statusBar": {

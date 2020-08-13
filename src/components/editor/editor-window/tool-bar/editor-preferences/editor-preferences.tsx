@@ -4,10 +4,7 @@ import { Button, ListGroup, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../../common/modals/common-modal'
-import { EditorPreferenceKeymap } from './editor-preference-keymap'
-import { EditorPreferenceTabchar } from './editor-preference-tabchar'
-import { EditorPreferenceTabsize } from './editor-preference-tabsize'
-import { EditorPreferenceTheme } from './editor-preference-theme'
+import { EditorPreferenceSelect } from './editor-preference-select'
 
 export interface EditorSettingsButtonProps {
   editor: CodeMirror.Editor
@@ -37,16 +34,26 @@ export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor,
         <Form>
           <ListGroup>
             <ListGroup.Item>
-              <EditorPreferenceTheme onChange={sendPreferences} preferences={preferences}/>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'theme'}>
+                <option value='one-dark'>Dark</option>
+                <option value='neat'>Light</option>
+              </EditorPreferenceSelect>
             </ListGroup.Item>
             <ListGroup.Item>
-              <EditorPreferenceKeymap onChange={sendPreferences} preferences={preferences}/>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'keyMap'}>
+                <option value='sublime'>Sublime</option>
+                <option value='emacs'>Emacs</option>
+                <option value='vim'>Vim</option>
+              </EditorPreferenceSelect>
             </ListGroup.Item>
             <ListGroup.Item>
-              <EditorPreferenceTabchar onChange={sendPreferences} preferences={preferences}/>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'indentWithTabs'} asBoolean={true}>
+                <option value='false'>Spaces</option>
+                <option value='true'>Tab</option>
+              </EditorPreferenceSelect>
             </ListGroup.Item>
             <ListGroup.Item>
-              <EditorPreferenceTabsize onChange={sendPreferences} preferences={preferences}/>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'indentUnit'} asInteger={true}/>
             </ListGroup.Item>
             <ListGroup.Item>
               <Form.Group controlId='editorSpellChecker'>
