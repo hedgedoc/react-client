@@ -1,6 +1,7 @@
 @import '../../../../node_modules/codemirror/lib/codemirror.css';
 @import '../../../../node_modules/codemirror/addon/display/fullscreen.css';
 @import './one-dark.css';
+@import 'hints';
 
 .CodeMirror {
   font-family: "Source Code Pro", "twemoji", Consolas, monaco, monospace;
@@ -10,6 +11,3 @@
   height: 100%;
 }
 
-.CodeMirror-hints {
-  font-family: inherit;
-}
