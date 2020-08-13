@@ -1,4 +1,4 @@
-import { Editor, EditorChange, Pos } from 'codemirror'
+import { Editor, EditorChange } from 'codemirror'
 import 'codemirror/addon/comment/comment'
 import 'codemirror/addon/display/autorefresh'
 import 'codemirror/addon/display/fullscreen'
@@ -15,89 +15,18 @@ import 'codemirror/addon/search/match-highlighter'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/keymap/sublime.js'
 import 'codemirror/mode/gfm/gfm.js'
-import { Data, EmojiData, NimbleEmojiIndex } from 'emoji-mart'
-import data from 'emoji-mart/data/twitter.json'
+
 import React, { useCallback, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-window.scss'
-import { getEmojiIcon, getEmojiShortCode } from '../../../utils/emoji'
+import { emojiHints, emojiWordRegex, findWordAtCursor } from './hints/emoji'
 import { defaultKeyMap } from './key-map'
-import { customEmojis } from './tool-bar/emoji-picker/emoji-picker'
 import { ToolBar } from './tool-bar/tool-bar'
 
 export interface EditorWindowProps {
   onContentChange: (content: string) => void
   content: string
-}
-
-interface findWordAtCursorResponse {
-  start: number,
-  end: number,
-  text: string
-}
-
-const allowedCharsInEmojiCodeRegex = /(:|\w|-|_|\+)/
-
-const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
-  const cursor = editor.getCursor()
-  const line = editor.getLine(cursor.line)
-  let start = cursor.ch
-  let end = cursor.ch
-  while (start && allowedCharsInEmojiCodeRegex.test(line.charAt(start - 1))) {
-    --start
-  }
-  while (end < line.length && allowedCharsInEmojiCodeRegex.test(line.charAt(end))) {
-    ++end
-  }
-
-  return {
-    text: line.slice(start, end).toLowerCase(),
-    start: start,
-    end: end
-  }
-}
-
-const emojiWordRegex = /^:((\w|-|_|\+)+)$/
-
-const emojiHints = (editor: Editor) => {
-  return new Promise((resolve) => {
-    const searchTerm = findWordAtCursor(editor)
-    const searchResult = emojiWordRegex.exec(searchTerm.text)
-    if (searchResult === null) {
-      resolve(null)
-      return
-    }
-    const term = searchResult[1]
-    if (!term) {
-      resolve(null)
-      return
-    }
-    const search = emojiIndex.search(term, {
-      emojisToShowFilter: () => true,
-      maxResults: 5,
-      include: [],
-      exclude: [],
-      custom: customEmojis as EmojiData[]
-    })
-    const cursor = editor.getCursor()
-    if (!search) {
-      resolve(null)
-    } else {
-      resolve({
-        list: search.map((emojiData: EmojiData) => ({
-          text: getEmojiShortCode(emojiData),
-          render: (parent: HTMLBodyElement, data: unknown, cursor: unknown) => {
-            const wrapper = document.createElement('div')
-            wrapper.innerHTML = `${getEmojiIcon(emojiData)}   ${getEmojiShortCode(emojiData)}`
-            parent.appendChild(wrapper)
-          }
-        })),
-        from: Pos(cursor.line, searchTerm.start),
-        to: Pos(cursor.line, searchTerm.end)
-      })
-    }
-  })
 }
 
 const hintOptions = {
@@ -106,8 +35,6 @@ const hintOptions = {
   completeOnSingleClick: false,
   alignWithWord: true
 }
-
-const emojiIndex = new NimbleEmojiIndex(data as unknown as Data)
 
 const onChange = (editor: Editor) => {
   const searchTerm = findWordAtCursor(editor)
