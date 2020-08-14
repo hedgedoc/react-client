@@ -86,7 +86,8 @@ const markdownItTwitterEmojis = Object.keys((emojiData as unknown as Data).emoji
 
 const emojiSkinToneModifierMap = [2, 3, 4, 5, 6]
   .reduce((reduceObject, modifierValue) => {
-    const codepoint = 127995 + (modifierValue - 2)
+    const lightSkinCode = 127995
+    const codepoint = lightSkinCode + (modifierValue - 2)
     const shortcode = `skin-tone-${modifierValue}`
     reduceObject[shortcode] = `&#${codepoint};`
     return reduceObject
