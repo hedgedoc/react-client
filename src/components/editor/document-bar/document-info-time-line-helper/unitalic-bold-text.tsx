@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './unitalic-bold-text.scss'
 
 export interface BoldTextProps {
@@ -6,5 +6,5 @@ export interface BoldTextProps {
 }
 
 export const UnitalicBoldText: React.FC<BoldTextProps> = ({ text }) => {
-  return <Fragment><b className={'font-style-normal'}>{text}</b></Fragment>
+  return <b className={'font-style-normal'}>{text}</b>
 }
