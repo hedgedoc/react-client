@@ -4,12 +4,13 @@ import { ShowIf } from '../../../common/show-if/show-if'
 import './user-avatar.scss'
 
 export interface UserAvatarProps {
-    name?: string;
+    name: string;
     photo: string;
     additionalClasses?: string;
+    showName?: boolean
 }
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ name, photo, additionalClasses = '' }) => {
+const UserAvatar: React.FC<UserAvatarProps> = ({ name, photo, additionalClasses = '', showName = true }) => {
   const { t } = useTranslation()
 
   return (
@@ -19,7 +20,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ name, photo, additionalClasses 
         className="user-avatar rounded"
         alt={t('common.avatarOf', { name })}
       />
-      <ShowIf condition={!!name}>
+      <ShowIf condition={showName}>
         <span className="mx-1 user-name">{name}</span>
       </ShowIf>
     </span>

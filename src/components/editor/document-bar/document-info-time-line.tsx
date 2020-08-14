@@ -28,9 +28,8 @@ export const DocumentInfoTimeLine: React.FC<DocumentInfoLineWithTimeProps> = ({ 
 
   return (
     <DocumentInfoLine icon={icon}>
-      <UserAvatar photo={profileImageSrc} additionalClasses={'mr-1 document-info-avatar'}/>
       <Trans i18nKey={i18nKey} >
-        <UnitalicBoldText text={userName}/>
+        <UserAvatar photo={profileImageSrc} additionalClasses={'document-info-avatar font-style-normal bold font-weight-bold'} name={userName}/>
         <ItalicTime time={time}/>
       </Trans>
     </DocumentInfoLine>
