@@ -6,6 +6,7 @@ import { DocumentInfoLine } from './document-info-line'
 import './document-info-time-line.scss'
 import { UnitalicBoldText } from './document-info-time-line-helper/unitalic-bold-text'
 import { ItalicTime } from './document-info-time-line-helper/italic-time'
+import { UserAvatar } from '../../landing/layout/user-avatar/user-avatar'
 
 export interface DocumentInfoLineWithTimeProps {
   time: Moment,
@@ -27,7 +28,7 @@ export const DocumentInfoTimeLine: React.FC<DocumentInfoLineWithTimeProps> = ({ 
 
   return (
     <DocumentInfoLine icon={icon}>
-      <img alt={`avatar icon of ${userName}`} src={profileImageSrc} className='mr-2 rounded document-info-avatar'/>
+      <UserAvatar photo={profileImageSrc} additionalClasses={'mr-1 document-info-avatar'}/>
       <Trans i18nKey={i18nKey} >
         <UnitalicBoldText text={userName}/>
         <ItalicTime time={time}/>

@@ -6,5 +6,5 @@ export interface BoldTextProps {
 }
 
 export const UnitalicBoldText: React.FC<BoldTextProps> = ({ text }) => {
-  return <b className={'font-style-normal'}>{text}</b>
+  return <b className={'font-style-normal mr-1'}>{text}</b>
 }
