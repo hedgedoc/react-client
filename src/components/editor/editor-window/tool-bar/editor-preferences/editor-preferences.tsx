@@ -1,10 +1,10 @@
 import CodeMirror, { EditorConfiguration } from 'codemirror'
-import React, { useState, Fragment, useCallback } from 'react'
-import { Button, ListGroup, Form } from 'react-bootstrap'
+import React, { Fragment, useCallback, useState } from 'react'
+import { Button, Form, ListGroup } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../../common/modals/common-modal'
-import { EditorPreferenceSelect } from './editor-preference-select'
+import { EditorPreferenceProperty, EditorPreferenceSelect } from './editor-preference-select'
 
 export interface EditorSettingsButtonProps {
   editor: CodeMirror.Editor
@@ -34,26 +34,26 @@ export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor,
         <Form>
           <ListGroup>
             <ListGroup.Item>
-              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'theme'}>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={EditorPreferenceProperty.THEME}>
                 <option value='one-dark'>Dark</option>
                 <option value='neat'>Light</option>
               </EditorPreferenceSelect>
             </ListGroup.Item>
             <ListGroup.Item>
-              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'keyMap'}>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={EditorPreferenceProperty.KEYMAP}>
                 <option value='sublime'>Sublime</option>
                 <option value='emacs'>Emacs</option>
                 <option value='vim'>Vim</option>
               </EditorPreferenceSelect>
             </ListGroup.Item>
             <ListGroup.Item>
-              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'indentWithTabs'} asBoolean={true}>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={EditorPreferenceProperty.INDENT_WITH_TABS}>
                 <option value='false'>Spaces</option>
                 <option value='true'>Tab</option>
               </EditorPreferenceSelect>
             </ListGroup.Item>
             <ListGroup.Item>
-              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={'indentUnit'} asInteger={true}/>
+              <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={EditorPreferenceProperty.INDENT_UNIT}/>
             </ListGroup.Item>
             <ListGroup.Item>
               <Form.Group controlId='editorSpellChecker'>
