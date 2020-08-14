@@ -1,4 +1,4 @@
-import CodeMirror, { EditorConfiguration } from 'codemirror'
+import { EditorConfiguration } from 'codemirror'
 import React, { Fragment, useCallback, useState } from 'react'
 import { Button, Form, ListGroup } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
@@ -7,12 +7,11 @@ import { CommonModal } from '../../../../common/modals/common-modal'
 import { EditorPreferenceProperty, EditorPreferenceSelect } from './editor-preference-select'
 
 export interface EditorSettingsButtonProps {
-  editor: CodeMirror.Editor
   preferences: EditorConfiguration
   onPreferencesChange: (config: EditorConfiguration) => void
 }
 
-export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor, onPreferencesChange, preferences }) => {
+export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ onPreferencesChange, preferences }) => {
   const { t } = useTranslation()
   const [showModal, setShowModal] = useState(false)
 

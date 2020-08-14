@@ -114,7 +114,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor, onPreferencesChange, e
         </ButtonGroup>
         <span className={'divider'}>&nbsp;</span>
         <ButtonGroup className={'mx-2 flex-wrap'}>
-          <EditorPreferences editor={editor} onPreferencesChange={onPreferencesChange} preferences={editorPreferences}/>
+          <EditorPreferences onPreferencesChange={onPreferencesChange} preferences={editorPreferences}/>
         </ButtonGroup>
       </ButtonToolbar>
     </Fragment>
