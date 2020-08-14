@@ -1,4 +1,5 @@
 const testText = 'textText'
+const testLink = 'http://hedgedoc.org'
 
 describe('Toolbar', () => {
   beforeEach(() => {
@@ -151,7 +152,7 @@ describe('Toolbar', () => {
   })
 
   describe('link', () => {
-    it('with selection', () => {
+    it('with selection text', () => {
       cy.get('.CodeMirror textarea')
         .type(`${testText}`)
         .type('{ctrl}a')
@@ -168,6 +169,16 @@ describe('Toolbar', () => {
         .click()
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', `${testText}[](https://)`)
+    })
+
+    it('with selection link', () => {
+      cy.get('.CodeMirror textarea')
+        .type(`${testLink}`)
+        .type('{ctrl}a')
+      cy.get('.fa-link')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `[](${testLink})`)
     })
   })
 
@@ -190,6 +201,16 @@ describe('Toolbar', () => {
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', `${testText}![](https://)`)
     })
+
+    it('with selection link', () => {
+      cy.get('.CodeMirror textarea')
+        .type(`${testLink}`)
+        .type('{ctrl}a')
+      cy.get('.fa-picture-o')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `![](${testLink})`)
+    })
   })
 
   it('table', () => {
@@ -210,11 +231,36 @@ describe('Toolbar', () => {
       .should('have.text', '----')
   })
 
-  it('line', () => {
+  it('comment', () => {
     cy.get('.fa-comment')
       .click()
     cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
       .should('have.text', '> []')
+  })
+
+  describe('emoji', () => {
+    it('picker is show when clicked', () => {
+      cy.get('.emoji-mart.emoji-mart-light')
+        .should('not.exist')
+      cy.get('.fa-smile-o')
+        .click()
+      cy.get('.emoji-mart.emoji-mart-light')
+        .should('exist')
+    })
+
+    it('picker is show when clicked', () => {
+      cy.get('.fa-smile-o')
+        .click()
+      cy.get('.emoji-mart.emoji-mart-light')
+        .should('exist')
+      cy.get('.emoji-mart-emoji-native')
+        .first()
+        .click()
+      cy.get('.markdown-body')
+        .should('have.text', '👍')
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span ')
+        .should('have.text', ':+1:')
+    })
   })
 
 })
