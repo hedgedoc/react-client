@@ -322,7 +322,8 @@
         "close": "Close",
         "save": "Save",
         "or": "or",
-        "and": "and"
+        "and": "and",
+        "avatarOf": "avatar of '{{name}}'"
     },
     "login": {
         "chooseMethod": "Choose method",
