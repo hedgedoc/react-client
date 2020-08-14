@@ -124,7 +124,7 @@
             "image": "画像",
             "uploadImage": "画像をアップロード"
         },
-        "menu": {
+        "documentBar": {
             "menu": "メニュー",
             "new": "新規作成",
             "shareLink": "",

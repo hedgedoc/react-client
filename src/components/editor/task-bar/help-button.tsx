@@ -12,14 +12,14 @@ export const HelpButton: React.FC = () => {
   const handleClose = () => setShow(false)
   return (
     <Fragment>
-      <Button title={t('editor.menu.help')} className="ml-2 text-secondary" size="sm" variant="outline-light"
+      <Button title={t('editor.documentBar.help')} className="ml-2 text-secondary" size="sm" variant="outline-light"
         onClick={handleShow}>
         <ForkAwesomeIcon icon="question-circle"/>
       </Button>
       <Modal show={show} onHide={handleClose} animation={true} className="text-dark" size='lg'>
         <Modal.Header closeButton>
           <Modal.Title>
-            <ForkAwesomeIcon icon="question-circle"/> <Trans i18nKey={'editor.menu.help'}/>
+            <ForkAwesomeIcon icon="question-circle"/> <Trans i18nKey={'editor.documentBar.help'}/>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-dark">

@@ -13,7 +13,7 @@ export const EditorMenu: React.FC<EditorMenuProps> = ({ noteTitle }) => {
   return (
     <Dropdown className={'small mx-1'} alignRight={true}>
       <Dropdown.Toggle variant='light' size='sm' id='editor-menu'>
-        <Trans i18nKey={'editor.menu.menu'}/>
+        <Trans i18nKey={'editor.documentBar.menu'}/>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>

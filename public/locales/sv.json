@@ -124,7 +124,7 @@
             "image": "Bild",
             "uploadImage": "Ladda upp bilder"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Meny",
             "new": "Ny",
             "shareLink": "",

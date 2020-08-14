@@ -120,7 +120,7 @@
             "image": "이미지",
             "uploadImage": "이미지 업로드"
         },
-        "menu": {
+        "documentBar": {
             "menu": "메뉴",
             "new": "새",
             "shareLink": "",

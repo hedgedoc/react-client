@@ -108,7 +108,7 @@
             "image": "Bildo",
             "uploadImage": "Alŝutu bildon"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menuo",
             "new": "Nova",
             "shareLink": "",

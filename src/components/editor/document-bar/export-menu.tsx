@@ -9,7 +9,7 @@ const ExportMenu: React.FC = () => {
   return (
     <Dropdown className='small mx-1' alignRight={true}>
       <Dropdown.Toggle variant='light' size='sm' id='editor-menu-export' className=''>
-        <Trans i18nKey='editor.menu.export'/>
+        <Trans i18nKey='editor.documentBar.export'/>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
@@ -28,7 +28,7 @@ const ExportMenu: React.FC = () => {
         <Dropdown.Divider/>
 
         <Dropdown.Header>
-          <Trans i18nKey='editor.menu.download'/>
+          <Trans i18nKey='editor.documentBar.download'/>
         </Dropdown.Header>
         <Dropdown.Item className='small'>
           <ForkAwesomeIcon icon='file-text' className={'mx-2'}/>

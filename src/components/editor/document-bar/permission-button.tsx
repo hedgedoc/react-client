@@ -11,7 +11,7 @@ export const PermissionButton: React.FC = () => {
     <Fragment>
       <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowReadOnly(true)}>
         <ForkAwesomeIcon icon={'lock'} className={'mx-1'}/>
-        <Trans i18nKey={'editor.menu.permissions'}/>
+        <Trans i18nKey={'editor.documentBar.permissions'}/>
       </Button>
       <CommonModal
         show={showReadOnly}

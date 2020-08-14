@@ -7,7 +7,7 @@ export const PinToHistoryButton: React.FC = () => {
   useTranslation()
 
   const isPinned = true
-  const i18nKey = isPinned ? 'editor.menu.pinNoteToHistory' : 'editor.menu.pinnedToHistory'
+  const i18nKey = isPinned ? 'editor.documentBar.pinNoteToHistory' : 'editor.documentBar.pinnedToHistory'
 
   return (
     <Button variant={'light'} className={'mx-1'} size={'sm'}>

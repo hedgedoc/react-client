@@ -28,7 +28,7 @@ export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor,
       <CommonModal
         show={showModal}
         onHide={() => setShowModal(false)}
-        titleI18nKey={'editor.preferences.title'}
+        titleI18nKey={'editor.modal.preferences.title'}
         closeButton={true}
         icon={'wrench'}>
         <Form>
@@ -58,7 +58,7 @@ export const EditorPreferences: React.FC<EditorSettingsButtonProps> = ({ editor,
             <ListGroup.Item>
               <Form.Group controlId='editorSpellChecker'>
                 <Form.Label>
-                  <Trans i18nKey='editor.preferences.spellChecker'/>
+                  <Trans i18nKey='editor.modal.preferences.spellChecker'/>
                 </Form.Label>
                 <Form.Control as='select' size='sm' onChange={() => alert('This feature is not yet implemented.')}>
                   <option value='off'>off</option>

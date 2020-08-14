@@ -124,7 +124,7 @@
             "image": "Immagine",
             "uploadImage": "Carica Immagine"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menu",
             "new": "Nuovo",
             "shareLink": "",

@@ -108,7 +108,7 @@
             "image": "Billede",
             "uploadImage": "Upload billede"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menu",
             "new": "Ny",
             "shareLink": "",

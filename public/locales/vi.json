@@ -123,7 +123,7 @@
             "image": "Ảnh",
             "uploadImage": "Tải ảnh lên"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menu",
             "new": "Mới",
             "shareLink": "",

@@ -124,7 +124,7 @@
             "image": "Obrázek",
             "uploadImage": "Nahrát obrázek"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menu",
             "new": "Nová",
             "shareLink": "",

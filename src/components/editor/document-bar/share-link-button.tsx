@@ -12,7 +12,7 @@ export const ShareLinkButton: React.FC = () => {
     <Fragment>
       <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowReadOnly(true)}>
         <ForkAwesomeIcon icon={'share'} className={'mx-1'}/>
-        <Trans i18nKey={'editor.menu.shareLink'}/>
+        <Trans i18nKey={'editor.documentBar.shareLink'}/>
       </Button>
       <CommonModal
         show={showReadOnly}

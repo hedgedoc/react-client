@@ -108,7 +108,7 @@
             "image": "Slika",
             "uploadImage": "Prenesi sliku"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Meni",
             "new": "Novo",
             "shareLink": "",

@@ -85,11 +85,11 @@
                 "lastVisit": "Last Visit"
             },
             "menu": {
-              "recentNotes": "Recent notes",
-              "entryLocal": "Saved in your browser history",
-              "entryRemote": "Saved in your user history",
-              "removeEntry": "Remove from history",
-              "deleteNote": "Delete note"
+                "recentNotes": "Recent notes",
+                "entryLocal": "Saved in your browser history",
+                "entryRemote": "Saved in your user history",
+                "removeEntry": "Remove from history",
+                "deleteNote": "Delete note"
             }
         },
         "navigation": {
@@ -223,7 +223,7 @@
             "preferences": "Editor settings",
             "emoji": "Open emoji picker"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menu",
             "import": "Import",
             "export": "Export",
@@ -239,14 +239,6 @@
             "documentInfo": "Document info",
             "pinNoteToHistory": "Pin note to history",
             "pinnedToHistory": "Pinned to history"
-        },
-        "preferences": {
-            "title": "Preferences",
-            "theme": "Editor theme",
-            "keyMap": "Keymap",
-            "indentWithTabs": "Tab character",
-            "indentUnit": "Tab size (when using spaces)",
-            "spellChecker": "Spell checking"
         },
         "statusBar": {
             "cursor": "Line {{line}}, Columns {{columns}}",
@@ -273,11 +265,11 @@
                 "selectSnippet": "Select From Available Snippets"
             },
             "documentInfo": {
-              "title": "Document info",
-              "created": "<0></0> created this note <1></1> ago",
-              "edited": "<0></0> was the last editor <1></1> ago",
-              "usersContributed": "<0></0> users contributed to this document",
-              "revisions": "<0></0> revisions are saved"
+                "title": "Document info",
+                "created": "<0></0> created this note <1></1> ago",
+                "edited": "<0></0> was the last editor <1></1> ago",
+                "usersContributed": "<0></0> users contributed to this document",
+                "revisions": "<0></0> revisions are saved"
             },
             "gistImport": {
                 "title": "Import from Gist",
@@ -302,15 +294,23 @@
                 "button": "Delete note"
             },
             "permissions": {
-              "title": "Permissions"
+                "title": "Permissions"
             },
             "shareLink": {
-              "title": "Share link",
-              "viewOnlyDescription": "This link points to a read-only version of this note. You can use this e.g. for feedback from friends and colleagues."
+                "title": "Share link",
+                "viewOnlyDescription": "This link points to a read-only version of this note. You can use this e.g. for feedback from friends and colleagues."
+            },
+            "preferences": {
+                "title": "Preferences",
+                "theme": "Editor theme",
+                "keyMap": "Keymap",
+                "indentWithTabs": "Tab character",
+                "indentUnit": "Tab size (when using spaces)",
+                "spellChecker": "Spell checking"
             }
         },
         "embeddings": {
-          "clickToLoad": "Click to load"
+            "clickToLoad": "Click to load"
         }
     },
     "common":  {
@@ -339,15 +339,15 @@
             }
         },
         "register": {
-          "title": "Register",
-          "passwordAgain": "Password (again)",
-          "usernameInfo": "The username is your unique identifier for login.",
-          "passwordInfo": "Choose a unique and secure password. It must contain at least 8 characters.",
-          "infoTermsPrivacy": "With the registration of my user account I agree to the following terms:",
-          "error": {
-            "usernameExisting": "There is already an account with this username.",
-            "other": "There was an error while registering your account. Just try it again."
-          }
+            "title": "Register",
+            "passwordAgain": "Password (again)",
+            "usernameInfo": "The username is your unique identifier for login.",
+            "passwordInfo": "Choose a unique and secure password. It must contain at least 8 characters.",
+            "infoTermsPrivacy": "With the registration of my user account I agree to the following terms:",
+            "error": {
+                "usernameExisting": "There is already an account with this username.",
+                "other": "There was an error while registering your account. Just try it again."
+            }
         }
     }
 }

@@ -108,7 +108,7 @@
             "image": "Εικόνα",
             "uploadImage": "Ανέβασμα φωτογραφίας"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Μενού",
             "new": "Νέο",
             "shareLink": "",

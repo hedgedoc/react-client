@@ -108,7 +108,7 @@
             "image": "Resim",
             "uploadImage": "Resim Yükle"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menü",
             "new": "Yeni",
             "shareLink": "",

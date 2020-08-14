@@ -33,7 +33,7 @@ export const EditorPreferenceSelect: React.FC<EditorPreferenceSelectProps> = ({ 
   return (
     <Form.Group controlId={`editor-pref-${property}`}>
       <Form.Label>
-        <Trans i18nKey={`editor.preferences.${property}`}/>
+        <Trans i18nKey={`editor.modal.preferences.${property}`}/>
       </Form.Label>
       <Form.Control as={asInteger ? 'input' : 'select'} size='sm' value={selected as string | number} onChange={selectItem} type={asInteger ? 'number' : ''}>
         { children }

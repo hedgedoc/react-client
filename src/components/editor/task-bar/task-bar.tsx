@@ -33,7 +33,7 @@ export const TaskBar: React.FC = () => {
         <EditorViewMode/>
         <DarkModeButton/>
         <Link to={`/p/${id}`} target='_blank'>
-          <Button title={t('editor.menu.slideMode')} className="ml-2 text-secondary" size="sm" variant="outline-light">
+          <Button title={t('editor.documentBar.slideMode')} className="ml-2 text-secondary" size="sm" variant="outline-light">
             <ForkAwesomeIcon icon="television"/>
           </Button>
         </Link>
@@ -41,7 +41,7 @@ export const TaskBar: React.FC = () => {
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
         <Button className="mx-2" size="sm" variant="primary">
-          <ForkAwesomeIcon icon="plus"/> <Trans i18nKey="editor.menu.new"/>
+          <ForkAwesomeIcon icon="plus"/> <Trans i18nKey="editor.documentBar.new"/>
         </Button>
         <ShowIf condition={!user}>
           <SignInButton size={'sm'} />

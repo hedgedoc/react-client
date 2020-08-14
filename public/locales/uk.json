@@ -108,7 +108,7 @@
             "image": "Зображення",
             "uploadImage": "Завантажити зображення"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Меню",
             "new": "Нова",
             "shareLink": "",

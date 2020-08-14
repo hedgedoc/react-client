@@ -124,7 +124,7 @@
             "image": "图片",
             "uploadImage": "上传图片"
         },
-        "menu": {
+        "documentBar": {
             "menu": "菜单",
             "new": "新建",
             "shareLink": "",

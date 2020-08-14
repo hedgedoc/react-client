@@ -7,7 +7,7 @@ export const RevisionButton: React.FC = () => {
   return (
     <Button variant={'light'} className={'mx-1'} size={'sm'}>
       <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
-      <Trans i18nKey={'editor.menu.revision'}/>
+      <Trans i18nKey={'editor.documentBar.revision'}/>
     </Button>
   )
 }

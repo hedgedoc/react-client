@@ -7,7 +7,7 @@ export const ImportMenu: React.FC = () => {
   return (
     <Dropdown className='small mx-1' alignRight={true}>
       <Dropdown.Toggle variant='light' size='sm' id='editor-menu-import' className=''>
-        <Trans i18nKey='editor.menu.import'/>
+        <Trans i18nKey='editor.documentBar.import'/>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>

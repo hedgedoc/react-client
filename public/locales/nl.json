@@ -124,7 +124,7 @@
             "image": "Afbeelding",
             "uploadImage": "Afbeelding uploaden"
         },
-        "menu": {
+        "documentBar": {
             "menu": "Menu",
             "new": "Nieuw",
             "shareLink": "",
