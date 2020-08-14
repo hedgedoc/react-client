@@ -4,7 +4,6 @@ import { Trans, useTranslation } from 'react-i18next'
 import { IconName } from '../../common/fork-awesome/fork-awesome-icon'
 import { DocumentInfoLine } from './document-info-line'
 import './document-info-time-line.scss'
-import { UnitalicBoldText } from './document-info-time-line-helper/unitalic-bold-text'
 import { ItalicTime } from './document-info-time-line-helper/italic-time'
 import { UserAvatar } from '../../landing/layout/user-avatar/user-avatar'
 
