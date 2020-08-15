@@ -4,7 +4,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { updateDisplayName } from '../../../../../api/me'
 import { ApplicationState } from '../../../../../redux'
-import { getAndSetUser } from '../../../../../utils/apiUtils'
+import { getAndSetUser } from '../../../../../api/utils'
 
 export const ProfileDisplayName: React.FC = () => {
   const regexInvalidDisplayName = /^\s*$/

@@ -5,7 +5,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { doLdapLogin } from '../../../../../api/auth'
 import { ApplicationState } from '../../../../../redux'
-import { getAndSetUser } from '../../../../../utils/apiUtils'
+import { getAndSetUser } from '../../../../../api/utils'
 
 export const ViaLdap: React.FC = () => {
   const { t } = useTranslation()

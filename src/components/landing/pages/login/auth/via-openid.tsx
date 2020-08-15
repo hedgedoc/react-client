@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { doOpenIdLogin } from '../../../../../api/auth'
-import { getAndSetUser } from '../../../../../utils/apiUtils'
+import { getAndSetUser } from '../../../../../api/utils'
 
 export const ViaOpenId: React.FC = () => {
   useTranslation()

@@ -3,7 +3,7 @@ import { Button, Card, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { deleteUser } from '../../../../../api/me'
 import { clearUser } from '../../../../../redux/user/methods'
-import { getApiUrl } from '../../../../../utils/apiUtils'
+import { getApiUrl } from '../../../../../api/utils'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 
 export const ProfileAccountManagement: React.FC = () => {

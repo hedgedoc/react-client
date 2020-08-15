@@ -1,7 +1,19 @@
-import { getMe } from '../api/me'
+import { getMe } from './me'
 import { setUser } from '../redux/user/methods'
-import { store } from './store'
+import { store } from '../utils/store'
 
+export const defaultFetchConfig: Partial<RequestInit> = {
+  mode: 'cors',
+  cache: 'no-cache',
+  credentials: 'same-origin',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  redirect: 'follow',
+  referrerPolicy: 'no-referrer'
+}
+
+// TODO: move to component util
 export const getAndSetUser: () => (Promise<void>) = async () => {
   const me = await getMe()
   setUser({

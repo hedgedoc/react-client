@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router'
 import { useParams } from 'react-router-dom'
-import { getNote } from '../../api/note'
+import { getNote } from '../../api/notes'
 import { NotFound } from '../error/not-found'
 
 interface RouteParameters {

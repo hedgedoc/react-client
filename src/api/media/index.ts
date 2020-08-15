@@ -1,6 +1,5 @@
-import { ImageProxyResponse } from '../components/editor/markdown-renderer/replace-components/image/types'
-import { expectResponseCode, getApiUrl } from '../utils/apiUtils'
-import { defaultFetchConfig } from './default'
+import { ImageProxyResponse } from '../../components/editor/markdown-renderer/replace-components/image/types'
+import { expectResponseCode, getApiUrl, defaultFetchConfig } from '../utils'
 
 export const getProxiedUrl = async (imageUrl: string): Promise<ImageProxyResponse> => {
   const response = await fetch(getApiUrl() + '/media/proxy', {

@@ -1,5 +1,4 @@
-import { expectResponseCode, getApiUrl } from '../utils/apiUtils'
-import { defaultFetchConfig } from './default'
+import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 
 interface LastChange {
   userId: string

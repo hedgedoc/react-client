@@ -1,6 +1,5 @@
-import { HistoryEntry } from '../components/landing/pages/history/history'
-import { expectResponseCode, getApiUrl } from '../utils/apiUtils'
-import { defaultFetchConfig } from './default'
+import { HistoryEntry } from '../../components/landing/pages/history/history'
+import { expectResponseCode, getApiUrl, defaultFetchConfig } from '../utils'
 
 export const getHistory = async (): Promise<HistoryEntry[]> => {
   const response = await fetch(getApiUrl() + '/history')
