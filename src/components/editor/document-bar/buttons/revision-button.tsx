@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 
 export const RevisionButton: React.FC = () => {
   return (

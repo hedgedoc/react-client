@@ -1,8 +1,8 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
-import { TranslatedExternalLink } from '../../common/links/translated-external-link'
+import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { TranslatedExternalLink } from '../../../common/links/translated-external-link'
 
 const ExportMenu: React.FC = () => {
   useTranslation()

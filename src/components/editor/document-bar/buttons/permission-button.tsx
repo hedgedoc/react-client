@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react'
 import { Trans } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { Button, Modal } from 'react-bootstrap'
-import { CommonModal } from '../../common/modals/common-modal'
+import { CommonModal } from '../../../common/modals/common-modal'
 
 export const PermissionButton: React.FC = () => {
   const [showReadOnly, setShowReadOnly] = useState(false)
