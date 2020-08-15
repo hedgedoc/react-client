@@ -10,7 +10,7 @@ export const ShareLinkButton: React.FC = () => {
 
   return (
     <Fragment>
-      <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'history'} variant={'light'} onClick={() => setShowReadOnly(true)} i18nKey={'editor.documentBar.shareLink'}/>
+      <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'share'} variant={'light'} onClick={() => setShowReadOnly(true)} i18nKey={'editor.documentBar.shareLink'}/>
       <CommonModal
         show={showReadOnly}
         onHide={() => setShowReadOnly(false)}
