@@ -1,7 +1,5 @@
 import React from 'react'
-import { Button, ButtonProps } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
-import { ForkAwesomeIcon, IconName } from '../fork-awesome/fork-awesome-icon'
 import './icon-button.scss'
 import { IconButton, IconButtonProps } from './icon-button'
 
