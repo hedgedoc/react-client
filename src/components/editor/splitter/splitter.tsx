@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef, useState } from 'react'
-import { ShowIf } from '../show-if/show-if'
-import { SplitDivider } from '../split-divider/split-divider'
+import { ShowIf } from '../../common/show-if/show-if'
+import { SplitDivider } from './split-divider/split-divider'
 import './splitter.scss'
 
 export interface SplitterProps {
