@@ -8,7 +8,7 @@ import { MarkdownRenderer } from '../../markdown-renderer/markdown-renderer'
 import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import { TableOfContents } from '../table-of-contents/table-of-contents'
 
-interface RenderWindowProps {
+interface DocumentRenderPaneProps {
   content: string
   onMetadataChange: (metaData: YAMLMetaData | undefined) => void
   onFirstHeadingChange: (firstHeading: string | undefined) => void
