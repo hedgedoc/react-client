@@ -1,5 +1,5 @@
 import React from 'react'
-import { Nav, Navbar } from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Branding } from '../../common/branding/branding'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
