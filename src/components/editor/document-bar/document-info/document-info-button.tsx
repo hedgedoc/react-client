@@ -14,7 +14,7 @@ export const DocumentInfoButton: React.FC = () => {
 
   return (
     <Fragment>
-      <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'history'} variant={'light'} onClick={() => setShowModal(true)} i18nKey={'editor.documentBar.documentInfo'}/>
+      <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'line-chart'} variant={'light'} onClick={() => setShowModal(true)} i18nKey={'editor.documentBar.documentInfo'}/>
       <CommonModal
         show={showModal}
         onHide={() => setShowModal(false)}
