@@ -1,3 +1,5 @@
+# THE MASTER BRANCH IS DEPRECATED. PLEASE USE OUR NEW MAIN BRANCH "MAIN"
+
 # CodiMD - React Client
 
 ![lint and build](https://github.com/codimd/react-client/workflows/lint%20and%20build/badge.svg)
