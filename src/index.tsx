@@ -14,7 +14,7 @@ import { Register } from './components/landing/pages/register/register'
 import { Redirector } from './components/redirector/redirector'
 import './global-style/index.scss'
 import * as serviceWorker from './service-worker'
-import { store } from './utils/store'
+import { store } from './redux'
 
 ReactDOM.render(
   <Provider store={store}>
