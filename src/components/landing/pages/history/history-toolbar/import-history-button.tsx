@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { convertV1History, V1HistoryEntry } from '../../../../../utils/historyUtils'
+import { convertV1History, V1HistoryEntry } from '../utils'
 import { ErrorModal } from '../../../../common/modals/error-modal'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { HistoryEntry, HistoryJson } from '../history'

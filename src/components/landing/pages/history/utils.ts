@@ -1,12 +1,12 @@
 import moment from 'moment'
-import { SortModeEnum } from '../components/common/sort-button/sort-button'
+import { SortModeEnum } from '../../../common/sort-button/sort-button'
 import {
   HistoryEntry,
   HistoryEntryOrigin,
   HistoryJson,
   LocatedHistoryEntry
-} from '../components/landing/pages/history/history'
-import { HistoryToolbarState } from '../components/landing/pages/history/history-toolbar/history-toolbar'
+} from './history'
+import { HistoryToolbarState } from './history-toolbar/history-toolbar'
 
 export function collectEntries (localEntries: HistoryEntry[], remoteEntries: HistoryEntry[]): LocatedHistoryEntry[] {
   const locatedLocalEntries = locateEntries(localEntries, HistoryEntryOrigin.LOCAL)

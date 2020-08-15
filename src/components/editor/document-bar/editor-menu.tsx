@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { DropdownItemWithDeletionModal } from '../../landing/pages/history/common/entry-menu/dropdown-item-with-deletion-modal'
+import { DropdownItemWithDeletionModal } from '../../landing/pages/history/entry-menu/dropdown-item-with-deletion-modal'
 
 export interface EditorMenuProps {
   noteTitle: string

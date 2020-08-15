@@ -1,9 +1,9 @@
 import React from 'react'
 import { Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { formatHistoryDate } from '../../../../../utils/historyUtils'
-import { EntryMenu } from '../common/entry-menu/entry-menu'
-import { PinButton } from '../common/pin-button'
+import { formatHistoryDate } from '../utils'
+import { EntryMenu } from '../entry-menu/entry-menu'
+import { PinButton } from '../pin-button/pin-button'
 import { HistoryEntryProps } from '../history-content/history-content'
 
 export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
