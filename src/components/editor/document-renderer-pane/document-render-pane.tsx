@@ -15,7 +15,7 @@ interface DocumentRenderPaneProps {
   wide?: boolean
 }
 
-export const DocumentRenderPane: React.FC<RenderWindowProps> = ({ content, onMetadataChange, onFirstHeadingChange, wide }) => {
+export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = ({ content, onMetadataChange, onFirstHeadingChange, wide }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const renderer = useRef<HTMLDivElement>(null)
   const { width } = useResizeObserver({ ref: renderer })
