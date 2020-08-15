@@ -1,6 +1,6 @@
 import { getMe } from './me'
 import { setUser } from '../redux/user/methods'
-import { store } from '../utils/store'
+import { store } from '../redux'
 
 export const defaultFetchConfig: Partial<RequestInit> = {
   mode: 'cors',
