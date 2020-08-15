@@ -39,7 +39,7 @@ export const CopyableField: React.FC<CopyableFieldProps> = ({ content }) => {
         )}
       </Overlay>
 
-      <InputGroup className="mb-3">
+      <InputGroup className="my-3">
         <FormControl readOnly={true} ref={inputField} className={'text-center'} value={content} onMouseEnter={selectContent} />
         <InputGroup.Append>
           <Button variant="outline-secondary" onClick={() => copyToClipboard(content)} title={'Copy'}>
