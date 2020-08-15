@@ -11,9 +11,9 @@ import { Splitter } from './splitter/splitter'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { DocumentBar } from './document-bar/document-bar'
 import { editorTestContent } from './editorTestContent'
-import { EditorMode } from './task-bar/editor-view-mode'
-import { TaskBar } from './task-bar/task-bar'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
+import { AppBar } from './app-bar/app-bar'
+import { EditorMode } from './app-bar/editor-view-mode'
 
 export interface EditorPathParams {
   id: string
@@ -65,7 +65,7 @@ export const Editor: React.FC = () => {
       <MotdBanner/>
       <DocumentTitle title={documentTitle}/>
       <div className={'d-flex flex-column vh-100'}>
-        <TaskBar/>
+        <AppBar/>
         <DocumentBar title={documentTitle}/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
