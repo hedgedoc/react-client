@@ -6,7 +6,7 @@ import { ApplicationState } from '../../redux'
 import { setEditorModeConfig } from '../../redux/editor/methods'
 import { DocumentTitle } from '../common/document-title/document-title'
 import { Splitter } from '../common/splitter/splitter'
-import { InfoBanner } from '../common/motd-banner/motd-banner'
+import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { DocumentBar } from './document-bar/document-bar'
 import { EditorWindow } from './editor-window/editor-window'
 import { editorTestContent } from './editorTestContent'
@@ -62,7 +62,7 @@ export const Editor: React.FC = () => {
 
   return (
     <Fragment>
-      <InfoBanner/>
+      <MotdBanner/>
       <DocumentTitle title={documentTitle}/>
       <div className={'d-flex flex-column vh-100'}>
         <TaskBar/>
