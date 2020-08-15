@@ -1,6 +1,6 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
-import { HighlightedCode } from '../../../../common/highlighted-code/highlighted-code'
+import { HighlightedCode } from './highlighted-code/highlighted-code'
 import { ComponentReplacer } from '../ComponentReplacer'
 
 export class HighlightedCodeReplacer implements ComponentReplacer {
