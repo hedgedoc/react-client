@@ -2,11 +2,11 @@ import moment from 'moment'
 import React, { Fragment, useState } from 'react'
 import { Button, ListGroup, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
-import { CommonModal } from '../../common/modals/common-modal'
+import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { CommonModal } from '../../../common/modals/common-modal'
 import { DocumentInfoLine } from './document-info-line'
 import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-info-time-line'
-import { UnitalicBoldText } from './document-info-time-line-helper/unitalic-bold-text'
+import { UnitalicBoldText } from './unitalic-bold-text'
 
 export const DocumentInfoButton: React.FC = () => {
   const [showModal, setShowModal] = useState(false)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ConnectionIndicator } from './connection-indicator/connection-indicator'
-import { DocumentInfoButton } from './document-info-button'
+import { DocumentInfoButton } from './document-info/document-info-button'
 import { EditorMenu } from './editor-menu'
 import { ExportMenu } from './export-menu'
 import { ImportMenu } from './import-menu'
