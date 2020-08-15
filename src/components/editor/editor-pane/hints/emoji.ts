@@ -12,7 +12,6 @@ interface findWordAtCursorResponse {
 
 const allowedCharsInEmojiCodeRegex = /(:|\w|-|_|\+)/
 const emojiIndex = new NimbleEmojiIndex(data as unknown as Data)
-
 export const emojiWordRegex = /^:((\w|-|_|\+)+)$/
 
 export const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
@@ -34,7 +33,7 @@ export const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
   }
 }
 
-export const emojiHints = (editor: Editor): Promise< Hints| null > => {
+export const generateEmojiHints = (editor: Editor): Promise< Hints| null > => {
   return new Promise((resolve) => {
     const searchTerm = findWordAtCursor(editor)
     const searchResult = emojiWordRegex.exec(searchTerm.text)

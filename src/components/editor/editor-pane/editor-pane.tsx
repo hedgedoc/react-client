@@ -24,7 +24,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import './editor-pane.scss'
-import { emojiHints, emojiWordRegex, findWordAtCursor } from './hints/emoji'
+import { generateEmojiHints, emojiWordRegex, findWordAtCursor } from './hints/emoji'
 import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
@@ -35,7 +35,7 @@ export interface EditorPaneProps {
 }
 
 const hintOptions = {
-  hint: emojiHints,
+  hint: generateEmojiHints,
   completeSingle: false,
   completeOnSingleClick: false,
   alignWithWord: true
