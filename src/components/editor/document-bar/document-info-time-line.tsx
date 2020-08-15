@@ -5,7 +5,7 @@ import { IconName } from '../../common/fork-awesome/fork-awesome-icon'
 import { DocumentInfoLine } from './document-info-line'
 import './document-info-time-line.scss'
 import { TimeFromNow } from './document-info-time-line-helper/time-from-now'
-import { UserAvatar } from '../../landing/layout/user-avatar/user-avatar'
+import { UserAvatar } from '../../common/user-avatar/user-avatar'
 
 export interface DocumentInfoLineWithTimeProps {
   time: Moment,
