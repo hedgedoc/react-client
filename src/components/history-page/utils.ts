@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { SortModeEnum } from '../common/sort-button/sort-button'
+import { SortModeEnum } from './sort-button/sort-button'
 import {
   HistoryEntry,
   HistoryEntryOrigin,
