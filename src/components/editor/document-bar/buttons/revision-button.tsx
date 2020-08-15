@@ -1,13 +1,6 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
-import { Trans } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'
 
 export const RevisionButton: React.FC = () => {
-  return (
-    <Button variant={'light'} className={'mx-1'} size={'sm'}>
-      <ForkAwesomeIcon icon={'history'} className={'mx-1'}/>
-      <Trans i18nKey={'editor.documentBar.revision'}/>
-    </Button>
-  )
+  return <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'history'} variant={'light'} i18nKey={'editor.documentBar.revision'}/>
 }

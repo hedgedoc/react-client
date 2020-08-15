@@ -6,11 +6,12 @@ import './icon-button.scss'
 export interface IconButtonProps extends ButtonProps {
   icon: IconName
   onClick?: () => void
+  border?: boolean
 }
 
-export const IconButton: React.FC<IconButtonProps> = ({ icon, children, variant, onClick }) => {
+export const IconButton: React.FC<IconButtonProps> = ({ icon, children, variant, onClick, border = false }) => {
   return (
-    <Button variant={variant} className={'btn-icon p-0 d-inline-flex align-items-stretch'}
+    <Button variant={variant} className={`btn-icon p-0 d-inline-flex align-items-stretch ${border ? 'with-border' : ''}`}
       onClick={() => onClick?.()}>
       <span className="icon-part d-flex align-items-center">
         <ForkAwesomeIcon icon={icon} className={'icon'}/>

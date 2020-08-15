@@ -1,19 +1,16 @@
 import React, { Fragment, useState } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { CopyableField } from '../../../common/copyable-field/copyable-field'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../common/modals/common-modal'
+import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'
 
 export const ShareLinkButton: React.FC = () => {
   const [showReadOnly, setShowReadOnly] = useState(false)
 
   return (
     <Fragment>
-      <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowReadOnly(true)}>
-        <ForkAwesomeIcon icon={'share'} className={'mx-1'}/>
-        <Trans i18nKey={'editor.documentBar.shareLink'}/>
-      </Button>
+      <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'history'} variant={'light'} onClick={() => setShowReadOnly(true)} i18nKey={'editor.documentBar.shareLink'}/>
       <CommonModal
         show={showReadOnly}
         onHide={() => setShowReadOnly(false)}

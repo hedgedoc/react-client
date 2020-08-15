@@ -1,18 +1,14 @@
 import React, { Fragment, useState } from 'react'
-import { Trans } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import { Button, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import { CommonModal } from '../../../common/modals/common-modal'
+import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'
 
 export const PermissionButton: React.FC = () => {
   const [showReadOnly, setShowReadOnly] = useState(false)
 
   return (
     <Fragment>
-      <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowReadOnly(true)}>
-        <ForkAwesomeIcon icon={'lock'} className={'mx-1'}/>
-        <Trans i18nKey={'editor.documentBar.permissions'}/>
-      </Button>
+      <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'lock'} variant={'light'} onClick={() => setShowReadOnly(true)} i18nKey={'editor.documentBar.permissions'}/>
       <CommonModal
         show={showReadOnly}
         onHide={() => setShowReadOnly(false)}

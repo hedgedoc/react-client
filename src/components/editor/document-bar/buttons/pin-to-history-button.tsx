@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
-import { Trans, useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { useTranslation } from 'react-i18next'
+import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'
 
 export const PinToHistoryButton: React.FC = () => {
   useTranslation()
@@ -9,10 +8,5 @@ export const PinToHistoryButton: React.FC = () => {
   const isPinned = true
   const i18nKey = isPinned ? 'editor.documentBar.pinNoteToHistory' : 'editor.documentBar.pinnedToHistory'
 
-  return (
-    <Button variant={'light'} className={'mx-1'} size={'sm'}>
-      <ForkAwesomeIcon icon={'thumb-tack'} className={'mx-1'}/>
-      <Trans i18nKey={i18nKey}/>
-    </Button>
-  )
+  return <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'thumb-tack'} variant={'light'} i18nKey={i18nKey}/>
 }

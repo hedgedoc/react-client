@@ -1,12 +1,12 @@
 import moment from 'moment'
 import React, { Fragment, useState } from 'react'
-import { Button, ListGroup, Modal } from 'react-bootstrap'
+import { ListGroup, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../common/modals/common-modal'
 import { DocumentInfoLine } from './document-info-line'
 import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-info-time-line'
 import { UnitalicBoldText } from './unitalic-bold-text'
+import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'
 
 export const DocumentInfoButton: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
@@ -14,10 +14,7 @@ export const DocumentInfoButton: React.FC = () => {
 
   return (
     <Fragment>
-      <Button variant={'light'} className={'mx-1'} size={'sm'} onClick={() => setShowModal(true)}>
-        <ForkAwesomeIcon icon={'line-chart'} className={'mx-1'}/>
-        <Trans i18nKey={'editor.documentBar.documentInfo'}/>
-      </Button>
+      <TranslatedIconButton size={'sm'} className={'mx-1'} icon={'history'} variant={'light'} onClick={() => setShowModal(true)} i18nKey={'editor.documentBar.documentInfo'}/>
       <CommonModal
         show={showModal}
         onHide={() => setShowModal(false)}
