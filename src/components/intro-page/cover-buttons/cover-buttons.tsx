@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ApplicationState } from '../../../redux'
 import { ShowIf } from '../../common/show-if/show-if'
-import { SignInButton } from '../../../../layout/navigation/sign-in-button'
 import './cover-buttons.scss'
+import { SignInButton } from '../../landing-layout/navigation/sign-in-button'
 
 export const CoverButtons: React.FC = () => {
   useTranslation()

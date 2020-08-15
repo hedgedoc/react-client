@@ -1,5 +1,5 @@
 import React from 'react'
-import { LandingLayout } from '../layout/landing-layout'
+import { LandingLayout } from '../../landing-layout/landing-layout'
 
 export const NotFoundErrorScreen: React.FC = () => {
   return (
