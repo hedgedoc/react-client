@@ -9,10 +9,9 @@ export interface IconButtonProps extends ButtonProps {
   border?: boolean
 }
 
-export const IconButton: React.FC<IconButtonProps> = ({ icon, children, variant, onClick, border = false }) => {
+export const IconButton: React.FC<IconButtonProps> = ({ icon, children, border = false, ...props }) => {
   return (
-    <Button variant={variant} className={`btn-icon p-0 d-inline-flex align-items-stretch ${border ? 'with-border' : ''}`}
-      onClick={() => onClick?.()}>
+    <Button {...props} className={`btn-icon p-0 d-inline-flex align-items-stretch ${border ? 'with-border' : ''}`}>
       <span className="icon-part d-flex align-items-center">
         <ForkAwesomeIcon icon={icon} className={'icon'}/>
       </span>
