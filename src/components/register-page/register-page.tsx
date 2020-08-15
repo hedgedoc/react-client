@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router'
 import { doInternalRegister } from '../../api/auth'
 import { ApplicationState } from '../../redux'
-import { getAndSetUser } from '../../api/utils'
 import { Row, Col, Card, Form, Button, Alert } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { TranslatedExternalLink } from '../common/links/translated-external-link'
 import { ShowIf } from '../common/show-if/show-if'
+import { getAndSetUser } from '../login-page/auth/utils'
 
 export enum RegisterError {
   NONE = 'none',

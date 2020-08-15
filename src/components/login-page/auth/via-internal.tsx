@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { doInternalLogin } from '../../../api/auth'
 import { ApplicationState } from '../../../redux'
-import { getAndSetUser } from '../../../api/utils'
 import { ShowIf } from '../../common/show-if/show-if'
+import { getAndSetUser } from './utils'
 
 export const ViaInternal: React.FC = () => {
   const { t } = useTranslation()

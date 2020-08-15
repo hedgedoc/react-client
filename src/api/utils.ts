@@ -1,5 +1,3 @@
-import { getMe } from './me'
-import { setUser } from '../redux/user/methods'
 import { store } from '../redux'
 
 export const defaultFetchConfig: Partial<RequestInit> = {
@@ -11,17 +9,6 @@ export const defaultFetchConfig: Partial<RequestInit> = {
   },
   redirect: 'follow',
   referrerPolicy: 'no-referrer'
-}
-
-// TODO: move to component util
-export const getAndSetUser: () => (Promise<void>) = async () => {
-  const me = await getMe()
-  setUser({
-    id: me.id,
-    name: me.name,
-    photo: me.photo,
-    provider: me.provider
-  })
 }
 
 export const getApiUrl = (): string => {
