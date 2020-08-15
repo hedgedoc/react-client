@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import { ApplicationState } from '../../../redux'
-import { Branding } from '../../common/branding/branding'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../common/show-if/show-if'
 import { SignInButton } from '../../landing-layout/navigation/sign-in-button'
@@ -14,8 +13,9 @@ import { EditorPathParams } from '../editor'
 import { DarkModeButton } from './dark-mode-button'
 import { EditorViewMode } from './editor-view-mode'
 import { HelpButton } from './help-button'
+import { NavbarBranding } from './navbar-branding'
 
-export const TaskBar: React.FC = () => {
+export const AppBar: React.FC = () => {
   const { t } = useTranslation()
   const { id } = useParams<EditorPathParams>()
   const user = useSelector((state: ApplicationState) => state.user)
@@ -23,13 +23,7 @@ export const TaskBar: React.FC = () => {
   return (
     <Navbar bg={'light'}>
       <Nav className="mr-auto d-flex align-items-center">
-        <Navbar.Brand>
-          <Link to="/intro" className="text-secondary text-decoration-none d-flex align-items-center">
-            <ForkAwesomeIcon icon="file-text" className={'mr-2'}/>
-            <span>CodiMD</span>
-            <Branding inline={true}/>
-          </Link>
-        </Navbar.Brand>
+        <NavbarBranding/>
         <EditorViewMode/>
         <DarkModeButton/>
         <Link to={`/p/${id}`} target='_blank'>
