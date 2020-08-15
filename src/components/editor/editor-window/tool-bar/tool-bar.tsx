@@ -4,7 +4,7 @@ import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { EditorPreferences } from './editor-preferences/editor-preferences'
-import { EmojiPickerButton } from './emoji-picker-button'
+import { EmojiPickerButton } from './emoji-picker/emoji-picker-button'
 import './tool-bar.scss'
 import {
   addCodeFences,
@@ -24,7 +24,7 @@ import {
   subscriptSelection,
   superscriptSelection,
   underlineSelection
-} from './utils'
+} from './utils/toolbarButtonUtils'
 
 export interface ToolBarProps {
   editor: Editor | undefined

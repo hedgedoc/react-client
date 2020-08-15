@@ -1,7 +1,7 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { Data, EmojiData, NimbleEmojiIndex } from 'emoji-mart'
 import data from 'emoji-mart/data/twitter.json'
-import { getEmojiIcon, getEmojiShortCode } from '../../../../utils/emoji'
+import { getEmojiIcon, getEmojiShortCode } from '../tool-bar/utils/emojiUtils'
 import { customEmojis } from '../tool-bar/emoji-picker/emoji-picker'
 
 interface findWordAtCursorResponse {

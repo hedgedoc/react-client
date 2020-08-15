@@ -1,6 +1,6 @@
 import { Editor } from 'codemirror'
 import { EmojiData } from 'emoji-mart'
-import { getEmojiShortCode } from '../../../../utils/emoji'
+import { getEmojiShortCode } from './emojiUtils'
 
 export const makeSelectionBold = (editor: Editor): void => wrapTextWith(editor, '**')
 export const makeSelectionItalic = (editor: Editor): void => wrapTextWith(editor, '*')

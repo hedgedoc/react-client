@@ -5,7 +5,7 @@ import {
   markSelection,
   strikeThroughSelection,
   underlineSelection
-} from './tool-bar/utils'
+} from './tool-bar/utils/toolbarButtonUtils'
 
 const isMac = navigator.platform.toLowerCase().includes('mac')
 

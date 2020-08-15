@@ -2,9 +2,9 @@ import CodeMirror from 'codemirror'
 import React, { Fragment, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import { EmojiPicker } from './emoji-picker/emoji-picker'
-import { addEmoji } from './utils'
+import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
+import { EmojiPicker } from './emoji-picker'
+import { addEmoji } from '../utils/toolbarButtonUtils'
 
 export interface EmojiPickerButtonProps {
   editor: CodeMirror.Editor

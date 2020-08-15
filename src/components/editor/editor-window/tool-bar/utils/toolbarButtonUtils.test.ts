@@ -21,7 +21,7 @@ import {
   subscriptSelection,
   superscriptSelection,
   underlineSelection
-} from './utils'
+} from './toolbarButtonUtils'
 
 Mock.configure('jest')
 
