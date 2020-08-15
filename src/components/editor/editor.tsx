@@ -5,12 +5,12 @@ import useMedia from 'use-media'
 import { ApplicationState } from '../../redux'
 import { setEditorModeConfig } from '../../redux/editor/methods'
 import { DocumentTitle } from '../common/document-title/document-title'
+import { DocumentRenderPane } from './document-renderer-pane/document-render-pane'
+import { EditorPane } from './editor-pane/editor-pane'
 import { Splitter } from './splitter/splitter'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { DocumentBar } from './document-bar/document-bar'
-import { EditorWindow } from './editor-window/editor-window'
 import { editorTestContent } from './editorTestContent'
-import { MarkdownRenderWindow } from './renderer-window/markdown-render-window'
 import { EditorMode } from './task-bar/editor-view-mode'
 import { TaskBar } from './task-bar/task-bar'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
@@ -70,13 +70,13 @@ export const Editor: React.FC = () => {
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
           left={
-            <EditorWindow
+            <EditorPane
               onContentChange={content => setMarkdownContent(content)}
               content={markdownContent}/>
           }
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
           right={
-            <MarkdownRenderWindow
+            <DocumentRenderPane
               content={markdownContent}
               wide={editorMode === EditorMode.PREVIEW}
               onMetadataChange={onMetadataChange}

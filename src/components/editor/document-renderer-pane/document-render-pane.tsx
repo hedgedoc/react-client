@@ -5,8 +5,8 @@ import { TocAst } from '../../../external-types/markdown-it-toc-done-right/inter
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../common/show-if/show-if'
 import { MarkdownRenderer } from '../../markdown-renderer/markdown-renderer'
-import { MarkdownToc } from '../markdown-toc/markdown-toc'
 import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
+import { TableOfContents } from '../table-of-contents/table-of-contents'
 
 interface RenderWindowProps {
   content: string
@@ -15,7 +15,7 @@ interface RenderWindowProps {
   wide?: boolean
 }
 
-export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, onMetadataChange, onFirstHeadingChange, wide }) => {
+export const DocumentRenderPane: React.FC<RenderWindowProps> = ({ content, onMetadataChange, onFirstHeadingChange, wide }) => {
   const [tocAst, setTocAst] = useState<TocAst>()
   const renderer = useRef<HTMLDivElement>(null)
   const { width } = useResizeObserver({ ref: renderer })
@@ -36,7 +36,7 @@ export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, onM
 
       <div className={'col-md'}>
         <ShowIf condition={realWidth >= 1280 && !!tocAst}>
-          <MarkdownToc ast={tocAst as TocAst} sticky={true}/>
+          <TableOfContents ast={tocAst as TocAst} sticky={true}/>
         </ShowIf>
         <ShowIf condition={realWidth < 1280 && !!tocAst}>
           <div className={'markdown-toc-sidebar-button'}>
@@ -46,7 +46,7 @@ export const MarkdownRenderWindow: React.FC<RenderWindowProps> = ({ content, onM
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <div className={'p-2'}>
-                  <MarkdownToc ast={tocAst as TocAst}/>
+                  <TableOfContents ast={tocAst as TocAst}/>
                 </div>
               </Dropdown.Menu>
             </Dropdown>

@@ -23,13 +23,13 @@ import 'codemirror/mode/gfm/gfm'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
-import './editor-window.scss'
+import './editor-pane.scss'
 import { emojiHints, emojiWordRegex, findWordAtCursor } from './hints/emoji'
 import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 
-export interface EditorWindowProps {
+export interface EditorPaneProps {
   onContentChange: (content: string) => void
   content: string
 }
@@ -48,7 +48,7 @@ const onChange = (editor: Editor) => {
   }
 }
 
-export const EditorWindow: React.FC<EditorWindowProps> = ({ onContentChange, content }) => {
+export const EditorPane: React.FC<EditorPaneProps> = ({ onContentChange, content }) => {
   const { t } = useTranslation()
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
