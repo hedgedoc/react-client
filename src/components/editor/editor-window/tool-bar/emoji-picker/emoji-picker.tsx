@@ -6,6 +6,7 @@ import { useClickAway } from 'react-use'
 import { ShowIf } from '../../../../common/show-if/show-if'
 import './emoji-picker.scss'
 import { ForkAwesomeIcons } from './icon-names'
+import forkawesomeIcon from './forkawesome.png'
 
 export interface EmojiPickerProps {
   show: boolean
@@ -19,7 +20,7 @@ export const customEmojis: CustomEmoji[] = Object.keys(ForkAwesomeIcons).map((na
   text: '',
   emoticons: [],
   keywords: ['fork awesome'],
-  imageUrl: '/img/forkawesome.png',
+  imageUrl: forkawesomeIcon,
   customCategory: 'ForkAwesome'
 }))
 
