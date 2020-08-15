@@ -1,6 +1,5 @@
 import React, { Fragment, ReactElement, useMemo } from 'react'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
-import { slugify } from '../../../utils/slugify'
 import { ShowIf } from '../../common/show-if/show-if'
 import './markdown-toc.scss'
 
@@ -8,6 +7,10 @@ export interface MarkdownTocProps {
   ast: TocAst
   maxDepth?: number
   sticky?: boolean
+}
+
+export const slugify = (content:string) => {
+  return encodeURIComponent(String(content).trim().toLowerCase().replace(/\s+/g, '-'))
 }
 
 const convertLevel = (toc: TocAst, levelsToShowUnderThis: number, headerCounts: Map<string, number>, wrapInListItem: boolean): ReactElement | null => {
