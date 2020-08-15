@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getProxiedUrl } from '../../../../../api/media'
-import { ApplicationState } from '../../../../../redux'
+import { getProxiedUrl } from '../../../../api/media'
+import { ApplicationState } from '../../../../redux'
 
 export const ImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ alt, src, ...props }) => {
   const [imageUrl, setImageUrl] = useState('')

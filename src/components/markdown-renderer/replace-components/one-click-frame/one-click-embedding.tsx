@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Trans } from 'react-i18next'
-import { IconName } from '../../../../common/fork-awesome/fork-awesome-icon'
-import { ShowIf } from '../../../../common/show-if/show-if'
+import { IconName } from '../../../common/fork-awesome/fork-awesome-icon'
+import { ShowIf } from '../../../common/show-if/show-if'
 import './one-click-embedding.scss'
 
 interface OneClickFrameProps {

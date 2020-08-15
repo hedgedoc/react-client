@@ -4,7 +4,7 @@ import useResizeObserver from 'use-resize-observer'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../common/show-if/show-if'
-import { MarkdownRenderer } from '../markdown-renderer/markdown-renderer'
+import { MarkdownRenderer } from '../../markdown-renderer/markdown-renderer'
 import { MarkdownToc } from '../markdown-toc/markdown-toc'
 import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 

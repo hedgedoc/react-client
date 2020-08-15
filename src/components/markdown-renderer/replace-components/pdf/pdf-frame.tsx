@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ExternalLink } from '../../../../common/links/external-link'
+import { ExternalLink } from '../../../common/links/external-link'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
 import './pdf-frame.scss'
 
