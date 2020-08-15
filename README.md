@@ -1,4 +1,5 @@
 # THE MASTER BRANCH IS DEPRECATED. THE NEW DEFAULT BRANCH IS "MAIN"
+The master branch will be deleted in 2 weeks.
 
 # CodiMD - React Client
 
