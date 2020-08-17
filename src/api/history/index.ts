@@ -8,7 +8,7 @@ export const getHistory = async (): Promise<HistoryEntry[]> => {
 }
 
 export const getHistoryEntry = async (noteId: HistoryEntry['id']): Promise<HistoryEntry> => {
-  const response = await fetch(getApiUrl() + '/history' + noteId)
+  const response = await fetch(getApiUrl() + '/history/' + noteId)
   expectResponseCode(response)
   return await response.json() as Promise<HistoryEntry>
 }
