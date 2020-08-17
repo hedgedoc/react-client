@@ -8,13 +8,19 @@ export interface PinButtonProps {
   onPinClick: () => void;
   isDark: boolean;
   className?: string
+  historyStyle?: boolean
 }
 
-export const PinButton: React.FC<PinButtonProps> = ({ isPinned, onPinClick, isDark, className }) => {
+export const PinButton: React.FC<PinButtonProps> = ({ isPinned, onPinClick, isDark, className, historyStyle = true, children }) => {
   return (
-    <Button variant={isDark ? 'secondary' : 'light'}
-      className={`history-pin ${className || ''} ${isPinned ? 'pinned' : ''}`} onClick={onPinClick}>
+    <Button
+      variant={isDark ? 'secondary' : 'light'}
+      size={historyStyle ? 'lg' : 'sm'}
+      className={`${historyStyle ? 'history-pin' : ''} ${className || ''} ${isPinned ? 'pinned' : ''} pin`}
+      onClick={onPinClick}
+    >
       <ForkAwesomeIcon icon="thumb-tack"/>
+      {children}
     </Button>
   )
 }

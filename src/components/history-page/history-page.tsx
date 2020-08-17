@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux'
 import { deleteHistory, deleteHistoryEntry, getHistory, setHistory, updateHistoryEntry } from '../../api/history'
 import { deleteNote } from '../../api/notes'
 import { ApplicationState } from '../../redux'
+import { ErrorModal } from '../common/modals/error-modal'
+import { HistoryContent } from './history-content/history-content'
+import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } from './history-toolbar/history-toolbar'
 import {
   collectEntries,
   downloadHistory,
@@ -13,9 +16,6 @@ import {
   setHistoryToLocalStore,
   sortAndFilterEntries
 } from './utils'
-import { ErrorModal } from '../common/modals/error-modal'
-import { HistoryContent } from './history-content/history-content'
-import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } from './history-toolbar/history-toolbar'
 
 export interface HistoryEntry {
   id: string,
@@ -115,7 +115,7 @@ export const HistoryPage: React.FC = () => {
     }
   }, [historyWrite, localHistoryEntries, remoteHistoryEntries, user])
 
-  const removeFromHistoryClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
+  const removeFromHistoryClick = useCallback((entryId: HistoryEntry['id'], location: HistoryEntryOrigin): void => {
     if (location === HistoryEntryOrigin.LOCAL) {
       setLocalHistoryEntries((entries) => entries.filter(entry => entry.id !== entryId))
     } else if (location === HistoryEntryOrigin.REMOTE) {
@@ -125,7 +125,7 @@ export const HistoryPage: React.FC = () => {
     }
   }, [])
 
-  const deleteNoteClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
+  const deleteNoteClick = useCallback((entryId: HistoryEntry['id'], location: HistoryEntryOrigin): void => {
     if (user) {
       deleteNote(entryId)
         .then(() => {
@@ -135,7 +135,7 @@ export const HistoryPage: React.FC = () => {
     }
   }, [user, removeFromHistoryClick])
 
-  const pinClick = useCallback((entryId: string, location: HistoryEntryOrigin): void => {
+  const pinClick = useCallback((entryId: HistoryEntry['id'], location: HistoryEntryOrigin): void => {
     if (location === HistoryEntryOrigin.LOCAL) {
       setLocalHistoryEntries((entries) => {
         return entries.map((entry) => {
@@ -173,7 +173,7 @@ export const HistoryPage: React.FC = () => {
     return collectEntries(localHistoryEntries, remoteHistoryEntries)
   }, [localHistoryEntries, remoteHistoryEntries])
 
-  const tags = useMemo<string[]>(() => {
+  const tags = useMemo<HistoryEntry['tags']>(() => {
     return allEntries.map(entry => entry.tags)
       .reduce((a, b) => ([...a, ...b]), [])
       .filter((value, index, array) => {

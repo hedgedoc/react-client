@@ -1,11 +1,16 @@
-
-import { expectResponseCode, getApiUrl, defaultFetchConfig } from '../utils'
 import { HistoryEntry } from '../../components/history-page/history-page'
+import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 
 export const getHistory = async (): Promise<HistoryEntry[]> => {
   const response = await fetch(getApiUrl() + '/history')
   expectResponseCode(response)
   return await response.json() as Promise<HistoryEntry[]>
+}
+
+export const getHistoryEntry = async (noteId: HistoryEntry['id']): Promise<HistoryEntry> => {
+  const response = await fetch(getApiUrl() + '/history' + noteId)
+  expectResponseCode(response)
+  return await response.json() as Promise<HistoryEntry>
 }
 
 export const setHistory = async (entries: HistoryEntry[]): Promise<void> => {
@@ -27,7 +32,7 @@ export const deleteHistory = async (): Promise<void> => {
   expectResponseCode(response)
 }
 
-export const updateHistoryEntry = async (noteId: string, entry: HistoryEntry): Promise<HistoryEntry> => {
+export const updateHistoryEntry = async (noteId: HistoryEntry['id'], entry: HistoryEntry): Promise<HistoryEntry> => {
   const response = await fetch(getApiUrl() + '/history/' + noteId, {
     ...defaultFetchConfig,
     method: 'PUT',
@@ -37,7 +42,7 @@ export const updateHistoryEntry = async (noteId: string, entry: HistoryEntry): P
   return await response.json() as Promise<HistoryEntry>
 }
 
-export const deleteHistoryEntry = async (noteId: string): Promise<void> => {
+export const deleteHistoryEntry = async (noteId: HistoryEntry['id']): Promise<void> => {
   const response = await fetch(getApiUrl() + '/history/' + noteId, {
     ...defaultFetchConfig,
     method: 'DELETE'

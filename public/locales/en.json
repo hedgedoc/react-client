@@ -190,6 +190,10 @@
             "userStateChanged": {
                 "title": "Your user state has changed.",
                 "description": "Refresh to load new user state."
+            },
+            "pinError": {
+                "title": "Could not change pin status",
+                "description": "An error occurred while changing the pin status."
             }
         },
         "viewMode": {
