@@ -36,6 +36,7 @@
 - Asciinema videos may now be embedded by pasting the URL of one video into a single line
 - The Toolbar includes an EmojiPicker
 - Added shortcodes for [fork-awesome icons](https://forkaweso.me/Fork-Awesome/icons/) (e.g. `:fa-picture-o:`)
+- Users can pin a note in the editor.
 
 ### Changed
 
