@@ -92,61 +92,61 @@
     "scripts": {
         "start": "PORT=3001 react-scripts start",
         "start:dev": "REACT_APP_BACKEND=http://localhost:3000 yarn start",
-        "build:serve": "http-server build/ -p 3001 -P \"http://127.0.0.1:3001?\"",
-    "build": "react-scripts build",
+        "build:serve": "http-server build/ -s -p 3001 -P \"http://127.0.0.1:3001?\"",
+        "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "cy:open": "cypress open",
         "cy:run:chrome": "cypress run --browser chrome",
         "cy:run:firefox": "cypress run --browser firefox"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "tsconfigRootDir": "",
-      "project": [
-        "./tsconfig.json"
-      ]
     },
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "react-app",
-      "standard",
-      "eslint:recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      "plugin:import/recommended",
-      "plugin:import/typescript"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@cypress/webpack-preprocessor": "5.4.4",
-    "@testing-library/cypress": "6.0.0",
-    "@types/redux-devtools": "3.0.47",
-    "@types/redux-devtools-extension": "2.13.2",
-    "@types/testing-library__cypress": "5.0.6",
-    "cypress": "4.12.1",
-    "eslint-plugin-chai-friendly": "0.6.0",
-    "eslint-plugin-cypress": "2.11.1",
-    "redux-devtools": "3.6.1",
-    "redux-devtools-extension": "2.13.8",
-    "ts-loader": "8.0.2",
-    "http-server": "0.12.3"
-  },
+    "eslintConfig": {
+        "parserOptions": {
+            "tsconfigRootDir": "",
+            "project": [
+                "./tsconfig.json"
+            ]
+        },
+        "plugins": [
+            "@typescript-eslint"
+        ],
+        "extends": [
+            "react-app",
+            "standard",
+            "eslint:recommended",
+            "plugin:@typescript-eslint/eslint-recommended",
+            "plugin:@typescript-eslint/recommended",
+            "plugin:@typescript-eslint/recommended-requiring-type-checking",
+            "plugin:import/recommended",
+            "plugin:import/typescript"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@cypress/webpack-preprocessor": "5.4.4",
+        "@testing-library/cypress": "6.0.0",
+        "@types/redux-devtools": "3.0.47",
+        "@types/redux-devtools-extension": "2.13.2",
+        "@types/testing-library__cypress": "5.0.6",
+        "cypress": "4.12.1",
+        "eslint-plugin-chai-friendly": "0.6.0",
+        "eslint-plugin-cypress": "2.11.1",
+        "redux-devtools": "3.6.1",
+        "redux-devtools-extension": "2.13.8",
+        "ts-loader": "8.0.2",
+        "http-server": "0.12.3"
+    },
     "resolutions": {
         "cypress": "4.12.1"
     }
