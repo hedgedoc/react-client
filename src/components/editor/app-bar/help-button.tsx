@@ -3,10 +3,13 @@ import { Button, Card, Col, Modal, Row, Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { TranslatedExternalLink } from '../../common/links/translated-external-link'
+import { HighlightedCode } from '../../markdown-renderer/replace-components/highlighted-fence/highlighted-code/highlighted-code'
 
 export const HelpButton: React.FC = () => {
   const { t } = useTranslation()
   const [show, setShow] = useState(false)
+
+  const code = (code: string) => <HighlightedCode code={code} wrapLines={true} startLineNumber={1} language={'markdown'}/>
 
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
@@ -16,7 +19,7 @@ export const HelpButton: React.FC = () => {
         onClick={handleShow}>
         <ForkAwesomeIcon icon="question-circle"/>
       </Button>
-      <Modal show={show} onHide={handleClose} animation={true} className="text-dark" size='lg'>
+      <Modal show={show} onHide={handleClose} animation={true} className="text-dark" size='xl'>
         <Modal.Header closeButton>
           <Modal.Title>
             <ForkAwesomeIcon icon="question-circle"/> <Trans i18nKey={'editor.documentBar.help'}/>
@@ -119,7 +122,7 @@ export const HelpButton: React.FC = () => {
                         <tr>
                           <td><Trans i18nKey='editor.editorToolbar.header'/></td>
                           <td>
-                            <pre># <Trans i18nKey='editor.editorToolbar.header'/></pre>
+                            {code(`# ${t('editor.editorToolbar.header')}`)}
                           </td>
                         </tr>
                         <tr>
@@ -129,7 +132,7 @@ export const HelpButton: React.FC = () => {
                             </ul>
                           </td>
                           <td>
-                            <pre>- <Trans i18nKey='editor.editorToolbar.unorderedList'/></pre>
+                            {code(`- ${t('editor.editorToolbar.unorderedList')}`)}
                           </td>
                         </tr>
                         <tr>
@@ -139,7 +142,7 @@ export const HelpButton: React.FC = () => {
                             </ol>
                           </td>
                           <td>
-                            <pre>1. <Trans i18nKey='editor.editorToolbar.orderedList'/></pre>
+                            {code(`1. ${t('editor.editorToolbar.orderedList')}`)}
                           </td>
                         </tr>
                         <tr>
@@ -152,7 +155,7 @@ export const HelpButton: React.FC = () => {
                             </ul>
                           </td>
                           <td>
-                            <pre>- [ ] <Trans i18nKey='editor.editorToolbar.checkList'/></pre>
+                            {code(`- [ ] ${t('editor.editorToolbar.checkList')}`)}
                           </td>
                         </tr>
                         <tr>
@@ -160,37 +163,37 @@ export const HelpButton: React.FC = () => {
                             <blockquote><Trans i18nKey='editor.editorToolbar.blockquote'/></blockquote>
                           </td>
                           <td>
-                            <pre>{'>'} <Trans i18nKey='editor.editorToolbar.blockquote'/></pre>
+                            {code(`> ${t('editor.editorToolbar.blockquote')}`)}
                           </td>
                         </tr>
                         <tr>
                           <td><strong><Trans i18nKey='editor.editorToolbar.bold'/></strong></td>
                           <td>
-                            <pre>**<Trans i18nKey='editor.editorToolbar.bold'/>**</pre>
+                            {code(`**${t('editor.editorToolbar.bold')}**`)}
                           </td>
                         </tr>
                         <tr>
                           <td><i><Trans i18nKey='editor.editorToolbar.italic'/></i></td>
                           <td>
-                            <pre>*<Trans i18nKey='editor.editorToolbar.italic'/>*</pre>
+                            {code(`*${t('editor.editorToolbar.italic')}*`)}
                           </td>
                         </tr>
                         <tr>
                           <td><s><Trans i18nKey='editor.editorToolbar.strikethrough'/></s></td>
                           <td>
-                            <pre>~~<Trans i18nKey='editor.editorToolbar.strikethrough'/>~~</pre>
+                            {code(`~~${t('editor.editorToolbar.strikethrough')}~~`)}
                           </td>
                         </tr>
                         <tr>
                           <td>19<sup>th</sup></td>
                           <td>
-                            <pre>19^th^</pre>
+                            {code('19^th^')}
                           </td>
                         </tr>
                         <tr>
                           <td>H<sub>2</sub>O</td>
                           <td>
-                            <pre>H~2~O</pre>
+                            {code('H~2~O')}
                           </td>
                         </tr>
                         <tr>
@@ -198,7 +201,7 @@ export const HelpButton: React.FC = () => {
                             <ins><Trans i18nKey='editor.help.cheatsheet.underlinedText'/></ins>
                           </td>
                           <td>
-                            <pre>++<Trans i18nKey='editor.help.cheatsheet.underlinedText'/>++</pre>
+                            {code(`++${t('editor.editorToolbar.underlinedText')}++`)}
                           </td>
                         </tr>
                         <tr>
@@ -206,25 +209,25 @@ export const HelpButton: React.FC = () => {
                             <mark><Trans i18nKey='editor.help.cheatsheet.highlightedText'/></mark>
                           </td>
                           <td>
-                            <pre>==<Trans i18nKey='editor.help.cheatsheet.highlightedText'/>==</pre>
+                            {code(`==${t('editor.editorToolbar.highlightedText')}==`)}
                           </td>
                         </tr>
                         <tr>
                           <td><a href='https://example.com'><Trans i18nKey='editor.editorToolbar.link'/></a></td>
                           <td>
-                            <pre>[link text](https://example.com)</pre>
+                            {code(`[${t('editor.editorToolbar.link')}](https://example.com)`)}
                           </td>
                         </tr>
                         <tr>
-                          <td><Trans i18nKey='editor.editorToolbar.image'/></td>
+                          <td><img width={'70px'} src={'/icons/mstile-70x70.png'} alt={t('editor.editorToolbar.image')}/></td>
                           <td>
-                            <pre>![image alt](https:// "title")</pre>
+                            {code(`![${t('editor.editorToolbar.image')}](/icons/mstile-70x70.png)`)}
                           </td>
                         </tr>
                         <tr>
                           <td><code><Trans i18nKey='editor.editorToolbar.code'/></code></td>
                           <td>
-                            <pre>`<Trans i18nKey='editor.editorToolbar.code'/>`</pre>
+                            {code(`\`${t('editor.editorToolbar.code')}\``)}
                           </td>
                         </tr>
                         <tr>
@@ -243,26 +246,19 @@ export const HelpButton: React.FC = () => {
                             </pre>
                           </td>
                           <td>
-                            <pre>```javascript<br/>var x = 5;<br/>```</pre>
+                            {code('```javascript\nvar x = 5;\n```')}
                           </td>
                         </tr>
                         <tr>
-                          <td><img alt=":smile:" className="emoji" src="./build/emojify.js/dist/images/basic/smile.png"
-                            title=":smile:"/></td>
+                          <td><span role="img" aria-label="smile">😄</span></td>
                           <td>
-                            <pre>:smile:</pre>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Extern</td>
-                          <td>
-                            <pre>{'{'}%youtube youtube_id %{'}'}</pre>
+                            {code(':smile:')}
                           </td>
                         </tr>
                         <tr>
                           <td>L<sup>a</sup>T<sub>e</sub>X</td>
                           <td>
-                            <pre>$L^aT_eX$</pre>
+                            {code('$L^aT_eX$')}
                           </td>
                         </tr>
                         <tr>
@@ -274,7 +270,7 @@ export const HelpButton: React.FC = () => {
                             </div>
                           </td>
                           <td>
-                            <pre>:::info<br/><Trans i18nKey='editor.help.cheatsheet.exampleAlert'/><br/>:::</pre>
+                            {code(`:::info\n${t('editor.editorToolbar.exampleAlert')}\n:::`)}
                           </td>
                         </tr>
                       </tbody>
