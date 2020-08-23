@@ -238,7 +238,9 @@
             "permissions": "Permissions",
             "documentInfo": "Document info",
             "pinNoteToHistory": "Pin note to history",
-            "pinnedToHistory": "Pinned to history"
+            "pinnedToHistory": "Pinned to history",
+            "disableSyncScroll": "Disable sync scroll",
+            "enableSyncScroll": "Enable sync scroll"
         },
         "statusBar": {
             "cursor": "Line {{line}}, Columns {{columns}}",

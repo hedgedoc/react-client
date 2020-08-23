@@ -9,6 +9,7 @@ import { PermissionButton } from './buttons/permission-button'
 import { PinToHistoryButton } from './buttons/pin-to-history-button'
 import { ShareLinkButton } from './buttons/share-link-button'
 import { RevisionButton } from './buttons/revision-button'
+import { SyncScrollButton } from './buttons/sync-scroll-button'
 
 export interface DocumentBarProps {
   title: string
@@ -25,6 +26,7 @@ export const DocumentBar: React.FC<DocumentBarProps> = ({ title }) => {
         <RevisionButton/>
         <PinToHistoryButton/>
         <PermissionButton/>
+        <SyncScrollButton/>
       </div>
       <div className="ml-auto navbar-nav">
         <ImportMenu/>
