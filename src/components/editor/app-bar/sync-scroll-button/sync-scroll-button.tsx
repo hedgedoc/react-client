@@ -4,28 +4,26 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../../redux'
 import { setEditorSyncScroll } from '../../../../redux/editor/methods'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import disabledScroll from './disabledScroll.svg'
+import enabledScroll from './enabledScroll.svg'
 
 export const SyncScrollButton: React.FC = () => {
   const syncScroll: boolean = useSelector((state: ApplicationState) => state.editorConfig.syncScroll)
-  const translation = syncScroll ? 'editor.documentBar.disableSyncScroll' : 'editor.documentBar.enableSyncScroll'
-  const iconColor = syncScroll ? '' : 'text-muted'
+  const translation = syncScroll ? 'editor.appBar.syncScroll.disable' : 'editor.appBar.syncScroll.enable'
   const onClick = useCallback(() => {
     setEditorSyncScroll(!syncScroll)
   }, [syncScroll])
 
-  useTranslation()
+  const { t } = useTranslation()
 
   return (
-    <ToggleButtonGroup type="checkbox" defaultValue={[]} name="dark-mode" className="ml-2" value={[syncScroll]}>
+    <ToggleButtonGroup type="checkbox" defaultValue={[]} name="sync-scroll" className="ml-2" value={[syncScroll]}>
       <ToggleButton
         title={ translation }
-        variant={ 'light' }
-        onChange={onClick} value={false}
-        className={'pl-2'}
+        variant={syncScroll ? 'secondary' : 'outline-dark'}
+        onChange={onClick} value={true}
       >
-        <ForkAwesomeIcon icon={'refresh'} fixedWidth={true} className={iconColor}/>
-        <Trans i18nKey={translation}/>
+        <img src={syncScroll ? disabledScroll : enabledScroll} width={'20px'} alt={t(translation)}/>
       </ToggleButton>
     </ToggleButtonGroup>
   )
