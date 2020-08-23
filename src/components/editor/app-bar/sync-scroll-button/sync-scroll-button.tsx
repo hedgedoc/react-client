@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../../redux'
 import { setEditorSyncScroll } from '../../../../redux/editor/methods'
