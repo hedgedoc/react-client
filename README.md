@@ -1,6 +1,3 @@
-# THE MASTER BRANCH IS DEPRECATED. THE NEW DEFAULT BRANCH IS "MAIN"
-The master branch will be deleted at 1st September. 
-
 # CodiMD - React Client
 
 ![lint and build](https://github.com/codimd/react-client/workflows/lint%20and%20build/badge.svg)

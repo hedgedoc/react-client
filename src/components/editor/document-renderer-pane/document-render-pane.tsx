@@ -98,10 +98,10 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
       <MarkdownRenderer
         className={'flex-fill mb-3'}
         content={content}
-        onTaskCheckedChange={onTaskCheckedChange}
         onFirstHeadingChange={onFirstHeadingChange}
         onLineMarkerPositionChanged={setLineMarks}
         onMetaDataChange={onMetadataChange}
+        onTaskCheckedChange={onTaskCheckedChange}
         onTocChange={(tocAst) => setTocAst(tocAst)}
         wide={wide}
       />
