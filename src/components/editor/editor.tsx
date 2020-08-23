@@ -75,14 +75,12 @@ export const Editor: React.FC = () => {
   }, [editorMode, firstDraw, isWide])
 
   const onMarkdownRendererScroll = useCallback((newScrollState: ScrollState) => {
-    debugger
     if (scrollSource.current === ScrollSource.RENDERER && editorSyncScroll) {
       setScrollState((old) => ({ editorScrollState: newScrollState, rendererScrollState: old.rendererScrollState }))
     }
   }, [editorSyncScroll])
 
   const onEditorScroll = useCallback((newScrollState: ScrollState) => {
-    debugger
     if (scrollSource.current === ScrollSource.EDITOR && editorSyncScroll) {
       setScrollState((old) => ({ rendererScrollState: newScrollState, editorScrollState: old.editorScrollState }))
     }
