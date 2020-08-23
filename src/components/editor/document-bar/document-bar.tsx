@@ -26,7 +26,6 @@ export const DocumentBar: React.FC<DocumentBarProps> = ({ title }) => {
         <RevisionButton/>
         <PinToHistoryButton/>
         <PermissionButton/>
-        <SyncScrollButton/>
       </div>
       <div className="ml-auto navbar-nav">
         <ImportMenu/>
