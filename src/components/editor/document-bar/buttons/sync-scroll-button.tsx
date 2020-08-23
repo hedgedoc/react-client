@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../../redux'
 import { setEditorSyncScroll } from '../../../../redux/editor/methods'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import { ForkAwesomeStack } from '../../../common/fork-awesome/fork-awesome-stack'
 
 export const SyncScrollButton: React.FC = () => {
   const syncScroll: boolean = useSelector((state: ApplicationState) => state.editorConfig.syncScroll)
