@@ -1156,13 +1156,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codimd/markdown-it-task-lists@git+https://git@github.com/truh/markdown-it-task-lists.git":
-  version "1.0.0"
-  resolved "git+https://git@github.com/truh/markdown-it-task-lists.git#aa5a06023dd950f9c80d5c88844a17d74cd8550f"
-  dependencies:
-    "@types/markdown-it" "^10.0.1"
-    markdown-it "^11.0.0"
-
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -1633,6 +1626,14 @@
   dependencies:
     "@babel/runtime" "^7.10.2"
 
+"@truh/markdown-it-task-lists@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@truh/markdown-it-task-lists/-/markdown-it-task-lists-0.1.1.tgz#5e13dbaedeed1dd7dbe7a48c2be7bbc38f405389"
+  integrity sha512-rK+d8hHRGAC+qfEcjwSZSlACc+3bFFgXFr1xgiDBiJWd8Nc/4ZWWcKVN6TPmYgxNpvjlgaSPAow+Y4EXMp10/A==
+  dependencies:
+    "@types/markdown-it" "^10.0.1"
+    markdown-it "^11.0.0"
+
 "@types/aria-query@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.0.tgz#14264692a9d6e2fa4db3df5e56e94b5e25647ac0"
@@ -1945,15 +1946,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.11", "@types/react@^16.9.35":
-  version "16.9.47"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.47.tgz#fb092936f0b56425f874d0ff1b08051fdf70c1ba"
-  integrity sha512-dAJO4VbrjYqTUwFiQqAKjLyHHl4RSTNnRyPdX3p16MPbDKvow51wxATUPxoe2QsiXNMEYrOjc2S6s92VjG+1VQ==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^3.0.2"
-
-"@types/react@16.9.48":
+"@types/react@*", "@types/react@^16.9.11", "@types/react@^16.9.35", "@types/react@16.9.48":
   version "16.9.48"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.48.tgz#d3387329f070d1b1bc0ff4a54a54ceefd5a8485c"
   integrity sha512-4ykBVswgYitPGMXFRxJCHkxJDU2rjfU3/zw67f8+dB7sNdVJXsrwqoYxz/stkAucymnEEbRPFmX7Ce5Mc/kJCw==
