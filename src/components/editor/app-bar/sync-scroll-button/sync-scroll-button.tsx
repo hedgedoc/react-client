@@ -9,7 +9,7 @@ import enabledScroll from './enabledScroll.svg'
 
 export const SyncScrollButton: React.FC = () => {
   const syncScroll: boolean = useSelector((state: ApplicationState) => state.editorConfig.syncScroll)
-  const translation = syncScroll ? 'editor.appBar.syncScroll.disable' : 'editor.appBar.syncScroll.enable'
+  const translation = syncScroll ? 'editor.appBar.syncScroll.enable' : 'editor.appBar.syncScroll.disable'
   const onClick = useCallback(() => {
     setEditorSyncScroll(!syncScroll)
   }, [syncScroll])
@@ -19,7 +19,7 @@ export const SyncScrollButton: React.FC = () => {
   return (
     <ToggleButtonGroup type="checkbox" defaultValue={[]} name="sync-scroll" className="ml-2" value={[syncScroll]}>
       <ToggleButton
-        title={ translation }
+        title={ t(translation) }
         variant={syncScroll ? 'secondary' : 'outline-dark'}
         onChange={onClick} value={true}
       >
