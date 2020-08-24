@@ -1251,6 +1251,14 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hedgedoc/markdown-it-task-lists@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@hedgedoc/markdown-it-task-lists/-/markdown-it-task-lists-0.0.1.tgz#73eff59c236ea474691377d66900daffb1ebaec2"
+  integrity sha512-wzht4gm2Pdbd7izjlZD/KV/Rsd2LkI5Le2I4x1pwtT1F58z5BFY9yl1SjneIlxT8Xa5Zm3IkEsH4MCPuBml9Ug==
+  dependencies:
+    "@types/markdown-it" "^10.0.2"
+    markdown-it "^11.0.0"
+
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -1626,14 +1634,6 @@
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-"@truh/markdown-it-task-lists@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@truh/markdown-it-task-lists/-/markdown-it-task-lists-0.1.1.tgz#5e13dbaedeed1dd7dbe7a48c2be7bbc38f405389"
-  integrity sha512-rK+d8hHRGAC+qfEcjwSZSlACc+3bFFgXFr1xgiDBiJWd8Nc/4ZWWcKVN6TPmYgxNpvjlgaSPAow+Y4EXMp10/A==
-  dependencies:
-    "@types/markdown-it" "^10.0.1"
-    markdown-it "^11.0.0"
-
 "@types/aria-query@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.0.tgz#14264692a9d6e2fa4db3df5e56e94b5e25647ac0"
@@ -1832,7 +1832,7 @@
   dependencies:
     "@types/markdown-it" "*"
 
-"@types/markdown-it@*", "@types/markdown-it@10.0.2", "@types/markdown-it@^10.0.1":
+"@types/markdown-it@*", "@types/markdown-it@10.0.2", "@types/markdown-it@^10.0.2":
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/@types/markdown-it/-/markdown-it-10.0.2.tgz#f93334b9c7821ddb19865dfd91ecf688094c2626"
   integrity sha512-FGKiVW1UgeIEAChYAuHcfCd0W4LsMEyrSyTVaZiuJhwR4BwSVUD8JKnzmWAMK2FHNLZSPGUaEkpa/dkZj2uq1w==
