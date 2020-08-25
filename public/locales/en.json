@@ -144,7 +144,14 @@
         "invalidYaml": "The yaml-header is invalid. See <0></0> for more information.",
         "help": {
             "shortcuts": {
-                "title": "Shortcuts"
+                "title": "Shortcuts",
+                "function": "Function",
+                "shortcut": "Shortcut",
+                "bold": "Make selection bold",
+                "italic": "Make selection italic",
+                "underline": "Underline selection",
+                "strikethrough": "Strike selection through",
+                "mark": "Mark selection"
             },
             "links": {
                 "title": "Links"
