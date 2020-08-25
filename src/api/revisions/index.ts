@@ -11,8 +11,8 @@ export interface RevisionListEntry {
   length: number
 }
 
-export const getRevision = async (noteId: string, revisionId: string): Promise<Revision> => {
-  const response = await fetch(getApiUrl() + `/notes/${noteId}/revisions/${revisionId}`, {
+export const getRevision = async (noteId: string, timestamp: number): Promise<Revision> => {
+  const response = await fetch(getApiUrl() + `/notes/${noteId}/revisions/${timestamp}`, {
     ...defaultFetchConfig
   })
   expectResponseCode(response)
