@@ -20,7 +20,7 @@ export const SyncScrollButton: React.FC = () => {
     <ToggleButtonGroup type="checkbox" defaultValue={[]} name="sync-scroll" className="ml-2" value={[syncScroll]}>
       <ToggleButton
         title={ t(translation) }
-        variant={syncScroll ? 'secondary' : 'outline-dark'}
+        variant={syncScroll ? 'secondary' : 'light'}
         onChange={onClick} value={true}
       >
         <img src={syncScroll ? disabledScroll : enabledScroll} width={'20px'} alt={t(translation)}/>
