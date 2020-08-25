@@ -31,8 +31,8 @@ export const Cheatsheet: React.FC = () => {
     <Table className="table-condensed table-cheatsheet">
       <thead>
         <tr>
-          <td className={'font-weight-bold'}><Trans i18nKey='editor.help.cheatsheet.example'/></td>
-          <td className={'font-weight-bold'}><Trans i18nKey='editor.help.cheatsheet.syntax'/></td>
+          <th><Trans i18nKey='editor.help.cheatsheet.example'/></th>
+          <th><Trans i18nKey='editor.help.cheatsheet.syntax'/></th>
         </tr>
       </thead>
       <tbody className="markdown-body"

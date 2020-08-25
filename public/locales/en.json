@@ -151,7 +151,10 @@
                 "italic": "Make selection italic",
                 "underline": "Underline selection",
                 "strikethrough": "Strike selection through",
-                "mark": "Mark selection"
+                "mark": "Mark selection",
+                "view": "Show only View",
+                "both": "Show View and Edit",
+                "edit": "Show only Edit"
             },
             "links": {
                 "title": "Links"
