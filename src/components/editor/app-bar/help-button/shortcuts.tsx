@@ -6,7 +6,7 @@ import { isMac } from '../../utils'
 export const Shortcut: React.FC = () => {
   const modifierKey = isMac ? <kbd>Cmd</kbd> : <kbd>Ctrl</kbd>
 
-  const shortcutMap: {[key: string]: { [functionName: string]: JSX.Element[] }} = {
+  const shortcutMap: {[category: string]: { [functionName: string]: JSX.Element[] }} = {
     'View Mode': {
       'editor.help.shortcuts.view': [modifierKey, <> + </>, <kbd>Alt</kbd>, <> + </>, <kbd>V</kbd>],
       'editor.help.shortcuts.both': [modifierKey, <> + </>, <kbd>Alt</kbd>, <> + </>, <kbd>B</kbd>],
@@ -22,12 +22,12 @@ export const Shortcut: React.FC = () => {
   }
   return (
     <Row className={'justify-content-center pt-4'}>
-      {Object.keys(shortcutMap).map(key => {
+      {Object.keys(shortcutMap).map(category => {
         return (
           <Card className={'m-2 w-50'}>
-            <Card.Header>{key}</Card.Header>
+            <Card.Header>{category}</Card.Header>
             <ListGroup variant="flush">
-              {Object.entries(shortcutMap[key]).map(([functionName, shortcut]) => {
+              {Object.entries(shortcutMap[category]).map(([functionName, shortcut]) => {
                 return (
                   <ListGroup.Item className={'d-flex justify-content-between'}>
                     <span><Trans i18nKey={functionName}/></span>
