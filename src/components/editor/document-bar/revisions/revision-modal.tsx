@@ -18,7 +18,7 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
   const [selected, setSelected] = useState<number | null>(null)
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(null)
   const [error, setError] = useState(false)
-  const { id } = useParams()
+  const { id } = useParams<{ id: string }>()
 
   useEffect(() => {
     getAllRevisions(id).then(fetchedRevisions => {
