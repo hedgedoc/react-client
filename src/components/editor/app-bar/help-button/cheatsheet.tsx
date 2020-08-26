@@ -35,11 +35,10 @@ export const Cheatsheet: React.FC = () => {
           <th><Trans i18nKey='editor.help.cheatsheet.syntax'/></th>
         </tr>
       </thead>
-      <tbody className="markdown-body"
-        style={{ fontFamily: 'inherit', fontSize: '14px', padding: 0, maxWidth: 'inherit' }}>
-        {codes.map((code, i) => {
+      <tbody>
+        {codes.map((code, key) => {
           return (
-            <tr key={i}>
+            <tr key={key}>
               <td>
                 <MarkdownRenderer
                   content={code}

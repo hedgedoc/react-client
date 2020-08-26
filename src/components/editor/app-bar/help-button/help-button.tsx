@@ -28,15 +28,13 @@ export const HelpButton: React.FC = () => {
     }
   }
 
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
   return (
     <Fragment>
       <Button title={t('editor.documentBar.help')} className="ml-2 text-secondary" size="sm" variant="outline-light"
-        onClick={handleShow}>
+        onClick={() => setShow(true)}>
         <ForkAwesomeIcon icon="question-circle"/>
       </Button>
-      <Modal show={show} onHide={handleClose} animation={true} className="text-dark" size='xl'>
+      <Modal show={show} onHide={() => setShow(false)} animation={true} className="text-dark" size='xl'>
         <Modal.Header closeButton>
           <Modal.Title>
             <ForkAwesomeIcon icon="question-circle"/> <Trans i18nKey={'editor.documentBar.help'}/> – <Trans i18nKey={`editor.help.${tab}`}/>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { TranslatedExternalLink } from '../../../common/links/translated-external-link'
+import { TranslatedInternalLink } from '../../../common/links/translated-internal-link'
 
 export const Links: React.FC = () => {
   useTranslation()
@@ -52,7 +53,7 @@ export const Links: React.FC = () => {
         <div>
           <ul className="list-unstyled">
             <li>
-              <TranslatedExternalLink
+              <TranslatedInternalLink
                 i18nKey='editor.help.documents.features'
                 href='/n/features'
                 icon='dot-circle-o'
@@ -60,7 +61,7 @@ export const Links: React.FC = () => {
               />
             </li>
             <li>
-              <TranslatedExternalLink
+              <TranslatedInternalLink
                 i18nKey='editor.help.documents.yamlMetadata'
                 href='/n/yaml-data'
                 icon='dot-circle-o'
