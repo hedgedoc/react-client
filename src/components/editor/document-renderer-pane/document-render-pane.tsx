@@ -55,21 +55,21 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
 
     const scrollTop = renderer.current.scrollTop
 
-    const beforeLineMarks = lineMarks.filter(lineMark => lineMark.position <= scrollTop)
-    if (beforeLineMarks.length === 0) {
+    const lineMarksBeforeScrollTop = lineMarks.filter(lineMark => lineMark.position <= scrollTop)
+    if (lineMarksBeforeScrollTop.length === 0) {
       return
     }
 
-    const afterLineMarks = lineMarks.filter(lineMark => lineMark.position > scrollTop)
-    if (afterLineMarks.length === 0) {
+    const lineMarksAfterScrollTop = lineMarks.filter(lineMark => lineMark.position > scrollTop)
+    if (lineMarksAfterScrollTop.length === 0) {
       return
     }
 
-    const beforeLineMark = beforeLineMarks
+    const beforeLineMark = lineMarksBeforeScrollTop
       .reduce((prevLineMark, currentLineMark) =>
         prevLineMark.line >= currentLineMark.line ? prevLineMark : currentLineMark)
 
-    const afterLineMark = afterLineMarks
+    const afterLineMark = lineMarksAfterScrollTop
       .reduce((prevLineMark, currentLineMark) =>
         prevLineMark.line < currentLineMark.line ? prevLineMark : currentLineMark)
 
