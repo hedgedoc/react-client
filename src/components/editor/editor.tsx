@@ -36,7 +36,6 @@ export const Editor: React.FC = () => {
   const noteMetadata = useRef<YAMLMetaData>()
   const firstHeading = useRef<string>()
   const scrollSource = useRef<ScrollSource>(ScrollSource.EDITOR)
-  document.addEventListener('keydown', shortcutHandler, false)
 
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const editorSyncScroll: boolean = useSelector((state: ApplicationState) => state.editorConfig.syncScroll)
@@ -65,6 +64,13 @@ export const Editor: React.FC = () => {
     firstHeading.current = newFirstHeading
     updateDocumentTitle()
   }, [updateDocumentTitle])
+
+  useEffect(() => {
+    document.addEventListener('keypress', shortcutHandler, false)
+    return () => {
+      document.removeEventListener('keypress', shortcutHandler, false)
+    }
+  }, [])
 
   useEffect(() => {
     setFirstDraw(false)
