@@ -13,6 +13,7 @@ import { DocumentRenderPane } from './document-renderer-pane/document-render-pan
 import { EditorPane } from './editor-pane/editor-pane'
 import { editorTestContent } from './editorTestContent'
 import { DualScrollState, ScrollState } from './scroll/scroll-props'
+import { shortcutHandler } from './shortcut/shortcut'
 import { Splitter } from './splitter/splitter'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
@@ -35,6 +36,7 @@ export const Editor: React.FC = () => {
   const noteMetadata = useRef<YAMLMetaData>()
   const firstHeading = useRef<string>()
   const scrollSource = useRef<ScrollSource>(ScrollSource.EDITOR)
+  document.addEventListener('keydown', shortcutHandler, false)
 
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const editorSyncScroll: boolean = useSelector((state: ApplicationState) => state.editorConfig.syncScroll)
@@ -101,7 +103,7 @@ export const Editor: React.FC = () => {
               content={markdownContent}
               scrollState={scrollState.editorScrollState}
               onScroll={onEditorScroll}
-              onMakeScrollSource={() => scrollSource.current = ScrollSource.EDITOR}
+              onMakeScrollSource={() => (scrollSource.current = ScrollSource.EDITOR)}
             />
           }
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
