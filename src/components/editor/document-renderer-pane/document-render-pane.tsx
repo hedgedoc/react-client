@@ -52,10 +52,6 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
     if (!renderer.current || !lineMarks || !onScroll) {
       return
     }
-    const resyncedScroll = Math.ceil(renderer.current.scrollTop) === lastScrollPosition.current
-    if (resyncedScroll) {
-      return
-    }
 
     const scrollTop = renderer.current.scrollTop
 
