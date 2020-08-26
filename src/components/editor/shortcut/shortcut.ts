@@ -1,6 +1,6 @@
 import { setEditorMode } from '../../../redux/editor/methods'
 import { EditorMode } from '../app-bar/editor-view-mode'
-import { isMac } from '../editor-pane/key-map'
+import { isMac } from '../utils'
 
 export const shortcutHandler = (event: KeyboardEvent): void => {
   const modifierKey = isMac ? event.metaKey : event.ctrlKey
