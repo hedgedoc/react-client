@@ -59,13 +59,21 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
 
     const scrollTop = renderer.current.scrollTop
 
-    const beforeLineMark = lineMarks
-      .filter(lineMark => lineMark.position <= scrollTop)
+    const beforeLineMarks = lineMarks.filter(lineMark => lineMark.position <= scrollTop)
+    if (beforeLineMarks.length === 0) {
+      return
+    }
+
+    const afterLineMarks = lineMarks.filter(lineMark => lineMark.position > scrollTop)
+    if (afterLineMarks.length === 0) {
+      return
+    }
+
+    const beforeLineMark = beforeLineMarks
       .reduce((prevLineMark, currentLineMark) =>
         prevLineMark.line >= currentLineMark.line ? prevLineMark : currentLineMark)
 
-    const afterLineMark = lineMarks
-      .filter(lineMark => lineMark.position > scrollTop)
+    const afterLineMark = afterLineMarks
       .reduce((prevLineMark, currentLineMark) =>
         prevLineMark.line < currentLineMark.line ? prevLineMark : currentLineMark)
 
@@ -79,7 +87,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
 
   return (
     <div className={'bg-light flex-fill pb-5 flex-row d-flex w-100 h-100 overflow-y-scroll'}
-      ref={renderer} onScroll={userScroll} onMouseEnter={onMakeScrollSource} >
+      ref={renderer} onScroll={userScroll} onMouseEnter={onMakeScrollSource}>
       <div className={'col-md'}/>
       <MarkdownRenderer
         className={'flex-fill'}
