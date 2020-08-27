@@ -13,11 +13,14 @@ import { ProfilePage } from './components/profile-page/profile-page'
 import { RegisterPage } from './components/register-page/register-page'
 import { Redirector } from './components/common/routing/redirector'
 import './style/index.scss'
+import { WorkerTest } from './components/worker-test/worker-test'
 import * as serviceWorker from './service-worker'
 import { store } from './redux'
+import { WorkerTest2 } from './components/worker-test-2/worker-test-2'
 
 ReactDOM.render(
   <Provider store={store}>
+    <WorkerTest2/>
     <Router>
       <ApplicationLoader>
         <Switch>
