@@ -1906,13 +1906,6 @@
     "@types/htmlparser2" "*"
     "@types/react" "*"
 
-"@types/react-mathjax@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/react-mathjax/-/react-mathjax-1.0.0.tgz#5e337ddc0fbee4d01513d960f81f85963a9ee482"
-  integrity sha512-c3beW/LhRx/7LkwYGj7mIDphatRdih80Cpe4l2u3LFdyOgBloPaXq3H9QROC6GnhbGxVql7ByHLA70s+Q6ol1Q==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react-redux@7.1.9":
   version "7.1.9"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.9.tgz#280c13565c9f13ceb727ec21e767abe0e9b4aec3"
