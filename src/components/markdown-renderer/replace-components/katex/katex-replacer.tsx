@@ -4,7 +4,7 @@ import 'katex/dist/katex.min.css'
 import TeX from '@matejmazur/react-katex'
 import { ComponentReplacer } from '../ComponentReplacer'
 
-const getNodeIfMathJaxBlock = (node: DomElement): (DomElement|undefined) => {
+const getNodeIfKatexBlock = (node: DomElement): (DomElement|undefined) => {
   if (node.name !== 'p' || !node.children || node.children.length !== 1) {
     return
   }
@@ -18,7 +18,7 @@ const getNodeIfInlineKatex = (node: DomElement): (DomElement|undefined) => {
 
 export class KatexReplacer implements ComponentReplacer {
   getReplacement (node: DomElement, index: number): React.ReactElement | undefined {
-    const katex = getNodeIfMathJaxBlock(node) || getNodeIfInlineKatex(node)
+    const katex = getNodeIfKatexBlock(node) || getNodeIfInlineKatex(node)
     if (katex?.children && katex.children[0]) {
       const mathJaxContent = katex.children[0]?.data as string
       const isInline = (katex.attribs?.inline) !== undefined
