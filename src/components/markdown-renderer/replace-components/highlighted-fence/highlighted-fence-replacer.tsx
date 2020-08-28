@@ -1,7 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
-import { HighlightedCode } from './highlighted-code/highlighted-code'
+import { CsvToHtmlTable } from 'react-csv-to-table'
 import { ComponentReplacer } from '../ComponentReplacer'
+import { HighlightedCode } from './highlighted-code/highlighted-code'
 
 export class HighlightedCodeReplacer implements ComponentReplacer {
   private lastLineNumber = 0;
@@ -12,16 +13,29 @@ export class HighlightedCodeReplacer implements ComponentReplacer {
     }
 
     const language = codeNode.attribs['data-highlight-language']
-    const showLineNumbers = codeNode.attribs['data-show-line-numbers'] !== undefined
-    const startLineNumberAttribute = codeNode.attribs['data-start-line-number']
+    const extraData = codeNode.attribs['data-extra']
+    const extraInfos = /(=(\d*|\+))?(!?)/.exec(extraData)
+
+    let showLineNumbers = false
+    let startLineNumberAttribute = ""
+    let wrapLines = false
+
+    if (extraInfos) {
+      showLineNumbers = extraInfos[0] !== undefined
+      startLineNumberAttribute = extraInfos[1]
+      wrapLines = extraInfos[2] !== undefined
+    }
 
     const startLineNumber = startLineNumberAttribute === '+' ? this.lastLineNumber : (parseInt(startLineNumberAttribute) || 1)
-    const wrapLines = codeNode.attribs['data-wrap-lines'] !== undefined
     const code = codeNode.children[0].data as string
 
     if (showLineNumbers) {
       this.lastLineNumber = startLineNumber + code.split('\n')
         .filter(line => !!line).length
+    }
+
+    if (language === 'csv') {
+      return <CsvToHtmlTable data={code} csvDelimiter=";"/>
     }
 
     return <HighlightedCode key={index} language={language} startLineNumber={showLineNumbers ? startLineNumber : undefined} wrapLines={wrapLines} code={code}/>
