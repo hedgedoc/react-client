@@ -16,7 +16,7 @@ export class HighlightedCodeReplacer implements ComponentReplacer {
     const extraInfos = /(=(\d*|\+))?(!?)/.exec(extraData)
 
     let showLineNumbers = false
-    let startLineNumberAttribute = ""
+    let startLineNumberAttribute = ''
     let wrapLines = false
 
     if (extraInfos) {

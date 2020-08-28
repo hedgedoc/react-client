@@ -10,18 +10,18 @@ export interface CsvTableProps {
 }
 
 const parseCsvToRowsAndColumn = (csvText: string, csvColumnDelimiter: string): string[][] => {
-  const rows = csvText.split('\n');
+  const rows = csvText.split('\n')
   if (!rows || rows.length === 0) {
-    return [];
+    return []
   }
 
-  return rows.map(row => row.split(csvColumnDelimiter));
+  return rows.map(row => row.split(csvColumnDelimiter))
 }
 
-export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName}) => {
+export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName }) => {
   const { rowsWithColumns, headerRow } = useMemo(() => {
     const rowsWithColumns = parseCsvToRowsAndColumn(code.trim(), delimiter)
-    let headerRow: string[] = [];
+    let headerRow: string[] = []
     if (showHeader) {
       headerRow = rowsWithColumns.splice(0, 1)[0]
     }
@@ -32,17 +32,17 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
     if (row !== []) {
       return (
         <thead>
-        <tr>
-          {
-            row.map((column, columnNumber) => (
-              <th
-                key={`${index}-header-${columnNumber}`}
-              >
-                {column}
-              </th>
-            ))
-          }
-        </tr>
+          <tr>
+            {
+              row.map((column, columnNumber) => (
+                <th
+                  key={`${index}-header-${columnNumber}`}
+                >
+                  {column}
+                </th>
+              ))
+            }
+          </tr>
         </thead>
       )
     }
@@ -51,22 +51,22 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
   const renderTableBody = (rows: string[][]) => {
     return (
       <tbody>
-      {
-        rows.map((row, rowNumber) => (
-          <tr className={tableRowClassName} key={`${index}-row-${rowNumber}`}>
-            {
-              row.map((column, columnIndex) => (
-                <td
-                  className={tableColumnClassName}
-                  key={`${index}-cell-${rowNumber}-${columnIndex}`}
-                >
-                  {column}
-                </td>
-              ))
-            }
-          </tr>
-        ))
-      }
+        {
+          rows.map((row, rowNumber) => (
+            <tr className={tableRowClassName} key={`${index}-row-${rowNumber}`}>
+              {
+                row.map((column, columnIndex) => (
+                  <td
+                    className={tableColumnClassName}
+                    key={`${index}-cell-${rowNumber}-${columnIndex}`}
+                  >
+                    {column}
+                  </td>
+                ))
+              }
+            </tr>
+          ))
+        }
       </tbody>
     )
   }
