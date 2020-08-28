@@ -20,10 +20,10 @@ const parseCsvToRowsAndColumn = (csvText: string, csvColumnDelimiter: string): s
 
 export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName}) => {
   const { rowsWithColumns, headerRow } = useMemo(() => {
-    const rowsWithColumns = parseCsvToRowsAndColumn(code.trim(), delimiter);
+    const rowsWithColumns = parseCsvToRowsAndColumn(code.trim(), delimiter)
     let headerRow: string[] = [];
     if (showHeader) {
-      headerRow = rowsWithColumns.splice(0, 1)[0];
+      headerRow = rowsWithColumns.splice(0, 1)[0]
     }
     return { rowsWithColumns, headerRow }
   }, [code, delimiter, showHeader])
@@ -44,7 +44,7 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
           }
         </tr>
         </thead>
-      );
+      )
     }
   }
 
@@ -56,6 +56,7 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
           <tr className={tableRowClassName} key={`${index}-row-${rowNumber}`}>
             {
               row.map((column, columnIndex) => (
+                <td
                   className={tableColumnClassName}
                   key={`${index}-cell-${rowNumber}-${columnIndex}`}
                 >
@@ -68,7 +69,7 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
       }
       </tbody>
     )
-  };
+  }
 
   return (
     <table className={'csv-html-table'}>
