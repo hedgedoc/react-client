@@ -14,8 +14,8 @@ const parseCsvToRowsAndColumn = (csvText: string, csvColumnDelimiter: string): s
   if (!rows || rows.length === 0) {
     return []
   }
-
-  return rows.map(row => row.split(csvColumnDelimiter))
+  const splitRegex = new RegExp(`${csvColumnDelimiter}(?=(?:[^"]*"[^"]*")*[^"]*$)`)
+  return rows.map(row => row.split(splitRegex))
 }
 
 export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName }) => {
