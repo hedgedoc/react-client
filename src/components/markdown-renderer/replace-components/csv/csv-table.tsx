@@ -60,7 +60,7 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
                     className={tableColumnClassName}
                     key={`${index}-cell-${rowNumber}-${columnIndex}`}
                   >
-                    {column}
+                    {column.replace(/^"|"$/g, '')}
                   </td>
                 ))
               }
