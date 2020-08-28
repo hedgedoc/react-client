@@ -19,15 +19,14 @@ const parseCsvToRowsAndColumn = (csvText: string, csvColumnDelimiter: string): s
 }
 
 export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName}) => {
-  let headerRow: string[] = [];
-
-  const rowsWithColumns = useMemo(() => {
+  const { rowsWithColumns, headerRow } = useMemo(() => {
     const rowsWithColumns = parseCsvToRowsAndColumn(code.trim(), delimiter);
+    let headerRow: string[] = [];
     if (showHeader) {
       headerRow = rowsWithColumns.splice(0, 1)[0];
     }
-    return rowsWithColumns
-  }, [code])
+    return { rowsWithColumns, headerRow }
+  }, [code, delimiter, showHeader])
 
   const renderTableHeader = (row: string[]) => {
     if (row !== []) {
