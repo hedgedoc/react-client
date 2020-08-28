@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 export interface CsvTableProps {
   index: number
@@ -19,12 +19,15 @@ const parseCsvToRowsAndColumn = (csvText: string, csvColumnDelimiter: string): s
 }
 
 export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName}) => {
-
-  const rowsWithColumns = parseCsvToRowsAndColumn(code.trim(), delimiter);
   let headerRow: string[] = [];
-  if (showHeader) {
-    headerRow = rowsWithColumns.splice(0, 1)[0];
-  }
+
+  const rowsWithColumns = useMemo(() => {
+    const rowsWithColumns = parseCsvToRowsAndColumn(code.trim(), delimiter);
+    if (showHeader) {
+      headerRow = rowsWithColumns.splice(0, 1)[0];
+    }
+    return rowsWithColumns
+  }, [code])
 
   const renderTableHeader = (row: string[]) => {
     if (row !== []) {

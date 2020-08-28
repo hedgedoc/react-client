@@ -1,6 +1,5 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
-import { CsvToHtmlTable } from 'react-csv-to-table'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { HighlightedCode } from './highlighted-code/highlighted-code'
 
@@ -32,10 +31,6 @@ export class HighlightedCodeReplacer implements ComponentReplacer {
     if (showLineNumbers) {
       this.lastLineNumber = startLineNumber + code.split('\n')
         .filter(line => !!line).length
-    }
-
-    if (language === 'csv') {
-      return <CsvToHtmlTable data={code} csvDelimiter=";"/>
     }
 
     return <HighlightedCode key={index} language={language} startLineNumber={showLineNumbers ? startLineNumber : undefined} wrapLines={wrapLines} code={code}/>

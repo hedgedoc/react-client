@@ -12,7 +12,8 @@ export class CsvReplacer implements ComponentReplacer {
     const code = codeNode.children[0].data as string
 
     const extraData = codeNode.attribs['data-extra']
-    const extraInfos = /\s*(delimiter=([^\s]*))?\s*(header)?/.exec(extraData)
+    const extraRegex = /\s*(delimiter=([^\s]*))?\s*(header)?/
+    const extraInfos = extraRegex.exec(extraData)
 
     let delimiter = ','
     let showHeader = false
