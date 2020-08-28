@@ -55,8 +55,7 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
         rows.map((row, rowNumber) => (
           <tr className={tableRowClassName} key={`${index}-row-${rowNumber}`}>
             {
-              row.map && row.map((column, columnIndex) => (
-                <td
+              row.map((column, columnIndex) => (
                   className={tableColumnClassName}
                   key={`${index}-cell-${rowNumber}-${columnIndex}`}
                 >
