@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { parseCsv } from './csv-parser'
 
 export interface CsvTableProps {
   index: number
@@ -9,18 +10,9 @@ export interface CsvTableProps {
   tableColumnClassName?: string
 }
 
-const parseCsvToRowsAndColumn = (csvText: string, csvColumnDelimiter: string): string[][] => {
-  const rows = csvText.split('\n')
-  if (!rows || rows.length === 0) {
-    return []
-  }
-  const splitRegex = new RegExp(`${csvColumnDelimiter}(?=(?:[^"]*"[^"]*")*[^"]*$)`)
-  return rows.map(row => row.split(splitRegex))
-}
-
 export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName }) => {
   const { rowsWithColumns, headerRow } = useMemo(() => {
-    const rowsWithColumns = parseCsvToRowsAndColumn(code.trim(), delimiter)
+    const rowsWithColumns = parseCsv(code.trim(), delimiter)
     let headerRow: string[] = []
     if (showHeader) {
       headerRow = rowsWithColumns.splice(0, 1)[0]
