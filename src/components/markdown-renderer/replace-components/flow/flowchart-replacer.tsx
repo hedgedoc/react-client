@@ -11,6 +11,6 @@ export class FlowchartReplacer implements ComponentReplacer {
 
     const code = codeNode.children[0].data as string
 
-    return <FlowChart index={index} code={code}/>
+    return <FlowChart key={`flowchart-${index}`} code={code}/>
   }
 }

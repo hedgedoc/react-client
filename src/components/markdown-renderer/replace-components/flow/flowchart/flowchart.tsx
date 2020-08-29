@@ -1,21 +1,24 @@
 import { parse } from "flowchart.js"
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export interface FlowChartProps {
-  index: number,
   code: string
 }
 
-export const FlowChart: React.FC<FlowChartProps> = ({ index, code }) => {
+export const FlowChart: React.FC<FlowChartProps> = ({ code }) => {
+  const diagramRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
+    if(diagramRef.current === null) {
+      return
+    }
     const parserOutput = parse(code)
-    parserOutput.drawSVG(`flowchart-${index}`, {
+    parserOutput.drawSVG(diagramRef.current, {
       'line-width': 2,
       'fill': 'none',
       'font-size': '16px',
       'font-family': 'Source Code Pro twemoji, monospace'
     })
-  }, [code, index])
+  }, [code])
 
-  return <div id={`flowchart-${index}`} className={'text-center'} key={`flowchart-${index}`}/>
+  return <div ref={diagramRef} className={'text-center'}/>
 }

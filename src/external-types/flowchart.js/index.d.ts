@@ -7,7 +7,7 @@ declare module 'flowchart.js' {
   }
   type ParseOutput = {
     clean: () => void,
-    drawSVG: (container: string, options: Options) => void,
+    drawSVG: (container: HTMLElement, options: Options) => void,
   }
   export const parse: (code: string) => ParseOutput
 }
