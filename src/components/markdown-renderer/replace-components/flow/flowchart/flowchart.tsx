@@ -9,8 +9,13 @@ export interface FlowChartProps {
 export const FlowChart: React.FC<FlowChartProps> = ({ index, code }) => {
   useEffect(() => {
     const parserOutput = parse(code)
-    parserOutput.drawSVG(`flowchart-${index}`, {})
+    parserOutput.drawSVG(`flowchart-${index}`, {
+      'line-width': 2,
+      'fill': 'none',
+      'font-size': '16px',
+      'font-family': 'Source Code Pro twemoji, monospace'
+    })
   }, [code, index])
 
-  return <div id={`flowchart-${index}`} key={`flowchart-${index}`}/>
+  return <div id={`flowchart-${index}`} className={'text-center'} key={`flowchart-${index}`}/>
 }
