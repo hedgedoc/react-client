@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import { parseCsv } from './csv-parser'
 
 export interface CsvTableProps {
-  index: number
   code: string
   delimiter: string
   showHeader: boolean
@@ -10,7 +9,7 @@ export interface CsvTableProps {
   tableColumnClassName?: string
 }
 
-export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, showHeader, tableRowClassName, tableColumnClassName }) => {
+export const CsvTable: React.FC<CsvTableProps> = ({ code, delimiter, showHeader, tableRowClassName, tableColumnClassName }) => {
   const { rowsWithColumns, headerRow } = useMemo(() => {
     const rowsWithColumns = parseCsv(code.trim(), delimiter)
     let headerRow: string[] = []
@@ -28,7 +27,7 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
             {
               row.map((column, columnNumber) => (
                 <th
-                  key={`${index}-header-${columnNumber}`}
+                  key={`header-${columnNumber}`}
                 >
                   {column}
                 </th>
@@ -45,12 +44,12 @@ export const CsvTable: React.FC<CsvTableProps> = ({ index, code, delimiter, show
       <tbody>
         {
           rows.map((row, rowNumber) => (
-            <tr className={tableRowClassName} key={`${index}-row-${rowNumber}`}>
+            <tr className={tableRowClassName} key={`row-${rowNumber}`}>
               {
                 row.map((column, columnIndex) => (
                   <td
                     className={tableColumnClassName}
-                    key={`${index}-cell-${rowNumber}-${columnIndex}`}
+                    key={`cell-${rowNumber}-${columnIndex}`}
                   >
                     {column.replace(/^"|"$/g, '')}
                   </td>
