@@ -1,5 +1,5 @@
 import { parse } from "flowchart.js"
-import React, { useMemo } from 'react'
+import React, { useEffect } from 'react'
 
 export interface FlowChartProps {
   index: number,
@@ -7,7 +7,7 @@ export interface FlowChartProps {
 }
 
 export const FlowChart: React.FC<FlowChartProps> = ({ index, code }) => {
-  useMemo(() => {
+  useEffect(() => {
     const parserOutput = parse(code)
     parserOutput.drawSVG(`flowchart-${index}`, {})
   }, [code, index])
