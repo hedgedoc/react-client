@@ -7,7 +7,7 @@ import { findWordAtCursor, Hinter } from './index'
 
 const allowedCharsInEmojiCodeRegex = /(:|\w|-|_|\+)/
 const emojiIndex = new NimbleEmojiIndex(data as unknown as Data)
-const emojiWordRegex = /^:((\w|-|_|\+)+)$/
+const emojiWordRegex = /^:([\w-_+]*)$/
 
 const generateEmojiHints = (editor: Editor): Promise< Hints| null > => {
   return new Promise((resolve) => {
@@ -18,23 +18,23 @@ const generateEmojiHints = (editor: Editor): Promise< Hints| null > => {
       return
     }
     const term = searchResult[1]
-    if (!term) {
-      resolve(null)
-      return
-    }
-    const search = emojiIndex.search(term, {
+    let search: EmojiData[] | null = emojiIndex.search(term, {
       emojisToShowFilter: () => true,
-      maxResults: 5,
+      maxResults: 7,
       include: [],
       exclude: [],
       custom: customEmojis as EmojiData[]
     })
+    if (search === null) {
+      // set search to the first seven emojis in data
+      search = Object.values(emojiIndex.emojis).slice(0, 7)
+    }
     const cursor = editor.getCursor()
     if (!search) {
       resolve(null)
     } else {
       resolve({
-        list: search.map((emojiData: EmojiData): Hint => ({
+        list: search.map((emojiData): Hint => ({
           text: getEmojiShortCode(emojiData),
           render: (parent: HTMLLIElement) => {
             const wrapper = document.createElement('div')
