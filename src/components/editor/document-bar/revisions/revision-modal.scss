@@ -2,3 +2,11 @@
   max-height: 75vh;
   overflow-y: auto;
 }
+
+li.revision-item {
+  cursor: pointer;
+
+  span > img {
+    height: 1.25rem;
+  }
+}

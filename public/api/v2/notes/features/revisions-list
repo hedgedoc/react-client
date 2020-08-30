@@ -1,10 +1,12 @@
 [
   {
     "timestamp": 1598389571,
-    "length": 2782
+    "length": 2782,
+    "authors": ["dermolly", "mrdrogdrog", "emcrx"]
   },
   {
     "timestamp": 1598390307,
-    "length": 2788
+    "length": 2788,
+    "authors": ["dermolly", "mrdrogdrog"]
   }
 ]

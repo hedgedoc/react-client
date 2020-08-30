@@ -3,12 +3,13 @@ import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 export interface Revision {
   content: string
   timestamp: number
-  authorship: string[]
+  authors: string[]
 }
 
 export interface RevisionListEntry {
   timestamp: number
   length: number
+  authors: string[]
 }
 
 export const getRevision = async (noteId: string, timestamp: number): Promise<Revision> => {

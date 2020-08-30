@@ -1,16 +1,17 @@
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Alert, Col, ListGroup, Modal, Row, Button } from 'react-bootstrap'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 import { getAllRevisions, getRevision, Revision, RevisionListEntry } from '../../../../api/revisions'
+import { UserResponse } from '../../../../api/users/types'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal, CommonModalProps } from '../../../common/modals/common-modal'
 import { ShowIf } from '../../../common/show-if/show-if'
 import { RevisionButtonProps } from './revision-button'
 import './revision-modal.scss'
-import { downloadRevision } from './utils'
+import { downloadRevision, getUserDataForRevision } from './utils'
 
 export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = ({ show, onHide, icon, titleI18nKey, noteContent }) => {
   useTranslation()
@@ -18,10 +19,15 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
   const [selected, setSelected] = useState<number | null>(null)
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(null)
   const [error, setError] = useState(false)
+  const revisionAuthorListMap = useRef(new Map<number, UserResponse[]>())
   const { id } = useParams<{ id: string }>()
 
   useEffect(() => {
     getAllRevisions(id).then(fetchedRevisions => {
+      fetchedRevisions.forEach(revision => {
+        const authorData = getUserDataForRevision(revision.authors)
+        revisionAuthorListMap.current.set(revision.timestamp, authorData)
+      })
       setRevisions(fetchedRevisions)
     }).catch(() => setError(true))
   }, [setRevisions, setError, id])
@@ -42,14 +48,25 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
           <Col lg={4} className={'scroll-col'}>
             <ListGroup as='ul'>
               {
-                revisions.map(revision => {
+                revisions.map((revision, revIndex) => {
                   return (
-                    <ListGroup.Item as='li' active={selected === revision.timestamp} onClick={() => setSelected(revision.timestamp)}>
+                    <ListGroup.Item as='li' active={selected === revision.timestamp} onClick={() => setSelected(revision.timestamp)} className='user-select-none revision-item' key={revIndex}>
                       <ForkAwesomeIcon icon={'clock-o'} className='mx-2'/>
                       <span>{ moment(revision.timestamp * 1000).format('LLLL') }</span>
                       <br/>
                       <ForkAwesomeIcon icon={'file-text-o'} className='mx-2'/>
                       <span><Trans i18nKey={'editor.modal.revision.length'}/>: { revision.length }</span>
+                      <br/>
+                      <ForkAwesomeIcon icon={'user-o'} className={'mx-2'}/>
+                      <span>
+                        {
+                          revisionAuthorListMap.current.get(revision.timestamp)?.map((user, index) => {
+                            return (
+                              <img src={user.photo} alt={''} title={user.name} key={index} className={'mx-1 rounded'}/>
+                            )
+                          })
+                        }
+                      </span>
                     </ListGroup.Item>
                   )
                 })
