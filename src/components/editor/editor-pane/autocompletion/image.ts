@@ -4,8 +4,8 @@ import { findWordAtCursor, Hinter } from './index'
 const allowedChars = /(!|\[|]])*/
 const wordRegExp = /^(!(\[.*])?)$/
 const allSupportedImages = [
-  '![image alt](https://example.com)',
-  '![image alt](https://example.com =WidthxHeight)',
+  '![image alt](https:// "title")',
+  '![image alt](https:// "title" =WidthxHeight)',
   '![image alt][reference]'
 ]
 
