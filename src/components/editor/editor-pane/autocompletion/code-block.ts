@@ -4,7 +4,7 @@ import { findWordAtCursor, Hinter, search } from './index'
 
 const allowedChars = /(`|\w|-|_|\+)/
 const wordRegExp = /^```((\w|-|_|\+)+)?$/
-const allSupportedLanguages = hljs.listLanguages().concat('csv')
+const allSupportedLanguages = hljs.listLanguages().concat('csv', 'flow', 'html')
 
 const codeBlockHint = (editor: Editor): Promise< Hints| null > => {
   return new Promise((resolve) => {
