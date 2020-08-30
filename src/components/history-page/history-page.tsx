@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { deleteHistory, deleteHistoryEntry, getHistory, setHistory, updateHistoryEntry } from '../../api/history'
 import { deleteNote } from '../../api/notes'
 import { ApplicationState } from '../../redux'
-import equal from 'fast-deep-equal'
+
 import {
   collectEntries,
   downloadHistory,
@@ -95,13 +95,13 @@ export const HistoryPage: React.FC = () => {
 
   const clearHistory = useCallback(() => {
     setLocalHistoryEntries([])
-    if (uuserExistsser) {
+    if (userExists) {
       deleteHistory()
         .then(() => setRemoteHistoryEntries([]))
         .catch(() => setError('deleteHistory'))
     }
     historyWrite([])
-  }, [historyWrite])
+  }, [historyWrite, userExists])
 
   const uploadAll = useCallback((): void => {
     const newHistory = mergeEntryArrays(localHistoryEntries, remoteHistoryEntries)
