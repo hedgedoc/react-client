@@ -1,8 +1,8 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { findWordAtCursor, Hinter } from './index'
 
-const allowedChars = /({(%)?)/
-const wordRegExp = /^({(%pdf .*%})?)$/
+const allowedChars = /[{%]*/
+const wordRegExp = /^({(%pdf .*%)?}?)$/
 
 const pdfHint = (editor: Editor): Promise< Hints| null > => {
   return new Promise((resolve) => {
@@ -20,7 +20,6 @@ const pdfHint = (editor: Editor): Promise< Hints| null > => {
       resolve({
         list: suggestions.map((suggestion: string): Hint => ({
           text: suggestion,
-          displayText: suggestion
         })),
         from: Pos(cursor.line, searchTerm.start),
         to: Pos(cursor.line, searchTerm.end+1)

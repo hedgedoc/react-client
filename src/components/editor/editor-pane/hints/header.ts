@@ -1,7 +1,7 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { findWordAtCursor, Hinter, search } from './index'
 
-const allowedChars = /(#{1,6})/
+const allowedChars = /(#)*/
 const wordRegExp = /^(\s{0,3})(#{1,6})$/
 const allSupportedHeaders = ['# h1', '## h2', '### h3', '#### h4', '##### h5', '###### h6', '###### tags: `example`']
 
@@ -26,7 +26,6 @@ const headerHint = (editor: Editor): Promise< Hints| null > => {
       resolve({
         list: suggestions.map((suggestion: string): Hint => ({
           text: suggestion,
-          displayText: suggestion
         })),
         from: Pos(cursor.line, searchTerm.start),
         to: Pos(cursor.line, searchTerm.end)
