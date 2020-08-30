@@ -20,6 +20,7 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(null)
   const [error, setError] = useState(false)
   const revisionAuthorListMap = useRef(new Map<number, UserResponse[]>())
+  const revisionCacheMap = useRef(new Map<number, Revision>())
   const { id } = useParams<{ id: string }>()
 
   useEffect(() => {
@@ -36,8 +37,14 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
     if (selected === null) {
       return
     }
+    const cacheEntry = revisionCacheMap.current.get(selected)
+    if (cacheEntry) {
+      setSelectedRevision(cacheEntry)
+      return
+    }
     getRevision(id, selected).then(fetchedRevision => {
       setSelectedRevision(fetchedRevision)
+      revisionCacheMap.current.set(selected, fetchedRevision)
     }).catch(() => setError(true))
   }, [selected, id])
 
