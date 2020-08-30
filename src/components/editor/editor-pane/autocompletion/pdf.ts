@@ -2,7 +2,7 @@ import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { findWordAtCursor, Hinter } from './index'
 
 const allowedChars = /[{%]*/
-const wordRegExp = /^({(%pdf .*%)?}?)$/
+const wordRegExp = /^({[%}]?)$/
 
 const pdfHint = (editor: Editor): Promise< Hints| null > => {
   return new Promise((resolve) => {
