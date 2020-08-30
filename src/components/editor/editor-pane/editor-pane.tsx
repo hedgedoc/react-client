@@ -24,8 +24,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
+import { allHinters, findWordAtCursor } from './autocompletion'
 import './editor-pane.scss'
-import { allHinters, findWordAtCursor } from './hints'
 import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
@@ -36,11 +36,9 @@ export interface EditorPaneProps {
 }
 
 const onChange = (editor: Editor) => {
-  allHinters.forEach((hinter) => {
+  allHinters.forEach(hinter => {
     const searchTerm = findWordAtCursor(editor, hinter.allowedChars)
-    console.log('searchTerm', searchTerm)
     if (hinter.wordRegExp.test(searchTerm.text)) {
-      console.log('found')
       editor.showHint({
         hint: hinter.hint,
         completeSingle: false,
