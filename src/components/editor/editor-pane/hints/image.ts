@@ -1,7 +1,7 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { findWordAtCursor, Hinter } from './index'
 
-const allowedChars = /(!(\[])?)/
+const allowedChars = /(!|\[|]])*/
 const wordRegExp = /^(!(\[.*])?)$/
 const allSupportedImages = [
   '![image alt](https://example.com)',
@@ -25,7 +25,6 @@ const imageHint = (editor: Editor): Promise< Hints| null > => {
       resolve({
         list: suggestions.map((suggestion: string): Hint => ({
           text: suggestion,
-          displayText: suggestion
         })),
         from: Pos(cursor.line, searchTerm.start),
         to: Pos(cursor.line, searchTerm.end+1)

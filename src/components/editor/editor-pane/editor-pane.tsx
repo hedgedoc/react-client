@@ -38,7 +38,9 @@ export interface EditorPaneProps {
 const onChange = (editor: Editor) => {
   allHinters.forEach((hinter) => {
     const searchTerm = findWordAtCursor(editor, hinter.allowedChars)
+    console.log('searchTerm', searchTerm)
     if (hinter.wordRegExp.test(searchTerm.text)) {
+      console.log('found')
       editor.showHint({
         hint: hinter.hint,
         completeSingle: false,

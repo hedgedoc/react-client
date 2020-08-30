@@ -4,7 +4,7 @@ import { ContainerHinter } from './container'
 import { EmojiHinter } from './emoji'
 import { HeaderHinter } from './header'
 import { ImageHinter } from './image'
-import { LinkHinter } from './link'
+import { LinkAndExtraTagHinter } from './link-and-extra-tag'
 import { PDFHinter } from './pdf'
 
 interface findWordAtCursorResponse {
@@ -54,6 +54,6 @@ export const allHinters: Hinter[] = [
   EmojiHinter,
   HeaderHinter,
   ImageHinter,
-  LinkHinter,
+  LinkAndExtraTagHinter,
   PDFHinter
 ]
