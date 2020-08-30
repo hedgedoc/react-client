@@ -45,7 +45,7 @@ export const search = (term: string, list: string[]): string[] => {
       suggestions.push(item)
     }
   })
-  return suggestions.slice(0,7)
+  return suggestions.slice(0, 7)
 }
 
 export const allHinters: Hinter[] = [

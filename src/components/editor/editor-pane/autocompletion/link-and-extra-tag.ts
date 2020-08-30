@@ -16,7 +16,7 @@ const allSupportedLinks = [
   '[TOC]',
   'name',
   'time',
-  '[color=#FFFFFF]',
+  '[color=#FFFFFF]'
 
 ]
 
@@ -35,27 +35,27 @@ const linkAndExtraTagHint = (editor: Editor): Promise< Hints| null > => {
     } else {
       resolve({
         list: suggestions.map((suggestion: string): Hint => {
-          switch(suggestion) {
+          switch (suggestion) {
             case 'name':
               // Get the user when a completion happens, this prevents to early calls resulting in 'Anonymous'
               const user = getUser()
-              const userName = user ? user.name : 'Anonymous';
+              const userName = user ? user.name : 'Anonymous'
               return {
-                text: `[name=${userName}]`,
+                text: `[name=${userName}]`
               }
             case 'time':
               // show the current time when the autocompletion is opened and not when the function is loaded
               return {
-                text: `[time=${moment(new Date()).format('llll')}]`,
+                text: `[time=${moment(new Date()).format('llll')}]`
               }
             default:
               return {
-                text: suggestion,
+                text: suggestion
               }
           }
         }),
         from: Pos(cursor.line, searchTerm.start),
-        to: Pos(cursor.line, searchTerm.end+1)
+        to: Pos(cursor.line, searchTerm.end + 1)
       })
     }
   })

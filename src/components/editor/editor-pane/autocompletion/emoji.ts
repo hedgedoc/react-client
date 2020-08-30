@@ -9,8 +9,6 @@ const allowedCharsInEmojiCodeRegex = /(:|\w|-|_|\+)/
 const emojiIndex = new NimbleEmojiIndex(data as unknown as Data)
 const emojiWordRegex = /^:((\w|-|_|\+)+)$/
 
-
-
 const generateEmojiHints = (editor: Editor): Promise< Hints| null > => {
   return new Promise((resolve) => {
     const searchTerm = findWordAtCursor(editor, allowedCharsInEmojiCodeRegex)
