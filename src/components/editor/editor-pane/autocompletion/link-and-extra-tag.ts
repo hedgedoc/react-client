@@ -6,11 +6,11 @@ import { findWordAtCursor, Hinter } from './index'
 const allowedChars = /[[]]*/
 const wordRegExp = /^(\[(.*])?)$/
 const allSupportedLinks = [
-  '[link text](https://example.com)',
-  '[reference]: https://example.com',
+  '[link text](https://)',
+  '[reference]: https://',
   '[link text][reference]',
   '[reference]',
-  '[^footnote reference]: https://example.com',
+  '[^footnote reference]: https://',
   '[^footnote reference]',
   '^[inline footnote]',
   '[TOC]',
