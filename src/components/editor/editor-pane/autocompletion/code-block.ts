@@ -1,5 +1,5 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
-import hljs from "highlight.js"
+import hljs from 'highlight.js'
 import { findWordAtCursor, Hinter, search } from './index'
 
 const allowedChars = /(`|\w|-|_|\+)/
