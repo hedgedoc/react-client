@@ -30,6 +30,9 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
         revisionAuthorListMap.current.set(revision.timestamp, authorData)
       })
       setRevisions(fetchedRevisions)
+      if (fetchedRevisions.length >= 1) {
+        setSelected(fetchedRevisions[0].timestamp)
+      }
     }).catch(() => setError(true))
   }, [setRevisions, setError, id])
 
