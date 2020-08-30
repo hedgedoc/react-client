@@ -14,7 +14,7 @@ import './revision-modal.scss'
 import { downloadRevision, getUserDataForRevision } from './utils'
 
 export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = ({ show, onHide, icon, titleI18nKey, noteContent }) => {
-  useTranslation()
+  const { t } = useTranslation()
   const [revisions, setRevisions] = useState<RevisionListEntry[]>([])
   const [selected, setSelected] = useState<number | null>(null)
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(null)
@@ -62,7 +62,7 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
                         {
                           revisionAuthorListMap.current.get(revision.timestamp)?.map((user, index) => {
                             return (
-                              <img src={user.photo} alt={''} title={user.name} key={index} className={'mx-1 rounded'}/>
+                              <img src={user.photo} alt={t('common.avatarOf', { name: user.name })} title={user.name} key={index} className={'mx-1 rounded'}/>
                             )
                           })
                         }
