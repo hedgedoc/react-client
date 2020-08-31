@@ -35,11 +35,11 @@ const linkAndExtraTagHint = (editor: Editor): Promise< Hints| null > => {
     } else {
       resolve({
         list: suggestions.map((suggestion: string): Hint => {
+          const user = getUser()
+          const userName = user ? user.name : 'Anonymous'
           switch (suggestion) {
             case 'name':
               // Get the user when a completion happens, this prevents to early calls resulting in 'Anonymous'
-              const user = getUser()
-              const userName = user ? user.name : 'Anonymous'
               return {
                 text: `[name=${userName}]`
               }
