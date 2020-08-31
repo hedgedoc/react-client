@@ -183,6 +183,7 @@ describe('Autocompletion', () => {
       cy.get('.markdown-body > p > img')
         .should('have.attr', 'alt', 'image alt')
         .should('have.attr', 'src', 'https://')
+        .should('have.attr', 'title', 'title')
     })
     it('via doubleclick', () => {
       cy.get('.CodeMirror textarea')
@@ -197,6 +198,7 @@ describe('Autocompletion', () => {
       cy.get('.markdown-body > p > img')
         .should('have.attr', 'alt', 'image alt')
         .should('have.attr', 'src', 'https://')
+        .should('have.attr', 'title', 'title')
     })
   })
 
