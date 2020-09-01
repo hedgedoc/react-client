@@ -4,6 +4,7 @@ import { findWordAtCursor, Hinter, search } from './index'
 const allowedChars = /(#)*/
 const wordRegExp = /^(\s{0,3})(#{1,6})$/
 const allSupportedHeaders = ['# h1', '## h2', '### h3', '#### h4', '##### h5', '###### h6', '###### tags: `example`']
+const allSupportedHeadersTextToInsert = ['# ', '## ', '### ', '#### ', '##### ', '###### ', '###### tags: `example`']
 
 const headerHint = (editor: Editor): Promise< Hints| null > => {
   return new Promise((resolve) => {
@@ -24,8 +25,9 @@ const headerHint = (editor: Editor): Promise< Hints| null > => {
       resolve(null)
     } else {
       resolve({
-        list: suggestions.map((suggestion: string): Hint => ({
-          text: suggestion
+        list: suggestions.map((suggestion, index): Hint => ({
+          text: suggestion,
+          displayText: allSupportedHeadersTextToInsert[index]
         })),
         from: Pos(cursor.line, searchTerm.start),
         to: Pos(cursor.line, searchTerm.end)

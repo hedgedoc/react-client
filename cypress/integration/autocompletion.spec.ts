@@ -151,7 +151,7 @@ describe('Autocompletion', () => {
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', '# h1')
       cy.get('.markdown-body > h1 ')
-        .should('have.text', ' h1')
+        .should('have.text', ' ')
     })
     it('via doubleclick', () => {
       cy.get('.CodeMirror textarea')
@@ -164,7 +164,7 @@ describe('Autocompletion', () => {
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', '# h1')
       cy.get('.markdown-body > h1')
-        .should('have.text', ' h1')
+        .should('have.text', ' ')
     })
   })
 
