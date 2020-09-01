@@ -67,13 +67,13 @@ export const Editor: React.FC = () => {
     updateDocumentTitle()
   }, [updateDocumentTitle])
 
-  const onTaskCheckedChange = useCallback((i: number, checked: boolean) => {
+  const onTaskCheckedChange = useCallback((lineInMarkdown: number, checked: boolean) => {
     const lines = markdownContent.split('\n')
-    const results = TASK_REGEX.exec(lines[i])
+    const results = TASK_REGEX.exec(lines[lineInMarkdown])
     if (results) {
       const before = results[1]
       const after = results[3]
-      lines[i] = `${before}[${checked ? 'x' : ' '}]${after}`
+      lines[lineInMarkdown] = `${before}[${checked ? 'x' : ' '}]${after}`
       setMarkdownContent(lines.join('\n'))
     }
   }, [markdownContent, setMarkdownContent])

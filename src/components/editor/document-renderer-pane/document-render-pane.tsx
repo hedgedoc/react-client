@@ -14,7 +14,7 @@ interface DocumentRenderPaneProps {
   content: string
   onFirstHeadingChange: (firstHeading: string | undefined) => void
   onMetadataChange: (metaData: YAMLMetaData | undefined) => void
-  onTaskCheckedChange: (i: number, checked: boolean) => void
+  onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void
   wide?: boolean
 }
 

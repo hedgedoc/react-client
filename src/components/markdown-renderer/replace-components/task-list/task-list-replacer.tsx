@@ -4,7 +4,7 @@ import { ComponentReplacer, SubNodeConverter } from '../ComponentReplacer'
 
 export class TaskListReplacer implements ComponentReplacer {
   content: string
-  onTaskCheckedChange: (i: number, checked: boolean) => void
+  onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void
 
   constructor (content: string, onTaskCheckedChange: (i: number, checked: boolean) => void) {
     this.content = content
