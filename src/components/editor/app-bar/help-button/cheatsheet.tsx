@@ -43,7 +43,7 @@ export const Cheatsheet: React.FC = () => {
                 <MarkdownRenderer
                   content={code}
                   wide={false}
-                  onTaskCheckedChange={(_) => {}}
+                  onTaskCheckedChange={(_) => null}
                   onTocChange={() => false}
                   onMetaDataChange={() => false}
                   onFirstHeadingChange={() => false}
