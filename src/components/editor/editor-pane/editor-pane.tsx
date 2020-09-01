@@ -23,6 +23,8 @@ import 'codemirror/mode/gfm/gfm'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../../../redux'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
 import './editor-pane.scss'
@@ -52,6 +54,7 @@ const onChange = (editor: Editor) => {
 
 export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentChange, content, scrollState, onScroll, onMakeScrollSource }) => {
   const { t } = useTranslation()
+  const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
   const [editorPreferences, setEditorPreferences] = useState<EditorConfiguration>({
@@ -98,16 +101,27 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     }
   }, [editor, scrollState])
 
+  const checkDocumentLength = useCallback((length: number) => {
+    if (length > maxLength) {
+      window.alert('max document length reached!')
+      return false
+    }
+    return true
+  }, [maxLength])
+
   const onBeforeChange = useCallback((editor: Editor, data: EditorChange, value: string) => {
+    if (!checkDocumentLength(value.length)) {
+      return
+    }
     onContentChange(value)
-  }, [onContentChange])
+  }, [onContentChange, checkDocumentLength])
   const onEditorDidMount = useCallback(mountedEditor => {
-    setStatusBarInfo(createStatusInfo(mountedEditor))
+    setStatusBarInfo(createStatusInfo(mountedEditor, maxLength))
     setEditor(mountedEditor)
-  }, [])
+  }, [maxLength])
   const onCursorActivity = useCallback((editorWithActivity) => {
-    setStatusBarInfo(createStatusInfo(editorWithActivity))
-  }, [])
+    setStatusBarInfo(createStatusInfo(editorWithActivity, maxLength))
+  }, [maxLength])
   const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(() => ({
     ...editorPreferences,
     mode: 'gfm',

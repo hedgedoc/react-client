@@ -10,6 +10,7 @@ export interface StatusBarInfo {
   selectedLines: number
   linesInDocument: number
   charactersInDocument: number
+  remainingCharacters: number
 }
 
 export const defaultState: StatusBarInfo = {
@@ -17,18 +18,20 @@ export const defaultState: StatusBarInfo = {
   selectedColumns: 0,
   selectedLines: 0,
   linesInDocument: 0,
-  charactersInDocument: 0
+  charactersInDocument: 0,
+  remainingCharacters: 0
 }
 
-export const createStatusInfo = (editor: Editor): StatusBarInfo => ({
+export const createStatusInfo = (editor: Editor, maxDocumentLength: number): StatusBarInfo => ({
   position: editor.getCursor(),
   charactersInDocument: editor.getValue().length,
+  remainingCharacters: maxDocumentLength - editor.getValue().length,
   linesInDocument: editor.lineCount(),
   selectedColumns: editor.getSelection().length,
   selectedLines: editor.getSelection().split('\n').length
 })
 
-export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, selectedLines, charactersInDocument, linesInDocument }) => {
+export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, selectedLines, charactersInDocument, linesInDocument, remainingCharacters }) => {
   const { t } = useTranslation()
 
   return (
@@ -47,6 +50,7 @@ export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, 
       <div className="ml-auto">
         <span>{t('editor.statusBar.lines', { lines: linesInDocument })}</span>
         <span title={t('editor.statusBar.lengthTooltip')}>&nbsp;–&nbsp;{t('editor.statusBar.length', { length: charactersInDocument })}</span>
+        <span>&nbsp;-&nbsp;Remaining: { remainingCharacters }</span>
       </div>
     </div>
   )
