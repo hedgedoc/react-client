@@ -80,7 +80,7 @@ export interface MarkdownRendererProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
   onLineMarkerPositionChanged?: (lineMarkerPosition: LineMarkerPosition[]) => void
   onMetaDataChange?: (yamlMetaData: YAMLMetaData | undefined) => void
-  onTaskCheckedChange: (i: number, checked: boolean) => void
+  onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void
   onTocChange?: (ast: TocAst) => void
   wide?: boolean
 }
