@@ -118,7 +118,6 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     setStatusBarInfo(createStatusInfo(mountedEditor, maxLength))
     setEditor(mountedEditor)
   }, [maxLength])
-
   const onCursorActivity = useCallback((editorWithActivity) => {
     setStatusBarInfo(createStatusInfo(editorWithActivity, maxLength))
   }, [maxLength])
