@@ -1,7 +1,7 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { findWordAtCursor, Hinter } from './index'
 
-const allowedChars = /(!|\[|]])*/
+const allowedChars = /[![\]\w]/
 const wordRegExp = /^(!(\[.*])?)$/
 const allSupportedImages = [
   '![image alt](https:// "title")',

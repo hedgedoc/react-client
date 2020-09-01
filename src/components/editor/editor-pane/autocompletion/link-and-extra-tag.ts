@@ -3,7 +3,7 @@ import moment from 'moment'
 import { getUser } from '../../../../redux/user/methods'
 import { findWordAtCursor, Hinter } from './index'
 
-const allowedChars = /[[]]*/
+const allowedChars = /[[\]\w]/
 const wordRegExp = /^(\[(.*])?)$/
 const allSupportedLinks = [
   '[link text](https:// "title")',
@@ -50,7 +50,8 @@ const linkAndExtraTagHint = (editor: Editor): Promise< Hints| null > => {
               }
             default:
               return {
-                text: suggestion
+                text: suggestion + ' ',
+                displayText: suggestion
               }
           }
         }),

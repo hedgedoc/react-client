@@ -1,7 +1,7 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { findWordAtCursor, Hinter } from './index'
 
-const allowedChars = /(:|\w|-|_|\+)/
+const allowedChars = /[:\w-_+]/
 const wordRegExp = /^:::((\w|-|_|\+)*)$/
 const allSupportedConatiner = ['success', 'info', 'warning', 'danger']
 

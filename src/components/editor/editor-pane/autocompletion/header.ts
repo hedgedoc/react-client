@@ -1,7 +1,7 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import { findWordAtCursor, Hinter, search } from './index'
 
-const allowedChars = /(#)*/
+const allowedChars = /#/
 const wordRegExp = /^(\s{0,3})(#{1,6})$/
 const allSupportedHeaders = ['# h1', '## h2', '### h3', '#### h4', '##### h5', '###### h6', '###### tags: `example`']
 const allSupportedHeadersTextToInsert = ['# ', '## ', '### ', '#### ', '##### ', '###### ', '###### tags: `example`']

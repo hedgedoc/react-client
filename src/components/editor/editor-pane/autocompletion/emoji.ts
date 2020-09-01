@@ -5,7 +5,7 @@ import { customEmojis } from '../tool-bar/emoji-picker/emoji-picker'
 import { getEmojiIcon, getEmojiShortCode } from '../tool-bar/utils/emojiUtils'
 import { findWordAtCursor, Hinter } from './index'
 
-const allowedCharsInEmojiCodeRegex = /(:|\w|-|_|\+)/
+const allowedCharsInEmojiCodeRegex = /[:\w-_+]/
 const emojiIndex = new NimbleEmojiIndex(data as unknown as Data)
 const emojiWordRegex = /^:([\w-_+]*)$/
 
