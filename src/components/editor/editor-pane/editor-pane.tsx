@@ -36,7 +36,7 @@ export interface EditorPaneProps {
 }
 
 const onChange = (editor: Editor) => {
-  allHinters.forEach(hinter => {
+  for (const hinter of allHinters) {
     const searchTerm = findWordAtCursor(editor, hinter.allowedChars)
     if (hinter.wordRegExp.test(searchTerm.text)) {
       editor.showHint({
@@ -45,8 +45,9 @@ const onChange = (editor: Editor) => {
         completeOnSingleClick: false,
         alignWithWord: true
       })
+      return
     }
-  })
+  }
 }
 
 export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentChange, content, scrollState, onScroll, onMakeScrollSource }) => {

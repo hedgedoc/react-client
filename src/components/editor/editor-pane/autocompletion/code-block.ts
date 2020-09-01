@@ -3,7 +3,7 @@ import hljs from 'highlight.js'
 import { findWordAtCursor, Hinter, search } from './index'
 
 const allowedChars = /(`|\w|-|_|\+)/
-const wordRegExp = /^```((\w|-|_|\+)+)?$/
+const wordRegExp = /^```((\w|-|_|\+)*)$/
 const allSupportedLanguages = hljs.listLanguages().concat('csv', 'flow', 'html')
 
 const codeBlockHint = (editor: Editor): Promise< Hints| null > => {
@@ -15,10 +15,6 @@ const codeBlockHint = (editor: Editor): Promise< Hints| null > => {
       return
     }
     const term = searchResult[1]
-    if (!term) {
-      resolve(null)
-      return
-    }
     const suggestions = search(term, allSupportedLanguages)
     const cursor = editor.getCursor()
     if (!suggestions) {
@@ -26,7 +22,7 @@ const codeBlockHint = (editor: Editor): Promise< Hints| null > => {
     } else {
       resolve({
         list: suggestions.map((suggestion: string): Hint => ({
-          text: '```' + suggestion + '\n\n```',
+          text: '```' + suggestion + '\n\n```\n',
           displayText: suggestion
         })),
         from: Pos(cursor.line, searchTerm.start),

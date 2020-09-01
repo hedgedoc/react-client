@@ -26,8 +26,8 @@ const headerHint = (editor: Editor): Promise< Hints| null > => {
     } else {
       resolve({
         list: suggestions.map((suggestion, index): Hint => ({
-          text: suggestion,
-          displayText: allSupportedHeadersTextToInsert[index]
+          text: allSupportedHeadersTextToInsert[index],
+          displayText: suggestion
         })),
         from: Pos(cursor.line, searchTerm.start),
         to: Pos(cursor.line, searchTerm.end)

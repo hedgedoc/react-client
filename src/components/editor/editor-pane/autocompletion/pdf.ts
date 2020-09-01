@@ -12,7 +12,7 @@ const pdfHint = (editor: Editor): Promise< Hints| null > => {
       resolve(null)
       return
     }
-    const suggestions = ['{%pdf %}']
+    const suggestions = ['{%pdf https:// %}']
     const cursor = editor.getCursor()
     if (!suggestions) {
       resolve(null)
