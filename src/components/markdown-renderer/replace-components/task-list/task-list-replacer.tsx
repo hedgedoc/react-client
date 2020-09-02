@@ -6,6 +6,7 @@ export class TaskListReplacer extends ComponentReplacer {
   onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void
 
   constructor (onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void) {
+    super()
     this.onTaskCheckedChange = onTaskCheckedChange
   }
 
