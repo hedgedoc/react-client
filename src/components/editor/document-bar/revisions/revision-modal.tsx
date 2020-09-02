@@ -57,17 +57,15 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
           <Col lg={4} className={'scroll-col'}>
             <ListGroup as='ul'>
               {
-                revisions.map((revision, revisionIndex) => {
-                  return (
-                    <RevisionModalListEntry
-                      key={revisionIndex}
-                      active={selectedRevisionTimestamp === revision.timestamp}
-                      revision={revision}
-                      revisionAuthorListMap={revisionAuthorListMap.current}
-                      onClick={() => setSelectedRevisionTimestamp(revision.timestamp)}
-                    />
-                  )
-                })
+                revisions.map((revision, revisionIndex) => (
+                  <RevisionModalListEntry
+                    key={revisionIndex}
+                    active={selectedRevisionTimestamp === revision.timestamp}
+                    revision={revision}
+                    revisionAuthorListMap={revisionAuthorListMap.current}
+                    onClick={() => setSelectedRevisionTimestamp(revision.timestamp)}
+                  />
+                ))
               }
             </ListGroup>
           </Col>
