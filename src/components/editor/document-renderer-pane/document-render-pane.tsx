@@ -47,7 +47,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
   }, [])
 
   useEffect(() => {
-    if (!renderer.current || !lineMarks || !scrollState) {
+    if (!renderer.current || !lineMarks || lineMarks.length === 0 || !scrollState) {
       return
     }
     if (scrollState.firstLineInView < lineMarks[0].line) {
@@ -72,7 +72,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps & ScrollProps>
   }, [content, lineMarks, scrollState, scrollTo])
 
   const userScroll = useCallback(() => {
-    if (!renderer.current || !lineMarks || !onScroll) {
+    if (!renderer.current || !lineMarks || lineMarks.length === 0 || !onScroll) {
       return
     }
 
