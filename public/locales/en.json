@@ -277,7 +277,7 @@
             },
             "lines": "{{lines}} Lines",
             "length": "Length {{length}}",
-            "lengthTooltip": "You can write up to 100000 characters in this document."
+            "lengthTooltip": "You still may write {{remaining}} characters until you reach the limit for this document."
         },
         "export": {
             "rawHtml": "Raw HTML",
