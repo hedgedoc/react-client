@@ -9,12 +9,13 @@ import { UserResponse } from '../../../../api/users/types'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal, CommonModalProps } from '../../../common/modals/common-modal'
 import { ShowIf } from '../../../common/show-if/show-if'
+import { UserAvatar } from '../../../common/user-avatar/user-avatar'
 import { RevisionButtonProps } from './revision-button'
 import './revision-modal.scss'
 import { downloadRevision, getUserDataForRevision } from './utils'
 
 export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = ({ show, onHide, icon, titleI18nKey, noteContent }) => {
-  const { t } = useTranslation()
+  useTranslation()
   const [revisions, setRevisions] = useState<RevisionListEntry[]>([])
   const [selectedRevisionTimestamp, setSelectedRevisionTimestamp] = useState<number | null>(null)
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(null)
@@ -77,7 +78,7 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
                         {
                           revisionAuthorListMap.current.get(revision.timestamp)?.map((user, index) => {
                             return (
-                              <img src={user.photo} alt={t('common.avatarOf', { name: user.name })} title={user.name} key={index} className={'mx-1 rounded'}/>
+                              <UserAvatar name={user.name} photo={user.photo} showName={false} additionalClasses={'mx-1'}/>
                             )
                           })
                         }
