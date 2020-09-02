@@ -16,7 +16,7 @@ import { downloadRevision, getUserDataForRevision } from './utils'
 export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = ({ show, onHide, icon, titleI18nKey, noteContent }) => {
   const { t } = useTranslation()
   const [revisions, setRevisions] = useState<RevisionListEntry[]>([])
-  const [selected, setSelected] = useState<number | null>(null)
+  const [selectedRevisionTimestamp, setSelectedRevisionTimestamp] = useState<number | null>(null)
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(null)
   const [error, setError] = useState(false)
   const revisionAuthorListMap = useRef(new Map<number, UserResponse[]>())
@@ -31,25 +31,25 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
       })
       setRevisions(fetchedRevisions)
       if (fetchedRevisions.length >= 1) {
-        setSelected(fetchedRevisions[0].timestamp)
+        setSelectedRevisionTimestamp(fetchedRevisions[0].timestamp)
       }
     }).catch(() => setError(true))
   }, [setRevisions, setError, id])
 
   useEffect(() => {
-    if (selected === null) {
+    if (selectedRevisionTimestamp === null) {
       return
     }
-    const cacheEntry = revisionCacheMap.current.get(selected)
+    const cacheEntry = revisionCacheMap.current.get(selectedRevisionTimestamp)
     if (cacheEntry) {
       setSelectedRevision(cacheEntry)
       return
     }
-    getRevision(id, selected).then(fetchedRevision => {
+    getRevision(id, selectedRevisionTimestamp).then(fetchedRevision => {
       setSelectedRevision(fetchedRevision)
-      revisionCacheMap.current.set(selected, fetchedRevision)
+      revisionCacheMap.current.set(selectedRevisionTimestamp, fetchedRevision)
     }).catch(() => setError(true))
-  }, [selected, id])
+  }, [selectedRevisionTimestamp, id])
 
   return (
     <CommonModal show={show} onHide={onHide} titleI18nKey={titleI18nKey} icon={icon} closeButton={true} size={'xl'} additionalClasses='revision-modal'>
@@ -58,9 +58,14 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
           <Col lg={4} className={'scroll-col'}>
             <ListGroup as='ul'>
               {
-                revisions.map((revision, revIndex) => {
+                revisions.map((revision, revisionIndex) => {
                   return (
-                    <ListGroup.Item as='li' active={selected === revision.timestamp} onClick={() => setSelected(revision.timestamp)} className='user-select-none revision-item' key={revIndex}>
+                    <ListGroup.Item
+                      as='li'
+                      active={selectedRevisionTimestamp === revision.timestamp}
+                      onClick={() => setSelectedRevisionTimestamp(revision.timestamp)}
+                      className='user-select-none revision-item' key={revisionIndex}
+                    >
                       <ForkAwesomeIcon icon={'clock-o'} className='mx-2'/>
                       <span>{ moment(revision.timestamp * 1000).format('LLLL') }</span>
                       <br/>
@@ -102,9 +107,23 @@ export const RevisionModal: React.FC<CommonModalProps & RevisionButtonProps> = (
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={onHide}><Trans i18nKey={'common.close'}/></Button>
-        <Button variant='danger' disabled={!selected} onClick={() => window.alert('Not yet implemented. Requires websocket.')}><Trans i18nKey={'editor.modal.revision.revertButton'}/></Button>
-        <Button variant='primary' disabled={!selected} onClick={() => downloadRevision(id, selectedRevision)}><Trans i18nKey={'editor.modal.revision.download'}/></Button>
+        <Button
+          variant='secondary'
+          onClick={onHide}>
+          <Trans i18nKey={'common.close'}/>
+        </Button>
+        <Button
+          variant='danger'
+          disabled={!selectedRevisionTimestamp}
+          onClick={() => window.alert('Not yet implemented. Requires websocket.')}>
+          <Trans i18nKey={'editor.modal.revision.revertButton'}/>
+        </Button>
+        <Button
+          variant='primary'
+          disabled={!selectedRevisionTimestamp}
+          onClick={() => downloadRevision(id, selectedRevision)}>
+          <Trans i18nKey={'editor.modal.revision.download'}/>
+        </Button>
       </Modal.Footer>
     </CommonModal>
   )
