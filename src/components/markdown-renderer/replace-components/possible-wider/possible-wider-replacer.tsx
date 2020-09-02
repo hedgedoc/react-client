@@ -23,7 +23,7 @@ export class PossibleWiderReplacer extends ComponentReplacer {
         node.attribs = {}
       }
 
-      node.attribs.class += 'wider-possible'
+      node.attribs.class = `${node.attribs.class ?? ''} wider-possible`
     }
   }
 }
