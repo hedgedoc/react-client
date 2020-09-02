@@ -21,9 +21,3 @@ export const expectResponseCode = (response: Response, code = 200): void => {
     throw new Error(`response code is not ${code}`)
   }
 }
-
-export const fetchApiUrl = async (path: string, headers: Partial<RequestInit> = {}, responseCode = 200): Promise<Response> => {
-  const response = await fetch(getApiUrl() + path, { ...headers, ...defaultFetchConfig })
-  expectResponseCode(response, responseCode)
-  return response
-}
