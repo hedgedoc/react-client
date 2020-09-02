@@ -18,7 +18,7 @@ export class PossibleWiderReplacer extends ComponentReplacer {
       return
     }
 
-    if (node.children.find((subNode) => subNode.name && enabledTags.indexOf(subNode.name) > -1)) {
+    if (node.children.find((subNode) => subNode.name && enabledTags.includes(subNode.name))) {
       if (!node.attribs) {
         node.attribs = {}
       }
