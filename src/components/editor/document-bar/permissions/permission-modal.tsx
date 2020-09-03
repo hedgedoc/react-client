@@ -47,23 +47,23 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
     canEdit: true
   }])
 
-  const changeUserMode = (userId: Principal["id"], canEdit: Principal["canEdit"]) => {
+  const changeUserMode = (userId: Principal['id'], canEdit: Principal['canEdit']) => {
     setUserList(list =>
       list
-      .map(user => {
-        if (user.id !== userId) {
+        .map(user => {
+          if (user.id !== userId) {
+            return user
+          }
+          user.canEdit = canEdit
           return user
-        }
-        user.canEdit = canEdit
-        return user
-      }))
+        }))
   }
 
-  const removeUser = (userId: Principal["id"]) => {
+  const removeUser = (userId: Principal['id']) => {
     setUserList(list => list.filter(user => user.id !== userId))
   }
 
-  const addUser = (name: Principal["name"]) => {
+  const addUser = (name: Principal['name']) => {
     setUserList(list => list.concat({
       id: name,
       photo: '/avatar.png',
@@ -72,23 +72,23 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
     }))
   }
 
-  const changeGroupMode = (groupId: Principal["id"], canEdit: Principal["canEdit"]) => {
+  const changeGroupMode = (groupId: Principal['id'], canEdit: Principal['canEdit']) => {
     setGroupList(list =>
       list
-      .map(group => {
-        if (group.id !== groupId) {
+        .map(group => {
+          if (group.id !== groupId) {
+            return group
+          }
+          group.canEdit = canEdit
           return group
-        }
-        group.canEdit = canEdit
-        return group
-      }))
+        }))
   }
 
-  const removeGroup = (groupId: Principal["id"]) => {
+  const removeGroup = (groupId: Principal['id']) => {
     setGroupList(list => list.filter(group => group.id !== groupId))
   }
 
-  const addGroup = (name: Principal["name"]) => {
+  const addGroup = (name: Principal['name']) => {
     setGroupList(list => list.concat({
       id: name,
       photo: '/avatar.png',

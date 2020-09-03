@@ -7,9 +7,9 @@ import { Principal } from './permission-modal'
 export interface PermissionListProps {
   list: Principal[]
   identifier: (entry: Principal) => ReactElement
-  changeEditMode: (id: Principal["id"], canEdit: Principal["canEdit"]) => void
-  removeEntry: (id: Principal["id"]) => void
-  createEntry: (name: Principal["name"]) => void
+  changeEditMode: (id: Principal['id'], canEdit: Principal['canEdit']) => void
+  removeEntry: (id: Principal['id']) => void
+  createEntry: (name: Principal['name']) => void
 }
 
 enum EditMode {
@@ -17,13 +17,13 @@ enum EditMode {
   EDIT
 }
 
-export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier, changeEditMode, removeEntry, createEntry })  => {
+export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier, changeEditMode, removeEntry, createEntry }) => {
   const { t } = useTranslation()
-  const [newEntry, setNewEntry] = useState("")
+  const [newEntry, setNewEntry] = useState('')
 
   const addEntry = () => {
-    createEntry(newEntry);
-    setNewEntry("")
+    createEntry(newEntry)
+    setNewEntry('')
   }
 
   return (
@@ -39,26 +39,26 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
               onChange={(value: EditMode) => changeEditMode(entry.id, value === EditMode.EDIT)}
             >
               <ToggleButton
-                title={t('editor.modal.permissions.edit', {name: entry.name})}
+                title={t('editor.modal.permissions.edit', { name: entry.name })}
                 variant={'light'}
                 className={'text-secondary'}
                 value={EditMode.EDIT}
               >
-                <ForkAwesomeIcon icon="pencil"/>
+                <ForkAwesomeIcon icon='pencil'/>
               </ToggleButton>
               <ToggleButton
-                title={ t('editor.modal.permissions.viewOnly', {name: entry.name})}
+                title={ t('editor.modal.permissions.viewOnly', { name: entry.name })}
                 variant={'light'}
                 className={'text-secondary'}
                 value={EditMode.VIEW}
               >
-                <ForkAwesomeIcon icon="eye"/>
+                <ForkAwesomeIcon icon='eye'/>
               </ToggleButton>
             </ToggleButtonGroup>
             <Button
               variant='light'
               className={'text-danger ml-2'}
-              title={t('editor.modal.permissions.removeUser', {name: entry.name})}
+              title={t('editor.modal.permissions.removeUser', { name: entry.name })}
               onClick={() => removeEntry(entry.id)}
             >
               <ForkAwesomeIcon icon={'times'}/>
