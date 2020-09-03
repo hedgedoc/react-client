@@ -13,10 +13,10 @@ export const MaxLengthWarningModal: React.FC<MaxLengthWarningModalProps> = ({ sh
   useTranslation()
 
   return (
-    <CommonModal show={show} onHide={onHide} titleI18nKey={'editor.error.limitReached.title'} size={'sm'} closeButton={true}>
+    <CommonModal show={show} onHide={onHide} titleI18nKey={'editor.error.limitReached.title'} closeButton={true}>
       <Modal.Body>
         <Trans i18nKey={'editor.error.limitReached.description'} values={{ maxLength }} />
-        <br />
+        <br /><br/>
         <b><Trans i18nKey={'editor.error.limitReached.advice'}/></b>
       </Modal.Body>
       <Modal.Footer>
