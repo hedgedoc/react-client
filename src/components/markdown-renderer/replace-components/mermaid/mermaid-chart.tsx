@@ -23,7 +23,6 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
   useEffect(() => {
     if (!mermaidInitialized) {
       mermaid.initialize({ startOnLoad: false })
-      console.log('mermaid init')
       mermaidInitialized = true
     }
   }, [])
@@ -43,7 +42,7 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
         setError(message)
       } else {
         setError(t('renderer.mermaid.unknownError'))
-        console.log(error)
+        console.error(error)
       }
     }
   }, [code, diagramId, t])
