@@ -277,7 +277,7 @@
             },
             "lines": "{{lines}} Lines",
             "length": "Length {{length}}",
-            "lengthTooltip": "You still may write {{remaining}} characters until you reach the limit for this document."
+            "lengthTooltip": "You may still write {{remaining}} characters until you reach the limit for this note."
         },
         "export": {
             "rawHtml": "Raw HTML",
