@@ -1,3 +1,4 @@
+import mermaid from 'mermaid'
 import mermaidAPI from 'mermaid'
 import React, { useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
@@ -13,11 +14,21 @@ interface MermaidParseError {
   str: string
 }
 
+let mermaidInitialized = false
+
 export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
   const [diagramId] = useState(() => 'mermaid_' + uuid().replaceAll('-', '_'))
   const diagramContainer = useRef<HTMLDivElement>(null)
   const [error, setError] = useState<string>()
   const { t } = useTranslation()
+
+  useEffect(() => {
+    if (!mermaidInitialized) {
+      mermaid.initialize({ startOnLoad: false })
+      console.log('mermaid init')
+      mermaidInitialized = true
+    }
+  }, [])
 
   useEffect(() => {
     try {
