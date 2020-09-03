@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'
-import { PermissionModal } from './permissions-modal'
+import { PermissionModal } from './permission-modal'
 
 export const PermissionButton: React.FC = () => {
   const [showReadOnly, setShowReadOnly] = useState(false)
