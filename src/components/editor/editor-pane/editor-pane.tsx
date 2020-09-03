@@ -101,27 +101,21 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     }
   }, [editor, scrollState])
 
-  const checkDocumentLength = useCallback((length: number) => {
-    if (length > maxLength) {
-      window.alert('max document length reached!')
-      return false
-    }
-    return true
-  }, [maxLength])
-
   const onBeforeChange = useCallback((editor: Editor, data: EditorChange, value: string) => {
-    if (!checkDocumentLength(value.length)) {
-      return
+    if (value.length > maxLength) {
+      window.alert('too long!')
     }
-    onContentChange(value)
-  }, [onContentChange, checkDocumentLength])
+    onContentChange(value.substr(0, maxLength))
+  }, [onContentChange, maxLength])
   const onEditorDidMount = useCallback(mountedEditor => {
     setStatusBarInfo(createStatusInfo(mountedEditor, maxLength))
     setEditor(mountedEditor)
   }, [maxLength])
+
   const onCursorActivity = useCallback((editorWithActivity) => {
     setStatusBarInfo(createStatusInfo(editorWithActivity, maxLength))
   }, [maxLength])
+
   const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(() => ({
     ...editorPreferences,
     mode: 'gfm',
