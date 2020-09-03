@@ -196,7 +196,7 @@
             },
             "limitReached": {
                 "title": "Reached the limit",
-                "description": "Sorry, you've reached the maximum length this note can be ({{maxLength}} characters).",
+                "description": "Sorry, this note reached its maximum length. Notes can be up to {{maxLength}} characters long.",
                 "advice": "Please shorten the note."
             },
             "incompatible": {
