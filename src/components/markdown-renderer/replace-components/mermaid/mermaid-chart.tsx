@@ -1,5 +1,4 @@
 import mermaid from 'mermaid'
-import mermaidAPI from 'mermaid'
 import React, { useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
@@ -34,10 +33,10 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
       if (!diagramContainer.current) {
         return
       }
-      mermaidAPI.parse(code)
+      mermaid.parse(code)
       delete diagramContainer.current.dataset.processed
       diagramContainer.current.textContent = code
-      mermaidAPI.init(`#${diagramId}`)
+      mermaid.init(`#${diagramId}`)
     } catch (error) {
       const message = (error as MermaidParseError).str
       if (message) {
