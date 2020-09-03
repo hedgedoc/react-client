@@ -1,5 +1,6 @@
 import { loadAllConfig } from './configLoader'
 import { setUpI18n } from './i18n'
+import { setUpMermaid } from './mermaid'
 
 const customDelay: () => Promise<void> = async () => {
   if (window.localStorage.getItem('customDelay')) {
@@ -24,5 +25,8 @@ export const createSetUpTaskList = (baseUrl: string): InitTask[] => {
   }, {
     name: 'Add Delay',
     task: customDelay()
+  }, {
+    name: 'Mermaid',
+    task: setUpMermaid()
   }]
 }

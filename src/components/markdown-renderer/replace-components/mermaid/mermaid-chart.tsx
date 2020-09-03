@@ -1,6 +1,7 @@
 import mermaidAPI from 'mermaid'
-import React, { ReactElement, useEffect, useState } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import React, { useEffect, useRef, useState } from 'react'
+import { Alert } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 import { v4 as uuid } from 'uuid'
 import './mermaid.scss'
 
@@ -8,21 +9,37 @@ export interface MermaidChartProps {
   code: string
 }
 
+interface MermaidParseError {
+  str: string
+}
+
 export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
-
-  const [diagram, setDiagram] = useState<ReactElement[] | null>(null)
-
-  useEffect(() => {
-    mermaidAPI.initialize({})
-  }, [])
+  const [diagramId] = useState(() => 'mermaid_' + uuid().replaceAll('-', '_'))
+  const diagramContainer = useRef<HTMLDivElement>(null)
+  const [error, setError] = useState<string>()
+  const { t } = useTranslation()
 
   useEffect(() => {
-    mermaidAPI.render(uuid(), code, svgCode => setDiagram(ReactHtmlParser(svgCode)))
-  }, [code])
+    try {
+      if (!diagramContainer.current) {
+        return
+      }
+      mermaidAPI.parse(code)
+      delete diagramContainer.current.dataset.processed
+      diagramContainer.current.textContent = code
+      mermaidAPI.init(`#${diagramId}`)
+    } catch (error) {
+      const message = (error as MermaidParseError).str
+      if (message) {
+        setError(message)
+      } else {
+        setError(t('renderer.mermaid.unknownError'))
+        console.log(error)
+      }
+    }
+  }, [code, diagramId, t])
 
-  return (
-    <div className={'text-center mermaid'} style={{maxWidth: "700px", width: "100%"}}>
-      {diagram}
-    </div>
-  )
+  return error
+    ? <Alert variant={'warning'}>{error}</Alert>
+    : <div className={'text-center mermaid'} ref={diagramContainer} id={diagramId}/>
 }
