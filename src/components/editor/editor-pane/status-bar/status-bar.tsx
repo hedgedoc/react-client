@@ -49,9 +49,12 @@ export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, 
       </div>
       <div className="ml-auto">
         <span>{t('editor.statusBar.lines', { lines: linesInDocument })}</span>
+        &nbsp;–&nbsp;
         <span
-          title={t('editor.statusBar.lengthTooltip', { remaining: remainingCharacters })}>
-          &nbsp;–&nbsp;{t('editor.statusBar.length', { length: charactersInDocument })}
+          title={t('editor.statusBar.lengthTooltip', { remaining: remainingCharacters })}
+          className={remainingCharacters <= 0 ? 'text-danger' : remainingCharacters <= 100 ? 'text-warning' : ''}
+        >
+          {t('editor.statusBar.length', { length: charactersInDocument })}
         </span>
       </div>
     </div>
