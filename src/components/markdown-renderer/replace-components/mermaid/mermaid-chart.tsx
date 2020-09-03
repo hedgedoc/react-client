@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuid } from 'uuid'
-import './mermaid.scss'
 
 export interface MermaidChartProps {
   code: string
