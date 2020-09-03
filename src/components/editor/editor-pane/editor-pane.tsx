@@ -25,6 +25,7 @@ import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
+import { MaxLengthWarningModal } from '../editor-modals/max-length-warning-modal'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
 import './editor-pane.scss'
@@ -55,6 +56,7 @@ const onChange = (editor: Editor) => {
 export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentChange, content, scrollState, onScroll, onMakeScrollSource }) => {
   const { t } = useTranslation()
   const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
+  const [showMaxLengthWarning, setShowMaxLengthWarning] = useState(false)
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
   const [editorPreferences, setEditorPreferences] = useState<EditorConfiguration>({
@@ -103,9 +105,9 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
 
   const onBeforeChange = useCallback((editor: Editor, data: EditorChange, value: string) => {
     if (value.length > maxLength) {
-      window.alert('too long!')
+      setShowMaxLengthWarning(true)
     }
-    onContentChange(value.substr(0, maxLength))
+    onContentChange(value)
   }, [onContentChange, maxLength])
   const onEditorDidMount = useCallback(mountedEditor => {
     setStatusBarInfo(createStatusInfo(mountedEditor, maxLength))
@@ -148,6 +150,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
 
   return (
     <div className={'d-flex flex-column h-100'} onMouseEnter={onMakeScrollSource}>
+      <MaxLengthWarningModal show={showMaxLengthWarning} onHide={() => setShowMaxLengthWarning(false)} maxLength={maxLength}/>
       <ToolBar
         editor={editor}
         onPreferencesChange={config => setEditorPreferences(config)}
