@@ -324,10 +324,14 @@
                 "owner": "Owner",
                 "sharedWithUsers": "Shared with Users",
                 "sharedWithGroups": "Shared with Groups",
-                "edit": "{{name}} can view & edit",
-                "viewOnly": "{{name}} can view",
+                "editUser": "{{name}} can view & edit",
+                "viewOnlyUser": "{{name}} can view",
                 "removeUser": "{{name}} can't view",
-                "addUser": "Add user"
+                "addUser": "Add user",
+                "editGroup": "Users in {{name}} can view & edit",
+                "viewOnlyGroup": "Users in {{name}} can view",
+                "removeGroup": "Users in {{name}} can't view",
+                "addGroup": "Add group"
             },
             "shareLink": {
                 "title": "Share link",

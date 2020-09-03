@@ -10,6 +10,10 @@ export interface PermissionListProps {
   changeEditMode: (id: Principal['id'], canEdit: Principal['canEdit']) => void
   removeEntry: (id: Principal['id']) => void
   createEntry: (name: Principal['name']) => void
+  editI18nKey: string
+  viewI18nKey: string
+  removeI18nKey: string
+  addI18nKey: string
 }
 
 enum EditMode {
@@ -17,7 +21,7 @@ enum EditMode {
   EDIT
 }
 
-export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier, changeEditMode, removeEntry, createEntry }) => {
+export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier, changeEditMode, removeEntry, createEntry, editI18nKey, viewI18nKey, removeI18nKey, addI18nKey }) => {
   const { t } = useTranslation()
   const [newEntry, setNewEntry] = useState('')
 
@@ -39,7 +43,7 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
               onChange={(value: EditMode) => changeEditMode(entry.id, value === EditMode.EDIT)}
             >
               <ToggleButton
-                title={t('editor.modal.permissions.edit', { name: entry.name })}
+                title={t(editI18nKey, { name: entry.name })}
                 variant={'light'}
                 className={'text-secondary'}
                 value={EditMode.EDIT}
@@ -47,7 +51,7 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
                 <ForkAwesomeIcon icon='pencil'/>
               </ToggleButton>
               <ToggleButton
-                title={ t('editor.modal.permissions.viewOnly', { name: entry.name })}
+                title={ t(viewI18nKey, { name: entry.name })}
                 variant={'light'}
                 className={'text-secondary'}
                 value={EditMode.VIEW}
@@ -58,7 +62,7 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
             <Button
               variant='light'
               className={'text-danger ml-2'}
-              title={t('editor.modal.permissions.removeUser', { name: entry.name })}
+              title={t(removeI18nKey, { name: entry.name })}
               onClick={() => removeEntry(entry.id)}
             >
               <ForkAwesomeIcon icon={'times'}/>
@@ -74,14 +78,14 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
           <InputGroup className={'mr-1 mb-1'}>
             <FormControl
               value={newEntry}
-              placeholder={t('editor.modal.permissions.addUser')}
-              aria-label={t('editor.modal.permissions.addUser')}
+              placeholder={t(addI18nKey)}
+              aria-label={t(addI18nKey)}
               onChange={event => setNewEntry(event.currentTarget.value)}
             />
             <Button
               variant='light'
               className={'text-secondary ml-2'}
-              title={t('editor.modal.permissions.addUser')}
+              title={t(addI18nKey)}
               onClick={() => addEntry()}
             >
               <ForkAwesomeIcon icon={'plus'}/>

@@ -117,6 +117,10 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
           changeEditMode={changeUserMode}
           removeEntry={removeUser}
           createEntry={addUser}
+          editI18nKey={'editor.modal.permissions.editUser'}
+          viewI18nKey={'editor.modal.permissions.viewOnlyUser'}
+          removeI18nKey={'editor.modal.permissions.removeUser'}
+          addI18nKey={'editor.modal.permissions.addUser'}
         />
         <h5 className={'my-3'}><Trans i18nKey={'editor.modal.permissions.sharedWithGroups'}/></h5>
         <PermissionList
@@ -125,6 +129,10 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
           changeEditMode={changeGroupMode}
           removeEntry={removeGroup}
           createEntry={addGroup}
+          editI18nKey={'editor.modal.permissions.editGroup'}
+          viewI18nKey={'editor.modal.permissions.viewOnlyGroup'}
+          removeI18nKey={'editor.modal.permissions.removeGroup'}
+          addI18nKey={'editor.modal.permissions.addGroup'}
         />
       </Modal.Body>
     </CommonModal>
