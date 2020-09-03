@@ -66,7 +66,6 @@ export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, 
         >
           {t('editor.statusBar.length', { length: charactersInDocument })}
         </span>
-        <span>&nbsp;-&nbsp;Remaining: { remainingCharacters }</span>
       </div>
     </div>
   )
