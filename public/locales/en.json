@@ -320,7 +320,14 @@
                 "button": "Delete note"
             },
             "permissions": {
-                "title": "Permissions"
+                "title": "Permissions",
+                "owner": "Owner",
+                "sharedWithUsers": "Shared with Users",
+                "sharedWithGroups": "Shared with Groups",
+                "edit": "{{name}} can view & edit",
+                "viewOnly": "{{name}} can view",
+                "removeUser": "{{name}} can't view",
+                "addUser": "Add user"
             },
             "shareLink": {
                 "title": "Share link",
