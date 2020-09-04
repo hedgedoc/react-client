@@ -18,10 +18,10 @@ import * as serviceWorker from './service-worker'
 import './style/index.scss'
 
 ReactDOM.render(
-  <ErrorBoundary>
-    <Provider store={store}>
-      <Router>
-        <ApplicationLoader>
+  <Provider store={store}>
+    <Router>
+      <ApplicationLoader>
+        <ErrorBoundary>
           <Switch>
             <Route path="/history">
               <LandingLayout>
@@ -61,10 +61,10 @@ ReactDOM.render(
               <NotFoundErrorScreen/>
             </Route>
           </Switch>
-        </ApplicationLoader>
-      </Router>
-    </Provider>
-  </ErrorBoundary>
+        </ErrorBoundary>
+      </ApplicationLoader>
+    </Router>
+  </Provider>
   , document.getElementById('root')
 )
 

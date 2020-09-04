@@ -1,7 +1,14 @@
-import React, { ErrorInfo, ReactElement } from 'react'
+import React, { Component, ErrorInfo, ReactElement, ReactNodeArray } from 'react'
+import { Button } from 'react-bootstrap'
+import frontendVersion from '../../version.json'
+import { ForkAwesomeIcon } from '../common/fork-awesome/fork-awesome-icon'
 import { LandingLayout } from '../landing-layout/landing-layout'
 
-export class ErrorBoundary extends React.Component {
+export class ErrorBoundary extends Component {
+  state: {
+    hasError: boolean
+  }
+
   constructor (props: Readonly<unknown>) {
     super(props)
     this.state = { hasError: false }
@@ -17,14 +24,25 @@ export class ErrorBoundary extends React.Component {
     console.error('additional information', errorInfo)
   }
 
-  render (): ReactElement | undefined | null | string | number | boolean {
+  refreshPage (): void {
+    window.location.reload()
+  }
+
+  render (): ReactElement | undefined | null | string | number | boolean | Record<string, unknown> | ReactNodeArray {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return (<LandingLayout>
-        <div className='text-white d-flex align-items-center justify-content-center my-5'>
-          <h1>An error occurred</h1>
-        </div>
-      </LandingLayout>)
+      return (
+        <LandingLayout>
+          <div className='text-white d-flex flex-column align-items-center justify-content-center my-5'>
+            <h1>An error occurred</h1>
+            <a href={frontendVersion.issueTrackerUrl} target='_blank' rel='noopener noreferrer' dir='auto'>
+              Open an issue in the bug tracker
+            </a>
+            <Button onClick={() => this.refreshPage()} title={'Reload Page'} className={'mt-4'}>
+              <ForkAwesomeIcon icon={'refresh'}/>&nbsp;Reload Page
+            </Button>
+          </div>
+        </LandingLayout>
+      )
     }
     return this.props.children
   }
