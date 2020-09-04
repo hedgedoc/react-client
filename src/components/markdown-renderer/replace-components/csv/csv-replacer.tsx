@@ -23,6 +23,6 @@ export class CsvReplacer extends ComponentReplacer {
       showHeader = extraInfos[3] !== undefined
     }
 
-    return <CsvTable key={`csv-${index}`} code={code} delimiter={delimiter} showHeader={showHeader}/>
+    return <CsvTable key={index} code={code} delimiter={delimiter} showHeader={showHeader}/>
   }
 }

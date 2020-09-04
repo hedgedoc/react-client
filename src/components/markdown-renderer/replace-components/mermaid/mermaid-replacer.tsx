@@ -11,6 +11,6 @@ export class MermaidReplacer implements ComponentReplacer {
 
     const code = codeNode.children[0].data as string
 
-    return <MermaidChart key={`flowchart-${index}`} code={code}/>
+    return <MermaidChart key={index} code={code}/>
   }
 }

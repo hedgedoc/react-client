@@ -24,7 +24,7 @@ export class TaskListReplacer extends ComponentReplacer {
           checked={node.attribs.checked !== undefined}
           onChange={this.handleCheckboxChange}
           data-line={node.attribs['data-line']}
-          key={`task-list-item-checkbox${node.attribs['data-line']}`}
+          key={index}
         />
       )
     }
