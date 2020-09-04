@@ -322,8 +322,8 @@
             "permissions": {
                 "title": "Permissions",
                 "owner": "Owner",
-                "sharedWithUsers": "Shared with Users",
-                "sharedWithGroups": "Shared with Groups",
+                "sharedWithUsers": "Shared with users",
+                "sharedWithGroups": "Shared with groups",
                 "editUser": "{{name}} can view & edit",
                 "viewOnlyUser": "{{name}} can view",
                 "removeUser": "{{name}} can't view",

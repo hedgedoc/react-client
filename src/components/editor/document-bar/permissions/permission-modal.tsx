@@ -52,9 +52,8 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
       list
         .map(user => {
           if (user.id !== userId) {
-            return user
+            user.canEdit = canEdit
           }
-          user.canEdit = canEdit
           return user
         }))
   }
@@ -76,10 +75,9 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
     setGroupList(list =>
       list
         .map(group => {
-          if (group.id !== groupId) {
-            return group
+          if (group.id === groupId) {
+            group.canEdit = canEdit
           }
-          group.canEdit = canEdit
           return group
         }))
   }
