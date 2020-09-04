@@ -12,8 +12,9 @@ export class ErrorBoundary extends React.Component {
     return { hasError: true }
   }
 
-  componentDidCatch (_error: Error, _errorInfo: ErrorInfo): void {
-    // You can also log the error to an error reporting service
+  componentDidCatch (error: Error, errorInfo: ErrorInfo): void {
+    console.error('error caught', error)
+    console.error('additional information', errorInfo)
   }
 
   render (): ReactElement | undefined | null | string | number | boolean {
