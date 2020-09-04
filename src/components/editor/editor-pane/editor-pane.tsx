@@ -23,6 +23,8 @@ import 'codemirror/mode/gfm/gfm'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../../../redux'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
 import './editor-pane.scss'
@@ -54,12 +56,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   const { t } = useTranslation()
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
-  const [editorPreferences, setEditorPreferences] = useState<EditorConfiguration>({
-    theme: 'one-dark',
-    keyMap: 'sublime',
-    indentUnit: 4,
-    indentWithTabs: false
-  })
+  const editorPreferences = useSelector((state: ApplicationState) => state.editorConfig.preferences)
 
   const lastScrollPosition = useRef<number>()
   const [editorScroll, setEditorScroll] = useState<ScrollInfo>()
@@ -142,8 +139,6 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     <div className={'d-flex flex-column h-100'} onMouseEnter={onMakeScrollSource}>
       <ToolBar
         editor={editor}
-        onPreferencesChange={config => setEditorPreferences(config)}
-        editorPreferences={editorPreferences}
       />
       <ControlledCodeMirror
         className="overflow-hidden w-100 flex-fill"
