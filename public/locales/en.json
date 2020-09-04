@@ -9,6 +9,9 @@
         },
         "mermaid": {
             "unknownError": "Unknown rendering error. Please check your browser console."
+        },
+        "sequence": {
+            "deprecationWarning": "The use of 'sequence' as code block language is deprecated."
         }
     },
     "landing": {

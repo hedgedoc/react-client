@@ -66,6 +66,7 @@ import { MermaidReplacer } from './replace-components/mermaid/mermaid-replacer'
 import { PdfReplacer } from './replace-components/pdf/pdf-replacer'
 import { PossibleWiderReplacer } from './replace-components/possible-wider/possible-wider-replacer'
 import { QuoteOptionsReplacer } from './replace-components/quote-options/quote-options-replacer'
+import { SequenceDiagramReplacer } from './replace-components/sequence-diagram/sequence-diagram-replacer'
 import { TaskListReplacer } from './replace-components/task-list/task-list-replacer'
 import { VimeoReplacer } from './replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
@@ -348,6 +349,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       new AsciinemaReplacer(),
       new PdfReplacer(),
       new ImageReplacer(),
+      new SequenceDiagramReplacer(),
       new CsvReplacer(),
       new FlowchartReplacer(),
       new MermaidReplacer(),
