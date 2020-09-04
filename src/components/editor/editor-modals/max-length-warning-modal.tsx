@@ -14,7 +14,7 @@ export const MaxLengthWarningModal: React.FC<MaxLengthWarningModalProps> = ({ sh
 
   return (
     <CommonModal show={show} onHide={onHide} titleI18nKey={'editor.error.limitReached.title'} closeButton={true}>
-      <Modal.Body>
+      <Modal.Body className={'limit-warning'}>
         <Trans i18nKey={'editor.error.limitReached.description'} values={{ maxLength }} />
         <br /><br/>
         <b><Trans i18nKey={'editor.error.limitReached.advice'}/></b>
