@@ -378,7 +378,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
             </Trans>
           </Alert>
         </ShowIf>
-        <div ref={documentElement} className={'markdown-body d-flex flex-column align-items-center'}>
+        <div ref={documentElement} className={'markdown-body w-100 d-flex flex-column align-items-center'}>
           {markdownReactDom}
         </div>
       </div>
