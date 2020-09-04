@@ -57,6 +57,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   const { t } = useTranslation()
   const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
   const [showMaxLengthWarning, setShowMaxLengthWarning] = useState(false)
+  const maxLengthWarningAlreadyShown = useRef(false)
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
   const [editorPreferences, setEditorPreferences] = useState<EditorConfiguration>({
@@ -104,11 +105,15 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   }, [editor, scrollState])
 
   const onBeforeChange = useCallback((editor: Editor, data: EditorChange, value: string) => {
-    if (value.length > maxLength) {
+    if (value.length > maxLength && !maxLengthWarningAlreadyShown.current) {
       setShowMaxLengthWarning(true)
+      maxLengthWarningAlreadyShown.current = true
+    }
+    if (value.length <= maxLength) {
+      maxLengthWarningAlreadyShown.current = false
     }
     onContentChange(value)
-  }, [onContentChange, maxLength])
+  }, [onContentChange, maxLength, maxLengthWarningAlreadyShown])
   const onEditorDidMount = useCallback(mountedEditor => {
     setStatusBarInfo(createStatusInfo(mountedEditor, maxLength))
     setEditor(mountedEditor)
