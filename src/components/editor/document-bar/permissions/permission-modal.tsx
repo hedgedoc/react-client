@@ -51,7 +51,7 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
     setUserList(list =>
       list
         .map(user => {
-          if (user.id !== userId) {
+          if (user.id === userId) {
             user.canEdit = canEdit
           }
           return user
