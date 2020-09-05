@@ -5,7 +5,8 @@ import {
   EditorConfig,
   EditorConfigActions,
   EditorConfigActionType,
-  SetEditorConfigAction, SetEditorPreferencesAction,
+  SetEditorConfigAction,
+  SetEditorPreferencesAction,
   SetEditorSyncScrollAction
 } from './types'
 
