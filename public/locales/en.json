@@ -277,7 +277,11 @@
             },
             "lines": "{{lines}} Lines",
             "length": "Length {{length}}",
-            "lengthTooltip": "You may still write {{remaining}} characters until you reach the limit for this note."
+            "lengthTooltip": {
+                "maximumReached": "You've reached the maximum length of this note.",
+                "remaining": "You may still write {{remaining}} characters until you reach the limit for this note.",
+                "exceeded": "You've exceeded the maximum length of this note by {{exceeded}} characters. Consider shortening it."
+            }
         },
         "export": {
             "rawHtml": "Raw HTML",

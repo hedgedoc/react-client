@@ -1,5 +1,5 @@
 import { Editor, Position } from 'codemirror'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ShowIf } from '../../../common/show-if/show-if'
 import './status-bar.scss'
@@ -34,6 +34,16 @@ export const createStatusInfo = (editor: Editor, maxDocumentLength: number): Sta
 export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, selectedLines, charactersInDocument, linesInDocument, remainingCharacters }) => {
   const { t } = useTranslation()
 
+  const getLengthTooltip = useMemo(() => {
+    if (remainingCharacters === 0) {
+      return t('editor.statusBar.lengthTooltip.maximumReached')
+    }
+    if (remainingCharacters < 0) {
+      return t('editor.statusBar.lengthTooltip.exceeded', { exceeded: -remainingCharacters })
+    }
+    return t('editor.statusBar.lengthTooltip.remaining', { remaining: remainingCharacters })
+  }, [remainingCharacters, t])
+
   return (
     <div className="d-flex flex-row status-bar px-2">
       <div>
@@ -51,7 +61,7 @@ export const StatusBar: React.FC<StatusBarInfo> = ({ position, selectedColumns, 
         <span>{t('editor.statusBar.lines', { lines: linesInDocument })}</span>
         &nbsp;–&nbsp;
         <span
-          title={t('editor.statusBar.lengthTooltip', { remaining: remainingCharacters })}
+          title={getLengthTooltip}
           className={remainingCharacters <= 0 ? 'text-danger' : remainingCharacters <= 100 ? 'text-warning' : ''}
         >
           {t('editor.statusBar.length', { length: charactersInDocument })}
