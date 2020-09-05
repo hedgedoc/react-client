@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
-import { Modal } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Alert, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
+import { getUserById } from '../../../../api/users'
 import { CommonModal } from '../../../common/modals/common-modal'
-import { UserAvatar } from '../../../common/user-avatar/user-avatar'
+import { ShowIf } from '../../../common/show-if/show-if'
+import { UserAvatar, UserAvatarProps } from '../../../common/user-avatar/user-avatar'
+import { GroupMode, PermissionGroupEntry } from './permission-group-entry'
 import { PermissionList } from './permission-list'
 
 export interface PermissionsModalProps {
@@ -17,35 +20,74 @@ export interface Principal {
   canEdit: boolean
 }
 
+interface NotePermissions {
+  owner: string
+  sharedTo: {
+    username: string
+    canEdit: boolean
+  }[],
+  sharedToGroup: {
+    id: string
+    canEdit: boolean
+  }[]
+}
+
+const permissionsApiResponse: NotePermissions = {
+  owner: 'dermolly',
+  sharedTo: [{
+    username: 'emcrx',
+    canEdit: true
+  }, {
+    username: 'mrdrogdrog',
+    canEdit: false
+  }],
+  sharedToGroup: [{
+    id: '1',
+    canEdit: true
+  }, {
+    id: '2',
+    canEdit: false
+  }]
+}
+
 export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChangeShow }) => {
   useTranslation()
-  const [userList, setUserList] = useState<Principal[]>([{
-    id: 'dermolly',
-    photo: '/avatar.png',
-    name: 'Philip',
-    canEdit: true
-  }, {
-    id: 'emcrx',
-    photo: '/avatar.png',
-    name: 'Erik',
-    canEdit: false
-  }, {
-    id: 'mrdrogdrog',
-    photo: '/avatar.png',
-    name: 'Tilman',
-    canEdit: false
-  }])
-  const [groupList, setGroupList] = useState<Principal[]>([{
-    id: 'developer',
-    photo: '',
-    name: 'Developer',
-    canEdit: true
-  }, {
-    id: 'frontend',
-    photo: '',
-    name: 'Frontend',
-    canEdit: true
-  }])
+  const [error, setError] = useState(false)
+  const [userList, setUserList] = useState<Principal[]>([])
+  const [owner, setOwner] = useState<UserAvatarProps>()
+  const [allPermissions, setAllPermissions] = useState(GroupMode.NONE)
+  const [loggedPermissions, setLoggedPermissions] = useState(GroupMode.NONE)
+
+  useEffect(() => {
+    // set owner
+    getUserById(permissionsApiResponse.owner).then(response => {
+      setOwner({
+        name: response.name,
+        photo: response.photo
+      })
+    }).catch(() => setError(true))
+    // set user List
+    permissionsApiResponse.sharedTo.forEach(shareUser => {
+      getUserById(shareUser.username).then(response => {
+        setUserList(list => list.concat([{
+          id: response.id,
+          name: response.name,
+          photo: response.photo,
+          canEdit: shareUser.canEdit
+        }]))
+      }).catch(() => setError(true))
+    })
+    // set group List
+    permissionsApiResponse.sharedToGroup.forEach(sharedGroup => {
+      if (sharedGroup.id === '1') {
+        console.log('found everyone')
+        setAllPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
+      } else if (sharedGroup.id === '2') {
+        console.log('found everyone logged in')
+        setLoggedPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
+      }
+    })
+  }, [])
 
   const changeUserMode = (userId: Principal['id'], canEdit: Principal['canEdit']) => {
     setUserList(list =>
@@ -71,30 +113,6 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
     }))
   }
 
-  const changeGroupMode = (groupId: Principal['id'], canEdit: Principal['canEdit']) => {
-    setGroupList(list =>
-      list
-        .map(group => {
-          if (group.id === groupId) {
-            group.canEdit = canEdit
-          }
-          return group
-        }))
-  }
-
-  const removeGroup = (groupId: Principal['id']) => {
-    setGroupList(list => list.filter(group => group.id !== groupId))
-  }
-
-  const addGroup = (name: Principal['name']) => {
-    setGroupList(list => list.concat({
-      id: name,
-      photo: '/avatar.png',
-      name: name,
-      canEdit: false
-    }))
-  }
-
   return (
     <CommonModal
       show={show}
@@ -103,9 +121,14 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
       titleI18nKey={'editor.modal.permissions.title'}>
       <Modal.Body>
         <h5 className={'mb-3'}><Trans i18nKey={'editor.modal.permissions.owner'}/></h5>
+        <ShowIf condition={error}>
+          <Alert variant='danger'>
+            <Trans i18nKey='editor.modal.permissions.error'/>
+          </Alert>
+        </ShowIf>
         <ul className={'list-group'}>
           <li className={'list-group-item d-flex flex-row align-items-center'}>
-            <UserAvatar name={'test'} photo={'/avatar.png'}/>
+            <UserAvatar name={owner?.name ?? ''} photo={owner?.photo ?? ''}/>
           </li>
         </ul>
         <h5 className={'my-3'}><Trans i18nKey={'editor.modal.permissions.sharedWithUsers'}/></h5>
@@ -121,17 +144,18 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
           addI18nKey={'editor.modal.permissions.addUser'}
         />
         <h5 className={'my-3'}><Trans i18nKey={'editor.modal.permissions.sharedWithGroups'}/></h5>
-        <PermissionList
-          list={groupList}
-          identifier={entry => (<span>{entry.name}</span>)}
-          changeEditMode={changeGroupMode}
-          removeEntry={removeGroup}
-          createEntry={addGroup}
-          editI18nKey={'editor.modal.permissions.editGroup'}
-          viewI18nKey={'editor.modal.permissions.viewOnlyGroup'}
-          removeI18nKey={'editor.modal.permissions.removeGroup'}
-          addI18nKey={'editor.modal.permissions.addGroup'}
-        />
+        <ul className={'list-group'}>
+          <PermissionGroupEntry
+            title={'editor.modal.permissions.allUser'}
+            editMode={allPermissions}
+            onChangeEditMode={setAllPermissions}
+          />
+          <PermissionGroupEntry
+            title={'editor.modal.permissions.allLoggedInUser'}
+            editMode={loggedPermissions}
+            onChangeEditMode={setLoggedPermissions}
+          />
+        </ul>
       </Modal.Body>
     </CommonModal>
   )

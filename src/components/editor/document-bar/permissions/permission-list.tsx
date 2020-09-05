@@ -16,7 +16,7 @@ export interface PermissionListProps {
   addI18nKey: string
 }
 
-enum EditMode {
+export enum EditMode {
   VIEW,
   EDIT
 }
@@ -36,20 +36,20 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
         <li key={entry.id} className={'list-group-item d-flex flex-row justify-content-between align-items-center'}>
           {identifier(entry)}
           <div>
+            <Button
+              variant='light'
+              className={'text-danger mr-2'}
+              title={t(removeI18nKey, { name: entry.name })}
+              onClick={() => removeEntry(entry.id)}
+            >
+              <ForkAwesomeIcon icon={'times'}/>
+            </Button>
             <ToggleButtonGroup
               type='radio'
               name='edit-mode'
               value={entry.canEdit ? EditMode.EDIT : EditMode.VIEW}
               onChange={(value: EditMode) => changeEditMode(entry.id, value === EditMode.EDIT)}
             >
-              <ToggleButton
-                title={t(editI18nKey, { name: entry.name })}
-                variant={'light'}
-                className={'text-secondary'}
-                value={EditMode.EDIT}
-              >
-                <ForkAwesomeIcon icon='pencil'/>
-              </ToggleButton>
               <ToggleButton
                 title={ t(viewI18nKey, { name: entry.name })}
                 variant={'light'}
@@ -58,15 +58,15 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
               >
                 <ForkAwesomeIcon icon='eye'/>
               </ToggleButton>
+              <ToggleButton
+                title={t(editI18nKey, { name: entry.name })}
+                variant={'light'}
+                className={'text-secondary'}
+                value={EditMode.EDIT}
+              >
+                <ForkAwesomeIcon icon='pencil'/>
+              </ToggleButton>
             </ToggleButtonGroup>
-            <Button
-              variant='light'
-              className={'text-danger ml-2'}
-              title={t(removeI18nKey, { name: entry.name })}
-              onClick={() => removeEntry(entry.id)}
-            >
-              <ForkAwesomeIcon icon={'times'}/>
-            </Button>
           </div>
         </li>
       ))}

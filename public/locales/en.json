@@ -331,7 +331,10 @@
                 "editGroup": "Users in {{name}} can view & edit",
                 "viewOnlyGroup": "Users in {{name}} can view",
                 "removeGroup": "Users in {{name}} can't view",
-                "addGroup": "Add group"
+                "addGroup": "Add group",
+                "allUser": "Everyone",
+                "allLoggedInUser": "All logged-in users",
+                "error": "An error occurred while fetching the user information of this note."
             },
             "shareLink": {
                 "title": "Share link",
