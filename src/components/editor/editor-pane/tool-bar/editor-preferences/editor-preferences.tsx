@@ -1,4 +1,5 @@
 import { EditorConfiguration } from 'codemirror'
+import equal from 'fast-deep-equal'
 import React, { Fragment, useCallback, useState } from 'react'
 import { Button, Form, ListGroup } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
@@ -12,7 +13,7 @@ import { EditorPreferenceProperty, EditorPreferenceSelect } from './editor-prefe
 export const EditorPreferences: React.FC = () => {
   const { t } = useTranslation()
   const [showModal, setShowModal] = useState(false)
-  const preferences = useSelector((state: ApplicationState) => state.editorConfig.preferences)
+  const preferences = useSelector((state: ApplicationState) => state.editorConfig.preferences, equal)
 
   const sendPreferences = useCallback((newPreferences: EditorConfiguration) => {
     setEditorPreferences(newPreferences)

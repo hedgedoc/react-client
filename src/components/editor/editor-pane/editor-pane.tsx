@@ -20,6 +20,7 @@ import 'codemirror/keymap/emacs'
 import 'codemirror/keymap/sublime'
 import 'codemirror/keymap/vim'
 import 'codemirror/mode/gfm/gfm'
+import equal from 'fast-deep-equal'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
@@ -56,7 +57,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   const { t } = useTranslation()
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
-  const editorPreferences = useSelector((state: ApplicationState) => state.editorConfig.preferences)
+  const editorPreferences = useSelector((state: ApplicationState) => state.editorConfig.preferences, equal)
 
   const lastScrollPosition = useRef<number>()
   const [editorScroll, setEditorScroll] = useState<ScrollInfo>()
