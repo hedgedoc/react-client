@@ -19,8 +19,8 @@ export interface AdditionalMarkdownRendererProps {
 }
 
 export interface BasicMarkdownRendererProps {
-  componentReplacers: ComponentReplacer[],
-  onConfigureMarkdownIt: (md: MarkdownIt) => void,
+  componentReplacers?: ComponentReplacer[],
+  onConfigureMarkdownIt?: (md: MarkdownIt) => void,
   documentReference?: RefObject<HTMLDivElement>
   onBeforeRendering?: () => void
 }
@@ -44,7 +44,9 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
       typographer: true
     })
 
-    onConfigureMarkdownIt(md)
+    if (onConfigureMarkdownIt) {
+      onConfigureMarkdownIt(md)
+    }
 
     return md
   }, [onConfigureMarkdownIt])
@@ -62,7 +64,8 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     const { lines: newLines, lastUsedLineId: newLastUsedLineId } = calculateNewLineNumberMapping(contentLines, oldMarkdownLineKeys.current ?? [], lastUsedLineId.current)
     oldMarkdownLineKeys.current = newLines
     lastUsedLineId.current = newLastUsedLineId
-    return ReactHtmlParser(html, { transform: buildTransformer(newLines, componentReplacers) })
+    const transformer = componentReplacers ? buildTransformer(newLines, componentReplacers) : undefined
+    return ReactHtmlParser(html, { transform: transformer })
   }, [onBeforeRendering, content, maxLength, markdownIt, componentReplacers])
 
   return (
