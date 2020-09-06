@@ -77,7 +77,6 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
           <Trans i18nKey={'editor.error.limitReached.description'} values={{ maxLength }}/>
         </Alert>
       </ShowIf>
-      <div className={'mb-5'}/>
       <div ref={documentReference} className={'markdown-body w-100 d-flex flex-column align-items-center'}>
         {markdownReactDom}
       </div>
