@@ -12,11 +12,6 @@ import { buildTransformer } from './utils/html-react-transformer'
 import { calculateNewLineNumberMapping } from './utils/line-number-mapping'
 import { LineKeys } from './utils/types'
 
-export interface LineMarkerPosition {
-  line: number
-  position: number
-}
-
 export interface AdditionalMarkdownRendererProps {
   className?: string,
   content: string,

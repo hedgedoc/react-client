@@ -1,4 +1,4 @@
-import { LineMarkerPosition } from '../../markdown-renderer/basic-markdown-renderer'
+import { LineMarkerPosition } from '../../markdown-renderer/utils/types'
 
 export const findLineMarks = (lineMarks: LineMarkerPosition[], lineNumber: number): { lastMarkBefore: LineMarkerPosition | undefined, firstMarkAfter: LineMarkerPosition | undefined } => {
   let lastMarkBefore
