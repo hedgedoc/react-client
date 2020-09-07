@@ -1,21 +1,12 @@
 import markdownItTaskLists from '@hedgedoc/markdown-it-task-lists'
 import yaml from 'js-yaml'
 import MarkdownIt from 'markdown-it'
-import abbreviation from 'markdown-it-abbr'
 import anchor from 'markdown-it-anchor'
 import markdownItContainer from 'markdown-it-container'
-import definitionList from 'markdown-it-deflist'
-import emoji from 'markdown-it-emoji'
-import footnote from 'markdown-it-footnote'
 import frontmatter from 'markdown-it-front-matter'
-import imsize from 'markdown-it-imsize'
-import inserted from 'markdown-it-ins'
-import marked from 'markdown-it-mark'
 import mathJax from 'markdown-it-mathjax'
 import plantuml from 'markdown-it-plantuml'
 import markdownItRegex from 'markdown-it-regex'
-import subscript from 'markdown-it-sub'
-import superscript from 'markdown-it-sup'
 import toc from 'markdown-it-toc-done-right'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
@@ -29,12 +20,9 @@ import { slugify } from '../editor/table-of-contents/table-of-contents'
 import { RawYAMLMetadata, YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
 import { AdditionalMarkdownRendererProps, BasicMarkdownRenderer } from './basic-markdown-renderer'
 import { createRenderContainer, validAlertLevels } from './markdown-it-plugins/alert-container'
-import { combinedEmojiData } from './markdown-it-plugins/emoji/mapping'
 import { firstHeaderExtractor } from './markdown-it-plugins/first-header-extractor'
 import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { LineMarkers, lineNumberMarker } from './markdown-it-plugins/line-number-marker'
-import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
-import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import { plantumlError } from './markdown-it-plugins/plantuml-error'
 import { replaceAsciinemaLink } from './regex-plugins/replace-asciinema-link'
 import { replaceGistLink } from './regex-plugins/replace-gist-link'
@@ -125,9 +113,13 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   const tocAst = useRef<TocAst>()
   usePostTocAstOnChange(tocAst, onTocChange)
 
-  const configureMarkdownIt = useCallback((md: MarkdownIt):void => {
+  const configureMarkdownIt = useCallback((md: MarkdownIt): void => {
     if (onFirstHeadingChange) {
-      md.use(firstHeaderExtractor, { firstHeaderFound: (firstHeader: string|undefined) => { firstHeadingRef.current = firstHeader } })
+      md.use(firstHeaderExtractor, {
+        firstHeaderFound: (firstHeader: string | undefined) => {
+          firstHeadingRef.current = firstHeader
+        }
+      })
     }
 
     if (onMetaDataChange) {
@@ -152,16 +144,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
     } else {
       md.use(plantumlError)
     }
-    md.use(emoji, {
-      defs: combinedEmojiData
-    })
-    md.use(abbreviation)
-    md.use(definitionList)
-    md.use(subscript)
-    md.use(superscript)
-    md.use(inserted)
-    md.use(marked)
-    md.use(footnote)
+
     if (onMetaDataChange) {
       md.use(frontmatter, (rawMeta: string) => {
         try {
@@ -175,7 +158,6 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
         }
       })
     }
-    md.use(imsize)
     // noinspection CheckTagEmptyBody
     md.use(anchor, {
       permalink: true,
@@ -214,7 +196,6 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
       },
       slugify: slugify
     })
-    md.use(linkifyExtra)
     validAlertLevels.forEach(level => {
       md.use(markdownItContainer, level, { render: createRenderContainer(level) })
     })
@@ -223,9 +204,6 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
         currentLineMarkers.current = lineMarkers
       }
     })
-    if (process.env.NODE_ENV !== 'production') {
-      md.use(MarkdownItParserDebugger)
-    }
   }, [onFirstHeadingChange, onMetaDataChange, plantumlServer])
 
   const clearMetadata = useCallback(() => {
@@ -242,7 +220,8 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
         </Alert>
       </ShowIf>
       <BasicMarkdownRenderer className={className} wide={wide} content={content} componentReplacers={allReplacers}
-        onConfigureMarkdownIt={configureMarkdownIt} documentReference={documentElement} onBeforeRendering={clearMetadata}/>
+        onConfigureMarkdownIt={configureMarkdownIt} documentReference={documentElement}
+        onBeforeRendering={clearMetadata}/>
     </div>
   )
 }

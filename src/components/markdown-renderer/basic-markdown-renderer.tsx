@@ -1,4 +1,13 @@
 import MarkdownIt from 'markdown-it'
+import abbreviation from 'markdown-it-abbr'
+import definitionList from 'markdown-it-deflist'
+import emoji from 'markdown-it-emoji'
+import footnote from 'markdown-it-footnote'
+import imsize from 'markdown-it-imsize'
+import inserted from 'markdown-it-ins'
+import marked from 'markdown-it-mark'
+import subscript from 'markdown-it-sub'
+import superscript from 'markdown-it-sup'
 import React, { ReactElement, RefObject, useMemo, useRef } from 'react'
 import { Alert } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
@@ -7,6 +16,9 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../redux'
 import { ShowIf } from '../common/show-if/show-if'
 import './markdown-renderer.scss'
+import { combinedEmojiData } from './markdown-it-plugins/emoji/mapping'
+import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
+import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
 import { ComponentReplacer } from './replace-components/ComponentReplacer'
 import { buildTransformer } from './utils/html-react-transformer'
 import { calculateNewLineNumberMapping } from './utils/line-number-mapping'
@@ -44,8 +56,25 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
       typographer: true
     })
 
+    md.use(emoji, {
+      defs: combinedEmojiData
+    })
+    md.use(abbreviation)
+    md.use(definitionList)
+    md.use(subscript)
+    md.use(superscript)
+    md.use(inserted)
+    md.use(marked)
+    md.use(footnote)
+    md.use(imsize)
+
     if (onConfigureMarkdownIt) {
       onConfigureMarkdownIt(md)
+    }
+
+    md.use(linkifyExtra)
+    if (process.env.NODE_ENV !== 'production') {
+      md.use(MarkdownItParserDebugger)
     }
 
     return md

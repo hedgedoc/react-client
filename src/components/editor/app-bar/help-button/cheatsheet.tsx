@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { FullMarkdownRenderer } from '../../../markdown-renderer/full-markdown-renderer'
+import { BasicMarkdownRenderer } from '../../../markdown-renderer/basic-markdown-renderer'
 import { HighlightedCode } from '../../../markdown-renderer/replace-components/highlighted-fence/highlighted-code/highlighted-code'
 import './cheatsheet.scss'
 
@@ -40,14 +40,9 @@ export const Cheatsheet: React.FC = () => {
           return (
             <tr key={key}>
               <td>
-                <FullMarkdownRenderer
+                <BasicMarkdownRenderer
                   content={code}
                   wide={false}
-                  onTaskCheckedChange={(_) => null}
-                  onTocChange={() => false}
-                  onMetaDataChange={() => false}
-                  onFirstHeadingChange={() => false}
-                  onLineMarkerPositionChanged={() => false}
                 />
               </td>
               <td className={'markdown-body'}>
