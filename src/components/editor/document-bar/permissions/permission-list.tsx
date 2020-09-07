@@ -86,7 +86,7 @@ export const PermissionList: React.FC<PermissionListProps> = ({ list, identifier
               variant='light'
               className={'text-secondary ml-2'}
               title={t(addI18nKey)}
-              onClick={() => addEntry()}
+              onClick={addEntry}
             >
               <ForkAwesomeIcon icon={'plus'}/>
             </Button>

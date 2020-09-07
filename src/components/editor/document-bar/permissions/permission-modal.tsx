@@ -55,8 +55,8 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
   const [error, setError] = useState(false)
   const [userList, setUserList] = useState<Principal[]>([])
   const [owner, setOwner] = useState<UserAvatarProps>()
-  const [allPermissions, setAllPermissions] = useState(GroupMode.NONE)
-  const [loggedPermissions, setLoggedPermissions] = useState(GroupMode.NONE)
+  const [allUserPermissions, setAllUserPermissions] = useState(GroupMode.NONE)
+  const [allLoggedInUserPermissions, setAllLoggedInUserPermissions] = useState(GroupMode.NONE)
 
   useEffect(() => {
     // set owner
@@ -80,11 +80,9 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
     // set group List
     permissionsApiResponse.sharedToGroup.forEach(sharedGroup => {
       if (sharedGroup.id === '1') {
-        console.log('found everyone')
-        setAllPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
+        setAllUserPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
       } else if (sharedGroup.id === '2') {
-        console.log('found everyone logged in')
-        setLoggedPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
+        setAllLoggedInUserPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
       }
     })
   }, [])
@@ -147,13 +145,13 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
         <ul className={'list-group'}>
           <PermissionGroupEntry
             title={'editor.modal.permissions.allUser'}
-            editMode={allPermissions}
-            onChangeEditMode={setAllPermissions}
+            editMode={allUserPermissions}
+            onChangeEditMode={setAllUserPermissions}
           />
           <PermissionGroupEntry
             title={'editor.modal.permissions.allLoggedInUser'}
-            editMode={loggedPermissions}
-            onChangeEditMode={setLoggedPermissions}
+            editMode={allLoggedInUserPermissions}
+            onChangeEditMode={setAllLoggedInUserPermissions}
           />
         </ul>
       </Modal.Body>

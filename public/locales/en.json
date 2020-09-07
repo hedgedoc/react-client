@@ -326,7 +326,7 @@
                 "sharedWithGroups": "Also share with…",
                 "editUser": "{{name}} can view & edit",
                 "viewOnlyUser": "{{name}} can view",
-                "removeUser": "{{name}} can't view",
+                "removeUser": "Remove {{name}}'s permissions",
                 "addUser": "Add user",
                 "editGroup": "Users in {{name}} can view & edit",
                 "viewOnlyGroup": "Users in {{name}} can view",
