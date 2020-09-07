@@ -2,6 +2,7 @@ import React, { Component, ErrorInfo, ReactElement, ReactNodeArray } from 'react
 import { Button, Container } from 'react-bootstrap'
 import frontendVersion from '../../version.json'
 import { ForkAwesomeIcon } from '../common/fork-awesome/fork-awesome-icon'
+import { ExternalLink } from '../common/links/external-link'
 
 export class ErrorBoundary extends Component {
   state: {
@@ -34,9 +35,9 @@ export class ErrorBoundary extends Component {
           <div className='text-white d-flex flex-column align-items-center justify-content-center my-5'>
             <h1>An unknown error occurred</h1>
             <p>Don't worry, this happens sometimes. If this is the first time you see this page then try reloading the app.</p>
-            If you can reproduce this error, then we would be glad if you <a href={frontendVersion.issueTrackerUrl} target='_blank' rel='noopener noreferrer'>open an issue on github</a> or <a href={'https://riot.im/app/#/room/#hedgedoc:matrix.org'} target='_blank' rel='noopener noreferrer' dir='auto'>contact us on matrix.</a>
-            <Button onClick={() => this.refreshPage()} title={'Reload Page'} className={'mt-4'}>
-              <ForkAwesomeIcon icon={'refresh'}/>&nbsp;Reload Page
+            If you can reproduce this error, then we would be glad if you <ExternalLink text={'open an issue on github'} href={frontendVersion.issueTrackerUrl} className={'text-primary'}/> or <ExternalLink text={'contact us on matrix.'} href={'https://riot.im/app/#/room/#hedgedoc:matrix.org'} className={'text-primary'}/>
+            <Button onClick={() => this.refreshPage()} title={'Reload App'} className={'mt-4'}>
+              <ForkAwesomeIcon icon={'refresh'}/>&nbsp;Reload App
             </Button>
           </div>
         </Container>
