@@ -28,7 +28,7 @@ export const PermissionGroupEntry: React.FC<PermissionGroupEntryProps> = ({ titl
         onChange={onChangeEditMode}
       >
         <ToggleButton
-          title={ t('editor.modal.permissions.removeUser', { name: t(title) })}
+          title={ t('editor.modal.permissions.denyGroup', { name: t(title) })}
           variant={'light'}
           className={'text-secondary'}
           value={GroupMode.NONE}
@@ -36,7 +36,7 @@ export const PermissionGroupEntry: React.FC<PermissionGroupEntryProps> = ({ titl
           <ForkAwesomeIcon icon='ban'/>
         </ToggleButton>
         <ToggleButton
-          title={ t('editor.modal.permissions.viewOnlyUser', { name: t(title) })}
+          title={ t('editor.modal.permissions.viewOnlyGroup', { name: t(title) })}
           variant={'light'}
           className={'text-secondary'}
           value={GroupMode.VIEW}
@@ -44,7 +44,7 @@ export const PermissionGroupEntry: React.FC<PermissionGroupEntryProps> = ({ titl
           <ForkAwesomeIcon icon='eye'/>
         </ToggleButton>
         <ToggleButton
-          title={t('editor.modal.permissions.editUser', { name: t(title) })}
+          title={t('editor.modal.permissions.editGroup', { name: t(title) })}
           variant={'light'}
           className={'text-secondary'}
           value={GroupMode.EDIT}
