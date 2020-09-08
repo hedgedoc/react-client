@@ -115,7 +115,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
 
   const configureMarkdownIt = useCallback((md: MarkdownIt): void => {
     if (onFirstHeadingChange) {
-      md.use(firstHeaderExtractor, {
+      md.use(firstHeaderExtractor(), {
         firstHeaderFound: (firstHeader: string | undefined) => {
           firstHeadingRef.current = firstHeader
         }
