@@ -32,6 +32,9 @@ interface NotePermissions {
   }[]
 }
 
+export const EVERYONE_GROUP_ID = '1'
+export const EVERYONE_LOGGED_IN_GROUP_ID = '2'
+
 const permissionsApiResponse: NotePermissions = {
   owner: 'dermolly',
   sharedTo: [{
@@ -42,10 +45,10 @@ const permissionsApiResponse: NotePermissions = {
     canEdit: false
   }],
   sharedToGroup: [{
-    id: '1',
+    id: EVERYONE_GROUP_ID,
     canEdit: true
   }, {
-    id: '2',
+    id: EVERYONE_LOGGED_IN_GROUP_ID,
     canEdit: false
   }]
 }
@@ -79,9 +82,9 @@ export const PermissionModal: React.FC<PermissionsModalProps> = ({ show, onChang
     })
     // set group List
     permissionsApiResponse.sharedToGroup.forEach(sharedGroup => {
-      if (sharedGroup.id === '1') {
+      if (sharedGroup.id === EVERYONE_GROUP_ID) {
         setAllUserPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
-      } else if (sharedGroup.id === '2') {
+      } else if (sharedGroup.id === EVERYONE_LOGGED_IN_GROUP_ID) {
         setAllLoggedInUserPermissions(sharedGroup.canEdit ? GroupMode.EDIT : GroupMode.VIEW)
       }
     })
