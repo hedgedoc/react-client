@@ -149,7 +149,7 @@ describe('Links Intro', () => {
 
     it('Matrix', () => {
       cy.get('a[href="https://riot.im/app/#/room/#hedgedoc:matrix.org"]')
-        .checkExternalLink('https://riot.im/app/#/room/#hedgedoc:matrix.org')
+        .checkExternalLink('https://app.element.io/#/room/#hedgedoc:matrix.org')
     })
 
     it('Mastodon', () => {
