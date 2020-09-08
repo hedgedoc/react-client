@@ -1,6 +1,6 @@
 import { diffArrays } from 'diff'
 import { TextDifferenceResult } from './html-react-transformer'
-import { LineKeys } from './types'
+import { LineKeys } from '../types'
 
 export const calculateNewLineNumberMapping = (newMarkdownLines: string[], oldLineKeys: LineKeys[], lastUsedLineId: number): TextDifferenceResult => {
   const lineDifferences = diffArrays<string, LineKeys>(newMarkdownLines, oldLineKeys, {

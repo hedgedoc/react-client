@@ -5,7 +5,7 @@ import {
   ComponentReplacer,
   SubNodeTransform
 } from '../replace-components/ComponentReplacer'
-import { LineKeys } from './types'
+import { LineKeys } from '../types'
 
 export interface TextDifferenceResult {
   lines: LineKeys[],

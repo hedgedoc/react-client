@@ -15,20 +15,14 @@ import { Trans } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../redux'
 import { ShowIf } from '../common/show-if/show-if'
-import './markdown-renderer.scss'
 import { combinedEmojiData } from './markdown-it-plugins/emoji/mapping'
 import { linkifyExtra } from './markdown-it-plugins/linkify-extra'
 import { MarkdownItParserDebugger } from './markdown-it-plugins/parser-debugger'
+import './markdown-renderer.scss'
 import { ComponentReplacer } from './replace-components/ComponentReplacer'
+import { AdditionalMarkdownRendererProps, LineKeys } from './types'
 import { buildTransformer } from './utils/html-react-transformer'
 import { calculateNewLineNumberMapping } from './utils/line-number-mapping'
-import { LineKeys } from './utils/types'
-
-export interface AdditionalMarkdownRendererProps {
-  className?: string,
-  content: string,
-  wide?: boolean,
-}
 
 export interface BasicMarkdownRendererProps {
   componentReplacers?: ComponentReplacer[],

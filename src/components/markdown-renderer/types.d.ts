@@ -7,3 +7,9 @@ export interface LineMarkerPosition {
   line: number
   position: number
 }
+
+export interface AdditionalMarkdownRendererProps {
+  className?: string,
+  content: string,
+  wide?: boolean,
+}
