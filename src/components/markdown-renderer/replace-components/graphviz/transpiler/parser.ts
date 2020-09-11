@@ -43,20 +43,26 @@ export class GraphVizParser extends CstParser {
         this.CONSUME(Identifier)
       })
       this.CONSUME(LCurly)
-      this.AT_LEAST_ONE_SEP({
-        SEP: StatementSeparator,
-        DEF: () => {
-          this.SUBRULE(this.statement)
-        }
-      })
+      this.SUBRULE(this.stmt_list)
       this.CONSUME(RCurly)
     })
 
-    this.RULE('statement', () => {
+    this.RULE('stmt_list', () => {
+      this.OPTION(() => {
+        this.AT_LEAST_ONE_SEP({
+          SEP: StatementSeparator,
+          DEF: () => {
+            this.SUBRULE(this.stmt)
+          }
+        })
+      })
+    })
+
+    this.RULE('stmt', () => {
       this.OR([
-        { ALT: () => this.SUBRULE(this.node_statement) },
-        { ALT: () => this.SUBRULE(this.edge_statement) },
-        { ALT: () => this.SUBRULE(this.attributes_statement) },
+        { ALT: () => this.SUBRULE(this.node_stmt) },
+        { ALT: () => this.SUBRULE(this.edge_stmt) },
+        { ALT: () => this.SUBRULE(this.attr_stmt) },
         {
           ALT: () => {
             this.CONSUME(Identifier)
@@ -68,25 +74,25 @@ export class GraphVizParser extends CstParser {
       ])
     })
 
-    this.RULE('attributes_statement', () => {
+    this.RULE('attr_stmt', () => {
       this.OR([
         { ALT: () => this.CONSUME(Graph) },
         { ALT: () => this.CONSUME(Node) },
         { ALT: () => this.CONSUME(Edge) }
       ])
-      this.SUBRULE(this.attributes_list)
+      this.SUBRULE(this.attr_list)
     })
 
-    this.RULE('attributes_list', () => {
+    this.RULE('attr_list', () => {
       this.CONSUME(LBracket)
-      this.SUBRULE(this.attribute_list)
+      this.SUBRULE(this.a_list)
       this.CONSUME(RBracket)
       this.OPTION(() => {
-        this.SUBRULE(this.attributes_list)
+        this.SUBRULE(this.attr_list)
       })
     })
 
-    this.RULE('attribute_list', () => {
+    this.RULE('a_list', () => {
       this.CONSUME(Identifier)
       this.CONSUME(Equal)
       this.CONSUME1(Identifier)
@@ -94,17 +100,17 @@ export class GraphVizParser extends CstParser {
         this.CONSUME(AttributeSeparator)
       })
       this.OPTION1(() => {
-        this.SUBRULE(this.attribute_list)
+        this.SUBRULE(this.a_list)
       })
     })
 
-    this.RULE('edge_statement', () => {
+    this.RULE('edge_stmt', () => {
       this.OR([
         { ALT: () => this.SUBRULE(this.node_id) },
         { ALT: () => this.SUBRULE(this.subgraph) }
       ])
       this.SUBRULE(this.edgeRHS)
-      this.OPTION(() => this.SUBRULE(this.attributes_list))
+      this.OPTION(() => this.SUBRULE(this.attr_list))
     })
 
     this.RULE('edgeRHS', () => {
@@ -116,10 +122,10 @@ export class GraphVizParser extends CstParser {
       this.OPTION(() => this.SUBRULE(this.edgeRHS))
     })
 
-    this.RULE('node_statement', () => {
+    this.RULE('node_stmt', () => {
       this.SUBRULE(this.node_id)
       this.OPTION(() => {
-        this.SUBRULE(this.attributes_list)
+        this.SUBRULE(this.attr_list)
       })
     })
 
@@ -138,14 +144,14 @@ export class GraphVizParser extends CstParser {
             this.CONSUME(Identifier)
             this.OPTION(() => {
               this.CONSUME1(Colon)
-              this.SUBRULE(this.compass_pointer)
+              this.SUBRULE(this.compass_pt)
             })
           }
         },
         {
           ALT: () => {
             this.CONSUME2(Colon)
-            this.SUBRULE1(this.compass_pointer)
+            this.SUBRULE1(this.compass_pt)
           }
         }
       ])
@@ -159,16 +165,11 @@ export class GraphVizParser extends CstParser {
         })
       })
       this.CONSUME(LCurly)
-      this.AT_LEAST_ONE_SEP({
-        SEP: StatementSeparator,
-        DEF: () => {
-          this.SUBRULE(this.statement)
-        }
-      })
+      this.SUBRULE(this.stmt_list)
       this.CONSUME(RCurly)
     })
 
-    this.RULE('compass_pointer', () => {
+    this.RULE('compass_pt', () => {
       this.CONSUME(Compass)
     })
 
