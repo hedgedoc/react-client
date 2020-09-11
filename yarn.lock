@@ -2383,7 +2383,7 @@ abcjs@5.12.0:
   integrity sha512-pvi7SjOAKT7cRyRtywUSwYB0SNtRHKLxZUZ9Oc4E+nvpBHr8Z2/M9Pfyv3oIaiEpxlWTFK+B/H5t/DckiNFgpg==
   dependencies:
     abcjs "5.11.0"
-    midi "git+https://github.com/paulrosen/MIDI.js.git#abcjs"
+    midi "https://github.com/paulrosen/MIDI.js.git#abcjs"
 
 accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
   version "1.3.7"
@@ -3508,6 +3508,13 @@ check-more-types@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/check-more-types/-/check-more-types-2.24.0.tgz#1420ffb10fd444dcfc79b43891bbfffd32a84600"
   integrity sha1-FCD/sQ/URNz8ebQ4kbv//TKoRgA=
+
+chevrotain@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/chevrotain/-/chevrotain-7.0.2.tgz#d8537bd116c1c7583f12d952de0d5c306677749e"
+  integrity sha512-fIio7ZZCTczF0a+hnM171hM+Di2LanUc7nC0fL3qb1FKfZ2xfXZF3BmwHAkfvXlxpNah3LpOtNtUms2JzvR9pg==
+  dependencies:
+    regexp-to-ast "0.5.0"
 
 chokidar@^2.1.8:
   version "2.1.8"
@@ -8739,7 +8746,6 @@ micromatch@^4.0.0:
 
 "midi@git+https://github.com/paulrosen/MIDI.js.git#abcjs":
   version "0.4.2"
-  uid e593ffef81a0350f99448e3ab8111957145ff6b2
   resolved "git+https://github.com/paulrosen/MIDI.js.git#e593ffef81a0350f99448e3ab8111957145ff6b2"
 
 "midi@https://github.com/paulrosen/MIDI.js.git#abcjs":
@@ -11323,6 +11329,11 @@ regex-parser@2.2.10:
   version "2.2.10"
   resolved "https://registry.yarnpkg.com/regex-parser/-/regex-parser-2.2.10.tgz#9e66a8f73d89a107616e63b39d4deddfee912b37"
   integrity sha512-8t6074A68gHfU8Neftl0Le6KTDwfGAj7IyjPIMSfikI2wJUTHDMaIq42bUsfVnj8mhx0R+45rdUXHGpN164avA==
+
+regexp-to-ast@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/regexp-to-ast/-/regexp-to-ast-0.5.0.tgz#56c73856bee5e1fef7f73a00f1473452ab712a24"
+  integrity sha512-tlbJqcMHnPKI9zSrystikWKwHkBqu2a/Sgw01h3zFjvYrMxEDYHzzoMZnUrbIfpTFEsoRnnviOXNCzFiSc54Qw==
 
 regexp.prototype.flags@^1.2.0, regexp.prototype.flags@^1.3.0:
   version "1.3.0"
