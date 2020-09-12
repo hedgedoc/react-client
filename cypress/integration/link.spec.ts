@@ -138,8 +138,8 @@ describe('Links Intro', () => {
 
   describe('Follow us Links', () => {
     it('Github', () => {
-      cy.get('a[href="https://github.com/codimd/server"]')
-        .checkExternalLink('https://github.com/codimd/server')
+      cy.get('a[href="https://github.com/codimd/"]')
+        .checkExternalLink('https://github.com/codimd/')
     })
 
     it('Discourse', () => {
@@ -153,8 +153,8 @@ describe('Links Intro', () => {
     })
 
     it('Mastodon', () => {
-      cy.get('a[href="https://social.codimd.org/mastodon"]')
-        .checkExternalLink('https://social.codimd.org/mastodon')
+      cy.get('a[href="https://social.codimd.org"]')
+        .checkExternalLink('https://social.codimd.org')
     })
 
     it('POEditor', () => {
