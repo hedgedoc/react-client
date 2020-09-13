@@ -23,8 +23,8 @@ const testGraphs = [`graph {
   execute -> compare;
 }`, `digraph D {
     node [fontname="Arial"];
-    node [shape=record    label="shape=record|{above|middle|below}|right"];
-    node [shape=plaintext label="shape=plaintext|{curly|braces and|bars without}|effect"];
+    node_A [shape=record    label="shape=record|{above|middle|below}|right"];
+    node_B [shape=plaintext label="shape=plaintext|{curly|braces and|bars without}|effect"];
 }`, `digraph D {
   A -> {B; C; D} -> {F}
 }`]

@@ -43,7 +43,7 @@ export const Identifier = createToken({
 
 const Alphabetic = createToken({
   name: 'Alphabetic',
-  pattern: /([a-zA-Z]|[\200-\377]|_)(\w|[\200-\377])*/,
+  pattern: /(?!(node|edge|graph|digraph|subgraph|strict)[^\w\200-\377])([a-zA-Z]|[\200-\377]|_)(\w|[\200-\377])*/i,
   categories: [Identifier]
 })
 
@@ -149,6 +149,11 @@ const UndirectionalEdge = createToken({
 
 export const allTokens = [
   WhiteSpace,
+  Identifier,
+  Alphabetic,
+  Numeric,
+  Quoted,
+  HTML,
   StatementSeparator,
   LineBreak,
   Semicolon,
@@ -168,22 +173,7 @@ export const allTokens = [
   Comma,
   Colon,
   Subgraph,
-  Compass,
-  /* NorthEast,
-  SouthEast,
-  SouthWest,
-  NorthWest,
-  North,
-  East,
-  South,
-  West,
-  Center,
-  Underscore, */
-  Identifier,
-  Alphabetic,
-  Numeric,
-  Quoted,
-  HTML
+  Compass
 ]
 
 export const GraphVizLexer = new Lexer(allTokens)
