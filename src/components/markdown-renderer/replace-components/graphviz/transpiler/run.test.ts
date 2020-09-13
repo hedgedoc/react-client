@@ -33,8 +33,12 @@ describe('test parser', () => {
     it(`graph ${index + 1}`, () => {
       const lexingResult = GraphVizLexer.tokenize(graph)
 
-      console.log('lexingResults')
-      lexingResult.tokens.forEach(token => console.log(token.image))
+      console.log('> lexingResults')
+      console.log(lexingResult.tokens.map(token => token.image))
+      console.log('> groups')
+      console.log(lexingResult.groups)
+      console.log('> errors')
+      console.log(lexingResult.errors)
 
       const parser = new GraphVizParser()
 
