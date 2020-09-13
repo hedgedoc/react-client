@@ -9,6 +9,16 @@ opengraph:
 # Embedding demo
 [TOC]
 
+## GraphViz
+
+\`\`\`graphviz
+graph {
+  a -- b
+  c -- d
+  b -- a [color=blue]
+}
+\`\`\`
+
 ## Sequence Diagram (deprecated)
 
 \`\`\`sequence
