@@ -21,6 +21,12 @@ const testGraphs = [`graph {
   init -> make_string;
   main -> printf;
   execute -> compare;
+}`, `digraph D {
+    node [fontname="Arial"];
+    node [shape=record    label="shape=record|{above|middle|below}|right"];
+    node [shape=plaintext label="shape=plaintext|{curly|braces and|bars without}|effect"];
+}`, `digraph D {
+  A -> {B; C; D} -> {F}
 }`]
 describe('test parser', () => {
   testGraphs.forEach((graph, index) => {
