@@ -39,7 +39,9 @@ export const AppBar: React.FC<AppBarProps> = ({ showEditorButtons }) => {
             <ForkAwesomeIcon icon="television"/>
           </Button>
         </Link>
-        <HelpButton/>
+        <ShowIf condition={showEditorButtons}>
+          <HelpButton/>
+        </ShowIf>
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
         <Button className="mx-2" size="sm" variant="primary">
