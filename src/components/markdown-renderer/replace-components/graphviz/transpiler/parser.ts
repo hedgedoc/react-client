@@ -82,14 +82,14 @@ export class GraphVizParser extends CstParser {
     this.OR({
       IGNORE_AMBIGUITIES: true,
       DEF: [
-        { ALT: () => this.SUBRULE(this.edge_stmt) },
         { ALT: () => this.SUBRULE(this.node_stmt) },
+        { ALT: () => this.SUBRULE(this.edge_stmt) },
         { ALT: () => this.SUBRULE(this.attr_stmt) },
         {
           ALT: () => {
-            this.CONSUME(Identifier)
-            this.CONSUME(Equal)
             this.CONSUME1(Identifier)
+            this.CONSUME(Equal)
+            this.CONSUME2(Identifier)
           }
         },
         { ALT: () => this.SUBRULE(this.subgraph) }
@@ -119,9 +119,9 @@ export class GraphVizParser extends CstParser {
 
   // eslint-disable-next-line camelcase
   private a_list = this.RULE('a_list', () => {
-    this.CONSUME(Identifier)
-    this.CONSUME(Equal)
     this.CONSUME1(Identifier)
+    this.CONSUME(Equal)
+    this.CONSUME2(Identifier)
     this.OPTION(() => {
       this.CONSUME(AttributeSeparator)
     })
