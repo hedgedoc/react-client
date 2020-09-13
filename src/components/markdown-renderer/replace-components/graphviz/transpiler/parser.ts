@@ -12,6 +12,7 @@ import {
   Identifier,
   LBracket,
   LCurly,
+  LineBreak,
   Node,
   RBracket,
   RCurly,
@@ -39,39 +40,39 @@ export class GraphVizParser extends CstParser {
         { ALT: () => this.CONSUME(Graph) },
         { ALT: () => this.CONSUME(Digraph) }
       ])
-      this.OPTION2(() => {
+      this.OPTION1(() => {
         this.CONSUME(Identifier)
       })
       this.CONSUME(LCurly)
+      // this.OPTION2(() => this.CONSUME(LineBreak))
       this.SUBRULE(this.stmt_list)
+      this.OPTION3(() => this.CONSUME1(LineBreak))
       this.CONSUME(RCurly)
     })
 
     this.RULE('stmt_list', () => {
-      this.OPTION(() => {
-        this.AT_LEAST_ONE_SEP({
-          SEP: StatementSeparator,
-          DEF: () => {
-            this.SUBRULE(this.stmt)
-          }
-        })
-      })
+      this.SUBRULE(this.stmt)
+      this.OPTION1(() => this.CONSUME(StatementSeparator))
+      this.OPTION(() => this.SUBRULE1(this.stmt_list))
     })
 
     this.RULE('stmt', () => {
-      this.OR([
-        { ALT: () => this.SUBRULE(this.node_stmt) },
-        { ALT: () => this.SUBRULE(this.edge_stmt) },
-        { ALT: () => this.SUBRULE(this.attr_stmt) },
-        {
-          ALT: () => {
-            this.CONSUME(Identifier)
-            this.CONSUME(Equal)
-            this.CONSUME1(Identifier)
-          }
-        },
-        { ALT: () => this.SUBRULE(this.subgraph) }
-      ])
+      this.OR({
+        IGNORE_AMBIGUITIES: true,
+        DEF: [
+          { ALT: () => this.SUBRULE(this.edge_stmt) },
+          { ALT: () => this.SUBRULE(this.node_stmt) },
+          { ALT: () => this.SUBRULE(this.attr_stmt) },
+          {
+            ALT: () => {
+              this.CONSUME(Identifier)
+              this.CONSUME(Equal)
+              this.CONSUME1(Identifier)
+            }
+          },
+          { ALT: () => this.SUBRULE(this.subgraph) }
+        ]
+      })
     })
 
     this.RULE('attr_stmt', () => {
@@ -165,7 +166,9 @@ export class GraphVizParser extends CstParser {
         })
       })
       this.CONSUME(LCurly)
+      // this.OPTION2(() => this.CONSUME(LineBreak))
       this.SUBRULE(this.stmt_list)
+      // this.OPTION3(() => this.CONSUME1(LineBreak))
       this.CONSUME(RCurly)
     })
 

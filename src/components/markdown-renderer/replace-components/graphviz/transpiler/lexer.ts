@@ -17,10 +17,11 @@ export const AttributeSeparator = createToken({
   pattern: Lexer.NA
 })
 
-const LineBreak = createToken({
+export const LineBreak = createToken({
   name: 'LineBreak',
   pattern: /[\r\n]+/,
-  categories: [StatementSeparator]
+  group: Lexer.SKIPPED
+  // categories: [StatementSeparator]
 })
 
 const Semicolon = createToken({
@@ -54,7 +55,7 @@ const Numeric = createToken({
 
 const Quoted = createToken({
   name: 'Quoted',
-  pattern: /"(\w|\\")*"/,
+  pattern: /".*"/,
   categories: [Identifier]
 })
 
@@ -76,7 +77,7 @@ export const Graph = createToken({
 
 export const Digraph = createToken({
   name: 'Digraph',
-  pattern: /diagraph/
+  pattern: /digraph/
 })
 
 export const LCurly = createToken({
@@ -126,10 +127,10 @@ export const Subgraph = createToken({
 
 export const Compass = createToken({
   name: 'Compass',
-  pattern: Lexer.NA
+  pattern: / (nw|ne|se|sw|s|e|w|n|c|_) /
 })
 
-const North = createToken({
+/* const North = createToken({
   name: 'North',
   pattern: /n/,
   categories: [Compass]
@@ -187,7 +188,7 @@ const Underscore = createToken({
   name: 'Underscore',
   pattern: /_/,
   categories: Compass
-})
+}) */
 
 export const EdgeOperation = createToken({
   name: 'EdgeOperation',
@@ -228,7 +229,7 @@ export const allTokens = [
   Colon,
   Subgraph,
   Compass,
-  NorthEast,
+  /* NorthEast,
   SouthEast,
   SouthWest,
   NorthWest,
@@ -237,7 +238,7 @@ export const allTokens = [
   South,
   West,
   Center,
-  Underscore,
+  Underscore, */
   Identifier,
   Alphabetic,
   Numeric,
