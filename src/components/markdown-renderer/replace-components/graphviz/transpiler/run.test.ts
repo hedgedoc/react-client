@@ -44,7 +44,6 @@ describe('test parser', () => {
       const parser = new GraphVizParser()
 
       parser.input = lexingResult.tokens
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       parser.graph()
       if (parser.errors.length > 0) {
         console.log('parser errors', JSON.stringify(parser.errors, null, 2))
