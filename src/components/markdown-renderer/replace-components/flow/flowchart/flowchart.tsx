@@ -2,7 +2,6 @@ import { parse } from 'flowchart.js'
 import React, { useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import './flowchart.scss'
 
 export interface FlowChartProps {
   code: string
@@ -45,5 +44,5 @@ export const FlowChart: React.FC<FlowChartProps> = ({ code }) => {
       </Alert>
     )
   }
-  return <div ref={diagramRef} className={'text-center flowchart'}/>
+  return <div ref={diagramRef} className={'text-center'}/>
 }
