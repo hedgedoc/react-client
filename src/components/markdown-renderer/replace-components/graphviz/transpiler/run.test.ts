@@ -34,9 +34,10 @@ describe('test parser', () => {
       const lexingResult = GraphVizLexer.tokenize(graph)
 
       console.log('> lexingResults')
-      console.log(lexingResult.tokens.map(token => token.image))
-      console.log('> groups')
-      console.log(lexingResult.groups)
+      console.log(lexingResult.tokens.map(token => ({
+        text: token.image,
+        tokenType: token.tokenType.name
+      })))
       console.log('> errors')
       console.log(lexingResult.errors)
 
