@@ -51,9 +51,9 @@ export const PadViewOnly: React.FC = () => {
     <div className={'d-flex flex-column mvh-100 bg-light'}>
       <ApplyDarkMode/>
       <DocumentTitle title={documentTitle}/>
+      <MotdBanner/>
       <AppBar showEditorButtons={false}/>
       <div className={'container'}>
-        <MotdBanner/>
         <ShowIf condition={error}>
           <Alert variant={'danger'} className={'my-2'}>
             <b><Trans i18nKey={'views.readOnly.error.title'}/></b>
