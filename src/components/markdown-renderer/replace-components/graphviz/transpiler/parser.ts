@@ -82,8 +82,8 @@ export class GraphVizParser extends CstParser {
     this.OR({
       IGNORE_AMBIGUITIES: true,
       DEF: [
-        { ALT: () => this.SUBRULE(this.node_stmt) },
         { ALT: () => this.SUBRULE(this.edge_stmt) },
+        { ALT: () => this.SUBRULE(this.node_stmt) },
         { ALT: () => this.SUBRULE(this.attr_stmt) },
         {
           ALT: () => {
