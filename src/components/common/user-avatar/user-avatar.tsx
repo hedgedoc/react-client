@@ -17,12 +17,12 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ name, photo, additionalClasses 
     <span className={'d-inline-flex align-items-center ' + additionalClasses}>
       <img
         src={photo}
-        className="user-avatar rounded"
+        className="user-avatar rounded mr-1"
         alt={t('common.avatarOf', { name })}
         title={name}
       />
       <ShowIf condition={showName}>
-        <span className="mx-1 user-name">{name}</span>
+        <span className="mx-1">{name}</span>
       </ShowIf>
     </span>
   )
