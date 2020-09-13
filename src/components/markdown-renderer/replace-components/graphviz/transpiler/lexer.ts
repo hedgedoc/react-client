@@ -43,7 +43,7 @@ export const Identifier = createToken({
 
 const Alphabetic = createToken({
   name: 'Alphabetic',
-  pattern: /(?!(node|edge|graph|digraph|subgraph|strict)[^\w\200-\377])([a-zA-Z]|[\200-\377]|_)(\w|[\200-\377])*/i,
+  pattern: /[a-z\200-\377_][\w\200-\377]*/i,
   categories: [Identifier]
 })
 
@@ -67,12 +67,12 @@ const HTML = createToken({
 
 export const Strict = createToken({
   name: 'strict',
-  pattern: /strict/i
+  pattern: /strict(?: )/i
 })
 
 export const Graph = createToken({
   name: 'Graph',
-  pattern: /graph/i
+  pattern: /graph(?: )/i
 })
 
 export const Digraph = createToken({
@@ -92,12 +92,12 @@ export const RCurly = createToken({
 
 export const Node = createToken({
   name: 'Node',
-  pattern: /node/i
+  pattern: /node(?: )/i
 })
 
 export const Edge = createToken({
   name: 'Edge',
-  pattern: /edge/i
+  pattern: /edge(?: )/i
 })
 
 export const LBracket = createToken({
@@ -149,15 +149,9 @@ const UndirectionalEdge = createToken({
 
 export const allTokens = [
   WhiteSpace,
-  Identifier,
-  Alphabetic,
-  Numeric,
-  Quoted,
-  HTML,
   StatementSeparator,
   LineBreak,
   Semicolon,
-  EdgeOperation,
   DirectionalEdge,
   UndirectionalEdge,
   Strict,
@@ -165,15 +159,19 @@ export const allTokens = [
   Digraph,
   LCurly,
   RCurly,
-  Node,
-  Edge,
   LBracket,
   RBracket,
+  Node,
+  Edge,
   Equal,
   Comma,
   Colon,
   Subgraph,
-  Compass
+  Compass,
+  Numeric,
+  Quoted,
+  HTML,
+  Alphabetic
 ]
 
 export const GraphVizLexer = new Lexer(allTokens)
