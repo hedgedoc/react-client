@@ -67,17 +67,17 @@ const HTML = createToken({
 
 export const Strict = createToken({
   name: 'strict',
-  pattern: /strict/
+  pattern: /strict/i
 })
 
 export const Graph = createToken({
   name: 'Graph',
-  pattern: /graph/
+  pattern: /graph/i
 })
 
 export const Digraph = createToken({
   name: 'Digraph',
-  pattern: /digraph/
+  pattern: /digraph/i
 })
 
 export const LCurly = createToken({
@@ -92,12 +92,12 @@ export const RCurly = createToken({
 
 export const Node = createToken({
   name: 'Node',
-  pattern: /node/
+  pattern: /node/i
 })
 
 export const Edge = createToken({
   name: 'Edge',
-  pattern: /edge/
+  pattern: /edge/i
 })
 
 export const LBracket = createToken({
@@ -122,73 +122,13 @@ export const Colon = createToken({
 
 export const Subgraph = createToken({
   name: 'Subgraph',
-  pattern: /subgraph/
+  pattern: /subgraph/i
 })
 
 export const Compass = createToken({
   name: 'Compass',
   pattern: / (nw|ne|se|sw|s|e|w|n|c|_) /
 })
-
-/* const North = createToken({
-  name: 'North',
-  pattern: /n/,
-  categories: [Compass]
-})
-
-const NorthEast = createToken({
-  name: 'NorthEast',
-  pattern: /ne/,
-  categories: [Compass]
-})
-
-const East = createToken({
-  name: 'East',
-  pattern: /e/,
-  categories: [Compass]
-})
-
-const SouthEast = createToken({
-  name: 'SouthEast',
-  pattern: /se/,
-  categories: [Compass]
-})
-
-const South = createToken({
-  name: 'South',
-  pattern: /s/,
-  categories: [Compass]
-})
-
-const SouthWest = createToken({
-  name: 'SouthWest',
-  pattern: /sw/,
-  categories: Compass
-})
-
-const West = createToken({
-  name: 'West',
-  pattern: /w/,
-  categories: Compass
-})
-
-const NorthWest = createToken({
-  name: 'NorthWest',
-  pattern: /nw/,
-  categories: Compass
-})
-
-const Center = createToken({
-  name: 'Center',
-  pattern: /c/,
-  categories: [Compass]
-})
-
-const Underscore = createToken({
-  name: 'Underscore',
-  pattern: /_/,
-  categories: Compass
-}) */
 
 export const EdgeOperation = createToken({
   name: 'EdgeOperation',
