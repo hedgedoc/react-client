@@ -1,6 +1,7 @@
 import hljs from 'highlight.js'
 import React, { Fragment, useMemo } from 'react'
 import ReactHtmlParser from 'react-html-parser'
+import { CopyableButton } from '../../../../common/copyable-button/copyable-button'
 import './highlighted-code.scss'
 
 export interface HighlightedCodeProps {
@@ -42,18 +43,22 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
   }, [code, language])
 
   return (
-    <code className={`hljs ${startLineNumber !== undefined ? 'showGutter' : ''} ${wrapLines ? 'wrapLines' : ''}`}>
-      {
-        highlightedCode
-          .map((line, index) => {
-            return <Fragment key={index}>
-              <span className={'linenumber'} data-line-number={(startLineNumber || 1) + index}/>
-              <div className={'codeline'}>
-                {line}
-              </div>
-            </Fragment>
-          })
-      }
-
-    </code>)
+    <Fragment>
+      <code className={`hljs ${startLineNumber !== undefined ? 'showGutter' : ''} ${wrapLines ? 'wrapLines' : ''}`}>
+        {
+          highlightedCode
+            .map((line, index) => {
+              return <Fragment key={index}>
+                <span className={'linenumber'} data-line-number={(startLineNumber || 1) + index}/>
+                <div className={'codeline'}>
+                  {line}
+                </div>
+              </Fragment>
+            })
+        }
+      </code>
+      <div className={'text-right'} style={{ marginTop: '-31px' }}>
+        <CopyableButton content={code}/>
+      </div>
+    </Fragment>)
 }
