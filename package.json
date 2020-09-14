@@ -3,6 +3,7 @@
     "license": "AGPL-3.0",
     "version": "0.1.0",
     "dependencies": {
+        "@craco/craco": "^5.6.4",
         "@hedgedoc/markdown-it-task-lists": "0.0.1",
         "@matejmazur/react-katex": "3.1.3",
         "@testing-library/jest-dom": "5.11.4",
@@ -36,6 +37,7 @@
         "abcjs": "5.12.0",
         "bootstrap": "4.5.2",
         "codemirror": "5.57.0",
+        "copy-webpack-plugin": "^6.1.0",
         "d3-graphviz": "^3.1.0",
         "diff": "4.0.2",
         "emoji-mart": "3.0.0",
@@ -99,11 +101,11 @@
         "uuid": "8.3.0"
     },
     "scripts": {
-        "start": "PORT=3001 react-scripts start",
+        "start": "PORT=3001 craco start",
         "start:dev": "REACT_APP_BACKEND=http://localhost:3000 yarn start",
         "build:serve": "http-server build/ -s -p 3001 -P \"http://127.0.0.1:3001?\"",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
+        "build": "craco build",
+        "test": "craco test",
         "lint": "eslint --ext .ts,.tsx src",
         "eject": "react-scripts eject",
         "cy:open": "cypress open",
