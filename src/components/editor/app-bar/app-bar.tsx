@@ -16,11 +16,16 @@ import { HelpButton } from './help-button/help-button'
 import { NavbarBranding } from './navbar-branding'
 import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
 
-export interface AppBarProps {
-  showEditorButtons: boolean
+export enum AppBarMode {
+  BASIC,
+  EDITOR
 }
 
-export const AppBar: React.FC<AppBarProps> = ({ showEditorButtons }) => {
+export interface AppBarProps {
+  mode: AppBarMode
+}
+
+export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
   const { t } = useTranslation()
   const { id } = useParams<EditorPathParams>()
   const userExists = useSelector((state: ApplicationState) => !!state.user)
@@ -29,7 +34,7 @@ export const AppBar: React.FC<AppBarProps> = ({ showEditorButtons }) => {
     <Navbar bg={'light'}>
       <Nav className="mr-auto d-flex align-items-center">
         <NavbarBranding/>
-        <ShowIf condition={showEditorButtons}>
+        <ShowIf condition={mode === AppBarMode.EDITOR}>
           <EditorViewMode/>
           <SyncScrollButtons/>
         </ShowIf>
@@ -39,7 +44,7 @@ export const AppBar: React.FC<AppBarProps> = ({ showEditorButtons }) => {
             <ForkAwesomeIcon icon="television"/>
           </Button>
         </Link>
-        <ShowIf condition={showEditorButtons}>
+        <ShowIf condition={mode === AppBarMode.EDITOR}>
           <HelpButton/>
         </ShowIf>
       </Nav>

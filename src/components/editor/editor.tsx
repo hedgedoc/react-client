@@ -8,7 +8,7 @@ import { ApplyDarkMode } from '../common/apply-dark-mode/apply-dark-mode'
 import { DocumentTitle } from '../common/document-title/document-title'
 import { extractNoteTitle } from '../common/document-title/note-title-extractor'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
-import { AppBar } from './app-bar/app-bar'
+import { AppBar, AppBarMode } from './app-bar/app-bar'
 import { EditorMode } from './app-bar/editor-view-mode'
 import { DocumentBar } from './document-bar/document-bar'
 import { DocumentRenderPane } from './document-renderer-pane/document-render-pane'
@@ -110,7 +110,7 @@ export const Editor: React.FC = () => {
       <MotdBanner/>
       <DocumentTitle title={documentTitle}/>
       <div className={'d-flex flex-column vh-100'}>
-        <AppBar showEditorButtons={true}/>
+        <AppBar mode={AppBarMode.EDITOR}/>
         <DocumentBar title={documentTitle} noteContent={markdownContent} updateNoteContent={(newContent) => setMarkdownContent(newContent)}/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}

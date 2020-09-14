@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
@@ -8,7 +8,7 @@ import { DocumentTitle } from '../common/document-title/document-title'
 import { extractNoteTitle } from '../common/document-title/note-title-extractor'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { ShowIf } from '../common/show-if/show-if'
-import { AppBar } from '../editor/app-bar/app-bar'
+import { AppBar, AppBarMode } from '../editor/app-bar/app-bar'
 import { DocumentRenderPane } from '../editor/document-renderer-pane/document-render-pane'
 import { EditorPathParams } from '../editor/editor'
 import { YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
@@ -52,7 +52,7 @@ export const PadViewOnly: React.FC = () => {
       <ApplyDarkMode/>
       <DocumentTitle title={documentTitle}/>
       <MotdBanner/>
-      <AppBar showEditorButtons={false}/>
+      <AppBar mode={AppBarMode.BASIC}/>
       <div className={'container'}>
         <ShowIf condition={error}>
           <Alert variant={'danger'} className={'my-2'}>
