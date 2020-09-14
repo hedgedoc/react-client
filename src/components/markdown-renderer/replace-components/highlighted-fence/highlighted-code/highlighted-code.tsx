@@ -2,6 +2,7 @@ import hljs from 'highlight.js'
 import React, { Fragment, useMemo } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { CopyableButton } from '../../../../common/copyable-button/copyable-button'
+import '../../../utils/button-inside.scss'
 import './highlighted-code.scss'
 
 export interface HighlightedCodeProps {
