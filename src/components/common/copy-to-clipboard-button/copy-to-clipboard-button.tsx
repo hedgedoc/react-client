@@ -4,13 +4,13 @@ import { Variant } from 'react-bootstrap/types'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../fork-awesome/fork-awesome-icon'
 
-export interface CopyableButtonProps {
+export interface CopyToClipboardButtonProps {
   content: string
   size?: 'sm' | 'lg'
   variant?: Variant
 }
 
-export const CopyableButton: React.FC<CopyableButtonProps> = ({ content, size = 'sm', variant = 'dark' }) => {
+export const CopyToClipboardButton: React.FC<CopyToClipboardButtonProps> = ({ content, size = 'sm', variant = 'dark' }) => {
   const { t } = useTranslation()
   const button = useRef<HTMLButtonElement>(null)
   const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
