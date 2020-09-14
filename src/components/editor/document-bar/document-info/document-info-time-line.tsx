@@ -3,7 +3,6 @@ import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { IconName } from '../../../common/fork-awesome/types'
 import { DocumentInfoLine } from './document-info-line'
-import './document-info-time-line.scss'
 import { TimeFromNow } from './time-from-now'
 import { UserAvatar } from '../../../common/user-avatar/user-avatar'
 
@@ -29,7 +28,7 @@ export const DocumentInfoTimeLine: React.FC<DocumentInfoLineWithTimeProps> = ({ 
   return (
     <DocumentInfoLine icon={icon} size={size}>
       <Trans i18nKey={i18nKey} >
-        <UserAvatar photo={profileImageSrc} additionalClasses={`font-style-normal bold font-weight-bold ${size ? 'document-info-avatar' : ''}`} name={userName}/>
+        <UserAvatar photo={profileImageSrc} additionalClasses={`font-style-normal bold font-weight-bold ${size ? 'document-info-avatar' : ''}`} name={userName} size={size ? 'lg' : undefined}/>
         <TimeFromNow time={time}/>
       </Trans>
     </DocumentInfoLine>
