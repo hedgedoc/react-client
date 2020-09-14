@@ -4,13 +4,13 @@ import { IconName } from '../../../common/fork-awesome/types'
 
 export interface DocumentInfoLineProps {
   icon: IconName
-  isInline?: boolean
+  size?: '2x' | '3x' | '4x' | '5x' | undefined
 }
 
-export const DocumentInfoLine: React.FC<DocumentInfoLineProps> = ({ icon, isInline, children }) => {
+export const DocumentInfoLine: React.FC<DocumentInfoLineProps> = ({ icon, size, children }) => {
   return (
     <span className={'d-flex align-items-center'}>
-      <ForkAwesomeIcon icon={icon} size={!isInline ? '2x' : undefined} fixedWidth={true} className={'mx-2'}/>
+      <ForkAwesomeIcon icon={icon} size={size} fixedWidth={true} className={'mx-2'}/>
       <i className={'d-flex align-items-center'}>
         {children}
       </i>
