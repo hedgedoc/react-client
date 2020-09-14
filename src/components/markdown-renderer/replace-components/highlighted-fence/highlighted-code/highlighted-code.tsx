@@ -57,7 +57,7 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
             })
         }
       </code>
-      <div className={'text-right'} style={{ marginTop: '-31px' }}>
+      <div className={'text-right button-inside'}>
         <CopyableButton content={code}/>
       </div>
     </Fragment>)
