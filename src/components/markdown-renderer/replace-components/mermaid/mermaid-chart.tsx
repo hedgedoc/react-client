@@ -1,5 +1,5 @@
 import mermaid from 'mermaid'
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ShowIf } from '../../../common/show-if/show-if'
@@ -26,31 +26,35 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
     }
   }, [])
 
+  const showError = useCallback((error: string) => {
+    if (!diagramContainer.current) {
+      return
+    }
+    setError(error)
+    console.error(error)
+    diagramContainer.current.querySelectorAll('svg').forEach(child => child.remove())
+  }, [])
+
   useEffect(() => {
-    setError(undefined)
+    if (!diagramContainer.current) {
+      return
+    }
     try {
-      if (!diagramContainer.current) {
-        return
-      }
       mermaid.parse(code)
       delete diagramContainer.current.dataset.processed
       diagramContainer.current.textContent = code
       mermaid.init(diagramContainer.current)
+      setError(undefined)
     } catch (error) {
       const message = (error as MermaidParseError).str
-      if (message) {
-        setError(message)
-      } else {
-        setError(t('renderer.mermaid.unknownError'))
-        console.error(error)
-      }
+      showError(message || t('renderer.mermaid.unknownError'))
     }
-  }, [code, t])
+  }, [code, showError, t])
 
   return <Fragment>
     <ShowIf condition={!!error}>
       <Alert variant={'warning'}>{error}</Alert>
     </ShowIf>
-    <div className={`text-center mermaid ${error ? 'd-none' : ''}`} ref={diagramContainer}/>
+    <div className={'text-center mermaid'} ref={diagramContainer}/>
   </Fragment>
 }
