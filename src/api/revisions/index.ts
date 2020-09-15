@@ -7,7 +7,7 @@ const revisionCache = new Map<string, CacheEntry<Revision>>()
 
 export const getRevision = async (noteId: string, timestamp: number): Promise<Revision> => {
   const cacheEntry = revisionCache.get(`${noteId}:${timestamp}`)
-  if (cacheEntry && cacheEntry.timestamp < Date.now() - CACHE_TIME_SECONDS) {
+  if (cacheEntry && cacheEntry.timestamp < Date.now() - CACHE_TIME_SECONDS * 1000) {
     return cacheEntry.data
   }
   const response = await fetch(getApiUrl() + `/notes/${noteId}/revisions/${timestamp}`, {

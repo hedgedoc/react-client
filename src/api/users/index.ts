@@ -7,7 +7,7 @@ const userResponseCache = new Map<string, CacheEntry<UserResponse>>()
 
 export const getUserById = async (userid: string): Promise<UserResponse> => {
   const cacheEntry = userResponseCache.get(userid)
-  if (cacheEntry && cacheEntry.timestamp < Date.now() - CACHE_TIME_SECONDS) {
+  if (cacheEntry && cacheEntry.timestamp < Date.now() - CACHE_TIME_SECONDS * 1000) {
     return cacheEntry.data
   }
   const response = await fetch(`${getApiUrl()}/users/${userid}`, {
