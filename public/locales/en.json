@@ -12,6 +12,9 @@
         },
         "sequence": {
             "deprecationWarning": "The use of 'sequence' as code block language is deprecated."
+        },
+        "image": {
+            "expandImage": "Expand image"
         }
     },
     "landing": {
