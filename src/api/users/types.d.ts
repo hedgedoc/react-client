@@ -6,8 +6,3 @@ export interface UserResponse {
   photo: string
   provider: LoginProvider
 }
-
-export interface UserResponseCacheEntry {
-  timestamp: number
-  userData: UserResponse
-}
