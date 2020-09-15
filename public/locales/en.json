@@ -376,7 +376,8 @@
         "and": "and",
         "avatarOf": "avatar of '{{name}}'",
         "why": "Why?",
-        "successfullyCopied": "Copied!"
+        "successfullyCopied": "Copied!",
+        "copyError": "Error while copying!"
     },
     "login": {
         "chooseMethod": "Choose method",
