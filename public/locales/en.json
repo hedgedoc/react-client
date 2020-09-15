@@ -5,7 +5,7 @@
     },
     "renderer": {
         "highlightCode": {
-            "copyCode": "Copy code"
+            "copyCode": "Copy code to clipboard"
         },
         "flowchart": {
             "invalidSyntax": "Invalid flowchart.js syntax!"
