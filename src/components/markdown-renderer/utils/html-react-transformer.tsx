@@ -35,10 +35,7 @@ export const calculateKeyFromLineMarker = (node: DomElement, lineKeys?: LineKeys
 
   const startLine = Number(startLineInMarkdown)
   const endLine = Number(endLineInMarkdown)
-  if (lineKeys[startLine] === undefined) {
-    return
-  }
-  if (lineKeys[endLine] === undefined) {
+  if (lineKeys[startLine] === undefined || lineKeys[endLine] === undefined) {
     return
   }
 
