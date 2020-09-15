@@ -1,16 +1,5 @@
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
-
-export interface Revision {
-  content: string
-  timestamp: number
-  authors: string[]
-}
-
-export interface RevisionListEntry {
-  timestamp: number
-  length: number
-  authors: string[]
-}
+import { Revision, RevisionListEntry } from './types'
 
 export const getRevision = async (noteId: string, timestamp: number): Promise<Revision> => {
   const response = await fetch(getApiUrl() + `/notes/${noteId}/revisions/${timestamp}`, {
