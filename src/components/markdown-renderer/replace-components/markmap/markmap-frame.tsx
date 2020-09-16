@@ -14,7 +14,7 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
       return
     }
     const svg: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    svg.setAttribute('width', '770px')
+    svg.setAttribute('width', '100%')
     diagramContainer.current.querySelectorAll('svg').forEach(child => child.remove())
     diagramContainer.current.appendChild(svg)
     const data = transform(code)
