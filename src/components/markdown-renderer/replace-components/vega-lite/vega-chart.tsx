@@ -26,7 +26,18 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
       return
     }
     try {
-      embed(diagramContainer.current, JSON.parse(code))
+      embed(diagramContainer.current, JSON.parse(code), {
+        actions: {
+          export: true,
+          source: false,
+          compiled: false,
+          editor: false
+        },
+        i18n: {
+          PNG_ACTION: t('renderer.vega-lite.png'),
+          SVG_ACTION: t('renderer.vega-lite.svg')
+        }
+      })
         .then(result => console.log(result))
         .catch(err => showError(err))
     } catch (err) {
@@ -38,6 +49,8 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
     <ShowIf condition={!!error}>
       <Alert variant={'warning'}>{error}</Alert>
     </ShowIf>
-    <div className={'text-center'} ref={diagramContainer}/>
+    <div className={'text-center'}>
+      <div ref={diagramContainer}/>
+    </div>
   </Fragment>
 }
