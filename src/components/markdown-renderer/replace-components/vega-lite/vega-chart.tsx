@@ -25,10 +25,13 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
     if (!diagramContainer.current) {
       return
     }
-    console.log('vega-lite')
-    embed(diagramContainer.current, code)
-      .then(result => console.log(result))
-      .catch(err => showError(err))
+    try {
+      embed(diagramContainer.current, JSON.parse(code))
+        .then(result => console.log(result))
+        .catch(err => showError(err))
+    } catch (err) {
+      showError(err)
+    }
   }, [code, showError, t])
 
   return <Fragment>
