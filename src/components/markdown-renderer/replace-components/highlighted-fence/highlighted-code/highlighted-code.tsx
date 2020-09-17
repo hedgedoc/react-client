@@ -1,7 +1,7 @@
 import hljs from 'highlight.js'
 import React, { Fragment, useMemo } from 'react'
 import ReactHtmlParser from 'react-html-parser'
-import { CopyToClipboardButton } from '../../../../common/copy-to-clipboard-button/copy-to-clipboard-button'
+import { CopyToClipboardButton } from '../../../../common/copyable/copy-to-clipboard-button/copy-to-clipboard-button'
 import '../../../utils/button-inside.scss'
 import './highlighted-code.scss'
 
