@@ -15,7 +15,8 @@
         },
         "vega-lite": {
             "png": "Save as PNG",
-            "svg": "Save as SVG"
+            "svg": "Save as SVG",
+            "errorJson": "Error parsing the JSON"
         }
     },
     "landing": {

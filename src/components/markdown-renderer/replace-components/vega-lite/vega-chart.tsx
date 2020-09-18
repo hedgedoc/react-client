@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import embed from 'vega-embed'
+import embed, { VisualizationSpec } from 'vega-embed'
 import { ShowIf } from '../../../common/show-if/show-if'
 
 export interface VegaChartProps {
@@ -26,7 +26,9 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
       return
     }
     try {
-      embed(diagramContainer.current, JSON.parse(code), {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const spec: VisualizationSpec = JSON.parse(code)
+      embed(diagramContainer.current, spec, {
         actions: {
           export: true,
           source: false,
@@ -41,13 +43,14 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
         .then(result => console.log(result))
         .catch(err => showError(err))
     } catch (err) {
-      showError(err)
+      console.log('Vega Lite JSON Parse Error', err)
+      showError(t('renderer.vega-lite.errorJson'))
     }
   }, [code, showError, t])
 
   return <Fragment>
     <ShowIf condition={!!error}>
-      <Alert variant={'warning'}>{error}</Alert>
+      <Alert variant={'danger'}>{error}</Alert>
     </ShowIf>
     <div className={'text-center'}>
       <div ref={diagramContainer}/>
