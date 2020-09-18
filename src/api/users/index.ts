@@ -1,23 +1,18 @@
+import { Cache } from '../../components/common/cache/Cache'
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 import { UserResponse } from './types'
-import { CacheEntry } from '../types'
 
-const CACHE_TIME_SECONDS = 600
-const userResponseCache = new Map<string, CacheEntry<UserResponse>>()
+const cache = new Cache<string, UserResponse>(600)
 
 export const getUserById = async (userid: string): Promise<UserResponse> => {
-  const cacheEntry = userResponseCache.get(userid)
-  if (cacheEntry && cacheEntry.timestamp < Date.now() - CACHE_TIME_SECONDS * 1000) {
-    return cacheEntry.data
+  if (cache.has(userid)) {
+    return cache.get(userid)
   }
   const response = await fetch(`${getApiUrl()}/users/${userid}`, {
     ...defaultFetchConfig
   })
   expectResponseCode(response)
   const userData = (await response.json()) as UserResponse
-  userResponseCache.set(userid, {
-    timestamp: Date.now(),
-    data: userData
-  })
+  cache.put(userid, userData)
   return userData
 }

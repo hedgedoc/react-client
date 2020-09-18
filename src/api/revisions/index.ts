@@ -1,24 +1,20 @@
-import { CacheEntry } from '../types'
+import { Cache } from '../../components/common/cache/Cache'
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 import { Revision, RevisionListEntry } from './types'
 
-const CACHE_TIME_SECONDS = 3600
-const revisionCache = new Map<string, CacheEntry<Revision>>()
+const revisionCache = new Cache<string, Revision>(3600)
 
 export const getRevision = async (noteId: string, timestamp: number): Promise<Revision> => {
-  const cacheEntry = revisionCache.get(`${noteId}:${timestamp}`)
-  if (cacheEntry && cacheEntry.timestamp < Date.now() - CACHE_TIME_SECONDS * 1000) {
-    return cacheEntry.data
+  const cacheKey = `${noteId}:${timestamp}`
+  if (revisionCache.has(cacheKey)) {
+    return revisionCache.get(cacheKey)
   }
   const response = await fetch(getApiUrl() + `/notes/${noteId}/revisions/${timestamp}`, {
     ...defaultFetchConfig
   })
   expectResponseCode(response)
   const revisionData = await response.json() as Revision
-  revisionCache.set(`${noteId}:${timestamp}`, {
-    timestamp: Date.now(),
-    data: revisionData
-  })
+  revisionCache.put(cacheKey, revisionData)
   return revisionData
 }
 
