@@ -40,6 +40,7 @@
 - The code button now adds code fences even if the user selected nothing beforehand
 - Code blocks with 'csv' as language render as tables.
 - All images can be clicked to show them in full screen.
+- Code blocks with 'vega-lite' as language are rendered as [vega-lite diagrams](https://vega.github.io/vega-lite/examples/).
 
 ### Changed
 
