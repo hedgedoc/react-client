@@ -10,6 +10,7 @@ export const Frame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ alt
       <img alt={alt} {...props} onClick={() => setShowFullscreenImage(true)}/>
       <Modal
         animation={true}
+        centered={true}
         dialogClassName={'text-dark'}
         show={showFullscreenImage}
         onHide={() => setShowFullscreenImage(false)}
@@ -17,7 +18,7 @@ export const Frame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ alt
         size={'xl'}
       >
         <Modal.Header closeButton={true}>
-          <Modal.Title>
+          <Modal.Title className={'h6'}>
             <ForkAwesomeIcon icon={'picture-o'}/>
             &nbsp;
             <span>{alt ?? ''}</span>
