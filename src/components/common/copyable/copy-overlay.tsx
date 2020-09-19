@@ -13,7 +13,6 @@ export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponen
   useTranslation()
   const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
   const [error, setError] = useState(false)
-  const [clickComponentSaved, setClickComponentSaved] = useState<HTMLElement>()
 
   const copyToClipboard = useCallback((content: string) => {
     navigator.clipboard.writeText(content).then(() => {
@@ -28,16 +27,17 @@ export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponen
   }, [])
 
   useEffect(() => {
+    let clickComponentSaved: HTMLElement
     if (clickComponent && clickComponent.current) {
       clickComponent.current.addEventListener('click', () => copyToClipboard(content))
-      setClickComponentSaved(clickComponent.current)
+      clickComponentSaved = clickComponent.current
     }
     return () => {
       if (clickComponentSaved) {
         clickComponentSaved.removeEventListener('click', () => copyToClipboard(content))
       }
     }
-  }, [clickComponent, copyToClipboard, content, clickComponentSaved])
+  }, [clickComponent, copyToClipboard, content])
 
   return (
     <Overlay target={clickComponent} show={showCopiedTooltip} placement="top">
