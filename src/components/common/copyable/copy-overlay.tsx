@@ -13,6 +13,7 @@ export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponen
   useTranslation()
   const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
   const [error, setError] = useState(false)
+  const [tooltipId] = useState(uuid())
 
   const copyToClipboard = useCallback((content: string) => {
     navigator.clipboard.writeText(content).then(() => {
@@ -41,7 +42,7 @@ export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponen
   return (
     <Overlay target={clickComponent} show={showCopiedTooltip} placement="top">
       {(props) => (
-        <Tooltip id={`copied_${uuid()}`} {...props}>
+        <Tooltip id={`copied_${tooltipId}`} {...props}>
           <ShowIf condition={error}>
             <Trans i18nKey={'common.copyError'}/>
           </ShowIf>
