@@ -19,11 +19,11 @@ export const ImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (
 
   if (imageProxyEnabled) {
     return (
-      <Frame src={imageUrl} title={title || alt || ''} {...props}/>
+      <Frame src={imageUrl} title={title ?? alt ?? ''} {...props}/>
     )
   }
 
   return (
-    <Frame src={src ?? ''} title={title || alt || ''} {...props}/>
+    <Frame src={src ?? ''} title={title ?? alt ?? ''} {...props}/>
   )
 }
