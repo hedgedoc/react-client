@@ -1,6 +1,7 @@
 import React, { RefObject, useCallback, useEffect, useState } from 'react'
 import { Overlay, Tooltip } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
+import { v4 as uuid } from 'uuid'
 import { ShowIf } from '../show-if/show-if'
 
 export interface CopyOverlayProps {
@@ -41,7 +42,7 @@ export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponen
   return (
     <Overlay target={clickComponent} show={showCopiedTooltip} placement="top">
       {(props) => (
-        <Tooltip id={'copied_' + content} {...props}>
+        <Tooltip id={`copied_${uuid()}`} {...props}>
           <ShowIf condition={error}>
             <Trans i18nKey={'common.copyError'}/>
           </ShowIf>
