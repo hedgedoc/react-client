@@ -48,14 +48,14 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
       <code className={`hljs ${startLineNumber !== undefined ? 'showGutter' : ''} ${wrapLines ? 'wrapLines' : ''}`}>
         {
           highlightedCode
-            .map((line, index) => {
-              return <Fragment key={index}>
+            .map((line, index) => (
+              <Fragment key={index}>
                 <span className={'linenumber'} data-line-number={(startLineNumber || 1) + index}/>
                 <div className={'codeline'}>
                   {line}
                 </div>
               </Fragment>
-            })
+            ))
         }
       </code>
       <div className={'text-right button-inside'}>
