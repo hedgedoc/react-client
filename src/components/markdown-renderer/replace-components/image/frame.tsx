@@ -7,7 +7,7 @@ export const Frame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ alt
 
   return (
     <Fragment>
-      <img alt={alt} {...props} onClick={() => setShowFullscreenImage(true)}/>
+      <img alt={alt} {...props} className={'cursor-zoom-in'} onClick={() => setShowFullscreenImage(true)}/>
       <Modal
         animation={true}
         centered={true}
@@ -24,7 +24,7 @@ export const Frame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ alt
             <span>{alt ?? ''}</span>
           </Modal.Title>
         </Modal.Header>
-        <img alt={alt} {...props} className={'w-100'}/>
+        <img alt={alt} {...props} className={'w-100 cursor-zoom-out'} onClick={() => setShowFullscreenImage(false)}/>
       </Modal>
     </Fragment>
   )
