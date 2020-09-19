@@ -42,6 +42,7 @@ import { AsciinemaReplacer } from './replace-components/asciinema/asciinema-repl
 import { CsvReplacer } from './replace-components/csv/csv-replacer'
 import { FlowchartReplacer } from './replace-components/flow/flowchart-replacer'
 import { GistReplacer } from './replace-components/gist/gist-replacer'
+import { GraphvizReplacer } from './replace-components/graphviz/graphviz-replacer'
 import { HighlightedCodeReplacer } from './replace-components/highlighted-fence/highlighted-fence-replacer'
 import { ImageReplacer } from './replace-components/image/image-replacer'
 import { KatexReplacer } from './replace-components/katex/katex-replacer'
@@ -52,10 +53,11 @@ import { PossibleWiderReplacer } from './replace-components/possible-wider/possi
 import { QuoteOptionsReplacer } from './replace-components/quote-options/quote-options-replacer'
 import { SequenceDiagramReplacer } from './replace-components/sequence-diagram/sequence-diagram-replacer'
 import { TaskListReplacer } from './replace-components/task-list/task-list-replacer'
+import { VegaReplacer } from './replace-components/vega-lite/vega-replacer'
 import { VimeoReplacer } from './replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from './replace-components/youtube/youtube-replacer'
-import { useCalculateLineMarkerPosition } from './utils/calculate-line-marker-positions'
 import { AdditionalMarkdownRendererProps, LineMarkerPosition } from './types'
+import { useCalculateLineMarkerPosition } from './utils/calculate-line-marker-positions'
 import { usePostMetaDataOnChange } from './utils/use-post-meta-data-on-change'
 import { usePostTocAstOnChange } from './utils/use-post-toc-ast-on-change'
 
@@ -92,6 +94,8 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
       new CsvReplacer(),
       new FlowchartReplacer(),
       new MermaidReplacer(),
+      new GraphvizReplacer(),
+      new VegaReplacer(),
       new HighlightedCodeReplacer(),
       new QuoteOptionsReplacer(),
       new KatexReplacer(),

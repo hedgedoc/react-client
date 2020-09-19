@@ -40,6 +40,7 @@
 - The code button now adds code fences even if the user selected nothing beforehand
 - Code blocks with 'csv' as language render as tables.
 - Code blocks have a 'Copy code to clipboard' button.
+- Code blocks with 'vega-lite' as language are rendered as [vega-lite diagrams](https://vega.github.io/vega-lite/examples/).
 
 ### Changed
 
