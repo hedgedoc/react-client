@@ -27,14 +27,13 @@ export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponen
   }, [])
 
   useEffect(() => {
-    let clickComponentSaved: HTMLElement
     if (clickComponent && clickComponent.current) {
       clickComponent.current.addEventListener('click', () => copyToClipboard(content))
-      clickComponentSaved = clickComponent.current
-    }
-    return () => {
-      if (clickComponentSaved) {
-        clickComponentSaved.removeEventListener('click', () => copyToClipboard(content))
+      const clickComponentSaved = clickComponent.current
+      return () => {
+        if (clickComponentSaved) {
+          clickComponentSaved.removeEventListener('click', () => copyToClipboard(content))
+        }
       }
     }
   }, [clickComponent, copyToClipboard, content])
