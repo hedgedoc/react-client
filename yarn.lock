@@ -9137,7 +9137,7 @@ markdown-it@^11.0.0:
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
 
-markmap-lib@^0.8.0:
+markmap-lib@0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/markmap-lib/-/markmap-lib-0.8.0.tgz#9b16cf5460803f6763eb241dd7ed4cadfa8a106c"
   integrity sha512-xzgvL8yTXUxlLJxiINYxAmU3+ke763JJJtbrlGxffw56fV3+mDIgi0kVc/NhmgqdGtZ1hNuHv0iRFkm467Ht+g==
