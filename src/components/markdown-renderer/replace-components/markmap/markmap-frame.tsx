@@ -1,6 +1,6 @@
 import { transform } from 'markmap-lib/dist/transform'
 import { Markmap } from 'markmap-lib/dist/view'
-import React, { Fragment, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export interface MarkmapFrameProps {
   code: string
@@ -21,7 +21,5 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
     Markmap.create(svg, {}, data)
   }, [code])
 
-  return <Fragment>
-    <div className={'text-center'} ref={diagramContainer}/>
-  </Fragment>
+  return <div className={'text-center'} ref={diagramContainer}/>
 }
