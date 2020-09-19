@@ -40,7 +40,9 @@
 - The code button now adds code fences even if the user selected nothing beforehand
 - Code blocks with 'csv' as language render as tables.
 - Code blocks with 'markmap' are rendered as a mind map (see [the projects website](https://markmap.js.org/repl)).
-
+- All images can be clicked to show them in full screen.
+- Code blocks with 'vega-lite' as language are rendered as [vega-lite diagrams](https://vega.github.io/vega-lite/examples/).
+  
 ### Changed
 
 - The sign-in/sign-up functions are now on a separate page
