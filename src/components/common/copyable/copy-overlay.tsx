@@ -13,7 +13,7 @@ export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponen
   useTranslation()
   const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
   const [error, setError] = useState(false)
-  const [tooltipId] = useState(uuid())
+  const [tooltipId] = useState<string>(() => uuid())
 
   const copyToClipboard = useCallback((content: string) => {
     navigator.clipboard.writeText(content).then(() => {
