@@ -39,7 +39,7 @@
 - Added shortcodes for [fork-awesome icons](https://forkaweso.me/Fork-Awesome/icons/) (e.g. `:fa-picture-o:`)
 - The code button now adds code fences even if the user selected nothing beforehand
 - Code blocks with 'csv' as language render as tables.
-- All images have a expand image button to show images a bit biggerin the right bottom corner.
+- All images can be clicked to show them a bit bigger.
 
 ### Changed
 
