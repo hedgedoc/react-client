@@ -15,8 +15,7 @@ import * as serviceWorker from './service-worker'
 import './style/index.scss'
 import './style/dark.scss'
 import { HistoryPage } from './components/history-page/history-page'
-
-const Editor = React.lazy(() => import('./components/editor/editor'))
+import { Editor } from './components/editor/editor'
 
 ReactDOM.render(
   <Provider store={store}>
