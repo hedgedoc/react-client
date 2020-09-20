@@ -24,7 +24,6 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
       return
     }
     const actualContainer = container.current
-    console.log('about to load graphviz')
 
     Promise.all([import('d3-graphviz'), import('@hpcc-js/wasm')]).then(([imp]) => {
       try {

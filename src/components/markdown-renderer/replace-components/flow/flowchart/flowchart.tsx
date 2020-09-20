@@ -17,7 +17,6 @@ export const FlowChart: React.FC<FlowChartProps> = ({ code }) => {
       return
     }
     const currentDiagramRef = diagramRef.current
-    console.log('about to load flowchart.js')
     import('flowchart.js').then((imp) => {
       const parserOutput = imp.parse(code)
       try {

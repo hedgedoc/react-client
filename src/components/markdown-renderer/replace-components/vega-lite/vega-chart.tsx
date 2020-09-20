@@ -49,7 +49,7 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
       } catch (err) {
         showError(t('renderer.vega-lite.errorJson'))
       }
-    }).catch(() => { console.error('error while loading graphviz') })
+    }).catch(() => { console.error('error while loading vega-light') })
   }, [code, showError, t])
 
   return <Fragment>
