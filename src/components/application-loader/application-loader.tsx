@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, Suspense, useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import './application-loader.scss'
 import { createSetUpTaskList, InitTask } from './initializers'
@@ -33,9 +33,11 @@ export const ApplicationLoader: React.FC = ({ children }) => {
     }
   }, [initTasks, runTask])
 
-  return (
-    doneTasks < initTasks.length || initTasks.length === 0
-      ? <LoadingScreen failedTitle={failedTitle}/>
-      : <Fragment>{children}</Fragment>
-  )
+  const tasksAreRunning = doneTasks < initTasks.length || initTasks.length === 0
+
+  return tasksAreRunning
+    ? <LoadingScreen failedTitle={failedTitle}/>
+    : <Suspense fallback={(<LoadingScreen failedTitle={''}/>)}>
+      {children}
+    </Suspense>
 }

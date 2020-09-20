@@ -8,6 +8,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { TranslatedExternalLink } from '../common/links/translated-external-link'
 import { ShowIf } from '../common/show-if/show-if'
 import { getAndSetUser } from '../login-page/auth/utils'
+import { LandingLayout } from '../landing-layout/landing-layout'
 
 export enum RegisterError {
   NONE = 'none',
@@ -53,7 +54,7 @@ export const RegisterPage: React.FC = () => {
     )
   }
 
-  return (
+  return <LandingLayout>
     <div className='my-3'>
       <h1 className='mb-4'><Trans i18nKey='login.register.title'/></h1>
       <Row className='h-100 d-flex justify-content-center'>
@@ -138,5 +139,7 @@ export const RegisterPage: React.FC = () => {
         </Col>
       </Row>
     </div>
-  )
+  </LandingLayout>
 }
+
+export default RegisterPage

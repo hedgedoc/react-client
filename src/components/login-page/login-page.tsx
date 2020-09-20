@@ -10,6 +10,7 @@ import { ViaLdap } from './auth/via-ldap'
 import { OneClickType, ViaOneClick } from './auth/via-one-click'
 import { ViaOpenId } from './auth/via-openid'
 import equal from 'fast-deep-equal'
+import { LandingLayout } from '../landing-layout/landing-layout'
 export const LoginPage: React.FC = () => {
   useTranslation()
   const authProviders = useSelector((state: ApplicationState) => state.config.authProviders, equal)
@@ -38,7 +39,7 @@ export const LoginPage: React.FC = () => {
     )
   }
 
-  return (
+  return <LandingLayout>
     <div className="my-3">
       <Row className="h-100 flex justify-content-center">
         <ShowIf condition={authProviders.internal || authProviders.ldap || authProviders.openid}>
@@ -76,5 +77,7 @@ export const LoginPage: React.FC = () => {
         </ShowIf>
       </Row>
     </div>
-  )
+  </LandingLayout>
 }
+
+export default LoginPage

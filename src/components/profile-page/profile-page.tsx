@@ -5,6 +5,7 @@ import { Redirect } from 'react-router'
 import { ApplicationState } from '../../redux'
 import { LoginProvider } from '../../redux/user/types'
 import { ShowIf } from '../common/show-if/show-if'
+import { LandingLayout } from '../landing-layout/landing-layout'
 import { ProfileAccountManagement } from './settings/profile-account-management'
 import { ProfileChangePassword } from './settings/profile-change-password'
 import { ProfileDisplayName } from './settings/profile-display-name'
@@ -18,7 +19,7 @@ export const ProfilePage: React.FC = () => {
     )
   }
 
-  return (
+  return <LandingLayout>
     <div className="my-3">
       <Row className="h-100 flex justify-content-center">
         <Col lg={6}>
@@ -30,5 +31,7 @@ export const ProfilePage: React.FC = () => {
         </Col>
       </Row>
     </div>
-  )
+  </LandingLayout>
 }
+
+export default ProfilePage

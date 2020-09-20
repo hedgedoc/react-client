@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { deleteHistory, deleteHistoryEntry, getHistory, setHistory, updateHistoryEntry } from '../../api/history'
 import { deleteNote } from '../../api/notes'
 import { ApplicationState } from '../../redux'
+import { LandingLayout } from '../landing-layout/landing-layout'
 
 import {
   collectEntries,
@@ -189,33 +190,33 @@ export const HistoryPage: React.FC = () => {
     sortAndFilterEntries(allEntries, toolbarState),
   [allEntries, toolbarState])
 
-  return (
-    <Fragment>
-      <ErrorModal show={error !== ''} onHide={resetError}
-        titleI18nKey={error !== '' ? `landing.history.error.${error}.title` : ''}>
-        <h5>
-          <Trans i18nKey={error !== '' ? `landing.history.error.${error}.text` : ''}/>
-        </h5>
-      </ErrorModal>
-      <h1 className="mb-4"><Trans i18nKey="landing.navigation.history"/></h1>
-      <Row className={'justify-content-center mt-5 mb-3'}>
-        <HistoryToolbar
-          onSettingsChange={setToolbarState}
-          tags={tags}
-          onClearHistory={clearHistory}
-          onRefreshHistory={refreshHistory}
-          onExportHistory={exportHistory}
-          onImportHistory={importHistory}
-          onUploadAll={uploadAll}
-        />
-      </Row>
-      <HistoryContent
-        viewState={toolbarState.viewState}
-        entries={entriesToShow}
-        onPinClick={pinClick}
-        onRemoveClick={removeFromHistoryClick}
-        onDeleteClick={deleteNoteClick}
+  return <LandingLayout>
+    <ErrorModal show={error !== ''} onHide={resetError}
+      titleI18nKey={error !== '' ? `landing.history.error.${error}.title` : ''}>
+      <h5>
+        <Trans i18nKey={error !== '' ? `landing.history.error.${error}.text` : ''}/>
+      </h5>
+    </ErrorModal>
+    <h1 className="mb-4"><Trans i18nKey="landing.navigation.history"/></h1>
+    <Row className={'justify-content-center mt-5 mb-3'}>
+      <HistoryToolbar
+        onSettingsChange={setToolbarState}
+        tags={tags}
+        onClearHistory={clearHistory}
+        onRefreshHistory={refreshHistory}
+        onExportHistory={exportHistory}
+        onImportHistory={importHistory}
+        onUploadAll={uploadAll}
       />
-    </Fragment>
-  )
+    </Row>
+    <HistoryContent
+      viewState={toolbarState.viewState}
+      entries={entriesToShow}
+      onPinClick={pinClick}
+      onRemoveClick={removeFromHistoryClick}
+      onDeleteClick={deleteNoteClick}
+    />
+  </LandingLayout>
 }
+
+export default HistoryPage
