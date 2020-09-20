@@ -1,8 +1,9 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
-import { getAttributesFromHedgeDocTag } from '../utils'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { AsciinemaFrame } from './asciinema-frame'
+import { getAttributesFromHedgeDocTag } from '../utils'
+
+const AsciinemaFrame = React.lazy(() => import('./asciinema-frame'))
 
 export class AsciinemaReplacer extends ComponentReplacer {
   private counterMap: Map<string, number> = new Map<string, number>()

@@ -22,3 +22,5 @@ export const PdfFrame: React.FC<PdfFrameProps> = ({ url }) => {
     </OneClickEmbedding>
   )
 }
+
+export default PdfFrame

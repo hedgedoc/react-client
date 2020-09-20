@@ -57,3 +57,5 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
     </div>
   </Fragment>
 }
+
+export default VegaChart

@@ -1,7 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { MarkmapFrame } from './markmap-frame'
+
+const MarkmapFrame = React.lazy(() => import('./markmap-frame'))
 
 export class MarkmapReplacer implements ComponentReplacer {
   getReplacement (codeNode: DomElement): React.ReactElement | undefined {

@@ -27,3 +27,5 @@ export const ImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (
     <Frame src={src ?? ''} title={title ?? alt ?? ''} alt={alt} {...props}/>
   )
 }
+
+export default ImageFrame

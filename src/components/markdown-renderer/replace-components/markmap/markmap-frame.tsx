@@ -23,3 +23,5 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
 
   return <div className={'text-center'} ref={diagramContainer}/>
 }
+
+export default MarkmapFrame

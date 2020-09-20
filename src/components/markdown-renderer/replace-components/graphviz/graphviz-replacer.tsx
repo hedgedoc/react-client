@@ -1,7 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { GraphvizFrame } from './graphviz-frame'
+
+const GraphvizFrame = React.lazy(() => import('./graphviz-frame'))
 
 export class GraphvizReplacer implements ComponentReplacer {
   getReplacement (codeNode: DomElement): React.ReactElement | undefined {

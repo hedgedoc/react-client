@@ -1,7 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { CsvTable } from './csv-table'
+
+const CsvTable = React.lazy(() => import('./csv-table'))
 
 export class CsvReplacer extends ComponentReplacer {
   public getReplacement (codeNode: DomElement): React.ReactElement | undefined {

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
 import { renderAbc } from 'abcjs'
+import React, { useEffect, useRef } from 'react'
 
 export interface AbcFrameProps {
   code: string
@@ -17,3 +17,5 @@ export const AbcFrame: React.FC<AbcFrameProps> = ({ code }) => {
     <div ref={container} className={'bg-white text-center'}/>
   )
 }
+
+export default AbcFrame

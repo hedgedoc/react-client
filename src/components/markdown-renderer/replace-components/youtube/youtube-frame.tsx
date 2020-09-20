@@ -16,3 +16,5 @@ export const YouTubeFrame: React.FC<YouTubeFrameProps> = ({ id }) => {
     </OneClickEmbedding>
   )
 }
+
+export default YouTubeFrame

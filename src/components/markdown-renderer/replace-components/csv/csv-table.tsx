@@ -69,3 +69,5 @@ export const CsvTable: React.FC<CsvTableProps> = ({ code, delimiter, showHeader,
     </table>
   )
 }
+
+export default CsvTable

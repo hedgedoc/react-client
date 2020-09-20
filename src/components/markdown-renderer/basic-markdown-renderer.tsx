@@ -8,7 +8,7 @@ import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
-import React, { ReactElement, RefObject, useMemo, useRef } from 'react'
+import React, { ReactElement, RefObject, Suspense, useMemo, useRef } from 'react'
 import { Alert } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import { Trans } from 'react-i18next'
@@ -99,7 +99,9 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
         </Alert>
       </ShowIf>
       <div ref={documentReference} className={'markdown-body w-100 d-flex flex-column align-items-center'}>
-        {markdownReactDom}
+        <Suspense fallback={<div>Loading...</div>}>
+          {markdownReactDom}
+        </Suspense>
       </div>
     </div>
   )

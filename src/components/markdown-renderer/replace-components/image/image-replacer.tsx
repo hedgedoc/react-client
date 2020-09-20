@@ -1,7 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { ImageFrame } from './image-frame'
+
+const ImageFrame = React.lazy(() => import('./image-frame'))
 
 export class ImageReplacer extends ComponentReplacer {
   public getReplacement (node: DomElement): React.ReactElement | undefined {

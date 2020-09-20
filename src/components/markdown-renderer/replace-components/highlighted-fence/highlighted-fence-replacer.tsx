@@ -1,7 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { HighlightedCode } from './highlighted-code/highlighted-code'
+
+const HighlightedCode = React.lazy(() => import('./highlighted-code/highlighted-code'))
 
 export class HighlightedCodeReplacer extends ComponentReplacer {
   private lastLineNumber = 0;

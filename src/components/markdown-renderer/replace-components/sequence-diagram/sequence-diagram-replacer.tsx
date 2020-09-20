@@ -1,8 +1,9 @@
 import { DomElement } from 'domhandler'
 import React, { Fragment } from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { MermaidChart } from '../mermaid/mermaid-chart'
-import { DeprecationWarning } from './deprecation-warning'
+
+const MermaidChart = React.lazy(() => import('../mermaid/mermaid-chart'))
+const DeprecationWarning = React.lazy(() => import('./deprecation-warning'))
 
 export class SequenceDiagramReplacer implements ComponentReplacer {
   getReplacement (codeNode: DomElement): React.ReactElement | undefined {

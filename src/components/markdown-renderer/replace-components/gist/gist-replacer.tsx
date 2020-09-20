@@ -1,10 +1,11 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
-import { getAttributesFromHedgeDocTag } from '../utils'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
-import { GistFrame } from './gist-frame'
+import { getAttributesFromHedgeDocTag } from '../utils'
 import preview from './gist-preview.png'
+
+const GistFrame = React.lazy(() => import('./gist-frame'))
 
 export class GistReplacer extends ComponentReplacer {
   private counterMap: Map<string, number> = new Map<string, number>()

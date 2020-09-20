@@ -17,3 +17,5 @@ export const AsciinemaFrame: React.FC<AsciinemaFrameProps> = ({ id }) => {
     </OneClickEmbedding>
   )
 }
+
+export default AsciinemaFrame
