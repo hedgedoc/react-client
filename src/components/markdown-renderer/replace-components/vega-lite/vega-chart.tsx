@@ -28,7 +28,6 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const spec: VisualizationSpec = JSON.parse(code)
-      showError('')
       embed(diagramContainer.current, spec, {
         actions: {
           export: true,
@@ -41,7 +40,7 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
           SVG_ACTION: t('renderer.vega-lite.svg')
         }
       })
-        .then(result => console.log(result))
+        .then(() => showError(''))
         .catch(err => showError(err))
     } catch (err) {
       showError(t('renderer.vega-lite.errorJson'))
