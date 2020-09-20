@@ -14,9 +14,9 @@ import { store } from './redux'
 import * as serviceWorker from './service-worker'
 import './style/index.scss'
 import './style/dark.scss'
+import { HistoryPage } from './components/history-page/history-page'
 
 const Editor = React.lazy(() => import('./components/editor/editor'))
-const HistoryPage = React.lazy(() => import('./components/history-page/history-page'))
 
 ReactDOM.render(
   <Provider store={store}>
