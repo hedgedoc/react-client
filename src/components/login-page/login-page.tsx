@@ -79,5 +79,3 @@ export const LoginPage: React.FC = () => {
     </div>
   </LandingLayout>
 }
-
-export default LoginPage

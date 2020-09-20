@@ -26,5 +26,3 @@ export const IntroPage: React.FC = () => {
     <FeatureLinks/>
   </LandingLayout>
 }
-
-export default IntroPage

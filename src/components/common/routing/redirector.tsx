@@ -26,4 +26,3 @@ export const Redirector: React.FC = () => {
     return (<span>Loading</span>)
   }
 }
-export default Redirector
