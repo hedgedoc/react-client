@@ -81,7 +81,7 @@ describe('Code', () => {
     cy.get('.markdown-body > pre > div > button > i')
       .should('have.class', 'fa-files-o')
       .click()
-    // This line can be activated if cypress support copy to clipboard in firefox, too.
+    // This line can be activated if cypress supports copy to clipboard in firefox, too.
     // cy.task('getClipboard').should('contain', 'let x = 0\n');
   })
 
