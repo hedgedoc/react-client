@@ -2,8 +2,7 @@ import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { getAttributesFromHedgeDocTag } from '../utils'
-
-const VimeoFrame = React.lazy(() => import('./vimeo-frame'))
+import { VimeoFrame } from './vimeo-frame'
 
 export class VimeoReplacer extends ComponentReplacer {
   private counterMap: Map<string, number> = new Map<string, number>()

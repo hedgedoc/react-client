@@ -2,8 +2,7 @@ import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { getAttributesFromHedgeDocTag } from '../utils'
-
-const YouTubeFrame = React.lazy(() => import('./youtube-frame'))
+import { YouTubeFrame } from './youtube-frame'
 
 export class YoutubeReplacer extends ComponentReplacer {
   private counterMap: Map<string, number> = new Map<string, number>()

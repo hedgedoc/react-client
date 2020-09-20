@@ -2,8 +2,7 @@ import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { getAttributesFromHedgeDocTag } from '../utils'
-
-const PdfFrame = React.lazy(() => import('./pdf-frame'))
+import { PdfFrame } from './pdf-frame'
 
 export class PdfReplacer extends ComponentReplacer {
   private counterMap: Map<string, number> = new Map<string, number>()
