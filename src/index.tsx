@@ -12,11 +12,11 @@ import './style/dark.scss'
 import { Redirector } from './components/common/routing/redirector'
 
 const Editor = React.lazy(() => import('./components/editor/editor'))
-const HistoryPage = React.lazy(() => import('./components/history-page/history-page'))
-const IntroPage = React.lazy(() => import('./components/intro-page/intro-page'))
-const LoginPage = React.lazy(() => import('./components/login-page/login-page'))
-const ProfilePage = React.lazy(() => import('./components/profile-page/profile-page'))
-const RegisterPage = React.lazy(() => import('./components/register-page/register-page'))
+const HistoryPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/history-page/history-page'))
+const IntroPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/intro-page/intro-page'))
+const LoginPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/login-page/login-page'))
+const ProfilePage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/profile-page/profile-page'))
+const RegisterPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/register-page/register-page'))
 
 ReactDOM.render(
   <Provider store={store}>
