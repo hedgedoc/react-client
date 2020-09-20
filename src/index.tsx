@@ -9,8 +9,8 @@ import { store } from './redux'
 import * as serviceWorker from './service-worker'
 import './style/index.scss'
 import './style/dark.scss'
+import { Redirector } from './components/common/routing/redirector'
 
-const Redirector = React.lazy(() => import('./components/common/routing/redirector'))
 const Editor = React.lazy(() => import('./components/editor/editor'))
 const HistoryPage = React.lazy(() => import('./components/history-page/history-page'))
 const IntroPage = React.lazy(() => import('./components/intro-page/intro-page'))
