@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useCallback, useEffect, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import './application-loader.scss'
 import { createSetUpTaskList, InitTask } from './initializers'

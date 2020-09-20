@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
