@@ -1,5 +1,5 @@
-import { DomElement } from 'domhandler'
 import React, { ReactElement } from 'react'
+import { DomElement } from 'domhandler'
 import { ComponentReplacer } from '../ComponentReplacer'
 
 export class TaskListReplacer extends ComponentReplacer {

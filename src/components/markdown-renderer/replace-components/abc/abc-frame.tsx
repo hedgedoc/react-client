@@ -1,5 +1,5 @@
-import { renderAbc } from 'abcjs'
 import React, { useEffect, useRef } from 'react'
+import { renderAbc } from 'abcjs'
 
 export interface AbcFrameProps {
   code: string

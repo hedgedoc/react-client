@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
-import { ComponentReplacer } from '../ComponentReplacer'
 import { getAttributesFromHedgeDocTag } from '../utils'
+import { ComponentReplacer } from '../ComponentReplacer'
 import { AsciinemaFrame } from './asciinema-frame'
 
 export class AsciinemaReplacer extends ComponentReplacer {

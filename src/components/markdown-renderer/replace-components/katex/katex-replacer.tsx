@@ -1,9 +1,8 @@
 import { DomElement } from 'domhandler'
-import 'katex/dist/katex.min.css'
 import React from 'react'
+import 'katex/dist/katex.min.css'
+import TeX from '@matejmazur/react-katex'
 import { ComponentReplacer } from '../ComponentReplacer'
-
-const TeX = React.lazy(() => import('@matejmazur/react-katex'))
 
 const getNodeIfKatexBlock = (node: DomElement): (DomElement|undefined) => {
   if (node.name !== 'p' || !node.children || node.children.length === 0) {

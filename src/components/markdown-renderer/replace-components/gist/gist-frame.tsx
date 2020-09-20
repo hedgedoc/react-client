@@ -67,5 +67,3 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
       src={`data:text/html;base64,${btoa(iframeHtml)}`}/>
   )
 }
-
-export default GistFrame

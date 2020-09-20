@@ -1,8 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
+import { getAttributesFromHedgeDocTag } from '../utils'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { OneClickEmbedding } from '../one-click-frame/one-click-embedding'
-import { getAttributesFromHedgeDocTag } from '../utils'
 import { GistFrame } from './gist-frame'
 import preview from './gist-preview.png'
 

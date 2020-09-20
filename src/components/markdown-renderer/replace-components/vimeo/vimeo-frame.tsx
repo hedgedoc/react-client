@@ -38,5 +38,3 @@ export const VimeoFrame: React.FC<VimeoFrameProps> = ({ id }) => {
     </OneClickEmbedding>
   )
 }
-
-export default VimeoFrame

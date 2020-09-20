@@ -1,7 +1,7 @@
-import '@hpcc-js/wasm'
 import { graphviz } from 'd3-graphviz'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
+import '@hpcc-js/wasm'
 import { ShowIf } from '../../../common/show-if/show-if'
 
 export interface GraphvizFrameProps {

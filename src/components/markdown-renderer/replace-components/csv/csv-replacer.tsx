@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import CsvTable from './csv-table'
+import { CsvTable } from './csv-table'
 
 export class CsvReplacer extends ComponentReplacer {
   public getReplacement (codeNode: DomElement): React.ReactElement | undefined {

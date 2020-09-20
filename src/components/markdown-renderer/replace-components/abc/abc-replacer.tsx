@@ -1,8 +1,7 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-
-const AbcFrame = React.lazy(() => import('./abc-frame'))
+import { AbcFrame } from './abc-frame'
 
 export class AbcReplacer implements ComponentReplacer {
   getReplacement (codeNode: DomElement): React.ReactElement | undefined {

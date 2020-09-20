@@ -46,5 +46,3 @@ export const FlowChart: React.FC<FlowChartProps> = ({ code }) => {
   }
   return <div ref={diagramRef} className={'text-center'}/>
 }
-
-export default FlowChart

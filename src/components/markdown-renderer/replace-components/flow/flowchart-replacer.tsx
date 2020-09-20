@@ -1,8 +1,7 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-
-const FlowChart = React.lazy(() => import('./flowchart/flowchart'))
+import { FlowChart } from './flowchart/flowchart'
 
 export class FlowchartReplacer extends ComponentReplacer {
   public getReplacement (codeNode: DomElement): React.ReactElement | undefined {
