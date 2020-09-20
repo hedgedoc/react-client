@@ -55,5 +55,3 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
     <div className={'text-center mermaid'} ref={diagramContainer}/>
   </Fragment>
 }
-
-export default MermaidChart

@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import React, { Fragment } from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { LazyMermaid } from '../mermaid/lazy-mermaid'
+import { MermaidChart } from '../mermaid/mermaid-chart'
 import { DeprecationWarning } from './deprecation-warning'
 
 export class SequenceDiagramReplacer implements ComponentReplacer {
@@ -14,7 +14,7 @@ export class SequenceDiagramReplacer implements ComponentReplacer {
 
     return <Fragment>
       <DeprecationWarning/>
-      <LazyMermaid code={'sequenceDiagram\n' + code}/>
+      <MermaidChart code={'sequenceDiagram\n' + code}/>
     </Fragment>
   }
 }
