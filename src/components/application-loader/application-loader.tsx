@@ -37,7 +37,7 @@ export const ApplicationLoader: React.FC = ({ children }) => {
 
   return tasksAreRunning
     ? <LoadingScreen failedTitle={failedTitle}/>
-    : <Suspense fallback={(<LoadingScreen failedTitle={''}/>)}>
+    : <Suspense fallback={(<LoadingScreen/>)}>
       {children}
     </Suspense>
 }
