@@ -1,7 +1,6 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import 'katex/dist/katex.min.css'
-import TeX from '@matejmazur/react-katex'
 import { ComponentReplacer } from '../ComponentReplacer'
 
 const getNodeIfKatexBlock = (node: DomElement): (DomElement|undefined) => {
@@ -16,6 +15,8 @@ const getNodeIfKatexBlock = (node: DomElement): (DomElement|undefined) => {
 const getNodeIfInlineKatex = (node: DomElement): (DomElement|undefined) => {
   return (node.name === 'app-katex' && node.attribs?.inline !== undefined) ? node : undefined
 }
+
+const TeX = React.lazy(() => import('@matejmazur/react-katex'))
 
 export class KatexReplacer extends ComponentReplacer {
   public getReplacement (node: DomElement): React.ReactElement | undefined {

@@ -1,7 +1,8 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { VegaChart } from './vega-chart'
+
+const VegaChart = React.lazy(() => import('./vega-chart'))
 
 export class VegaReplacer implements ComponentReplacer {
   getReplacement (codeNode: DomElement): React.ReactElement | undefined {

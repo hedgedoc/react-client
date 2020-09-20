@@ -1,7 +1,7 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { MermaidChart } from './mermaid-chart'
+import { LazyMermaid } from './lazy-mermaid'
 
 export class MermaidReplacer implements ComponentReplacer {
   getReplacement (codeNode: DomElement): React.ReactElement | undefined {
@@ -11,6 +11,6 @@ export class MermaidReplacer implements ComponentReplacer {
 
     const code = codeNode.children[0].data as string
 
-    return <MermaidChart code={code}/>
+    return <LazyMermaid code={code}/>
   }
 }

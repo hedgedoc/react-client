@@ -3,10 +3,7 @@ import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react
 import { Alert } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ShowIf } from '../../../common/show-if/show-if'
-
-export interface MermaidChartProps {
-  code: string
-}
+import { MermaidChartProps } from './types'
 
 interface MermaidParseError {
   str: string
@@ -58,3 +55,5 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
     <div className={'text-center mermaid'} ref={diagramContainer}/>
   </Fragment>
 }
+
+export default MermaidChart
