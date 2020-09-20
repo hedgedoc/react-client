@@ -218,3 +218,5 @@ export const HistoryPage: React.FC = () => {
     />
   </LandingLayout>
 }
+
+export default HistoryPage

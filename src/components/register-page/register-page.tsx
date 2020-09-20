@@ -141,3 +141,5 @@ export const RegisterPage: React.FC = () => {
     </div>
   </LandingLayout>
 }
+
+export default RegisterPage

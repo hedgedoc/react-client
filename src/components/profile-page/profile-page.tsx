@@ -33,3 +33,5 @@ export const ProfilePage: React.FC = () => {
     </div>
   </LandingLayout>
 }
+
+export default ProfilePage
