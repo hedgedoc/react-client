@@ -35,7 +35,7 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
       } catch (error) {
         showError(error)
       }
-    }).catch(() => { console.log('error while loading graphviz') })
+    }).catch(() => { console.error('error while loading graphviz') })
   }, [code, error, showError])
 
   return <Fragment>

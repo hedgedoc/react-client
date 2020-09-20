@@ -20,7 +20,7 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
         actualContainer.appendChild(svg)
         const data = transform.transform(code)
         view.Markmap.create(svg, {}, data)
-      }).catch(() => { console.log('error while loading markmap') })
+      }).catch(() => { console.error('error while loading markmap') })
   }, [code])
 
   return <div className={'text-center'} ref={diagramContainer}/>

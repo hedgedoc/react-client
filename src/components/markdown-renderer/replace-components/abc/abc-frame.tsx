@@ -14,7 +14,7 @@ export const AbcFrame: React.FC<AbcFrameProps> = ({ code }) => {
     const actualContainer = container.current
     import('abcjs').then((imp) => {
       imp.renderAbc(actualContainer, code)
-    }).catch(() => { console.log('error while loading abcjs') })
+    }).catch(() => { console.error('error while loading abcjs') })
   }, [code])
 
   return <div ref={container} className={'bg-white text-center'}/>
