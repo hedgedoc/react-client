@@ -16,7 +16,7 @@ const getNodeIfInlineKatex = (node: DomElement): (DomElement|undefined) => {
   return (node.name === 'app-katex' && node.attribs?.inline !== undefined) ? node : undefined
 }
 
-const TeX = React.lazy(() => import('@matejmazur/react-katex'))
+const KaTeX = React.lazy(() => import('@matejmazur/react-katex'))
 
 export class KatexReplacer extends ComponentReplacer {
   public getReplacement (node: DomElement): React.ReactElement | undefined {
@@ -24,9 +24,7 @@ export class KatexReplacer extends ComponentReplacer {
     if (katex?.children && katex.children[0]) {
       const mathJaxContent = katex.children[0]?.data as string
       const isInline = (katex.attribs?.inline) !== undefined
-      return <div className={'katex-block'}>
-        <TeX block={!isInline} math={mathJaxContent} errorColor={'#cc0000'}/>
-      </div>
+      return <KaTeX block={!isInline} math={mathJaxContent} errorColor={'#cc0000'}/>
     }
   }
 }
