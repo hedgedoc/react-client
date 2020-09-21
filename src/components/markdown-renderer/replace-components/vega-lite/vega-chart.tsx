@@ -25,7 +25,7 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
     if (!diagramContainer.current) {
       return
     }
-    import('vega-embed').then((embed) => {
+    import(/* webpackChunkName: "vega" */ 'vega-embed').then((embed) => {
       try {
         if (!diagramContainer.current) {
           return
