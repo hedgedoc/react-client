@@ -12,7 +12,7 @@ export const AbcFrame: React.FC<AbcFrameProps> = ({ code }) => {
       return
     }
     const actualContainer = container.current
-    import('abcjs').then((imp) => {
+    import(/* webpackChunkName: "abc.js" */ 'abcjs').then((imp) => {
       imp.renderAbc(actualContainer, code)
     }).catch(() => { console.error('error while loading abcjs') })
   }, [code])
