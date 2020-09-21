@@ -12,7 +12,7 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
       return
     }
     const actualContainer = diagramContainer.current
-    Promise.all([import('markmap-lib/dist/transform'), import('markmap-lib/dist/view')])
+    Promise.all([import(/* webpackChunkName: "markmap" */ 'markmap-lib/dist/transform'), import(/* webpackChunkName: "markmap" */ 'markmap-lib/dist/view')])
       .then(([transform, view]) => {
         const svg: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
         svg.setAttribute('width', '100%')
