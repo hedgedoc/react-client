@@ -4,8 +4,8 @@ import React, { useRef } from 'react'
 import { useClickAway } from 'react-use'
 import { ShowIf } from '../../../../common/show-if/show-if'
 import './emoji-picker.scss'
-import { ForkAwesomeIcons } from './icon-names'
 import forkawesomeIcon from './forkawesome.png'
+import { ForkAwesomeIcons } from './icon-names'
 
 export interface EmojiPickerProps {
   show: boolean
