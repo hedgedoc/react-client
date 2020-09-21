@@ -11,7 +11,7 @@ import './style/index.scss'
 import './style/dark.scss'
 import { Redirector } from './components/common/routing/redirector'
 
-const Editor = React.lazy(() => import('./components/editor/editor'))
+const Editor = React.lazy(() => import(/* webpackChunkName: "editor" */ './components/editor/editor'))
 const HistoryPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/history-page/history-page'))
 const IntroPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/intro-page/intro-page'))
 const LoginPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/login-page/login-page'))
