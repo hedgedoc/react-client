@@ -25,7 +25,7 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
     }
     const actualContainer = container.current
 
-    Promise.all([import('d3-graphviz'), import('@hpcc-js/wasm')]).then(([imp]) => {
+    Promise.all([import(/* webpackChunkName: "d3-graphviz" */ 'd3-graphviz'), import('@hpcc-js/wasm')]).then(([imp]) => {
       try {
         setError(undefined)
         imp.graphviz(actualContainer, { useWorker: false, zoom: false })
