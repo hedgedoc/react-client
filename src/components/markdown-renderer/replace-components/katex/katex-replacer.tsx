@@ -16,7 +16,7 @@ const getNodeIfInlineKatex = (node: DomElement): (DomElement|undefined) => {
   return (node.name === 'app-katex' && node.attribs?.inline !== undefined) ? node : undefined
 }
 
-const KaTeX = React.lazy(() => import('@matejmazur/react-katex'))
+const KaTeX = React.lazy(() => import(/* webpackChunkName: "katex" */ '@matejmazur/react-katex'))
 
 export class KatexReplacer extends ComponentReplacer {
   public getReplacement (node: DomElement): React.ReactElement | undefined {
