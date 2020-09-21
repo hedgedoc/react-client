@@ -1,9 +1,6 @@
-import React, { Fragment, Suspense, useCallback, useEffect, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import './application-loader.scss'
-import { IconButton } from '../common/icon-button/icon-button'
-import { ShowIf } from '../common/show-if/show-if'
-import { ViaInternal } from '../login-page/auth/via-internal'
 import { createSetUpTaskList, InitTask } from './initializers'
 import { LoadingScreen } from './loading-screen'
 

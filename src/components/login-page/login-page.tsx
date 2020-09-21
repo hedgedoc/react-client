@@ -10,7 +10,7 @@ import { ViaLdap } from './auth/via-ldap'
 import { OneClickType, ViaOneClick } from './auth/via-one-click'
 import { ViaOpenId } from './auth/via-openid'
 import equal from 'fast-deep-equal'
-import { LandingLayout } from '../landing-layout/landing-layout'
+
 export const LoginPage: React.FC = () => {
   useTranslation()
   const authProviders = useSelector((state: ApplicationState) => state.config.authProviders, equal)

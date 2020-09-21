@@ -8,7 +8,6 @@ import { Trans, useTranslation } from 'react-i18next'
 import { TranslatedExternalLink } from '../common/links/translated-external-link'
 import { ShowIf } from '../common/show-if/show-if'
 import { getAndSetUser } from '../login-page/auth/utils'
-import { LandingLayout } from '../landing-layout/landing-layout'
 
 export enum RegisterError {
   NONE = 'none',
