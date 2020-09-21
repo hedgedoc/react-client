@@ -39,7 +39,7 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
   const [dom, setDom] = useState<ReactElement[]>()
 
   useEffect(() => {
-    import('highlight.js').then((hljs) => {
+    import(/* webpackChunkName: "highlight.js" */ 'highlight.js').then((hljs) => {
       const correctedLanguage = correctLanguage(language)
       const languageSupported = (lang: string) => hljs.listLanguages().includes(lang)
       const unreplacedCode = !!correctedLanguage && languageSupported(correctedLanguage) ? hljs.highlight(correctedLanguage, code).value : escapeHtml(code)

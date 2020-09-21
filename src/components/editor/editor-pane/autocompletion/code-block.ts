@@ -6,7 +6,7 @@ const wordRegExp = /^```((\w|-|_|\+)*)$/
 let allSupportedLanguages: string[] = []
 
 const codeBlockHint = (editor: Editor): Promise< Hints| null > => {
-  return import('highlight.js').then(hljs =>
+  return import(/* webpackChunkName: "highlight.js" */ 'highlight.js').then(hljs =>
     new Promise((resolve) => {
       const searchTerm = findWordAtCursor(editor, allowedChars)
       const searchResult = wordRegExp.exec(searchTerm.text)
