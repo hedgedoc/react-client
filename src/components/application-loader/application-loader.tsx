@@ -38,12 +38,10 @@ export const ApplicationLoader: React.FC = ({ children }) => {
   const tasksAreRunning = doneTasks < initTasks.length || initTasks.length === 0
 
   if (tasksAreRunning) {
-    return (
-      <Fragment>
-        <LoadingScreen failedTitle={failedTitle}/>
-      </Fragment>)
+    return <LoadingScreen failedTitle={failedTitle}/>
   } else {
     return <Suspense fallback={(<LoadingScreen/>)}>
       {children}
     </Suspense>
+  }
 }
