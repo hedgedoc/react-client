@@ -17,7 +17,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({ code }) => {
       return
     }
     const currentDiagramRef = diagramRef.current
-    import('flowchart.js').then((imp) => {
+    import(/* webpackChunkName: "flowchart.js" */ 'flowchart.js').then((imp) => {
       const parserOutput = imp.parse(code)
       try {
         parserOutput.drawSVG(currentDiagramRef, {
