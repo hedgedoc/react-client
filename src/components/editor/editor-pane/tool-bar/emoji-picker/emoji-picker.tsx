@@ -1,5 +1,4 @@
 import { CustomEmoji, Data, EmojiData, NimblePicker } from 'emoji-mart'
-import 'emoji-mart/css/emoji-mart.css'
 import emojiData from 'emoji-mart/data/twitter.json'
 import React, { useRef } from 'react'
 import { useClickAway } from 'react-use'
