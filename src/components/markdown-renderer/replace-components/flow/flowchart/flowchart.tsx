@@ -37,9 +37,12 @@ export const FlowChart: React.FC<FlowChartProps> = ({ code }) => {
     }
   }, [code])
 
-  return error
-    ? <Alert variant={'danger'}>
-      <Trans i18nKey={'renderer.flowchart.invalidSyntax'}/>
-    </Alert>
-    : <div ref={diagramRef} className={'text-center'}/>
+  if (error) {
+    return (
+      <Alert variant={'danger'}>
+        <Trans i18nKey={'renderer.flowchart.invalidSyntax'}/>
+      </Alert>)
+  } else {
+    return <div ref={diagramRef} className={'text-center'}/>
+  }
 }
