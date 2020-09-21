@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Branding } from '../common/branding/branding'
 import { ForkAwesomeIcon } from '../common/fork-awesome/fork-awesome-icon'
@@ -10,7 +10,7 @@ import screenshot from './img/screenshot.png'
 export const IntroPage: React.FC = () => {
   const { t } = useTranslation()
 
-  return <LandingLayout>
+  return <Fragment>
     <h1 dir='auto' className={'align-items-center d-flex justify-content-center'}>
       <ForkAwesomeIcon icon="file-text" className={'mr-2'}/>
       <span>HedgeDoc</span>
@@ -24,7 +24,7 @@ export const IntroPage: React.FC = () => {
 
     <img alt={t('landing.intro.screenShotAltText')} src={screenshot} className="img-fluid mb-5"/>
     <FeatureLinks/>
-  </LandingLayout>
+  </Fragment>
 }
 
 export default IntroPage

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -190,7 +190,7 @@ export const HistoryPage: React.FC = () => {
     sortAndFilterEntries(allEntries, toolbarState),
   [allEntries, toolbarState])
 
-  return <LandingLayout>
+  return <Fragment>
     <ErrorModal show={error !== ''} onHide={resetError}
       titleI18nKey={error !== '' ? `landing.history.error.${error}.title` : ''}>
       <h5>
@@ -216,7 +216,7 @@ export const HistoryPage: React.FC = () => {
       onRemoveClick={removeFromHistoryClick}
       onDeleteClick={deleteNoteClick}
     />
-  </LandingLayout>
+  </Fragment>
 }
 
 export default HistoryPage

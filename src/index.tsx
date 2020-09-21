@@ -5,18 +5,19 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { ApplicationLoader } from './components/application-loader/application-loader'
 import { NotFoundErrorScreen } from './components/common/routing/not-found-error-screen'
 import { ErrorBoundary } from './components/error-boundary/error-boundary'
+import IntroPage from './components/intro-page/intro-page'
+import { LandingLayout } from './components/landing-layout/landing-layout'
+import LoginPage from './components/login-page/login-page'
+import ProfilePage from './components/profile-page/profile-page'
+import RegisterPage from './components/register-page/register-page'
 import { store } from './redux'
 import * as serviceWorker from './service-worker'
 import './style/index.scss'
 import './style/dark.scss'
 import { Redirector } from './components/common/routing/redirector'
+import { HistoryPage } from './components/history-page/history-page'
 
-const Editor = React.lazy(() => import(/* webpackChunkName: "editor" */ './components/editor/editor'))
-const HistoryPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/history-page/history-page'))
-const IntroPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/intro-page/intro-page'))
-const LoginPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/login-page/login-page'))
-const ProfilePage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/profile-page/profile-page'))
-const RegisterPage = React.lazy(() => import(/* webpackChunkName: "landing" */ './components/register-page/register-page'))
+const Editor = React.lazy(() => import(/* webpackPrefetch: true */ './components/editor/editor'))
 
 ReactDOM.render(
   <Provider store={store}>
@@ -25,19 +26,29 @@ ReactDOM.render(
         <ErrorBoundary>
           <Switch>
             <Route path="/history">
-              <HistoryPage/>
+              <LandingLayout>
+                <HistoryPage/>
+              </LandingLayout>
             </Route>
             <Route path="/intro">
-              <IntroPage/>
+              <LandingLayout>
+                <IntroPage/>
+              </LandingLayout>
             </Route>
             <Route path="/login">
-              <LoginPage/>
+              <LandingLayout>
+                <LoginPage/>
+              </LandingLayout>
             </Route>
             <Route path="/register">
-              <RegisterPage/>
+              <LandingLayout>
+                <RegisterPage/>
+              </LandingLayout>
             </Route>
             <Route path="/profile">
-              <ProfilePage/>
+              <LandingLayout>
+                <ProfilePage/>
+              </LandingLayout>
             </Route>
             <Route path="/n/:id">
               <Editor/>

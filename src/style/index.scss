@@ -57,3 +57,19 @@ body {
 .cursor-zoom-out {
   cursor: zoom-out;
 }
+
+.faded-fa {
+  .fa, &::after {
+    opacity: 0.5;
+  }
+
+  &:hover .fa, &:hover::after {
+    opacity: 1;
+  }
+}
+
+.dropup .dropdown-toggle, .dropdown-toggle {
+  &.no-arrow::after {
+    content: initial;
+  }
+}

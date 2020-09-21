@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -39,7 +39,7 @@ export const LoginPage: React.FC = () => {
     )
   }
 
-  return <LandingLayout>
+  return <Fragment>
     <div className="my-3">
       <Row className="h-100 flex justify-content-center">
         <ShowIf condition={authProviders.internal || authProviders.ldap || authProviders.openid}>
@@ -77,7 +77,7 @@ export const LoginPage: React.FC = () => {
         </ShowIf>
       </Row>
     </div>
-  </LandingLayout>
+  </Fragment>
 }
 
 export default LoginPage

@@ -1,8 +1,10 @@
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, Suspense, useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import './application-loader.scss'
+import { IconButton } from '../common/icon-button/icon-button'
+import { ShowIf } from '../common/show-if/show-if'
+import { ViaInternal } from '../login-page/auth/via-internal'
 import { createSetUpTaskList, InitTask } from './initializers'
-
 import { LoadingScreen } from './loading-screen'
 
 export const ApplicationLoader: React.FC = ({ children }) => {
@@ -35,9 +37,13 @@ export const ApplicationLoader: React.FC = ({ children }) => {
 
   const tasksAreRunning = doneTasks < initTasks.length || initTasks.length === 0
 
-  return tasksAreRunning
-    ? <LoadingScreen failedTitle={failedTitle}/>
-    : <Suspense fallback={(<LoadingScreen/>)}>
+  if (tasksAreRunning) {
+    return (
+      <Fragment>
+        <LoadingScreen failedTitle={failedTitle}/>
+      </Fragment>)
+  } else {
+    return <Suspense fallback={(<LoadingScreen/>)}>
       {children}
     </Suspense>
 }
