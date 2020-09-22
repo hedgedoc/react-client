@@ -83,6 +83,7 @@ describe('Code', () => {
       .click()
     // This line can be activated if cypress supports copy to clipboard in firefox, too.
     // Please run `yarn add --dev clipboardy`
+    // uncomment cypress plugin
     // cy.task('getClipboard').should('contain', 'let x = 0\n');
   })
 
