@@ -22,7 +22,7 @@ export class Cache<K, V> {
       return false
     }
     const entry = this.store.get(key)
-    return (!!entry && entry.entryCreated < (Date.now() - this.entryLifetime * 1000))
+    return (!!entry && entry.entryCreated >= (Date.now() - this.entryLifetime * 1000))
   }
 
   get (key: K): V {
