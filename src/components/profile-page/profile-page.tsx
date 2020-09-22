@@ -32,5 +32,3 @@ export const ProfilePage: React.FC = () => {
     </div>
   </Fragment>
 }
-
-export default ProfilePage

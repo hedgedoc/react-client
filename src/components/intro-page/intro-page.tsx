@@ -25,5 +25,3 @@ export const IntroPage: React.FC = () => {
     <FeatureLinks/>
   </Fragment>
 }
-
-export default IntroPage

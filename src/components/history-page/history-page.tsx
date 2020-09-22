@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { deleteHistory, deleteHistoryEntry, getHistory, setHistory, updateHistoryEntry } from '../../api/history'
 import { deleteNote } from '../../api/notes'
 import { ApplicationState } from '../../redux'
-import { LandingLayout } from '../landing-layout/landing-layout'
 
 import {
   collectEntries,

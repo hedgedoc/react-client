@@ -140,5 +140,3 @@ export const RegisterPage: React.FC = () => {
     </div>
   </Fragment>
 }
-
-export default RegisterPage
