@@ -82,6 +82,7 @@ describe('Code', () => {
       .should('have.class', 'fa-files-o')
       .click()
     // This line can be activated if cypress supports copy to clipboard in firefox, too.
+    // Please run `yarn add --dev clipboardy`
     // cy.task('getClipboard').should('contain', 'let x = 0\n');
   })
 
