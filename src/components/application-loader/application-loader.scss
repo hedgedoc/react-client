@@ -1,11 +1,25 @@
 .loader {
 
-  .animation-pulse {
-    animation: pulse 2s ease-in-out infinite;
-  }
-
   .animation-shake {
     animation: shake 0.3s ease-in-out;
+  }
+
+  @keyframes animation-jump {
+    0%   { transform: scale(1,1)      translateY(0); }
+    10%  { transform: scale(1.1,.9)   translateY(0); }
+    30%  { transform: scale(.9,1.1)   translateY(-100px); }
+    50%  { transform: scale(1.05,.95) translateY(0); }
+    57%  { transform: scale(1,1)      translateY(-7px); }
+    64%  { transform: scale(1,1)      translateY(0); }
+    100% { transform: scale(1,1)      translateY(0); }
+  }
+
+  .animation-jump {
+    transform-origin: bottom;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-name: animation-jump;
+    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
   }
 
   height: 100vh;
@@ -20,21 +34,6 @@
 
   .progress {
     width: 50%;
-  }
-
-  @keyframes pulse {
-    0% {
-      transform: scale(1, 1);
-      filter: drop-shadow(0 0 0px black);
-    }
-    10% {
-      transform: scale(1.5, 1.5);
-      filter: drop-shadow(0 0 100px white);
-    }
-    100% {
-      transform: scale(1, 1);
-      filter: drop-shadow(0 0 0px black);
-    }
   }
 
   @keyframes shake {
