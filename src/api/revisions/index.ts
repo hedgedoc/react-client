@@ -1,4 +1,4 @@
-import { Cache } from '../../components/common/cache/Cache'
+import { Cache } from '../../components/common/cache/cache'
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 import { Revision, RevisionListEntry } from './types'
 
