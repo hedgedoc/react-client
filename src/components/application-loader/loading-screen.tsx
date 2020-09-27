@@ -1,6 +1,5 @@
 import React from 'react'
 import { Alert } from 'react-bootstrap'
-import { ForkAwesomeIcon } from '../common/fork-awesome/fork-awesome-icon'
 import { HedgeDocLogo, HedgeDocLogoFillType, HedgeDocLogoSize } from '../common/hedge-doc-logo/hedge-doc-logo'
 import { ShowIf } from '../common/show-if/show-if'
 
