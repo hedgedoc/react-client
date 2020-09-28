@@ -4,7 +4,7 @@
     animation: shake 0.3s ease-in-out;
   }
 
-  @keyframes animation-scroll {
+  @keyframes animation-roll {
     0%   { transform:     translateX(calc(-100vw / 2 - 100%)) rotateZ(0deg)  ; }
     100% { transform:     translateX(calc(100vw / 2 + 100%)) rotateZ(720deg)  ; }
   }
@@ -19,7 +19,7 @@
     100% { transform: scale(1,1)      translateY(0); }
   }
 
-  .animation-scroll {
+  .animation-roll {
     transform-origin: center center;
     animation-duration: 4s;
     animation-iteration-count: infinite;

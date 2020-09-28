@@ -11,7 +11,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ failedTitle }) => 
   return (
     <div className="loader middle text-light overflow-hidden">
       <div className="mb-3 text-light">
-        <span className={`d-block ${failedTitle ? 'animation-shake' : 'animation-scroll'}`}>
+        <span className={`d-block ${failedTitle ? 'animation-shake' : 'animation-roll'}`}>
           <HedgeDocLogo fillType={HedgeDocLogoFillType.COLOR} size={HedgeDocLogoSize.BIG}/>
         </span>
       </div>
