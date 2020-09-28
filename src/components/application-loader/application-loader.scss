@@ -5,8 +5,8 @@
   }
 
   @keyframes animation-roll {
-    0%   { transform:     translateX(calc(-100vw / 2 - 100%)) rotateZ(0deg)  ; }
-    100% { transform:     translateX(calc(100vw / 2 + 100%)) rotateZ(720deg)  ; }
+    0%   { transform: translateX(calc(-100vw / 2 - 100%))   rotateZ(0deg);   }
+    100% { transform: translateX(calc(100vw / 2 + 100%))    rotateZ(720deg); }
   }
 
   @keyframes animation-jump {
