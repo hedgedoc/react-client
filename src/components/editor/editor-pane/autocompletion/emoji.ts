@@ -1,10 +1,14 @@
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import Database from 'emoji-picker-element/database'
 import { Emoji, EmojiClickEventDetail, NativeEmoji } from 'emoji-picker-element/shared'
+import { customEmojis } from '../tool-bar/emoji-picker/emoji-picker'
 import { getEmojiIcon, getEmojiShortCode } from '../tool-bar/utils/emojiUtils'
 import { findWordAtCursor, Hinter } from './index'
 
-const emojiIndex = new Database()
+const emojiIndex = new Database({
+  customEmoji: customEmojis,
+  dataSource: '/static/js/emoji-data.json'
+})
 const emojiWordRegex = /^:([\w-_+]*)$/
 
 const generateEmojiHints = (editor: Editor): Promise< Hints| null > => {

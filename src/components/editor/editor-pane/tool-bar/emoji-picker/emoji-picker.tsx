@@ -1,8 +1,10 @@
 import { Picker } from 'emoji-picker-element'
 import { CustomEmoji, EmojiClickEvent, EmojiClickEventDetail } from 'emoji-picker-element/shared'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { useClickAway } from 'react-use'
+import { ApplicationState } from '../../../../../redux'
 import { ShowIf } from '../../../../common/show-if/show-if'
 import './emoji-picker.scss'
 import forkawesomeIcon from './forkawesome.png'
@@ -23,34 +25,43 @@ export const customEmojis: CustomEmoji[] = Object.keys(ForkAwesomeIcons).map((na
 
 export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected, onDismiss }) => {
   const { i18n } = useTranslation()
-  const pickerRef = useRef<HTMLDivElement>(null)
+  const darkModeEnabled = useSelector((state: ApplicationState) => state.darkMode.darkMode)
+  const pickerContainerRef = useRef<HTMLDivElement>(null)
 
-  useClickAway(pickerRef, () => {
+  useClickAway(pickerContainerRef, () => {
     onDismiss()
   })
 
   const picker = useMemo(() => {
     return new Picker({
       locale: i18n.language,
-      customEmoji: customEmojis
+      customEmoji: customEmojis,
+      dataSource: '/static/js/emoji-data.json'
     })
-  }, [i18n])
+  }, [i18n.language])
+
+  const emojiClickListener = useCallback((event) => {
+    onEmojiSelected((event as EmojiClickEvent).detail)
+  }, [onEmojiSelected])
 
   useEffect(() => {
-    if (!pickerRef.current) {
+    if (!pickerContainerRef.current) {
       return
     }
-    picker.addEventListener('emoji-click', event => onEmojiSelected(event.detail))
-    pickerRef.current.appendChild(picker)
+    const container = pickerContainerRef.current
+    picker.addEventListener('emoji-click', emojiClickListener)
+    picker.setAttribute('class', darkModeEnabled ? 'dark' : 'light')
+    container.appendChild(picker)
     return () => {
-      picker.removeEventListener('emoji-click', event => onEmojiSelected((event as EmojiClickEvent).detail))
+      picker.removeEventListener('emoji-click', emojiClickListener)
+      container.removeChild(picker)
     }
-  }, [picker, onEmojiSelected, pickerRef])
+  }, [onEmojiSelected, pickerContainerRef, emojiClickListener, picker, darkModeEnabled])
 
   // noinspection CheckTagEmptyBody
   return (
     <ShowIf condition={show}>
-      <div className={'position-relative'} ref={pickerRef}></div>
+      <div className={'position-absolute emoji-picker-container'} ref={pickerContainerRef}></div>
     </ShowIf>
   )
 }
