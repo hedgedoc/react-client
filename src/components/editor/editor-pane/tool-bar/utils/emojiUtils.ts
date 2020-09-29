@@ -1,15 +1,16 @@
-import { BaseEmoji, CustomEmoji, EmojiData } from 'emoji-mart'
+import { EmojiClickEventDetail } from 'emoji-picker-element/shared'
 
-export const getEmojiIcon = (emoji: EmojiData):string => {
-  if ((emoji as BaseEmoji).native) {
-    return (emoji as BaseEmoji).native
-  } else if ((emoji as CustomEmoji).imageUrl) {
+export const getEmojiIcon = (emoji: EmojiClickEventDetail): string => {
+  if (emoji.unicode) {
+    return emoji.unicode
+  }
+  if (emoji.name) {
     // noinspection CheckTagEmptyBody
-    return `<i class="fa ${(emoji as CustomEmoji).name}"></i>`
+    return `<i class="fa ${emoji.name}"></i>`
   }
   return ''
 }
 
-export const getEmojiShortCode = (emoji: EmojiData):string => {
-  return (emoji as BaseEmoji).colons
+export const getEmojiShortCode = (emoji: EmojiClickEventDetail): string => {
+  return `:${emoji.emoji.shortcodes[0]}:`
 }
