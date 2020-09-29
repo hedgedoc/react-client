@@ -44,6 +44,12 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
     onEmojiSelected((event as EmojiClickEvent).detail)
   }, [onEmojiSelected])
 
+  const twemojiStyle = useMemo(() => {
+    const style = document.createElement('style')
+    style.textContent = 'section.picker { --font-family: "twemoji" !important; }'
+    return style
+  }, [])
+
   useEffect(() => {
     if (!pickerContainerRef.current) {
       return
@@ -52,6 +58,9 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
     picker.addEventListener('emoji-click', emojiClickListener)
     picker.setAttribute('class', darkModeEnabled ? 'dark' : 'light')
     container.appendChild(picker)
+    if (picker.shadowRoot) {
+      picker.shadowRoot.appendChild(twemojiStyle)
+    }
     return () => {
       picker.removeEventListener('emoji-click', emojiClickListener)
       container.removeChild(picker)
