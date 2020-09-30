@@ -1,35 +1,51 @@
 import { ForkAwesomeIcons } from '../../../editor/editor-pane/tool-bar/emoji-picker/icon-names'
-// import emojiData from '../../../../../node_modules/emojibase-data/en/data.json'
 
-// export const markdownItTwitterEmojis = Object.keys((emojiData as unknown as Data).emojis)
-//   .reduce((reduceObject, emojiIdentifier) => {
-//     const emoji = (emojiData as unknown as Data).emojis[emojiIdentifier]
-//     const emojiCodes = emoji.unified ?? emoji.b
-//     if (emojiCodes) {
-//       reduceObject[emojiIdentifier] = emojiCodes.split('-').map(char => `&#x${char};`).join('')
-//     }
-//     return reduceObject
-//   }, {} as { [key: string]: string })
+interface TrimmedEmojiData {
+  shortcodes: string[]
+  emoji: string
+}
 
-export const emojiSkinToneModifierMap = [2, 3, 4, 5, 6]
+type ShortCodeMap = { [key: string]: string }
+
+const getEmojiShortcodes = async (): Promise<ShortCodeMap> => {
+  const emojiMap: ShortCodeMap = {}
+  try {
+    const data = await window.fetch('/static/js/emoji-data.json')
+    const json = await data.json() as TrimmedEmojiData[]
+    if (!data || !json) {
+      return {}
+    }
+    json.forEach(entry => {
+      entry.shortcodes.forEach(shortcode => {
+        emojiMap[shortcode] = entry.emoji
+      })
+    })
+    return emojiMap
+  } catch (e) {
+    console.error(e)
+    return {}
+  }
+}
+
+const emojiSkinToneModifierMap = [2, 3, 4, 5, 6]
   .reduce((reduceObject, modifierValue) => {
     const lightSkinCode = 127995
     const codepoint = lightSkinCode + (modifierValue - 2)
     const shortcode = `skin-tone-${modifierValue}`
     reduceObject[shortcode] = `&#${codepoint};`
     return reduceObject
-  }, {} as { [key: string]: string })
+  }, {} as ShortCodeMap)
 
-export const forkAwesomeIconMap = Object.keys(ForkAwesomeIcons)
+const forkAwesomeIconMap = Object.keys(ForkAwesomeIcons)
   .reduce((reduceObject, icon) => {
     const shortcode = `fa-${icon}`
     // noinspection CheckTagEmptyBody
     reduceObject[shortcode] = `<i class="fa fa-${icon}"></i>`
     return reduceObject
-  }, {} as { [key: string]: string })
+  }, {} as ShortCodeMap)
 
 export const combinedEmojiData = {
-  // ...markdownItTwitterEmojis,
+  ...getEmojiShortcodes(),
   ...emojiSkinToneModifierMap,
   ...forkAwesomeIconMap
 }
