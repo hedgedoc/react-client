@@ -16,6 +16,7 @@ import { editorTestContent } from './editorTestContent'
 import { DualScrollState, ScrollState } from './scroll/scroll-props'
 import { shortcutHandler } from './shortcut/shortcut'
 import { Splitter } from './splitter/splitter'
+import { removeHTMLTag, removeMarkdownSyntax } from './utils'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
 export interface EditorPathParams {
@@ -54,7 +55,7 @@ export const Editor: React.FC = () => {
     } else if (noteMetadata.current?.opengraph && noteMetadata.current?.opengraph.get('title') && noteMetadata.current?.opengraph.get('title') !== '') {
       setDocumentTitle(noteMetadata.current.opengraph.get('title') ?? untitledNote)
     } else {
-      setDocumentTitle(firstHeading.current ?? untitledNote)
+      setDocumentTitle(removeHTMLTag(removeMarkdownSyntax(firstHeading.current ?? untitledNote)))
     }
   }, [untitledNote])
 
