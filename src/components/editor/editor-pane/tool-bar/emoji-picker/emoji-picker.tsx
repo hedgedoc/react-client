@@ -65,7 +65,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
       picker.removeEventListener('emoji-click', emojiClickListener)
       container.removeChild(picker)
     }
-  }, [onEmojiSelected, pickerContainerRef, emojiClickListener, picker, darkModeEnabled])
+  }, [onEmojiSelected, pickerContainerRef, emojiClickListener, picker, darkModeEnabled, twemojiStyle])
 
   // noinspection CheckTagEmptyBody
   return (
