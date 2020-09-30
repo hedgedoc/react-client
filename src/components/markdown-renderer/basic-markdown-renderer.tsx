@@ -88,8 +88,9 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     oldMarkdownLineKeys.current = newLines
     lastUsedLineId.current = newLastUsedLineId
     const transformer = componentReplacers ? buildTransformer(newLines, componentReplacers) : undefined
+    documentReference?.current?.childNodes[0].nodeName
     return ReactHtmlParser(html, { transform: transformer })
-  }, [onBeforeRendering, content, maxLength, markdownIt, componentReplacers])
+  }, [onBeforeRendering, content, maxLength, markdownIt, componentReplacers, documentReference])
 
   return (
     <div className={`${className || ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>
