@@ -1,4 +1,4 @@
-import { EmojiClickEventDetail } from 'emoji-picker-element/shared'
+import { EmojiClickEventDetail, NativeEmoji } from 'emoji-picker-element/shared'
 
 export const getEmojiIcon = (emoji: EmojiClickEventDetail): string => {
   if (emoji.unicode) {
@@ -12,5 +12,9 @@ export const getEmojiIcon = (emoji: EmojiClickEventDetail): string => {
 }
 
 export const getEmojiShortCode = (emoji: EmojiClickEventDetail): string => {
-  return `:${emoji.emoji.shortcodes[0]}:`
+  let skinToneModifier = ''
+  if ((emoji.emoji as NativeEmoji).skins && emoji.skinTone !== 0) {
+    skinToneModifier = `:skin-tone-${emoji.skinTone + 1}:`
+  }
+  return `:${emoji.emoji.shortcodes[0]}:${skinToneModifier}`
 }
