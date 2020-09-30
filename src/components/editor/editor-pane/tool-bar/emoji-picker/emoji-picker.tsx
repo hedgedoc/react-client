@@ -24,21 +24,12 @@ export const customEmojis: CustomEmoji[] = Object.keys(ForkAwesomeIcons).map((na
 }))
 
 export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected, onDismiss }) => {
-  const { i18n } = useTranslation()
   const darkModeEnabled = useSelector((state: ApplicationState) => state.darkMode.darkMode)
   const pickerContainerRef = useRef<HTMLDivElement>(null)
 
   useClickAway(pickerContainerRef, () => {
     onDismiss()
   })
-
-  const picker = useMemo(() => {
-    return new Picker({
-      locale: i18n.language,
-      customEmoji: customEmojis,
-      dataSource: '/static/js/emoji-data.json'
-    })
-  }, [i18n.language])
 
   const emojiClickListener = useCallback((event) => {
     onEmojiSelected((event as EmojiClickEvent).detail)
@@ -55,6 +46,10 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
       return
     }
     const container = pickerContainerRef.current
+    const picker = new Picker({
+      customEmoji: customEmojis,
+      dataSource: '/static/js/emoji-data.json'
+    })
     picker.addEventListener('emoji-click', emojiClickListener)
     picker.setAttribute('class', darkModeEnabled ? 'dark' : 'light')
     container.appendChild(picker)
@@ -65,7 +60,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
       picker.removeEventListener('emoji-click', emojiClickListener)
       container.removeChild(picker)
     }
-  }, [onEmojiSelected, pickerContainerRef, emojiClickListener, picker, darkModeEnabled, twemojiStyle])
+  }, [onEmojiSelected, pickerContainerRef, emojiClickListener, darkModeEnabled, twemojiStyle])
 
   // noinspection CheckTagEmptyBody
   return (
