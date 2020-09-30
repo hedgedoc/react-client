@@ -19,12 +19,13 @@ export interface Hinter {
   hint: (editor: Editor) => Promise< Hints| null >
 }
 
+const allowedChars = /[^ ]/
+
 export const findWordAtCursor = (editor: Editor): findWordAtCursorResponse => {
   const cursor = editor.getCursor()
   const line = editor.getLine(cursor.line)
   let start = cursor.ch
   let end = cursor.ch
-  const allowedChars = /[^ ]/
   while (start && allowedChars.test(line.charAt(start - 1))) {
     --start
   }
