@@ -26,8 +26,8 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
     const actualContainer = container.current
 
     import('@hpcc-js/wasm')
-      .then((wasnPlugin) => {
-        wasnPlugin.wasmFolder('/static/js')
+      .then((wasmPlugin) => {
+        wasmPlugin.wasmFolder('/static/js')
       })
       .then(() => import(/* webpackChunkName: "d3-graphviz" */ 'd3-graphviz'))
       .then((graphvizImport) => {
