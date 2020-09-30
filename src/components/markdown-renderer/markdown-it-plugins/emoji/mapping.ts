@@ -8,7 +8,7 @@ interface EmojiEntry {
 
 type ShortCodeMap = { [key: string]: string }
 
-const getEmojiShortcodes = (emojiData as unknown as EmojiEntry[])
+const shortCodeMap = (emojiData as unknown as EmojiEntry[])
   .reduce((reduceObject, emoji) => {
     emoji.shortcodes.forEach(shortcode => {
       reduceObject[shortcode] = emoji.unicode
@@ -34,7 +34,7 @@ const forkAwesomeIconMap = Object.keys(ForkAwesomeIcons)
   }, {} as ShortCodeMap)
 
 export const combinedEmojiData = {
-  ...getEmojiShortcodes,
+  ...shortCodeMap,
   ...emojiSkinToneModifierMap,
   ...forkAwesomeIconMap
 }
