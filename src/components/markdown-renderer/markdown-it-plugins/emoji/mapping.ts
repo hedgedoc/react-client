@@ -1,31 +1,20 @@
 import { ForkAwesomeIcons } from '../../../editor/editor-pane/tool-bar/emoji-picker/icon-names'
+import emojiData from 'emojibase-data/en/compact.json'
 
-interface TrimmedEmojiData {
+interface EmojiEntry {
   shortcodes: string[]
-  emoji: string
+  unicode: string
 }
 
 type ShortCodeMap = { [key: string]: string }
 
-const getEmojiShortcodes = async (): Promise<ShortCodeMap> => {
-  const emojiMap: ShortCodeMap = {}
-  try {
-    const data = await window.fetch('/static/js/emoji-data.json')
-    const json = await data.json() as TrimmedEmojiData[]
-    if (!data || !json) {
-      return {}
-    }
-    json.forEach(entry => {
-      entry.shortcodes.forEach(shortcode => {
-        emojiMap[shortcode] = entry.emoji
-      })
+const getEmojiShortcodes = (emojiData as unknown as EmojiEntry[])
+  .reduce((reduceObject, emoji) => {
+    emoji.shortcodes.forEach(shortcode => {
+      reduceObject[shortcode] = emoji.unicode
     })
-    return emojiMap
-  } catch (e) {
-    console.error(e)
-    return {}
-  }
-}
+    return reduceObject
+  }, {} as ShortCodeMap)
 
 const emojiSkinToneModifierMap = [2, 3, 4, 5, 6]
   .reduce((reduceObject, modifierValue) => {
@@ -45,7 +34,7 @@ const forkAwesomeIconMap = Object.keys(ForkAwesomeIcons)
   }, {} as ShortCodeMap)
 
 export const combinedEmojiData = {
-  ...getEmojiShortcodes(),
+  ...getEmojiShortcodes,
   ...emojiSkinToneModifierMap,
   ...forkAwesomeIconMap
 }
