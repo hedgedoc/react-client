@@ -8,7 +8,7 @@ import mathJax from 'markdown-it-mathjax'
 import plantuml from 'markdown-it-plantuml'
 import markdownItRegex from 'markdown-it-regex'
 import toc from 'markdown-it-toc-done-right'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -20,7 +20,6 @@ import { slugify } from '../editor/table-of-contents/table-of-contents'
 import { RawYAMLMetadata, YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
 import { BasicMarkdownRenderer } from './basic-markdown-renderer'
 import { createRenderContainer, validAlertLevels } from './markdown-it-plugins/alert-container'
-import { firstHeaderExtractor } from './markdown-it-plugins/first-header-extractor'
 import { highlightedCode } from './markdown-it-plugins/highlighted-code'
 import { LineMarkers, lineNumberMarker } from './markdown-it-plugins/line-number-marker'
 import { plantumlError } from './markdown-it-plugins/plantuml-error'
@@ -119,15 +118,16 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   const tocAst = useRef<TocAst>()
   usePostTocAstOnChange(tocAst, onTocChange)
 
-  const configureMarkdownIt = useCallback((md: MarkdownIt): void => {
-    if (onFirstHeadingChange) {
-      md.use(firstHeaderExtractor(), {
-        firstHeaderFound: (firstHeader: string | undefined) => {
-          firstHeadingRef.current = firstHeader
-        }
-      })
+  useEffect(() => {
+    if (onFirstHeadingChange && documentElement.current) {
+      const firstHeading = documentElement.current.getElementsByTagName('h1').item(0)
+      if (firstHeading) {
+        onFirstHeadingChange(firstHeading.innerText)
+      }
     }
+  }, [content, onFirstHeadingChange])
 
+  const configureMarkdownIt = useCallback((md: MarkdownIt): void => {
     if (onMetaDataChange) {
       md.use(frontmatter, (rawMeta: string) => {
         try {
@@ -210,7 +210,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
         currentLineMarkers.current = lineMarkers
       }
     })
-  }, [onFirstHeadingChange, onMetaDataChange, plantumlServer])
+  }, [onMetaDataChange, plantumlServer])
 
   const clearMetadata = useCallback(() => {
     rawMetaRef.current = undefined
