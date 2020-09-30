@@ -118,14 +118,26 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   const tocAst = useRef<TocAst>()
   usePostTocAstOnChange(tocAst, onTocChange)
 
+  const extractInnerText = useCallback((node: ChildNode) => {
+    let innerText = ''
+    if (node.childNodes && node.childNodes.length > 0) {
+      node.childNodes.forEach((child) => { innerText += extractInnerText(child) })
+    } else if (node.nodeName === 'IMG') {
+      innerText += (node as HTMLImageElement).getAttribute('alt')
+    } else {
+      innerText += node.textContent
+    }
+    return innerText
+  }, [])
+
   useEffect(() => {
     if (onFirstHeadingChange && documentElement.current) {
       const firstHeading = documentElement.current.getElementsByTagName('h1').item(0)
       if (firstHeading) {
-        onFirstHeadingChange(firstHeading.innerText)
+        onFirstHeadingChange(extractInnerText(firstHeading))
       }
     }
-  }, [content, onFirstHeadingChange])
+  }, [content, extractInnerText, onFirstHeadingChange])
 
   const configureMarkdownIt = useCallback((md: MarkdownIt): void => {
     if (onMetaDataChange) {
