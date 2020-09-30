@@ -172,7 +172,8 @@
         "redux-devtools": "3.7.0",
         "redux-devtools-extension": "2.13.8",
         "ts-loader": "8.0.10",
-        "webpack-bundle-analyzer": "4.1.0"
+        "webpack-bundle-analyzer": "4.1.0",
+        "worker-plugin": "^5.0.0"
     },
     "resolutions": {
         "cypress": "5.5.0"

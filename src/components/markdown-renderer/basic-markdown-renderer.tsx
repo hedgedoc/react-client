@@ -1,16 +1,14 @@
 import MarkdownIt from 'markdown-it'
-import React, { ReactElement, RefObject, useMemo, useRef } from 'react'
+import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
-import ReactHtmlParser from 'react-html-parser'
 import { Trans } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../redux'
+import { RenderMarkdownInput, RenderMarkdownOutput } from '../../worker/markdown'
 import { ShowIf } from '../common/show-if/show-if'
 import './markdown-renderer.scss'
 import { ComponentReplacer } from './replace-components/ComponentReplacer'
 import { AdditionalMarkdownRendererProps, LineKeys } from './types'
-import { buildTransformer } from './utils/html-react-transformer'
-import { calculateNewLineNumberMapping } from './utils/line-number-mapping'
 
 export interface BasicMarkdownRendererProps {
   componentReplacers?: () => ComponentReplacer[],
@@ -30,10 +28,22 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
 }) => {
   const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
 
-  const oldMarkdownLineKeys = useRef<LineKeys[]>()
+  const [markdownReactDom, setMarkdownReactDom] = useState<ReactElement[]>([])
+  const oldMarkdownLineKeys = useRef<LineKeys[]>([])
   const lastUsedLineId = useRef<number>(0)
+  const markdownWorker = useRef<Worker>()
 
-  const markdownReactDom: ReactElement[] = useMemo(() => {
+  useEffect(() => {
+    markdownWorker.current = new Worker('../../worker/markdown.ts', { type: 'module' })
+    markdownWorker.current.onmessage = event => {
+      const data = event.data as RenderMarkdownOutput
+      oldMarkdownLineKeys.current = data.newLines
+      lastUsedLineId.current = data.newLastUsedLineId
+      setMarkdownReactDom(data.markdownReactDom)
+    }
+  }, [])
+
+  useEffect(() => {
     if (onBeforeRendering) {
       onBeforeRendering()
     }
@@ -46,6 +56,18 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     const transformer = componentReplacers ? buildTransformer(newLines, componentReplacers()) : undefined
     return ReactHtmlParser(html, { transform: transformer })
   }, [onBeforeRendering, content, maxLength, markdownIt, componentReplacers])
+    if (markdownWorker.current) {
+      const input: RenderMarkdownInput = {
+        content: content,
+        maxLength: maxLength,
+        markdownIt: markdownIt,
+        oldMarkdownLineKeys: oldMarkdownLineKeys.current,
+        lastUsedLineId: lastUsedLineId.current,
+        componentReplacers: componentReplacers ? componentReplacers() : undefined
+      }
+      markdownWorker.current.postMessage(input)
+    }
+  }, [componentReplacers, content, markdownIt, maxLength, onBeforeRendering])
 
   return (
     <div className={`${className || ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>
