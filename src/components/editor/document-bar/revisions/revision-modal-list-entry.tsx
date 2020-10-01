@@ -23,7 +23,7 @@ export const RevisionModalListEntry: React.FC<RevisionModalListEntryProps> = ({ 
   >
     <span>
       <ForkAwesomeIcon icon={'clock-o'} className='mx-2'/>
-      {DateTime.fromMillis(revision.timestamp * 1000).toFormat('DDDD t')}
+      {DateTime.fromMillis(revision.timestamp * 1000).toFormat('DDDD T')}
     </span>
     <span>
       <ForkAwesomeIcon icon={'file-text-o'} className='mx-2'/>

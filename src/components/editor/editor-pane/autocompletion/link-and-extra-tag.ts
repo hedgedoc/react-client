@@ -45,7 +45,7 @@ const linkAndExtraTagHint = (editor: Editor): Promise< Hints| null > => {
             case 'time':
               // show the current time when the autocompletion is opened and not when the function is loaded
               return {
-                text: `[time=${DateTime.local().toFormat('DDDD t')}]`
+                text: `[time=${DateTime.local().toFormat('DDDD T')}]`
               }
             default:
               return {

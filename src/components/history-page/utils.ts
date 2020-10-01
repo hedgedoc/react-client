@@ -86,7 +86,7 @@ function sortEntries (entries: LocatedHistoryEntry[], viewState: HistoryToolbarS
 }
 
 export function formatHistoryDate (date: string): string {
-  return DateTime.fromISO(date).toFormat('DDDD t')
+  return DateTime.fromISO(date).toFormat('DDDD T')
 }
 
 export interface V1HistoryEntry {
