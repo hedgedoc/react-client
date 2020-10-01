@@ -16,7 +16,6 @@ export const EmojiPickerButton: React.FC<EmojiPickerButtonProps> = ({ editor }) 
 
   return (
     <Fragment>
-
       <EmojiPicker show={showEmojiPicker} onEmojiSelected={(emoji) => {
         setShowEmojiPicker(false)
         addEmoji(emoji, editor)
