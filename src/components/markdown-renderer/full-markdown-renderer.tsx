@@ -140,18 +140,6 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   }, [content, extractInnerText, onFirstHeadingChange])
 
   const configureMarkdownIt = useCallback((md: MarkdownIt): void => {
-    if (onMetaDataChange) {
-      md.use(frontmatter, (rawMeta: string) => {
-        try {
-          const meta: RawYAMLMetadata = yaml.safeLoad(rawMeta) as RawYAMLMetadata
-          setYamlError(false)
-          rawMetaRef.current = meta
-        } catch (e) {
-          console.error(e)
-          setYamlError(true)
-        }
-      })
-    }
     md.use(markdownItTaskLists, { lineNumber: true })
     if (plantumlServer) {
       md.use(plantuml, {
