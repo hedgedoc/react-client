@@ -3,7 +3,6 @@ import { SortModeEnum } from './sort-button/sort-button'
 import {
   HistoryEntry,
   HistoryEntryOrigin,
-  HistoryJson,
   LocatedHistoryEntry
 } from './history-page'
 import { HistoryToolbarState } from './history-toolbar/history-toolbar'
