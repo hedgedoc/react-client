@@ -18,6 +18,7 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
         svg.setAttribute('width', '100%')
         actualContainer.querySelectorAll('svg').forEach(child => child.remove())
         actualContainer.appendChild(svg)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { root, features } = transform.transform(code)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
         const { styles, scripts } = transform.getUsedAssets(features)
