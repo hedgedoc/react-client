@@ -23,11 +23,11 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
         const { styles, scripts } = transform.getUsedAssets(features)
         if (styles) {
-            loader.loadCSS(styles)
+          loader.loadCSS(styles)
         }
         if (scripts) {
-            loader.loadJS(scripts, { getMarkmap: () => view.Markmap })
-                .catch(err => console.error(err))
+          loader.loadJS(scripts, { getMarkmap: () => view.Markmap })
+            .catch(err => console.error(err))
         }
         view.Markmap.create(svg, {}, root)
       }).catch(() => { console.error('error while loading markmap') })
