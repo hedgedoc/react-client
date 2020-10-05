@@ -17,11 +17,18 @@ export const ImportFile: React.FC<ImportProps> = ({ noteContent, updateNoteConte
       }
       const file = fileInput.files[0]
       const fileReader = new FileReader()
-      fileReader.readAsText(file)
       fileReader.addEventListener('load', () => {
         const newContent = fileReader.result as string
-        updateNoteContent(noteContent + '\n' + newContent)
+        if (noteContent.length === 0) {
+          updateNoteContent(newContent)
+        } else {
+          updateNoteContent(noteContent + '\n' + newContent)
+        }
       })
+      fileReader.addEventListener('loadend', () => {
+        fileInput.value = ''
+      })
+      fileReader.readAsText(file)
     })
     fileInput.click()
   }, [fileInputReference, noteContent, updateNoteContent])
