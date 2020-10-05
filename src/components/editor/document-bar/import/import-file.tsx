@@ -36,7 +36,7 @@ export const ImportFile: React.FC<ImportProps> = ({ noteContent, updateNoteConte
   return (
     <Fragment>
       <input type='file' ref={fileInputReference} className='d-none' accept='.md, text/markdown, text/plain'/>
-      <Dropdown.Item className='small' onClick={doImport}>
+      <Dropdown.Item className='small import-md-file' onClick={doImport}>
         <ForkAwesomeIcon icon='file-text-o' className={'mx-2'}/>
         <Trans i18nKey='editor.import.file'/>
       </Dropdown.Item>
