@@ -13,7 +13,7 @@ import { buildTransformer } from './utils/html-react-transformer'
 import { calculateNewLineNumberMapping } from './utils/line-number-mapping'
 
 export interface BasicMarkdownRendererProps {
-  componentReplacers?: ComponentReplacer[],
+  componentReplacers?: () => ComponentReplacer[],
   markdownIt: MarkdownIt,
   documentReference?: RefObject<HTMLDivElement>
   onBeforeRendering?: () => void
@@ -43,7 +43,7 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     const { lines: newLines, lastUsedLineId: newLastUsedLineId } = calculateNewLineNumberMapping(contentLines, oldMarkdownLineKeys.current ?? [], lastUsedLineId.current)
     oldMarkdownLineKeys.current = newLines
     lastUsedLineId.current = newLastUsedLineId
-    const transformer = componentReplacers ? buildTransformer(newLines, componentReplacers) : undefined
+    const transformer = componentReplacers ? buildTransformer(newLines, componentReplacers()) : undefined
     return ReactHtmlParser(html, { transform: transformer })
   }, [onBeforeRendering, content, maxLength, markdownIt, componentReplacers])
 
