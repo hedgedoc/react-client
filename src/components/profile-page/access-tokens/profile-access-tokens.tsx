@@ -1,10 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { ChangeEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ChangeEvent, FormEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Col, Form, ListGroup, Modal, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { getAccessTokenList } from '../../../api/tokens'
+import { getAccessTokenList, postNewAccessToken } from '../../../api/tokens'
 import { AccessToken } from '../../../api/tokens/types'
+import { CopyableField } from '../../common/copyable/copyable-field/copyable-field'
 import { IconButton } from '../../common/icon-button/icon-button'
+import { TranslatedIconButton } from '../../common/icon-button/translated-icon-button'
 import { CommonModal } from '../../common/modals/common-modal'
 import { DeletionModal } from '../../common/modals/deletion-modal'
 import { ShowIf } from '../../common/show-if/show-if'
@@ -17,10 +19,21 @@ export const ProfileAccessTokens: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [accessTokens, setAccessTokens] = useState<AccessToken[]>([])
   const [newTokenLabel, setNewTokenLabel] = useState('')
+  const [newTokenSecret, setNewTokenSecret] = useState('')
 
-  const addToken = useCallback(() => {
-    // TODO Handle logic for adding an access token
-  }, [])
+  const addToken = useCallback((event: FormEvent) => {
+    event.preventDefault()
+    postNewAccessToken(newTokenLabel)
+      .then(token => {
+        setNewTokenSecret(token.secret)
+        setShowAddedModal(true)
+        setNewTokenLabel('')
+      })
+      .catch(error => {
+        console.error(error)
+        setError(true)
+      })
+  }, [newTokenLabel])
 
   const deleteToken = useCallback(() => {
     // TODO Handle logic for removing an existing access token
@@ -40,7 +53,7 @@ export const ProfileAccessTokens: React.FC = () => {
         console.error(err)
         setError(true)
       })
-  }, [])
+  }, [showAddedModal])
 
   return (
     <Fragment>
@@ -112,12 +125,16 @@ export const ProfileAccessTokens: React.FC = () => {
         </Card.Body>
       </Card>
 
-      <CommonModal show={showAddedModal} onHide={() => setShowAddedModal(false)} titleI18nKey='profile.modals.addAccessToken.title'>
+      <CommonModal show={showAddedModal} onHide={() => setShowAddedModal(false)} titleI18nKey='profile.modal.addedAccessToken.title'>
         <Modal.Body>
-          1
+          <Trans i18nKey='profile.modal.addedAccessToken.message'/>
+          <br/>
+          <CopyableField content={newTokenSecret}/>
         </Modal.Body>
         <Modal.Footer>
-          2
+          <Button variant='primary' onClick={() => setShowAddedModal(false)}>
+            <Trans i18nKey='common.close'/>
+          </Button>
         </Modal.Footer>
       </CommonModal>
 

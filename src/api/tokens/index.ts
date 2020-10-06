@@ -1,5 +1,5 @@
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
-import { AccessToken } from './types'
+import { AccessToken, AccessTokenSecret } from './types'
 
 export const getAccessTokenList = async (): Promise<AccessToken[]> => {
   const response = await fetch(`${getApiUrl()}/tokens`, {
@@ -7,4 +7,19 @@ export const getAccessTokenList = async (): Promise<AccessToken[]> => {
   })
   expectResponseCode(response)
   return await response.json() as AccessToken[]
+}
+
+export const postNewAccessToken = async (label: string): Promise<AccessToken & AccessTokenSecret> => {
+  // const response = await fetch(`${getApiUrl()}/tokens`, {
+  //   ...defaultFetchConfig,
+  //   method: 'POST',
+  //   body: label
+  // })
+  // expectResponseCode(response)
+  // return await response.json() as (AccessToken & AccessTokenSecret)
+  return {
+    label: label,
+    secret: 'abc-123-def-456',
+    created: Math.floor(Date.now())
+  }
 }
