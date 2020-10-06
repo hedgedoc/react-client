@@ -6,8 +6,8 @@ import { InternalLink } from '../common/links/internal-link'
 import { ShowIf } from '../common/show-if/show-if'
 import { RawYAMLMetadata, YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
 import { BasicMarkdownRenderer } from './basic-markdown-renderer'
-import { fullMarkdownRender } from './markdown-it-configurator'
-import { LineMarkers } from './markdown-it-plugins/line-number-marker'
+import { FullMarkdownItConfigurator } from './markdown-it-configurator/FullMarkdownItConfigurator'
+import { LineMarkers } from './replace-components/linemarker/line-number-marker'
 import { AbcReplacer } from './replace-components/abc/abc-replacer'
 import { AsciinemaReplacer } from './replace-components/asciinema/asciinema-replacer'
 import { CsvReplacer } from './replace-components/csv/csv-replacer'
@@ -110,13 +110,13 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   }, [content, extractInnerText, onFirstHeadingChange])
 
   const markdownIt = useMemo(() => {
-    return fullMarkdownRender(
+    return (new FullMarkdownItConfigurator(
       !!onMetaDataChange,
       error => setYamlError(error),
       rawMeta => { rawMetaRef.current = rawMeta },
       toc => { tocAst.current = toc },
       lineMarkers => { currentLineMarkers.current = lineMarkers }
-    )
+    )).buildConfiguredMarkdownIt()
   }, [onMetaDataChange])
 
   const clearMetadata = useCallback(() => {

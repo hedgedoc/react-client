@@ -1,10 +1,9 @@
-import markdownItContainer from 'markdown-it-container'
 import React, { useMemo } from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { BasicMarkdownRenderer } from '../../../markdown-renderer/basic-markdown-renderer'
-import { basicMarkdownRender } from '../../../markdown-renderer/markdown-it-configurator'
-import { createRenderContainer, validAlertLevels } from '../../../markdown-renderer/markdown-it-plugins/alert-container'
+import { BasicMarkdownItConfigurator } from '../../../markdown-renderer/markdown-it-configurator/BasicMarkdownItConfigurator'
+import { alertContainer } from '../../../markdown-renderer/markdown-it-plugins/alert-container'
 import { HighlightedCode } from '../../../markdown-renderer/replace-components/highlighted-fence/highlighted-code/highlighted-code'
 import './cheatsheet.scss'
 
@@ -32,11 +31,9 @@ export const Cheatsheet: React.FC = () => {
   ]
 
   const markdownIt = useMemo(() => {
-    const md = basicMarkdownRender()
-    validAlertLevels.forEach(level => {
-      md.use(markdownItContainer, level, { render: createRenderContainer(level) })
-    })
-    return md
+    return new BasicMarkdownItConfigurator()
+      .pushConfig(alertContainer)
+      .buildConfiguredMarkdownIt()
   }, [])
 
   return (
