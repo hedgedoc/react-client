@@ -6,7 +6,6 @@ import { Trans } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../redux'
 import { ShowIf } from '../common/show-if/show-if'
-import { basicMarkdownRender } from './markdown-it-configurator'
 import './markdown-renderer.scss'
 import { ComponentReplacer } from './replace-components/ComponentReplacer'
 import { AdditionalMarkdownRendererProps, LineKeys } from './types'
@@ -15,7 +14,7 @@ import { calculateNewLineNumberMapping } from './utils/line-number-mapping'
 
 export interface BasicMarkdownRendererProps {
   componentReplacers?: ComponentReplacer[],
-  markdownIt?: MarkdownIt,
+  markdownIt: MarkdownIt,
   documentReference?: RefObject<HTMLDivElement>
   onBeforeRendering?: () => void
 }
@@ -38,12 +37,8 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     if (onBeforeRendering) {
       onBeforeRendering()
     }
-    let md: MarkdownIt = basicMarkdownRender()
-    if (markdownIt) {
-      md = markdownIt
-    }
     const trimmedContent = content.substr(0, maxLength)
-    const html: string = md.render(trimmedContent)
+    const html: string = markdownIt.render(trimmedContent)
     const contentLines = trimmedContent.split('\n')
     const { lines: newLines, lastUsedLineId: newLastUsedLineId } = calculateNewLineNumberMapping(contentLines, oldMarkdownLineKeys.current ?? [], lastUsedLineId.current)
     oldMarkdownLineKeys.current = newLines

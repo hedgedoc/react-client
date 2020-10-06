@@ -1,5 +1,5 @@
 import markdownItContainer from 'markdown-it-container'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { BasicMarkdownRenderer } from '../../../markdown-renderer/basic-markdown-renderer'
@@ -31,10 +31,13 @@ export const Cheatsheet: React.FC = () => {
     `:::info\n${t('editor.help.cheatsheet.exampleAlert')}\n:::`
   ]
 
-  const md = basicMarkdownRender()
-  validAlertLevels.forEach(level => {
-    md.use(markdownItContainer, level, { render: createRenderContainer(level) })
-  })
+  const markdownIt = useMemo(() => {
+    const md = basicMarkdownRender()
+    validAlertLevels.forEach(level => {
+      md.use(markdownItContainer, level, { render: createRenderContainer(level) })
+    })
+    return md
+  }, [])
 
   return (
     <Table className="table-condensed table-cheatsheet">
@@ -52,7 +55,7 @@ export const Cheatsheet: React.FC = () => {
                 <BasicMarkdownRenderer
                   content={code}
                   wide={false}
-                  markdownIt={md}
+                  markdownIt={markdownIt}
                 />
               </td>
               <td className={'markdown-body'}>
