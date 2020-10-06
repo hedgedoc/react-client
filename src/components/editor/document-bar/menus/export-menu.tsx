@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import links from '../../../../links.json'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import { MarkdownExport } from './export/markdown'
+import { MarkdownExportDropdownItem } from './export/markdown'
 
 export interface ExportMenuProps {
   title: string
@@ -40,7 +40,7 @@ export const ExportMenu: React.FC<ExportMenuProps> = ({ title, noteContent }) =>
         <Dropdown.Header>
           <Trans i18nKey='editor.documentBar.download'/>
         </Dropdown.Header>
-        <MarkdownExport
+        <MarkdownExportDropdownItem
           title={title}
           noteContent={noteContent}
         />
