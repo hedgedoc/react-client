@@ -38,12 +38,11 @@ export class FullMarkdownItConfigurator extends BasicMarkdownItConfigurator {
       plantumlWithError,
       tasksLists,
       (markdownIt) => {
-        if (this.useFrontmatter) {
-          frontmatterExtract(markdownIt, {
+        frontmatterExtract(markdownIt,
+          !this.useFrontmatter ? undefined : {
             onYamlError: (error: boolean) => this.onYamlError(error),
             onRawMeta: (rawMeta: RawYAMLMetadata) => this.onRawMeta(rawMeta)
           })
-        }
       },
       headlineAnchors,
       KatexReplacer.markdownItPlugin,
