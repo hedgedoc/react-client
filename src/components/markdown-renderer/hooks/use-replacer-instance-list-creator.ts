@@ -43,6 +43,5 @@ export const useReplacerInstanceListCreator = (onTaskCheckedChange: (lineInMarkd
     new QuoteOptionsReplacer(),
     new KatexReplacer(),
     new TaskListReplacer(onTaskCheckedChange)
-  ]
-  , [onTaskCheckedChange])
+  ], [onTaskCheckedChange])
 }

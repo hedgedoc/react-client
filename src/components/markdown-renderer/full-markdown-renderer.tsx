@@ -10,10 +10,10 @@ import { FullMarkdownItConfigurator } from './markdown-it-configurator/FullMarkd
 import { LineMarkers } from './replace-components/linemarker/line-number-marker'
 import { AdditionalMarkdownRendererProps, LineMarkerPosition } from './types'
 import { useCalculateLineMarkerPosition } from './utils/calculate-line-marker-positions'
-import { useReplacerInstanceListCreator } from './utils/use-replacer-instance-list-creator'
-import { useExtractFirstHeadline } from './utils/use-extract-first-headline'
-import { usePostMetaDataOnChange } from './utils/use-post-meta-data-on-change'
-import { usePostTocAstOnChange } from './utils/use-post-toc-ast-on-change'
+import { useReplacerInstanceListCreator } from './hooks/use-replacer-instance-list-creator'
+import { useExtractFirstHeadline } from './hooks/use-extract-first-headline'
+import { usePostMetaDataOnChange } from './hooks/use-post-meta-data-on-change'
+import { usePostTocAstOnChange } from './hooks/use-post-toc-ast-on-change'
 
 export interface FullMarkdownRendererProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
