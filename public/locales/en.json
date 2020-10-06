@@ -148,11 +148,23 @@
         "accountManagement": "Account management",
         "deleteUser": "Delete user",
         "exportUserData": "Export user data",
+        "accessTokens": {
+            "title": "Access tokens",
+            "info": "Access tokens can be used to grant the CLI or third-party applications access to your account.",
+            "infoDev": "Developers can use access tokens to access the public API.",
+            "noTokens": "You don't have any access tokens generated yet.",
+            "createToken": "Create token",
+            "label": "Token label",
+            "created": "created {{time}}"
+        },
         "modal": {
             "deleteUser": {
                 "title": "Delete user",
                 "message": "Do you really want to delete your user account?",
                 "subMessage": "This will delete your account, all notes that are owned by you and remove all references to your account from other notes."
+            },
+            "addAccessToken": {
+                "title": "Add access token"
             }
         }
     },
@@ -384,7 +396,8 @@
         "avatarOf": "avatar of '{{name}}'",
         "why": "Why?",
         "successfullyCopied": "Copied!",
-        "copyError": "Error while copying!"
+        "copyError": "Error while copying!",
+        "errorOccurred": "An error occurred"
     },
     "login": {
         "chooseMethod": "Choose method",
