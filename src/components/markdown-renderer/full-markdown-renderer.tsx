@@ -43,7 +43,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   const currentLineMarkers = useRef<LineMarkers[]>()
   usePostMetaDataOnChange(rawMetaRef.current, firstHeadingRef.current, onMetaDataChange, onFirstHeadingChange)
   useCalculateLineMarkerPosition(documentElement, currentLineMarkers.current, onLineMarkerPositionChanged, documentElement.current?.offsetTop ?? 0)
-  useExtractFirstHeadline(documentElement, onFirstHeadingChange)
+  useExtractFirstHeadline(documentElement, content, onFirstHeadingChange)
 
   const tocAst = useRef<TocAst>()
   usePostTocAstOnChange(tocAst, onTocChange)
