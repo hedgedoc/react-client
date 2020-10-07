@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 
-export const useExtractFirstHeadline = (documentElement: React.RefObject<HTMLDivElement>, content: string, onFirstHeadingChange?: (firstHeading: string | undefined) => void) => {
+export const useExtractFirstHeadline = (documentElement: React.RefObject<HTMLDivElement>, content: string, onFirstHeadingChange?: (firstHeading: string | undefined) => void): string => {
   const extractInnerText = useCallback((node: ChildNode): string => {
     let innerText = ''
     if (node.childNodes && node.childNodes.length > 0) {
