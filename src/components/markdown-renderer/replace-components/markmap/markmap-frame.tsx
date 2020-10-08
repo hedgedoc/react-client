@@ -29,9 +29,9 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
     if (diagramContainer.current) {
       if (disablePanAndZoom) {
         console.log('addedEventListener')
-        diagramContainer.current.addEventListener('wheel', wheelHandler)
-        diagramContainer.current.addEventListener('mousedown', mousedownHandler)
-        diagramContainer.current.addEventListener('touchstart', touchHandler)
+        diagramContainer.current.addEventListener('wheel', wheelHandler, true)
+        diagramContainer.current.addEventListener('mousedown', mousedownHandler, true)
+        diagramContainer.current.addEventListener('touchstart', touchHandler, true)
       } else {
         diagramContainer.current.removeEventListener('wheel', wheelHandler)
         diagramContainer.current.removeEventListener('mousedown', mousedownHandler)
