@@ -166,6 +166,10 @@
             "addedAccessToken": {
                 "title": "Access token added",
                 "message": "An access token was created. Copy it from the field below now, as you won't be able to view it again."
+            },
+            "deleteAccessToken": {
+                "title": "Really delete access token?",
+                "message": "When deleting an access token, the applications that used it won't have access to your account anymore. You eventually need a new token to continue using those applications."
             }
         }
     },
@@ -392,6 +396,7 @@
         "ok": "OK",
         "close": "Close",
         "save": "Save",
+        "delete": "Delete",
         "or": "or",
         "and": "and",
         "avatarOf": "avatar of '{{name}}'",

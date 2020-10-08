@@ -2,11 +2,10 @@ import { DateTime } from 'luxon'
 import React, { ChangeEvent, FormEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Col, Form, ListGroup, Modal, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { getAccessTokenList, postNewAccessToken } from '../../../api/tokens'
+import { deleteAccessToken, getAccessTokenList, postNewAccessToken } from '../../../api/tokens'
 import { AccessToken } from '../../../api/tokens/types'
 import { CopyableField } from '../../common/copyable/copyable-field/copyable-field'
 import { IconButton } from '../../common/icon-button/icon-button'
-import { TranslatedIconButton } from '../../common/icon-button/translated-icon-button'
 import { CommonModal } from '../../common/modals/common-modal'
 import { DeletionModal } from '../../common/modals/deletion-modal'
 import { ShowIf } from '../../common/show-if/show-if'
@@ -20,6 +19,7 @@ export const ProfileAccessTokens: React.FC = () => {
   const [accessTokens, setAccessTokens] = useState<AccessToken[]>([])
   const [newTokenLabel, setNewTokenLabel] = useState('')
   const [newTokenSecret, setNewTokenSecret] = useState('')
+  const [selectedForDeletion, setSelectedForDeletion] = useState(0)
 
   const addToken = useCallback((event: FormEvent) => {
     event.preventDefault()
@@ -36,7 +36,22 @@ export const ProfileAccessTokens: React.FC = () => {
   }, [newTokenLabel])
 
   const deleteToken = useCallback(() => {
-    // TODO Handle logic for removing an existing access token
+    deleteAccessToken(selectedForDeletion)
+      .then(() => {
+        setSelectedForDeletion(0)
+      })
+      .catch(error => {
+        console.error(error)
+        setError(true)
+      })
+      .finally(() => {
+        setShowDeleteModal(false)
+      })
+  }, [selectedForDeletion, setError])
+
+  const selectForDeletion = useCallback((timestamp: number) => {
+    setSelectedForDeletion(timestamp)
+    setShowDeleteModal(true)
   }, [])
 
   const newTokenSubmittable = useMemo(() => {
@@ -88,7 +103,7 @@ export const ProfileAccessTokens: React.FC = () => {
                         }}/>
                       </Col>
                       <Col xs='auto'>
-                        <IconButton icon='trash-o' variant='danger'/>
+                        <IconButton icon='trash-o' variant='danger' onClick={() => selectForDeletion(token.created)}/>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -138,8 +153,13 @@ export const ProfileAccessTokens: React.FC = () => {
         </Modal.Footer>
       </CommonModal>
 
-      <DeletionModal onConfirm={deleteToken} deletionButtonI18nKey={''} show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-        1
+      <DeletionModal
+        onConfirm={deleteToken}
+        deletionButtonI18nKey={'common.delete'}
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        titleI18nKey={'profile.modal.deleteAccessToken.title'}>
+        <Trans i18nKey='profile.modal.deleteAccessToken.message'/>
       </DeletionModal>
     </Fragment>
   )

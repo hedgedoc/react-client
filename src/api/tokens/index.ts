@@ -23,3 +23,11 @@ export const postNewAccessToken = async (label: string): Promise<AccessToken & A
     created: Math.floor(Date.now())
   }
 }
+
+export const deleteAccessToken = async (timestamp: number): Promise<void> => {
+  const response = await fetch(`${getApiUrl()}/tokens/${timestamp}`, {
+    ...defaultFetchConfig,
+    method: 'DELETE'
+  })
+  expectResponseCode(response)
+}
