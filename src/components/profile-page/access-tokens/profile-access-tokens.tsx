@@ -72,7 +72,7 @@ export const ProfileAccessTokens: React.FC = () => {
 
   return (
     <Fragment>
-      <Card className='bg-dark mb-4'>
+      <Card className='bg-dark mb-4 access-tokens'>
         <Card.Body>
           <Card.Title>
             <Trans i18nKey='profile.accessTokens.title'/>
