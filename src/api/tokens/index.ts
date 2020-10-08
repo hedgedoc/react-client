@@ -10,18 +10,13 @@ export const getAccessTokenList = async (): Promise<AccessToken[]> => {
 }
 
 export const postNewAccessToken = async (label: string): Promise<AccessToken & AccessTokenSecret> => {
-  // const response = await fetch(`${getApiUrl()}/tokens`, {
-  //   ...defaultFetchConfig,
-  //   method: 'POST',
-  //   body: label
-  // })
-  // expectResponseCode(response)
-  // return await response.json() as (AccessToken & AccessTokenSecret)
-  return {
-    label: label,
-    secret: 'abc-123-def-456',
-    created: Math.floor(Date.now())
-  }
+  const response = await fetch(`${getApiUrl()}/tokens`, {
+    ...defaultFetchConfig,
+    method: 'POST',
+    body: label
+  })
+  expectResponseCode(response)
+  return await response.json() as (AccessToken & AccessTokenSecret)
 }
 
 export const deleteAccessToken = async (timestamp: number): Promise<void> => {
