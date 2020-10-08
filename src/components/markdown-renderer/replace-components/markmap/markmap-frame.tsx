@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { Button } from 'react-bootstrap'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { useTranslation } from 'react-i18next'
+import { LockButton } from '../../../common/lock-button/lock-button'
 
 export interface MarkmapFrameProps {
   code: string
@@ -11,26 +11,24 @@ const blockHandler = (event: Event): void => {
 }
 
 export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
+  const { t } = useTranslation()
   const diagramContainer = useRef<HTMLDivElement>(null)
-  const [disablePanAndZoom, setDisablePanAndZoom] = useState<boolean>()
+  const [disablePanAndZoom, setDisablePanAndZoom] = useState(true)
 
   useEffect(() => {
-    console.log('called useEffect')
     if (diagramContainer.current) {
       if (disablePanAndZoom) {
-        console.log('addedEventListener')
         diagramContainer.current.addEventListener('wheel', blockHandler, true)
         diagramContainer.current.addEventListener('mousedown', blockHandler, true)
         diagramContainer.current.addEventListener('click', blockHandler, true)
         diagramContainer.current.addEventListener('dblclick', blockHandler, true)
         diagramContainer.current.addEventListener('touchstart', blockHandler, true)
       } else {
-        console.log('removedEventListener')
-        diagramContainer.current.removeEventListener('wheel', blockHandler)
-        diagramContainer.current.removeEventListener('mousedown', blockHandler)
-        diagramContainer.current.removeEventListener('click', blockHandler)
-        diagramContainer.current.removeEventListener('dblclick', blockHandler)
-        diagramContainer.current.removeEventListener('touchstart', blockHandler)
+        diagramContainer.current.removeEventListener('wheel', blockHandler, true)
+        diagramContainer.current.removeEventListener('mousedown', blockHandler, true)
+        diagramContainer.current.removeEventListener('click', blockHandler, true)
+        diagramContainer.current.removeEventListener('dblclick', blockHandler, true)
+        diagramContainer.current.removeEventListener('touchstart', blockHandler, true)
       }
     }
   }, [diagramContainer, disablePanAndZoom])
@@ -58,7 +56,6 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
             .catch(err => console.error(err))
         }
         view.Markmap.create(svg, {}, root)
-        setDisablePanAndZoom(true)
       }).catch(() => { console.error('error while loading markmap') })
   }, [code])
 
@@ -66,12 +63,7 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
     <Fragment>
       <div className={'text-center'} ref={diagramContainer}/>
       <div className={'text-right button-inside'}>
-        <Button variant='dark' size='sm' onClick={() => setDisablePanAndZoom(current => !current)}>
-          { disablePanAndZoom
-            ? <ForkAwesomeIcon icon='lock'/>
-            : <ForkAwesomeIcon icon='unlock'/>
-          }
-        </Button>
+        <LockButton locked={disablePanAndZoom} onLockedChanged={(newState => setDisablePanAndZoom(newState))} title={ disablePanAndZoom ? t('renderer.markmap.locked') : t('renderer.markmap.unlocked')}/>
       </div>
     </Fragment>
   )
