@@ -88,9 +88,9 @@ export const ProfileAccessTokens: React.FC = () => {
           </ShowIf>
           <ListGroup>
             {
-              accessTokens.map((token, index) => {
+              accessTokens.map((token) => {
                 return (
-                  <ListGroup.Item className='bg-dark' key={index}>
+                  <ListGroup.Item className='bg-dark' key={token.created}>
                     <Row>
                       <Col className='text-start'>
                         { token.label }
