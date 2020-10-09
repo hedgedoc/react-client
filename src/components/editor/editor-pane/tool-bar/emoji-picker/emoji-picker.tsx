@@ -1,11 +1,9 @@
 import { Picker } from 'emoji-picker-element'
 import { CustomEmoji, EmojiClickEvent, EmojiClickEventDetail } from 'emoji-picker-element/shared'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useClickAway } from 'react-use'
 import { ApplicationState } from '../../../../../redux'
-import { ShowIf } from '../../../../common/show-if/show-if'
 import './emoji-picker.scss'
 import forkawesomeIcon from './forkawesome.png'
 import { ForkAwesomeIcons } from './icon-names'
@@ -26,6 +24,7 @@ export const customEmojis: CustomEmoji[] = Object.keys(ForkAwesomeIcons).map((na
 export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected, onDismiss }) => {
   const darkModeEnabled = useSelector((state: ApplicationState) => state.darkMode.darkMode)
   const pickerContainerRef = useRef<HTMLDivElement>(null)
+  const firstOpened = useRef(false)
 
   useClickAway(pickerContainerRef, () => {
     onDismiss()
@@ -42,30 +41,41 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ show, onEmojiSelected,
   }, [])
 
   useEffect(() => {
-    if (!pickerContainerRef.current) {
+    if (!pickerContainerRef.current || firstOpened.current) {
       return
     }
-    const container = pickerContainerRef.current
     const picker = new Picker({
       customEmoji: customEmojis,
       dataSource: '/static/js/emoji-data.json'
     })
+    const container = pickerContainerRef.current
     picker.addEventListener('emoji-click', emojiClickListener)
-    picker.setAttribute('class', darkModeEnabled ? 'dark' : 'light')
-    container.appendChild(picker)
     if (picker.shadowRoot) {
       picker.shadowRoot.appendChild(twemojiStyle)
     }
-    return () => {
-      picker.removeEventListener('emoji-click', emojiClickListener)
-      container.removeChild(picker)
+    container.appendChild(picker)
+    firstOpened.current = true
+  }, [pickerContainerRef, emojiClickListener, darkModeEnabled, twemojiStyle])
+
+  useEffect(() => {
+    if (!pickerContainerRef.current) {
+      return
     }
-  }, [onEmojiSelected, pickerContainerRef, emojiClickListener, darkModeEnabled, twemojiStyle])
+    const pickerDomList = pickerContainerRef.current.getElementsByTagName('emoji-picker')
+    if (pickerDomList.length === 0) {
+      return
+    }
+    const picker = pickerDomList[0]
+    picker.setAttribute('class', darkModeEnabled ? 'dark' : 'light')
+    if (darkModeEnabled) {
+      picker.removeAttribute('style')
+    } else {
+      picker.setAttribute('style', '--background: #f8f9fa')
+    }
+  }, [darkModeEnabled, pickerContainerRef, firstOpened])
 
   // noinspection CheckTagEmptyBody
   return (
-    <ShowIf condition={show}>
-      <div className={'position-absolute emoji-picker-container'} ref={pickerContainerRef}></div>
-    </ShowIf>
+    <div className={`position-absolute emoji-picker-container ${!show ? 'd-none' : ''}`} ref={pickerContainerRef}></div>
   )
 }
