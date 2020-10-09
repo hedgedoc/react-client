@@ -13,6 +13,7 @@ import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 
 interface DocumentRenderPaneProps {
   content: string
+  extraClasses?: string
   onFirstHeadingChange: (firstHeading: string | undefined) => void
   onMetadataChange: (metaData: YAMLMetaData | undefined) => void
   onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void

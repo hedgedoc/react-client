@@ -6,6 +6,7 @@ import { ApplicationState } from '../../redux'
 import { setEditorMode } from '../../redux/editor/methods'
 import { ApplyDarkMode } from '../common/apply-dark-mode/apply-dark-mode'
 import { DocumentTitle } from '../common/document-title/document-title'
+import { extractNoteTitle } from '../common/document-title/note-title-extractor'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { AppBar } from './app-bar/app-bar'
 import { EditorMode } from './app-bar/editor-view-mode'
@@ -49,14 +50,9 @@ export const Editor: React.FC = () => {
   }))
 
   const updateDocumentTitle = useCallback(() => {
-    if (noteMetadata.current?.title && noteMetadata.current?.title !== '') {
-      setDocumentTitle(noteMetadata.current.title)
-    } else if (noteMetadata.current?.opengraph && noteMetadata.current?.opengraph.get('title') && noteMetadata.current?.opengraph.get('title') !== '') {
-      setDocumentTitle(noteMetadata.current.opengraph.get('title') ?? untitledNote)
-    } else {
-      setDocumentTitle((firstHeading.current ?? untitledNote).trim())
-    }
-  }, [untitledNote])
+    const noteTitle = extractNoteTitle(untitledNote, noteMetadata.current, firstHeading.current)
+    setDocumentTitle(noteTitle)
+  }, [noteMetadata, firstHeading, untitledNote])
 
   const onFirstHeadingChange = useCallback((newFirstHeading: string | undefined) => {
     firstHeading.current = newFirstHeading
@@ -114,7 +110,7 @@ export const Editor: React.FC = () => {
       <MotdBanner/>
       <DocumentTitle title={documentTitle}/>
       <div className={'d-flex flex-column vh-100'}>
-        <AppBar/>
+        <AppBar showEditorButtons={true}/>
         <DocumentBar title={documentTitle} noteContent={markdownContent} updateNoteContent={(newContent) => setMarkdownContent(newContent)}/>
         <Splitter
           showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}

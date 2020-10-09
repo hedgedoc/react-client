@@ -16,7 +16,11 @@ import { HelpButton } from './help-button/help-button'
 import { NavbarBranding } from './navbar-branding'
 import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
 
-export const AppBar: React.FC = () => {
+export interface AppBarProps {
+  showEditorButtons: boolean
+}
+
+export const AppBar: React.FC<AppBarProps> = ({ showEditorButtons }) => {
   const { t } = useTranslation()
   const { id } = useParams<EditorPathParams>()
   const userExists = useSelector((state: ApplicationState) => !!state.user)
@@ -25,8 +29,10 @@ export const AppBar: React.FC = () => {
     <Navbar bg={'light'}>
       <Nav className="mr-auto d-flex align-items-center">
         <NavbarBranding/>
-        <EditorViewMode/>
-        <SyncScrollButtons/>
+        <ShowIf condition={showEditorButtons}>
+          <EditorViewMode/>
+          <SyncScrollButtons/>
+        </ShowIf>
         <DarkModeButton/>
         <Link to={`/p/${id}`} target='_blank'>
           <Button title={t('editor.documentBar.slideMode')} className="ml-2 text-secondary" size="sm" variant="outline-light">
