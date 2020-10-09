@@ -14,7 +14,7 @@ export const getEmojiIcon = (emoji: EmojiClickEventDetail): string => {
 export const getEmojiShortCode = (emoji: EmojiClickEventDetail): string => {
   let skinToneModifier = ''
   if ((emoji.emoji as NativeEmoji).skins && emoji.skinTone !== 0) {
-    skinToneModifier = `:skin-tone-${emoji.skinTone + 1}:`
+    skinToneModifier = `:skin-tone-${emoji.skinTone as number}:`
   }
   return `:${emoji.emoji.shortcodes[0]}:${skinToneModifier}`
 }

@@ -16,10 +16,10 @@ const shortCodeMap = (emojiData as unknown as EmojiEntry[])
     return reduceObject
   }, {} as ShortCodeMap)
 
-const emojiSkinToneModifierMap = [2, 3, 4, 5, 6]
+const emojiSkinToneModifierMap = [1, 2, 3, 4, 5]
   .reduce((reduceObject, modifierValue) => {
     const lightSkinCode = 127995
-    const codepoint = lightSkinCode + (modifierValue - 2)
+    const codepoint = lightSkinCode + (modifierValue - 1)
     const shortcode = `skin-tone-${modifierValue}`
     reduceObject[shortcode] = `&#${codepoint};`
     return reduceObject
