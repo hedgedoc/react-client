@@ -150,7 +150,7 @@
         "exportUserData": "Export user data",
         "accessTokens": {
             "title": "Access tokens",
-            "info": "Access tokens can be used to grant the CLI or third-party applications access to your account.",
+            "info": "Access tokens are an password-less authentication method for the CLI or third-party applications.",
             "infoDev": "Developers can use these to access the public API.",
             "noTokens": "You don't have any tokens generated yet.",
             "createToken": "Create token",
