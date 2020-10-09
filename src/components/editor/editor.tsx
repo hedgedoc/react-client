@@ -11,7 +11,7 @@ import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { AppBar, AppBarMode } from './app-bar/app-bar'
 import { EditorMode } from './app-bar/editor-view-mode'
 import { DocumentBar } from './document-bar/document-bar'
-import { DocumentRenderPane } from './document-renderer-pane/document-render-pane'
+import { ScrollingDocumentRenderPane } from './document-renderer-pane/scrolling-document-render-pane'
 import { EditorPane } from './editor-pane/editor-pane'
 import { editorTestContent } from './editorTestContent'
 import { DualScrollState, ScrollState } from './scroll/scroll-props'
@@ -125,7 +125,7 @@ export const Editor: React.FC = () => {
           }
           showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
           right={
-            <DocumentRenderPane
+            <ScrollingDocumentRenderPane
               content={markdownContent}
               onFirstHeadingChange={onFirstHeadingChange}
               onMakeScrollSource={() => { scrollSource.current = ScrollSource.RENDERER }}
