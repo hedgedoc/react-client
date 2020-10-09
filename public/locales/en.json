@@ -151,8 +151,8 @@
         "accessTokens": {
             "title": "Access tokens",
             "info": "Access tokens can be used to grant the CLI or third-party applications access to your account.",
-            "infoDev": "Developers can use access tokens to access the public API.",
-            "noTokens": "You don't have any access tokens generated yet.",
+            "infoDev": "Developers can use these to access the public API.",
+            "noTokens": "You don't have any tokens generated yet.",
             "createToken": "Create token",
             "label": "Token label",
             "created": "created {{time}}"
@@ -164,11 +164,11 @@
                 "subMessage": "This will delete your account, all notes that are owned by you and remove all references to your account from other notes."
             },
             "addedAccessToken": {
-                "title": "Access token added",
+                "title": "Token added",
                 "message": "An access token was created. Copy it from the field below now, as you won't be able to view it again."
             },
             "deleteAccessToken": {
-                "title": "Really delete access token?",
+                "title": "Really delete token?",
                 "message": "When deleting an access token, the applications that used it won't have access to your account anymore. You eventually need a new token to continue using those applications."
             }
         }
