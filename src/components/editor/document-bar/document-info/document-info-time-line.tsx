@@ -28,7 +28,7 @@ export const DocumentInfoTimeLine: React.FC<DocumentInfoLineWithTimeProps> = ({ 
   return (
     <DocumentInfoLine icon={icon} size={size}>
       <Trans i18nKey={i18nKey} >
-        <UserAvatar photo={profileImageSrc} additionalClasses={`font-style-normal bold font-weight-bold ${size ? 'document-info-avatar' : ''}`} name={userName} size={size ? 'lg' : undefined}/>
+        <UserAvatar photo={profileImageSrc} additionalClasses={'font-style-normal bold font-weight-bold'} name={userName} size={size ? 'lg' : undefined}/>
         <TimeFromNow time={time}/>
       </Trans>
     </DocumentInfoLine>
