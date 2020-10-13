@@ -1,5 +1,5 @@
 declare module 'flowchart.js' {
-  type Options = {
+  export interface Options {
     'line-width': number,
     'fill': string,
     'font-size': string,
@@ -8,9 +8,9 @@ declare module 'flowchart.js' {
     'line-color': string,
     'element-color': string
   }
-  type ParseOutput = {
+  export interface ParseOutput {
     clean: () => void,
     drawSVG: (container: HTMLElement, options: Partial<Options>) => void,
   }
-  export const parse: (code: string) => ParseOutput
+  export function parse(code: string): ParseOutput
 }
