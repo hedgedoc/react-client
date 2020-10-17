@@ -6869,6 +6869,11 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
+firacode@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/firacode/-/firacode-5.2.0.tgz#2eab5b4f59e3197d5e84f15a25485a88f0cd3180"
+  integrity sha512-Q1SO7vibzYcT+KaohGK0ypGS58zLtO2o2UuiLvngTEhBbHQoZmZ4DAiugj0MNNpeM4jG9gM9NyusVDM3MxYP7A==
+
 flat-cache@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-2.0.1.tgz#5d296d6f04bda44a4630a301413bdbc2ec085ec0"
