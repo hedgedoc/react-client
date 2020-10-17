@@ -14,6 +14,7 @@ import { DocumentBar } from './document-bar/document-bar'
 import { ScrollingDocumentRenderPane } from './document-renderer-pane/scrolling-document-render-pane'
 import { EditorPane } from './editor-pane/editor-pane'
 import { editorTestContent } from './editorTestContent'
+import { useFirstDraw } from './hooks/useFirstDraw'
 import { DualScrollState, ScrollState } from './scroll/scroll-props'
 import { shortcutHandler } from './shortcut/shortcut'
 import { Splitter } from './splitter/splitter'
@@ -35,7 +36,6 @@ export const Editor: React.FC = () => {
   const untitledNote = t('editor.untitledNote')
   const [markdownContent, setMarkdownContent] = useState(editorTestContent)
   const isWide = useMedia({ minWidth: 576 })
-  const [firstDraw, setFirstDraw] = useState(true)
   const [documentTitle, setDocumentTitle] = useState(untitledNote)
   const noteMetadata = useRef<YAMLMetaData>()
   const firstHeading = useRef<string>()
@@ -82,9 +82,7 @@ export const Editor: React.FC = () => {
     }
   }, [])
 
-  useEffect(() => {
-    setFirstDraw(false)
-  }, [])
+  const firstDraw = useFirstDraw()
 
   useEffect(() => {
     if (!firstDraw && !isWide && editorMode === EditorMode.BOTH) {
@@ -129,7 +127,9 @@ export const Editor: React.FC = () => {
             <ScrollingDocumentRenderPane
               content={markdownContent}
               onFirstHeadingChange={onFirstHeadingChange}
-              onMakeScrollSource={() => { scrollSource.current = ScrollSource.RENDERER }}
+              onMakeScrollSource={() => {
+                scrollSource.current = ScrollSource.RENDERER
+              }}
               onMetadataChange={onMetadataChange}
               onScroll={onMarkdownRendererScroll}
               onTaskCheckedChange={onTaskCheckedChange}
