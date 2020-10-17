@@ -10,6 +10,13 @@ describe('Intro', () => {
     cy.visit('/')
   })
 
+  describe('Intro page fetch', () => {
+    it('fetches the intro page content', () => {
+      cy.getMarkdownBody().find('.alert-danger>p')
+        .contains('test content')
+    })
+  })
+
   describe('Cover Button are hidden when logged in', () => {
     it('Sign in Cover Button', () => {
       cy.get('.cover-button.btn-success')

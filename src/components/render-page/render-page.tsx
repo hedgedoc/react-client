@@ -12,6 +12,7 @@ import { setNoteFrontmatter } from '../../redux/note-details/methods'
 import { NoteFrontmatter } from '../editor-page/note-frontmatter/note-frontmatter'
 import { ScrollState } from '../editor-page/synced-scroll/scroll-props'
 import { ImageClickHandler } from '../markdown-renderer/replace-components/image/image-replacer'
+import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { IframeRendererToEditorCommunicator } from './iframe-renderer-to-editor-communicator'
 import { MarkdownDocument } from './markdown-document'
 
@@ -61,36 +62,24 @@ export const RenderPage: React.FC = () => {
     iframeCommunicator.sendSetScrollState(scrollState)
   }, [iframeCommunicator])
 
-  const onImageClick: ImageClickHandler = useCallback((event) => {
-    const image = event.target as HTMLImageElement
-    if (image.src === '') {
-      return
-    }
-    iframeCommunicator.sendClickedImageUrl({
-      src: image.src,
-      alt: image.alt,
-      title: image.title
-    })
-  }, [iframeCommunicator])
+  const onImageClick: ImageClickHandler = useImageClickHandler(iframeCommunicator)
 
   if (!baseUrl) {
     return null
   }
 
   return (
-    <div className={ 'vh-100 w-100' }>
-      <MarkdownDocument
-        extraClasses={ 'bg-light' }
-        markdownContent={ markdownContent }
-        onTaskCheckedChange={ onTaskCheckedChange }
-        onFirstHeadingChange={ onFirstHeadingChange }
-        onMakeScrollSource={ onMakeScrollSource }
-        onFrontmatterChange={ onFrontmatterChange }
-        scrollState={ scrollState }
-        onScroll={ onScroll }
-        baseUrl={ baseUrl }
-        onImageClick={ onImageClick }/>
-    </div>
+    <MarkdownDocument
+      extraClasses={ 'vh-100 w-100 bg-light' }
+      markdownContent={ markdownContent }
+      onTaskCheckedChange={ onTaskCheckedChange }
+      onFirstHeadingChange={ onFirstHeadingChange }
+      onMakeScrollSource={ onMakeScrollSource }
+      onFrontmatterChange={ onFrontmatterChange }
+      scrollState={ scrollState }
+      onScroll={ onScroll }
+      baseUrl={ baseUrl }
+      onImageClick={ onImageClick }/>
   )
 }
 

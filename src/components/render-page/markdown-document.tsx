@@ -55,7 +55,7 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = (
     <div className={ `markdown-document ${ extraClasses ?? '' }` }
          ref={ internalDocumentRenderPaneRef } onScroll={ onUserScroll } onMouseEnter={ onMakeScrollSource }>
       <div className={ 'markdown-document-side' }/>
-      <div className={ 'bg-light markdown-document-content' }>
+      <div className={ 'markdown-document-content' }>
         <YamlArrayDeprecationAlert/>
         <FullMarkdownRenderer
           rendererRef={ rendererRef }
@@ -65,12 +65,10 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = (
           onLineMarkerPositionChanged={ onLineMarkerPositionChanged }
           onFrontmatterChange={ onFrontmatterChange }
           onTaskCheckedChange={ onTaskCheckedChange }
-          onTocChange={ (tocAst) => setTocAst(tocAst) }
+          onTocChange={ setTocAst }
           baseUrl={ baseUrl }
           onImageClick={ onImageClick }/>
-
       </div>
-
       <div className={ 'markdown-document-side pt-4' }>
         <ShowIf condition={ !!tocAst }>
           <ShowIf condition={ width >= 1100 }>

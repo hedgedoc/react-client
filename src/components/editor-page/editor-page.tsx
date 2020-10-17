@@ -121,7 +121,8 @@ export const EditorPage: React.FC = () => {
                   onTaskCheckedChange={ SetCheckboxInMarkdownContent }
                   onFrontmatterChange={ setNoteFrontmatter }
                   onScroll={ onMarkdownRendererScroll }
-                  scrollState={ scrollState.rendererScrollState }/>
+                  scrollState={ scrollState.rendererScrollState }
+                  extraClasses={'h-100 w-100'}/>
               }
               containerClassName={ 'overflow-hidden' }/>
             <Sidebar/>

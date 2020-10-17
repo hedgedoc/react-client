@@ -64,7 +64,6 @@ export const RenderIframe: React.FC<MarkdownDocumentProps> = (
       iframeCommunicator.sendScrollState(scrollState)
     }
   }, [iframeCommunicator, rendererReady, scrollState])
-
   useEffect(() => {
     if (rendererReady) {
       iframeCommunicator.sendSetBaseUrl(window.location.toString())
@@ -81,6 +80,6 @@ export const RenderIframe: React.FC<MarkdownDocumentProps> = (
     <ShowOnPropChangeImageLightbox details={ lightboxDetails }/>
     <iframe data-cy={ 'documentIframe' } onLoad={ onIframeLoad } title="render" src={ renderPageUrl }
             { ...isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' } }
-            ref={ frameReference } className={ `h-100 w-100 border-0 ${ extraClasses ?? '' }` }/>
+            ref={ frameReference } className={ `border-0 ${ extraClasses ?? '' }` }/>
   </Fragment>
 }
