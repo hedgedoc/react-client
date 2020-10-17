@@ -15,7 +15,7 @@ import { ScrollingDocumentRenderPane } from './document-renderer-pane/scrolling-
 import { EditorPane } from './editor-pane/editor-pane'
 import { editorTestContent } from './editorTestContent'
 import { DualScrollState, ScrollState } from './scroll/scroll-props'
-import { shortcutHandler } from './shortcut/shortcut'
+import { useViewModeShortcuts } from './shortcut/useViewModeShortcuts'
 import { Splitter } from './splitter/splitter'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
@@ -75,12 +75,7 @@ export const Editor: React.FC = () => {
     }
   }, [markdownContent, setMarkdownContent])
 
-  useEffect(() => {
-    document.addEventListener('keydown', shortcutHandler, false)
-    return () => {
-      document.removeEventListener('keydown', shortcutHandler, false)
-    }
-  }, [])
+  useViewModeShortcuts()
 
   useEffect(() => {
     setFirstDraw(false)
