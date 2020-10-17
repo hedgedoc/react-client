@@ -82,13 +82,13 @@ export const Editor: React.FC = () => {
     }
   }, [])
 
-  const firstDraw = useFirstDraw()
+  const isFirstDraw = useFirstDraw()
 
   useEffect(() => {
-    if (!firstDraw && !isWide && editorMode === EditorMode.BOTH) {
+    if (!isFirstDraw && !isWide && editorMode === EditorMode.BOTH) {
       setEditorMode(EditorMode.PREVIEW)
     }
-  }, [editorMode, firstDraw, isWide])
+  }, [editorMode, isFirstDraw, isWide])
 
   const onMarkdownRendererScroll = useCallback((newScrollState: ScrollState) => {
     if (scrollSource.current === ScrollSource.RENDERER && editorSyncScroll) {
