@@ -15,7 +15,7 @@ import { ScrollingDocumentRenderPane } from './document-renderer-pane/scrolling-
 import { EditorPane } from './editor-pane/editor-pane'
 import { editorTestContent } from './editorTestContent'
 import { DualScrollState, ScrollState } from './scroll/scroll-props'
-import { useViewModeShortcuts } from './shortcut/useViewModeShortcuts'
+import { useViewModeShortcuts } from './hooks/useViewModeShortcuts'
 import { Splitter } from './splitter/splitter'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
