@@ -55,15 +55,10 @@ export const EditorPreferences: React.FC = () => {
               <EditorPreferenceSelect onChange={sendPreferences} preferences={preferences} property={EditorPreferenceProperty.INDENT_UNIT}/>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Form.Group controlId='editorSpellChecker'>
-                <Form.Label>
-                  <Trans i18nKey='editor.modal.preferences.spellChecker'/>
-                </Form.Label>
-                <Form.Control as='select' size='sm' onChange={() => alert('This feature is not yet implemented.')}>
-                  <option value='off'>off</option>
-                  <option value='en'>English</option>
-                </Form.Control>
-              </Form.Group>
+              <EditorPreferenceSelect onChange={() => alert('This feature is not yet implemented.')} preferences={preferences} property={EditorPreferenceProperty.SPELL_CHECK}>
+                <option value='off'>off</option>
+                <option value='en'>English</option>
+              </EditorPreferenceSelect>
             </ListGroup.Item>
           </ListGroup>
         </Form>
