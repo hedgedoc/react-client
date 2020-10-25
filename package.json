@@ -127,6 +127,7 @@
         },
         "rules": {
             "no-use-before-define": "off",
+            "no-debugger": "warn",
             "default-param-last": "off"
         },
         "plugins": [
