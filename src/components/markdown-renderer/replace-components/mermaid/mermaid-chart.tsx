@@ -16,15 +16,8 @@ let mermaidInitialized = false
 
 export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
   const diagramContainer = useRef<HTMLDivElement>(null)
-  const [error, setErrorState] = useState<string>()
+  const [error, setError] = useState<string>()
   const { t } = useTranslation()
-
-  const setError = useCallback((error: string|undefined) => {
-    if (error !== undefined) {
-      console.error(error)
-    }
-    setErrorState(error)
-  }, [])
 
   useEffect(() => {
     if (!mermaidInitialized) {
@@ -36,13 +29,13 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
   }, [])
 
   const showError = useCallback((error: string) => {
+    setError(error)
+    console.error(error)
     if (!diagramContainer.current) {
       return
     }
-    setError(error)
-    console.error(error)
     diagramContainer.current.querySelectorAll('svg').forEach(child => child.remove())
-  }, [])
+  }, [setError])
 
   useEffect(() => {
     if (!diagramContainer.current) {
@@ -58,7 +51,7 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
         diagramContainer.current.textContent = code
         mermaid.default.init(diagramContainer.current)
         setError(undefined)
-      }).catch(() => setError('Error while loading mermaid'))
+      }).catch(() => showError('Error while loading mermaid'))
     } catch (error) {
       const message = (error as MermaidParseError).str
       showError(message || t('renderer.mermaid.unknownError'))
