@@ -16,10 +16,11 @@ export const ScrollingDocumentRenderPane: React.FC<DocumentRenderPaneProps & Scr
   onScroll,
   onTaskCheckedChange
 }) => {
+  const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
   const renderer = useRef<HTMLDivElement>(null)
   const [lineMarks, setLineMarks] = useState<LineMarkerPosition[]>()
 
-  const contentLineCount = useMemo(() => content.split('\n').length, [content])
+  const contentLineCount = useMemo(() => markdownContent.split('\n').length, [markdownContent])
   useScrollToLineMark(scrollState, lineMarks, contentLineCount, renderer)
   const userScroll = useUserScroll(lineMarks, renderer, onScroll)
 
