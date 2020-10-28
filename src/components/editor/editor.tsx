@@ -35,7 +35,6 @@ const TASK_REGEX = /(\s*[-*] )(\[[ xX]])( .*)/
 export const Editor: React.FC = () => {
   const { t } = useTranslation()
   const untitledNote = t('editor.untitledNote')
-
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
   const isWide = useMedia({ minWidth: 576 })
   const [documentTitle, setDocumentTitle] = useState(untitledNote)
