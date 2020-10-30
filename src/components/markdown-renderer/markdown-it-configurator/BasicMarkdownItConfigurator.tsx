@@ -9,6 +9,7 @@ import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
 import { linkifyExtra } from '../markdown-it-plugins/linkify-extra'
 import { MarkdownItParserDebugger } from '../markdown-it-plugins/parser-debugger'
+import { tasksLists } from '../markdown-it-plugins/tasks-lists'
 import { twitterEmojis } from '../markdown-it-plugins/twitter-emojis'
 import { MarkdownItConfigurator } from './MarkdownItConfigurator'
 
@@ -23,7 +24,8 @@ export class BasicMarkdownItConfigurator extends MarkdownItConfigurator {
       inserted,
       marked,
       footnote,
-      imsize
+      imsize,
+      tasksLists
     )
     this.postConfigurations.push(
       linkifyExtra,
