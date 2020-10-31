@@ -7,6 +7,7 @@ import inserted from 'markdown-it-ins'
 import marked from 'markdown-it-mark'
 import subscript from 'markdown-it-sub'
 import superscript from 'markdown-it-sup'
+import { alertContainer } from '../markdown-it-plugins/alert-container'
 import { linkifyExtra } from '../markdown-it-plugins/linkify-extra'
 import { MarkdownItParserDebugger } from '../markdown-it-plugins/parser-debugger'
 import { tasksLists } from '../markdown-it-plugins/tasks-lists'
@@ -26,6 +27,7 @@ export class BasicMarkdownItConfigurator extends MarkdownItConfigurator {
       footnote,
       imsize,
       tasksLists
+      alertContainer
     )
     this.postConfigurations.push(
       linkifyExtra,
