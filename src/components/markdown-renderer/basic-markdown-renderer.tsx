@@ -1,18 +1,24 @@
-import MarkdownIt from 'markdown-it'
 import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { TocAst } from '../../external-types/markdown-it-toc-done-right/interface'
 import { ApplicationState } from '../../redux'
 import { RenderMarkdownInput, RenderMarkdownOutput } from '../../worker/markdown'
 import { ShowIf } from '../common/show-if/show-if'
+import { RawYAMLMetadata } from '../editor/yaml-metadata/yaml-metadata'
 import './markdown-renderer.scss'
-import { ComponentReplacer } from './replace-components/ComponentReplacer'
+import { LineMarkers } from './replace-components/linemarker/line-number-marker'
 import { AdditionalMarkdownRendererProps, LineKeys } from './types'
 
 export interface BasicMarkdownRendererProps {
-  componentReplacers?: () => ComponentReplacer[],
-  markdownIt: MarkdownIt,
+  markdownItType: RenderMarkdownInput['markdownItType']
+  useFrontmatter?: boolean
+  onYamlError?: (error: boolean) => void
+  onRawMeta?: (rawMeta: RawYAMLMetadata) => void
+  onToc?: (toc: TocAst) => void
+  onLineMarkers?: (lineMarkers: LineMarkers[]) => void
+  onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
   documentReference?: RefObject<HTMLDivElement>
   onBeforeRendering?: () => void
 }
@@ -21,8 +27,12 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
   className,
   content,
   wide,
-  componentReplacers,
-  markdownIt,
+  markdownItType,
+  useFrontmatter,
+  onYamlError,
+  onRawMeta,
+  onToc,
+  onLineMarkers, onTaskCheckedChange,
   documentReference,
   onBeforeRendering
 }) => {
@@ -34,40 +44,49 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
   const markdownWorker = useRef<Worker>()
 
   useEffect(() => {
-    markdownWorker.current = new Worker('../../worker/markdown.ts', { type: 'module' })
+    markdownWorker.current = new Worker('../../worker/markdown.ts', { name: 'markdownRenderer', type: 'module' })
     markdownWorker.current.onmessage = event => {
       const data = event.data as RenderMarkdownOutput
+      console.log('output', data)
       oldMarkdownLineKeys.current = data.newLines
       lastUsedLineId.current = data.newLastUsedLineId
       setMarkdownReactDom(data.markdownReactDom)
+      if (onYamlError && data.yamlError) {
+        onYamlError(data.yamlError)
+      }
+      if (onRawMeta && data.rawMeta) {
+        onRawMeta(data.rawMeta)
+      }
+      if (onToc && data.toc) {
+        onToc(data.toc)
+      }
+      if (onLineMarkers && data.lineMarkers) {
+        onLineMarkers(data.lineMarkers)
+      }
+      if (onTaskCheckedChange && data.tasksChecked.length > 0) {
+        data.tasksChecked.forEach(({ lineInMarkdown, checked }) => {
+          onTaskCheckedChange(lineInMarkdown, checked)
+        })
+      }
     }
-  }, [])
+  }, [onLineMarkers, onRawMeta, onTaskCheckedChange, onToc, onYamlError])
 
   useEffect(() => {
     if (onBeforeRendering) {
       onBeforeRendering()
     }
-    const trimmedContent = content.substr(0, maxLength)
-    const html: string = markdownIt.render(trimmedContent)
-    const contentLines = trimmedContent.split('\n')
-    const { lines: newLines, lastUsedLineId: newLastUsedLineId } = calculateNewLineNumberMapping(contentLines, oldMarkdownLineKeys.current ?? [], lastUsedLineId.current)
-    oldMarkdownLineKeys.current = newLines
-    lastUsedLineId.current = newLastUsedLineId
-    const transformer = componentReplacers ? buildTransformer(newLines, componentReplacers()) : undefined
-    return ReactHtmlParser(html, { transform: transformer })
-  }, [onBeforeRendering, content, maxLength, markdownIt, componentReplacers])
     if (markdownWorker.current) {
       const input: RenderMarkdownInput = {
         content: content,
         maxLength: maxLength,
-        markdownIt: markdownIt,
+        markdownItType: markdownItType,
         oldMarkdownLineKeys: oldMarkdownLineKeys.current,
         lastUsedLineId: lastUsedLineId.current,
-        componentReplacers: componentReplacers ? componentReplacers() : undefined
+        useFrontmatter: useFrontmatter ?? false
       }
       markdownWorker.current.postMessage(input)
     }
-  }, [componentReplacers, content, markdownIt, maxLength, onBeforeRendering])
+  }, [content, markdownItType, maxLength, onBeforeRendering, useFrontmatter])
 
   return (
     <div className={`${className || ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>

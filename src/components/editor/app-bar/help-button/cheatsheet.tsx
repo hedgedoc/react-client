@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { BasicMarkdownRenderer } from '../../../markdown-renderer/basic-markdown-renderer'
-import { BasicMarkdownItConfigurator } from '../../../markdown-renderer/markdown-it-configurator/BasicMarkdownItConfigurator'
 import { HighlightedCode } from '../../../markdown-renderer/replace-components/highlighted-fence/highlighted-code/highlighted-code'
 import './cheatsheet.scss'
 
@@ -29,11 +28,6 @@ export const Cheatsheet: React.FC = () => {
     `:::info\n${t('editor.help.cheatsheet.exampleAlert')}\n:::`
   ]
 
-  const markdownIt = useMemo(() => {
-    return new BasicMarkdownItConfigurator()
-      .buildConfiguredMarkdownIt()
-  }, [])
-
   return (
     <Table className="table-condensed table-cheatsheet">
       <thead>
@@ -50,7 +44,7 @@ export const Cheatsheet: React.FC = () => {
                 <BasicMarkdownRenderer
                   content={code}
                   wide={false}
-                  markdownIt={markdownIt}
+                  markdownItType={'basic'}
                 />
               </td>
               <td className={'markdown-body'}>
