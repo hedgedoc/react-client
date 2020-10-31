@@ -126,7 +126,8 @@
             ]
         },
         "rules": {
-            "no-use-before-define": "off"
+            "no-use-before-define": "off",
+            "default-param-last": "off"
         },
         "plugins": [
             "@typescript-eslint"
