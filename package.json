@@ -23,17 +23,17 @@
         "@types/mermaid": "8.2.1",
         "@types/node": "12.12.53",
         "@types/node-sass": "4.11.1",
-        "@types/react": "16.9.53",
+        "@types/react": "16.9.55",
         "@types/react-bootstrap-typeahead": "3.4.6",
-        "@types/react-dom": "16.9.8",
+        "@types/react-dom": "16.9.9",
         "@types/react-html-parser": "2.0.1",
         "@types/react-redux": "7.1.9",
         "@types/react-router": "5.1.8",
         "@types/react-router-bootstrap": "0.24.5",
         "@types/react-router-dom": "5.1.6",
         "@types/uuid": "8.3.0",
-        "@typescript-eslint/eslint-plugin": "4.5.0",
-        "@typescript-eslint/parser": "4.5.0",
+        "@typescript-eslint/eslint-plugin": "4.6.0",
+        "@typescript-eslint/parser": "4.6.0",
         "abcjs": "5.12.0",
         "bootstrap": "4.5.3",
         "codemirror": "5.58.2",
@@ -43,18 +43,18 @@
         "emoji-picker-element": "1.2.1",
         "emojibase-data": "5.1.1",
         "eslint-config-react-app": "6.0.0",
-        "eslint-config-standard": "15.0.0",
+        "eslint-config-standard": "16.0.1",
         "eslint-plugin-flowtype": "5.2.0",
         "eslint-plugin-import": "2.22.1",
-        "eslint-plugin-jsx-a11y": "6.3.1",
+        "eslint-plugin-jsx-a11y": "6.4.1",
         "eslint-plugin-node": "11.1.0",
         "eslint-plugin-promise": "4.2.1",
         "eslint-plugin-standard": "4.0.2",
         "fast-deep-equal": "3.1.3",
         "flowchart.js": "1.15.0",
         "fork-awesome": "1.1.7",
-        "highlight.js": "10.3.1",
-        "i18next": "19.8.2",
+        "highlight.js": "10.3.2",
+        "i18next": "19.8.3",
         "i18next-browser-languagedetector": "6.0.1",
         "i18next-http-backend": "1.0.21",
         "js-yaml": "3.14.0",
@@ -89,7 +89,7 @@
         "react-dom": "17.0.1",
         "react-html-parser": "2.0.2",
         "react-i18next": "11.7.3",
-        "react-redux": "7.2.1",
+        "react-redux": "7.2.2",
         "react-router": "5.2.0",
         "react-router-bootstrap": "0.25.0",
         "react-router-dom": "5.2.0",
@@ -97,7 +97,7 @@
         "react-use": "15.3.4",
         "redux": "4.0.5",
         "ts-mockery": "1.2.0",
-        "typescript": "4.0.3",
+        "typescript": "4.0.5",
         "use-media": "1.4.0",
         "use-resize-observer": "6.1.0",
         "uuid": "8.3.1",
@@ -126,7 +126,8 @@
             ]
         },
         "rules": {
-            "no-use-before-define": "off"
+            "no-use-before-define": "off",
+            "default-param-last": "off"
         },
         "plugins": [
             "@typescript-eslint"
@@ -155,12 +156,12 @@
         ]
     },
     "devDependencies": {
-        "@cypress/webpack-preprocessor": "5.4.8",
+        "@cypress/webpack-preprocessor": "5.4.10",
         "@testing-library/cypress": "7.0.1",
         "@types/redux-devtools": "3.0.47",
         "@types/redux-devtools-extension": "2.13.2",
         "cross-env": "7.0.2",
-        "cypress": "5.4.0",
+        "cypress": "5.5.0",
         "cypress-commands": "1.1.0",
         "cypress-file-upload": "4.1.1",
         "eslint-plugin-chai-friendly": "0.6.0",
@@ -172,6 +173,6 @@
         "webpack-bundle-analyzer": "3.9.0"
     },
     "resolutions": {
-        "cypress": "5.4.0"
+        "cypress": "5.5.0"
     }
 }
