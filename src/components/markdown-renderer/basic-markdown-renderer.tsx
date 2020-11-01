@@ -65,7 +65,6 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     }
     worker.render(input)
       .then(data => {
-        console.log('output', data)
         const transformer = onTaskCheckedChange ? buildTransformer(data.newLines, createReplacerInstanceList(onTaskCheckedChange)) : undefined
         setMarkdownReactDom(ReactHtmlParser(data.htmlOutput, { transform: transformer }))
         oldMarkdownLineKeys.current = data.newLines
