@@ -26,7 +26,7 @@ export class BasicMarkdownItConfigurator extends MarkdownItConfigurator {
       marked,
       footnote,
       imsize,
-      tasksLists
+      tasksLists,
       alertContainer
     )
     this.postConfigurations.push(
