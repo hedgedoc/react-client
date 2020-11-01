@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 // eslint-disable-next-line
 import createWorker from 'workerize-loader!../../worker/markdown.worker'
 import { TocAst } from '../../external-types/markdown-it-toc-done-right/interface'
-import { ApplicationState } from '../../redux'
+import { ApplicationState, store } from '../../redux'
 import * as MarkdownWorker from '../../worker/markdown.worker'
 import { RenderMarkdownInput } from '../../worker/markdown.worker'
 import { ShowIf } from '../common/show-if/show-if'
@@ -52,6 +52,7 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     if (onBeforeRendering) {
       onBeforeRendering()
     }
+    const plantumlServer = store.getState().config.plantumlServer
     const worker = createWorker<typeof MarkdownWorker>()
     const input: RenderMarkdownInput = {
       content: content,
@@ -59,7 +60,8 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
       markdownItType: markdownItType,
       oldMarkdownLineKeys: oldMarkdownLineKeys.current,
       lastUsedLineId: lastUsedLineId.current,
-      useFrontmatter: useFrontmatter ?? false
+      useFrontmatter: useFrontmatter ?? false,
+      plantumlServer
     }
     worker.render(input)
       .then(data => {

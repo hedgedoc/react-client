@@ -14,6 +14,7 @@ export interface RenderMarkdownInput {
   oldMarkdownLineKeys: LineKeys[]
   lastUsedLineId: number
   useFrontmatter: boolean
+  plantumlServer: string | null
 }
 
 export interface TaskChecked {
@@ -59,7 +60,8 @@ export function render (data: RenderMarkdownInput): RenderMarkdownOutput {
       },
       newLineMarkers => {
         lineMarkers = newLineMarkers
-      }
+      },
+      data.plantumlServer
     ).buildConfiguredMarkdownIt()
   }
 

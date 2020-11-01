@@ -25,7 +25,8 @@ export class FullMarkdownItConfigurator extends BasicMarkdownItConfigurator {
     private onYamlError: (error: boolean) => void,
     private onRawMeta: (rawMeta: RawYAMLMetadata) => void,
     private onToc: (toc: TocAst) => void,
-    private onLineMarkers: (lineMarkers: LineMarkers[]) => void
+    private onLineMarkers: (lineMarkers: LineMarkers[]) => void,
+    private plantumlServer: string | null
   ) {
     super()
   }
@@ -34,7 +35,8 @@ export class FullMarkdownItConfigurator extends BasicMarkdownItConfigurator {
     super.configure(markdownIt)
 
     this.configurations.push(
-      plantumlWithError,
+      plantumlWithError(this.plantumlServer),
+      tasksLists,
       (markdownIt) => {
         frontmatterExtract(markdownIt,
           !this.useFrontmatter
