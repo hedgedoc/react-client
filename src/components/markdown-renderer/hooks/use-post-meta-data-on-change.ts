@@ -10,13 +10,16 @@ export const usePostMetaDataOnChange = (
 ): void => {
   const oldMetaRef = useRef<RawYAMLMetadata>()
   const oldFirstHeadingRef = useRef<string>()
-
+  console.log('usePostMetaDataOnChange')
   useEffect(() => {
     if (onMetaDataChange && !equal(oldMetaRef.current, rawMetaRef)) {
+      console.log('old != new')
       if (rawMetaRef) {
         const newMetaData = new YAMLMetaData(rawMetaRef)
+        console.log('newMetaData', newMetaData)
         onMetaDataChange(newMetaData)
       } else {
+        console.log('rawMetaData undefined')
         onMetaDataChange(undefined)
       }
       oldMetaRef.current = rawMetaRef

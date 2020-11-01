@@ -5,7 +5,7 @@ declare module 'workerize-loader!*' {
     ...args: Parameters<F>
   ) => Promise<ReturnType<F>>;
 
-  type Workerized<T> = Worker &
+  export type Workerized<T> = Worker &
     { [K in keyof T]: T[K] extends AnyFunction ? Async<T[K]> : never };
 
   function createInstance<T>(): Workerized<T>;

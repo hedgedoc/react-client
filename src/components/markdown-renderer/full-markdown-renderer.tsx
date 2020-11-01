@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { TocAst } from '../../external-types/markdown-it-toc-done-right/interface'
@@ -63,10 +63,10 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
         content={content}
         markdownItType={'full'}
         useFrontmatter={!!onMetaDataChange}
-        onYamlError={error => setYamlError(error)}
-        onRawMeta={rawMeta => { rawMetaRef.current = rawMeta }}
-        onToc={toc => { tocAst.current = toc }}
-        onLineMarkers={lineMarkers => { currentLineMarkers.current = lineMarkers }}
+        onYamlError={useMemo(() => { return error => setYamlError(error) }, [setYamlError])}
+        onRawMeta={useMemo(() => { return rawMeta => { rawMetaRef.current = rawMeta } }, [])}
+        onToc={useMemo(() => { return toc => { tocAst.current = toc } }, [])}
+        onLineMarkers={useMemo(() => { return lineMarkers => { currentLineMarkers.current = lineMarkers } }, [])}
         onTaskCheckedChange={onTaskCheckedChange}
         documentReference={documentElement}
         onBeforeRendering={clearMetadata}/>

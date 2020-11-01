@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { Trans } from 'react-i18next'
 import { useSelector } from 'react-redux'
 // eslint-disable-next-line
-import createWorker from 'workerize-loader!../../worker/markdown.worker'
+import createWorker, { Workerized } from 'workerize-loader!../../worker/markdown.worker'
 import { TocAst } from '../../external-types/markdown-it-toc-done-right/interface'
 import { ApplicationState, store } from '../../redux'
 import * as MarkdownWorker from '../../worker/markdown.worker'
@@ -47,42 +47,51 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
   const [markdownReactDom, setMarkdownReactDom] = useState<ReactElement[]>([])
   const oldMarkdownLineKeys = useRef<LineKeys[]>([])
   const lastUsedLineId = useRef<number>(0)
+  const worker = useRef<Workerized<typeof MarkdownWorker>>()
+
+  useEffect(() => {
+    worker.current = createWorker<typeof MarkdownWorker>()
+  })
 
   useEffect(() => {
     if (onBeforeRendering) {
       onBeforeRendering()
     }
-    const plantumlServer = store.getState().config.plantumlServer
-    const worker = createWorker<typeof MarkdownWorker>()
-    const input: RenderMarkdownInput = {
-      content: content,
-      maxLength: maxLength,
-      markdownItType: markdownItType,
-      oldMarkdownLineKeys: oldMarkdownLineKeys.current,
-      lastUsedLineId: lastUsedLineId.current,
-      useFrontmatter: useFrontmatter ?? false,
-      plantumlServer
+    const rendererWorker = worker.current
+    if (rendererWorker) {
+      const plantumlServer = store.getState().config.plantumlServer
+      const input: RenderMarkdownInput = {
+        content: content,
+        maxLength: maxLength,
+        markdownItType: markdownItType,
+        oldMarkdownLineKeys: oldMarkdownLineKeys.current,
+        lastUsedLineId: lastUsedLineId.current,
+        useFrontmatter: useFrontmatter ?? false,
+        plantumlServer: plantumlServer
+      }
+      rendererWorker.render(input)
+        .then(data => {
+          console.log('render output', data)
+          const transformer = onTaskCheckedChange ? buildTransformer(data.newLines, createReplacerInstanceList(onTaskCheckedChange)) : undefined
+          setMarkdownReactDom(ReactHtmlParser(data.htmlOutput, { transform: transformer }))
+          oldMarkdownLineKeys.current = data.newLines
+          lastUsedLineId.current = data.newLastUsedLineId
+          if (onYamlError && data.yamlError) {
+            onYamlError(data.yamlError)
+          }
+          if (onRawMeta && data.rawMeta) {
+            console.log('call on RawMeta')
+            onRawMeta(data.rawMeta)
+          }
+          if (onToc && data.toc) {
+            onToc(data.toc)
+          }
+          if (onLineMarkers && data.lineMarkers) {
+            onLineMarkers(data.lineMarkers)
+          }
+        })
+        .catch(err => console.error(err))
     }
-    worker.render(input)
-      .then(data => {
-        const transformer = onTaskCheckedChange ? buildTransformer(data.newLines, createReplacerInstanceList(onTaskCheckedChange)) : undefined
-        setMarkdownReactDom(ReactHtmlParser(data.htmlOutput, { transform: transformer }))
-        oldMarkdownLineKeys.current = data.newLines
-        lastUsedLineId.current = data.newLastUsedLineId
-        if (onYamlError && data.yamlError) {
-          onYamlError(data.yamlError)
-        }
-        if (onRawMeta && data.rawMeta) {
-          onRawMeta(data.rawMeta)
-        }
-        if (onToc && data.toc) {
-          onToc(data.toc)
-        }
-        if (onLineMarkers && data.lineMarkers) {
-          onLineMarkers(data.lineMarkers)
-        }
-      })
-      .catch(err => console.error(err))
   }, [content, markdownItType, maxLength, onBeforeRendering, onLineMarkers, onRawMeta, onTaskCheckedChange, onToc, onYamlError, useFrontmatter])
 
   return (

@@ -26,7 +26,7 @@ describe('Document Title', () => {
 
     it('yaml metadata title, opengraph title and first heading', () => {
       cy.get('.CodeMirror textarea')
-        .type(`---\ntitle: ${title}\nopengraph:\n  title: False title\n{backspace}{backspace}---\n# a first title`)
+        .type(`--\ntitle: ${title}\nopengraph:\n  title: False title\n{backspace}{backspace}---\n# a first title`)
       cy.title().should('eq', `${title} - HedgeDoc @ ${branding.name}`)
     })
   })
@@ -78,7 +78,7 @@ describe('Document Title', () => {
 
     it('markdown syntax removed third', () => {
       cy.get('.CodeMirror textarea')
-      .type(`# ${title} _asd_`)
+        .type(`# ${title} _asd_`)
       cy.title().should('eq', `${title} asd - HedgeDoc @ ${branding.name}`)
     })
   })
