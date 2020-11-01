@@ -2,16 +2,13 @@ import React, { Fragment, ReactElement, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { TocAst } from '../../../external-types/markdown-it-toc-done-right/interface'
 import { ShowIf } from '../../common/show-if/show-if'
+import { slugify } from '../../markdown-renderer/utils/slugify'
 import './table-of-contents.scss'
 
 export interface TableOfContentsProps {
   ast: TocAst
   maxDepth?: number
   className?: string
-}
-
-export const slugify = (content: string): string => {
-  return encodeURIComponent(String(content).trim().toLowerCase().replace(/\s+/g, '-'))
 }
 
 const convertLevel = (toc: TocAst, levelsToShowUnderThis: number, headerCounts: Map<string, number>, wrapInListItem: boolean): ReactElement | null => {
