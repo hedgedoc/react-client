@@ -1,15 +1,21 @@
 import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
+import ReactHtmlParser from 'react-html-parser'
 import { Trans } from 'react-i18next'
 import { useSelector } from 'react-redux'
+// eslint-disable-next-line
+import createWorker from 'workerize-loader!../../worker/markdown.worker'
 import { TocAst } from '../../external-types/markdown-it-toc-done-right/interface'
 import { ApplicationState } from '../../redux'
-import { RenderMarkdownInput, RenderMarkdownOutput } from '../../worker/markdown'
+import * as MarkdownWorker from '../../worker/markdown.worker'
+import { RenderMarkdownInput } from '../../worker/markdown.worker'
 import { ShowIf } from '../common/show-if/show-if'
 import { RawYAMLMetadata } from '../editor/yaml-metadata/yaml-metadata'
 import './markdown-renderer.scss'
 import { LineMarkers } from './replace-components/linemarker/line-number-marker'
 import { AdditionalMarkdownRendererProps, LineKeys } from './types'
+import { createReplacerInstanceList } from './utils/create-replacer-instance-list'
+import { buildTransformer } from './utils/html-react-transformer'
 
 export interface BasicMarkdownRendererProps {
   markdownItType: RenderMarkdownInput['markdownItType']
@@ -41,52 +47,42 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
   const [markdownReactDom, setMarkdownReactDom] = useState<ReactElement[]>([])
   const oldMarkdownLineKeys = useRef<LineKeys[]>([])
   const lastUsedLineId = useRef<number>(0)
-  const markdownWorker = useRef<Worker>()
-
-  useEffect(() => {
-    markdownWorker.current = new Worker('../../worker/markdown.ts', { name: 'markdownRenderer', type: 'module' })
-    markdownWorker.current.onmessage = event => {
-      const data = event.data as RenderMarkdownOutput
-      console.log('output', data)
-      oldMarkdownLineKeys.current = data.newLines
-      lastUsedLineId.current = data.newLastUsedLineId
-      setMarkdownReactDom(data.markdownReactDom)
-      if (onYamlError && data.yamlError) {
-        onYamlError(data.yamlError)
-      }
-      if (onRawMeta && data.rawMeta) {
-        onRawMeta(data.rawMeta)
-      }
-      if (onToc && data.toc) {
-        onToc(data.toc)
-      }
-      if (onLineMarkers && data.lineMarkers) {
-        onLineMarkers(data.lineMarkers)
-      }
-      if (onTaskCheckedChange && data.tasksChecked.length > 0) {
-        data.tasksChecked.forEach(({ lineInMarkdown, checked }) => {
-          onTaskCheckedChange(lineInMarkdown, checked)
-        })
-      }
-    }
-  }, [onLineMarkers, onRawMeta, onTaskCheckedChange, onToc, onYamlError])
 
   useEffect(() => {
     if (onBeforeRendering) {
       onBeforeRendering()
     }
-    if (markdownWorker.current) {
-      const input: RenderMarkdownInput = {
-        content: content,
-        maxLength: maxLength,
-        markdownItType: markdownItType,
-        oldMarkdownLineKeys: oldMarkdownLineKeys.current,
-        lastUsedLineId: lastUsedLineId.current,
-        useFrontmatter: useFrontmatter ?? false
-      }
-      markdownWorker.current.postMessage(input)
+    const worker = createWorker<typeof MarkdownWorker>()
+    const input: RenderMarkdownInput = {
+      content: content,
+      maxLength: maxLength,
+      markdownItType: markdownItType,
+      oldMarkdownLineKeys: oldMarkdownLineKeys.current,
+      lastUsedLineId: lastUsedLineId.current,
+      useFrontmatter: useFrontmatter ?? false
     }
-  }, [content, markdownItType, maxLength, onBeforeRendering, useFrontmatter])
+    worker.render(input)
+      .then(data => {
+        console.log('output', data)
+        const transformer = onTaskCheckedChange ? buildTransformer(data.newLines, createReplacerInstanceList(onTaskCheckedChange)) : undefined
+        setMarkdownReactDom(ReactHtmlParser(data.htmlOutput, { transform: transformer }))
+        oldMarkdownLineKeys.current = data.newLines
+        lastUsedLineId.current = data.newLastUsedLineId
+        if (onYamlError && data.yamlError) {
+          onYamlError(data.yamlError)
+        }
+        if (onRawMeta && data.rawMeta) {
+          onRawMeta(data.rawMeta)
+        }
+        if (onToc && data.toc) {
+          onToc(data.toc)
+        }
+        if (onLineMarkers && data.lineMarkers) {
+          onLineMarkers(data.lineMarkers)
+        }
+      })
+      .catch(err => console.error(err))
+  }, [content, markdownItType, maxLength, onBeforeRendering, onLineMarkers, onRawMeta, onTaskCheckedChange, onToc, onYamlError, useFrontmatter])
 
   return (
     <div className={`${className || ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>

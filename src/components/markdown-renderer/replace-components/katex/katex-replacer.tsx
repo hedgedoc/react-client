@@ -1,6 +1,4 @@
 import { DomElement } from 'domhandler'
-import MarkdownIt from 'markdown-it'
-import mathJax from 'markdown-it-mathjax'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import './katex.scss'
@@ -29,13 +27,4 @@ export class KatexReplacer extends ComponentReplacer {
       return <KaTeX block={!isInline} math={mathJaxContent} errorColor={'#cc0000'}/>
     }
   }
-
-  public static readonly markdownItPlugin: MarkdownIt.PluginSimple = mathJax({
-    beforeMath: '<app-katex>',
-    afterMath: '</app-katex>',
-    beforeInlineMath: '<app-katex inline>',
-    afterInlineMath: '</app-katex>',
-    beforeDisplayMath: '<app-katex>',
-    afterDisplayMath: '</app-katex>'
-  })
 }

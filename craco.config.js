@@ -1,9 +1,16 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const { when } = require('@craco/craco');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const WorkerPlugin = require('worker-plugin');
 
 module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.worker\.ts$/,
+        use: ["workerize-loader", "ts-loader"]
+      }
+    ],
+  },
   webpack: {
     plugins: [
       new CopyPlugin({
@@ -13,11 +20,6 @@ module.exports = {
           { from: 'node_modules/emojibase-data/en/data.json', to: 'static/js/emoji-data.json' }
         ],
       }),
-      new WorkerPlugin({
-        plugins: [
-          'CopyPlugin'
-        ]
-      }),
       ...when(Boolean(process.env.ANALYZE), () => [
         new BundleAnalyzerPlugin({
           analyzerMode: "static",
@@ -25,5 +27,8 @@ module.exports = {
         })
       ], [])
     ],
+  },
+  output: {
+    globalObject: "this"
   },
 }

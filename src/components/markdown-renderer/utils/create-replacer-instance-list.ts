@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { AbcReplacer } from '../replace-components/abc/abc-replacer'
 import { AsciinemaReplacer } from '../replace-components/asciinema/asciinema-replacer'
 import { ComponentReplacer } from '../replace-components/ComponentReplacer'
@@ -21,8 +20,8 @@ import { VegaReplacer } from '../replace-components/vega-lite/vega-replacer'
 import { VimeoReplacer } from '../replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from '../replace-components/youtube/youtube-replacer'
 
-export const useReplacerInstanceListCreator = (onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void): () => ComponentReplacer[] => {
-  return useMemo(() => () => [
+export const createReplacerInstanceList = (onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void): ComponentReplacer[] => {
+  return [
     new LinemarkerReplacer(),
     new PossibleWiderReplacer(),
     new GistReplacer(),
@@ -43,5 +42,5 @@ export const useReplacerInstanceListCreator = (onTaskCheckedChange?: (lineInMark
     new QuoteOptionsReplacer(),
     new KatexReplacer(),
     new TaskListReplacer(onTaskCheckedChange)
-  ], [onTaskCheckedChange])
+  ]
 }

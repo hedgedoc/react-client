@@ -1,10 +1,7 @@
 import { DomElement } from 'domhandler'
-import MarkdownIt from 'markdown-it'
-import markdownItRegex from 'markdown-it-regex'
 import React from 'react'
-import { replacePdfShortCode } from './replace-pdf-short-code'
-import { getAttributesFromHedgeDocTag } from '../utils'
 import { ComponentReplacer } from '../ComponentReplacer'
+import { getAttributesFromHedgeDocTag } from '../utils'
 import { PdfFrame } from './pdf-frame'
 
 export class PdfReplacer extends ComponentReplacer {
@@ -18,9 +15,5 @@ export class PdfReplacer extends ComponentReplacer {
       this.counterMap.set(pdfUrl, count)
       return <PdfFrame url={pdfUrl}/>
     }
-  }
-
-  public static readonly markdownItPlugin: MarkdownIt.PluginSimple = (markdownIt) => {
-    markdownItRegex(markdownIt, replacePdfShortCode)
   }
 }

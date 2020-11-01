@@ -1,11 +1,7 @@
 import { DomElement } from 'domhandler'
-import MarkdownIt from 'markdown-it'
-import markdownItRegex from 'markdown-it-regex'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { getAttributesFromHedgeDocTag } from '../utils'
-import { replaceLegacyVimeoShortCode } from './replace-legacy-vimeo-short-code'
-import { replaceVimeoLink } from './replace-vimeo-link'
 import { VimeoFrame } from './vimeo-frame'
 
 export class VimeoReplacer extends ComponentReplacer {
@@ -19,10 +15,5 @@ export class VimeoReplacer extends ComponentReplacer {
       this.counterMap.set(videoId, count)
       return <VimeoFrame id={videoId}/>
     }
-  }
-
-  public static readonly markdownItPlugin: MarkdownIt.PluginSimple = (markdownIt) => {
-    markdownItRegex(markdownIt, replaceVimeoLink)
-    markdownItRegex(markdownIt, replaceLegacyVimeoShortCode)
   }
 }
