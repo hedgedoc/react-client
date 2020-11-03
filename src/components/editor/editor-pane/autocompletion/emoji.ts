@@ -8,7 +8,7 @@ import { findWordAtCursor, Hinter } from './index'
 const emojiIndex = new Database(emojiPickerConfig)
 const emojiWordRegex = /^:([\w-_+]*)$/
 
-const findEmoji = async (emojiIndex: Database, term: string): Promise<Emoji[]> => {
+const findEmojiInDatabase = async (emojiIndex: Database, term: string): Promise<Emoji[]> => {
   try {
     if (term === '') {
       return await emojiIndex.getTopFavoriteEmoji(7)
@@ -32,7 +32,7 @@ const generateEmojiHints = async (editor: Editor): Promise<Hints | null> => {
   if (searchResult === null) {
     return null
   }
-  const suggestionList: Emoji[] = await findEmoji(emojiIndex, searchResult[1])
+  const suggestionList: Emoji[] = await findEmojiInDatabase(emojiIndex, searchResult[1])
   const cursor = editor.getCursor()
   const skinTone = await emojiIndex.getPreferredSkinTone()
   const emojiEventDetails: EmojiClickEventDetail[] = suggestionList.map((emoji) => ({
