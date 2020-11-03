@@ -12,13 +12,12 @@ const findEmojiInDatabase = async (emojiIndex: Database, term: string): Promise<
   try {
     if (term === '') {
       return await emojiIndex.getTopFavoriteEmoji(7)
+    }
+    const queryResult = await emojiIndex.getEmojiBySearchQuery(term)
+    if (queryResult.length === 0) {
+      return await emojiIndex.getTopFavoriteEmoji(7)
     } else {
-      const queryResult = await emojiIndex.getEmojiBySearchQuery(term)
-      if (queryResult.length === 0) {
-        return await emojiIndex.getTopFavoriteEmoji(7)
-      } else {
-        return queryResult
-      }
+      return queryResult
     }
   } catch (error) {
     console.error(error)
