@@ -9,6 +9,7 @@ export const branding = {
 }
 
 beforeEach(() => {
+  cy.viewport(1920, 1080)
   cy.server()
   cy.route({
     url: '/api/v2/config',

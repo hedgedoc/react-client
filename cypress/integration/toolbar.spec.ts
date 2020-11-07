@@ -9,7 +9,6 @@ describe('Toolbar', () => {
     cy.get('.CodeMirror textarea')
       .type('{ctrl}a', { force: true })
       .type('{backspace}')
-    cy.viewport(1920, 1080)
   })
 
   it('bold', () => {
