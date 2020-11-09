@@ -1,6 +1,7 @@
 import React from 'react'
-import { ReactComponent as LogoMonoWithText } from './logo_text_bw.svg'
-import { ReactComponent as LogoColorWithText } from './logo_text.svg'
+import { ReactComponent as LogoColorVertical } from './logo_text_color_vertical.svg'
+import { ReactComponent as LogoBwHorizontal } from './logo_text_bw_horizontal.svg'
+import { ReactComponent as LogoWbHorizontal } from './logo_text_wb_horizontal.svg'
 
 export enum HedgeDocLogoSize {
   SMALL = 32,
@@ -10,20 +11,23 @@ export enum HedgeDocLogoSize {
 
 export interface HedgeDocLogoProps {
   size?: HedgeDocLogoSize | number,
-  fillType: HedgeDocLogoFillType
+  logoType: HedgeDocLogoType
 }
 
-export enum HedgeDocLogoFillType {
-  COLOR,
-  MONO
+export enum HedgeDocLogoType {
+  COLOR_VERTICAL,
+  BW_HORIZONTAL,
+  WB_HORIZONTAL
 }
 
-export const HedgeDocLogoWithText: React.FC<HedgeDocLogoProps> = ({ size = HedgeDocLogoSize.MEDIUM, fillType = HedgeDocLogoFillType.COLOR }) => {
-  switch (fillType) {
-    case HedgeDocLogoFillType.COLOR:
-      return <LogoColorWithText className={'w-auto'} title={'HedgeDoc logo with text'} style={{ height: size }}/>
-    case HedgeDocLogoFillType.MONO:
-      return <LogoMonoWithText className={'w-auto'} title={'HedgeDoc logo with text'} style={{ height: size }}/>
+export const HedgeDocLogoWithText: React.FC<HedgeDocLogoProps> = ({ size = HedgeDocLogoSize.MEDIUM, logoType }) => {
+  switch (logoType) {
+    case HedgeDocLogoType.COLOR_VERTICAL:
+      return <LogoColorVertical className={'w-auto'} title={'HedgeDoc logo with text'} style={{ height: size }}/>
+    case HedgeDocLogoType.BW_HORIZONTAL:
+      return <LogoBwHorizontal className={'w-auto'} title={'HedgeDoc logo with text'} style={{ height: size }}/>
+    case HedgeDocLogoType.WB_HORIZONTAL:
+      return <LogoWbHorizontal className={'w-auto'} title={'HedgeDoc logo with text'} style={{ height: size }}/>
     default:
       return null
   }
