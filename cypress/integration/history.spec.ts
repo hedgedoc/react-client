@@ -24,8 +24,10 @@ describe('History', () => {
       cy.get('.fa-thumb-tack')
         .first()
         .click()
-      cy.get('.modal-dialog')
-        .should('be.visible')
+      cy.get('.modal-dialog', {
+        timeout: 10000 
+      })
+      .should('be.visible')
     })
 
     it('Table', () => {
@@ -34,8 +36,10 @@ describe('History', () => {
       cy.get('.fa-thumb-tack')
         .first()
         .click()
-      cy.get('.modal-dialog')
-        .should('be.visible')
+      cy.get('.modal-dialog', {
+        timeout: 10000 
+      })
+      .should('be.visible')
     })
   })
 })
