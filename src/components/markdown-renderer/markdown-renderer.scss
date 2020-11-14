@@ -9,15 +9,6 @@
     margin-bottom: 0;
   }
 
-  & h1:hover .heading-anchor .fa-link,
-  & h2:hover .heading-anchor .fa-link,
-  & h3:hover .heading-anchor .fa-link,
-  & h4:hover .heading-anchor .fa-link,
-  & h5:hover .heading-anchor .fa-link,
-  & h6:hover .heading-anchor .fa-link {
-    visibility: visible !important;
-  }
-
   // This is necessary since we need to set this for all DOM Element that could be children of .markdown-body and since we support all of HTML that would literally be everything
   & > * {
     width: 100%;
@@ -28,13 +19,18 @@
     width: unset;
   }
 
-  a.heading-anchor {
-    margin-left: -1.25em;
-    font-size: 0.75em;
-    margin-top: 0.25em;
-    opacity: 0;
+  h1, h2, h3, h4, h5, h6 {
+    & a.heading-anchor {
+      margin-left: -1.25em;
+      font-size: 0.75em;
+      margin-top: 0.25em;
+      opacity: 0;
 
-    &:hover {
+      &:hover {
+        opacity: 1;
+      }
+    }
+    &:hover a.heading-anchor {
       opacity: 1;
     }
   }
