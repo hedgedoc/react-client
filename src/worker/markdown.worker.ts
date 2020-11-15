@@ -30,6 +30,7 @@ export interface RenderMarkdownOutput {
   rawMeta?: RawYAMLMetadata
   toc?: TocAst
   lineMarkers?: LineMarkers[]
+  debugOutput: string[]
 }
 
 // eslint-disable-next-line no-restricted-globals
@@ -41,9 +42,13 @@ export function render (data: RenderMarkdownInput): RenderMarkdownOutput {
   let rawMeta
   let toc
   let lineMarkers
+  const debugOutput: string[] = []
+  const debuger = (output: string) => {
+    debugOutput.push(output)
+  }
 
   if (data.markdownItType === 'basic') {
-    markdownIt = new BasicMarkdownItConfigurator()
+    markdownIt = new BasicMarkdownItConfigurator(debuger)
       .pushConfig(alertContainer)
       .buildConfiguredMarkdownIt()
   } else {
@@ -61,7 +66,8 @@ export function render (data: RenderMarkdownInput): RenderMarkdownOutput {
       newLineMarkers => {
         lineMarkers = newLineMarkers
       },
-      data.plantumlServer
+      data.plantumlServer,
+      debuger
     ).buildConfiguredMarkdownIt()
   }
 
@@ -77,6 +83,7 @@ export function render (data: RenderMarkdownInput): RenderMarkdownOutput {
     yamlError: yamlError,
     rawMeta: rawMeta,
     toc: toc,
-    lineMarkers: lineMarkers
+    lineMarkers: lineMarkers,
+    debugOutput: debugOutput
   }
 }

@@ -26,9 +26,10 @@ export class FullMarkdownItConfigurator extends BasicMarkdownItConfigurator {
     private onRawMeta: (rawMeta: RawYAMLMetadata) => void,
     private onToc: (toc: TocAst) => void,
     private onLineMarkers: (lineMarkers: LineMarkers[]) => void,
-    private plantumlServer: string | null
+    private plantumlServer: string | null,
+    onDebugOutput: (output: string) => void
   ) {
-    super()
+    super(onDebugOutput)
   }
 
   protected configure (markdownIt: MarkdownIt): void {

@@ -15,6 +15,10 @@ import { twitterEmojis } from '../markdown-it-plugins/twitter-emojis'
 import { MarkdownItConfigurator } from './MarkdownItConfigurator'
 
 export class BasicMarkdownItConfigurator extends MarkdownItConfigurator {
+  constructor (private onDebugOutput: (output: string) => void) {
+    super()
+  }
+
   protected configure (markdownIt: MarkdownIt): void {
     this.configurations.push(
       twitterEmojis,
@@ -31,7 +35,7 @@ export class BasicMarkdownItConfigurator extends MarkdownItConfigurator {
     )
     this.postConfigurations.push(
       linkifyExtra,
-      MarkdownItParserDebugger
+      MarkdownItParserDebugger((this.onDebugOutput))
     )
   }
 }
