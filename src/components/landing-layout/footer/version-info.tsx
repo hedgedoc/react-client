@@ -47,7 +47,7 @@ export const VersionInfo: React.FC = () => {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button className={'close-button'} variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             <Trans i18nKey={'common.close'}/>
           </Button>
         </Modal.Footer>
