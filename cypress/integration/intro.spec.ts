@@ -49,7 +49,7 @@ describe('Intro', () => {
         .click()
       cy.get('#versionModal')
         .should('be.visible')
-      cy.get('body')
+      cy.get('#versionModal .close-button')
         .click()
       cy.get('#versionModal')
         .should('not.be.visible')
