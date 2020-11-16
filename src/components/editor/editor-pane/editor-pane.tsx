@@ -167,6 +167,10 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         value={content}
         options={codeMirrorOptions}
         onChange={onChange}
+        onPaste={(pasteEditor, event) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          console.log(event.clipboardData.files)
+        }}
         onCursorActivity={onCursorActivity}
         editorDidMount={onEditorDidMount}
         onBeforeChange={onBeforeChange}
