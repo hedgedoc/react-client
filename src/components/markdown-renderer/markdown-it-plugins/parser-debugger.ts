@@ -10,3 +10,9 @@ export const MarkdownItParserDebugger = (onDebugOutput: ((output: string) => voi
     }
   }
 }
+
+// The following code is a temporary work-around to fix the issue that the webworker tries to do HMR although it can't.
+/* eslint-disable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-empty-function,@typescript-eslint/no-explicit-any */
+(global as any).$RefreshReg$ = () => {};
+(global as any).$RefreshSig$$ = () => () => {}
+/* eslint-enable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-empty-function,@typescript-eslint/no-explicit-any */
