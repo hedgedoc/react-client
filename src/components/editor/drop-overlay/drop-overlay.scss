@@ -1,0 +1,13 @@
+.drop-overlay {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: #000000bf;
+  border: 6px dashed white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  user-select: none;
+}
