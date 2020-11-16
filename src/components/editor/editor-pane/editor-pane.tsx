@@ -33,6 +33,7 @@ import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
+import { DropOverlay } from '../drop-overlay/drop-overlay'
 import { MaxLengthWarningModal } from '../editor-modals/max-length-warning-modal'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
@@ -158,11 +159,12 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   }), [t, editorPreferences])
 
   return (
-    <div className={'d-flex flex-column h-100'} onMouseEnter={onMakeScrollSource}>
+    <div className={'d-flex flex-column h-100 position-relative'} onMouseEnter={onMakeScrollSource}>
       <MaxLengthWarningModal show={showMaxLengthWarning} onHide={() => setShowMaxLengthWarning(false)} maxLength={maxLength}/>
       <ToolBar
         editor={editor}
       />
+      <DropOverlay/>
       <ControlledCodeMirror
         className="overflow-hidden w-100 flex-fill"
         value={content}
