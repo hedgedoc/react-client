@@ -24,7 +24,7 @@ export interface UploadedMedia {
 }
 
 export const uploadFile = async (noteId: string, contentType: string, media: Blob): Promise<UploadedMedia> => {
-  const response = await fetch(getApiUrl() + '/media', {
+  const response = await fetch(getApiUrl() + '/media/upload', {
     ...defaultFetchConfig,
     headers: {
       'Content-Type': contentType,
