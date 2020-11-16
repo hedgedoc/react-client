@@ -173,11 +173,22 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
           console.log(event.clipboardData.files)
         }}
         onDrop={(dropEditor, event) => {
-          console.log(event)
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-          const files: FileList = event.dataTransfer.files
-          if (files && files.length >= 1) {
-            handleUpload(files, dropEditor)
+          const data = event as {
+            pageX: number,
+            pageY: number,
+            dataTransfer: {
+              files: FileList
+            }
+          }
+          if (data && data.pageX && data.pageY && data.dataTransfer && data.dataTransfer.files) {
+            const top: number = data.pageY
+            const left: number = data.pageX
+            const newCursor = dropEditor.coordsChar({ top, left }, 'page')
+            dropEditor.setCursor(newCursor)
+            const files: FileList = data.dataTransfer.files
+            if (files && files.length >= 1) {
+              handleUpload(files, dropEditor)
+            }
           }
         }}
         onCursorActivity={onCursorActivity}
