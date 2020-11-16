@@ -4,6 +4,7 @@ import { store } from '../../../redux'
 
 export const handleUpload = (files: FileList | null, editor: Editor | undefined): void => {
   if (files && editor) {
+    console.log(editor.getCursor())
     const file = files[0]
     const mimeType = file.type
     const cursor = editor.getCursor()
