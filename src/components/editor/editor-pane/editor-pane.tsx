@@ -40,6 +40,7 @@ import './editor-pane.scss'
 import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
+import { handleUpload } from './upload-handler'
 
 export interface EditorPaneProps {
   onContentChange: (content: string) => void
@@ -170,6 +171,14 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         onPaste={(pasteEditor, event) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           console.log(event.clipboardData.files)
+        }}
+        onDrop={(dropEditor, event) => {
+          console.log(event)
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+          const files: FileList = event.dataTransfer.files
+          if (files && files.length >= 1) {
+            handleUpload(files, dropEditor)
+          }
         }}
         onCursorActivity={onCursorActivity}
         editorDidMount={onEditorDidMount}
