@@ -23,6 +23,8 @@
     - mediawiki
     - jsx
 - Alternative anchor URL formats
+- Import HTML and convert to Markdown
+- Import content from a url
 
 ### Added
 
