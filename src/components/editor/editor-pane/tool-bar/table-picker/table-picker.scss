@@ -1,0 +1,20 @@
+.table-picker-container {
+  z-index: 1111;
+}
+
+div.table-cell {
+  border-top: 1px solid #000000;
+  border-left: 1px solid #000000;
+}
+
+div.table-container {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+.d-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 15px [col-start]);
+  grid-template-rows: repeat(8, 15px [row-start]);
+}
+

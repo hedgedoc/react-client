@@ -29,7 +29,15 @@ export const addImage = (editor: Editor): void => addLink(editor, '!')
 export const addLine = (editor: Editor): void => changeLines(editor, line => `${line}\n----`)
 export const addCollapsableBlock = (editor: Editor): void => changeLines(editor, line => `${line}\n<details>\n  <summary>Toggle label</summary>\n  Toggled content\n</details>`)
 export const addComment = (editor: Editor): void => changeLines(editor, line => `${line}\n> []`)
-export const addTable = (editor: Editor): void => changeLines(editor, line => `${line}\n| # 1  | # 2  | # 3  |\n| ---- | ---- | ---- |\n| Text | Text | Text |`)
+export const addTable = (editor: Editor, rows: number, columns: number): void => {
+  const rowArray = Array.from(Array(rows).keys())
+  const colArray = Array.from(Array(columns).keys()).map(col => col + 1)
+  const head = '|  # ' + colArray.join(' |  # ') + ' |'
+  const divider = '| ' + colArray.map(() => '----').join(' | ') + ' |'
+  const body = rowArray.map(() => '| ' + colArray.map(() => 'Text').join(' | ') + ' |').join('\n')
+  const table = `${head}\n${divider}\n${body}`
+  changeLines(editor, line => `${line}\n${table}`)
+}
 
 export const addEmoji = (emoji: EmojiClickEventDetail, editor: Editor): void => {
   const shortCode = getEmojiShortCode(emoji)
