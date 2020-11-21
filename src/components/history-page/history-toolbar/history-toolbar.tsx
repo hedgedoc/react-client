@@ -1,3 +1,9 @@
+{/*
+SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
+
+SPDX-License-Identifier: AGPL-3.0-only
+*/}
+
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import { Typeahead } from 'react-bootstrap-typeahead'

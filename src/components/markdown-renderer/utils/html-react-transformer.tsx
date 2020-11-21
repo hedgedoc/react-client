@@ -1,3 +1,9 @@
+{/*
+SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
+
+SPDX-License-Identifier: AGPL-3.0-only
+*/}
+
 import { DomElement } from 'domhandler'
 import React, { ReactElement, Suspense } from 'react'
 import { convertNodeToElement, Transform } from 'react-html-parser'

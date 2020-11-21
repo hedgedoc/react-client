@@ -1,3 +1,9 @@
+{/*
+SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
+
+SPDX-License-Identifier: AGPL-3.0-only
+*/}
+
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'

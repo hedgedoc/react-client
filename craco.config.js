@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
 const CopyPlugin = require('copy-webpack-plugin');
 const { when } = require('@craco/craco');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');

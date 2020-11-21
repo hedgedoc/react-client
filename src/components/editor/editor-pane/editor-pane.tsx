@@ -1,3 +1,9 @@
+{/*
+SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
+
+SPDX-License-Identifier: AGPL-3.0-only
+*/}
+
 import { Editor, EditorChange, EditorConfiguration, ScrollInfo } from 'codemirror'
 import 'codemirror/addon/comment/comment'
 import 'codemirror/addon/dialog/dialog'
