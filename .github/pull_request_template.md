@@ -18,7 +18,7 @@ This PR fixes/adds/improves/...
 - [ ] Added / updated tests
 - [ ] Added / updated documentation
 - [ ] Extended changelog
-- [ ] I read the [contribution documentation](https://github.com/hedgedoc/react-client/blob/master/CONTRIBUTING.md) and signed-off my commits to accept the DCO.
+- [ ] I read the [contribution documentation](https://github.com/hedgedoc/react-client/blob/main/CONTRIBUTING.md) and signed-off my commits to accept the DCO.
 
 ### Related Issue(s)
 <!-- e.g #123 -->
