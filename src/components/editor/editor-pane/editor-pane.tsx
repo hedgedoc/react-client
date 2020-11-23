@@ -33,6 +33,8 @@ import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
+import { ShowIf } from '../../common/show-if/show-if'
+import { DropOverlay } from '../drop-overlay/drop-overlay'
 import { MaxLengthWarningModal } from '../editor-modals/max-length-warning-modal'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
@@ -110,6 +112,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   const [showMaxLengthWarning, setShowMaxLengthWarning] = useState(false)
   const maxLengthWarningAlreadyShown = useRef(false)
   const [editor, setEditor] = useState<Editor>()
+  const [showDropOverlay, setShowDropOverlay] = useState(false)
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
   const editorPreferences = useSelector((state: ApplicationState) => state.editorConfig.preferences, equal)
   const ligaturesEnabled = useSelector((state: ApplicationState) => state.editorConfig.ligatures, equal)
@@ -206,6 +209,9 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       <ToolBar
         editor={editor}
       />
+      <ShowIf condition={showDropOverlay}>
+        <DropOverlay/>
+      </ShowIf>
       <ControlledCodeMirror
         className={`overflow-hidden w-100 flex-fill ${ligaturesEnabled ? '' : 'no-ligatures'}`}
         value={content}
