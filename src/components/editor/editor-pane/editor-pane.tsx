@@ -33,7 +33,6 @@ import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
-import { DropOverlay } from '../drop-overlay/drop-overlay'
 import { MaxLengthWarningModal } from '../editor-modals/max-length-warning-modal'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
@@ -59,6 +58,48 @@ const onChange = (editor: Editor) => {
         alignWithWord: true
       })
       return
+    }
+  }
+}
+
+interface PasteEvent {
+  clipboardData: {
+    files: FileList
+  },
+  preventDefault: () => void
+}
+
+const onPaste = (pasteEditor: Editor, event: PasteEvent) => {
+  console.log(event)
+  if (event && event.clipboardData && event.clipboardData.files) {
+    event.preventDefault()
+    const files: FileList = event.clipboardData.files
+    if (files && files.length >= 1) {
+      handleUpload(files, pasteEditor)
+    }
+  }
+}
+
+interface DropEvent {
+  pageX: number,
+  pageY: number,
+  dataTransfer: {
+    files: FileList
+  }
+  preventDefault: () => void
+}
+
+const onDrop = (dropEditor: Editor, event: DropEvent) => {
+  console.log(event)
+  if (event && event.pageX && event.pageY && event.dataTransfer && event.dataTransfer.files) {
+    event.preventDefault()
+    const top: number = event.pageY
+    const left: number = event.pageX
+    const newCursor = dropEditor.coordsChar({ top, left }, 'page')
+    dropEditor.setCursor(newCursor)
+    const files: FileList = event.dataTransfer.files
+    if (files && files.length >= 1) {
+      handleUpload(files, dropEditor)
     }
   }
 }
@@ -165,35 +206,13 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       <ToolBar
         editor={editor}
       />
-      <DropOverlay/>
       <ControlledCodeMirror
         className={`overflow-hidden w-100 flex-fill ${ligaturesEnabled ? '' : 'no-ligatures'}`}
         value={content}
         options={codeMirrorOptions}
         onChange={onChange}
-        onPaste={(pasteEditor, event) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          console.log(event.clipboardData.files)
-        }}
-        onDrop={(dropEditor, event) => {
-          const data = event as {
-            pageX: number,
-            pageY: number,
-            dataTransfer: {
-              files: FileList
-            }
-          }
-          if (data && data.pageX && data.pageY && data.dataTransfer && data.dataTransfer.files) {
-            const top: number = data.pageY
-            const left: number = data.pageX
-            const newCursor = dropEditor.coordsChar({ top, left }, 'page')
-            dropEditor.setCursor(newCursor)
-            const files: FileList = data.dataTransfer.files
-            if (files && files.length >= 1) {
-              handleUpload(files, dropEditor)
-            }
-          }
-        }}
+        onPaste={onPaste}
+        onDrop={onDrop}
         onCursorActivity={onCursorActivity}
         editorDidMount={onEditorDidMount}
         onBeforeChange={onBeforeChange}
