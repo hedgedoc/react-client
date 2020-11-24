@@ -9,7 +9,6 @@ import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useClickAway } from 'react-use'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
-import { ShowIf } from '../../../../common/show-if/show-if'
 import { TablePickerDialog } from './table-picker-dialog'
 import './table-picker.scss'
 
@@ -41,9 +40,10 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
   return (
     <div className={`position-absolute table-picker-container p-2 ${!show ? 'd-none' : ''} bg-light`} ref={containerRef}>
       <p className={'lead'}>
-        <ShowIf condition={!!tableSize}>
-          {tableSize?.columns}x{tableSize?.rows}
-        </ShowIf> {t('editor.editorToolbar.table.title')}
+        { tableSize
+          ? t('editor.editorToolbar.table.size', { cols: tableSize?.columns, rows: tableSize.rows })
+          : t('editor.editorToolbar.table.title')
+        }
       </p>
       <div className={'d-grid table-container'}>
         {Array.from(Array(8).keys()).map((row: number) => {
@@ -57,6 +57,7 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
                     columns: col + 1
                   })
                 }}
+                title={t('editor.editorToolbar.table.size', { cols: col, rows: row })}
                 onClick={() => {
                   if (tableSize) {
                     onTablePicked(tableSize.rows, tableSize.columns)
