@@ -5,14 +5,27 @@
  */
 
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import './drop-overlay.scss'
 
-export const DropOverlay: React.FC = () => {
+export interface DropOverlayProps {
+  onDrop: (event: React.DragEvent) => void
+  onDragLeave: (event: React.DragEvent) => void
+}
+
+export const DropOverlay: React.FC<DropOverlayProps> = ({ onDrop, onDragLeave }) => {
+  const { t } = useTranslation()
+
   return (
-    <div className={'drop-overlay'}>
-      <ForkAwesomeIcon icon={'download'} size={'4x'}/>
-      <span className={'drop-overlay-text'}>Drop to insert</span>
+    <div
+      className={'drop-overlay bg-dark text-light'}
+      onDrop={onDrop}
+      onDragLeave={onDragLeave}
+      onDragOver={event => event.preventDefault()}
+    >
+      <ForkAwesomeIcon icon={'download'} size={'5x'} className={'text-light'}/>
+      <span className={'drop-overlay-text'} title={t('editor.upload.dropImage')}>{t('editor.dropImage')}</span>
     </div>
   )
 }
