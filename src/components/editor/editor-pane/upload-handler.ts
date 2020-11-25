@@ -5,6 +5,7 @@
  */
 
 import { Editor } from 'codemirror'
+import i18n from 'i18next'
 import { uploadFile } from '../../../api/media'
 import { store } from '../../../redux'
 
@@ -14,7 +15,7 @@ export const handleUpload = (files: FileList | null, editor: Editor | undefined)
     const file = files[0]
     const mimeType = file.type
     const cursor = editor.getCursor()
-    const uploadPlaceholder = `![Uploading file...${file.name}]()`
+    const uploadPlaceholder = `![${i18n.t('editor.upload.uploadFile', { fileName: file.name })}]()`
     const noteId = store.getState().documentContent.noteId
     editor.replaceRange(uploadPlaceholder, cursor, cursor, '+input')
     uploadFile(noteId, mimeType, file)

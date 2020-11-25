@@ -210,7 +210,15 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         editor={editor}
       />
       <ShowIf condition={showDropOverlay}>
-        <DropOverlay/>
+        <DropOverlay
+          onDrop={event => {
+            if (editor) {
+              onDrop(editor, event)
+              setShowDropOverlay(false)
+            }
+          }}
+          onDragLeave={() => setShowDropOverlay(false)}
+        />
       </ShowIf>
       <ControlledCodeMirror
         className={`overflow-hidden w-100 flex-fill ${ligaturesEnabled ? '' : 'no-ligatures'}`}
@@ -219,6 +227,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         onChange={onChange}
         onPaste={onPaste}
         onDrop={onDrop}
+        onDragEnter={() => setShowDropOverlay(true)}
         onCursorActivity={onCursorActivity}
         editorDidMount={onEditorDidMount}
         onBeforeChange={onBeforeChange}
