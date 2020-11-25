@@ -427,7 +427,13 @@
         }
     },
     "views": {
-        "presentation": {},
+        "presentation": {
+            "loading": "Loading presentation ...",
+            "error": {
+                "title": "Error while loading presentation",
+                "description": "Probably the requested presentation does not exist or was deleted."
+            }
+        },
         "readOnly": {
             "viewCount": "views",
             "editNote": "Edit this note",

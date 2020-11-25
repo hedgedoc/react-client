@@ -2432,6 +2432,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/reveal@^3.3.33":
+  version "3.3.33"
+  resolved "https://registry.yarnpkg.com/@types/reveal/-/reveal-3.3.33.tgz#e5448f6b4e6734ec3ea4ee85211bb9313a879044"
+  integrity sha512-lKbezA9Oa5LfdSRwFDc/FHEGH4+FjiXh/a/PCSZAmN+KCeQJL/3ClOdAQwOxt3zdHc8XyioT+cNvIOletwRI7A==
+
 "@types/sinonjs__fake-timers@^6.0.1":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@types/sinonjs__fake-timers/-/sinonjs__fake-timers-6.0.2.tgz#3a84cf5ec3249439015e14049bd3161419bf9eae"
@@ -9727,7 +9732,6 @@ micromatch@^4.0.0, micromatch@^4.0.2:
 
 "midi@git+https://github.com/paulrosen/MIDI.js.git#abcjs":
   version "0.4.2"
-  uid e593ffef81a0350f99448e3ab8111957145ff6b2
   resolved "git+https://github.com/paulrosen/MIDI.js.git#e593ffef81a0350f99448e3ab8111957145ff6b2"
 
 miller-rabin@^4.0.0:
@@ -12571,6 +12575,11 @@ reusify@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.0.4.tgz#90da382b1e126efc02146e90845a88db12925d76"
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
+
+reveal.js@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/reveal.js/-/reveal.js-4.1.0.tgz#db87a754b03810584114e902b2702e96ee1ca63c"
+  integrity sha512-lYOMhxSWgq5jtgspF7eRL0d2rBnHO/VGZ4/qp46yu+eGoWqJkYHEuepEXzx71M8MI6Rf8HBYWaTnKi5uHWcU1Q==
 
 rework-visit@1.0.0:
   version "1.0.0"
