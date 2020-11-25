@@ -24,13 +24,13 @@
 
     body.dark & {
       svg g {
-        @import "../../../../style/variables.light";
+        @import "../../../../style/variables.dark";
         fill: $secondary;
       }
 
       &.active, &:hover {
         svg g {
-          @import "../../../../style/variables.light";
+          @import "../../../../style/variables.dark";
           fill: $light;
         }
       }
