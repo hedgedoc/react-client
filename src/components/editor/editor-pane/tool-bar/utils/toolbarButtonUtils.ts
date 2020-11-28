@@ -6,6 +6,7 @@
 
 import { Editor } from 'codemirror'
 import { EmojiClickEventDetail } from 'emoji-picker-element/shared'
+import { createNumberRangeArray } from '../../../../common/number-range/number-range'
 import { getEmojiShortCode } from './emojiUtils'
 
 export const makeSelectionBold = (editor: Editor): void => wrapTextWith(editor, '**')
@@ -30,8 +31,8 @@ export const addLine = (editor: Editor): void => changeLines(editor, line => `${
 export const addCollapsableBlock = (editor: Editor): void => changeLines(editor, line => `${line}\n<details>\n  <summary>Toggle label</summary>\n  Toggled content\n</details>`)
 export const addComment = (editor: Editor): void => changeLines(editor, line => `${line}\n> []`)
 export const addTable = (editor: Editor, rows: number, columns: number): void => {
-  const rowArray = Array.from(Array(rows).keys())
-  const colArray = Array.from(Array(columns).keys()).map(col => col + 1)
+  const rowArray = createNumberRangeArray(rows)
+  const colArray = createNumberRangeArray(columns).map(col => col + 1)
   const head = '|  # ' + colArray.join(' |  # ') + ' |'
   const divider = '| ' + colArray.map(() => '----').join(' | ') + ' |'
   const body = rowArray.map(() => '| ' + colArray.map(() => 'Text').join(' | ') + ' |').join('\n')

@@ -4,12 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useClickAway } from 'react-use'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
-import { TablePickerDialog } from './table-picker-dialog'
+import { createNumberRangeArray } from '../../../../common/number-range/number-range'
+import { CustomTableSizeModal } from './custom-table-size-modal'
 import './table-picker.scss'
 
 export interface TablePickerProps {
@@ -37,6 +38,12 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
     setTableSize(undefined)
   }, [show])
 
+  const onClick = useCallback(() => {
+    if (tableSize) {
+      onTablePicked(tableSize.rows, tableSize.columns)
+    }
+  }, [tableSize])
+
   return (
     <div className={`position-absolute table-picker-container p-2 ${!show ? 'd-none' : ''} bg-light`} ref={containerRef} role="grid">
       <p className={'lead'}>
@@ -46,8 +53,8 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
         }
       </p>
       <div className={'d-grid table-container'}>
-        {Array.from(Array(8).keys()).map((row: number) => {
-          return Array.from(Array(10).keys()).map((col: number) => {
+        {createNumberRangeArray(8).map((row: number) => {
+          return createNumberRangeArray(10).map((col: number) => {
             return (
               <div
                 className={`table-cell ${tableSize && row < tableSize.rows && col < tableSize.columns ? 'bg-primary' : ''}`}
@@ -58,11 +65,7 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
                   })
                 }}
                 title={t('editor.editorToolbar.table.size', { cols: col, rows: row })}
-                onClick={() => {
-                  if (tableSize) {
-                    onTablePicked(tableSize.rows, tableSize.columns)
-                  }
-                }}
+                onClick={onClick}
               />
             )
           }
@@ -73,7 +76,7 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
         <Button className={'text-center'} onClick={() => setShowDialog(true)}>
           <ForkAwesomeIcon icon="table"/>&nbsp;{t('editor.editorToolbar.table.customSize')}
         </Button>
-        <TablePickerDialog
+        <CustomTableSizeModal
           showModal={showDialog}
           onDismiss={() => setShowDialog(false)}
           onTablePicked={onTablePicked}

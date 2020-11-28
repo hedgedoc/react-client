@@ -4,29 +4,30 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Button, ModalFooter } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../../common/modals/common-modal'
 import { TableSize } from './table-picker'
 
-export interface TablePickerDialogProps {
+export interface CustomTableSizeModalProps {
   showModal: boolean
   onDismiss: () => void
   onTablePicked: (row: number, cols: number) => void
 }
 
-export const TablePickerDialog: React.FC<TablePickerDialogProps> = ({ showModal, onDismiss, onTablePicked }) => {
+export const CustomTableSizeModal: React.FC<CustomTableSizeModalProps> = ({ showModal, onDismiss, onTablePicked }) => {
   const { t } = useTranslation()
   const [tableSize, setTableSize] = useState<TableSize>({
     rows: 0,
     columns: 0
   })
 
-  const onClick = () => {
+  const onClick = useCallback(() => {
     onTablePicked(tableSize.rows, tableSize.columns)
     onDismiss()
-  }
+  }, [onDismiss])
 
   return (
     <CommonModal
@@ -35,18 +36,16 @@ export const TablePickerDialog: React.FC<TablePickerDialogProps> = ({ showModal,
       titleI18nKey={'editor.editorToolbar.table.customSize'}
       closeButton={true}
       icon={'table'}>
-      <div className={'col-lg-10 d-flex flex-row p-3 m-auto'}>
-        <input type={'number'} min={1} placeholder={t('editor.editorToolbar.table.cols')} onChange={(event) => {
+      <div className={'col-lg-10 d-flex flex-row p-3 m-auto align-items-center'}>
+        <input className={'form-control'} type={'number'} min={1} placeholder={t('editor.editorToolbar.table.cols')} onChange={(event) => {
           const value = Number.parseInt(event.currentTarget.value)
-          setTableSize(old => {
-            return {
-              rows: old.rows,
-              columns: value
-            }
-          })
+          setTableSize(old => ({
+            rows: old.rows,
+            columns: value
+          }))
         } }/>
-        x
-        <input type={'number'} min={1} placeholder={t('editor.editorToolbar.table.rows')} onChange={(event) => {
+        <ForkAwesomeIcon icon='times' className='mx-2' fixedWidth={true}/>
+        <input className={'form-control'} type={'number'} min={1} placeholder={t('editor.editorToolbar.table.rows')} onChange={(event) => {
           const value = Number.parseInt(event.currentTarget.value)
           setTableSize(old => {
             return {
