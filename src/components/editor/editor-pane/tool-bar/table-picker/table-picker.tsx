@@ -64,7 +64,7 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
                     columns: col + 1
                   })
                 }}
-                title={t('editor.editorToolbar.table.size', { cols: col, rows: row })}
+                title={t('editor.editorToolbar.table.size', { cols: col + 1, rows: row + 1 })}
                 onClick={onClick}
               />
             )
