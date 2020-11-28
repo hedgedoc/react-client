@@ -273,7 +273,7 @@ describe('Toolbar', () => {
 
     it('custom', () => {
       cy.get('.modal-dialog')
-        .should('not.be.visible')
+        .should('not.exist')
       cy.get('.fa-table')
         .first()
         .click()
