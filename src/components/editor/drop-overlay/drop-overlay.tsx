@@ -25,7 +25,7 @@ export const DropOverlay: React.FC<DropOverlayProps> = ({ onDrop, onDragLeave })
       onDragOver={event => event.preventDefault()}
     >
       <ForkAwesomeIcon icon={'download'} size={'5x'} className={'text-light'}/>
-      <span className={'drop-overlay-text'} title={t('editor.upload.dropImage')}>{t('editor.dropImage')}</span>
+      <span className={'drop-overlay-text'} title={t('editor.upload.dropImage')}>{t('editor.upload.dropImage')}</span>
     </div>
   )
 }
