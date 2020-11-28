@@ -5,7 +5,7 @@
  */
 
 import React, { useCallback, useState } from 'react'
-import { Button, ModalFooter } from 'react-bootstrap'
+import { Button, Form, ModalFooter } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../../common/modals/common-modal'
@@ -36,27 +36,38 @@ export const CustomTableSizeModal: React.FC<CustomTableSizeModalProps> = ({ show
       titleI18nKey={'editor.editorToolbar.table.customSize'}
       closeButton={true}
       icon={'table'}>
-      <div className={'col-lg-10 d-flex flex-row p-3 m-auto align-items-center'}>
-        <input className={'form-control'} type={'number'} min={1} placeholder={t('editor.editorToolbar.table.cols')} onChange={(event) => {
-          const value = Number.parseInt(event.currentTarget.value)
-          setTableSize(old => ({
-            rows: old.rows,
-            columns: value
-          }))
-        } }/>
+      <div className={'col-lg-10 d-flex flex-row p-3 align-items-center'}>
+        <Form.Control
+          type={'number'}
+          min={1}
+          placeholder={t('editor.editorToolbar.table.cols')}
+          isInvalid={tableSize.columns <= 0}
+          onChange={(event) => {
+            const value = Number.parseInt(event.currentTarget.value)
+            setTableSize(old => ({
+              rows: old.rows,
+              columns: isNaN(value) ? 0 : value
+            }))
+          }}
+        />
         <ForkAwesomeIcon icon='times' className='mx-2' fixedWidth={true}/>
-        <input className={'form-control'} type={'number'} min={1} placeholder={t('editor.editorToolbar.table.rows')} onChange={(event) => {
-          const value = Number.parseInt(event.currentTarget.value)
-          setTableSize(old => {
-            return {
-              rows: value,
-              columns: old.columns
-            }
-          })
-        } }/>
+        <Form.Control
+          type={'number'}
+          min={1}
+          placeholder={t('editor.editorToolbar.table.rows')}
+          isInvalid={tableSize.rows <= 0}
+          onChange={(event) => {
+            const value = Number.parseInt(event.currentTarget.value)
+            setTableSize(old => {
+              return {
+                rows: isNaN(value) ? 0 : value,
+                columns: old.columns
+              }
+            })
+          }}/>
       </div>
       <ModalFooter>
-        <Button onClick={onClick}>
+        <Button onClick={onClick} disabled={tableSize.rows <= 0 || tableSize.columns <= 0}>
           {t('editor.editorToolbar.table.create')}
         </Button>
       </ModalFooter>
