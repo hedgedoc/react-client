@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-const url = 'http://localhost:3001/test-image.png'
+const url = 'http://example.com/non-existing.png'
 
 describe('Upload', () => {
   beforeEach(() => {
