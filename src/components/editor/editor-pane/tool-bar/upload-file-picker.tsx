@@ -23,6 +23,8 @@ export const supportedMimeTypes: string[] = [
   'image/webp'
 ]
 
+const supportedMimeTypesJoined = supportedMimeTypes.join(', ')
+
 export interface useFilePickerReturn {
   clickOnHiddenFileInput: () => void,
   HiddenFileInput(): React.ReactElement
@@ -43,8 +45,8 @@ export const useFilePicker = (editor: Editor | undefined): useFilePickerReturn =
           type="file"
           ref={fileInputRef}
           multiple={false}
-          accept={supportedMimeTypes.join(', ')}
-          style={{ display: 'none' }}
+          accept={supportedMimeTypesJoined}
+          className='d-none'
           onChange={(evt): void => {
             const target = evt.target as HTMLInputElement
             handleUpload(target.files, editor)

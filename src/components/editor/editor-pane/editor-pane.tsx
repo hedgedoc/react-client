@@ -72,7 +72,6 @@ interface PasteEvent {
 }
 
 const onPaste = (pasteEditor: Editor, event: PasteEvent) => {
-  console.log(event)
   if (event && event.clipboardData && event.clipboardData.files) {
     event.preventDefault()
     const files: FileList = event.clipboardData.files
@@ -92,7 +91,6 @@ interface DropEvent {
 }
 
 const onDrop = (dropEditor: Editor, event: DropEvent) => {
-  console.log(event)
   if (event && event.pageX && event.pageY && event.dataTransfer && event.dataTransfer.files) {
     event.preventDefault()
     const top: number = event.pageY
@@ -172,6 +170,13 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     setStatusBarInfo(createStatusInfo(editorWithActivity, maxLength))
   }, [maxLength])
 
+  const onDropCallback = useCallback((event: React.DragEvent<Element>) => {
+    if (editor) {
+      onDrop(editor, event)
+      setShowDropOverlay(false)
+    }
+  }, [editor])
+
   const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(() => ({
     ...editorPreferences,
     mode: 'gfm',
@@ -210,12 +215,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       />
       <ShowIf condition={showDropOverlay}>
         <DropOverlay
-          onDrop={event => {
-            if (editor) {
-              onDrop(editor, event)
-              setShowDropOverlay(false)
-            }
-          }}
+          onDrop={onDropCallback}
           onDragLeave={() => setShowDropOverlay(false)}
         />
       </ShowIf>
