@@ -64,12 +64,12 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
 
   return (
     <div data-cy={'markmap'}>
-      <div className={'text-center'} ref={diagramContainer} />
-      <div className={'text-right button-inside'}>
+      <div className={ 'svg-container' } ref={ diagramContainer }/>
+      <div className={ 'text-right button-inside' }>
         <LockButton
-          locked={disablePanAndZoom}
-          onLockedChanged={(newState) => setDisablePanAndZoom(newState)}
-          title={disablePanAndZoom ? t('renderer.markmap.locked') : t('renderer.markmap.unlocked')}
+          locked={ disablePanAndZoom }
+          onLockedChanged={ (newState) => setDisablePanAndZoom(newState) }
+          title={ disablePanAndZoom ? t('renderer.markmap.locked') : t('renderer.markmap.unlocked') }
         />
       </div>
     </div>

@@ -60,10 +60,10 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
 
   return (
     <Fragment>
-      <ShowIf condition={!!error}>
-        <Alert variant={'warning'}>{error}</Alert>
+      <ShowIf condition={ !!error }>
+        <Alert variant={ 'warning' }>{ error }</Alert>
       </ShowIf>
-      <div className={'text-center overflow-x-auto'} data-cy={'graphviz'} ref={container} />
+      <div className={ 'svg-container' } data-cy={ 'graphviz' } ref={ container }/>
     </Fragment>
   )
 }

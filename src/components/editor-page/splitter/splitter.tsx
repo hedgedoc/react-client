@@ -67,7 +67,7 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
       onTouchEnd={stopResizing}
       onMouseMove={onMouseMove}
       onTouchMove={onTouchMove}>
-      <div className={`splitter left ${!showLeft ? 'd-none' : ''}`} style={{ flexBasis: `calc(${realSplit}% - 5px)` }}>
+      <div className={`splitter left ${!showLeft ? 'd-none' : ''}`} style={{ width: `calc(${realSplit}% - 5px)` }}>
         {left}
       </div>
       <ShowIf condition={showLeft && showRight}>
@@ -75,7 +75,7 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
           <SplitDivider onGrab={onGrab} />
         </div>
       </ShowIf>
-      <div className={`splitter right ${!showRight ? 'd-none' : ''}`}>{right}</div>
+      <div className={`splitter right ${!showRight ? 'd-none' : ''}`} style={{ width: `calc(100% - ${realSplit}%)` }}>{right}</div>
     </div>
   )
 }
