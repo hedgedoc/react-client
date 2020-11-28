@@ -27,7 +27,7 @@ export const CustomTableSizeModal: React.FC<CustomTableSizeModalProps> = ({ show
   const onClick = useCallback(() => {
     onTablePicked(tableSize.rows, tableSize.columns)
     onDismiss()
-  }, [onDismiss])
+  }, [onDismiss, tableSize, onTablePicked])
 
   return (
     <CommonModal

@@ -42,7 +42,7 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
     if (tableSize) {
       onTablePicked(tableSize.rows, tableSize.columns)
     }
-  }, [tableSize])
+  }, [onTablePicked, tableSize])
 
   return (
     <div className={`position-absolute table-picker-container p-2 ${!show ? 'd-none' : ''} bg-light`} ref={containerRef} role="grid">
