@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Form, ModalFooter } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
@@ -23,6 +23,13 @@ export const CustomTableSizeModal: React.FC<CustomTableSizeModalProps> = ({ show
     rows: 0,
     columns: 0
   })
+
+  useEffect(() => {
+    setTableSize({
+      rows: 0,
+      columns: 0
+    })
+  }, [showModal])
 
   const onClick = useCallback(() => {
     onTablePicked(tableSize.rows, tableSize.columns)
