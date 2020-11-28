@@ -4,18 +4,36 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+
+
 .table-picker-container {
   z-index: 1111;
 }
 
+body.dark {
+  div.table-cell {
+    @import "../../../../../style/variables.dark";
+    border-top: 1px solid $dark;
+    border-left: 1px solid $dark;
+  }
+
+  div.table-container {
+    @import "../../../../../style/variables.dark";
+    border-bottom: 1px solid $dark;
+    border-right: 1px solid $dark;
+  }
+}
+
 div.table-cell {
-  border-top: 1px solid #000000;
-  border-left: 1px solid #000000;
+  @import "../../../../../style/variables.light";
+  border-top: 1px solid $dark;
+  border-left: 1px solid $dark;
 }
 
 div.table-container {
-  border-bottom: 1px solid #000000;
-  border-right: 1px solid #000000;
+  @import "../../../../../style/variables.light";
+  border-bottom: 1px solid $dark;
+  border-right: 1px solid $dark;
 }
 
 .d-grid {
