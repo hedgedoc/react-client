@@ -25,11 +25,11 @@ describe('History', () => {
 
   describe('Pinning', () => {
     beforeEach(() => {
-      cy.route({
+      cy.intercept({
         method: 'PUT',
-        url: '/api/v2/history/**',
-        status: 401,
-        response: {}
+        url: '/api/v2/history/**'
+      }, {
+        statusCode: 401
       })
     })
 
