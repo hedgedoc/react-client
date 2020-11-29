@@ -47,10 +47,10 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
   const [dom, setDom] = useState<ReactElement[]>()
 
   useEffect(() => {
-    import(/* webpackChunkName: "highlight.js" */ 'highlight.js').then((hljs) => {
+    import(/* webpackChunkName: "highlight.js" */ '../../../../common/hljs/hljs').then(( hljs)  => {
       const correctedLanguage = correctLanguage(language)
-      const languageSupported = (lang: string) => hljs.listLanguages().includes(lang)
-      const unreplacedCode = !!correctedLanguage && languageSupported(correctedLanguage) ? hljs.highlight(correctedLanguage, code).value : escapeHtml(code)
+      const languageSupported = (lang: string) => hljs.default.listLanguages().includes(lang)
+      const unreplacedCode = !!correctedLanguage && languageSupported(correctedLanguage) ? hljs.default.highlight(correctedLanguage, code).value : escapeHtml(code)
       const replacedDom = replaceCode(unreplacedCode).map((line, index) => (
         <Fragment key={index}>
           <span className={'linenumber'} data-line-number={(startLineNumber || 1) + index}/>
