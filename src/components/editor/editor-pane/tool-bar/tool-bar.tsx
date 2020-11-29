@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { Editor } from 'codemirror'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
@@ -42,14 +42,14 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
   const { t } = useTranslation()
   const fileInputRef = React.useRef<HTMLInputElement>(null)
 
-  if (!editor) {
-    return null
-  }
-
-  const clickFileInputRef = () => {
+  const onUploadImageButtonClick = useCallback(() => {
     if (fileInputRef?.current) {
       fileInputRef.current.click()
     }
+  }, [])
+
+  if (!editor) {
+    return null
   }
 
   return (
@@ -101,13 +101,10 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => addImage(editor)} title={t('editor.editorToolbar.image')}>
           <ForkAwesomeIcon icon="picture-o"/>
         </Button>
-        <Button variant='light' onClick={clickFileInputRef} title={t('editor.editorToolbar.uploadImage')}>
+        <Button variant='light' onClick={onUploadImageButtonClick} title={t('editor.editorToolbar.uploadImage')}>
           <ForkAwesomeIcon icon="upload"/>
         </Button>
-        <UploadFilePicker
-          editor={editor}
-          ref={fileInputRef}
-        />
+        <UploadFilePicker editor={editor} ref={fileInputRef} />
       </ButtonGroup>
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <Button variant='light' onClick={() => addTable(editor)} title={t('editor.editorToolbar.table')}>

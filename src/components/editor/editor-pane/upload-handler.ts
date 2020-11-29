@@ -9,8 +9,8 @@ import i18n from 'i18next'
 import { uploadFile } from '../../../api/media'
 import { store } from '../../../redux'
 
-export const handleUpload = (files: FileList | null, editor: Editor | undefined): void => {
-  if (!files || !editor) {
+export const handleUpload = (files: FileList, editor: Editor): void => {
+  if (!files) {
     return
   }
   const file = files[0]

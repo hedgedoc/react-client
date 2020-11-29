@@ -27,7 +27,7 @@ export const supportedMimeTypes: string[] = [
 const supportedMimeTypesJoined = supportedMimeTypes.join(', ')
 
 export interface UploadFilePickerProps {
-  editor: Editor | undefined
+  editor: Editor
   ref: React.RefObject<HTMLInputElement>
 }
 
@@ -40,8 +40,10 @@ export const UploadFilePicker: React.FC<UploadFilePickerProps> = ({ editor, ref 
       accept={supportedMimeTypesJoined}
       className='d-none'
       onChange={(evt): void => {
-        const target = evt.target as HTMLInputElement
-        handleUpload(target.files, editor)
+        const files = evt.target.files
+        if (files && files.length > 1) {
+          handleUpload(files, editor)
+        }
       }}
     />
   )
