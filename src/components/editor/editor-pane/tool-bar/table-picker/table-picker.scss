@@ -25,14 +25,14 @@
   }
 
   body.dark {
+    @import "../../../../../style/variables.dark";
+
     .table-cell {
-      @import "../../../../../style/variables.dark";
       border-top: 1px solid $dark;
       border-left: 1px solid $dark;
     }
 
     .table-container {
-      @import "../../../../../style/variables.dark";
       border-bottom: 1px solid $dark;
       border-right: 1px solid $dark;
       display: grid;

@@ -53,8 +53,8 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
         }
       </p>
       <div className={'table-container'}>
-        {createNumberRangeArray(8).map((row: number) => {
-          return createNumberRangeArray(10).map((col: number) => (
+        {createNumberRangeArray(8).map((row: number) => (
+          createNumberRangeArray(10).map((col: number) => (
             <div
               className={`table-cell ${tableSize && row < tableSize.rows && col < tableSize.columns ? 'bg-primary' : ''}`}
               onMouseEnter={() => {
@@ -68,7 +68,7 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
             />
           )
           )
-        })}
+        ))}
       </div>
       <div className="d-flex justify-content-center mt-2">
         <Button className={'text-center'} onClick={() => setShowDialog(true)}>
