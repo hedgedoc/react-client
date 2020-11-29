@@ -15,7 +15,20 @@ import {
 
 export const initialState: DocumentContent = {
   content: '',
-  noteId: ''
+  noteId: '',
+  metadata: {
+    title: '',
+    description: '',
+    tags: [],
+    robots: '',
+    lang: 'en',
+    dir: 'ltr',
+    breaks: true,
+    GA: '',
+    disqus: '',
+    type: '',
+    opengraph: new Map<string, string>()
+  }
 }
 
 export const DocumentContentReducer: Reducer<DocumentContent, DocumentContentAction> = (state: DocumentContent = initialState, action: DocumentContentAction) => {
