@@ -37,14 +37,14 @@ export const ShareLinkButton: React.FC = () => {
         titleI18nKey={'editor.modal.shareLink.title'}>
         <Modal.Body>
           <Trans i18nKey={'editor.modal.shareLink.editorDescription'}/>
-          <CopyableField content={'edit link'}/>
+          <CopyableField content={'edit link'} nativeShareButton={true} url={''}/>
           <ShowIf condition={noteMetadata.type === 'slide'}>
             <Trans i18nKey={'editor.modal.shareLink.slidesDescription'}/>
-            <CopyableField content={'slides link'}/>
+            <CopyableField content={'slides link'} nativeShareButton={true} url={''}/>
           </ShowIf>
           <ShowIf condition={noteMetadata.type === ''}>
             <Trans i18nKey={'editor.modal.shareLink.viewOnlyDescription'}/>
-            <CopyableField content={'view link'}/>
+            <CopyableField content={'view link'} nativeShareButton={true} url={''}/>
           </ShowIf>
         </Modal.Body>
       </CommonModal>
