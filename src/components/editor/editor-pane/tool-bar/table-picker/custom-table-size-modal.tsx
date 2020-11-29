@@ -65,12 +65,10 @@ export const CustomTableSizeModal: React.FC<CustomTableSizeModalProps> = ({ show
           isInvalid={tableSize.rows <= 0}
           onChange={(event) => {
             const value = Number.parseInt(event.currentTarget.value)
-            setTableSize(old => {
-              return {
-                rows: isNaN(value) ? 0 : value,
-                columns: old.columns
-              }
-            })
+            setTableSize(old => ({
+              rows: isNaN(value) ? 0 : value,
+              columns: old.columns
+            }))
           }}/>
       </div>
       <ModalFooter>

@@ -52,23 +52,21 @@ export const TablePicker: React.FC<TablePickerProps> = ({ show, onDismiss, onTab
           : t('editor.editorToolbar.table.title')
         }
       </p>
-      <div className={'d-grid table-container'}>
+      <div className={'table-container'}>
         {createNumberRangeArray(8).map((row: number) => {
-          return createNumberRangeArray(10).map((col: number) => {
-            return (
-              <div
-                className={`table-cell ${tableSize && row < tableSize.rows && col < tableSize.columns ? 'bg-primary' : ''}`}
-                onMouseEnter={() => {
-                  setTableSize({
-                    rows: row + 1,
-                    columns: col + 1
-                  })
-                }}
-                title={t('editor.editorToolbar.table.size', { cols: col + 1, rows: row + 1 })}
-                onClick={onClick}
-              />
-            )
-          }
+          return createNumberRangeArray(10).map((col: number) => (
+            <div
+              className={`table-cell ${tableSize && row < tableSize.rows && col < tableSize.columns ? 'bg-primary' : ''}`}
+              onMouseEnter={() => {
+                setTableSize({
+                  rows: row + 1,
+                  columns: col + 1
+                })
+              }}
+              title={t('editor.editorToolbar.table.size', { cols: col + 1, rows: row + 1 })}
+              onClick={onClick}
+            />
+          )
           )
         })}
       </div>

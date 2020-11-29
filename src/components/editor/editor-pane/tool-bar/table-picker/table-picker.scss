@@ -8,37 +8,37 @@
 
 .table-picker-container {
   z-index: 1111;
-}
 
-body.dark {
-  div.table-cell {
-    @import "../../../../../style/variables.dark";
+  @import "../../../../../style/variables.light";
+
+  .table-cell {
     border-top: 1px solid $dark;
     border-left: 1px solid $dark;
   }
 
-  div.table-container {
-    @import "../../../../../style/variables.dark";
+  .table-container {
     border-bottom: 1px solid $dark;
     border-right: 1px solid $dark;
+    display: grid;
+    grid-template-columns: repeat(10, 15px [col-start]);
+    grid-template-rows: repeat(8, 15px [row-start]);
   }
-}
 
-div.table-cell {
-  @import "../../../../../style/variables.light";
-  border-top: 1px solid $dark;
-  border-left: 1px solid $dark;
-}
+  body.dark {
+    .table-cell {
+      @import "../../../../../style/variables.dark";
+      border-top: 1px solid $dark;
+      border-left: 1px solid $dark;
+    }
 
-div.table-container {
-  @import "../../../../../style/variables.light";
-  border-bottom: 1px solid $dark;
-  border-right: 1px solid $dark;
-}
-
-.d-grid {
-  display: grid;
-  grid-template-columns: repeat(10, 15px [col-start]);
-  grid-template-rows: repeat(8, 15px [row-start]);
+    .table-container {
+      @import "../../../../../style/variables.dark";
+      border-bottom: 1px solid $dark;
+      border-right: 1px solid $dark;
+      display: grid;
+      grid-template-columns: repeat(10, 15px [col-start]);
+      grid-template-rows: repeat(8, 15px [row-start]);
+    }
+  }
 }
 
