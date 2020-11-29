@@ -190,6 +190,8 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     }
   }, [editor])
 
+  const onDragEnterHandler = useCallback(() => setShowDropOverlay(true), [])
+
   const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(() => ({
     ...editorPreferences,
     mode: 'gfm',
@@ -240,7 +242,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         onChange={onChange}
         onPaste={onPaste}
         onDrop={onDrop}
-        onDragEnter={() => setShowDropOverlay(true)}
+        onDragEnter={onDragEnterHandler}
         onCursorActivity={onCursorActivity}
         editorDidMount={onEditorDidMount}
         onBeforeChange={onBeforeChange}
