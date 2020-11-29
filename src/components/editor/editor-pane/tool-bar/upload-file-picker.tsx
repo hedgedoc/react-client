@@ -28,14 +28,14 @@ const supportedMimeTypesJoined = supportedMimeTypes.join(', ')
 
 export interface UploadFilePickerProps {
   editor: Editor
-  ref: React.RefObject<HTMLInputElement>
+  fileInputRef: React.RefObject<HTMLInputElement>
 }
 
-export const UploadFilePicker: React.FC<UploadFilePickerProps> = ({ editor, ref }) => {
+export const UploadFilePicker: React.FC<UploadFilePickerProps> = ({ editor, fileInputRef }) => {
   return (
     <input
       type="file"
-      ref={ref}
+      ref={fileInputRef}
       multiple={false}
       accept={supportedMimeTypesJoined}
       className='d-none'

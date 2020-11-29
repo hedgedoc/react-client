@@ -104,7 +104,7 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={onUploadImageButtonClick} title={t('editor.editorToolbar.uploadImage')}>
           <ForkAwesomeIcon icon="upload"/>
         </Button>
-        <UploadFilePicker editor={editor} ref={fileInputRef} />
+        <UploadFilePicker editor={editor} fileInputRef={fileInputRef} />
       </ButtonGroup>
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <TablePickerButton editor={editor}/>
