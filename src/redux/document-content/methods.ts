@@ -29,7 +29,10 @@ export const setNoteId = (noteId: string): void => {
   store.dispatch(action)
 }
 
-export const setDocumentMetadata = (metadata: YAMLMetaData): void => {
+export const setDocumentMetadata = (metadata: YAMLMetaData | undefined): void => {
+  if (!metadata) {
+    return
+  }
   const action: SetDocumentMetadataAction = {
     type: DocumentContentActionType.SET_DOCUMENT_METADATA,
     metadata

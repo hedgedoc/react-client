@@ -74,9 +74,7 @@ export const Editor: React.FC = () => {
 
   const onMetadataChange = useCallback((metaData: YAMLMetaData | undefined) => {
     noteMetadata.current = metaData
-    if (metaData) {
-      setDocumentMetadata(metaData)
-    }
+    setDocumentMetadata(metaData)
     updateDocumentTitle()
   }, [updateDocumentTitle])
 
