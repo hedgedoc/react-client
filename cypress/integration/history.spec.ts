@@ -60,7 +60,7 @@ describe('History', () => {
 
     describe('failing', () => {
       beforeEach(() => {
-        cy.intercept('PUT', '/api/v2/history/*', {
+        cy.intercept('PUT', '/api/v2/history/features', {
           statusCode: 401
         })
       })
