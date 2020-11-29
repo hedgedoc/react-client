@@ -178,6 +178,18 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     }
   }, [editor])
 
+  const onDragLeaveCallback = useCallback(() => setShowDropOverlay(false), [])
+
+  const onDragOverCallback = useCallback((event: React.DragEvent<Element>) => {
+    event.preventDefault()
+    if (editor) {
+      const top: number = event.pageY
+      const left: number = event.pageX
+      const newCursor = editor.coordsChar({ top, left }, 'page')
+      editor.setCursor(newCursor)
+    }
+  }, [editor])
+
   const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(() => ({
     ...editorPreferences,
     mode: 'gfm',
@@ -217,7 +229,8 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       <ShowIf condition={showDropOverlay}>
         <DropOverlay
           onDrop={onDropCallback}
-          onDragLeave={() => setShowDropOverlay(false)}
+          onDragLeave={onDragLeaveCallback}
+          onDragOver={onDragOverCallback}
         />
       </ShowIf>
       <ControlledCodeMirror

@@ -17,7 +17,8 @@ export const supportedMimeTypes: string[] = [
   'image/heic',
   'image/heif-sequence',
   'image/heic-sequence',
-  'image/jpeg, image/png',
+  'image/jpeg',
+  'image/png',
   'image/svg+xml',
   'image/tiff',
   'image/webp'
@@ -25,34 +26,23 @@ export const supportedMimeTypes: string[] = [
 
 const supportedMimeTypesJoined = supportedMimeTypes.join(', ')
 
-export interface useFilePickerReturn {
-  clickOnHiddenFileInput: () => void,
-  HiddenFileInput(): React.ReactElement
+export interface UploadFilePickerProps {
+  editor: Editor | undefined
+  ref: React.RefObject<HTMLInputElement>
 }
 
-export const useFilePicker = (editor: Editor | undefined): useFilePickerReturn => {
-  const fileInputRef = React.useRef<HTMLInputElement>(null)
-
-  return {
-    clickOnHiddenFileInput: () => {
-      if (fileInputRef?.current) {
-        fileInputRef.current.click()
-      }
-    },
-    HiddenFileInput (): React.ReactElement {
-      return (
-        <input
-          type="file"
-          ref={fileInputRef}
-          multiple={false}
-          accept={supportedMimeTypesJoined}
-          className='d-none'
-          onChange={(evt): void => {
-            const target = evt.target as HTMLInputElement
-            handleUpload(target.files, editor)
-          }}
-        />
-      )
-    }
-  }
+export const UploadFilePicker: React.FC<UploadFilePickerProps> = ({ editor, ref }) => {
+  return (
+    <input
+      type="file"
+      ref={ref}
+      multiple={false}
+      accept={supportedMimeTypesJoined}
+      className='d-none'
+      onChange={(evt): void => {
+        const target = evt.target as HTMLInputElement
+        handleUpload(target.files, editor)
+      }}
+    />
+  )
 }

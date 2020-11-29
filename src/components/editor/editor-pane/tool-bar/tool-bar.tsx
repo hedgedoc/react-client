@@ -13,7 +13,7 @@ import { EditorPreferences } from './editor-preferences/editor-preferences'
 import { EmojiPickerButton } from './emoji-picker/emoji-picker-button'
 import { TablePickerButton } from './table-picker/table-picker-button'
 import './tool-bar.scss'
-import { useFilePicker } from './upload-file-picker'
+import { UploadFilePicker } from './upload-file-picker'
 import {
   addCodeFences,
   addCollapsableBlock,
@@ -40,12 +40,16 @@ export interface ToolBarProps {
 
 export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
   const { t } = useTranslation()
-
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { clickOnHiddenFileInput, HiddenFileInput } = useFilePicker(editor)
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
 
   if (!editor) {
     return null
+  }
+
+  const clickFileInputRef = () => {
+    if (fileInputRef?.current) {
+      fileInputRef.current.click()
+    }
   }
 
   return (
@@ -97,10 +101,13 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => addImage(editor)} title={t('editor.editorToolbar.image')}>
           <ForkAwesomeIcon icon="picture-o"/>
         </Button>
-        <Button variant='light' onClick={clickOnHiddenFileInput} title={t('editor.editorToolbar.uploadImage')}>
+        <Button variant='light' onClick={clickFileInputRef} title={t('editor.editorToolbar.uploadImage')}>
           <ForkAwesomeIcon icon="upload"/>
         </Button>
-        <HiddenFileInput/>
+        <UploadFilePicker
+          editor={editor}
+          ref={fileInputRef}
+        />
       </ButtonGroup>
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <TablePickerButton editor={editor}/>
