@@ -1,5 +1,9 @@
-import hljs from 'highlight.js/lib/core';
+/*
+SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 
+SPDX-License-Identifier: AGPL-3.0-only
+*/
+import hljs from 'highlight.js/lib/core';
 import abnf from 'highlight.js/lib/languages/abnf'
 import accesslog from 'highlight.js/lib/languages/accesslog'
 import actionscript from 'highlight.js/lib/languages/actionscript'
