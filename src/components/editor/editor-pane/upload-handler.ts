@@ -9,11 +9,10 @@ import i18n from 'i18next'
 import { uploadFile } from '../../../api/media'
 import { store } from '../../../redux'
 
-export const handleUpload = (files: FileList, editor: Editor): void => {
-  if (!files) {
+export const handleUpload = (file: File, editor: Editor): void => {
+  if (!file) {
     return
   }
-  const file = files[0]
   const mimeType = file.type
   const cursor = editor.getCursor()
   const uploadPlaceholder = `![${i18n.t('editor.upload.uploadFile', { fileName: file.name })}]()`

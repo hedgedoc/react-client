@@ -76,7 +76,7 @@ const onPaste = (pasteEditor: Editor, event: PasteEvent) => {
     event.preventDefault()
     const files: FileList = event.clipboardData.files
     if (files && files.length >= 1) {
-      handleUpload(files, pasteEditor)
+      handleUpload(files[0], pasteEditor)
     }
   }
 }
@@ -99,7 +99,7 @@ const onDrop = (dropEditor: Editor, event: DropEvent) => {
     dropEditor.setCursor(newCursor)
     const files: FileList = event.dataTransfer.files
     if (files && files.length >= 1) {
-      handleUpload(files, dropEditor)
+      handleUpload(files[0], dropEditor)
     }
   }
 }

@@ -33,7 +33,9 @@ describe('Upload', () => {
       })
     })
     it('via button', () => {
-      cy.get('input[type=file]')
+      cy.get('.fa-upload')
+        .click()
+      cy.get('div.btn-group > input[type=file]')
         .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', `![](${url})`)
