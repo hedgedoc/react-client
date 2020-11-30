@@ -16,13 +16,25 @@ import { HiddenInputMenuEntry } from '../../../common/hidden-input-menu-entry/hi
 export const ImportMenu: React.FC = () => {
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
 
-  const onImportMarkdown = useCallback((fileReader: FileReader) => {
-    const newContent = fileReader.result as string
-    if (markdownContent.length === 0) {
-      setDocumentContent(newContent)
-    } else {
-      setDocumentContent(markdownContent + '\n' + newContent)
-    }
+  const onImportMarkdown = useCallback((file: File) => {
+    return new Promise<void>((resolve, reject) => {
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', () => () => {
+        const newContent = fileReader.result as string
+        if (markdownContent.length === 0) {
+          setDocumentContent(newContent)
+        } else {
+          setDocumentContent(markdownContent + '\n' + newContent)
+        }
+      })
+      fileReader.addEventListener('loaded', () => {
+        resolve()
+      })
+      fileReader.addEventListener('error', (error) => {
+        reject(error)
+      })
+      fileReader.readAsText(file)
+    })
   }, [markdownContent])
 
   return (

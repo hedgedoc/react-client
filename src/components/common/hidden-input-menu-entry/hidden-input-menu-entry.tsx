@@ -15,7 +15,7 @@ export interface HiddenInputMenuEntryProps {
   acceptedFiles: string
   i18nKey: string
   icon: IconName
-  onLoad: (fileReader: FileReader, file: File) => void
+  onLoad: (file: File) => Promise<void>
 }
 
 export const HiddenInputMenuEntry: React.FC<HiddenInputMenuEntryProps> = ({ type, acceptedFiles, i18nKey, icon, onLoad }) => {
@@ -32,12 +32,11 @@ export const HiddenInputMenuEntry: React.FC<HiddenInputMenuEntryProps> = ({ type
         return
       }
       const file = fileInput.files[0]
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => onLoad(fileReader, file))
-      fileReader.addEventListener('loadend', () => {
+      onLoad(file).then(() => {
         fileInput.value = ''
+      }).catch((error) => {
+        console.error(error)
       })
-      fileReader.readAsText(file)
     })
     fileInput.click()
   }, [onLoad])
