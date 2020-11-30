@@ -9,11 +9,12 @@ import React, { useCallback } from 'react'
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { HiddenInputMenuEntry } from '../../../common/hidden-input-menu-entry/hidden-input-menu-entry'
+import { handleUpload } from '../upload-handler'
 import { EditorPreferences } from './editor-preferences/editor-preferences'
 import { EmojiPickerButton } from './emoji-picker/emoji-picker-button'
 import { TablePickerButton } from './table-picker/table-picker-button'
 import './tool-bar.scss'
-import { UploadFilePicker } from './upload-file-picker'
 import {
   addCodeFences,
   addCollapsableBlock,
@@ -33,6 +34,7 @@ import {
   superscriptSelection,
   underlineSelection
 } from './utils/toolbarButtonUtils'
+import { supportedMimeTypesJoined } from './utils/upload-image-mimetypes'
 
 export interface ToolBarProps {
   editor: Editor | undefined
@@ -40,13 +42,12 @@ export interface ToolBarProps {
 
 export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
   const { t } = useTranslation()
-  const fileInputRef = React.useRef<HTMLInputElement>(null)
 
-  const onUploadImageButtonClick = useCallback(() => {
-    if (fileInputRef?.current) {
-      fileInputRef.current.click()
+  const onUploadImage = useCallback((_, file: File) => {
+    if (editor) {
+      handleUpload(file, editor)
     }
-  }, [])
+  }, [editor])
 
   if (!editor) {
     return null
@@ -101,10 +102,13 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
         <Button variant='light' onClick={() => addImage(editor)} title={t('editor.editorToolbar.image')}>
           <ForkAwesomeIcon icon="picture-o"/>
         </Button>
-        <Button variant='light' onClick={onUploadImageButtonClick} title={t('editor.editorToolbar.uploadImage')}>
-          <ForkAwesomeIcon icon="upload"/>
-        </Button>
-        <UploadFilePicker editor={editor} fileInputRef={fileInputRef} />
+        <HiddenInputMenuEntry
+          type={'button'}
+          acceptedFiles={supportedMimeTypesJoined}
+          i18nKey={'editor.editorToolbar.uploadImage'}
+          icon={'upload'}
+          onLoad={onUploadImage}
+        />
       </ButtonGroup>
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <TablePickerButton editor={editor}/>
