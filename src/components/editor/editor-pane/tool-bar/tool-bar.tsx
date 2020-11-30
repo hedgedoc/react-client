@@ -43,10 +43,11 @@ export interface ToolBarProps {
 export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
   const { t } = useTranslation()
 
-  const onUploadImage = useCallback((_, file: File) => {
+  const onUploadImage = useCallback((file: File) => {
     if (editor) {
       handleUpload(file, editor)
     }
+    return Promise.resolve()
   }, [editor])
 
   if (!editor) {
