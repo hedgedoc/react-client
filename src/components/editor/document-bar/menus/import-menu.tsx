@@ -19,7 +19,7 @@ export const ImportMenu: React.FC = () => {
   const onImportMarkdown = useCallback((file: File) => {
     return new Promise<void>((resolve, reject) => {
       const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => () => {
+      fileReader.addEventListener('load', () => {
         const newContent = fileReader.result as string
         if (markdownContent.length === 0) {
           setDocumentContent(newContent)
@@ -27,7 +27,7 @@ export const ImportMenu: React.FC = () => {
           setDocumentContent(markdownContent + '\n' + newContent)
         }
       })
-      fileReader.addEventListener('loaded', () => {
+      fileReader.addEventListener('loadend', () => {
         resolve()
       })
       fileReader.addEventListener('error', (error) => {
