@@ -192,6 +192,8 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
 
   const onDragEnterHandler = useCallback(() => setShowDropOverlay(true), [])
 
+  const onMaxLengthHide = useCallback(() => setShowMaxLengthWarning(false), [])
+
   const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(() => ({
     ...editorPreferences,
     mode: 'gfm',
@@ -224,7 +226,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
 
   return (
     <div className={'d-flex flex-column h-100 position-relative'} onMouseEnter={onMakeScrollSource}>
-      <MaxLengthWarningModal show={showMaxLengthWarning} onHide={() => setShowMaxLengthWarning(false)} maxLength={maxLength}/>
+      <MaxLengthWarningModal show={showMaxLengthWarning} onHide={onMaxLengthHide} maxLength={maxLength}/>
       <ToolBar
         editor={editor}
       />
