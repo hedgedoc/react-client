@@ -16,6 +16,7 @@ import {
 
 const isVim = (keyMapName?: string) => (keyMapName?.substr(0, 3) === 'vim')
 
+const pass = (_: Editor): void | typeof Pass => undefined
 const f10 = (editor: Editor): void | typeof Pass => editor.setOption('fullScreen', !editor.getOption('fullScreen'))
 const esc = (editor: Editor): void | typeof Pass => {
   if (editor.getOption('fullScreen') && !isVim(editor.getOption('keyMap'))) {
@@ -69,6 +70,7 @@ const tab = (editor: Editor) => {
 
 export const defaultKeyMap: KeyMap = !isMac
   ? {
+      F9: pass,
       F10: f10,
       Esc: esc,
       'Ctrl-S': suppressSave,
@@ -83,6 +85,7 @@ export const defaultKeyMap: KeyMap = !isMac
       'Ctrl-M': markSelection
     }
   : {
+      F9: pass,
       F10: f10,
       Esc: esc,
       'Cmd-S': suppressSave,
