@@ -86,22 +86,8 @@ interface DropEvent {
   pageY: number,
   dataTransfer: {
     files: FileList
-  }
+  } | null
   preventDefault: () => void
-}
-
-const onDrop = (dropEditor: Editor, event: DropEvent) => {
-  if (event && event.pageX && event.pageY && event.dataTransfer && event.dataTransfer.files) {
-    event.preventDefault()
-    const top: number = event.pageY
-    const left: number = event.pageX
-    const newCursor = dropEditor.coordsChar({ top, left }, 'page')
-    dropEditor.setCursor(newCursor)
-    const files: FileList = event.dataTransfer.files
-    if (files && files.length >= 1) {
-      handleUpload(files[0], dropEditor)
-    }
-  }
 }
 
 export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentChange, content, scrollState, onScroll, onMakeScrollSource }) => {
@@ -171,9 +157,17 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     setStatusBarInfo(createStatusInfo(editorWithActivity, maxLength))
   }, [maxLength])
 
-  const onDropCallback = useCallback((event: React.DragEvent<Element>) => {
-    if (editor) {
-      onDrop(editor, event)
+  const onDrop = useCallback((event: DropEvent) => {
+    if (event && editor && event.pageX && event.pageY && event.dataTransfer && event.dataTransfer.files) {
+      event.preventDefault()
+      const top: number = event.pageY
+      const left: number = event.pageX
+      const newCursor = editor.coordsChar({ top, left }, 'page')
+      editor.setCursor(newCursor)
+      const files: FileList = event.dataTransfer.files
+      if (files && files.length >= 1) {
+        handleUpload(files[0], editor)
+      }
       setShowDropOverlay(false)
     }
   }, [editor])
@@ -190,7 +184,11 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     }
   }, [editor])
 
-  const onDragEnterHandler = useCallback(() => setShowDropOverlay(true), [])
+  const onDragEnterHandler = useCallback((_: Editor, event: DropEvent) => {
+    if (event && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      setShowDropOverlay(true)
+    }
+  }, [])
 
   const onMaxLengthHide = useCallback(() => setShowMaxLengthWarning(false), [])
 
@@ -232,7 +230,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       />
       <ShowIf condition={showDropOverlay}>
         <DropOverlay
-          onDrop={onDropCallback}
+          onDrop={onDrop}
           onDragLeave={onDragLeaveCallback}
           onDragOver={onDragOverCallback}
         />
@@ -243,7 +241,6 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         options={codeMirrorOptions}
         onChange={onChange}
         onPaste={onPaste}
-        onDrop={onDrop}
         onDragEnter={onDragEnterHandler}
         onCursorActivity={onCursorActivity}
         editorDidMount={onEditorDidMount}
