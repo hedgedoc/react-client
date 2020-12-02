@@ -16,7 +16,6 @@ import {
 
 const isVim = (keyMapName?: string) => (keyMapName?.substr(0, 3) === 'vim')
 
-const pass = (_: Editor): void | typeof Pass => undefined
 const f10 = (editor: Editor): void | typeof Pass => editor.setOption('fullScreen', !editor.getOption('fullScreen'))
 const esc = (editor: Editor): void | typeof Pass => {
   if (editor.getOption('fullScreen') && !isVim(editor.getOption('keyMap'))) {
@@ -25,7 +24,7 @@ const esc = (editor: Editor): void | typeof Pass => {
     return CodeMirror.Pass
   }
 }
-const suppressSave = (): undefined => undefined
+const suppressKey = (): undefined => undefined
 const tab = (editor: Editor) => {
   const tab = '\t'
 
@@ -70,10 +69,10 @@ const tab = (editor: Editor) => {
 
 export const defaultKeyMap: KeyMap = !isMac
   ? {
-      F9: pass,
+      F9: suppressKey,
       F10: f10,
       Esc: esc,
-      'Ctrl-S': suppressSave,
+      'Ctrl-S': suppressKey,
       Enter: 'newlineAndIndentContinueMarkdownList',
       Tab: tab,
       Home: 'goLineLeftSmart',
@@ -85,10 +84,10 @@ export const defaultKeyMap: KeyMap = !isMac
       'Ctrl-M': markSelection
     }
   : {
-      F9: pass,
+      F9: suppressKey,
       F10: f10,
       Esc: esc,
-      'Cmd-S': suppressSave,
+      'Cmd-S': suppressKey,
       Enter: 'newlineAndIndentContinueMarkdownList',
       Tab: tab,
       'Cmd-Left': 'goLineLeftSmart',
