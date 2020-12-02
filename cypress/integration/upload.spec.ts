@@ -26,7 +26,8 @@ describe('Upload', () => {
       .trigger('dragstart', { dataTransfer })
     cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span  span')
       .trigger('drop', { dataTransfer })
-      .contains('linline3e 1')
+    cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span  span')
+      .should('have.text', 'linline3e 1')
   })
 
   describe('upload works', () => {
