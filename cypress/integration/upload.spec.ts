@@ -68,7 +68,8 @@ describe('Upload', () => {
     it('via drag and drop', () => {
       const dropEvent = {
         dataTransfer: {
-          files: [Cypress.Blob.base64StringToBlob(this.image, 'image/png')]
+          files: [Cypress.Blob.base64StringToBlob(this.image, 'image/png')],
+          effectAllowed: 'uninitialized'
         }
       }
       cy.get('.CodeMirror-scroll').trigger('dragenter', dropEvent)

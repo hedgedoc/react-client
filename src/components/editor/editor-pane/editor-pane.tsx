@@ -86,6 +86,7 @@ interface DropEvent {
   pageY: number,
   dataTransfer: {
     files: FileList
+    effectAllowed: string
   } | null
   preventDefault: () => void
 }
@@ -172,7 +173,10 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     }
   }, [editor])
 
-  const onDragLeaveCallback = useCallback(() => setShowDropOverlay(false), [])
+  const onDragLeaveCallback = useCallback(() => {
+    console.log('remove')
+    setShowDropOverlay(false)
+  }, [])
 
   const onDragOverCallback = useCallback((event: React.DragEvent<Element>) => {
     event.preventDefault()
@@ -185,7 +189,8 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   }, [editor])
 
   const onDragEnterHandler = useCallback((_: Editor, event: DropEvent) => {
-    if (event && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+    console.log(event)
+    if (event && event.dataTransfer && event.dataTransfer.effectAllowed === 'uninitialized') {
       setShowDropOverlay(true)
     }
   }, [])
