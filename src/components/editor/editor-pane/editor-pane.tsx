@@ -237,7 +237,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         />
       </ShowIf>
       <ControlledCodeMirror
-        className={`overflow-hidden w-100 flex-fill ${ligaturesEnabled ? '' : 'no-ligatures'}`}
+        className={`overflow-hidden w-100 flex-fill ${ligaturesEnabled ? '' : 'no-ligatures'} ${showDropOverlay ? 'file-drag' : ''}`}
         value={content}
         options={codeMirrorOptions}
         onChange={onChange}
