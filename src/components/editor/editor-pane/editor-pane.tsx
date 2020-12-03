@@ -173,10 +173,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
     }
   }, [editor])
 
-  const onDragLeaveCallback = useCallback(() => {
-    console.log('remove')
-    setShowDropOverlay(false)
-  }, [])
+  const onDragLeaveCallback = useCallback(() => setShowDropOverlay(false), [])
 
   const onDragOverCallback = useCallback((event: React.DragEvent<Element>) => {
     event.preventDefault()
@@ -189,7 +186,6 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   }, [editor])
 
   const onDragEnterHandler = useCallback((_: Editor, event: DropEvent) => {
-    console.log(event)
     if (event && event.dataTransfer && event.dataTransfer.effectAllowed === 'uninitialized') {
       setShowDropOverlay(true)
     }
