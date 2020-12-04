@@ -73,7 +73,7 @@ describe('Upload', () => {
         }
       }
       cy.get('.CodeMirror-scroll').trigger('dragenter', dropEvent)
-      cy.get('.drop-overlay').trigger('drop', dropEvent)
+      cy.get('.CodeMirror-scroll').trigger('drop', dropEvent)
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', `![](${imageUrl})`)
     })
