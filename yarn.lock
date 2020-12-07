@@ -9458,14 +9458,21 @@ markmap-common@^0.1.0:
   dependencies:
     "@babel/runtime" "^7.12.1"
 
-markmap-lib@0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/markmap-lib/-/markmap-lib-0.10.2.tgz#68c855021f5e43068fd2a47f398bb4daa52044a3"
-  integrity sha512-IKtYn3gZMB0wgG3D4N56HlwpQTI+adK03JpzEwe+05h7RlJhuIq466W8hTGRs7JE8r0gL8Q/8J5xoulkabKPFQ==
+markmap-common@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/markmap-common/-/markmap-common-0.1.2.tgz#2ffdfbcd9a7d27765d326c253174e606216c6762"
+  integrity sha512-2HcqhhXogGvofOJMfqCBU5ZGSgUxluz81f7uCSKu9iTQFirFp4xGlRn8VXhuRv5O7TONfnA9a/6g1++EPstjag==
+  dependencies:
+    "@babel/runtime" "^7.12.1"
+
+markmap-lib@0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/markmap-lib/-/markmap-lib-0.11.1.tgz#08118d394b564218a660111d755b3316ca044695"
+  integrity sha512-oUJOy3EE/+0irnIsL+hb2+dnhdT4t7L0vUGSwtlX0I9F5nkuPmd0pInVAwzN2iasRg/qyuYo4NOb+yDw3vWjjA==
   dependencies:
     "@babel/runtime" "^7.12.5"
     katex "^0.12.0"
-    markmap-common "^0.1.0"
+    markmap-common "^0.1.2"
     prismjs "^1.21.0"
     remarkable "^2.0.0"
     remarkable-katex "^1.1.6"
