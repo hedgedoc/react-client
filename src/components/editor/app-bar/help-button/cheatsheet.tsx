@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { BasicMarkdownRenderer } from '../../../markdown-renderer/basic-markdown-renderer'

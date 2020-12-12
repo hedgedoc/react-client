@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { Settings } from 'luxon'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 

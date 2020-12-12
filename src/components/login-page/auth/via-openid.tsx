@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { doOpenIdLogin } from '../../../api/auth'

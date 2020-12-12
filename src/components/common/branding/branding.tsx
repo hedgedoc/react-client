@@ -5,7 +5,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import equal from 'fast-deep-equal'
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
 import { ShowIf } from '../show-if/show-if'

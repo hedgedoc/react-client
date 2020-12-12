@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 export const useExtractFirstHeadline = (documentElement: React.RefObject<HTMLDivElement>, content: string, onFirstHeadingChange?: (firstHeading: string | undefined) => void): void => {
   const extractInnerText = useCallback((node: ChildNode): string => {

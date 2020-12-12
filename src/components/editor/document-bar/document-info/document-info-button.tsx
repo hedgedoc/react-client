@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { DateTime } from 'luxon'
-import React, { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { ListGroup, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'

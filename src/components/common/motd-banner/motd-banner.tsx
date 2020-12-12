@@ -5,7 +5,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import equal from 'fast-deep-equal'
-import React from 'react'
 import { Alert, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'

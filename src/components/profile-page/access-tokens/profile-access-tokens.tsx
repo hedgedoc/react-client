@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { DateTime } from 'luxon'
-import React, { ChangeEvent, FormEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import { ChangeEvent, FormEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Col, Form, ListGroup, Modal, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { deleteAccessToken, getAccessTokenList, postNewAccessToken } from '../../../api/tokens'

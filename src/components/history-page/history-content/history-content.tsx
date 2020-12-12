@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { Fragment, useState } from 'react'
+import  { Fragment, useState } from 'react'
 import { Alert, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { PagerPagination } from '../../common/pagination/pager-pagination'

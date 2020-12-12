@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import CodeMirror from 'codemirror'
-import React, { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'

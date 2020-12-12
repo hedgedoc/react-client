@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useEffect, useState } from 'react'
+import  { useCallback, useEffect, useState } from 'react'
 import { Button, Form, ModalFooter } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'

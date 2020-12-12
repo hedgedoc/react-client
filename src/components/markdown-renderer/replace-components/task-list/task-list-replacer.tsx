@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { DomElement } from 'domhandler'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 
 export class TaskListReplacer extends ComponentReplacer {

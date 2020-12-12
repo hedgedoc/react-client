@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import equal from 'fast-deep-equal'
-import React, { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Button, Col, Modal, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'

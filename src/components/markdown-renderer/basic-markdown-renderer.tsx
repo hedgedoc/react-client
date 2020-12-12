@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import MarkdownIt from 'markdown-it'
-import React, { ReactElement, RefObject, useMemo, useRef } from 'react'
+import { ReactElement, RefObject, useMemo, useRef } from 'react'
 import { Alert } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import { Trans } from 'react-i18next'

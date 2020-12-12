@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router'

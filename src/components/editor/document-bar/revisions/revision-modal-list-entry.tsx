@@ -5,7 +5,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { DateTime } from 'luxon'
-import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { RevisionListEntry } from '../../../../api/revisions/types'

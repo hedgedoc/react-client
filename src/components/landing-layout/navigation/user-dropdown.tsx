@@ -5,7 +5,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import equal from 'fast-deep-equal'
-import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'

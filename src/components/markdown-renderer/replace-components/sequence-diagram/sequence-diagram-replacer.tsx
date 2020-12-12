@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { DomElement } from 'domhandler'
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { MermaidChart } from '../mermaid/mermaid-chart'
 import { DeprecationWarning } from './deprecation-warning'

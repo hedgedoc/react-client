@@ -5,7 +5,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 import { DomElement } from 'domhandler'
-import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { VegaChart } from './vega-chart'
 

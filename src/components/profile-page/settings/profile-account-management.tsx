@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Button, Card, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { deleteUser } from '../../../api/me'

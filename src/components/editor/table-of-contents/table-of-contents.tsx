@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { Fragment, ReactElement, useMemo } from 'react'
+import { Fragment, ReactElement, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { TocAst } from 'markdown-it-toc-done-right'
 import { ShowIf } from '../../common/show-if/show-if'

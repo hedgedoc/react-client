@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { useFrontendBaseUrl } from '../../hooks/common/use-frontend-base-url'
 import './application-loader.scss'
 import { createSetUpTaskList, InitTask } from './initializers'

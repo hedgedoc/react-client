@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { parseCsv } from './csv-parser'
 
 export interface CsvTableProps {

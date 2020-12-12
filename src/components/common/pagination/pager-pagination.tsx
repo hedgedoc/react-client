@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Pagination } from 'react-bootstrap'
 import { ShowIf } from '../show-if/show-if'
 import { PagerItem } from './pager-item'

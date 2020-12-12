@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 import { Picker } from 'emoji-picker-element'
 import { CustomEmoji, EmojiClickEvent, EmojiClickEventDetail } from 'emoji-picker-element/shared'
-import React, { useEffect, useRef } from 'react'
+import  { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useClickAway } from 'react-use'
 import { ApplicationState } from '../../../../../redux'

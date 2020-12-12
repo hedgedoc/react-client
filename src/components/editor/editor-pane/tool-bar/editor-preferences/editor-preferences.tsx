@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 import { EditorConfiguration } from 'codemirror'
 import equal from 'fast-deep-equal'
-import React, { Fragment, useCallback, useState } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import { Button, Form, ListGroup } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'

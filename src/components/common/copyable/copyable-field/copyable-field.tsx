@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { Fragment, useRef } from 'react'
+import { Fragment, useRef } from 'react'
 import { Button, FormControl, InputGroup } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../fork-awesome/fork-awesome-icon'
