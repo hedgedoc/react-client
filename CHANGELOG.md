@@ -70,6 +70,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 - Use KaTeX instead of MathJax. ([Why?](https://community.codimd.org/t/frequently-asked-questions/190))
 - The dark-mode is also applied to the read-only-view and can be toggled from there.
 - Access tokens for the CLI and 3rd-party-clients can be managed in the user profile.
+- Change editor font to "Fira Code"
 
 ---
 
