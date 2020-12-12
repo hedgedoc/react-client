@@ -20,3 +20,11 @@
   font-size: 18px;
   height: 100%;
 }
+
+.no-ligatures .CodeMirror {
+  .CodeMirror-line, .CodeMirror-line-like {
+    font-variant-ligatures: initial;
+    font-feature-settings: initial;
+  }
+}
+
