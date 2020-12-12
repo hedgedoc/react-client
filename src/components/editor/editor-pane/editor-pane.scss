@@ -22,9 +22,12 @@
 }
 
 .no-ligatures .CodeMirror {
+  //These two properties must be set separately because otherwise node-scss breaks.
   .CodeMirror-line, .CodeMirror-line-like {
-    font-variant-ligatures: initial;
-    font-feature-settings: initial;
+    font-feature-settings: inherit;
+  }
+  .CodeMirror-line, .CodeMirror-line-like {
+    font-variant-ligatures: none;
   }
 }
 
