@@ -8,7 +8,7 @@ import { Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 
 export enum EditorPreferenceInputType {
-  STRING,
+  SELECT,
   BOOLEAN,
   NUMBER
 }
@@ -22,11 +22,10 @@ export interface EditorPreferenceInputProps {
 
 export const EditorPreferenceInput: React.FC<EditorPreferenceInputProps> = ({ property, type, onChange, value, children }) => {
   useTranslation()
-
   return (
     <Form.Group controlId={`editor-pref-${property}`}>
       <Form.Label>
-        <Trans i18nKey={`editor.modal.preferences.${property}`}/>
+        <Trans i18nKey={`editor.modal.preferences.${property}${type===EditorPreferenceInputType.NUMBER ? '' : '.label'}`}/>
       </Form.Label>
       <Form.Control
         as={type === EditorPreferenceInputType.NUMBER ? 'input' : 'select'}

@@ -389,12 +389,31 @@
             },
             "preferences": {
                 "title": "Preferences",
-                "theme": "Editor theme",
-                "keyMap": "Keymap",
-                "indentWithTabs": "Tab character",
+                "theme": {
+                    "label": "Editor theme",
+                    "one-dark": "Dark",
+                    "neat": "Light"
+                },
+                "keyMap": {
+                    "label": "Keymap",
+                    "sublime": "Sublime",
+                    "emacs": "Emacs",
+                    "vim": "Vim"
+                },
+                "indentWithTabs": {
+                    "label": "Tab character",
+                    "on": "Tabs",
+                    "off": "Spaces"
+                },
                 "indentUnit": "Tab size (when using spaces)",
-                "spellcheck": "Spell checking",
-                "ligatures": "Enable ligatures"
+                "spellcheck": {
+                    "label": "Spell checking"
+                },
+                "ligatures": {
+                    "label": "Show ligatures",
+                    "on": "On",
+                    "off": "Off"
+                }
             }
         },
         "embeddings": {

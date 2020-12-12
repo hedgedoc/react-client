@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import React, { ChangeEvent, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../../../redux'
 import { setEditorLigatures } from '../../../../../redux/editor/methods'
@@ -15,12 +16,13 @@ export const EditorPreferenceLigaturesSelect: React.FC = () => {
     const ligaturesActivated: boolean = event.target.value === 'true'
     setEditorLigatures(ligaturesActivated)
   }, [])
+  const { t } = useTranslation()
 
   return (
     <EditorPreferenceInput onChange={saveLigatures} value={ligaturesEnabled} property={"ligatures"}
                            type={EditorPreferenceInputType.BOOLEAN}>
-      <option value='false'>Off</option>
-      <option value='true'>On</option>
+      <option value='false'>{t(`editor.modal.preferences.ligatures.off`)}</option>
+      <option value='true'>{t(`editor.modal.preferences.ligatures.on`)}</option>
     </EditorPreferenceInput>
   )
 }
