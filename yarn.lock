@@ -6913,11 +6913,6 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
 
-fontsource-source-code-pro@3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/fontsource-source-code-pro/-/fontsource-source-code-pro-3.1.5.tgz#0f000f06dfa7220f62c64f572e5d9ee1fd087a8e"
-  integrity sha512-eoYyrTaNcgrWc62w0pImfualDr2JE4SKpeGlEqV+Y34tHYbuD5jTIkzx3GrDH4eDw9KDS5wQdlnSVOj+SVy0Zw==
-
 fontsource-source-sans-pro@3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/fontsource-source-sans-pro/-/fontsource-source-sans-pro-3.1.5.tgz#575edceadf0e68603c1c74b087f4423738cce2f9"
