@@ -18,7 +18,8 @@
 # ide
 .idea
 !.idea/dictionaries/hedgedoc.xml
-
+!.idea/copyright/*
+!.idea/jsLinters/*
 # misc
 .DS_Store
 .env.local
