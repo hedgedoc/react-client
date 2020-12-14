@@ -55,6 +55,7 @@ export const EditorConfigReducer: Reducer<EditorConfig, EditorConfigActions> = (
         ...state,
         ligatures: (action as SetEditorLigaturesAction).ligatures
       }
+      saveToLocalStorage(newState)
       return newState
     case EditorConfigActionType.MERGE_EDITOR_PREFERENCES:
       newState = {
