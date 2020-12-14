@@ -410,9 +410,7 @@
                     "label": "Spell checking"
                 },
                 "ligatures": {
-                    "label": "Show ligatures",
-                    "on": "On",
-                    "off": "Off"
+                    "label": "Show ligatures"
                 }
             }
         },
@@ -433,6 +431,8 @@
         }
     },
     "common": {
+        "yes": "Yes",
+        "no": "No",
         "import": "Import",
         "export": "Export",
         "refresh": "Refresh",
