@@ -21,8 +21,8 @@ export const EditorPreferenceLigaturesSelect: React.FC = () => {
   return (
     <EditorPreferenceInput onChange={saveLigatures} value={ligaturesEnabled} property={"ligatures"}
                            type={EditorPreferenceInputType.BOOLEAN}>
-      <option value='false'>{t(`common.yes`)}</option>
-      <option value='true'>{t(`common.no`)}</option>
+      <option value='false'>{t(`common.no`)}</option>
+      <option value='true'>{t(`common.yes`)}</option>
     </EditorPreferenceInput>
   )
 }
