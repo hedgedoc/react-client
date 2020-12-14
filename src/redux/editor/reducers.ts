@@ -11,7 +11,8 @@ import {
   EditorConfig,
   EditorConfigActions,
   EditorConfigActionType,
-  SetEditorConfigAction, SetEditorLigaturesAction,
+  SetEditorConfigAction,
+  SetEditorLigaturesAction,
   SetEditorPreferencesAction,
   SetEditorSyncScrollAction
 } from './types'
@@ -54,7 +55,7 @@ export const EditorConfigReducer: Reducer<EditorConfig, EditorConfigActions> = (
         ...state,
         ligatures: (action as SetEditorLigaturesAction).ligatures
       }
-      return newState;
+      return newState
     case EditorConfigActionType.MERGE_EDITOR_PREFERENCES:
       newState = {
         ...state,
