@@ -405,7 +405,7 @@
                     "on": "Tabs",
                     "off": "Spaces"
                 },
-                "indentUnit": "Tab size (when using spaces)",
+                "indentUnit": "Number of spaces per tab",
                 "spellcheck": {
                     "label": "Spell checking"
                 },
