@@ -156,7 +156,8 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   }, [maxLength])
 
   const onDrop = useCallback((dropEditor: Editor, event: DropEvent) => {
-    if (event && dropEditor && event.pageX && event.pageY && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length >= 1) {
+    if (event && dropEditor && event.pageX && event.pageY && event.dataTransfer &&
+      event.dataTransfer.files && event.dataTransfer.files.length >= 1) {
       event.preventDefault()
       const top: number = event.pageY
       const left: number = event.pageX
