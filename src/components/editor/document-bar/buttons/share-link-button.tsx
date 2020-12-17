@@ -9,16 +9,21 @@ import React, { Fragment, useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useFrontendBaseUrl } from '../../../../hooks/common/use-frontend-base-url'
 import { ApplicationState } from '../../../../redux'
 import { CopyableField } from '../../../common/copyable/copyable-field/copyable-field'
 import { TranslatedIconButton } from '../../../common/icon-button/translated-icon-button'
 import { CommonModal } from '../../../common/modals/common-modal'
 import { ShowIf } from '../../../common/show-if/show-if'
+import { EditorPathParams } from '../../editor'
 
 export const ShareLinkButton: React.FC = () => {
   useTranslation()
   const [showShareDialog, setShowShareDialog] = useState(false)
   const noteMetadata = useSelector((state: ApplicationState) => state.documentContent.metadata, equal)
+  const baseUrl = useFrontendBaseUrl()
+  const { id } = useParams<EditorPathParams>()
 
   return (
     <Fragment>
@@ -37,14 +42,14 @@ export const ShareLinkButton: React.FC = () => {
         titleI18nKey={'editor.modal.shareLink.title'}>
         <Modal.Body>
           <Trans i18nKey={'editor.modal.shareLink.editorDescription'}/>
-          <CopyableField content={'edit link'} nativeShareButton={true} url={''}/>
+          <CopyableField content={`${baseUrl}/n/${id}`} nativeShareButton={true} url={`${baseUrl}/n/${id}`}/>
           <ShowIf condition={noteMetadata.type === 'slide'}>
             <Trans i18nKey={'editor.modal.shareLink.slidesDescription'}/>
-            <CopyableField content={'slides link'} nativeShareButton={true} url={''}/>
+            <CopyableField content={`${baseUrl}/p/${id}`} nativeShareButton={true} url={`${baseUrl}/p/${id}`}/>
           </ShowIf>
           <ShowIf condition={noteMetadata.type === ''}>
             <Trans i18nKey={'editor.modal.shareLink.viewOnlyDescription'}/>
-            <CopyableField content={'view link'} nativeShareButton={true} url={''}/>
+            <CopyableField content={`${baseUrl}/s/${id}`} nativeShareButton={true} url={`${baseUrl}/s/${id}`}/>
           </ShowIf>
         </Modal.Body>
       </CommonModal>
