@@ -8,6 +8,8 @@ import { useLocation } from 'react-router'
 
 export const useFrontendBaseUrl = (): string => {
   const { pathname } = useLocation()
+  const loc = window.location
+  const cleanedPathName = loc.pathname.replace(pathname, '')
 
-  return window.location.href.replace(pathname, '')
+  return `${loc.protocol}//${loc.host}${cleanedPathName}`
 }
