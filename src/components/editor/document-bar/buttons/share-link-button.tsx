@@ -22,6 +22,7 @@ export const ShareLinkButton: React.FC = () => {
   useTranslation()
   const [showShareDialog, setShowShareDialog] = useState(false)
   const noteMetadata = useSelector((state: ApplicationState) => state.documentContent.metadata, equal)
+  const editorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const baseUrl = useFrontendBaseUrl()
   const { id } = useParams<EditorPathParams>()
 
@@ -42,7 +43,7 @@ export const ShareLinkButton: React.FC = () => {
         titleI18nKey={'editor.modal.shareLink.title'}>
         <Modal.Body>
           <Trans i18nKey={'editor.modal.shareLink.editorDescription'}/>
-          <CopyableField content={`${baseUrl}/n/${id}`} nativeShareButton={true} url={`${baseUrl}/n/${id}`}/>
+          <CopyableField content={`${baseUrl}/n/${id}?${editorMode}`} nativeShareButton={true} url={`${baseUrl}/n/${id}?${editorMode}`}/>
           <ShowIf condition={noteMetadata.type === 'slide'}>
             <Trans i18nKey={'editor.modal.shareLink.slidesDescription'}/>
             <CopyableField content={`${baseUrl}/p/${id}`} nativeShareButton={true} url={`${baseUrl}/p/${id}`}/>
