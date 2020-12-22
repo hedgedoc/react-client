@@ -8,6 +8,8 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { TocAst } from 'markdown-it-toc-done-right'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../../redux'
 import { InternalLink } from '../common/links/internal-link'
 import { ShowIf } from '../common/show-if/show-if'
 import { RawYAMLMetadata, YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
@@ -42,6 +44,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   const allReplacers = useReplacerInstanceListCreator(onTaskCheckedChange)
 
   const [yamlError, setYamlError] = useState(false)
+  const yamlDeprecatedTags = useSelector((state: ApplicationState) => state.documentContent.yamlMetadata?.deprecatedTagsSyntax ?? false)
 
   const rawMetaRef = useRef<RawYAMLMetadata>()
   const firstHeadingRef = useRef<string>()
@@ -81,6 +84,11 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
           <Trans i18nKey='editor.invalidYaml'>
             <InternalLink text='yaml-metadata' href='/n/yaml-metadata' className='text-dark'/>
           </Trans>
+        </Alert>
+      </ShowIf>
+      <ShowIf condition={yamlDeprecatedTags}>
+        <Alert variant='warning' dir='auto'>
+          <Trans i18nKey='editor.deprecatedTags'/>
         </Alert>
       </ShowIf>
       <BasicMarkdownRenderer className={className} wide={wide} content={content} componentReplacers={allReplacers}

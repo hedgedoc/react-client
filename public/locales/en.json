@@ -185,6 +185,7 @@
         "untitledNote": "Untitled",
         "placeholder": "← Start by entering a title here\n===\nVisit the features page if you don't know what to do.\nHappy hacking :)",
         "invalidYaml": "The yaml-header is invalid. See <0></0> for more information.",
+        "deprecatedTags": "The comma-separated definition of tags in the YAML-metadata is deprecated. Convert them to a YAML-collection instead.",
         "infoToc": "Structure your note with headings to see a table-of-contents here.",
         "help": {
             "shortcuts": {

@@ -27,6 +27,7 @@ export class YAMLMetaData {
   title: string
   description: string
   tags: string[]
+  deprecatedTagsSyntax: boolean
   robots: string
   lang: iso6391
   dir: 'ltr' | 'rtl'
@@ -55,8 +56,10 @@ export class YAMLMetaData {
     } */
     if (typeof rawData?.tags === 'string') {
       this.tags = rawData?.tags?.split(',').map(entry => entry.trim()) ?? []
+      this.deprecatedTagsSyntax = true
     } else {
       this.tags = rawData?.tags?.filter(tag => tag !== null) ?? []
+      this.deprecatedTagsSyntax = false
     }
     this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
   }
