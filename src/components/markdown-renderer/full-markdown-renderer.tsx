@@ -44,7 +44,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
   const allReplacers = useReplacerInstanceListCreator(onTaskCheckedChange)
 
   const [yamlError, setYamlError] = useState(false)
-  const yamlDeprecatedTags = useSelector((state: ApplicationState) => state.documentContent.yamlMetadata?.deprecatedTagsSyntax ?? false)
+  const yamlDeprecatedTags = useSelector((state: ApplicationState) => state.documentContent.metadata.deprecatedTagsSyntax)
 
   const rawMetaRef = useRef<RawYAMLMetadata>()
   const firstHeadingRef = useRef<string>()
