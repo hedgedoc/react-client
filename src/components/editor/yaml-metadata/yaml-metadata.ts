@@ -57,9 +57,12 @@ export class YAMLMetaData {
     if (typeof rawData?.tags === 'string') {
       this.tags = rawData?.tags?.split(',').map(entry => entry.trim()) ?? []
       this.deprecatedTagsSyntax = true
-    } else {
+    } else if (typeof rawData?.tags === 'object') {
       this.tags = rawData?.tags?.filter(tag => tag !== null) ?? []
       this.deprecatedTagsSyntax = false
+    } else {
+      this.tags = []
+      this.deprecatedTagsSyntax = true
     }
     this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
   }
