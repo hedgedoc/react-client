@@ -62,9 +62,9 @@ export const Editor: React.FC = () => {
   useEffect(() => {
     setDocumentContent(editorTestContent)
     const requestedMode = search.substr(1)
-    const mode = Object.values(EditorMode).filter(mode => mode === requestedMode)
-    if (mode.length === 1) {
-      setEditorMode(mode[0])
+    const mode = Object.values(EditorMode).find(mode => mode === requestedMode)
+    if (mode) {
+      setEditorMode(mode)
     }
   }, [search])
 
