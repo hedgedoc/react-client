@@ -22,7 +22,7 @@ You'll need at least Node 12. We use [yarn](https://yarnpkg.com/) for our depend
 2. Go inside the repo (e.g. `cd hedgedoc-react-client`)
 3. Run `yarn install`
 4. Either run
-    - `yarn start:dev` (expects [a server](https://github.com/hedgedoc/server/tree/develop) running under [http://localhost:3000](http://localhost:3000))
+    - `yarn start:dev` (expects [a server](https://github.com/hedgedoc/hedgedoc/tree/develop) running under [http://localhost:3000](http://localhost:3000))
     - `yarn start` (makes all api calls to the same domain the react-client runs on (normally [http://localhost:3001](http://localhost:3001) ))
 
 This should run the app in the development mode and open [http://localhost:3001](http://localhost:3001) in your browser.
