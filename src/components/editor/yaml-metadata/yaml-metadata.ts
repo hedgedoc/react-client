@@ -53,10 +53,10 @@ export class YAMLMetaData {
       transition: 'none',
       theme: 'white'
     } */
-    if (typeof rawData.tags === 'string') {
-      this.tags = rawData.tags?.split(',').map(entry => entry.trim()) ?? []
+    if (typeof rawData?.tags === 'string') {
+      this.tags = rawData?.tags?.split(',').map(entry => entry.trim()) ?? []
     } else {
-      this.tags = rawData.tags?.filter(tag => tag !== null) ?? []
+      this.tags = rawData?.tags?.filter(tag => tag !== null) ?? []
     }
     this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
   }
