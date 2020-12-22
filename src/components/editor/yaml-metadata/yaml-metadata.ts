@@ -11,7 +11,7 @@ type iso6391 = 'aa' | 'ab' | 'af' | 'am' | 'ar' | 'ar-ae' | 'ar-bh' | 'ar-dz' | 
 export interface RawYAMLMetadata {
   title: string | undefined
   description: string | undefined
-  tags: string | undefined
+  tags: string | string[] | undefined
   robots: string | undefined
   lang: string | undefined
   dir: string | undefined
@@ -53,7 +53,11 @@ export class YAMLMetaData {
       transition: 'none',
       theme: 'white'
     } */
-    this.tags = rawData?.tags?.split(',').map(entry => entry.trim()) ?? []
+    if (typeof rawData.tags === 'string') {
+      this.tags = rawData.tags?.split(',').map(entry => entry.trim()) ?? []
+    } else {
+      this.tags = rawData.tags?.filter(tag => tag !== null) ?? []
+    }
     this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
   }
 }
