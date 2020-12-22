@@ -69,7 +69,7 @@ describe('yaml tests', () => {
     })
   })
 
-  it('tags only', () => {
+  it('tags only (old syntax)', () => {
     testMetadata(`---
     tags: test123, abc
     ___
@@ -80,6 +80,34 @@ describe('yaml tests', () => {
     {
       tags: ['test123', 'abc']
     })
+  })
+
+  it('tags only', () => {
+    testMetadata(`---
+    tags:
+      - test123
+      - abc
+    ___
+    `,
+      {
+        tags: ['test123', 'abc']
+      },
+      {
+        tags: ['test123', 'abc']
+      })
+  })
+
+  it('tags only (alternative syntax)', () => {
+    testMetadata(`---
+    tags: ['test123', 'abc']
+    ___
+    `,
+      {
+        tags: ['test123', 'abc']
+      },
+      {
+        tags: ['test123', 'abc']
+      })
   })
 
   it('breaks only', () => {
