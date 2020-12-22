@@ -78,7 +78,8 @@ describe('yaml tests', () => {
       tags: 'test123, abc'
     },
     {
-      tags: ['test123', 'abc']
+      tags: ['test123', 'abc'],
+      deprecatedTagsSyntax: true
     })
   })
 
@@ -93,7 +94,8 @@ describe('yaml tests', () => {
         tags: ['test123', 'abc']
       },
       {
-        tags: ['test123', 'abc']
+        tags: ['test123', 'abc'],
+        deprecatedTagsSyntax: false
       })
   })
 
@@ -106,7 +108,8 @@ describe('yaml tests', () => {
         tags: ['test123', 'abc']
       },
       {
-        tags: ['test123', 'abc']
+        tags: ['test123', 'abc'],
+        deprecatedTagsSyntax: false
       })
   })
 
