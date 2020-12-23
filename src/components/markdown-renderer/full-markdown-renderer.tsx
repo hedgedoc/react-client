@@ -10,6 +10,7 @@ import { Trans } from 'react-i18next'
 import { TocAst } from 'markdown-it-toc-done-right'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../redux'
+import { ExternalLink } from '../common/links/external-link'
 import { InternalLink } from '../common/links/internal-link'
 import { ShowIf } from '../common/show-if/show-if'
 import { RawYAMLMetadata, YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
@@ -88,7 +89,9 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
       </ShowIf>
       <ShowIf condition={yamlDeprecatedTags}>
         <Alert variant='warning' dir='auto'>
-          <Trans i18nKey='editor.deprecatedTags'/>
+          <Trans i18nKey='editor.deprecatedTags'>
+            <ExternalLink text='FAQ' href='https://hedgedoc.org/faq/'/>
+          </Trans>
         </Alert>
       </ShowIf>
       <BasicMarkdownRenderer className={className} wide={wide} content={content} componentReplacers={allReplacers}
