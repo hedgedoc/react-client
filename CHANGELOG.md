@@ -16,6 +16,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
     - `{%slideshare user/my-awesome-presentation %}` -> Embedding removed
     - `{%speakerdeck foobar %}` -> Embedding removed
 - The use of `sequence` as code block language ([Why?](https://hedgedoc.org/faq/))
+- Comma-separated definition of tags in the yaml-metadata
 
 ### Removed
 
@@ -33,6 +34,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 - Import content from a url
 - F9 shortcut to sort lines
 - Highlight.JS language support for `1c` was removed.
+- Support for tag-definitions in headings
 
 ### Added
 
