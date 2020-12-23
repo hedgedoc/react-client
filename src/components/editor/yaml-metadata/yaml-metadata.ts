@@ -62,7 +62,7 @@ export class YAMLMetaData {
       this.deprecatedTagsSyntax = false
     } else {
       this.tags = []
-      this.deprecatedTagsSyntax = true
+      this.deprecatedTagsSyntax = false
     }
     this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
   }
