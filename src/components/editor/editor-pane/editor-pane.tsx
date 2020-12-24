@@ -95,6 +95,7 @@ interface DropEvent {
 export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentChange, content, scrollState, onScroll, onMakeScrollSource }) => {
   const { t } = useTranslation()
   const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
+  const noteId = useSelector((state: ApplicationState) => state.documentContent.noteId)
   const [showMaxLengthWarning, setShowMaxLengthWarning] = useState(false)
   const maxLengthWarningAlreadyShown = useRef(false)
   const [editor, setEditor] = useState<Editor>()
@@ -174,7 +175,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   useEffect(() => {
     if (editor) {
       const ydoc = new Y.Doc()
-      const wsProvider = new WebsocketProvider('wss://yjs-test.hedgedoc.net', 'test-room', ydoc)
+      const wsProvider = new WebsocketProvider('wss://yjs-test.hedgedoc.net', noteId, ydoc)
       const yText = ydoc.getText('codemirror')
       const binding = new CodemirrorBinding(yText, editor, wsProvider.awareness)
     }
