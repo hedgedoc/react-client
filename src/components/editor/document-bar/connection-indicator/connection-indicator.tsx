@@ -15,8 +15,8 @@ import { UserLine } from './user-line'
 
 const ConnectionIndicator: React.FC = () => {
   const connectionState = useSelector((state: ApplicationState) => state.connection.state)
+  const clients = useSelector((state: ApplicationState) => state.connection.clients)
 
-  const userOnline = 2
   return (
     <Dropdown className="small mx-2" alignRight>
       <Dropdown.Toggle id="connection-indicator" size="sm" variant={
@@ -26,15 +26,19 @@ const ConnectionIndicator: React.FC = () => {
             ? 'danger'
             : 'primary'
       } className="text-uppercase">
-        <ForkAwesomeIcon icon="users" className={'mr-1'}/> {userOnline} Online
+        <ForkAwesomeIcon icon="users" className={'mr-1'}/> {clients.size} online
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item disabled={true} className="d-flex align-items-center p-0">
-          <UserLine name="Philip Molares" photo="/img/avatar.png" color="red" status={ActiveIndicatorStatus.INACTIVE}/>
-        </Dropdown.Item>
-        <Dropdown.Item disabled={true} className="d-flex align-items-center p-0">
-          <UserLine name="Philip Molares" photo="/img/avatar.png" color="blue" status={ActiveIndicatorStatus.ACTIVE}/>
-        </Dropdown.Item>
+        {
+          Array.from(clients.values()).map((client, id) => {
+            return (
+              <Dropdown.Item disabled={true} className="d-flex align-items-center p-0" key={id}>
+                {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */}
+                <UserLine name={client.user?.name ?? 'Unknown user'} photo="/img/avatar.png" color="red" status={ActiveIndicatorStatus.ACTIVE}/>
+              </Dropdown.Item>
+            )
+          })
+        }
       </Dropdown.Menu>
     </Dropdown>
   )

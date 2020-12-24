@@ -14,7 +14,7 @@ export enum ConnectionActionsType {
 
 export interface Connection {
   state: ConnectionState,
-  clients: Set<number>
+  clients: Map<number, {[p: string]: any}>
 }
 
 export interface ConnectionActions extends Action<ConnectionActionsType> {
@@ -26,5 +26,5 @@ export interface SetConnectionStateAction extends ConnectionActions {
 }
 
 export interface SetConnectionClientsAction extends ConnectionActions {
-  clients: Set<number>
+  clients: Map<number, {[p: string]: any}>
 }

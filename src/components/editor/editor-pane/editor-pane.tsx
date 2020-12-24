@@ -36,7 +36,7 @@ import { CodemirrorBinding } from 'y-codemirror'
 import { WebsocketProvider } from 'y-websocket'
 import * as Y from 'yjs'
 import { ApplicationState } from '../../../redux'
-import { setConnectionState } from '../../../redux/connection/methods'
+import { setConnectionClients, setConnectionState } from '../../../redux/connection/methods'
 import { ConnectionState } from '../document-bar/connection-indicator/connection-state'
 import { MaxLengthWarningModal } from '../editor-modals/max-length-warning-modal'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
@@ -187,6 +187,12 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
           return
         }
         setConnectionState(ConnectionState.UNKNOWN)
+      })
+      wsProvider.awareness.setLocalStateField('user', { color: '#008833', name: `${ydoc.clientID}` })
+      wsProvider.awareness.on('update', () => {
+        const states = wsProvider.awareness.getStates()
+        console.debug('awareness', states)
+        setConnectionClients(states)
       })
     }
   }, [editor, noteId])

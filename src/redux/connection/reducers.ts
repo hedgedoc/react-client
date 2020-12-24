@@ -17,7 +17,7 @@ import {
 export const getInitialState = (): Connection => {
   return {
     state: ConnectionState.UNKNOWN,
-    clients: new Set<number>()
+    clients: new Map<number, {[p: string]: any}>()
   }
 }
 

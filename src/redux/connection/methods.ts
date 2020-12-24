@@ -16,7 +16,7 @@ export const setConnectionState = (state: ConnectionState): void => {
   store.dispatch(action)
 }
 
-export const setConnectionClients = (clients: Set<number>): void => {
+export const setConnectionClients = (clients: Map<number, {[p: string]: any}>): void => {
   const action: SetConnectionClientsAction = {
     type: ConnectionActionsType.SET_CONNECTION_CLIENTS,
     clients
