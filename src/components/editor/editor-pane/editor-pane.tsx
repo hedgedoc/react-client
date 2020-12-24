@@ -35,6 +35,7 @@ import { useSelector } from 'react-redux'
 import { CodemirrorBinding } from 'y-codemirror'
 import { WebsocketProvider } from 'y-websocket'
 import * as Y from 'yjs'
+import { IndexeddbPersistence } from 'y-indexeddb'
 import { ApplicationState } from '../../../redux'
 import { setConnectionClients, setConnectionState } from '../../../redux/connection/methods'
 import { ConnectionState } from '../document-bar/connection-indicator/connection-state'
@@ -180,6 +181,10 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       const wsProvider = new WebsocketProvider('wss://yjs-test.hedgedoc.net', noteId, ydoc)
       const yText = ydoc.getText('codemirror')
       const binding = new CodemirrorBinding(yText, editor, wsProvider.awareness)
+      const persistence = new IndexeddbPersistence(`note-${noteId}`, ydoc)
+      persistence.once('synced', () => {
+        console.debug('Note content received from IndexedDB.')
+      })
       wsProvider.on('status', (event: { status?: 'connected' | 'disconnected' }) => {
         const matchingState = Object.values(ConnectionState).find(state => state === event?.status)
         if (matchingState) {
