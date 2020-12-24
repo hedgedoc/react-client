@@ -179,7 +179,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       const yText = ydoc.getText('codemirror')
       const binding = new CodemirrorBinding(yText, editor, wsProvider.awareness)
     }
-  }, [editor])
+  }, [editor, noteId])
 
   const onMaxLengthHide = useCallback(() => setShowMaxLengthWarning(false), [])
 
