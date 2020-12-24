@@ -36,6 +36,8 @@ import { CodemirrorBinding } from 'y-codemirror'
 import { WebsocketProvider } from 'y-websocket'
 import * as Y from 'yjs'
 import { ApplicationState } from '../../../redux'
+import { setConnectionState } from '../../../redux/connection/methods'
+import { ConnectionState } from '../document-bar/connection-indicator/connection-state'
 import { MaxLengthWarningModal } from '../editor-modals/max-length-warning-modal'
 import { ScrollProps, ScrollState } from '../scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
@@ -178,6 +180,14 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
       const wsProvider = new WebsocketProvider('wss://yjs-test.hedgedoc.net', noteId, ydoc)
       const yText = ydoc.getText('codemirror')
       const binding = new CodemirrorBinding(yText, editor, wsProvider.awareness)
+      wsProvider.on('status', (event: { status?: 'connected' | 'disconnected' }) => {
+        const matchingState = Object.values(ConnectionState).find(state => state === event?.status)
+        if (matchingState) {
+          setConnectionState(matchingState)
+          return
+        }
+        setConnectionState(ConnectionState.UNKNOWN)
+      })
     }
   }, [editor, noteId])
 
