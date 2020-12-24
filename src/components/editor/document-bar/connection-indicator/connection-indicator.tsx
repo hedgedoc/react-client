@@ -34,7 +34,7 @@ const ConnectionIndicator: React.FC = () => {
             return (
               <Dropdown.Item disabled={true} className="d-flex align-items-center p-0" key={id}>
                 {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */}
-                <UserLine name={client.user?.name ?? 'Unknown user'} photo="/img/avatar.png" color="red" status={ActiveIndicatorStatus.ACTIVE}/>
+                <UserLine name={client.user?.name ?? 'Unknown user'} photo="/img/avatar.png" color={client.user?.color ?? '#fff'} status={ActiveIndicatorStatus.ACTIVE}/>
               </Dropdown.Item>
             )
           })
