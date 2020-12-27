@@ -16,6 +16,7 @@ import { setDocumentContent, setDocumentMetadata, setNoteId } from '../../redux/
 import { setEditorMode } from '../../redux/editor/methods'
 import { extractNoteTitle } from '../common/document-title/note-title-extractor'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
+import { ReloadAppModal } from '../common/reload-app-modal/reload-app-modal'
 import { AppBar, AppBarMode } from './app-bar/app-bar'
 import { EditorMode } from './app-bar/editor-view-mode'
 import { DocumentBar } from './document-bar/document-bar'
@@ -124,6 +125,7 @@ export const Editor: React.FC = () => {
   return (
     <Fragment>
       <MotdBanner/>
+      <ReloadAppModal/>
       <div className={'d-flex flex-column vh-100'}>
         <AppBar mode={AppBarMode.EDITOR}/>
         <DocumentBar title={documentTitle}/>

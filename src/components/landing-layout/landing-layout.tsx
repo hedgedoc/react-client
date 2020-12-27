@@ -8,6 +8,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import { useDocumentTitle } from '../../hooks/common/use-document-title'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
+import { ReloadAppModal } from '../common/reload-app-modal/reload-app-modal'
 import { Footer } from './footer/footer'
 import { HeaderBar } from './navigation/header-bar/header-bar'
 
@@ -17,6 +18,7 @@ export const LandingLayout: React.FC = ({ children }) => {
   return (
     <Container className="text-light d-flex flex-column mvh-100">
       <MotdBanner/>
+      <ReloadAppModal/>
       <HeaderBar/>
       <div className={'d-flex flex-column justify-content-between flex-fill text-center'}>
         <div>

@@ -14,6 +14,7 @@ import { useDocumentTitle } from '../../hooks/common/use-document-title'
 import { setDocumentContent, setDocumentMetadata } from '../../redux/document-content/methods'
 import { extractNoteTitle } from '../common/document-title/note-title-extractor'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
+import { ReloadAppModal } from '../common/reload-app-modal/reload-app-modal'
 import { ShowIf } from '../common/show-if/show-if'
 import { AppBar, AppBarMode } from '../editor/app-bar/app-bar'
 import { DocumentRenderPane } from '../editor/document-renderer-pane/document-render-pane'
@@ -64,6 +65,7 @@ export const PadViewOnly: React.FC = () => {
   return (
     <div className={'d-flex flex-column mvh-100 bg-light'}>
       <MotdBanner/>
+      <ReloadAppModal/>
       <AppBar mode={AppBarMode.BASIC}/>
       <div className={'container'}>
         <ShowIf condition={error}>

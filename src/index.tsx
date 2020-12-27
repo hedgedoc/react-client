@@ -20,6 +20,7 @@ import { PadViewOnly } from './components/pad-view-only/pad-view-only'
 import { ProfilePage } from './components/profile-page/profile-page'
 import { RegisterPage } from './components/register-page/register-page'
 import { store } from './redux'
+import { showReloadAppNotification } from './redux/notification/methods'
 import * as serviceWorkerRegistration from './service-worker-registration'
 import './style/dark.scss'
 import './style/index.scss'
@@ -82,10 +83,14 @@ ReactDOM.render(
 )
 
 if (isTestMode()) {
-  console.log("This build runs in test mode")
+  console.log("This build runs in test mode. This means:\n - Deactivated Service Worker")
 }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorkerRegistration.unregister()
+if (process.env.NODE_ENV === 'production' && !isTestMode()) {
+  serviceWorkerRegistration.register({
+    onSuccess: () => showReloadAppNotification(),
+    onUpdate: () => showReloadAppNotification(),
+  })
+} else {
+  serviceWorkerRegistration.unregister()
+}

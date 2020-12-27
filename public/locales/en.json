@@ -455,6 +455,15 @@
         "copyError": "Error while copying!",
         "errorOccurred": "An error occurred"
     },
+    "global": {
+        "modal": {
+            "reloadApp": {
+                "title": "Update available",
+                "content": "An update for hedgedoc is available. Please reload the page.",
+                "reloadButton": "Reload app"
+            }
+        }
+    },
     "login": {
         "chooseMethod": "Choose method",
         "signInVia": "Sign in via {{service}}",

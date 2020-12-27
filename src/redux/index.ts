@@ -17,6 +17,8 @@ import { DocumentContentReducer } from './document-content/reducers'
 import { DocumentContent } from './document-content/types'
 import { EditorConfigReducer } from './editor/reducers'
 import { EditorConfig } from './editor/types'
+import { NotificationReducer } from './notification/reducers'
+import { NotificationState } from './notification/types'
 import { UserReducer } from './user/reducers'
 import { MaybeUserState } from './user/types'
 
@@ -28,6 +30,7 @@ export interface ApplicationState {
   editorConfig: EditorConfig;
   darkMode: DarkModeConfig;
   documentContent: DocumentContent;
+  notifications: NotificationState
 }
 
 export const allReducers: Reducer<ApplicationState> = combineReducers<ApplicationState>({
@@ -37,7 +40,8 @@ export const allReducers: Reducer<ApplicationState> = combineReducers<Applicatio
   apiUrl: ApiUrlReducer,
   editorConfig: EditorConfigReducer,
   darkMode: DarkModeConfigReducer,
-  documentContent: DocumentContentReducer
+  documentContent: DocumentContentReducer,
+  notifications: NotificationReducer
 })
 
 export const store = createStore(allReducers)
