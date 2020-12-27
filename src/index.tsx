@@ -23,6 +23,7 @@ import { store } from './redux'
 import * as serviceWorkerRegistration from './service-worker-registration'
 import './style/dark.scss'
 import './style/index.scss'
+import { isTestMode } from './utils/is-test-mode'
 
 const Editor = React.lazy(() => import(/* webpackPrefetch: true */ './components/editor/editor'))
 
@@ -80,7 +81,7 @@ ReactDOM.render(
   , document.getElementById('root')
 )
 
-if (process.env.REACT_APP_TEST_MODE) {
+if (isTestMode()) {
   console.log("This build runs in test mode")
 }
 
