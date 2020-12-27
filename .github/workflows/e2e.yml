@@ -42,7 +42,7 @@ jobs:
           node-version: 14
 
       - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn build
+      - run: yarn build:test
       - uses: actions/upload-artifact@master
         with:
           name: build
