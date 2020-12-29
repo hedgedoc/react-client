@@ -88,8 +88,7 @@ if (isTestMode()) {
 
 if (process.env.NODE_ENV === 'production' && !isTestMode()) {
   serviceWorkerRegistration.register({
-    onSuccess: () => showReloadAppNotification(),
-    onUpdate: () => showReloadAppNotification(),
+    onUpdate: () => showReloadAppNotification()
   })
 } else {
   serviceWorkerRegistration.unregister()
