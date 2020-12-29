@@ -459,7 +459,7 @@
         "modal": {
             "reloadApp": {
                 "title": "Update available",
-                "content": "An update for hedgedoc is available. Please reload the page.",
+                "content": "An update for hedgedoc is available. Please reload every hedgedoc tab.",
                 "reloadButton": "Reload app"
             }
         }
