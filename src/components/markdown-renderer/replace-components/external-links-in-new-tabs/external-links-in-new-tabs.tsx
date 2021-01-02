@@ -7,23 +7,15 @@ import { DomElement } from 'domhandler'
 import { ReactElement } from 'react'
 import { ComponentReplacer, SubNodeTransform } from '../ComponentReplacer'
 
-export class ExternalLinksInNewTab extends ComponentReplacer {
+export class ExternalLinkInNewTabReplacer extends ComponentReplacer {
   public getReplacement (node: DomElement, subNodeTransform: SubNodeTransform): (ReactElement | null | undefined) {
-    if (node.name !== 'a') {
+    const isJumpMark = node.attribs?.href?.substr(0, 1) === '#'
+
+    if (node.name !== 'a' || isJumpMark) {
       return undefined
     }
 
-    const isInternalLink = node.attribs?.href?.substr(0, 1) === '#'
-
-    let linkAttributes = {}
-    if (!isInternalLink) {
-      linkAttributes = {
-        rel: 'noopener noreferrer',
-        target: '_blank'
-      }
-    }
-
-    return <a {...node.attribs} {...linkAttributes}>
+    return <a {...node.attribs} rel='noopener noreferrer' target='_blank'>
       {
         node.children?.map((child, index) => subNodeTransform(child, index))
       }
