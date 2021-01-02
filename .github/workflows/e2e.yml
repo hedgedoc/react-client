@@ -13,7 +13,7 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    name: e2e
+    name: Perform E2E Tests on BrowserStack
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
