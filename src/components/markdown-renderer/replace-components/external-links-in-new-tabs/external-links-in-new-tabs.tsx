@@ -7,7 +7,7 @@ import { DomElement } from 'domhandler'
 import { ReactElement } from 'react'
 import { ComponentReplacer, SubNodeTransform } from '../ComponentReplacer'
 
-export class ExternalLinkInNewTabReplacer extends ComponentReplacer {
+export class LinkInNewTabReplacer extends ComponentReplacer {
   public getReplacement (node: DomElement, subNodeTransform: SubNodeTransform): (ReactElement | null | undefined) {
     const isJumpMark = node.attribs?.href?.substr(0, 1) === '#'
 
