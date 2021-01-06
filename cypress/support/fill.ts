@@ -8,7 +8,7 @@
 declare namespace Cypress {
   interface Chainable {
     /**
-     * Custom command to check an external Link.
+     * Custom command to fill an input field with text and trigger a change event.
      * @example cy.get(input).fill('content')
      */
     fill (value: string): Chainable<Element>
