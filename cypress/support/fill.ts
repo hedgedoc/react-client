@@ -1,4 +1,3 @@
-
 /*
  * SPDX-FileCopyrightText: 2020 The HedgeDoc developers (see AUTHORS file)
  *
@@ -10,16 +9,15 @@ declare namespace Cypress {
   interface Chainable {
     /**
      * Custom command to check an external Link.
-     * @example cy.get(a#extern).checkExternalLink('http://example.com')
+     * @example cy.get(input).fill('content')
      */
     fill (value: string): Chainable<Element>
   }
 }
 
-// in your commands file:
 Cypress.Commands.add('fill', {
   prevSubject: 'element'
 }, (subject, value) => {
   cy.wrap(subject).invoke('val', value)
-  .trigger('change', {force: true})
-});
+  .trigger('change', { force: true })
+})
