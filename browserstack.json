@@ -1,8 +1,4 @@
 {
-    "auth": {
-        "username": "tilmanvatteroth1",
-        "access_key": "Sp3viAhcgqcRMuZC1Mn1"
-    },
     "browsers": [
         {
             "browser": "chrome",
@@ -37,5 +33,5 @@
         "local": true,
         "local_identifier": null
     },
-    "disable_usage_reporting": false
+    "disable_usage_reporting": true
 }
