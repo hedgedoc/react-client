@@ -108,7 +108,8 @@ export function convertV1History(oldHistory: V1HistoryEntry[]): HistoryEntry[] {
       lastVisited: DateTime.fromMillis(entry.time)
                            .toISO(),
       tags: entry.tags,
-      pinned: entry.pinned
+      pinned: entry.pinned,
+      isTemplate: false
     }
   })
 }

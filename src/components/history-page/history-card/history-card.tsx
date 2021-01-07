@@ -7,8 +7,10 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 import { Badge, Card } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+import { ShowIf } from '../../common/show-if/show-if'
 import { EntryMenu } from '../entry-menu/entry-menu'
 import { HistoryEntryProps } from '../history-content/history-content'
 import { PinButton } from '../pin-button/pin-button'
@@ -16,6 +18,8 @@ import { formatHistoryDate } from '../utils'
 import './history-card.scss'
 
 export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
+  const { t } = useTranslation()
+
   return (
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <Card className="card-min-height" text={ 'dark' } bg={ 'light' }>
@@ -23,6 +27,11 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
           <div className={ 'd-flex flex-column' }>
             <PinButton isDark={ false } isPinned={ entry.pinned }
                        onPinClick={ () => onPinClick(entry.id, entry.location) }/>
+            <ShowIf condition={ entry.isTemplate }>
+              <div title={t('landing.history.templateNote')}>
+                <ForkAwesomeIcon icon={'files-o'} />
+              </div>
+            </ShowIf>
           </div>
           <Link to={ `/n/${ entry.id }` } className="text-decoration-none flex-fill text-dark">
             <div className={ 'd-flex flex-column justify-content-between' }>

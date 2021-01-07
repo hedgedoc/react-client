@@ -16,7 +16,8 @@
             "features",
             "cool",
             "updated"
-        ]
+        ],
+        "pinned": true
     },
     {
         "id": "ODakLc2MQkyyFc_Xmb53sg",
@@ -33,5 +34,12 @@
             "HedgeDoc community",
             "community call"
         ]
+    },
+    {
+        "id": "example-template",
+        "title": "Example template",
+        "lastVisited": "2021-01-08T00:57:35.000Z",
+        "tags": [],
+        "isTemplate": true
     }
 ]

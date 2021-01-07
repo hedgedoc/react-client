@@ -69,6 +69,7 @@
                 }
             },
             "noHistory": "No history",
+            "templateNote": "This note can be used as a template",
             "localHistory": "Below is history from this browser",
             "toolbar": {
                 "cards": "Cards",

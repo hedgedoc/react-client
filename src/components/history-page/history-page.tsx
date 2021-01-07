@@ -29,7 +29,8 @@ export interface HistoryEntry {
   title: string,
   lastVisited: string,
   tags: string[],
-  pinned: boolean
+  pinned: boolean,
+  isTemplate: boolean
 }
 
 export interface HistoryJson {
