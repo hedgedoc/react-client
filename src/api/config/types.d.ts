@@ -11,6 +11,7 @@ export interface Config {
   branding: BrandingConfig,
   banner: BannerConfig,
   customAuthNames: CustomAuthNames,
+  freeUrlMode: boolean,
   useImageProxy: boolean,
   specialLinks: SpecialLinks,
   version: BackendVersion,
