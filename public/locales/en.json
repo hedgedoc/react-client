@@ -463,7 +463,14 @@
         "successfullyCopied": "Copied!",
         "copyError": "Error while copying!",
         "errorOccurred": "An error occurred",
-        "readForMoreInfo": "Read here for more information"
+        "readForMoreInfo": "Read here for more information",
+        "modal": {
+            "chooseTemplate": {
+                "title": "Choose a template for the new note",
+                "createFromTemplate": "Create note from template",
+                "customNoteAlias": "Custom note url:"
+            }
+        }
     },
     "login": {
         "chooseMethod": "Choose method",
