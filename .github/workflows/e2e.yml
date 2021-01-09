@@ -57,13 +57,10 @@ jobs:
           local-testing: start
           local-identifier: random
 
-      - name: enable cypress videos
-        run: |
-          sudo apt-get install moreutils -yqq
-          jq '.video = true' cypress.json | sponge cypress.json
-
       - name: Run BrowserStack Tests
         run: yarn run cy:browserstack
+        env:
+          CYPRESS_VIDEO_RECORDING: 1
 
       - name: Stop BrowserStack local connection
         uses: 'browserstack/github-actions/setup-local@master'
