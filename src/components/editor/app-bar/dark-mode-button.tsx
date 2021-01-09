@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
-import React, { useMemo } from 'react'
+import React from 'react'
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useIsDarkModeActivated } from '../../../hooks/common/use-is-dark-mode-activated'
@@ -18,17 +18,13 @@ enum DarkModeState {
 
 const DarkModeButton: React.FC = () => {
   const { t } = useTranslation()
-  const darkModeEnabled = useIsDarkModeActivated()
-
-  const darkModeState = useMemo(() => {
-    return darkModeEnabled ? DarkModeState.DARK : DarkModeState.LIGHT
-  }, [darkModeEnabled])
+  const darkModeEnabled = useIsDarkModeActivated() ? DarkModeState.DARK : DarkModeState.LIGHT
 
   return (
     <ToggleButtonGroup
       type="radio"
       name="dark-mode"
-      value={darkModeState}
+      value={darkModeEnabled}
       className="ml-2"
     >
       <ToggleButton
