@@ -9,9 +9,6 @@ describe('Autocompletion', () => {
     cy.visit('/n/test')
     cy.get('.btn.active.btn-outline-secondary > i.fa-columns')
     .should('exist')
-    cy.get('.CodeMirror textarea')
-      .type('{ctrl}a', { force: true })
-      .type('{backspace}')
   })
 
   describe('code block', () => {

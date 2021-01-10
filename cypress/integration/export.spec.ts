@@ -13,9 +13,6 @@ describe('Export', () => {
     cy.get('.btn.active.btn-outline-secondary > i.fa-columns')
       .should('exist')
     cy.get('.CodeMirror textarea')
-      .type('{ctrl}a', { force: true })
-      .type('{backspace}')
-    cy.get('.CodeMirror textarea')
       .type(testContent)
   })
 

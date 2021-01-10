@@ -9,9 +9,6 @@ const tenChars = '0123456789'
 describe('status-bar text-length info', () => {
   beforeEach(() => {
     cy.visit('/n/test')
-    cy.get('.CodeMirror textarea')
-      .type('{ctrl}a', { force: true })
-      .type('{backspace}')
   })
 
   it('tooltip shows full remaining on empty text', () => {
