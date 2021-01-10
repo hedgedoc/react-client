@@ -13,18 +13,23 @@ describe('Code', () => {
     })
     cy.get('.btn.active.btn-outline-secondary > i.fa-columns')
       .should('exist')
+
+    cy.get('.CodeMirror')
+    .click()
+    .get('textarea')
+    .as('codeinput')
   })
 
   describe('without = doesn\'t show gutter', () => {
     it('without wrapLines active', () => {
-      cy.get('.CodeMirror textarea')
+      cy.get('@codeinput')
         .type('```javascript \nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
     })
 
     it('with wrapLines active', () => {
-      cy.get('.CodeMirror textarea')
+      cy.get('@codeinput')
         .type('```javascript!\nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
@@ -34,7 +39,7 @@ describe('Code', () => {
 
   describe('with = shows gutter', () => {
     it('without wrapLines active', () => {
-      cy.get('.CodeMirror textarea')
+      cy.get('@codeinput')
         .type('```javascript=\nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
@@ -45,7 +50,7 @@ describe('Code', () => {
     })
 
     it('with wrapLines active', () => {
-      cy.get('.CodeMirror textarea')
+      cy.get('@codeinput')
         .type('```javascript=! \nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
@@ -59,7 +64,7 @@ describe('Code', () => {
 
   describe('with = shows gutter and number is used as startline', () => {
     it('without wrapLines active', () => {
-      cy.get('.CodeMirror textarea')
+      cy.get('@codeinput')
         .type('```javascript=100\nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
@@ -70,7 +75,7 @@ describe('Code', () => {
     })
 
     it('with wrapLines active', () => {
-      cy.get('.CodeMirror textarea')
+      cy.get('@codeinput')
         .type('```javascript=100! \nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
@@ -83,7 +88,7 @@ describe('Code', () => {
   })
 
   it('has a button', () => {
-    cy.get('.CodeMirror textarea')
+    cy.get('@codeinput')
       .type('```javascript \nlet x = 0\n```')
     cy.get('.markdown-body > pre > div > button > i')
       .should('have.class', 'fa-files-o')
