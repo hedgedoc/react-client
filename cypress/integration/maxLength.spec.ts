@@ -4,53 +4,47 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-const tenChars = '0123456789'
+describe('The status bar text length info', () => {
+  const warningTestContent = ('0123456789'.repeat(10))
+  const dangerTestContent = ('0123456789'.repeat(20))
+  const tooMuchTestContent = `${dangerTestContent}a`
 
-describe('status-bar text-length info', () => {
   beforeEach(() => {
     cy.visit('/n/test')
-  })
 
-  it('tooltip shows full remaining on empty text', () => {
-    cy.get('.status-bar div:nth-child(2) span:nth-child(2)')
-      .attribute('title')
-      .should('contain', ' 200 ')
-  })
-
-  it('color is warning on <= 100 chars remaining', () => {
-    cy.get('.CodeMirror')
+    cy.get('.CodeMirror ')
     .click()
     cy.get('.CodeMirror textarea')
-    .fill(tenChars.repeat(10))
-    cy.get('.status-bar div:nth-child(2) span:nth-child(2)')
-      .should('have.class', 'text-warning')
+    .as('markdownInput')
   })
 
-  it('color is danger on <= 0 chars remaining', () => {
-    cy.get('.CodeMirror')
-    .click()
-    cy.get('.CodeMirror textarea')
-    .fill(tenChars.repeat(20))
-    cy.get('.status-bar div:nth-child(2) span:nth-child(2)')
+  it('shows the maximal length of the document as number of available characters in the tooltip', () => {
+    cy.get('.status-bar [data-cy="remainingCharacters"]')
+    .attribute('title')
+    .should('contain', ' 200 ')
+  })
+
+  it('color is set to "warning" on <= 100 characters remaining', () => {
+    cy.get('@markdownInput')
+    .fill(warningTestContent)
+    cy.get('.status-bar [data-cy="remainingCharacters"]')
+    .should('have.class', 'text-warning')
+  })
+
+  it('color is set to danger on <= 0 characters remaining', () => {
+    cy.get('@markdownInput')
+    .fill(dangerTestContent)
+    cy.get('.status-bar [data-cy="remainingCharacters"]')
     .should('have.class', 'text-danger')
   })
-})
 
-describe('show warning if content length > configured max length', () => {
-  beforeEach(() => {
-    cy.visit('/n/test')
-    cy.get('.CodeMirror')
-    .click()
-    cy.get('.CodeMirror textarea')
-    .fill(tenChars.repeat(20))
+  it('shows a warning and opens a modal', () => {
+    cy.get('@markdownInput')
+    .fill(tooMuchTestContent)
+    cy.get('[data-cy="limitReachedModal"]')
+    .should('be.visible')
+    cy.get('[data-cy="limitReachedMessage"]')
+    .should('be.visible')
   })
 
-  it('show warning alert in renderer and as modal', () => {
-    cy.get('.CodeMirror textarea')
-      .type('a')
-    cy.get('.modal-body.limit-warning')
-      .should('be.visible')
-    cy.get('.splitter .alert-danger')
-      .should('be.visible')
-  })
 })

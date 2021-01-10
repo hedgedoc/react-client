@@ -4,10 +4,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-const testTitle = 'testContent'
-const testContent = `---\ntitle: ${testTitle}\n---\nThis is some test content`
 
 describe('Export', () => {
+  const testTitle = 'testContent'
+  const testContent = `---\ntitle: ${testTitle}\n---\nThis is some test content`
+
   beforeEach(() => {
     cy.visit('/n/test')
     cy.get('.btn.active.btn-outline-secondary > i.fa-columns')
