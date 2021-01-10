@@ -23,14 +23,14 @@ describe('Code', () => {
   describe('without = doesn\'t show gutter', () => {
     it('without wrapLines active', () => {
       cy.get('@codeinput')
-        .type('```javascript \nlet x = 0\n```')
+        .fill('```javascript \nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
     })
 
     it('with wrapLines active', () => {
       cy.get('@codeinput')
-        .type('```javascript!\nlet x = 0\n```')
+        .fill('```javascript!\nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
         .should('have.class', 'wrapLines')
@@ -40,7 +40,7 @@ describe('Code', () => {
   describe('with = shows gutter', () => {
     it('without wrapLines active', () => {
       cy.get('@codeinput')
-        .type('```javascript=\nlet x = 0\n```')
+        .fill('```javascript=\nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
         .should('have.class', 'showGutter')
@@ -51,7 +51,7 @@ describe('Code', () => {
 
     it('with wrapLines active', () => {
       cy.get('@codeinput')
-        .type('```javascript=! \nlet x = 0\n```')
+        .fill('```javascript=! \nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
         .should('have.class', 'showGutter')
@@ -65,7 +65,7 @@ describe('Code', () => {
   describe('with = shows gutter and number is used as startline', () => {
     it('without wrapLines active', () => {
       cy.get('@codeinput')
-        .type('```javascript=100\nlet x = 0\n```')
+        .fill('```javascript=100\nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
         .should('have.class', 'showGutter')
@@ -76,7 +76,7 @@ describe('Code', () => {
 
     it('with wrapLines active', () => {
       cy.get('@codeinput')
-        .type('```javascript=100! \nlet x = 0\n```')
+        .fill('```javascript=100! \nlet x = 0\n```')
       cy.get('.markdown-body > pre > code')
         .should('have.class', 'hljs')
         .should('have.class', 'showGutter')
@@ -89,7 +89,7 @@ describe('Code', () => {
 
   it('has a button', () => {
     cy.get('@codeinput')
-      .type('```javascript \nlet x = 0\n```')
+      .fill('```javascript \nlet x = 0\n```')
     cy.get('.markdown-body > pre > div > button > i')
       .should('have.class', 'fa-files-o')
       .click()
