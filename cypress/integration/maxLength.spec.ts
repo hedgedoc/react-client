@@ -18,6 +18,8 @@ describe('status-bar text-length info', () => {
   })
 
   it('color is warning on <= 100 chars remaining', () => {
+    cy.get('.CodeMirror')
+    .click()
     cy.get('.CodeMirror textarea')
     .fill(tenChars.repeat(10))
     cy.get('.status-bar div:nth-child(2) span:nth-child(2)')
@@ -25,6 +27,8 @@ describe('status-bar text-length info', () => {
   })
 
   it('color is danger on <= 0 chars remaining', () => {
+    cy.get('.CodeMirror')
+    .click()
     cy.get('.CodeMirror textarea')
     .fill(tenChars.repeat(20))
     cy.get('.status-bar div:nth-child(2) span:nth-child(2)')
@@ -35,9 +39,9 @@ describe('status-bar text-length info', () => {
 describe('show warning if content length > configured max length', () => {
   beforeEach(() => {
     cy.visit('/n/test')
+    cy.get('.CodeMirror')
+    .click()
     cy.get('.CodeMirror textarea')
-    .type('{ctrl}a', { force: true })
-    .type('{backspace}')
     .fill(tenChars.repeat(20))
   })
 
@@ -47,6 +51,6 @@ describe('show warning if content length > configured max length', () => {
     cy.get('.modal-body.limit-warning')
       .should('be.visible')
     cy.get('.splitter .alert-danger')
-    .should('be.visible')
+      .should('be.visible')
   })
 })
