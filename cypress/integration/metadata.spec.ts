@@ -7,9 +7,6 @@
 describe('yaml-metadata: tags', () => {
   beforeEach(() => {
     cy.visit('/n/features')
-    cy.get('.CodeMirror textarea')
-    .type('{ctrl}a', { force: true })
-    .type('{backspace}')
   })
 
   it('show deprecation notice on old syntax', () => {
