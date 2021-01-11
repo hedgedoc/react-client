@@ -101,5 +101,13 @@ describe('Document Title', () => {
       cy.title()
         .should('eq', `${title} asd - HedgeDoc @ ${branding.name}`)
     })
+
+    it('katex code looks right', () => {
+      cy.get('a')
+        .get('@codeinput')
+        .fill(`# $\\alpha$-foo`)
+      cy.title()
+        .should('eq', `α-foo - HedgeDoc @ ${branding.name}`)
+    })
   })
 })
