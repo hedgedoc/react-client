@@ -14,28 +14,31 @@ describe('Document Title', () => {
       .should('exist')
 
     cy.get('.CodeMirror')
-    .click()
-    .get('textarea')
-    .as('codeinput')
+      .click()
+      .get('textarea')
+      .as('codeinput')
   })
 
   describe('title should be yaml metadata title', () => {
     it('just yaml metadata title', () => {
       cy.get('@codeinput')
         .fill(`---\ntitle: ${title}\n---`)
-      cy.title().should('eq', `${title} - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} - HedgeDoc @ ${branding.name}`)
     })
 
     it('yaml metadata title and opengraph title', () => {
       cy.get('@codeinput')
         .fill(`---\ntitle: ${title}\nopengraph:\n  title: False title\n---`)
-      cy.title().should('eq', `${title} - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} - HedgeDoc @ ${branding.name}`)
     })
 
     it('yaml metadata title, opengraph title and first heading', () => {
       cy.get('@codeinput')
         .fill(`---\ntitle: ${title}\nopengraph:\n  title: False title\n---\n# a first title`)
-      cy.title().should('eq', `${title} - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} - HedgeDoc @ ${branding.name}`)
     })
   })
 
@@ -43,13 +46,15 @@ describe('Document Title', () => {
     it('just opengraph title', () => {
       cy.get('@codeinput')
         .fill(`---\nopengraph:\n  title: ${title}\n---`)
-      cy.title().should('eq', `${title} - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} - HedgeDoc @ ${branding.name}`)
     })
 
     it('opengraph title and first heading', () => {
       cy.get('@codeinput')
         .fill(`---\nopengraph:\n  title: ${title}\n---\n# a first title`)
-      cy.title().should('eq', `${title} - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} - HedgeDoc @ ${branding.name}`)
     })
   })
 
@@ -57,37 +62,44 @@ describe('Document Title', () => {
     it('just first heading', () => {
       cy.get('@codeinput')
         .fill(`# ${title}`)
-      cy.title().should('eq', `${title} - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} - HedgeDoc @ ${branding.name}`)
     })
 
     it('just first heading with alt-text instead of image', () => {
       cy.get('@codeinput')
         .fill(`# ${title} ![abc](https://dummyimage.com/48)`)
-      cy.title().should('eq', `${title} abc - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} abc - HedgeDoc @ ${branding.name}`)
     })
 
     it('just first heading without link syntax', () => {
       cy.get('@codeinput')
         .fill(`# ${title} [link](https://hedgedoc.org)`)
-      cy.title().should('eq', `${title} link - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} link - HedgeDoc @ ${branding.name}`)
     })
 
     it('markdown syntax removed first', () => {
       cy.get('@codeinput')
         .fill(`# ${title} 1*2*3 4*5**`)
-      cy.title().should('eq', `${title} 123 4*5** - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} 123 4*5** - HedgeDoc @ ${branding.name}`)
     })
 
     it('markdown syntax removed second', () => {
       cy.get('@codeinput')
         .fill(`# ${title} **1 2*`)
-      cy.title().should('eq', `${title} *1 2 - HedgeDoc @ ${branding.name}`)
+      cy.title()
+        .should('eq', `${title} *1 2 - HedgeDoc @ ${branding.name}`)
     })
 
     it('markdown syntax removed third', () => {
-      cy.get('@codeinput')
-      .fill(`# ${title} _asd_`)
-      cy.title().should('eq', `${title} asd - HedgeDoc @ ${branding.name}`)
+      cy.get('a')
+        .get('@codeinput')
+        .fill(`# ${title} _asd_`)
+      cy.title()
+        .should('eq', `${title} asd - HedgeDoc @ ${branding.name}`)
     })
   })
 })

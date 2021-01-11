@@ -10,27 +10,27 @@ describe('File upload', () => {
   beforeEach(() => {
     cy.visit('/n/test')
     cy.get('.CodeMirror')
-    .click()
-    .get('textarea')
-    .as('codeinput')
+      .click()
+      .get('textarea')
+      .as('codeinput')
   })
 
   it('doesn\'t prevent drag\'n\'drop of plain text', () => {
     const dataTransfer = new DataTransfer()
     cy.get('@codeinput')
-    .fill('line 1\nline 2\ndragline')
+      .fill('line 1\nline 2\ndragline')
 
     cy.get('.CodeMirror')
-    .click()
+      .click()
 
     cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-    .dblclick()
+      .dblclick()
     cy.get('.CodeMirror-line > span > .cm-matchhighlight')
-    .trigger('dragstart', { dataTransfer })
+      .trigger('dragstart', { dataTransfer })
     cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span  span')
-    .trigger('drop', { dataTransfer })
+      .trigger('drop', { dataTransfer })
     cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span  span')
-    .should('have.text', 'lindraglinee 1')
+      .should('have.text', 'lindraglinee 1')
   })
 
   describe('upload works', () => {
@@ -47,11 +47,11 @@ describe('File upload', () => {
     })
     it('via button', () => {
       cy.get('.fa-upload')
-      .click()
+        .click()
       cy.get('div.btn-group > input[type=file]')
-      .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
+        .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `![](${imageUrl})`)
+        .should('have.text', `![](${imageUrl})`)
     })
 
     it('via paste', () => {
@@ -63,7 +63,7 @@ describe('File upload', () => {
         }
         cy.get('.CodeMirror-scroll').trigger('paste', pasteEvent)
         cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `![](${imageUrl})`)
+          .should('have.text', `![](${imageUrl})`)
       })
     })
 
@@ -78,14 +78,14 @@ describe('File upload', () => {
         cy.get('.CodeMirror-scroll').trigger('dragenter', dropEvent)
         cy.get('.CodeMirror-scroll').trigger('drop', dropEvent)
         cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `![](${imageUrl})`)
+          .should('have.text', `![](${imageUrl})`)
       })
     })
   })
 
   it('upload fails', () => {
     cy.get('@codeinput')
-    .type('not empty')
+      .type('not empty')
     cy.intercept({
       method: 'POST',
       url: '/api/v2/media/upload'
@@ -93,13 +93,13 @@ describe('File upload', () => {
       statusCode: 400
     })
     cy.get('.fa-upload')
-    .click()
+      .click()
     cy.fixture('acme.png').then(() => {
       cy.get('input[type=file]')
-      .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
-    });
+        .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
+    })
     cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-    .should('have.text', 'not empty')
+      .should('have.text', 'not empty')
   })
 
   it('text paste still works', () => {
@@ -111,6 +111,6 @@ describe('File upload', () => {
     }
     cy.get('.CodeMirror-scroll').trigger('paste', pasteEvent)
     cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-    .should('have.text', `${testText}`)
+      .should('have.text', `${testText}`)
   })
 })

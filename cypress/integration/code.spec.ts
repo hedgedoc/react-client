@@ -15,9 +15,9 @@ describe('Code', () => {
       .should('exist')
 
     cy.get('.CodeMirror')
-    .click()
-    .get('textarea')
-    .as('codeinput')
+      .click()
+      .get('textarea')
+      .as('codeinput')
   })
 
   describe('without = doesn\'t show gutter', () => {
@@ -93,6 +93,6 @@ describe('Code', () => {
     cy.get('.markdown-body > pre > div > button > i')
       .should('have.class', 'fa-files-o')
       .click()
-    cy.get('@copy').should('be.calledWithExactly', 'let x = 0\n');
+    cy.get('@copy').should('be.calledWithExactly', 'let x = 0\n')
   })
 })
