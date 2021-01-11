@@ -20,11 +20,15 @@ describe('Toolbar', () => {
   const fillTestText = () => {
     cy.get('@codeinput')
       .fill(testText)
+    cy.get('.CodeMirror-line')
+      .should("exist")
   }
 
   const fillTestLink = () => {
     cy.get('@codeinput')
       .fill(testLink)
+    cy.get('.CodeMirror-line')
+      .should("exist")
   }
 
   it('bold', () => {
