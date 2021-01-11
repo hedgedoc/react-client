@@ -22,8 +22,8 @@ jobs:
         id: gitinfo
         run: |
           if [ -n "${{ github.event.pull_request.head.sha }}" ]; \
-          then echo "::set-output name=shapr::$(echo ${{ github.event.pull_request.head.sha }} | cut -c -8) - #${{ github.event.pull_request.number }}"; \
-          else echo "::set-output name=shapr::$(echo ${{ github.sha }} | cut -c -8)"; fi
+          then echo "::set-output name=shapr::$(echo ${{ github.event.pull_request.head.sha }} | cut -c -7) - #${{ github.event.pull_request.number }}"; \
+          else echo "::set-output name=shapr::$(echo ${{ github.sha }} | cut -c -7)"; fi
           echo "::set-output name=branch::${GITHUB_HEAD_REF:-main}"
 
       - name: Get yarn cache directory path
