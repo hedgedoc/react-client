@@ -16,7 +16,6 @@ describe('Export', () => {
       .click()
       .get('textarea')
       .fill(testContent)
-      .as('codeinput')
   })
 
   it('Markdown', () => {
