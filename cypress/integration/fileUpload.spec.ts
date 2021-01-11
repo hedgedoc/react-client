@@ -19,11 +19,10 @@ describe('File upload', () => {
     const dataTransfer = new DataTransfer()
     cy.get('@codeinput')
       .fill('line 1\nline 2\ndragline')
-
     cy.get('.CodeMirror')
       .click()
-
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+    cy.get('.CodeMirror-line > span')
+      .last()
       .dblclick()
     cy.get('.CodeMirror-line > span > .cm-matchhighlight')
       .trigger('dragstart', { dataTransfer })
