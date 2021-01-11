@@ -95,16 +95,14 @@ describe('Document Title', () => {
     })
 
     it('markdown syntax removed third', () => {
-      cy.get('a')
-        .get('@codeinput')
+      cy.get('@codeinput')
         .fill(`# ${title} _asd_`)
       cy.title()
         .should('eq', `${title} asd - HedgeDoc @ ${branding.name}`)
     })
 
     it('katex code looks right', () => {
-      cy.get('a')
-        .get('@codeinput')
+      cy.get('@codeinput')
         .fill(`# $\\alpha$-foo`)
       cy.title()
         .should('eq', `α-foo - HedgeDoc @ ${branding.name}`)
