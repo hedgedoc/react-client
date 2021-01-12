@@ -104,6 +104,10 @@ describe('Document Title', () => {
     it('katex code looks right', () => {
       cy.get('@codeinput')
         .fill(`# $\\alpha$-foo`)
+      cy.get('.markdown-body > h1')
+        .should('contain', 'α')
+      cy.get('@codeinput')
+        .type('\n\ntest\n')
       cy.title()
         .should('eq', `α-foo - HedgeDoc @ ${branding.name}`)
     })
