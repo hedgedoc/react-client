@@ -27,8 +27,6 @@ describe('Code', () => {
       cy.get('.markdown-body > pre > code.hljs')
         .should('be.visible')
         .should('not.have.class', 'showGutter')
-      cy.get('.markdown-body > pre > code.hljs > .linenumber')
-        .should('not.exist')
     })
 
     describe('and line wrapping', () => {
@@ -39,8 +37,6 @@ describe('Code', () => {
           .should('be.visible')
           .should('not.have.class', 'showGutter')
           .should('have.class', 'wrapLines')
-        cy.get('.markdown-body > pre > code.hljs > .linenumber')
-          .should('not.exist')
       })
     })
   })
