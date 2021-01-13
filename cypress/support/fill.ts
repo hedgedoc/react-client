@@ -24,9 +24,7 @@ Cypress.Commands.add('fill', {
     .trigger('change', { force: true })
 })
 
-Cypress.Commands.add('codemirrorFill', {
-  prevSubject: 'optional'
-}, (subject, content: string) => {
+Cypress.Commands.add('codemirrorFill', (content: string) => {
   const line = content.split("\n").find(value => value !== '');
   cy.get('.CodeMirror')
     .click()
