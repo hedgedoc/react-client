@@ -4,6 +4,7 @@ SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
 SPDX-License-Identifier: AGPL-3.0-only
 */
 
+import { TocAst } from 'markdown-it-toc-done-right'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -18,12 +19,12 @@ import { extractNoteTitle } from '../common/document-title/note-title-extractor'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { AppBar, AppBarMode } from './app-bar/app-bar'
 import { EditorMode } from './app-bar/editor-view-mode'
-import { DocumentBar } from './document-bar/document-bar'
 import { ScrollingDocumentRenderPane } from './document-renderer-pane/scrolling-document-render-pane'
 import { EditorPane } from './editor-pane/editor-pane'
 import { editorTestContent } from './editorTestContent'
 import { useViewModeShortcuts } from './hooks/useViewModeShortcuts'
 import { DualScrollState, ScrollState } from './scroll/scroll-props'
+import { Sidebar } from './sidebar/sidebar'
 import { Splitter } from './splitter/splitter'
 import { YAMLMetaData } from './yaml-metadata/yaml-metadata'
 
@@ -120,39 +121,43 @@ export const Editor: React.FC = () => {
 
   useApplyDarkMode()
   useDocumentTitle(documentTitle)
+  const [tocAst, setTocAst] = useState<TocAst|undefined>(undefined)
 
   return (
     <Fragment>
       <MotdBanner/>
       <div className={'d-flex flex-column vh-100'}>
         <AppBar mode={AppBarMode.EDITOR}/>
-        <DocumentBar title={documentTitle}/>
-        <Splitter
-          showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
-          left={
-            <EditorPane
-              onContentChange={setDocumentContent}
-              content={markdownContent}
-              scrollState={scrollState.editorScrollState}
-              onScroll={onEditorScroll}
-              onMakeScrollSource={() => (scrollSource.current = ScrollSource.EDITOR)}
-            />
-          }
-          showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
-          right={
-            <ScrollingDocumentRenderPane
-              onFirstHeadingChange={onFirstHeadingChange}
-              onMakeScrollSource={() => {
-                scrollSource.current = ScrollSource.RENDERER
-              }}
-              onMetadataChange={onMetadataChange}
-              onScroll={onMarkdownRendererScroll}
-              onTaskCheckedChange={onTaskCheckedChange}
-              scrollState={scrollState.rendererScrollState}
-              wide={editorMode === EditorMode.PREVIEW}
-            />
-          }
-          containerClassName={'overflow-hidden'}/>
+        <div className={"flex-fill d-flex h-100 w-100 overflow-hidden flex-row"}>
+          <Splitter
+            showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
+            left={
+              <EditorPane
+                onContentChange={setDocumentContent}
+                content={markdownContent}
+                scrollState={scrollState.editorScrollState}
+                onScroll={onEditorScroll}
+                onMakeScrollSource={() => (scrollSource.current = ScrollSource.EDITOR)}
+              />
+            }
+            showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
+            right={
+              <ScrollingDocumentRenderPane
+                onFirstHeadingChange={onFirstHeadingChange}
+                onMakeScrollSource={() => {
+                  scrollSource.current = ScrollSource.RENDERER
+                }}
+                onMetadataChange={onMetadataChange}
+                onScroll={onMarkdownRendererScroll}
+                onTaskCheckedChange={onTaskCheckedChange}
+                scrollState={scrollState.rendererScrollState}
+                wide={editorMode === EditorMode.PREVIEW}
+                onTocChange={(tocAst) => setTocAst(tocAst)}
+              />
+            }
+            containerClassName={'overflow-hidden'}/>
+          <Sidebar tocAst={tocAst}/>
+        </div>
       </div>
     </Fragment>
   )

@@ -1,33 +1,25 @@
-/*
+/*!
  * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 .markdown-toc {
-  width: 100%;
-  max-width: 200px;
-  max-height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  &.sticky {
-    position: fixed;
-  }
+  padding: 2px;
 
   > ul > li {
     > a {
-      padding: 4px 20px;
+      padding: 4px 10px;
     }
 
     > ul > li {
       > a {
-        padding: 1px 0 1px 30px;
+        padding: 1px 0 1px 20px;
       }
 
       > ul > li {
         > a {
-          padding: 1px 0 1px 38px;
+          padding: 1px 0 1px 28px;
         }
       }
     }
@@ -61,13 +53,13 @@
 }
 
 .markdown-toc-sidebar-button {
-    position: fixed;
-    right: 40px;
-    bottom: 30px;
+  position: fixed;
+  right: 70px;
+  bottom: 30px;
 
-    & > .dropup {
-      position: sticky;
-      bottom: 20px;
-      right: 0;
-    }
+  & > .dropup {
+    position: sticky;
+    bottom: 20px;
+    right: 0;
+  }
 }

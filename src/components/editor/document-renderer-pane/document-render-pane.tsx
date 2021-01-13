@@ -1,12 +1,12 @@
 /*
-SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
-SPDX-License-Identifier: AGPL-3.0-only
-*/
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
 import { TocAst } from 'markdown-it-toc-done-right'
-import React, { RefObject, useRef, useState } from 'react'
-import { Dropdown } from 'react-bootstrap'
+import React, { RefObject, useCallback, useRef, useState } from 'react'
+import Dropdown from 'react-bootstrap/esm/Dropdown'
 import { useSelector } from 'react-redux'
 import useResizeObserver from 'use-resize-observer'
 import { ApplicationState } from '../../../redux'
@@ -29,68 +29,74 @@ export interface DocumentRenderPaneProps {
   onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void
   documentRenderPaneRef?: RefObject<HTMLDivElement>
   wide?: boolean
+  onTocChange?: (tocAst: TocAst) => void
 }
 
-export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = ({
-  extraClasses,
-  onFirstHeadingChange,
-  onLineMarkerPositionChanged,
-  onMetadataChange,
-  onMouseEnterRenderer,
-  onScrollRenderer,
-  onTaskCheckedChange,
-  documentRenderPaneRef,
-  wide
-}) => {
-  const [tocAst, setTocAst] = useState<TocAst>()
-  const { width } = useResizeObserver(documentRenderPaneRef ? { ref: documentRenderPaneRef } : undefined)
-  const realWidth = width || 0
-  const rendererRef = useRef<HTMLDivElement|null>(null)
+export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
+  {
+    extraClasses,
+    onFirstHeadingChange,
+    onLineMarkerPositionChanged,
+    onMetadataChange,
+    onMouseEnterRenderer,
+    onScrollRenderer,
+    onTaskCheckedChange,
+    documentRenderPaneRef,
+    wide,
+    onTocChange
+  }) => {
+  const rendererRef = useRef<HTMLDivElement | null>(null)
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
   const yamlDeprecatedTags = useSelector((state: ApplicationState) => state.documentContent.metadata.deprecatedTagsSyntax)
   const changeLineMarker = useAdaptedLineMarkerCallback(documentRenderPaneRef, rendererRef, onLineMarkerPositionChanged)
 
-  return (
-    <div className={`bg-light flex-fill pb-5 flex-row d-flex w-100 h-100 ${extraClasses ?? ''}`}
-         ref={documentRenderPaneRef} onScroll={onScrollRenderer} onMouseEnter={onMouseEnterRenderer}>
-      <div className={'col-md'}/>
-      <div className={'bg-light flex-fill'}>
-        <ShowIf condition={yamlDeprecatedTags}>
-          <YamlArrayDeprecationAlert/>
-        </ShowIf>
-        <div >
-        <FullMarkdownRenderer
-          rendererRef={rendererRef}
-          className={'flex-fill mb-3'}
-          content={markdownContent}
-          onFirstHeadingChange={onFirstHeadingChange}
-          onLineMarkerPositionChanged={changeLineMarker}
-          onMetaDataChange={onMetadataChange}
-          onTaskCheckedChange={onTaskCheckedChange}
-          onTocChange={(tocAst) => setTocAst(tocAst)}
-          wide={wide}
-        />
-        </div>
-      </div>
+  const { width } = useResizeObserver(documentRenderPaneRef ? { ref: documentRenderPaneRef } : undefined)
+  const [tocAst, setTocAst] = useState<TocAst | undefined>(undefined)
+  const saveToc = useCallback((newToc: TocAst) => {
+    onTocChange?.(newToc)
+    setTocAst(newToc)
+  }, [onTocChange])
 
-      <div className={'col-md'}>
-        <ShowIf condition={realWidth >= 1280 && !!tocAst}>
-          <TableOfContents ast={tocAst as TocAst} className={'position-fixed'}/>
-        </ShowIf>
-        <ShowIf condition={realWidth < 1280 && !!tocAst}>
-          <div className={'markdown-toc-sidebar-button'}>
-            <Dropdown drop={'up'}>
-              <Dropdown.Toggle id="toc-overlay-button" variant={'secondary'} className={'no-arrow'}>
-                <ForkAwesomeIcon icon={'bars'}/>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <div className={'p-2'}>
-                  <TableOfContents ast={tocAst as TocAst}/>
-                </div>
-              </Dropdown.Menu>
-            </Dropdown>
+  const realWidth = width ?? 0
+
+  return (
+    <div className={'h-100 w-100 overflow-x-auto'}>
+      <div className={`bg-light flex-fill pb-5 flex-row d-flex w-100 h-100 ${extraClasses ?? ''}`}
+           ref={documentRenderPaneRef} onScroll={onScrollRenderer} onMouseEnter={onMouseEnterRenderer}>
+        <div className={'col-lg'}/>
+        <div className={'bg-light flex-fill'}>
+          <YamlArrayDeprecationAlert show={yamlDeprecatedTags}/>
+          <div>
+            <FullMarkdownRenderer
+              rendererRef={rendererRef} className={'flex-fill mb-3'}
+              content={markdownContent}
+              onFirstHeadingChange={onFirstHeadingChange}
+              onLineMarkerPositionChanged={changeLineMarker}
+              onMetaDataChange={onMetadataChange}
+              onTaskCheckedChange={onTaskCheckedChange}
+              onTocChange={saveToc}
+              wide={wide}/>
           </div>
-        </ShowIf>
+        </div>
+        <div className={'col-lg'}>
+          <ShowIf condition={!!tocAst && realWidth >= 1280}>
+            <TableOfContents ast={tocAst as TocAst} className={'position-fixed'}/>
+          </ShowIf>
+          <ShowIf condition={realWidth < 1280 && !!tocAst}>
+            <div className={'markdown-toc-sidebar-button'}>
+              <Dropdown drop={'up'}>
+                <Dropdown.Toggle id="toc-overlay-button" variant={'secondary'} className={'no-arrow'}>
+                  <ForkAwesomeIcon icon={'list-ol'}/>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <div className={'p-2'}>
+                    <TableOfContents ast={tocAst as TocAst}/>
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </ShowIf>
+        </div>
       </div>
     </div>
   )

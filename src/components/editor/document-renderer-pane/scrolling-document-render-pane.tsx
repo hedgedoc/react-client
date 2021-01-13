@@ -20,7 +20,8 @@ export const ScrollingDocumentRenderPane: React.FC<DocumentRenderPaneProps & Scr
   onMakeScrollSource,
   onMetadataChange,
   onScroll,
-  onTaskCheckedChange
+  onTaskCheckedChange,
+  onTocChange
 }) => {
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
   const renderer = useRef<HTMLDivElement>(null)
@@ -41,6 +42,7 @@ export const ScrollingDocumentRenderPane: React.FC<DocumentRenderPaneProps & Scr
       onMouseEnterRenderer={onMakeScrollSource}
       onScrollRenderer={userScroll}
       onTaskCheckedChange={onTaskCheckedChange}
+      onTocChange={onTocChange}
     />
   )
 }
