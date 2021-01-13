@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-describe('Toolbar', () => {
+describe('Toolbar Buttons', () => {
   const testText = 'textText'
   const testLink = 'http://hedgedoc.org'
 
@@ -17,114 +17,90 @@ describe('Toolbar', () => {
       .as('codeinput')
   })
 
-  const fillTestText = () => {
-    cy.get('@codeinput')
-      .fill(testText)
-    cy.get('.CodeMirror-line > span')
-      .should("exist")
-      .should('have.text', testText)
-  }
-
-  const fillTestLink = () => {
-    cy.get('@codeinput')
-      .fill(testLink)
-    cy.get('.CodeMirror-line > span')
-      .should("exist")
-      .should('have.text', testLink)
-  }
-
-  it('bold', () => {
-    fillTestText()
-    cy.get('@codeinput')
-      .type('{ctrl}a')
-    cy.get('.fa-bold')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `**${testText}**`)
-  })
-
-  it('italic', () => {
-    fillTestText()
-    cy.get('@codeinput')
-      .type('{ctrl}a')
-    cy.get('.fa-italic')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `*${testText}*`)
-  })
-
-  it('underline', () => {
-    fillTestText()
-    cy.get('@codeinput')
-      .type('{ctrl}a')
-    cy.get('.fa-underline')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `++${testText}++`)
-  })
-
-  it('strikethrough', () => {
-    fillTestText()
-    cy.get('@codeinput')
-      .type('{ctrl}a')
-    cy.get('.fa-strikethrough')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `~~${testText}~~`)
-  })
-
-  it('subscript', () => {
-    fillTestText()
-    cy.get('@codeinput')
-      .type('{ctrl}a')
-    cy.get('.fa-subscript')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `~${testText}~`)
-  })
-
-  it('superscript', () => {
-    fillTestText()
-    cy.get('@codeinput')
-      .type('{ctrl}a')
-    cy.get('.fa-superscript')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `^${testText}^`)
-  })
-
-  it('heading', () => {
-    fillTestText()
-    cy.get('.fa-header')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `# ${testText}`)
-    cy.get('.fa-header')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `## ${testText}`)
-  })
-
-  describe('code', () => {
-    it('nothing selected empty line', () => {
-      fillTestText()
-      cy.get('@codeinput')
-        .type('{ctrl}a')
-        .type('{backspace}')
-      cy.get('.fa-code')
-        .click()
-      cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
-        .should('have.text', '```')
-      cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
-        .should('have.text', '```')
+  describe('for single line text', () => {
+    beforeEach(() => {
+      cy.codemirrorFill(testText)
+      cy.get('.CodeMirror-line > span')
+        .should("exist")
+        .should('have.text', testText)
     })
 
-    it('nothing selected non line', () => {
-      fillTestText()
-      cy.get('@codeinput')
-        .type('{ctrl}a')
-        .type('{leftArrow}')
-      cy.get('.fa-code')
+    describe('with selection', () => {
+      beforeEach(() => {
+        cy.get('@codeinput')
+          .type('{ctrl}a')
+      })
+
+      it('should format the line as code block', () => {
+        cy.get('.btn-toolbar .fa-code')
+          .click()
+        cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
+          .should('have.text', '```')
+        cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
+          .should('have.text', testText)
+        cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
+          .should('have.text', '```')
+      })
+
+      it('should format as image', () => {
+        cy.get('.btn-toolbar .fa-picture-o')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `![${testText}](https://)`)
+      })
+
+      it('should format as bold', () => {
+        cy.get('.btn-toolbar .fa-bold')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `**${testText}**`)
+      })
+
+      it('should format as italic', () => {
+        cy.get('.btn-toolbar .fa-italic')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `*${testText}*`)
+      })
+
+      it('should format as underline', () => {
+        cy.get('.btn-toolbar .fa-underline')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `++${testText}++`)
+      })
+
+      it('should format as strikethrough', () => {
+        cy.get('.btn-toolbar .fa-strikethrough')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `~~${testText}~~`)
+      })
+
+      it('should format as subscript', () => {
+        cy.get('.btn-toolbar .fa-subscript')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `~${testText}~`)
+      })
+
+      it('should format as superscript', () => {
+        cy.get('.btn-toolbar .fa-superscript')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `^${testText}^`)
+      })
+
+      it('should format links', () => {
+        cy.get('.btn-toolbar .fa-link')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `[${testText}](https://)`)
+      })
+    })
+
+    it('should format the line as code', () => {
+      cy.get('.btn-toolbar .fa-code')
         .click()
       cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
         .should('have.text', '```')
@@ -134,130 +110,138 @@ describe('Toolbar', () => {
         .should('have.text', '```')
     })
 
-    it('line selected', () => {
-      fillTestText()
-      cy.get('@codeinput')
-        .type('{ctrl}a')
-      cy.get('.fa-code')
-        .click()
-      cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
-        .should('have.text', '```')
-      cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
-        .should('have.text', testText)
-      cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
-        .should('have.text', '```')
-    })
-  })
-
-  it('quote', () => {
-    fillTestText()
-    cy.get('.fa-quote-right')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `> ${testText}`)
-    cy.get('.fa-quote-right')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `> > ${testText}`)
-  })
-
-  it('unordered list', () => {
-    fillTestText()
-    cy.get('.fa-list')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `- ${testText}`)
-    cy.get('.fa-list')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `- - ${testText}`)
-  })
-
-  it('ordered list', () => {
-    fillTestText()
-    cy.get('.fa-list-ol')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `1. ${testText}`)
-    cy.get('.fa-list-ol')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `1. 1. ${testText}`)
-  })
-
-  it('todo list', () => {
-    fillTestText()
-    cy.get('.fa-check-square')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `- [ ] ${testText}`)
-    cy.get('.fa-check-square')
-      .click()
-    cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `- [ ] - [ ] ${testText}`)
-  })
-
-  describe('link', () => {
-    it('with selection text', () => {
-      fillTestText()
-      cy.get('@codeinput')
-        .type('{ctrl}a')
-      cy.get('.fa-link')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `[${testText}](https://)`)
-    })
-
-    it('without selection', () => {
-      fillTestText()
-      cy.get('.fa-link')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `${testText}[](https://)`)
-    })
-
-    it('with selection link', () => {
-      fillTestLink()
-      cy.get('@codeinput')
-        .type('{ctrl}a')
-      cy.get('.fa-link')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `[](${testLink})`)
-    })
-  })
-
-  describe('image', () => {
-    it('with selection', () => {
-      fillTestText()
-      cy.get('@codeinput')
-        .type('{ctrl}a')
-      cy.get('.fa-picture-o')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `![${testText}](https://)`)
-    })
-
-    it('without selection', () => {
-      fillTestText()
+    it('should insert an empty image link', () => {
       cy.get('.fa-picture-o')
         .click()
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', `${testText}![](https://)`)
     })
 
-    it('with selection link', () => {
-      fillTestLink()
-      cy.get('@codeinput')
-        .type('{ctrl}a')
-      cy.get('.fa-picture-o')
+    it('should insert links', () => {
+      cy.get('.fa-link')
         .click()
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `![](${testLink})`)
+        .should('have.text', `${testText}[](https://)`)
+    })
+
+    it('should format line as heading', () => {
+      cy.get('.btn-toolbar .fa-header')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `# ${testText}`)
+      cy.get('.fa-header')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `## ${testText}`)
+    })
+    it('should add a quote', () => {
+      cy.get('.btn-toolbar .fa-quote-right')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `> ${testText}`)
+      cy.get('.fa-quote-right')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `> > ${testText}`)
+    })
+
+    it('should format as unordered list', () => {
+      cy.get('.btn-toolbar .fa-list')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `- ${testText}`)
+      cy.get('.fa-list')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `- - ${testText}`)
+    })
+
+    it('should format as ordered list', () => {
+      cy.get('.btn-toolbar .fa-list-ol')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `1. ${testText}`)
+      cy.get('.btn-toolbar .fa-list-ol')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `1. 1. ${testText}`)
+    })
+
+    it('should format as todo list', () => {
+      cy.get('.btn-toolbar .fa-check-square')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `- [ ] ${testText}`)
+      cy.get('.btn-toolbar .fa-check-square')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `- [ ] - [ ] ${testText}`)
     })
   })
 
-  describe('table', () => {
+  describe('for single line link', () => {
+    beforeEach(() => {
+      cy.codemirrorFill(testLink)
+      cy.get('.CodeMirror-line > span')
+        .should("exist")
+        .should('have.text', testLink)
+    })
+
+    describe('with selection', () => {
+      beforeEach(() => {
+        cy.get('@codeinput')
+          .type('{ctrl}a')
+      })
+
+      it('should format as link', () => {
+        cy.get('.btn-toolbar .fa-link')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `[](${testLink})`)
+      })
+
+      it('should format as image', () => {
+        cy.get('.btn-toolbar .fa-picture-o')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `![](${testLink})`)
+      })
+    })
+  })
+
+  describe('for no text', () => {
+    it('should insert lines', () => {
+      cy.get('.btn-toolbar .fa-minus')
+        .click()
+      cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
+        .should('have.text', '----')
+    })
+
+    it('should add a collapsable block', () => {
+      cy.get('.btn-toolbar .fa-caret-square-o-down')
+        .click()
+      cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
+        .should('have.text', ':::spoiler Toggle label')
+    })
+
+    it('should add a comment', () => {
+      cy.get('.btn-toolbar .fa-comment')
+        .click()
+      cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
+        .should('have.text', '> []')
+    })
+
+    it('should add an empty code block', () => {
+      cy.get('.btn-toolbar .fa-code')
+        .click()
+      cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
+        .should('have.text', '```')
+      cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
+        .should('have.text', '```')
+    })
+  })
+
+  describe('for new tables', () => {
     beforeEach(() => {
       cy.get('.table-picker-container')
         .should('not.be.visible')
@@ -268,7 +252,7 @@ describe('Toolbar', () => {
         .should('be.visible')
     })
 
-    it('overlay', () => {
+    it('should open an overlay', () => {
       cy.get('.table-container > div:nth-of-type(25)')
         .trigger('mouseover')
       cy.get('.table-cell.bg-primary')
@@ -279,7 +263,7 @@ describe('Toolbar', () => {
         .click()
     })
 
-    it('custom', () => {
+    it('should open a modal for custom table sizes in the overlay', () => {
       cy.get('.modal-dialog')
         .should('not.exist')
       cy.get('.fa-table')
@@ -311,29 +295,8 @@ describe('Toolbar', () => {
     })
   })
 
-  it('line', () => {
-    cy.get('.fa-minus')
-      .click()
-    cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
-      .should('have.text', '----')
-  })
-
-  it('collapsable block', () => {
-    cy.get('.fa-caret-square-o-down')
-      .click()
-    cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
-      .should('have.text', ':::spoiler Toggle label')
-  })
-
-  it('comment', () => {
-    cy.get('.fa-comment')
-      .click()
-    cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
-      .should('have.text', '> []')
-  })
-
-  describe('emoji-picker', () => {
-    it('show when clicked', () => {
+  describe('for the emoji-picker', () => {
+    it('should open overlay', () => {
       cy.get('emoji-picker')
         .should('not.be.visible')
       cy.get('.fa-smile-o')
