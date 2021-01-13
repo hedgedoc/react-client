@@ -31,24 +31,6 @@ describe('Toolbar Buttons', () => {
           .type('{ctrl}a')
       })
 
-      it('should format the line as code block', () => {
-        cy.get('.btn-toolbar .fa-code')
-          .click()
-        cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
-          .should('have.text', '```')
-        cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
-          .should('have.text', testText)
-        cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
-          .should('have.text', '```')
-      })
-
-      it('should format as image', () => {
-        cy.get('.btn-toolbar .fa-picture-o')
-          .click()
-        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-          .should('have.text', `![${testText}](https://)`)
-      })
-
       it('should format as bold', () => {
         cy.get('.btn-toolbar .fa-bold')
           .click()
@@ -91,12 +73,41 @@ describe('Toolbar Buttons', () => {
           .should('have.text', `^${testText}^`)
       })
 
+      it('should format the line as code block', () => {
+        cy.get('.btn-toolbar .fa-code')
+          .click()
+        cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
+          .should('have.text', '```')
+        cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
+          .should('have.text', testText)
+        cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
+          .should('have.text', '```')
+      })
+
       it('should format links', () => {
         cy.get('.btn-toolbar .fa-link')
           .click()
         cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
           .should('have.text', `[${testText}](https://)`)
       })
+
+      it('should format as image', () => {
+        cy.get('.btn-toolbar .fa-picture-o')
+          .click()
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `![${testText}](https://)`)
+      })
+    })
+
+    it('should format line as heading', () => {
+      cy.get('.btn-toolbar .fa-header')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `# ${testText}`)
+      cy.get('.fa-header')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `## ${testText}`)
     })
 
     it('should format the line as code', () => {
@@ -110,30 +121,6 @@ describe('Toolbar Buttons', () => {
         .should('have.text', '```')
     })
 
-    it('should insert an empty image link', () => {
-      cy.get('.fa-picture-o')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `${testText}![](https://)`)
-    })
-
-    it('should insert links', () => {
-      cy.get('.fa-link')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `${testText}[](https://)`)
-    })
-
-    it('should format line as heading', () => {
-      cy.get('.btn-toolbar .fa-header')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `# ${testText}`)
-      cy.get('.fa-header')
-        .click()
-      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `## ${testText}`)
-    })
     it('should add a quote', () => {
       cy.get('.btn-toolbar .fa-quote-right')
         .click()
@@ -177,39 +164,57 @@ describe('Toolbar Buttons', () => {
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
         .should('have.text', `- [ ] - [ ] ${testText}`)
     })
+
+    it('should insert links', () => {
+      cy.get('.fa-link')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `${testText}[](https://)`)
+    })
+
+    it('should insert an empty image link', () => {
+      cy.get('.fa-picture-o')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `${testText}![](https://)`)
+    })
   })
 
-  describe('for single line link', () => {
+  describe('for single line link with selection', () => {
     beforeEach(() => {
       cy.codemirrorFill(testLink)
       cy.get('.CodeMirror-line > span')
         .should("exist")
         .should('have.text', testLink)
+      cy.get('@codeinput')
+        .type('{ctrl}a')
     })
 
-    describe('with selection', () => {
-      beforeEach(() => {
-        cy.get('@codeinput')
-          .type('{ctrl}a')
-      })
+    it('should format as link', () => {
+      cy.get('.btn-toolbar .fa-link')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `[](${testLink})`)
+    })
 
-      it('should format as link', () => {
-        cy.get('.btn-toolbar .fa-link')
-          .click()
-        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-          .should('have.text', `[](${testLink})`)
-      })
-
-      it('should format as image', () => {
-        cy.get('.btn-toolbar .fa-picture-o')
-          .click()
-        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-          .should('have.text', `![](${testLink})`)
-      })
+    it('should format as image', () => {
+      cy.get('.btn-toolbar .fa-picture-o')
+        .click()
+      cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+        .should('have.text', `![](${testLink})`)
     })
   })
 
   describe('for no text', () => {
+    it('should add an empty code block', () => {
+      cy.get('.btn-toolbar .fa-code')
+        .click()
+      cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
+        .should('have.text', '```')
+      cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
+        .should('have.text', '```')
+    })
+
     it('should insert lines', () => {
       cy.get('.btn-toolbar .fa-minus')
         .click()
@@ -229,15 +234,6 @@ describe('Toolbar Buttons', () => {
         .click()
       cy.get('.CodeMirror-code > div:nth-of-type(2) > .CodeMirror-line > span  span')
         .should('have.text', '> []')
-    })
-
-    it('should add an empty code block', () => {
-      cy.get('.btn-toolbar .fa-code')
-        .click()
-      cy.get('.CodeMirror-code > div:nth-of-type(1) > .CodeMirror-line > span > span')
-        .should('have.text', '```')
-      cy.get('.CodeMirror-code > div.CodeMirror-activeline > .CodeMirror-line > span  span')
-        .should('have.text', '```')
     })
   })
 
