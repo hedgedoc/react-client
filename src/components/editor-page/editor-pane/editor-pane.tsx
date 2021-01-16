@@ -39,6 +39,7 @@ import { allHinters, findWordAtCursor } from './autocompletion'
 import './editor-pane.scss'
 import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
+import { extractTable } from './table-extractor'
 import { ToolBar } from './tool-bar/tool-bar'
 import { handleUpload } from './upload-handler'
 
@@ -62,15 +63,31 @@ const onChange = (editor: Editor) => {
   }
 }
 
+type ClipboardDataFormats = 'text' | 'url' | 'text/plain' | 'text/uri-list' | 'text/html'
+
 interface PasteEvent {
   clipboardData: {
-    files: FileList
+    files: FileList,
+    getData: (format: ClipboardDataFormats) => string
   },
   preventDefault: () => void
 }
 
 const onPaste = (pasteEditor: Editor, event: PasteEvent) => {
-  if (event && event.clipboardData && event.clipboardData.files && event.clipboardData.files.length > 0) {
+  if (!event || !event.clipboardData) {
+    return
+  }
+
+  // Check for pasted tables
+  const pasteText = event.clipboardData.getData('text')
+  if (pasteText && pasteText.includes('\t') && pasteText.includes('\n')) {
+    event.preventDefault()
+    extractTable(pasteText, pasteEditor)
+    return
+  }
+
+  // Upload pasted files
+  if (event.clipboardData.files && event.clipboardData.files.length > 0) {
     event.preventDefault()
     const files: FileList = event.clipboardData.files
     if (files && files.length >= 1) {
