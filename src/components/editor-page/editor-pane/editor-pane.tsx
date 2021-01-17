@@ -39,7 +39,7 @@ import { allHinters, findWordAtCursor } from './autocompletion'
 import './editor-pane.scss'
 import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
-import { extractTable } from './table-extractor'
+import { extractTable, isTable } from './table-extractor'
 import { ToolBar } from './tool-bar/tool-bar'
 import { handleUpload } from './upload-handler'
 
@@ -80,7 +80,7 @@ const onPaste = (pasteEditor: Editor, event: PasteEvent) => {
 
   // Check for pasted tables
   const pasteText = event.clipboardData.getData('text')
-  if (pasteText && pasteText.includes('\t') && pasteText.includes('\n')) {
+  if (pasteText && isTable(pasteText)) {
     event.preventDefault()
     extractTable(pasteText, pasteEditor)
     return
