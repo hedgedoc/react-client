@@ -13,7 +13,7 @@ import {
   EditorConfigActionType,
   SetEditorConfigAction,
   SetEditorLigaturesAction,
-  SetEditorPreferencesAction,
+  SetEditorPreferencesAction, SetEditorSmartPasteAction,
   SetEditorSyncScrollAction
 } from './types'
 
@@ -21,6 +21,7 @@ const initialState: EditorConfig = {
   editorMode: EditorMode.BOTH,
   ligatures: true,
   syncScroll: true,
+  smartPaste: true,
   preferences: {
     theme: 'one-dark',
     keyMap: 'sublime',
@@ -54,6 +55,13 @@ export const EditorConfigReducer: Reducer<EditorConfig, EditorConfigActions> = (
       newState = {
         ...state,
         ligatures: (action as SetEditorLigaturesAction).ligatures
+      }
+      saveToLocalStorage(newState)
+      return newState
+    case EditorConfigActionType.SET_SMART_PASTE:
+      newState = {
+        ...state,
+        smartPaste: (action as SetEditorSmartPasteAction).smartPaste
       }
       saveToLocalStorage(newState)
       return newState

@@ -73,29 +73,6 @@ interface PasteEvent {
   preventDefault: () => void
 }
 
-const onPaste = (pasteEditor: Editor, event: PasteEvent) => {
-  if (!event || !event.clipboardData) {
-    return
-  }
-
-  // Check for pasted tables
-  const pasteText = event.clipboardData.getData('text')
-  if (pasteText && isTable(pasteText)) {
-    event.preventDefault()
-    extractTable(pasteText, pasteEditor)
-    return
-  }
-
-  // Upload pasted files
-  if (event.clipboardData.files && event.clipboardData.files.length > 0) {
-    event.preventDefault()
-    const files: FileList = event.clipboardData.files
-    if (files && files.length >= 1) {
-      handleUpload(files[0], pasteEditor)
-    }
-  }
-}
-
 interface DropEvent {
   pageX: number,
   pageY: number,
@@ -109,6 +86,7 @@ interface DropEvent {
 export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentChange, content, scrollState, onScroll, onMakeScrollSource }) => {
   const { t } = useTranslation()
   const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
+  const smartPasteEnabled = useSelector((state: ApplicationState) => state.editorConfig.smartPaste)
   const [showMaxLengthWarning, setShowMaxLengthWarning] = useState(false)
   const maxLengthWarningAlreadyShown = useRef(false)
   const [editor, setEditor] = useState<Editor>()
@@ -119,6 +97,29 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
   const lastScrollPosition = useRef<number>()
   const [editorScroll, setEditorScroll] = useState<ScrollInfo>()
   const onEditorScroll = useCallback((editor: Editor, data: ScrollInfo) => setEditorScroll(data), [])
+
+  const onPaste = useCallback((pasteEditor: Editor, event: PasteEvent) => {
+    if (!event || !event.clipboardData) {
+      return
+    }
+
+    // Check for pasted tables
+    const pasteText = event.clipboardData.getData('text')
+    if (smartPasteEnabled && pasteText && isTable(pasteText)) {
+      event.preventDefault()
+      extractTable(pasteText, pasteEditor)
+      return
+    }
+
+    // Upload pasted files
+    if (event.clipboardData.files && event.clipboardData.files.length > 0) {
+      event.preventDefault()
+      const files: FileList = event.clipboardData.files
+      if (files && files.length >= 1) {
+        handleUpload(files[0], pasteEditor)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (!editor || !onScroll || !editorScroll) {

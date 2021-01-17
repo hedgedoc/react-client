@@ -18,7 +18,7 @@ export const isTable = (text: string): boolean => {
     return false
   }
   // Every line should have the same amount of tabs (table columns)
-  const lines = text.split(/\r?\n/)
+  const lines = text.split(/\r?\n/).filter(line => line.trim() !== '')
   const tabsPerLines = lines.map(line => line.match(/\t/g)?.length ?? 0)
   return tabsPerLines.every(line => line === tabsPerLines[0])
 }
