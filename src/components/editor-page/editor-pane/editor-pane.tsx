@@ -119,7 +119,7 @@ export const EditorPane: React.FC<EditorPaneProps & ScrollProps> = ({ onContentC
         handleUpload(files[0], pasteEditor)
       }
     }
-  }, [])
+  }, [smartPasteEnabled])
 
   useEffect(() => {
     if (!editor || !onScroll || !editorScroll) {
