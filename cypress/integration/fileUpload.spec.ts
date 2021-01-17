@@ -45,7 +45,7 @@ describe('File upload', () => {
       cy.get('div.btn-group > input[type=file]')
         .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `![](${ imageUrl })`)
+        .should('have.text', `![](${imageUrl})`)
     })
 
     it('via paste', () => {
@@ -53,32 +53,29 @@ describe('File upload', () => {
         .then((image: string) => {
           const pasteEvent = {
             clipboardData: {
-              files: [Cypress.Blob.base64StringToBlob(image, 'image/png')]
-            }
+              files: [Cypress.Blob.base64StringToBlob(image, 'image/png')],
+            getData: (_: string) => ''
           }
-          cy.get('.CodeMirror-scroll')
-            .trigger('paste', pasteEvent)
-          cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-            .should('have.text', `![](${ imageUrl })`)
-        })
+        }
+        cy.get('.CodeMirror-scroll').trigger('paste', pasteEvent)
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `![](${imageUrl})`)
+      })
     })
 
     it('via drag and drop', () => {
-      cy.fixture('acme.png')
-        .then((image: string) => {
-          const dropEvent = {
-            dataTransfer: {
-              files: [Cypress.Blob.base64StringToBlob(image, 'image/png')],
-              effectAllowed: 'uninitialized'
-            }
+      cy.fixture('acme.png').then((image: string) => {
+        const dropEvent = {
+          dataTransfer: {
+            files: [Cypress.Blob.base64StringToBlob(image, 'image/png')],
+            effectAllowed: 'uninitialized'
           }
-          cy.get('.CodeMirror-scroll')
-            .trigger('dragenter', dropEvent)
-          cy.get('.CodeMirror-scroll')
-            .trigger('drop', dropEvent)
-          cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-            .should('have.text', `![](${ imageUrl })`)
-        })
+        }
+        cy.get('.CodeMirror-scroll').trigger('dragenter', dropEvent)
+        cy.get('.CodeMirror-scroll').trigger('drop', dropEvent)
+        cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
+          .should('have.text', `![](${imageUrl})`)
+      })
     })
   })
 
@@ -91,11 +88,10 @@ describe('File upload', () => {
     })
     cy.get('.fa-upload')
       .click()
-    cy.fixture('acme.png')
-      .then(() => {
-        cy.get('input[type=file]')
-          .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
-      })
+    cy.fixture('acme.png').then(() => {
+      cy.get('input[type=file]')
+        .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
+    })
     cy.get('.CodeMirror-activeline > .CodeMirror-line > span > span')
       .should('have.text', String.fromCharCode(8203)) //thanks codemirror....
   })
@@ -107,9 +103,8 @@ describe('File upload', () => {
         getData: (type = 'text') => testText
       }
     }
-    cy.get('.CodeMirror-scroll')
-      .trigger('paste', pasteEvent)
+    cy.get('.CodeMirror-scroll').trigger('paste', pasteEvent)
     cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `${ testText }`)
+      .should('have.text', `${testText}`)
   })
 })
