@@ -1,8 +1,8 @@
 /*
-SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
-SPDX-License-Identifier: AGPL-3.0-only
-*/
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
 import { TocAst } from 'markdown-it-toc-done-right'
 import React, { RefObject, useCallback, useMemo, useRef, useState } from 'react'
@@ -101,7 +101,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
         componentReplacers={allReplacers}
         markdownIt={markdownIt}
         documentReference={documentElement}
-        onBeforeRendering={clearMetadata}
+        onPreRendering={clearMetadata}
         onPostRendering={checkYamlErrorState}
       />
     </div>
