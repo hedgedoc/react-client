@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { editorTestContent } from '../../components/editor/editorTestContent'
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 
 interface LastChange {
@@ -24,21 +23,11 @@ export interface Note {
 }
 
 export const getNote = async (noteId: string): Promise<Note> => {
-  return new Promise<Note>((resolve) => {
-    resolve({
-      "id": noteId,
-      "alias": noteId,
-      "lastChange": {
-        "userId": "test",
-        "timestamp": 1600033920
-      },
-      "viewcount": 0,
-      "createtime": 1600033920,
-      "content": editorTestContent,
-      "authorship": [],
-      "preVersionTwoNote": false
-    } as Note)
+  const response = await fetch(getApiUrl() + `/notes/${noteId}`, {
+    ...defaultFetchConfig
   })
+  expectResponseCode(response)
+  return await response.json() as Promise<Note>
 }
 
 export const deleteNote = async (noteId: string): Promise<void> => {
