@@ -73,22 +73,24 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
           </div>
         </div>
         <div className={'col-lg'}>
-          <ShowIf condition={!!tocAst && realWidth >= 1280}>
-            <TableOfContents ast={tocAst as TocAst} className={'position-fixed'}/>
-          </ShowIf>
-          <ShowIf condition={realWidth < 1280 && !!tocAst}>
-            <div className={'markdown-toc-sidebar-button'}>
-              <Dropdown drop={'up'}>
-                <Dropdown.Toggle id="toc-overlay-button" variant={'secondary'} className={'no-arrow'}>
-                  <ForkAwesomeIcon icon={'list-ol'}/>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <div className={'p-2'}>
-                    <TableOfContents ast={tocAst as TocAst}/>
-                  </div>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
+          <ShowIf condition={!!tocAst}>
+            <ShowIf condition={realWidth >= 1280}>
+              <TableOfContents ast={tocAst as TocAst} className={'position-fixed'}/>
+            </ShowIf>
+            <ShowIf condition={realWidth < 1280}>
+              <div className={'markdown-toc-sidebar-button'}>
+                <Dropdown drop={'up'}>
+                  <Dropdown.Toggle id="toc-overlay-button" variant={'secondary'} className={'no-arrow'}>
+                    <ForkAwesomeIcon icon={'list-ol'}/>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <div className={'p-2'}>
+                      <TableOfContents ast={tocAst as TocAst}/>
+                    </div>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </ShowIf>
           </ShowIf>
         </div>
       </div>
