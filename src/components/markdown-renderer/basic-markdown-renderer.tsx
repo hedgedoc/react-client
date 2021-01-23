@@ -18,8 +18,8 @@ export interface BasicMarkdownRendererProps {
   componentReplacers?: () => ComponentReplacer[],
   markdownIt: MarkdownIt,
   documentReference?: RefObject<HTMLDivElement>
-  onPreRendering?: () => void
-  onPostRendering?: () => void
+  onBeforeRendering?: () => void
+  onAfterRendering?: () => void
 }
 
 export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & AdditionalMarkdownRendererProps> = (
@@ -30,12 +30,12 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     componentReplacers,
     markdownIt,
     documentReference,
-    onPreRendering,
-    onPostRendering
+    onBeforeRendering,
+    onAfterRendering
   }) => {
   const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
   const trimmedContent = useMemo(() => content.length > maxLength ? content.substr(0, maxLength) : content, [content, maxLength])
-  const markdownReactDom = useConvertMarkdownToReactDom(trimmedContent, markdownIt, componentReplacers, onPreRendering, onPostRendering)
+  const markdownReactDom = useConvertMarkdownToReactDom(trimmedContent, markdownIt, componentReplacers, onBeforeRendering, onAfterRendering)
 
   return (
     <div className={`${className ?? ''} d-flex flex-column align-items-center ${wide ? 'wider' : ''}`}>
