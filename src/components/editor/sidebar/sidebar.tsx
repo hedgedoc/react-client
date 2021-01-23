@@ -15,14 +15,8 @@ import { PinNoteSidebarEntry } from './pin-note-sidebar-entry'
 import { RevisionSidebarEntry } from './revision-sidebar-entry'
 import { ShareSidebarEntry } from './share-sidebar-entry'
 import "./style/theme.scss"
+import { DocumentSidebarMenuSelection } from './types'
 import { UsersOnlineSidebarMenu } from './users-online-sidebar-menu/users-online-sidebar-menu'
-
-export enum DocumentSidebarMenuSelection {
-  NONE,
-  USERS_ONLINE,
-  IMPORT,
-  EXPORT
-}
 
 export const Sidebar: React.FC = () => {
 
@@ -33,11 +27,9 @@ export const Sidebar: React.FC = () => {
     setSelectedMenu(DocumentSidebarMenuSelection.NONE)
   })
 
-  const toggleValue = useCallback((toggleValue: DocumentSidebarMenuSelection): () => void => {
-    return () => {
-      const newValue = selectedMenu === toggleValue ? DocumentSidebarMenuSelection.NONE : toggleValue
-      setSelectedMenu(newValue)
-    }
+  const toggleValue = useCallback((toggleValue: DocumentSidebarMenuSelection): void => {
+    const newValue = selectedMenu === toggleValue ? DocumentSidebarMenuSelection.NONE : toggleValue
+    setSelectedMenu(newValue)
   }, [selectedMenu])
 
   const selectionIsNotNone = selectedMenu !== DocumentSidebarMenuSelection.NONE
@@ -45,18 +37,15 @@ export const Sidebar: React.FC = () => {
   return (
     <div className="slide-sidebar">
       <div ref={sideBarRef} className={`sidebar-inner ${selectionIsNotNone ? 'show' : ''}`}>
-        <UsersOnlineSidebarMenu expand={selectedMenu === DocumentSidebarMenuSelection.USERS_ONLINE}
-                                hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.USERS_ONLINE}
-                                onClick={toggleValue(DocumentSidebarMenuSelection.USERS_ONLINE)}/>
+        <UsersOnlineSidebarMenu menuId={DocumentSidebarMenuSelection.USERS_ONLINE}
+                                selectedMenuId={selectedMenu} onClick={toggleValue}/>
         <DocumentInfoSidebarEntry hide={selectionIsNotNone}/>
         <RevisionSidebarEntry hide={selectionIsNotNone}/>
         <PermissionsSidebarEntry hide={selectionIsNotNone}/>
-        <ImportMenuSidebarMenu expand={selectedMenu === DocumentSidebarMenuSelection.IMPORT}
-                               hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.IMPORT}
-                               onClick={toggleValue(DocumentSidebarMenuSelection.IMPORT)}/>
-        <ExportMenuSidebarMenu expand={selectedMenu === DocumentSidebarMenuSelection.EXPORT}
-                               hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.EXPORT}
-                               onClick={toggleValue(DocumentSidebarMenuSelection.EXPORT)}/>
+        <ImportMenuSidebarMenu menuId={DocumentSidebarMenuSelection.IMPORT}
+                               selectedMenuId={selectedMenu} onClick={toggleValue}/>
+        <ExportMenuSidebarMenu menuId={DocumentSidebarMenuSelection.EXPORT}
+                               selectedMenuId={selectedMenu} onClick={toggleValue}/>
         <ShareSidebarEntry hide={selectionIsNotNone}/>
         <DeleteNoteSidebarEntry hide={selectionIsNotNone}/>
         <PinNoteSidebarEntry hide={selectionIsNotNone}/>

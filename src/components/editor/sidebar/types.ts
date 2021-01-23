@@ -27,3 +27,17 @@ export interface SidebarEntryProps {
 export interface SidebarMenuProps {
   expand?: boolean
 }
+
+export enum DocumentSidebarMenuSelection {
+  NONE,
+  USERS_ONLINE,
+  IMPORT,
+  EXPORT
+}
+
+export interface SpecificSidebarMenuProps {
+  className?: string
+  onClick: (menuId: DocumentSidebarMenuSelection) => void
+  selectedMenuId: DocumentSidebarMenuSelection
+  menuId: DocumentSidebarMenuSelection
+}
