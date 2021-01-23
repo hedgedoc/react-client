@@ -61,7 +61,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 - A toggle in the editor preferences for turning ligatures on and off.
 - Easier possibility to share notes via native share-buttons on supported devices.
 - Surround selected text with a link via shortcut (ctrl+k or cmd+k).
-- A sidebar menu options
+- A sidebar for menu options
 
 ### Changed
 

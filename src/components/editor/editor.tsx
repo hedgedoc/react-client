@@ -138,7 +138,7 @@ export const Editor: React.FC = () => {
                 onMakeScrollSource={() => (scrollSource.current = ScrollSource.EDITOR)}
               />
             }
-            showRight={editorMode === EditorMode.PREVIEW || (editorMode === EditorMode.BOTH)}
+            showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
             right={
               <ScrollingDocumentRenderPane
                 onFirstHeadingChange={onFirstHeadingChange}

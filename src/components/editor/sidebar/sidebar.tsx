@@ -35,18 +35,18 @@ export const Sidebar: React.FC = () => {
 
   const toggleValue = useCallback((toggleValue: DocumentSidebarMenuSelection): () => void => {
     return () => {
-    const newValue = selectedMenu === toggleValue ? DocumentSidebarMenuSelection.NONE : toggleValue
-    setSelectedMenu(newValue);
+      const newValue = selectedMenu === toggleValue ? DocumentSidebarMenuSelection.NONE : toggleValue
+      setSelectedMenu(newValue)
     }
-  },[selectedMenu]);
+  }, [selectedMenu])
 
-  const selectionIsNotNone = selectedMenu  !== DocumentSidebarMenuSelection.NONE
+  const selectionIsNotNone = selectedMenu !== DocumentSidebarMenuSelection.NONE
 
   return (
     <div className="slide-sidebar">
       <div ref={sideBarRef} className={`sidebar-inner ${selectionIsNotNone ? 'show' : ''}`}>
         <UsersOnlineSidebarMenu expand={selectedMenu === DocumentSidebarMenuSelection.USERS_ONLINE}
-                                hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.USERS_ONLINE }
+                                hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.USERS_ONLINE}
                                 onClick={toggleValue(DocumentSidebarMenuSelection.USERS_ONLINE)}/>
         <DocumentInfoSidebarEntry hide={selectionIsNotNone}/>
         <RevisionSidebarEntry hide={selectionIsNotNone}/>

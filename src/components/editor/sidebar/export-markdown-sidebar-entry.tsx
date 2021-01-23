@@ -5,7 +5,7 @@
  */
 
 import React, { useCallback } from 'react'
-import { useTranslation , Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
@@ -17,7 +17,7 @@ export const ExportMarkdownSidebarEntry: React.FC = () => {
 
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
   const onClick = useCallback(() => {
-    download(markdownContent, `title.md`, 'text/markdown')
+    download(markdownContent, `title.md`, 'text/markdown') //todo: replace hard coded title with redux
   }, [markdownContent])
 
   return (
