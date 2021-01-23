@@ -59,7 +59,9 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
            ref={documentRenderPaneRef} onScroll={onScrollRenderer} onMouseEnter={onMouseEnterRenderer}>
         <div className={'col-lg'}/>
         <div className={'bg-light flex-fill'}>
-          <YamlArrayDeprecationAlert show={yamlDeprecatedTags}/>
+          <ShowIf condition={yamlDeprecatedTags}>
+            <YamlArrayDeprecationAlert/>
+          </ShowIf>
           <div>
             <FullMarkdownRenderer
               rendererRef={rendererRef} className={'flex-fill mb-3'}

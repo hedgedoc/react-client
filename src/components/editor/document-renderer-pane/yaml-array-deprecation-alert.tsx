@@ -10,12 +10,8 @@ import { Trans } from 'react-i18next'
 import links from '../../../links.json'
 import { TranslatedExternalLink } from '../../common/links/translated-external-link'
 
-export interface YamlArrayDeprecationAlertProps {
-  show: boolean
-}
-
-export const YamlArrayDeprecationAlert: React.FC<YamlArrayDeprecationAlertProps> = ({ show }) => {
-  return !show ? null : (
+export const YamlArrayDeprecationAlert: React.FC = () => {
+  return (
     <Alert data-cy={'yamlArrayDeprecationAlert'} variant='warning' dir='auto'>
       <Trans i18nKey='editor.deprecatedTags'/>
       <br/>
