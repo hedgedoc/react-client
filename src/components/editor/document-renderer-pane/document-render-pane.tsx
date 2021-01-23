@@ -6,7 +6,7 @@
 
 import { TocAst } from 'markdown-it-toc-done-right'
 import React, { RefObject, useRef, useState } from 'react'
-import Dropdown from 'react-bootstrap/esm/Dropdown'
+import { Dropdown } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import useResizeObserver from 'use-resize-observer'
 import { ApplicationState } from '../../../redux'
