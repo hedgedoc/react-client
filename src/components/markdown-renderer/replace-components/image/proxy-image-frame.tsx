@@ -10,12 +10,13 @@ import { getProxiedUrl } from '../../../../api/media'
 import { ApplicationState } from '../../../../redux'
 import { LightboxImageFrame } from './lightbox-image-frame'
 
-export const ProxyImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
-                                                                                       src,
-                                                                                       title,
-                                                                                       alt,
-                                                                                       ...props
-                                                                                     }) => {
+export const ProxyImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (
+  {
+    src,
+    title,
+    alt,
+    ...props
+  }) => {
   const [imageUrl, setImageUrl] = useState('')
   const imageProxyEnabled = useSelector((state: ApplicationState) => state.config.useImageProxy)
 
