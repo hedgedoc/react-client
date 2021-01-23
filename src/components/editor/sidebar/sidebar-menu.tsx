@@ -10,8 +10,8 @@ import { SidebarMenuProps } from './types'
 export const SidebarMenu: React.FC<SidebarMenuProps> = ({children, expand}) => {
     return (
       <div className={`sidebar-menu ${expand ? 'show' : ''}`}>
-        <div>
-        {children}
+        <div className={`d-flex flex-column`}>
+          {children}
         </div>
       </div>
     );
