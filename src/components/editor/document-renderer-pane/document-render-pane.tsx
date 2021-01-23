@@ -5,7 +5,7 @@
  */
 
 import { TocAst } from 'markdown-it-toc-done-right'
-import React, { RefObject, useCallback, useRef, useState } from 'react'
+import React, { RefObject, useRef, useState } from 'react'
 import Dropdown from 'react-bootstrap/esm/Dropdown'
 import { useSelector } from 'react-redux'
 import useResizeObserver from 'use-resize-observer'
@@ -29,7 +29,6 @@ export interface DocumentRenderPaneProps {
   onTaskCheckedChange: (lineInMarkdown: number, checked: boolean) => void
   documentRenderPaneRef?: RefObject<HTMLDivElement>
   wide?: boolean
-  onTocChange?: (tocAst: TocAst) => void
 }
 
 export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
@@ -42,8 +41,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
     onScrollRenderer,
     onTaskCheckedChange,
     documentRenderPaneRef,
-    wide,
-    onTocChange
+    wide
   }) => {
   const rendererRef = useRef<HTMLDivElement | null>(null)
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
@@ -52,10 +50,6 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
 
   const { width } = useResizeObserver(documentRenderPaneRef ? { ref: documentRenderPaneRef } : undefined)
   const [tocAst, setTocAst] = useState<TocAst | undefined>(undefined)
-  const saveToc = useCallback((newToc: TocAst) => {
-    onTocChange?.(newToc)
-    setTocAst(newToc)
-  }, [onTocChange])
 
   const realWidth = width ?? 0
 
@@ -74,7 +68,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
               onLineMarkerPositionChanged={changeLineMarker}
               onMetaDataChange={onMetadataChange}
               onTaskCheckedChange={onTaskCheckedChange}
-              onTocChange={saveToc}
+              onTocChange={setTocAst}
               wide={wide}/>
           </div>
         </div>

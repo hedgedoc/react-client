@@ -1,8 +1,8 @@
 /*
-SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
-SPDX-License-Identifier: AGPL-3.0-only
-*/
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
 import React, { useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -20,8 +20,7 @@ export const ScrollingDocumentRenderPane: React.FC<DocumentRenderPaneProps & Scr
   onMakeScrollSource,
   onMetadataChange,
   onScroll,
-  onTaskCheckedChange,
-  onTocChange
+  onTaskCheckedChange
 }) => {
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
   const renderer = useRef<HTMLDivElement>(null)
@@ -42,7 +41,6 @@ export const ScrollingDocumentRenderPane: React.FC<DocumentRenderPaneProps & Scr
       onMouseEnterRenderer={onMakeScrollSource}
       onScrollRenderer={userScroll}
       onTaskCheckedChange={onTaskCheckedChange}
-      onTocChange={onTocChange}
     />
   )
 }

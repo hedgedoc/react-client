@@ -1,10 +1,9 @@
 /*
-SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
-SPDX-License-Identifier: AGPL-3.0-only
-*/
-
-import { TocAst } from 'markdown-it-toc-done-right'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -121,7 +120,6 @@ export const Editor: React.FC = () => {
 
   useApplyDarkMode()
   useDocumentTitle(documentTitle)
-  const [tocAst, setTocAst] = useState<TocAst|undefined>(undefined)
 
   return (
     <Fragment>
@@ -152,11 +150,10 @@ export const Editor: React.FC = () => {
                 onTaskCheckedChange={onTaskCheckedChange}
                 scrollState={scrollState.rendererScrollState}
                 wide={editorMode === EditorMode.PREVIEW}
-                onTocChange={(tocAst) => setTocAst(tocAst)}
               />
             }
             containerClassName={'overflow-hidden'}/>
-          <Sidebar tocAst={tocAst}/>
+          <Sidebar/>
         </div>
       </div>
     </Fragment>

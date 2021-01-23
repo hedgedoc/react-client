@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { TocAst } from 'markdown-it-toc-done-right'
 import React, { useCallback, useRef, useState } from 'react'
 import { useClickAway } from 'react-use'
-import { CommonMenuSidebarMenu } from './common-menu-sidebar-menu'
+import { DeleteNoteSidebarEntry } from './delete-note-sidebar-entry'
 import { DocumentInfoSidebarEntry } from './document-info-sidebar-entry'
 import { ExportMenuSidebarMenu } from './export-menu-sidebar-menu'
 import { ImportMenuSidebarMenu } from './import-menu-sidebar-menu'
 import { PermissionsSidebarEntry } from './permissions-sidebar-entry'
+import { PinNoteSidebarEntry } from './pin-note-sidebar-entry'
 import { RevisionSidebarEntry } from './revision-sidebar-entry'
 import { ShareSidebarEntry } from './share-sidebar-entry'
 import "./style/theme.scss"
@@ -21,25 +21,19 @@ export enum DocumentSidebarMenuSelection {
   NONE,
   USERS_ONLINE,
   IMPORT,
-  EXPORT,
-  TOC,
-  COMMON
+  EXPORT
 }
 
-export interface SidebarProps {
-  tocAst?: TocAst
-}
+export const Sidebar: React.FC = () => {
 
-export const Sidebar: React.FC<SidebarProps> = ({tocAst}) => {
-
-  const sideBarRef = useRef<HTMLDivElement>(null);
+  const sideBarRef = useRef<HTMLDivElement>(null)
   const [selectedMenu, setSelectedMenu] = useState<DocumentSidebarMenuSelection>(DocumentSidebarMenuSelection.NONE)
 
   useClickAway(sideBarRef, () => {
-    setSelectedMenu(DocumentSidebarMenuSelection.NONE);
+    setSelectedMenu(DocumentSidebarMenuSelection.NONE)
   })
 
-  const toggleValue = useCallback( (toggleValue:DocumentSidebarMenuSelection): ()=>void => {
+  const toggleValue = useCallback((toggleValue: DocumentSidebarMenuSelection): () => void => {
     return () => {
     const newValue = selectedMenu === toggleValue ? DocumentSidebarMenuSelection.NONE : toggleValue
     setSelectedMenu(newValue);
@@ -64,9 +58,8 @@ export const Sidebar: React.FC<SidebarProps> = ({tocAst}) => {
                                hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.EXPORT}
                                onClick={toggleValue(DocumentSidebarMenuSelection.EXPORT)}/>
         <ShareSidebarEntry hide={selectionIsNotNone}/>
-        <CommonMenuSidebarMenu expand={selectedMenu === DocumentSidebarMenuSelection.COMMON}
-                                    hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.COMMON}
-                                    onClick={toggleValue(DocumentSidebarMenuSelection.COMMON)}/>
+        <DeleteNoteSidebarEntry/>
+        <PinNoteSidebarEntry/>
       </div>
     </div>
   )
