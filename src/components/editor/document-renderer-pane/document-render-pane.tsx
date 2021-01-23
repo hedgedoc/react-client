@@ -48,7 +48,6 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
   const realWidth = width || 0
   const rendererRef = useRef<HTMLDivElement | null>(null)
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
-  const yamlDeprecatedTags = useSelector((state: ApplicationState) => state.documentContent.metadata.deprecatedTagsSyntax)
   const changeLineMarker = useAdaptedLineMarkerCallback(documentRenderPaneRef, rendererRef, onLineMarkerPositionChanged)
 
   return (
@@ -56,7 +55,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
          ref={documentRenderPaneRef} onScroll={onScrollRenderer} onMouseEnter={onMouseEnterRenderer}>
       <div className={'col-md'}/>
       <div className={'bg-light flex-fill'}>
-        <YamlArrayDeprecationAlert show={yamlDeprecatedTags}/>
+        <YamlArrayDeprecationAlert/>
         <div>
           <FullMarkdownRenderer
             rendererRef={rendererRef}
