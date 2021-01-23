@@ -43,7 +43,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
     documentRenderPaneRef,
     wide
   }) => {
-  const [tocAst, setTocAst] = useState<TocAst | undefined>(undefined)
+  const [tocAst, setTocAst] = useState<TocAst>()
   const { width } = useResizeObserver(documentRenderPaneRef ? { ref: documentRenderPaneRef } : undefined)
   const realWidth = width ?? 0
   const rendererRef = useRef<HTMLDivElement | null>(null)
