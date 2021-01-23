@@ -7,12 +7,12 @@
 import { DomElement } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
-import { ProxiedImageFrame } from './proxied-image-frame'
+import { ProxyImageFrame } from './proxy-image-frame'
 
 export class ImageReplacer extends ComponentReplacer {
   public getReplacement (node: DomElement): React.ReactElement | undefined {
     if (node.name === 'img' && node.attribs) {
-      return <ProxiedImageFrame
+      return <ProxyImageFrame
         id={node.attribs.id}
         className={node.attribs.class}
         src={node.attribs.src}
