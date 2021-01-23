@@ -12,11 +12,12 @@ import { LineKeys } from '../types'
 import { buildTransformer } from '../utils/html-react-transformer'
 import { calculateNewLineNumberMapping } from '../utils/line-number-mapping'
 
-export const useConvertMarkdownToReactDom = (markdownCode: string,
-                                             markdownIt: MarkdownIt,
-                                             componentReplacers?: () => ComponentReplacer[],
-                                             onBeforeRendering?: () => void,
-                                             onAfterRendering?: () => void): ReactElement[] => {
+export const useConvertMarkdownToReactDom = (
+  markdownCode: string,
+  markdownIt: MarkdownIt,
+  componentReplacers?: () => ComponentReplacer[],
+  onBeforeRendering?: () => void,
+  onAfterRendering?: () => void): ReactElement[] => {
   const oldMarkdownLineKeys = useRef<LineKeys[]>()
   const lastUsedLineId = useRef<number>(0)
 
