@@ -58,8 +58,8 @@ export const Sidebar: React.FC = () => {
                                hide={selectionIsNotNone && selectedMenu !== DocumentSidebarMenuSelection.EXPORT}
                                onClick={toggleValue(DocumentSidebarMenuSelection.EXPORT)}/>
         <ShareSidebarEntry hide={selectionIsNotNone}/>
-        <DeleteNoteSidebarEntry/>
-        <PinNoteSidebarEntry/>
+        <DeleteNoteSidebarEntry hide={selectionIsNotNone}/>
+        <PinNoteSidebarEntry hide={selectionIsNotNone}/>
       </div>
     </div>
   )

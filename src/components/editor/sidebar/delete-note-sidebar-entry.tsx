@@ -8,14 +8,15 @@ import React, { Fragment, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { DeletionModal } from '../../common/modals/deletion-modal'
 import { SidebarButton } from './sidebar-button'
+import { SpecificSidebarEntryProps } from './types'
 
-export const DeleteNoteSidebarEntry: React.FC = () => {
+export const DeleteNoteSidebarEntry: React.FC<SpecificSidebarEntryProps> = ({ hide, className }) => {
   useTranslation()
   const [showDialog, setShowDialog] = useState(false)
 
   return (
     <Fragment>
-      <SidebarButton icon={"trash"} onClick={() => setShowDialog(true)}>
+      <SidebarButton icon={"trash"} className={className} hide={hide} onClick={() => setShowDialog(true)}>
         <Trans i18nKey={'landing.history.menu.deleteNote'}/>
       </SidebarButton>
       <DeletionModal
