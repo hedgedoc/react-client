@@ -107,7 +107,7 @@ export const FullMarkdownRenderer: React.FC<FullMarkdownRendererProps & Addition
         componentReplacers={allReplacers}
         markdownIt={markdownIt}
         documentReference={documentElement}
-        onPreRendering={clearMetadata}
+        onBeforeRendering={clearMetadata}
         onAfterRendering={checkYamlErrorState}
       />
     </div>
