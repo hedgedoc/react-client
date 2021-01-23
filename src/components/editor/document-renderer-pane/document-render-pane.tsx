@@ -43,15 +43,13 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
     documentRenderPaneRef,
     wide
   }) => {
+  const [tocAst, setTocAst] = useState<TocAst | undefined>(undefined)
+  const { width } = useResizeObserver(documentRenderPaneRef ? { ref: documentRenderPaneRef } : undefined)
+  const realWidth = width ?? 0
   const rendererRef = useRef<HTMLDivElement | null>(null)
   const markdownContent = useSelector((state: ApplicationState) => state.documentContent.content)
   const yamlDeprecatedTags = useSelector((state: ApplicationState) => state.documentContent.metadata.deprecatedTagsSyntax)
   const changeLineMarker = useAdaptedLineMarkerCallback(documentRenderPaneRef, rendererRef, onLineMarkerPositionChanged)
-
-  const { width } = useResizeObserver(documentRenderPaneRef ? { ref: documentRenderPaneRef } : undefined)
-  const [tocAst, setTocAst] = useState<TocAst | undefined>(undefined)
-
-  const realWidth = width ?? 0
 
   return (
     <div className={'h-100 w-100 overflow-x-auto'}>
