@@ -145,14 +145,14 @@ export const Editor: React.FC = () => {
             showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
             right={
               <DocumentIframe markdownContent={markdownContent}
-                            onMakeScrollSource={setRendererToScrollSource}
-                onFirstHeadingChange={onFirstHeadingChange}
-                onTaskCheckedChange={onTaskCheckedChange
-                }
-                onMetadataChange={onMetadataChange}
-                onScroll={onMarkdownRendererScroll}
+                              onMakeScrollSource={setRendererToScrollSource}
+                              onFirstHeadingChange={onFirstHeadingChange}
+                              onTaskCheckedChange={onTaskCheckedChange
+                              }
+                              onMetadataChange={onMetadataChange}
+                              onScroll={onMarkdownRendererScroll}
 
-                wide={editorMode === EditorMode.PREVIEW}scrollState={scrollState.rendererScrollState}
+                              wide={editorMode === EditorMode.PREVIEW} scrollState={scrollState.rendererScrollState}
               />
             }
             containerClassName={'overflow-hidden'}/>
