@@ -62,6 +62,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 - Easier possibility to share notes via native share-buttons on supported devices.
 - Surround selected text with a link via shortcut (ctrl+k or cmd+k).
 - A sidebar for menu options
+- Improved security by wrapping the markdown rendering into an iframe
 
 ### Changed
 
