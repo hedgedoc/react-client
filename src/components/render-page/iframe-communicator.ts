@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-export abstract class IframeCommunicator<SEND, RECVIEVE> {
+export abstract class IframeCommunicator<SEND, RECEIVE> {
   protected otherSide?: Window
   protected otherOrigin?: string
 
@@ -38,6 +38,6 @@ export abstract class IframeCommunicator<SEND, RECVIEVE> {
     this.otherSide.postMessage(message, this.otherOrigin)
   }
 
-  protected abstract handleEvent (event: MessageEvent<RECVIEVE>): void;
+  protected abstract handleEvent (event: MessageEvent<RECEIVE>): void;
 }
 
