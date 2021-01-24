@@ -23,7 +23,7 @@ export class ImageReplacer extends ComponentReplacer {
     if (node.name === 'img' && node.attribs) {
       return <ProxyImageFrame
         id={node.attribs.id}
-        className={`${node.attribs.class} cursor-pointer`}
+        className={`${node.attribs.class} cursor-zoom-in`}
         src={node.attribs.src}
         alt={node.attribs.alt}
         title={node.attribs.title}
