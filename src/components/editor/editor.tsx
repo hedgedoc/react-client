@@ -125,6 +125,10 @@ export const Editor: React.FC = () => {
     scrollSource.current = ScrollSource.RENDERER
   }, [])
 
+  const setEditorToScrollSource = useCallback(() => {
+    scrollSource.current = ScrollSource.EDITOR
+  }, [])
+
   return (
     <Fragment>
       <MotdBanner/>
@@ -139,21 +143,18 @@ export const Editor: React.FC = () => {
                 content={markdownContent}
                 scrollState={scrollState.editorScrollState}
                 onScroll={onEditorScroll}
-                onMakeScrollSource={() => (scrollSource.current = ScrollSource.EDITOR)}
-              />
+                onMakeScrollSource={setEditorToScrollSource}/>
             }
             showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
             right={
               <DocumentIframe markdownContent={markdownContent}
                               onMakeScrollSource={setRendererToScrollSource}
                               onFirstHeadingChange={onFirstHeadingChange}
-                              onTaskCheckedChange={onTaskCheckedChange
-                              }
+                              onTaskCheckedChange={onTaskCheckedChange}
                               onMetadataChange={onMetadataChange}
                               onScroll={onMarkdownRendererScroll}
-
-                              wide={editorMode === EditorMode.PREVIEW} scrollState={scrollState.rendererScrollState}
-              />
+                              wide={editorMode === EditorMode.PREVIEW}
+                              scrollState={scrollState.rendererScrollState}/>
             }
             containerClassName={'overflow-hidden'}/>
           <Sidebar/>
