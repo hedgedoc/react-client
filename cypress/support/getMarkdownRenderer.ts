@@ -6,10 +6,6 @@
 
 declare namespace Cypress {
   interface Chainable {
-    /**
-     * Custom command to check an external Link.
-     * @example cy.get(a#extern).checkExternalLink('http://example.com')
-     */
     getMarkdownRenderer (): Chainable<Element>
 
     getMarkdownBody (): Chainable<Element>
