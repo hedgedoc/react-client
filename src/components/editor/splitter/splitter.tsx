@@ -1,8 +1,8 @@
 /*
-SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
-SPDX-License-Identifier: AGPL-3.0-only
-*/
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
 import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { ShowIf } from '../../common/show-if/show-if'
@@ -33,11 +33,7 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
     setSplit(newSize * 100)
   }
 
-  const onMouseUp = useCallback(() => {
-    setDoResizing(false)
-  }, [])
-
-  const onTouchEnd = useCallback(() => {
+  const stopResizing = useCallback(() => {
     setDoResizing(false)
   }, [])
 
@@ -59,7 +55,7 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
 
   return (
     <div ref={splitContainer} className={`flex-fill flex-row d-flex ${containerClassName || ''}`}
-         onMouseUp={onMouseUp} onTouchEnd={onTouchEnd} onMouseMove={onMouseMove} onTouchMove={onTouchMove}>
+         onMouseUp={stopResizing} onTouchEnd={stopResizing} onMouseMove={onMouseMove} onTouchMove={onTouchMove}>
       <div className={`splitter left ${!showLeft ? 'd-none' : ''}`} style={{ flexBasis: `calc(${realSplit}% - 5px)` }}>
         {left}
       </div>
