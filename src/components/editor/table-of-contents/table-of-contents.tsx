@@ -38,7 +38,7 @@ const convertLevel = (toc: TocAst, levelsToShowUnderThis: number, headerCounts: 
   const content = (
     <Fragment>
       <ShowIf condition={toc.l > 0}>
-        <a href={headlineUrl} title={rawName} onClick={createJumpToMarkClickEventHandler(slug.substr(1))} title={rawName}>{rawName}</a>
+        <a href={headlineUrl} title={rawName} onClick={createJumpToMarkClickEventHandler(slug.substr(1))}>{rawName}</a>
       </ShowIf>
       <ShowIf condition={toc.c.length > 0}>
         <ul>

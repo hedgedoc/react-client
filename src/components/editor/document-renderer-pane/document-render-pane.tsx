@@ -86,7 +86,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
       <div className={'col-md pt-4'}>
         <ShowIf condition={!!tocAst}>
           <ShowIf condition={realWidth >= 1280}>
-            <TableOfContents ast={tocAst as TocAst} className={'position-fixed'} baseUrl={baseUrl}/>
+            <TableOfContents ast={tocAst as TocAst} className={'sticky'} baseUrl={baseUrl}/>
           </ShowIf>
           <ShowIf condition={realWidth < 1280}>
             <div className={'markdown-toc-sidebar-button'}>

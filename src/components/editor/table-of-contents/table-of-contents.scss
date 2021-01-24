@@ -5,6 +5,17 @@
  */
 
 .markdown-toc {
+  width: 100%;
+  max-width: 200px;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+  }
+
   padding: 2px;
 
   > ul > li {
