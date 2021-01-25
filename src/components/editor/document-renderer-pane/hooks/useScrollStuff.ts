@@ -31,8 +31,8 @@ export const useScrollStuff = (outerContainerRef: React.RefObject<HTMLElement>,
     setLineMarks(adjustedLineMakerPositions)
   }, [outerContainerRef, rendererRef])
 
-  const onUserScroll = useOnUserScroll(lineMarks, rendererRef, onScroll)
-  useScrollToLineMark(scrollState, lineMarks, numberOfLines, rendererRef)
+  const onUserScroll = useOnUserScroll(lineMarks, outerContainerRef, onScroll)
+  useScrollToLineMark(scrollState, lineMarks, numberOfLines, outerContainerRef)
 
   return [onLineMarkerPositionChanged, onUserScroll]
 }
