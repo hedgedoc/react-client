@@ -7,7 +7,7 @@
 import equal from 'fast-deep-equal'
 import React from 'react'
 import { Modal } from 'react-bootstrap'
-import { useTranslation , Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useFrontendBaseUrl } from '../../../../hooks/common/use-frontend-base-url'
@@ -24,7 +24,7 @@ export interface ShareModalProps {
 
 export const ShareModal: React.FC<ShareModalProps> = ({ show, onHide }) => {
   useTranslation()
-  const noteMetadata = useSelector((state: ApplicationState) => state.documentContent.metadata, equal)
+  const noteMetadata = useSelector((state: ApplicationState) => state.noteContent.metadata, equal)
   const editorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const baseUrl = useFrontendBaseUrl()
   const { id } = useParams<EditorPathParams>()

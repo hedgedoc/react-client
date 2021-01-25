@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 import { ApplicationState } from '../../redux'
 import { setDarkMode } from '../../redux/dark-mode/methods'
-import { setDocumentMetadata } from '../../redux/document-content/methods'
+import { setNoteMetadata } from '../../redux/note-content/methods'
 import { DocumentRenderPane } from '../editor/document-renderer-pane/document-render-pane'
 import { ScrollState } from '../editor/scroll/scroll-props'
 import { YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
@@ -60,7 +60,7 @@ export const RenderPage: React.FC = () => {
   }, [iframeCommunicator])
 
   const onMetaDataChange = useCallback((metaData?: YAMLMetaData) => {
-    setDocumentMetadata(metaData)
+    setNoteMetadata(metaData)
     iframeCommunicator.sendSetMetaData(metaData)
   }, [iframeCommunicator])
 
