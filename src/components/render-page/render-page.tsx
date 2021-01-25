@@ -10,7 +10,7 @@ import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 import { ApplicationState } from '../../redux'
 import { setDarkMode } from '../../redux/dark-mode/methods'
 import { setDocumentMetadata } from '../../redux/document-content/methods'
-import { ScrollingDocumentRenderPane } from '../editor/document-renderer-pane/scrolling-document-render-pane'
+import { DocumentRenderPane } from '../editor/document-renderer-pane/document-render-pane'
 import { ScrollState } from '../editor/scroll/scroll-props'
 import { YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
 import { ImageClickHandler } from '../markdown-renderer/replace-components/image/image-replacer'
@@ -86,7 +86,7 @@ export const RenderPage: React.FC = () => {
 
   return (
     <div className={"vh-100 w-100"}>
-      <ScrollingDocumentRenderPane
+      <DocumentRenderPane
         extraClasses={'w-100'}
         markdownContent={markdownContent}
         wide={isWide}

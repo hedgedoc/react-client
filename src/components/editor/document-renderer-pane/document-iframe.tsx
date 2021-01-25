@@ -11,9 +11,9 @@ import { isTestMode } from '../../../utils/is-test-mode'
 import { ImageLightboxModal } from '../../markdown-renderer/replace-components/image/image-lightbox-modal'
 import { IframeEditorToRendererCommunicator } from '../../render-page/iframe-editor-to-renderer-communicator'
 import { ImageDetails } from '../../render-page/rendering-message'
-import { ScrollingDocumentRenderPaneProps } from './scrolling-document-render-pane'
+import { DocumentRenderPaneProps } from './document-render-pane'
 
-export const DocumentIframe: React.FC<ScrollingDocumentRenderPaneProps> = (
+export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   {
     markdownContent,
     onTaskCheckedChange,
