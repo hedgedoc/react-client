@@ -14,7 +14,7 @@ import { DocumentRenderPane, DocumentRenderPaneProps } from './document-render-p
 type ImplementedProps =
   'onLineMarkerPositionChanged'
   | 'onScrollRenderer'
-  | 'rendererReference'
+  | 'documentRenderPaneRef'
   | 'onMouseEnterRenderer'
 
 export type ScrollingDocumentRenderPaneProps = Omit<(DocumentRenderPaneProps & ScrollProps), ImplementedProps>
