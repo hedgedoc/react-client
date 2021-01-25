@@ -17,8 +17,14 @@ export const isTable = (text: string): boolean => {
   if (text.startsWith('```')) {
     return false
   }
-  // Every line should have the same amount of tabs (table columns)
+
   const lines = text.split(/\r?\n/).filter(line => line.trim() !== '')
+
+  // Tab-indented text should not be matched as a table
+  if (lines.every(line => line.startsWith('\t'))) {
+    return false
+  }
+  // Every line should have the same amount of tabs (table columns)
   const tabsPerLines = lines.map(line => line.match(/\t/g)?.length ?? 0)
   return tabsPerLines.every(line => line === tabsPerLines[0])
 }
