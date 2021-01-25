@@ -22,38 +22,26 @@ export type ScrollingDocumentRenderPaneProps = Omit<(DocumentRenderPaneProps & S
 export const ScrollingDocumentRenderPane: React.FC<ScrollingDocumentRenderPaneProps> = (
   {
     scrollState,
-    wide,
-    onFirstHeadingChange,
-    onMakeScrollSource,
-    onMetadataChange,
     onScroll,
-    onTaskCheckedChange,
     markdownContent,
     extraClasses,
-    baseUrl,
-    onImageClick
+    ...props
   }) => {
   const renderer = useRef<HTMLDivElement>(null)
   const [lineMarks, setLineMarks] = useState<LineMarkerPosition[]>()
 
   const contentLineCount = useMemo(() => markdownContent.split('\n').length, [markdownContent])
-  useScrollToLineMark(scrollState, lineMarks, contentLineCount, renderer)
   const userScroll = useOnUserScroll(lineMarks, renderer, onScroll)
+  useScrollToLineMark(scrollState, lineMarks, contentLineCount, renderer)
 
   return (
     <DocumentRenderPane
-      extraClasses={`overflow-y-scroll h-100 ${extraClasses || ''}`}
+      extraClasses={`overflow-y-scroll h-100 ${extraClasses ?? ''}`}
       documentRenderPaneRef={renderer}
-      wide={wide}
-      onFirstHeadingChange={onFirstHeadingChange}
       onLineMarkerPositionChanged={setLineMarks}
-      onMetadataChange={onMetadataChange}
-      onMouseEnterRenderer={onMakeScrollSource}
       onScrollRenderer={userScroll}
-      onTaskCheckedChange={onTaskCheckedChange}
       markdownContent={markdownContent}
-      baseUrl={baseUrl}
-      onImageClick={onImageClick}
+      {...props}
     />
   )
 }
