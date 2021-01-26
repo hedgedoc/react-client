@@ -58,7 +58,7 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
     if (rendererReady) {
       iframeCommunicator.sendSetBaseUrl(window.location.toString())
     }
-  }, [iframeCommunicator, rendererReady,])
+  }, [iframeCommunicator, rendererReady])
   useEffect(() => {
     if (rendererReady) {
       iframeCommunicator.sendSetMarkdownContent(markdownContent)
