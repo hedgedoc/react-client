@@ -25,17 +25,12 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
     onMakeScrollSource,
     extraClasses
   }) => {
-  const frameReference = useRef<HTMLIFrameElement>(null)
   const darkMode = useIsDarkModeActivated()
+  const [rendererReady, setRendererReady] = useState<boolean>(false)
   const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)
 
-  const rendererOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.rendererOrigin)
-  const renderPageUrl = `${rendererOrigin}/render`
   const iframeCommunicator = useMemo(() => new IframeEditorToRendererCommunicator(), [])
   useEffect(() => () => iframeCommunicator.unregisterEventListener(), [iframeCommunicator])
-
-  const [rendererReady, setRendererReady] = useState<boolean>(false)
-
   useEffect(() => iframeCommunicator.onFirstHeadingChange(onFirstHeadingChange), [iframeCommunicator, onFirstHeadingChange])
   useEffect(() => iframeCommunicator.onMetaDataChange(onMetadataChange), [iframeCommunicator, onMetadataChange])
   useEffect(() => iframeCommunicator.onSetScrollState(onScroll), [iframeCommunicator, onScroll])
@@ -43,7 +38,6 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   useEffect(() => iframeCommunicator.onTaskCheckboxChange(onTaskCheckedChange), [iframeCommunicator, onTaskCheckedChange])
   useEffect(() => iframeCommunicator.onImageClicked(setLightboxDetails), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onRendererReady(() => setRendererReady(true)), [darkMode, iframeCommunicator, scrollState, wide])
-
   useEffect(() => {
     if (rendererReady) {
       iframeCommunicator.sendSetMarkdownContent(markdownContent)
@@ -72,6 +66,9 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   }, [iframeCommunicator, rendererReady,])
 
   const sendToRenderPage = useRef<boolean>(true)
+  const frameReference = useRef<HTMLIFrameElement>(null)
+  const rendererOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.rendererOrigin)
+  const renderPageUrl = `${rendererOrigin}/render`
 
   const onLoad = useCallback(() => {
     const frame = frameReference.current
