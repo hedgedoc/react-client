@@ -32,6 +32,7 @@ export interface NoteContent {
   alias: string,
   authorship: number[]
   noteTitle: string
+  firstHeading: string
   metadata: YAMLMetaData
 }
 
@@ -51,7 +52,7 @@ export interface SetNoteDataFromServerAction extends NoteContentAction {
 
 export interface UpdateNoteTitleByFirstHeadingAction extends NoteContentAction {
   type: NoteContentActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING
-  firstHeading?: string
+  firstHeading: string
 }
 
 export interface SetNoteMetaDataFromRenderingAction extends NoteContentAction {

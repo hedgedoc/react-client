@@ -35,7 +35,7 @@ export const setNoteDataFromServer = (apiResponse: Note): void => {
 export const updateNoteTitleByFirstHeading = (firstHeading?: string): void => {
   store.dispatch({
     type: NoteContentActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING,
-    firstHeading: firstHeading
+    firstHeading: firstHeading ?? ''
   } as UpdateNoteTitleByFirstHeadingAction)
 }
 

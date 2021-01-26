@@ -32,6 +32,7 @@ export const initialState: NoteContent = {
   viewCount: 0,
   authorship: [],
   noteTitle: '',
+  firstHeading: '',
   metadata: {
     title: '',
     description: '',
@@ -58,6 +59,7 @@ export const NoteContentReducer: Reducer<NoteContent, NoteContentAction> = (stat
     case NoteContentActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
       return {
         ...state,
+        firstHeading: (action as UpdateNoteTitleByFirstHeadingAction).firstHeading,
         noteTitle: generateNoteTitle(state.metadata, (action as UpdateNoteTitleByFirstHeadingAction).firstHeading)
       }
     case NoteContentActionType.SET_NOTE_DATA_FROM_SERVER:
@@ -65,7 +67,8 @@ export const NoteContentReducer: Reducer<NoteContent, NoteContentAction> = (stat
     case NoteContentActionType.SET_NOTE_META_DATA:
       return {
         ...state,
-        metadata: (action as SetNoteMetaDataFromRenderingAction).metadata
+        metadata: (action as SetNoteMetaDataFromRenderingAction).metadata,
+        noteTitle: generateNoteTitle((action as SetNoteMetaDataFromRenderingAction).metadata, state.firstHeading)
       }
     case NoteContentActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT:
       return {
@@ -109,12 +112,13 @@ const convertNoteToNoteContent = (note: Note): NoteContent => {
     markdownContent: note.content,
     metadata: initialState.metadata,
     id: note.id,
-    noteTitle: '',
+    noteTitle: initialState.noteTitle,
     createTime: DateTime.fromSeconds(note.createtime),
     lastChange: {
       userId: note.lastChange.userId,
       timestamp: DateTime.fromSeconds(note.lastChange.timestamp)
     },
+    firstHeading: initialState.firstHeading,
     preVersionTwoNote: note.preVersionTwoNote,
     viewCount: note.viewcount,
     alias: note.alias,
