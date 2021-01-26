@@ -40,11 +40,6 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   useEffect(() => iframeCommunicator.onRendererReady(() => setRendererReady(true)), [darkMode, iframeCommunicator, scrollState, wide])
   useEffect(() => {
     if (rendererReady) {
-      iframeCommunicator.sendSetMarkdownContent(markdownContent)
-    }
-  }, [iframeCommunicator, markdownContent, rendererReady])
-  useEffect(() => {
-    if (rendererReady) {
       iframeCommunicator.sendSetDarkmode(darkMode)
     }
   }, [darkMode, iframeCommunicator, rendererReady])
@@ -64,6 +59,11 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
       iframeCommunicator.sendSetBaseUrl(window.location.toString())
     }
   }, [iframeCommunicator, rendererReady,])
+  useEffect(() => {
+    if (rendererReady) {
+      iframeCommunicator.sendSetMarkdownContent(markdownContent)
+    }
+  }, [iframeCommunicator, markdownContent, rendererReady])
 
   const sendToRenderPage = useRef<boolean>(true)
   const frameReference = useRef<HTMLIFrameElement>(null)
