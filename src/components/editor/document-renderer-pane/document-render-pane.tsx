@@ -15,7 +15,7 @@ import { ImageClickHandler } from '../../markdown-renderer/replace-components/im
 import { ScrollProps } from '../scroll/scroll-props'
 import { TableOfContents } from '../table-of-contents/table-of-contents'
 import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
-import { useScrollStuff } from './hooks/useScrollStuff'
+import { useSyncedScrolling } from './hooks/use-synced-scrolling'
 import { YamlArrayDeprecationAlert } from './yaml-array-deprecation-alert'
 
 export interface DocumentRenderPaneProps extends ScrollProps {
@@ -50,7 +50,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
   const width = useResizeObserver({ ref: internalDocumentRenderPaneRef.current }).width ?? 0
 
   const contentLineCount = useMemo(() => markdownContent.split('\n').length, [markdownContent])
-  const [onLineMarkerPositionChanged, onUserScroll] = useScrollStuff(internalDocumentRenderPaneRef, rendererRef, contentLineCount, scrollState, onScroll)
+  const [onLineMarkerPositionChanged, onUserScroll] = useSyncedScrolling(internalDocumentRenderPaneRef, rendererRef, contentLineCount, scrollState, onScroll)
 
   return (
     <div className={`overflow-y-scroll h-100 bg-light m-0 pb-5 row ${extraClasses ?? ''}`}

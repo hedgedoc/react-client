@@ -10,11 +10,11 @@ import { useOnUserScroll } from '../../scroll/hooks/use-on-user-scroll'
 import { useScrollToLineMark } from '../../scroll/hooks/use-scroll-to-line-mark'
 import { ScrollState } from '../../scroll/scroll-props'
 
-export const useScrollStuff = (outerContainerRef: React.RefObject<HTMLElement>,
-                               rendererRef: React.RefObject<HTMLElement>,
-                               numberOfLines: number,
-                               scrollState?: ScrollState,
-                               onScroll?: (scrollState: ScrollState) => void): [(lineMarkers: LineMarkerPosition[]) => void, () => void] => {
+export const useSyncedScrolling = (outerContainerRef: React.RefObject<HTMLElement>,
+                                   rendererRef: React.RefObject<HTMLElement>,
+                                   numberOfLines: number,
+                                   scrollState?: ScrollState,
+                                   onScroll?: (scrollState: ScrollState) => void): [(lineMarkers: LineMarkerPosition[]) => void, () => void] => {
   const [lineMarks, setLineMarks] = useState<LineMarkerPosition[]>()
 
   const onLineMarkerPositionChanged = useCallback((linkMarkerPositions: LineMarkerPosition[]) => {
