@@ -113,14 +113,14 @@ const convertNoteToNoteContent = (note: Note): NoteContent => {
     metadata: initialState.metadata,
     id: note.id,
     noteTitle: initialState.noteTitle,
-    createTime: DateTime.fromSeconds(note.createtime),
+    createTime: DateTime.fromSeconds(note.createTime),
     lastChange: {
       userId: note.lastChange.userId,
       timestamp: DateTime.fromSeconds(note.lastChange.timestamp)
     },
     firstHeading: initialState.firstHeading,
     preVersionTwoNote: note.preVersionTwoNote,
-    viewCount: note.viewcount,
+    viewCount: note.viewCount,
     alias: note.alias,
     authorship: note.authorship
   }

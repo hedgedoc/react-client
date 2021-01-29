@@ -16,8 +16,8 @@ export interface Note {
   id: string
   alias: string
   lastChange: LastChange
-  viewcount: number
-  createtime: number
+  viewCount: number
+  createTime: number
   content: string
   authorship: number[]
   preVersionTwoNote: boolean
