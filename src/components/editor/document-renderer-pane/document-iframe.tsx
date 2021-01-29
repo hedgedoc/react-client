@@ -66,37 +66,15 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
     }
   }, [iframeCommunicator, markdownContent, rendererReady])
 
-  const sendToRenderPage = useRef<boolean>(true)
   const frameReference = useRef<HTMLIFrameElement>(null)
   const rendererOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.rendererOrigin)
   const renderPageUrl = `${rendererOrigin}/render`
-
-  const onLoad = useCallback(() => {
-    const frame = frameReference.current
-    if (!frame || !frame.contentWindow) {
-      iframeCommunicator.unsetOtherSide()
-      return
-    }
-
-    if (sendToRenderPage.current) {
-      iframeCommunicator.setOtherSide(frame.contentWindow, rendererOrigin)
-      sendToRenderPage.current = false
-      return
-    } else {
-      setRendererReady(false)
-      console.error("Navigated away from unknown URL")
-      frame.src = renderPageUrl
-      sendToRenderPage.current = true
-    }
-  }, [iframeCommunicator, renderPageUrl, rendererOrigin])
-
-  const hideLightbox = useCallback(() => {
-    setLightboxDetails(undefined)
-  }, [])
+  const resetRendererReady = useCallback(() => setRendererReady(false), [])
+  const onIframeLoad = useOnIframeLoad(frameReference, iframeCommunicator, rendererOrigin, renderPageUrl, resetRendererReady)
 
   return <Fragment>
     <AutoShowingImageLightbox details={lightboxDetails}/>
-    <iframe data-cy={'documentIframe'} onLoad={onLoad} title="render" src={renderPageUrl}
+    <iframe data-cy={'documentIframe'} onLoad={onIframeLoad} title="render" src={renderPageUrl}
             {...isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' }}
             ref={frameReference} className={`h-100 w-100 border-0 ${extraClasses ?? ''}`}/>
   </Fragment>
