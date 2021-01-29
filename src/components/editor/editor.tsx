@@ -21,6 +21,9 @@ import {
   updateNoteTitleByFirstHeading
 } from '../../redux/note-content/methods'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
+import { ShowIf } from '../common/show-if/show-if'
+import { ErrorWhileLoadingNoteAlert } from '../pad-view-only/ErrorWhileLoadingNoteAlert'
+import { LoadingNoteAlert } from '../pad-view-only/LoadingNoteAlert'
 import { AppBar, AppBarMode } from './app-bar/app-bar'
 import { EditorMode } from './app-bar/editor-view-mode'
 import { DocumentIframe } from './document-renderer-pane/document-iframe'
@@ -84,7 +87,7 @@ export const Editor: React.FC = () => {
   useViewModeShortcuts()
   useApplyDarkMode()
   useDocumentTitleWithNoteTitle()
-  useLoadNoteFromServer()
+  const [error, loading] = useLoadNoteFromServer()
 
   const setRendererToScrollSource = useCallback(() => {
     scrollSource.current = ScrollSource.RENDERER
@@ -99,32 +102,39 @@ export const Editor: React.FC = () => {
       <MotdBanner/>
       <div className={'d-flex flex-column vh-100'}>
         <AppBar mode={AppBarMode.EDITOR}/>
-        <div className={"flex-fill d-flex h-100 w-100 overflow-hidden flex-row"}>
-          <Splitter
-            showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
-            left={
-              <EditorPane
-                onContentChange={setNoteMarkdownContent}
-                content={markdownContent}
-                scrollState={scrollState.editorScrollState}
-                onScroll={onEditorScroll}
-                onMakeScrollSource={setEditorToScrollSource}/>
-            }
-            showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
-            right={
-              <DocumentIframe
-                markdownContent={markdownContent}
-                onMakeScrollSource={setRendererToScrollSource}
-                onFirstHeadingChange={updateNoteTitleByFirstHeading}
-                onTaskCheckedChange={SetCheckboxInMarkdownContent}
-                onMetadataChange={setNoteMetadata}
-                onScroll={onMarkdownRendererScroll}
-                wide={editorMode === EditorMode.PREVIEW}
-                scrollState={scrollState.rendererScrollState}/>
-            }
-            containerClassName={'overflow-hidden'}/>
-          <Sidebar/>
+
+        <div className={'container'}>
+          <ErrorWhileLoadingNoteAlert show={error}/>
+          <LoadingNoteAlert show={loading}/>
         </div>
+        <ShowIf condition={!error && !loading}>
+          <div className={"flex-fill d-flex h-100 w-100 overflow-hidden flex-row"}>
+            <Splitter
+              showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
+              left={
+                <EditorPane
+                  onContentChange={setNoteMarkdownContent}
+                  content={markdownContent}
+                  scrollState={scrollState.editorScrollState}
+                  onScroll={onEditorScroll}
+                  onMakeScrollSource={setEditorToScrollSource}/>
+              }
+              showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
+              right={
+                <DocumentIframe
+                  markdownContent={markdownContent}
+                  onMakeScrollSource={setRendererToScrollSource}
+                  onFirstHeadingChange={updateNoteTitleByFirstHeading}
+                  onTaskCheckedChange={SetCheckboxInMarkdownContent}
+                  onMetadataChange={setNoteMetadata}
+                  onScroll={onMarkdownRendererScroll}
+                  wide={editorMode === EditorMode.PREVIEW}
+                  scrollState={scrollState.rendererScrollState}/>
+              }
+              containerClassName={'overflow-hidden'}/>
+            <Sidebar/>
+          </div>
+        </ShowIf>
       </div>
     </Fragment>
   )

@@ -17,11 +17,14 @@ export const useLoadNoteFromServer = (): [boolean, boolean] => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getNote("test")
+    getNote(id)
       .then(note => {
         setNoteDataFromServer(note)
       })
-      .catch(() => setError(true))
+      .catch((e) => {
+        setError(true)
+        console.error(e)
+      })
       .finally(() => setLoading(false))
   }, [id])
 

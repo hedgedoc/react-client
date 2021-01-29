@@ -5,8 +5,7 @@
  */
 
 import React, { useCallback } from 'react'
-import { Alert } from 'react-bootstrap'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
@@ -21,6 +20,8 @@ import { DocumentIframe } from '../editor/document-renderer-pane/document-iframe
 import { EditorPathParams } from '../editor/editor'
 import { useLoadNoteFromServer } from '../editor/useLoadNoteFromServer'
 import { DocumentInfobar } from './document-infobar'
+import { ErrorWhileLoadingNoteAlert } from './ErrorWhileLoadingNoteAlert'
+import { LoadingNoteAlert } from './LoadingNoteAlert'
 
 export const PadViewOnly: React.FC = () => {
 
@@ -41,18 +42,8 @@ export const PadViewOnly: React.FC = () => {
       <MotdBanner/>
       <AppBar mode={AppBarMode.BASIC}/>
       <div className={'container'}>
-        <ShowIf condition={error}>
-          <Alert variant={'danger'} className={'my-2'}>
-            <b><Trans i18nKey={'views.readOnly.error.title'}/></b>
-            <br/>
-            <Trans i18nKey={'views.readOnly.error.description'}/>
-          </Alert>
-        </ShowIf>
-        <ShowIf condition={loading}>
-          <Alert variant={'info'} className={'my-2'}>
-            <Trans i18nKey={'views.readOnly.loading'}/>
-          </Alert>
-        </ShowIf>
+        <ErrorWhileLoadingNoteAlert show={error}/>
+        <LoadingNoteAlert show={loading}/>
       </div>
       <ShowIf condition={!error && !loading}>
         { /* TODO set editable and created author properly */}
