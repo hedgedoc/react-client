@@ -8,10 +8,11 @@ import { useSelector } from 'react-redux'
 import { useIsDarkModeActivated } from '../../../hooks/common/use-is-dark-mode-activated'
 import { ApplicationState } from '../../../redux'
 import { isTestMode } from '../../../utils/is-test-mode'
-import { ImageLightboxModal } from '../../markdown-renderer/replace-components/image/image-lightbox-modal'
 import { IframeEditorToRendererCommunicator } from '../../render-page/iframe-editor-to-renderer-communicator'
 import { ImageDetails } from '../../render-page/rendering-message'
+import { AutoShowingImageLightbox } from './auto-showing-image-lightbox'
 import { DocumentRenderPaneProps } from './document-render-pane'
+import { useOnIframeLoad } from './hooks/use-on-iframe-load'
 
 export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   {
@@ -94,8 +95,7 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   }, [])
 
   return <Fragment>
-    <ImageLightboxModal show={!!lightboxDetails} onHide={hideLightbox} src={lightboxDetails?.src}
-                        alt={lightboxDetails?.alt} title={lightboxDetails?.title}/>
+    <AutoShowingImageLightbox details={lightboxDetails}/>
     <iframe data-cy={'documentIframe'} onLoad={onLoad} title="render" src={renderPageUrl}
             {...isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' }}
             ref={frameReference} className={`h-100 w-100 border-0 ${extraClasses ?? ''}`}/>
