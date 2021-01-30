@@ -9559,7 +9559,14 @@ markdown-it@12.0.4:
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
 
-markmap-common@0.1.2, markmap-common@^0.1.2:
+markmap-common@0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/markmap-common/-/markmap-common-0.1.3.tgz#f008969dcff642227258a056900c4c486e3bfee3"
+  integrity sha512-6C1rLBbJ5JVE0V+1Er4qWtCBjnn71CLjSSxC0f6L4akFAyio0sGgE/r6nmbD2zrYFD8BGea3uUM3IPZonE0Vfg==
+  dependencies:
+    "@babel/runtime" "^7.12.1"
+
+markmap-common@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/markmap-common/-/markmap-common-0.1.2.tgz#2ffdfbcd9a7d27765d326c253174e606216c6762"
   integrity sha512-2HcqhhXogGvofOJMfqCBU5ZGSgUxluz81f7uCSKu9iTQFirFp4xGlRn8VXhuRv5O7TONfnA9a/6g1++EPstjag==
