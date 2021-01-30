@@ -10,9 +10,9 @@ import { ApplicationState } from '../../../redux'
 import { isTestMode } from '../../../utils/is-test-mode'
 import { IframeEditorToRendererCommunicator } from '../../render-page/iframe-editor-to-renderer-communicator'
 import { ImageDetails } from '../../render-page/rendering-message'
-import { AutoShowingImageLightbox } from './auto-showing-image-lightbox'
 import { DocumentRenderPaneProps } from './document-render-pane'
 import { useOnIframeLoad } from './hooks/use-on-iframe-load'
+import { ShowOnPropChangeImageLightbox } from './show-on-prop-change-image-lightbox'
 
 export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   {
@@ -73,7 +73,7 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   const onIframeLoad = useOnIframeLoad(frameReference, iframeCommunicator, rendererOrigin, renderPageUrl, resetRendererReady)
 
   return <Fragment>
-    <AutoShowingImageLightbox details={lightboxDetails}/>
+    <ShowOnPropChangeImageLightbox details={lightboxDetails}/>
     <iframe data-cy={'documentIframe'} onLoad={onIframeLoad} title="render" src={renderPageUrl}
             {...isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' }}
             ref={frameReference} className={`h-100 w-100 border-0 ${extraClasses ?? ''}`}/>

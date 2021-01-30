@@ -8,11 +8,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ImageLightboxModal } from '../../markdown-renderer/replace-components/image/image-lightbox-modal'
 import { ImageDetails } from '../../render-page/rendering-message'
 
-export interface ImageLightboxProps {
+export interface ShowOnPropChangeImageLightboxProps {
   details?: ImageDetails
 }
 
-export const AutoShowingImageLightbox: React.FC<ImageLightboxProps> = ({ details }) => {
+export const ShowOnPropChangeImageLightbox: React.FC<ShowOnPropChangeImageLightboxProps> = ({ details }) => {
   const [show, setShow] = useState<boolean>(false)
 
   const hideLightbox = useCallback(() => {
