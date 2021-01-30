@@ -3,7 +3,6 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import equal from "fast-deep-equal"
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
@@ -41,11 +40,7 @@ export const RenderPage: React.FC = () => {
   useEffect(() => iframeCommunicator.onSetMarkdownContent(setMarkdownContent), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetDarkMode(setDarkMode), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetWide(setWide), [iframeCommunicator])
-  useEffect(() => iframeCommunicator.onSetScrollState((newScrollState) => {
-    if (!equal(scrollState, newScrollState)) {
-      setScrollState(newScrollState)
-    }
-  }), [iframeCommunicator, scrollState])
+  useEffect(() => iframeCommunicator.onSetScrollState(setScrollState), [iframeCommunicator, scrollState])
 
   const onTaskCheckedChange = useCallback((lineInMarkdown: number, checked: boolean) => {
     iframeCommunicator.sendTaskCheckBoxChange(lineInMarkdown, checked)

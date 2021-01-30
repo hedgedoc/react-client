@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+import equal from 'fast-deep-equal'
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useIsDarkModeActivated } from '../../../hooks/common/use-is-dark-mode-activated'
@@ -10,6 +11,7 @@ import { ApplicationState } from '../../../redux'
 import { isTestMode } from '../../../utils/is-test-mode'
 import { IframeEditorToRendererCommunicator } from '../../render-page/iframe-editor-to-renderer-communicator'
 import { ImageDetails } from '../../render-page/rendering-message'
+import { ScrollState } from '../scroll/scroll-props'
 import { DocumentRenderPaneProps } from './document-render-pane'
 import { useOnIframeLoad } from './hooks/use-on-iframe-load'
 import { ShowOnPropChangeImageLightbox } from './show-on-prop-change-image-lightbox'
@@ -39,16 +41,21 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   useEffect(() => iframeCommunicator.onTaskCheckboxChange(onTaskCheckedChange), [iframeCommunicator, onTaskCheckedChange])
   useEffect(() => iframeCommunicator.onImageClicked(setLightboxDetails), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onRendererReady(() => setRendererReady(true)), [darkMode, iframeCommunicator, scrollState, wide])
+
   useEffect(() => {
     if (rendererReady) {
       iframeCommunicator.sendSetDarkmode(darkMode)
     }
   }, [darkMode, iframeCommunicator, rendererReady])
+
+  const oldScrollState = useRef<ScrollState | undefined>(undefined)
   useEffect(() => {
-    if (rendererReady) {
+    if (rendererReady && !equal(scrollState, oldScrollState.current)) {
+      oldScrollState.current = scrollState
       iframeCommunicator.sendScrollState(scrollState)
     }
   }, [iframeCommunicator, rendererReady, scrollState])
+
   useEffect(() => {
     if (rendererReady) {
       iframeCommunicator.sendSetWide(wide ?? false)
@@ -60,6 +67,7 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
       iframeCommunicator.sendSetBaseUrl(window.location.toString())
     }
   }, [iframeCommunicator, rendererReady])
+
   useEffect(() => {
     if (rendererReady) {
       iframeCommunicator.sendSetMarkdownContent(markdownContent)
