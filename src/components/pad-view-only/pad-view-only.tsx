@@ -46,7 +46,6 @@ export const PadViewOnly: React.FC = () => {
         <LoadingNoteAlert show={loading}/>
       </div>
       <ShowIf condition={!error && !loading}>
-        { /* TODO set editable and created author properly */}
         <DocumentInfobar
           changedAuthor={noteMetaData.lastChange.userId ?? ''}
           changedTime={noteMetaData.lastChange.timestamp}
