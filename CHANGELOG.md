@@ -21,11 +21,16 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 ### Removed
 
 - SlideShare embedding
-    - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
+    - If a legacy embedding code is detected, then it will show the link to the presentation instead of the embedded
+      presentation.
 - Speakerdeck embedding
-    - If a legacy embedding code is detected it will show the link to the presentation instead of the embedded presentation
-- We are now using `highlight.js` instead of `highlight.js` + `prism.js` for code highlighting. Check out the [highlight.js demo page](https://highlightjs.org/static/demo/) to see which languages are supported.
- The highlighting for following languages isn't supported by `highlight.js`:
+    - If a legacy embedding code is detected, then it will show the link to the presentation instead of the embedded
+      presentation.
+- PDF embedding (See [#959](https://github.com/hedgedoc/react-client/issues/959))
+    - If a legacy embedding code is detected, then it will show the link to the pdf instead.
+- We are now using `highlight.js` instead of `highlight.js` + `prism.js` for code highlighting. Check out
+  the [highlight.js demo page](https://highlightjs.org/static/demo/) to see which languages are supported. The
+  highlighting for following languages isn't supported by `highlight.js`:
     - tiddlywiki
     - mediawiki
     - jsx
@@ -69,7 +74,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 - The sign-in/sign-up functions are now on a separate page
 - The email sign-in/registration does not require an email address anymore but uses a username
 - The history shows both the entries saved in LocalStorage and the entries saved on the server together
-- The gist and pdf embeddings now use a one-click aproach similar to vimeo and youtube
+- The gist embedding now use a one-click approach similar to vimeo and youtube
 - Use [Twemoji](https://twemoji.twitter.com/) as icon font
 - The `[name=...]`, `[time=...]` and `[color=...]` tags may now be used anywhere in the document and not just inside of blockquotes and lists.
 - The <i class="fa fa-picture-o"/> (add image) and <i class="fa fa-link"/> (add link) toolbar buttons put selected links directly in the `()` instead of the `[]` part of the generated markdown.
