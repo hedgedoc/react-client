@@ -9,12 +9,14 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 ## [Unreleased]
 
 ### Deprecations
-- This version of HedgeDoc is the last version that supports the following short-code syntaxes for embedding content. Embedding works now instead by putting the plain webpage link to the content into a single line.
+- This version of HedgeDoc is the last version, that supports the following short code syntax for embedding content. The
+  new way to embed this external content is to put the plain link into a single line of the document.
     - `{%youtube someid %}` -> https://youtube.com/watch?v=someid
     - `{%vimeo 123456789 %}` -> https://vimeo.com/123456789
     - `{%gist user/12345 %}` -> https://gist.github.com/user/12345
     - `{%slideshare user/my-awesome-presentation %}` -> Embedding removed
     - `{%speakerdeck foobar %}` -> Embedding removed
+    - `{%pdf https://example.org/example-pdf.pdf %}` -> Embedding removed
 - The use of `sequence` as code block language ([Why?](https://hedgedoc.org/faq/))
 - Comma-separated definition of tags in the yaml-metadata
 
