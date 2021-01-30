@@ -19,7 +19,6 @@ import { AsciinemaReplacer } from '../replace-components/asciinema/asciinema-rep
 import { GistReplacer } from '../replace-components/gist/gist-replacer'
 import { KatexReplacer } from '../replace-components/katex/katex-replacer'
 import { LineMarkers, lineNumberMarker } from '../replace-components/linemarker/line-number-marker'
-import { PdfReplacer } from '../replace-components/pdf/pdf-replacer'
 import { VimeoReplacer } from '../replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from '../replace-components/youtube/youtube-replacer'
 import { BasicMarkdownItConfigurator } from './BasicMarkdownItConfigurator'
@@ -56,7 +55,6 @@ export class FullMarkdownItConfigurator extends BasicMarkdownItConfigurator {
       GistReplacer.markdownItPlugin,
       legacySlideshareShortCode,
       legacySpeakerdeckShortCode,
-      PdfReplacer.markdownItPlugin,
       AsciinemaReplacer.markdownItPlugin,
       highlightedCode,
       quoteExtra,
