@@ -99,9 +99,9 @@ const setCheckboxInMarkdownContent = (markdownContent: string, lineInMarkdown: n
 
 const generateNoteTitle = (metaData: YAMLMetaData, firstHeading?: string) => {
   if (metaData?.title && metaData?.title !== '') {
-    return metaData.title
+    return metaData.title.trim()
   } else if (metaData?.opengraph && metaData?.opengraph.get('title') && metaData?.opengraph.get('title') !== '') {
-    return (metaData?.opengraph.get('title') ?? firstHeading ?? '')
+    return (metaData?.opengraph.get('title') ?? firstHeading ?? '').trim()
   } else {
     return (firstHeading ?? firstHeading ?? '').trim()
   }
