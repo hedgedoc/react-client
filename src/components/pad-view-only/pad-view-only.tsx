@@ -12,7 +12,7 @@ import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 import { useDocumentTitleWithNoteTitle } from '../../hooks/common/use-document-title-with-note-title'
 import { useNoteMarkdownContent } from '../../hooks/common/use-note-markdown-content'
 import { ApplicationState } from '../../redux'
-import { setNoteMetadata, updateNoteTitleByFirstHeading } from '../../redux/note-details/methods'
+import { setNoteFrontmatter, updateNoteTitleByFirstHeading } from '../../redux/note-details/methods'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { ShowIf } from '../common/show-if/show-if'
 import { AppBar, AppBarMode } from '../editor/app-bar/app-bar'
@@ -32,7 +32,7 @@ export const PadViewOnly: React.FC = () => {
   useDocumentTitleWithNoteTitle()
 
   const onFirstHeadingChange = useCallback(updateNoteTitleByFirstHeading, [])
-  const onMetadataChange = useCallback(setNoteMetadata, [])
+  const onFrontmatterChange = useCallback(setNoteFrontmatter, [])
   const [error, loading] = useLoadNoteFromServer()
   const markdownContent = useNoteMarkdownContent()
   const noteDetails = useSelector((state: ApplicationState) => state.noteDetails)
@@ -58,7 +58,7 @@ export const PadViewOnly: React.FC = () => {
         <DocumentIframe extraClasses={"flex-fill"}
                         markdownContent={markdownContent}
                         onFirstHeadingChange={onFirstHeadingChange}
-                        onMetadataChange={onMetadataChange}/>
+                        onFrontmatterChange={onFrontmatterChange}/>
       </ShowIf>
     </div>
   )

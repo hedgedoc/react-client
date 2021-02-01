@@ -7,7 +7,7 @@
 import { DateTime } from 'luxon'
 import { Reducer } from 'redux'
 import { Note } from '../../api/notes'
-import { YAMLMetaData } from '../../components/editor/yaml-metadata/yaml-metadata'
+import { NoteFrontmatter } from '../../components/editor/note-frontmatter/note-frontmatter'
 import {
   NoteDetails,
   NoteDetailsAction,
@@ -15,7 +15,7 @@ import {
   SetCheckboxInMarkdownContentAction,
   SetNoteDetailsAction,
   SetNoteDetailsFromServerAction,
-  SetNoteMetaDataFromRenderingAction,
+  SetNoteFrontmatterFromRenderingAction,
   UpdateNoteTitleByFirstHeadingAction
 } from './types'
 
@@ -33,7 +33,7 @@ export const initialState: NoteDetails = {
   authorship: [],
   noteTitle: '',
   firstHeading: '',
-  metadata: {
+  frontmatter: {
     title: '',
     description: '',
     tags: [],
@@ -60,15 +60,15 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsAction> = (stat
       return {
         ...state,
         firstHeading: (action as UpdateNoteTitleByFirstHeadingAction).firstHeading,
-        noteTitle: generateNoteTitle(state.metadata, (action as UpdateNoteTitleByFirstHeadingAction).firstHeading)
+        noteTitle: generateNoteTitle(state.frontmatter, (action as UpdateNoteTitleByFirstHeadingAction).firstHeading)
       }
     case NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER:
       return convertNoteToNoteDetails((action as SetNoteDetailsFromServerAction).note)
-    case NoteDetailsActionType.SET_NOTE_META_DATA:
+    case NoteDetailsActionType.SET_NOTE_FRONTMATTER:
       return {
         ...state,
-        metadata: (action as SetNoteMetaDataFromRenderingAction).metadata,
-        noteTitle: generateNoteTitle((action as SetNoteMetaDataFromRenderingAction).metadata, state.firstHeading)
+        frontmatter: (action as SetNoteFrontmatterFromRenderingAction).frontmatter,
+        noteTitle: generateNoteTitle((action as SetNoteFrontmatterFromRenderingAction).frontmatter, state.firstHeading)
       }
     case NoteDetailsActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT:
       return {
@@ -97,11 +97,11 @@ const setCheckboxInMarkdownContent = (markdownContent: string, lineInMarkdown: n
   return markdownContent
 }
 
-const generateNoteTitle = (metaData: YAMLMetaData, firstHeading?: string) => {
-  if (metaData?.title && metaData?.title !== '') {
-    return metaData.title.trim()
-  } else if (metaData?.opengraph && metaData?.opengraph.get('title') && metaData?.opengraph.get('title') !== '') {
-    return (metaData?.opengraph.get('title') ?? firstHeading ?? '').trim()
+const generateNoteTitle = (frontmatter: NoteFrontmatter, firstHeading?: string) => {
+  if (frontmatter?.title && frontmatter?.title !== '') {
+    return frontmatter.title.trim()
+  } else if (frontmatter?.opengraph && frontmatter?.opengraph.get('title') && frontmatter?.opengraph.get('title') !== '') {
+    return (frontmatter?.opengraph.get('title') ?? firstHeading ?? '').trim()
   } else {
     return (firstHeading ?? firstHeading ?? '').trim()
   }
@@ -110,7 +110,7 @@ const generateNoteTitle = (metaData: YAMLMetaData, firstHeading?: string) => {
 const convertNoteToNoteDetails = (note: Note): NoteDetails => {
   return {
     markdownContent: note.content,
-    metadata: initialState.metadata,
+    frontmatter: initialState.frontmatter,
     id: note.id,
     noteTitle: initialState.noteTitle,
     createTime: DateTime.fromSeconds(note.createTime),

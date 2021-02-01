@@ -7,12 +7,12 @@
 import { DateTime } from 'luxon'
 import { Action } from 'redux'
 import { Note } from '../../api/notes'
-import { YAMLMetaData } from '../../components/editor/yaml-metadata/yaml-metadata'
+import { NoteFrontmatter } from '../../components/editor/note-frontmatter/note-frontmatter'
 
 export enum NoteDetailsActionType {
   SET_DOCUMENT_CONTENT = 'note-details/set',
   SET_NOTE_DATA_FROM_SERVER = 'note-details/data/server/set',
-  SET_NOTE_META_DATA = 'note-details/metaData/set',
+  SET_NOTE_FRONTMATTER = 'note-details/frontmatter/set',
   UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading',
   SET_CHECKBOX_IN_MARKDOWN_CONTENT = 'note-details/toggle-checkbox-in-markdown-content'
 }
@@ -24,16 +24,16 @@ interface LastChange {
 
 export interface NoteDetails {
   markdownContent: string
-  id: string,
-  createTime: DateTime,
+  id: string
+  createTime: DateTime
   lastChange: LastChange
-  preVersionTwoNote: boolean,
+  preVersionTwoNote: boolean
   viewCount: number
-  alias: string,
+  alias: string
   authorship: number[]
   noteTitle: string
   firstHeading: string
-  metadata: YAMLMetaData
+  frontmatter: NoteFrontmatter
 }
 
 export interface NoteDetailsAction extends Action<NoteDetailsActionType> {
@@ -55,9 +55,9 @@ export interface UpdateNoteTitleByFirstHeadingAction extends NoteDetailsAction {
   firstHeading: string
 }
 
-export interface SetNoteMetaDataFromRenderingAction extends NoteDetailsAction {
-  type: NoteDetailsActionType.SET_NOTE_META_DATA
-  metadata: YAMLMetaData
+export interface SetNoteFrontmatterFromRenderingAction extends NoteDetailsAction {
+  type: NoteDetailsActionType.SET_NOTE_FRONTMATTER
+  frontmatter: NoteFrontmatter
 }
 
 export interface SetCheckboxInMarkdownContentAction extends NoteDetailsAction {

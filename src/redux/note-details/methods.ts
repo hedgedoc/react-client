@@ -6,14 +6,14 @@
 
 import { store } from '..'
 import { Note } from '../../api/notes'
-import { YAMLMetaData } from '../../components/editor/yaml-metadata/yaml-metadata'
+import { NoteFrontmatter } from '../../components/editor/note-frontmatter/note-frontmatter'
 import { initialState } from './reducers'
 import {
   NoteDetailsActionType,
   SetCheckboxInMarkdownContentAction,
   SetNoteDetailsAction,
   SetNoteDetailsFromServerAction,
-  SetNoteMetaDataFromRenderingAction,
+  SetNoteFrontmatterFromRenderingAction,
   UpdateNoteTitleByFirstHeadingAction
 } from './types'
 
@@ -38,14 +38,14 @@ export const updateNoteTitleByFirstHeading = (firstHeading?: string): void => {
   } as UpdateNoteTitleByFirstHeadingAction)
 }
 
-export const setNoteMetadata = (metadata: YAMLMetaData | undefined): void => {
-  if (!metadata) {
-    metadata = initialState.metadata
+export const setNoteFrontmatter = (frontmatter: NoteFrontmatter | undefined): void => {
+  if (!frontmatter) {
+    frontmatter = initialState.frontmatter
   }
   store.dispatch({
-    type: NoteDetailsActionType.SET_NOTE_META_DATA,
-    metadata
-  } as SetNoteMetaDataFromRenderingAction)
+    type: NoteDetailsActionType.SET_NOTE_FRONTMATTER,
+    frontmatter: frontmatter
+  } as SetNoteFrontmatterFromRenderingAction)
 }
 
 export const SetCheckboxInMarkdownContent = (lineInMarkdown: number, checked: boolean): void => {

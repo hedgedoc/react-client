@@ -8,10 +8,10 @@ import { useSelector } from 'react-redux'
 import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 import { ApplicationState } from '../../redux'
 import { setDarkMode } from '../../redux/dark-mode/methods'
-import { setNoteMetadata } from '../../redux/note-details/methods'
+import { setNoteFrontmatter } from '../../redux/note-details/methods'
 import { DocumentRenderPane } from '../editor/document-renderer-pane/document-render-pane'
+import { NoteFrontmatter } from '../editor/note-frontmatter/note-frontmatter'
 import { ScrollState } from '../editor/scroll/scroll-props'
-import { YAMLMetaData } from '../editor/yaml-metadata/yaml-metadata'
 import { ImageClickHandler } from '../markdown-renderer/replace-components/image/image-replacer'
 import { IframeRendererToEditorCommunicator } from './iframe-renderer-to-editor-communicator'
 
@@ -54,9 +54,9 @@ export const RenderPage: React.FC = () => {
     iframeCommunicator.sendSetScrollSourceToRenderer()
   }, [iframeCommunicator])
 
-  const onMetaDataChange = useCallback((metaData?: YAMLMetaData) => {
-    setNoteMetadata(metaData)
-    iframeCommunicator.sendSetMetaData(metaData)
+  const onFrontmatterChange = useCallback((frontmatter?: NoteFrontmatter) => {
+    setNoteFrontmatter(frontmatter)
+    iframeCommunicator.sendSetFrontmatter(frontmatter)
   }, [iframeCommunicator])
 
   const onScroll = useCallback((scrollState: ScrollState) => {
@@ -88,7 +88,7 @@ export const RenderPage: React.FC = () => {
         onTaskCheckedChange={onTaskCheckedChange}
         onFirstHeadingChange={onFirstHeadingChange}
         onMakeScrollSource={onMakeScrollSource}
-        onMetadataChange={onMetaDataChange}
+        onFrontmatterChange={onFrontmatterChange}
         scrollState={scrollState}
         onScroll={onScroll}
         baseUrl={baseUrl}

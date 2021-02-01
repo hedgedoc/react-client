@@ -20,7 +20,7 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   {
     markdownContent,
     onTaskCheckedChange,
-    onMetadataChange,
+    onFrontmatterChange,
     scrollState,
     onFirstHeadingChange,
     wide,
@@ -41,7 +41,7 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
 
   useEffect(() => () => iframeCommunicator.unregisterEventListener(), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onFirstHeadingChange(onFirstHeadingChange), [iframeCommunicator, onFirstHeadingChange])
-  useEffect(() => iframeCommunicator.onMetaDataChange(onMetadataChange), [iframeCommunicator, onMetadataChange])
+  useEffect(() => iframeCommunicator.onFrontmatterChange(onFrontmatterChange), [iframeCommunicator, onFrontmatterChange])
   useEffect(() => iframeCommunicator.onSetScrollState(onScroll), [iframeCommunicator, onScroll])
   useEffect(() => iframeCommunicator.onSetScrollSourceToRenderer(onMakeScrollSource), [iframeCommunicator, onMakeScrollSource])
   useEffect(() => iframeCommunicator.onTaskCheckboxChange(onTaskCheckedChange), [iframeCommunicator, onTaskCheckedChange])

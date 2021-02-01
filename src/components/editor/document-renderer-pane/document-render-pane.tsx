@@ -12,16 +12,16 @@ import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../common/show-if/show-if'
 import { FullMarkdownRenderer } from '../../markdown-renderer/full-markdown-renderer'
 import { ImageClickHandler } from '../../markdown-renderer/replace-components/image/image-replacer'
+import { NoteFrontmatter } from '../note-frontmatter/note-frontmatter'
 import { ScrollProps } from '../scroll/scroll-props'
 import { TableOfContents } from '../table-of-contents/table-of-contents'
-import { YAMLMetaData } from '../yaml-metadata/yaml-metadata'
 import { useSyncedScrolling } from './hooks/use-synced-scrolling'
 import { YamlArrayDeprecationAlert } from './yaml-array-deprecation-alert'
 
 export interface DocumentRenderPaneProps extends ScrollProps {
   extraClasses?: string
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
-  onMetadataChange?: (metaData: YAMLMetaData | undefined) => void
+  onFrontmatterChange?: (frontmatter: NoteFrontmatter | undefined) => void
   onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
   documentRenderPaneRef?: MutableRefObject<HTMLDivElement | null>
   wide?: boolean,
@@ -34,7 +34,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
   {
     extraClasses,
     onFirstHeadingChange,
-    onMetadataChange,
+    onFrontmatterChange,
     onMakeScrollSource,
     onTaskCheckedChange,
     wide,
@@ -65,7 +65,7 @@ export const DocumentRenderPane: React.FC<DocumentRenderPaneProps> = (
             content={markdownContent}
             onFirstHeadingChange={onFirstHeadingChange}
             onLineMarkerPositionChanged={onLineMarkerPositionChanged}
-            onMetaDataChange={onMetadataChange}
+            onFrontmatterChange={onFrontmatterChange}
             onTaskCheckedChange={onTaskCheckedChange}
             onTocChange={(tocAst) => setTocAst(tocAst)}
             wide={wide}

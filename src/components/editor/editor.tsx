@@ -16,8 +16,8 @@ import { ApplicationState } from '../../redux'
 import { setEditorMode } from '../../redux/editor/methods'
 import {
   SetCheckboxInMarkdownContent,
+  setNoteFrontmatter,
   setNoteMarkdownContent,
-  setNoteMetadata,
   updateNoteTitleByFirstHeading
 } from '../../redux/note-details/methods'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
@@ -126,7 +126,7 @@ export const Editor: React.FC = () => {
                   onMakeScrollSource={setRendererToScrollSource}
                   onFirstHeadingChange={updateNoteTitleByFirstHeading}
                   onTaskCheckedChange={SetCheckboxInMarkdownContent}
-                  onMetadataChange={setNoteMetadata}
+                  onFrontmatterChange={setNoteFrontmatter}
                   onScroll={onMarkdownRendererScroll}
                   wide={editorMode === EditorMode.PREVIEW}
                   scrollState={scrollState.rendererScrollState}/>
