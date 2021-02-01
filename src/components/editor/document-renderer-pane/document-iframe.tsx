@@ -32,7 +32,13 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
   const [rendererReady, setRendererReady] = useState<boolean>(false)
   const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)
 
+  const frameReference = useRef<HTMLIFrameElement>(null)
+  const rendererOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.rendererOrigin)
+  const renderPageUrl = `${rendererOrigin}/render`
+  const resetRendererReady = useCallback(() => setRendererReady(false), [])
   const iframeCommunicator = useMemo(() => new IframeEditorToRendererCommunicator(), [])
+  const onIframeLoad = useOnIframeLoad(frameReference, iframeCommunicator, rendererOrigin, renderPageUrl, resetRendererReady)
+
   useEffect(() => () => iframeCommunicator.unregisterEventListener(), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onFirstHeadingChange(onFirstHeadingChange), [iframeCommunicator, onFirstHeadingChange])
   useEffect(() => iframeCommunicator.onMetaDataChange(onMetadataChange), [iframeCommunicator, onMetadataChange])
@@ -73,12 +79,6 @@ export const DocumentIframe: React.FC<DocumentRenderPaneProps> = (
       iframeCommunicator.sendSetMarkdownContent(markdownContent)
     }
   }, [iframeCommunicator, markdownContent, rendererReady])
-
-  const frameReference = useRef<HTMLIFrameElement>(null)
-  const rendererOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.rendererOrigin)
-  const renderPageUrl = `${rendererOrigin}/render`
-  const resetRendererReady = useCallback(() => setRendererReady(false), [])
-  const onIframeLoad = useOnIframeLoad(frameReference, iframeCommunicator, rendererOrigin, renderPageUrl, resetRendererReady)
 
   return <Fragment>
     <ShowOnPropChangeImageLightbox details={lightboxDetails}/>
