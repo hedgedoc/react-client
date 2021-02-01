@@ -18,7 +18,7 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<Edito
   private onSetScrollSourceToRendererHandler?: () => void
   private onTaskCheckboxChangeHandler?: (lineInMarkdown: number, checked: boolean) => void
   private onFirstHeadingChangeHandler?: (heading?: string) => void
-  private onFrontmatterChangeHandler?: (metaData?: NoteFrontmatter) => void
+  private onFrontmatterChangeHandler?: (frontmatter?: NoteFrontmatter) => void
   private onSetScrollStateHandler?: (scrollState: ScrollState) => void
   private onRendererReadyHandler?: () => void
   private onImageClickedHandler?: (details: ImageDetails) => void
