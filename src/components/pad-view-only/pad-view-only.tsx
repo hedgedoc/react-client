@@ -35,7 +35,7 @@ export const PadViewOnly: React.FC = () => {
   const onMetadataChange = useCallback(setNoteMetadata, [])
   const [error, loading] = useLoadNoteFromServer()
   const markdownContent = useNoteMarkdownContent()
-  const noteMetaData = useSelector((state: ApplicationState) => state.noteDetails)
+  const noteDetails = useSelector((state: ApplicationState) => state.noteDetails)
 
   return (
     <div className={'d-flex flex-column mvh-100 bg-light'}>
@@ -47,13 +47,13 @@ export const PadViewOnly: React.FC = () => {
       </div>
       <ShowIf condition={!error && !loading}>
         <DocumentInfobar
-          changedAuthor={noteMetaData.lastChange.userId ?? ''}
-          changedTime={noteMetaData.lastChange.timestamp}
+          changedAuthor={noteDetails.lastChange.userId ?? ''}
+          changedTime={noteDetails.lastChange.timestamp}
           createdAuthor={'Test'}
-          createdTime={noteMetaData.createTime}
+          createdTime={noteDetails.createTime}
           editable={true}
           noteId={id}
-          viewCount={noteMetaData.viewCount}
+          viewCount={noteDetails.viewCount}
         />
         <DocumentIframe extraClasses={"flex-fill"}
                         markdownContent={markdownContent}
