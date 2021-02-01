@@ -19,7 +19,7 @@ import {
   setNoteMarkdownContent,
   setNoteMetadata,
   updateNoteTitleByFirstHeading
-} from '../../redux/note-content/methods'
+} from '../../redux/note-details/methods'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { ShowIf } from '../common/show-if/show-if'
 import { ErrorWhileLoadingNoteAlert } from '../pad-view-only/ErrorWhileLoadingNoteAlert'

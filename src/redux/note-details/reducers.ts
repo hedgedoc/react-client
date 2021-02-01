@@ -9,17 +9,17 @@ import { Reducer } from 'redux'
 import { Note } from '../../api/notes'
 import { YAMLMetaData } from '../../components/editor/yaml-metadata/yaml-metadata'
 import {
-  NoteContent,
-  NoteContentAction,
-  NoteContentActionType,
+  NoteDetails,
+  NoteDetailsAction,
+  NoteDetailsActionType,
   SetCheckboxInMarkdownContentAction,
-  SetNoteContentAction,
-  SetNoteDataFromServerAction,
+  SetNoteDetailsAction,
+  SetNoteDetailsFromServerAction,
   SetNoteMetaDataFromRenderingAction,
   UpdateNoteTitleByFirstHeadingAction
 } from './types'
 
-export const initialState: NoteContent = {
+export const initialState: NoteDetails = {
   markdownContent: '',
   id: '',
   createTime: DateTime.fromSeconds(0),
@@ -49,28 +49,28 @@ export const initialState: NoteContent = {
   }
 }
 
-export const NoteContentReducer: Reducer<NoteContent, NoteContentAction> = (state: NoteContent = initialState, action: NoteContentAction) => {
+export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsAction> = (state: NoteDetails = initialState, action: NoteDetailsAction) => {
   switch (action.type) {
-    case NoteContentActionType.SET_DOCUMENT_CONTENT:
+    case NoteDetailsActionType.SET_DOCUMENT_CONTENT:
       return {
         ...state,
-        markdownContent: (action as SetNoteContentAction).content
+        markdownContent: (action as SetNoteDetailsAction).content
       }
-    case NoteContentActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
+    case NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
       return {
         ...state,
         firstHeading: (action as UpdateNoteTitleByFirstHeadingAction).firstHeading,
         noteTitle: generateNoteTitle(state.metadata, (action as UpdateNoteTitleByFirstHeadingAction).firstHeading)
       }
-    case NoteContentActionType.SET_NOTE_DATA_FROM_SERVER:
-      return convertNoteToNoteContent((action as SetNoteDataFromServerAction).note)
-    case NoteContentActionType.SET_NOTE_META_DATA:
+    case NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER:
+      return convertNoteToNoteDetails((action as SetNoteDetailsFromServerAction).note)
+    case NoteDetailsActionType.SET_NOTE_META_DATA:
       return {
         ...state,
         metadata: (action as SetNoteMetaDataFromRenderingAction).metadata,
         noteTitle: generateNoteTitle((action as SetNoteMetaDataFromRenderingAction).metadata, state.firstHeading)
       }
-    case NoteContentActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT:
+    case NoteDetailsActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT:
       return {
         ...state,
         markdownContent: setCheckboxInMarkdownContent(
@@ -107,7 +107,7 @@ const generateNoteTitle = (metaData: YAMLMetaData, firstHeading?: string) => {
   }
 }
 
-const convertNoteToNoteContent = (note: Note): NoteContent => {
+const convertNoteToNoteDetails = (note: Note): NoteDetails => {
   return {
     markdownContent: note.content,
     metadata: initialState.metadata,

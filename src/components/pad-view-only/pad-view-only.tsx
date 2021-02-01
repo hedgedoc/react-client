@@ -12,7 +12,7 @@ import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 import { useDocumentTitleWithNoteTitle } from '../../hooks/common/use-document-title-with-note-title'
 import { useNoteMarkdownContent } from '../../hooks/common/use-note-markdown-content'
 import { ApplicationState } from '../../redux'
-import { setNoteMetadata, updateNoteTitleByFirstHeading } from '../../redux/note-content/methods'
+import { setNoteMetadata, updateNoteTitleByFirstHeading } from '../../redux/note-details/methods'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
 import { ShowIf } from '../common/show-if/show-if'
 import { AppBar, AppBarMode } from '../editor/app-bar/app-bar'
@@ -35,7 +35,7 @@ export const PadViewOnly: React.FC = () => {
   const onMetadataChange = useCallback(setNoteMetadata, [])
   const [error, loading] = useLoadNoteFromServer()
   const markdownContent = useNoteMarkdownContent()
-  const noteMetaData = useSelector((state: ApplicationState) => state.noteContent)
+  const noteMetaData = useSelector((state: ApplicationState) => state.noteDetails)
 
   return (
     <div className={'d-flex flex-column mvh-100 bg-light'}>

@@ -12,7 +12,7 @@ import { useDocumentTitle } from './use-document-title'
 export const useDocumentTitleWithNoteTitle = (): void => {
   const { t } = useTranslation()
   const untitledNote = t('editor.untitledNote')
-  const noteTitle = useSelector((state: ApplicationState) => state.noteContent.noteTitle)
+  const noteTitle = useSelector((state: ApplicationState) => state.noteDetails.noteTitle)
 
   useDocumentTitle(noteTitle === '' ? untitledNote : noteTitle)
 }

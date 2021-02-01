@@ -24,7 +24,7 @@ export interface ShareModalProps {
 
 export const ShareModal: React.FC<ShareModalProps> = ({ show, onHide }) => {
   useTranslation()
-  const noteMetadata = useSelector((state: ApplicationState) => state.noteContent.metadata, equal)
+  const noteMetadata = useSelector((state: ApplicationState) => state.noteDetails.metadata, equal)
   const editorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const baseUrl = useFrontendBaseUrl()
   const { id } = useParams<EditorPathParams>()

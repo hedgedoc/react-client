@@ -9,31 +9,31 @@ import { Note } from '../../api/notes'
 import { YAMLMetaData } from '../../components/editor/yaml-metadata/yaml-metadata'
 import { initialState } from './reducers'
 import {
-  NoteContentActionType,
+  NoteDetailsActionType,
   SetCheckboxInMarkdownContentAction,
-  SetNoteContentAction,
-  SetNoteDataFromServerAction,
+  SetNoteDetailsAction,
+  SetNoteDetailsFromServerAction,
   SetNoteMetaDataFromRenderingAction,
   UpdateNoteTitleByFirstHeadingAction
 } from './types'
 
 export const setNoteMarkdownContent = (content: string): void => {
   store.dispatch({
-    type: NoteContentActionType.SET_DOCUMENT_CONTENT,
+    type: NoteDetailsActionType.SET_DOCUMENT_CONTENT,
     content
-  } as SetNoteContentAction)
+  } as SetNoteDetailsAction)
 }
 
 export const setNoteDataFromServer = (apiResponse: Note): void => {
   store.dispatch({
-    type: NoteContentActionType.SET_NOTE_DATA_FROM_SERVER,
+    type: NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER,
     note: apiResponse
-  } as SetNoteDataFromServerAction)
+  } as SetNoteDetailsFromServerAction)
 }
 
 export const updateNoteTitleByFirstHeading = (firstHeading?: string): void => {
   store.dispatch({
-    type: NoteContentActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING,
+    type: NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING,
     firstHeading: firstHeading ?? ''
   } as UpdateNoteTitleByFirstHeadingAction)
 }
@@ -43,14 +43,14 @@ export const setNoteMetadata = (metadata: YAMLMetaData | undefined): void => {
     metadata = initialState.metadata
   }
   store.dispatch({
-    type: NoteContentActionType.SET_NOTE_META_DATA,
+    type: NoteDetailsActionType.SET_NOTE_META_DATA,
     metadata
   } as SetNoteMetaDataFromRenderingAction)
 }
 
 export const SetCheckboxInMarkdownContent = (lineInMarkdown: number, checked: boolean): void => {
   store.dispatch({
-    type: NoteContentActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT,
+    type: NoteDetailsActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT,
     checked: checked,
     lineInMarkdown: lineInMarkdown
   } as SetCheckboxInMarkdownContentAction)

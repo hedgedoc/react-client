@@ -7,7 +7,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { getNote } from '../../api/notes'
-import { setNoteDataFromServer } from '../../redux/note-content/methods'
+import { setNoteDataFromServer } from '../../redux/note-details/methods'
 import { EditorPathParams } from './editor'
 
 export const useLoadNoteFromServer = (): [boolean, boolean] => {
