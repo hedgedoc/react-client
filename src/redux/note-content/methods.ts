@@ -18,11 +18,10 @@ import {
 } from './types'
 
 export const setNoteMarkdownContent = (content: string): void => {
-  const action: SetNoteContentAction = {
+  store.dispatch({
     type: NoteContentActionType.SET_DOCUMENT_CONTENT,
     content
-  }
-  store.dispatch(action)
+  } as SetNoteContentAction)
 }
 
 export const setNoteDataFromServer = (apiResponse: Note): void => {
