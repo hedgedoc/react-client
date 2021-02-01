@@ -11,7 +11,7 @@ import { useLocation } from 'react-router'
 import useMedia from 'use-media'
 import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 import { useDocumentTitleWithNoteTitle } from '../../hooks/common/use-document-title-with-note-title'
-import { useMarkdownContent } from '../../hooks/common/use-markdown-content'
+import { useNoteMarkdownContent } from '../../hooks/common/use-note-markdown-content'
 import { ApplicationState } from '../../redux'
 import { setEditorMode } from '../../redux/editor/methods'
 import {
@@ -46,7 +46,7 @@ export enum ScrollSource {
 export const Editor: React.FC = () => {
   useTranslation()
   const { search } = useLocation()
-  const markdownContent = useMarkdownContent()
+  const markdownContent = useNoteMarkdownContent()
   const isWide = useMedia({ minWidth: 576 }, true)
   const scrollSource = useRef<ScrollSource>(ScrollSource.EDITOR)
 

@@ -7,6 +7,6 @@
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../redux'
 
-export const useMarkdownContent = (): string => {
+export const useNoteMarkdownContent = (): string => {
   return useSelector((state: ApplicationState) => state.noteContent.markdownContent)
 }

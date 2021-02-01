@@ -13,7 +13,7 @@ import { getAllRevisions, getRevision } from '../../../../api/revisions'
 import { Revision, RevisionListEntry } from '../../../../api/revisions/types'
 import { UserResponse } from '../../../../api/users/types'
 import { useIsDarkModeActivated } from '../../../../hooks/common/use-is-dark-mode-activated'
-import { useMarkdownContent } from '../../../../hooks/common/use-markdown-content'
+import { useNoteMarkdownContent } from '../../../../hooks/common/use-note-markdown-content'
 import { CommonModal } from '../../../common/modals/common-modal'
 import { ShowIf } from '../../../common/show-if/show-if'
 import { RevisionModalListEntry } from './revision-modal-list-entry'
@@ -57,7 +57,7 @@ export const RevisionModal: React.FC<PermissionsModalProps> = ({ show, onHide })
     }).catch(() => setError(true))
   }, [selectedRevisionTimestamp, id])
 
-  const markdownContent = useMarkdownContent()
+  const markdownContent = useNoteMarkdownContent()
 
   return (
     <CommonModal show={show} onHide={onHide} titleI18nKey={'editor.modal.revision.title'} icon={'history'} closeButton={true} size={'xl'} additionalClasses='revision-modal'>

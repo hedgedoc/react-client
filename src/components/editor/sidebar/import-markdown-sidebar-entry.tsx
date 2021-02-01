@@ -6,13 +6,13 @@
 
 import React, { Fragment, useCallback, useRef } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { useMarkdownContent } from '../../../hooks/common/use-markdown-content'
+import { useNoteMarkdownContent } from '../../../hooks/common/use-note-markdown-content'
 import { setNoteMarkdownContent } from '../../../redux/note-content/methods'
 import { SidebarButton } from './sidebar-button'
 import { UploadInput } from './upload-input'
 
 export const ImportMarkdownSidebarEntry: React.FC = () => {
-  const markdownContent = useMarkdownContent()
+  const markdownContent = useNoteMarkdownContent()
   useTranslation()
 
   const onImportMarkdown = useCallback((file: File) => {

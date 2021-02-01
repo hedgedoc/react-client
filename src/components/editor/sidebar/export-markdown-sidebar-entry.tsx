@@ -6,14 +6,14 @@
 
 import React, { useCallback } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { useMarkdownContent } from '../../../hooks/common/use-markdown-content'
+import { useNoteMarkdownContent } from '../../../hooks/common/use-note-markdown-content'
 import { download } from '../../common/download/download'
 import { SidebarButton } from './sidebar-button'
 
 export const ExportMarkdownSidebarEntry: React.FC = () => {
   useTranslation()
 
-  const markdownContent = useMarkdownContent()
+  const markdownContent = useNoteMarkdownContent()
   const onClick = useCallback(() => {
     download(markdownContent, `title.md`, 'text/markdown') //todo: replace hard coded title with redux
   }, [markdownContent])

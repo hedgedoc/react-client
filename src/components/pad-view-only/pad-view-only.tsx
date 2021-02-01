@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 import { useDocumentTitleWithNoteTitle } from '../../hooks/common/use-document-title-with-note-title'
-import { useMarkdownContent } from '../../hooks/common/use-markdown-content'
+import { useNoteMarkdownContent } from '../../hooks/common/use-note-markdown-content'
 import { ApplicationState } from '../../redux'
 import { setNoteMetadata, updateNoteTitleByFirstHeading } from '../../redux/note-content/methods'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
@@ -34,7 +34,7 @@ export const PadViewOnly: React.FC = () => {
   const onFirstHeadingChange = useCallback(updateNoteTitleByFirstHeading, [])
   const onMetadataChange = useCallback(setNoteMetadata, [])
   const [error, loading] = useLoadNoteFromServer()
-  const markdownContent = useMarkdownContent()
+  const markdownContent = useNoteMarkdownContent()
   const noteMetaData = useSelector((state: ApplicationState) => state.noteContent)
 
   return (
