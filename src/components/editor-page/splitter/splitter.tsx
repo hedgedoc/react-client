@@ -30,7 +30,7 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
     const x = mouseXPosition - splitContainer.current.offsetLeft
 
     const newSize = x / splitContainer.current.clientWidth
-    setSplit(Math.round(newSize * 10000) / 100)
+    setSplit(newSize * 100)
   }
 
   const stopResizing = useCallback(() => {
@@ -56,11 +56,11 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
   return (
     <div ref={splitContainer} className={`flex-fill flex-row d-flex ${containerClassName || ''}`}
          onMouseUp={stopResizing} onTouchEnd={stopResizing} onMouseMove={onMouseMove} onTouchMove={onTouchMove}>
-      <div className={`splitter left ${!showLeft ? 'd-none' : ''}`} style={{ flexBasis: `calc(${realSplit}% - 22px)` }}>
+      <div className={`splitter left ${!showLeft ? 'd-none' : ''}`} style={{ flexBasis: `calc(${realSplit}% - 5px)` }}>
         {left}
       </div>
       <ShowIf condition={showLeft && showRight}>
-        <div className='splitter separator bg-light'>
+        <div className='splitter separator'>
           <SplitDivider onGrab={onGrab}/>
         </div>
       </ShowIf>

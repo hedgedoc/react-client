@@ -6,14 +6,13 @@
 
 .split-divider {
   width: 10px;
-  margin-right: 6px;
-  margin-left: 6px;
+  background: white;
   z-index: 1;
   cursor: col-resize;
-  box-shadow: 3px 0 6px #d8d8d8;
+  box-shadow: 3px 0 6px #e7e7e7;
 
   body.dark & {
-    box-shadow: 3px 0 6px #d8d8d8;
+    box-shadow: 3px 0 6px #7b7b7b;
   }
 }
 
