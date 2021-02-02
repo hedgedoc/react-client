@@ -16,6 +16,6 @@ export const SplitDivider: React.FC<SplitDividerProps> = ({ onGrab }) => {
     <div
       onMouseDown={() => onGrab()}
       onTouchStart={() => onGrab()}
-      className={'split-divider'}/>
+      className={'split-divider bg-light'}/>
   )
 }
