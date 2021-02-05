@@ -19,9 +19,7 @@ import { FullMarkdownRenderer } from '../markdown-renderer/full-markdown-rendere
 import { ImageClickHandler } from '../markdown-renderer/replace-components/image/image-replacer'
 import './markdown-document.scss'
 
-export interface MarkdownDocumentProps extends ScrollProps {
-  additionalOuterContainerClasses?: string
-  additionalRendererClasses?: string
+export interface RendererProps extends ScrollProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
   onFrontmatterChange?: (frontmatter: NoteFrontmatter | undefined) => void
   onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
@@ -31,6 +29,11 @@ export interface MarkdownDocumentProps extends ScrollProps {
   onImageClick?: ImageClickHandler
   onHeightChange?: (height: number) => void
   disableToc?: boolean
+}
+
+export interface MarkdownDocumentProps extends RendererProps {
+  additionalOuterContainerClasses?: string
+  additionalRendererClasses?: string
 }
 
 export const MarkdownDocument: React.FC<MarkdownDocumentProps> = (

@@ -56,7 +56,7 @@ export const DocumentReadOnlyPage: React.FC = () => {
           noteId={ id }
           viewCount={ noteDetails.viewCount }
         />
-        <RenderIframe additionalOuterContainerClasses={ 'flex-fill h-100 w-100' }
+        <RenderIframe frameClasses={ 'flex-fill h-100 w-100' }
                       markdownContent={ markdownContent }
                       onFirstHeadingChange={ onFirstHeadingChange }
                       onFrontmatterChange={ onFrontmatterChange }

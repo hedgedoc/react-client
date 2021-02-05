@@ -10,16 +10,17 @@ import { useIsDarkModeActivated } from '../../../hooks/common/use-is-dark-mode-a
 import { ApplicationState } from '../../../redux'
 import { isTestMode } from '../../../utils/is-test-mode'
 import { IframeEditorToRendererCommunicator } from '../../render-page/iframe-editor-to-renderer-communicator'
-import { MarkdownDocumentProps } from '../../render-page/markdown-document'
+import { RendererProps } from '../../render-page/markdown-document'
 import { ImageDetails, RendererType } from '../../render-page/rendering-message'
 import { ScrollState } from '../synced-scroll/scroll-props'
 import { useOnIframeLoad } from './hooks/use-on-iframe-load'
 import { ShowOnPropChangeImageLightbox } from './show-on-prop-change-image-lightbox'
 
-export interface RenderIframeProps extends MarkdownDocumentProps {
+export interface RenderIframeProps extends RendererProps {
   onRendererReadyChange?: (rendererReady: boolean) => void
   rendererType: RendererType,
   forcedDarkMode?: boolean
+  frameClasses?: string
 }
 
 export const RenderIframe: React.FC<RenderIframeProps> = (
@@ -31,7 +32,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = (
     onFirstHeadingChange,
     onScroll,
     onMakeScrollSource,
-    additionalOuterContainerClasses,
+    frameClasses,
     onRendererReadyChange,
     rendererType,
     forcedDarkMode
@@ -98,6 +99,6 @@ export const RenderIframe: React.FC<RenderIframeProps> = (
     <iframe style={ { height: `${ frameHeight }px` } } data-cy={ 'documentIframe' } onLoad={ onIframeLoad }
             title="render" src={ renderPageUrl }
             { ...isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' } }
-            ref={ frameReference } className={ `border-0 ${ additionalOuterContainerClasses ?? '' }` }/>
+            ref={ frameReference } className={ `border-0 ${ frameClasses ?? '' }` }/>
   </Fragment>
 }

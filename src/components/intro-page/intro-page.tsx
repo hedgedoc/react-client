@@ -41,7 +41,7 @@ export const IntroPage: React.FC = () => {
           <ForkAwesomeIcon icon={ 'spinner' } className={ 'fa-spin' }/>
         </ShowIf>
         <RenderIframe
-          additionalOuterContainerClasses={ 'w-100' }
+          frameClasses={ 'w-100 overflow-y-hidden' }
           markdownContent={ introPageContent }
           disableToc={ true }
           onRendererReadyChange={ (rendererReady => setShowSpinner(!rendererReady)) }

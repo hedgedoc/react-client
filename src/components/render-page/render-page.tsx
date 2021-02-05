@@ -77,7 +77,8 @@ export const RenderPage: React.FC = () => {
     case RendererType.DOCUMENT:
       return (
         <MarkdownDocument
-          additionalOuterContainerClasses={ 'vh-100 pt-4 bg-light' }
+          additionalOuterContainerClasses={ 'vh-100 bg-light' }
+          additionalRendererClasses={ 'mb-3' }
           markdownContent={ markdownContent }
           onTaskCheckedChange={ onTaskCheckedChange }
           onFirstHeadingChange={ onFirstHeadingChange }
@@ -91,7 +92,7 @@ export const RenderPage: React.FC = () => {
     case RendererType.INTRO:
       return (
         <MarkdownDocument
-          additionalOuterContainerClasses={ 'vh-100' }
+          additionalOuterContainerClasses={ 'vh-100 bg-light overflow-y-hidden' }
           markdownContent={ markdownContent }
           scrollState={ scrollState }
           baseUrl={ baseConfiguration.baseUrl }
@@ -100,7 +101,7 @@ export const RenderPage: React.FC = () => {
           onHeightChange={ onHeightChange }/>
       )
     default:
-      return null;
+      return null
   }
 }
 

@@ -116,7 +116,7 @@ export const EditorPage: React.FC = () => {
               showRight={ editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH }
               right={
                 <RenderIframe
-                  additionalOuterContainerClasses={'h-100 w-100'}
+                  frameClasses={'h-100 w-100'}
                   markdownContent={ markdownContent }
                   onMakeScrollSource={ setRendererToScrollSource }
                   onFirstHeadingChange={ updateNoteTitleByFirstHeading }
