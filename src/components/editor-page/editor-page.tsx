@@ -32,6 +32,7 @@ import { RenderIframe } from './renderer-pane/render-iframe'
 import { Sidebar } from './sidebar/sidebar'
 import { Splitter } from './splitter/splitter'
 import { DualScrollState, ScrollState } from './synced-scroll/scroll-props'
+import { RendererType } from '../render-page/rendering-message'
 
 export interface EditorPagePathParams {
   id: string
@@ -122,7 +123,8 @@ export const EditorPage: React.FC = () => {
                   onFrontmatterChange={ setNoteFrontmatter }
                   onScroll={ onMarkdownRendererScroll }
                   scrollState={ scrollState.rendererScrollState }
-                  extraClasses={'h-100 w-100'}/>
+                  additionalOuterContainerClasses={'h-100 w-100'}
+                  rendererType={ RendererType.DOCUMENT }/>
               }
               containerClassName={ 'overflow-hidden' }/>
             <Sidebar/>

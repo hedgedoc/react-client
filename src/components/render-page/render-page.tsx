@@ -15,13 +15,14 @@ import { ImageClickHandler } from '../markdown-renderer/replace-components/image
 import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { IframeRendererToEditorCommunicator } from './iframe-renderer-to-editor-communicator'
 import { MarkdownDocument } from './markdown-document'
+import { BaseConfiguration, RendererType } from './rendering-message'
 
 export const RenderPage: React.FC = () => {
   useApplyDarkMode()
 
   const [markdownContent, setMarkdownContent] = useState('')
   const [scrollState, setScrollState] = useState<ScrollState>({ firstLineInView: 1, scrolledPercentage: 0 })
-  const [baseUrl, setBaseUrl] = useState<string>()
+  const [baseConfiguration, setBaseConfiguration] = useState<BaseConfiguration | undefined>(undefined)
 
   const editorOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.editorOrigin)
 
@@ -36,7 +37,7 @@ export const RenderPage: React.FC = () => {
     return () => iframeCommunicator.unregisterEventListener()
   }, [iframeCommunicator])
 
-  useEffect(() => iframeCommunicator.onSetBaseUrl(setBaseUrl), [iframeCommunicator])
+  useEffect(() => iframeCommunicator.onSetBaseConfiguration(setBaseConfiguration), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetMarkdownContent(setMarkdownContent), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetDarkMode(setDarkMode), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetScrollState(setScrollState), [iframeCommunicator, scrollState])
@@ -64,23 +65,43 @@ export const RenderPage: React.FC = () => {
 
   const onImageClick: ImageClickHandler = useImageClickHandler(iframeCommunicator)
 
-  if (!baseUrl) {
+  const onHeightChange = useCallback((height: number) => {
+    iframeCommunicator.sendHeightChange(height)
+  }, [iframeCommunicator])
+
+  if (!baseConfiguration) {
     return null
   }
 
-  return (
-    <MarkdownDocument
-      extraClasses={ 'vh-100 w-100 bg-light' }
-      markdownContent={ markdownContent }
-      onTaskCheckedChange={ onTaskCheckedChange }
-      onFirstHeadingChange={ onFirstHeadingChange }
-      onMakeScrollSource={ onMakeScrollSource }
-      onFrontmatterChange={ onFrontmatterChange }
-      scrollState={ scrollState }
-      onScroll={ onScroll }
-      baseUrl={ baseUrl }
-      onImageClick={ onImageClick }/>
-  )
+  switch (baseConfiguration.rendererType) {
+    case RendererType.DOCUMENT:
+      return (
+        <MarkdownDocument
+          additionalOuterContainerClasses={ 'vh-100 pt-4 bg-light' }
+          markdownContent={ markdownContent }
+          onTaskCheckedChange={ onTaskCheckedChange }
+          onFirstHeadingChange={ onFirstHeadingChange }
+          onMakeScrollSource={ onMakeScrollSource }
+          onFrontmatterChange={ onFrontmatterChange }
+          scrollState={ scrollState }
+          onScroll={ onScroll }
+          baseUrl={ baseConfiguration.baseUrl }
+          onImageClick={ onImageClick }/>
+      )
+    case RendererType.INTRO:
+      return (
+        <MarkdownDocument
+          additionalOuterContainerClasses={ 'vh-100' }
+          markdownContent={ markdownContent }
+          scrollState={ scrollState }
+          baseUrl={ baseConfiguration.baseUrl }
+          onImageClick={ onImageClick }
+          disableToc={ true }
+          onHeightChange={ onHeightChange }/>
+      )
+    default:
+      return null;
+  }
 }
 
 export default RenderPage

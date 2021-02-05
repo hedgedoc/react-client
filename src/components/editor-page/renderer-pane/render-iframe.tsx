@@ -11,12 +11,17 @@ import { ApplicationState } from '../../../redux'
 import { isTestMode } from '../../../utils/is-test-mode'
 import { IframeEditorToRendererCommunicator } from '../../render-page/iframe-editor-to-renderer-communicator'
 import { MarkdownDocumentProps } from '../../render-page/markdown-document'
-import { ImageDetails } from '../../render-page/rendering-message'
+import { ImageDetails, RendererType } from '../../render-page/rendering-message'
 import { ScrollState } from '../synced-scroll/scroll-props'
 import { useOnIframeLoad } from './hooks/use-on-iframe-load'
 import { ShowOnPropChangeImageLightbox } from './show-on-prop-change-image-lightbox'
 
-export const RenderIframe: React.FC<MarkdownDocumentProps> = (
+export interface RenderIframeProps extends MarkdownDocumentProps {
+  onRendererReadyChange?: (rendererReady: boolean) => void
+  rendererType: RendererType
+}
+
+export const RenderIframe: React.FC<RenderIframeProps> = (
   {
     markdownContent,
     onTaskCheckedChange,
@@ -25,7 +30,9 @@ export const RenderIframe: React.FC<MarkdownDocumentProps> = (
     onFirstHeadingChange,
     onScroll,
     onMakeScrollSource,
-    extraClasses
+    additionalOuterContainerClasses,
+    onRendererReadyChange,
+    rendererType
   }) => {
   const darkMode = useIsDarkModeActivated()
   const [rendererReady, setRendererReady] = useState<boolean>(false)
@@ -37,6 +44,11 @@ export const RenderIframe: React.FC<MarkdownDocumentProps> = (
   const resetRendererReady = useCallback(() => setRendererReady(false), [])
   const iframeCommunicator = useMemo(() => new IframeEditorToRendererCommunicator(), [])
   const onIframeLoad = useOnIframeLoad(frameReference, iframeCommunicator, rendererOrigin, renderPageUrl, resetRendererReady)
+  const [frameHeight, setFrameHeight] = useState<number>(0)
+
+  useEffect(() => {
+    onRendererReadyChange?.(rendererReady)
+  }, [onRendererReadyChange, rendererReady])
 
   useEffect(() => () => iframeCommunicator.unregisterEventListener(), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onFirstHeadingChange(onFirstHeadingChange), [iframeCommunicator,
@@ -49,8 +61,15 @@ export const RenderIframe: React.FC<MarkdownDocumentProps> = (
   useEffect(() => iframeCommunicator.onTaskCheckboxChange(onTaskCheckedChange), [iframeCommunicator,
     onTaskCheckedChange])
   useEffect(() => iframeCommunicator.onImageClicked(setLightboxDetails), [iframeCommunicator])
-  useEffect(() => iframeCommunicator.onRendererReady(() => setRendererReady(true)), [darkMode, iframeCommunicator,
-    scrollState])
+  useEffect(() => iframeCommunicator.onRendererReady(() => {
+    iframeCommunicator.sendSetBaseConfiguration({
+      baseUrl: window.location.toString(),
+      rendererType
+    })
+    setRendererReady(true)
+  }), [darkMode, rendererType, iframeCommunicator, rendererReady, scrollState])
+  useEffect(() => iframeCommunicator.onHeightChange(setFrameHeight), [iframeCommunicator])
+
   useEffect(() => {
     if (rendererReady) {
       iframeCommunicator.sendSetDarkmode(darkMode)
@@ -64,11 +83,6 @@ export const RenderIframe: React.FC<MarkdownDocumentProps> = (
       iframeCommunicator.sendScrollState(scrollState)
     }
   }, [iframeCommunicator, rendererReady, scrollState])
-  useEffect(() => {
-    if (rendererReady) {
-      iframeCommunicator.sendSetBaseUrl(window.location.toString())
-    }
-  }, [iframeCommunicator, rendererReady])
 
   useEffect(() => {
     if (rendererReady) {
@@ -78,8 +92,9 @@ export const RenderIframe: React.FC<MarkdownDocumentProps> = (
 
   return <Fragment>
     <ShowOnPropChangeImageLightbox details={ lightboxDetails }/>
-    <iframe data-cy={ 'documentIframe' } onLoad={ onIframeLoad } title="render" src={ renderPageUrl }
+    <iframe style={ { height: `${ frameHeight }px` } } data-cy={ 'documentIframe' } onLoad={ onIframeLoad }
+            title="render" src={ renderPageUrl }
             { ...isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' } }
-            ref={ frameReference } className={ `border-0 ${ extraClasses ?? '' }` }/>
+            ref={ frameReference } className={ `border-0 ${ additionalOuterContainerClasses ?? '' }` }/>
   </Fragment>
 }
