@@ -94,7 +94,6 @@ export const RenderPage: React.FC = () => {
         <MarkdownDocument
           additionalOuterContainerClasses={ 'vh-100 bg-light overflow-y-hidden' }
           markdownContent={ markdownContent }
-          scrollState={ scrollState }
           baseUrl={ baseConfiguration.baseUrl }
           onImageClick={ onImageClick }
           disableToc={ true }
