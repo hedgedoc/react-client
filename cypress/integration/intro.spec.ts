@@ -7,12 +7,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 describe('Intro', () => {
   beforeEach(() => {
+    cy.intercept("/intro.md", "test content")
     cy.visit('/')
   })
 
   describe('Intro page fetch', () => {
     it('fetches the intro page content', () => {
-      cy.getMarkdownBody().find('.alert-danger>p')
+      cy.getMarkdownBody()
         .contains('test content')
     })
   })
