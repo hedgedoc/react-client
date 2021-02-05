@@ -18,7 +18,8 @@ import { ShowOnPropChangeImageLightbox } from './show-on-prop-change-image-light
 
 export interface RenderIframeProps extends MarkdownDocumentProps {
   onRendererReadyChange?: (rendererReady: boolean) => void
-  rendererType: RendererType
+  rendererType: RendererType,
+  forcedDarkMode?: boolean
 }
 
 export const RenderIframe: React.FC<RenderIframeProps> = (
@@ -32,9 +33,11 @@ export const RenderIframe: React.FC<RenderIframeProps> = (
     onMakeScrollSource,
     additionalOuterContainerClasses,
     onRendererReadyChange,
-    rendererType
+    rendererType,
+    forcedDarkMode
   }) => {
-  const darkMode = useIsDarkModeActivated()
+  const savedDarkMode = useIsDarkModeActivated()
+  const darkMode = forcedDarkMode ?? savedDarkMode
   const [rendererReady, setRendererReady] = useState<boolean>(false)
   const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)
 

@@ -43,9 +43,10 @@ export const IntroPage: React.FC = () => {
         <RenderIframe
           additionalOuterContainerClasses={ 'w-100' }
           markdownContent={ introPageContent }
-          disableToc={true}
+          disableToc={ true }
           onRendererReadyChange={ (rendererReady => setShowSpinner(!rendererReady)) }
-          rendererType={RendererType.INTRO}/>
+          rendererType={ RendererType.INTRO }
+          forcedDarkMode={ true }/>
         <hr className={ 'mb-5' }/>
       </div>
       <FeatureLinks/>
