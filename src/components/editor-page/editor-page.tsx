@@ -123,7 +123,6 @@ export const EditorPage: React.FC = () => {
                   onFrontmatterChange={ setNoteFrontmatter }
                   onScroll={ onMarkdownRendererScroll }
                   scrollState={ scrollState.rendererScrollState }
-                  additionalOuterContainerClasses={'h-100 w-100'}
                   rendererType={ RendererType.DOCUMENT }/>
               }
               containerClassName={ 'overflow-hidden' }/>

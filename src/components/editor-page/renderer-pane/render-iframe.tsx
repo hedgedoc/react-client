@@ -95,6 +95,6 @@ export const RenderIframe: React.FC<RenderIframeProps> = (
     <iframe style={ { height: `${ frameHeight }px` } } data-cy={ 'documentIframe' } onLoad={ onIframeLoad }
             title="render" src={ renderPageUrl }
             { ...isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' } }
-            ref={ frameReference } className={ `border-0 ${ additionalOuterContainerClasses ?? '' }` }/>
+            ref={ frameReference } className={ `h-100 w-100 border-0 ${ additionalOuterContainerClasses ?? '' }` }/>
   </Fragment>
 }
