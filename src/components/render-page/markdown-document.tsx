@@ -62,7 +62,7 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = (
     if (!onHeightChange) {
       return
     }
-    onHeightChange(rendererSize.height ?? 0)
+    onHeightChange(rendererSize.height ? rendererSize.height + 1 : 0)
   }, [rendererSize.height, onHeightChange])
 
   const contentLineCount = useMemo(() => markdownContent.split('\n').length, [markdownContent])
