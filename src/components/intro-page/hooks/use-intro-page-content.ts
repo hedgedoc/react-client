@@ -6,8 +6,8 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router'
 import { getFrontPageContent } from '../requests'
+import { useFrontendBaseUrl } from '../../../hooks/common/use-frontend-base-url'
 
 const MARKDOWN_WHILE_LOADING = ':zzz: {message}'
 const MARKDOWN_IF_ERROR = ':::danger\n' +
@@ -15,15 +15,15 @@ const MARKDOWN_IF_ERROR = ':::danger\n' +
   ':::'
 
 export const useIntroPageContent = (): string => {
-  const { pathname } = useLocation()
   const { t } = useTranslation()
   const [content, setContent] = useState<string>(() => MARKDOWN_WHILE_LOADING.replace('{message}', t('landing.intro.markdownWhileLoading')))
+  const frontendBaseUrl = useFrontendBaseUrl()
 
   useEffect(() => {
-    getFrontPageContent(pathname)
+    getFrontPageContent(frontendBaseUrl)
       .then((content) => setContent(content))
       .catch(() => setContent(MARKDOWN_IF_ERROR.replace('{message}', t('landing.intro.markdownLoadingError'))))
-  }, [pathname, t])
+  }, [frontendBaseUrl, t])
 
   return content
 }
