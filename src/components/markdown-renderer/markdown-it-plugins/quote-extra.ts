@@ -43,8 +43,6 @@ export const quoteExtra: (pluginOptions: QuoteExtraOptions) => MarkdownIt.Plugin
         tokens
       )
 
-      //> [name=ChengHan Wu] [time=Sun, Jun 28, 2015 9:59 PM] [color=#907bf7]
-
       const token = state.push('quote-extra', '', 0)
       token.attrSet('icon', pluginOptions.icon)
       token.children = tokens
