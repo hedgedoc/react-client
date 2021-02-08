@@ -18,7 +18,8 @@ export const isTable = (text: string): boolean => {
     return false
   }
 
-  const lines = text.split(/\r?\n/).filter(line => line.trim() !== '')
+  const lines = text.split(/\r?\n/)
+                    .filter(line => line.trim() !== '')
 
   // Tab-indented text should not be matched as a table
   if (lines.every(line => line.startsWith('\t'))) {
@@ -30,7 +31,8 @@ export const isTable = (text: string): boolean => {
 }
 
 export const extractTable = (pasteData: string, pasteEditor: Editor): void => {
-  const tableRows = pasteData.split(/\r?\n/).filter(row => row.trim() !== '')
+  const tableRows = pasteData.split(/\r?\n/)
+                             .filter(row => row.trim() !== '')
   const tableCells = tableRows.reduce((cellsInRow, row, index) => {
     cellsInRow[index] = row.split('\t')
     return cellsInRow
@@ -40,16 +42,17 @@ export const extractTable = (pasteData: string, pasteEditor: Editor): void => {
 
   const headRow1 = arrayMaxColumns
     .map(col => col + 1)
-    .map(col => `| #${col} `)
+    .map(col => `| #${ col } `)
     .join('') + '|'
   const headRow2 = arrayMaxColumns
     .map(col => col + 1)
-    .map(col => `| -${'-'.repeat(col.toString().length)} `)
+    .map(col => `| -${ '-'.repeat(col.toString().length) } `)
     .join('') + '|'
   const body = arrayMaxRows.map(row => {
     return arrayMaxColumns
       .map(col => '| ' + tableCells[row][col] + ' ')
       .join('') + '|'
-  }).join('\n')
-  insertAtCursor(pasteEditor, `${headRow1}\n${headRow2}\n${body}`)
+  })
+                           .join('\n')
+  insertAtCursor(pasteEditor, `${ headRow1 }\n${ headRow2 }\n${ body }`)
 }
