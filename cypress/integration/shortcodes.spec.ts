@@ -17,4 +17,13 @@ describe('Short code', () => {
         .should('have.attr', 'href', 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')
     })
   })
+
+  describe('slideshare', () => {
+    it('renders a plain link', () => {
+      cy.codemirrorFill(`{%slideshare example/123456789 %}`)
+      cy.getMarkdownBody()
+        .find('a')
+        .should('have.attr', 'href', 'https://www.slideshare.net/example/123456789')
+    })
+  })
 })
