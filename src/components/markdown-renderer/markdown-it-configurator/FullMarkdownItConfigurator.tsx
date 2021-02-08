@@ -22,6 +22,7 @@ import { LineMarkers, lineNumberMarker } from '../replace-components/linemarker/
 import { VimeoReplacer } from '../replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from '../replace-components/youtube/youtube-replacer'
 import { BasicMarkdownItConfigurator } from './BasicMarkdownItConfigurator'
+import { legacyPdfShortCode } from '../regex-plugins/replace-legacy-pdf-short-code'
 
 export class FullMarkdownItConfigurator extends BasicMarkdownItConfigurator {
   constructor(
@@ -53,6 +54,7 @@ export class FullMarkdownItConfigurator extends BasicMarkdownItConfigurator {
       YoutubeReplacer.markdownItPlugin,
       VimeoReplacer.markdownItPlugin,
       GistReplacer.markdownItPlugin,
+      legacyPdfShortCode,
       legacySlideshareShortCode,
       legacySpeakerdeckShortCode,
       AsciinemaReplacer.markdownItPlugin,
