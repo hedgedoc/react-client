@@ -5,7 +5,6 @@
  */
 
 import MarkdownIt from 'markdown-it/lib'
-import StateInline from 'markdown-it/lib/rules_inline/state_inline'
 import Token from 'markdown-it/lib/token'
 import { IconName } from '../../common/fork-awesome/types'
 
@@ -14,30 +13,19 @@ export interface QuoteExtraOptions {
   icon: IconName
 }
 
-export type PartParser = (line: string, start: number, maxPos: number) => (number | undefined)
-
 export const quoteExtra: (pluginOptions: QuoteExtraOptions) => MarkdownIt.PluginSimple =
   (pluginOptions) => (md) => {
     md.inline.ruler.push(`extraQuote_${ pluginOptions.quoteLabel }`, (state) => {
-      if (state.src[state.pos] !== '[') {
+      const quoteExtraTagValues = parseQuoteExtraTag(state.src, state.pos, state.posMax)
+
+      if (!quoteExtraTagValues || quoteExtraTagValues.label !== pluginOptions.quoteLabel) {
         return false
       }
-
-      const quoteLabel = parsePart(state, state.pos + 1, parseLabel)
-      if (!quoteLabel || quoteLabel !== pluginOptions.quoteLabel) {
-        return false
-      }
-
-      const quoteValue = parsePart(state, state.pos + quoteLabel.length + 2, parseValue)
-      if (!quoteValue) {
-        return false
-      }
-
-      state.pos += quoteLabel.length + quoteValue.length + 3
+      state.pos = quoteExtraTagValues.valueEndIndex + 1
 
       const tokens: Token[] = []
       state.md.inline.parse(
-        quoteValue,
+        quoteExtraTagValues.value,
         state.md,
         state.env,
         tokens
@@ -67,17 +55,43 @@ export const quoteExtra: (pluginOptions: QuoteExtraOptions) => MarkdownIt.Plugin
     }
   }
 
-export const parsePart = (state: StateInline, startIndex: number, parser: PartParser): string | undefined => {
-  const endIndex = parser(state.src, startIndex, state.posMax)
-
-  if (endIndex === undefined || startIndex === endIndex) {
-    return undefined
-  }
-
-  return state.src.substr(startIndex, endIndex - startIndex)
+export interface QuoteExtraTagValues {
+  labelStartIndex: number,
+  labelEndIndex: number,
+  valueStartIndex: number,
+  valueEndIndex: number,
+  label: string,
+  value: string
 }
 
-export const parseValue = (line: string, start: number, maxPos: number): number | undefined => {
+export const parseQuoteExtraTag = (line: string, start: number, maxPos: number): QuoteExtraTagValues | undefined => {
+  if (line[start] !== '[') {
+    return
+  }
+
+  const labelStartIndex = start + 1
+  const labelEndIndex = parseLabel(line, labelStartIndex, maxPos)
+  if (!labelEndIndex || labelStartIndex === labelEndIndex) {
+    return
+  }
+
+  const valueStartIndex = labelEndIndex + 1
+  const valueEndIndex = parseValue(line, valueStartIndex, maxPos)
+  if (!valueEndIndex || valueStartIndex === valueEndIndex) {
+    return
+  }
+
+  return {
+    labelStartIndex,
+    labelEndIndex,
+    valueStartIndex,
+    valueEndIndex,
+    label: line.substr(labelStartIndex, labelEndIndex - labelStartIndex),
+    value: line.substr(valueStartIndex, valueEndIndex - valueStartIndex)
+  }
+}
+
+const parseValue = (line: string, start: number, maxPos: number): number | undefined => {
   let level = 1
   for (let pos = start; pos <= maxPos; pos += 1) {
     const currentCharacter = line[pos]
@@ -92,7 +106,7 @@ export const parseValue = (line: string, start: number, maxPos: number): number 
   }
 }
 
-export const parseLabel = (line: string, start: number, maxPos: number): number | undefined => {
+const parseLabel = (line: string, start: number, maxPos: number): number | undefined => {
   for (let pos = start; pos <= maxPos; pos += 1) {
     if (line[pos] === '=') {
       return pos
