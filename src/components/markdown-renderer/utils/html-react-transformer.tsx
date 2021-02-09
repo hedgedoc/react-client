@@ -36,13 +36,15 @@ export const calculateKeyFromLineMarker = (node: DomElement, lineKeys?: LineKeys
     return
   }
 
-  const startLine = Number(startLineInMarkdown)
-  const endLine = Number(endLineInMarkdown)
-  if (lineKeys[startLine] === undefined || lineKeys[endLine] === undefined) {
+  const startLineIndex = Number(startLineInMarkdown)
+  const endLineIndex = Number(endLineInMarkdown)
+  if (startLineIndex === undefined || endLineIndex === undefined) {
     return
   }
 
-  return `${ lineKeys[startLine].id }_${ lineKeys[endLine].id }`
+  return lineKeys.filter((value, index) => index >= startLineIndex - 1 && index <= endLineIndex - 2)
+                 .map(value => value.id)
+                 .join('_')
 }
 
 export const findNodeReplacement = (node: DomElement, key: string, allReplacers: ComponentReplacer[], subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): ReactElement | null | undefined => {
