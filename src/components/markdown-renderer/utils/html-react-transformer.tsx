@@ -42,9 +42,7 @@ export const calculateKeyFromLineMarker = (node: DomElement, lineKeys?: LineKeys
     return
   }
 
-  return lineKeys.filter((value, index) => index >= startLineIndex - 1 && index <= endLineIndex - 2)
-                 .map(value => value.id)
-                 .join('_')
+  return `${ lineKeys[startLineIndex - 1].id }_${ lineKeys[endLineIndex - 2].id }`
 }
 
 export const findNodeReplacement = (node: DomElement, allReplacers: ComponentReplacer[], subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): ReactElement | null | undefined => {
