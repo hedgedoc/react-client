@@ -4,17 +4,17 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { BasicMarkdownRenderer } from '../../../markdown-renderer/basic-markdown-renderer'
-import { BasicMarkdownItConfigurator } from '../../../markdown-renderer/markdown-it-configurator/BasicMarkdownItConfigurator'
 import { HighlightedCode } from '../../../markdown-renderer/replace-components/highlighted-fence/highlighted-code/highlighted-code'
 import './cheatsheet.scss'
 
 export const Cheatsheet: React.FC = () => {
   const { t } = useTranslation()
-  const codes = [
+  const [checked, setChecked] = useState<boolean>(false)
+  const codes = useMemo(() => [
     `**${ t('editor.editorToolbar.bold') }**`,
     `*${ t('editor.editorToolbar.italic') }*`,
     `++${ t('editor.editorToolbar.underline') }++`,
@@ -28,17 +28,12 @@ export const Cheatsheet: React.FC = () => {
     `> ${ t('editor.editorToolbar.blockquote') }`,
     `- ${ t('editor.editorToolbar.unorderedList') }`,
     `1. ${ t('editor.editorToolbar.orderedList') }`,
-    `- [ ] ${ t('editor.editorToolbar.checkList') }`,
+    `- [${ checked ? 'x' : ' ' }] ${ t('editor.editorToolbar.checkList') }`,
     `[${ t('editor.editorToolbar.link') }](https://example.com)`,
-    `![${ t('editor.editorToolbar.image') }](/icons/mstile-70x70.png)`,
+    `![${ t('editor.editorToolbar.image') }](/icons/apple-touch-icon.png)`,
     ':smile:',
     `:::info\n${ t('editor.help.cheatsheet.exampleAlert') }\n:::`
-  ]
-
-  const markdownIt = useMemo(() => {
-    return new BasicMarkdownItConfigurator()
-      .buildConfiguredMarkdownIt()
-  }, [])
+  ], [checked, t])
 
   return (
     <Table className="table-condensed table-cheatsheet">
@@ -53,9 +48,8 @@ export const Cheatsheet: React.FC = () => {
         return (
           <tr key={ key }>
             <td>
-              <BasicMarkdownRenderer
-                content={ code }
-                markdownIt={ markdownIt }/>
+              <BasicMarkdownRenderer content={ code } baseUrl={ 'https://example.org' }
+                                     onTaskCheckedChange={ (lineInMarkdown, checked) => setChecked(checked) }/>
             </td>
             <td className={ 'markdown-body' }>
               <HighlightedCode code={ code } wrapLines={ true } startLineNumber={ 1 } language={ 'markdown' }/>

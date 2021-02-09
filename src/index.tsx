@@ -11,7 +11,6 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { ApplicationLoader } from './components/application-loader/application-loader'
 import { NotFoundErrorScreen } from './components/common/routing/not-found-error-screen'
 import { Redirector } from './components/common/routing/redirector'
-import { DocumentReadOnlyPage } from './components/document-read-only-page/document-read-only-page'
 import { ErrorBoundary } from './components/error-boundary/error-boundary'
 import { HistoryPage } from './components/history-page/history-page'
 import { IntroPage } from './components/intro-page/intro-page'
@@ -27,6 +26,7 @@ import { isTestMode } from './utils/is-test-mode'
 
 const EditorPage = React.lazy(() => import(/* webpackPrefetch: true */ './components/editor-page/editor-page'))
 const RenderPage = React.lazy(() => import (/* webpackPrefetch: true */ './components/render-page/render-page'))
+const DocumentReadOnlyPage = React.lazy(() => import (/* webpackPrefetch: true */ './components/document-read-only-page/document-read-only-page'))
 
 ReactDOM.render(
   <Provider store={ store }>
