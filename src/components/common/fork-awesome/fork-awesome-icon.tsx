@@ -1,10 +1,10 @@
 /*
- SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
- SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import { IconName, IconSize } from './types'
 
 export interface ForkAwesomeIconProps {
@@ -13,14 +13,15 @@ export interface ForkAwesomeIconProps {
   fixedWidth?: boolean
   size?: IconSize
   stacked?: boolean
+  onClick?: MouseEventHandler<HTMLElement>
 }
 
-export const ForkAwesomeIcon: React.FC<ForkAwesomeIconProps> = ({ icon, fixedWidth = false, size, className, stacked = false }) => {
+export const ForkAwesomeIcon: React.FC<ForkAwesomeIconProps> = ({ icon, fixedWidth = false, size, className, stacked = false, onClick }) => {
   const fixedWithClass = fixedWidth ? 'fa-fw' : ''
   const sizeClass = size ? `-${ size }` : (stacked ? '-1x' : '')
   const stackClass = stacked ? '-stack' : ''
   const extraClasses = `${ className ?? '' } ${ sizeClass || stackClass ? `fa${ stackClass }${ sizeClass }` : '' }`
   return (
-    <i className={ `fa ${ fixedWithClass } fa-${ icon } ${ extraClasses }` }/>
+    <i className={ `fa ${ fixedWithClass } fa-${ icon } ${ extraClasses }` } onClick={ onClick }/>
   )
 }
