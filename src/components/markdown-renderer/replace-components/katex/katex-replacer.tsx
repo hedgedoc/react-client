@@ -36,12 +36,12 @@ export class KatexReplacer extends ComponentReplacer {
     afterDisplayMath: '</app-katex>'
   })
 
-  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
+  public getReplacement(node: DomElement): React.ReactElement | undefined {
     const katex = getNodeIfKatexBlock(node) || getNodeIfInlineKatex(node)
     if (katex?.children && katex.children[0]) {
       const mathJaxContent = katex.children[0]?.data as string
       const isInline = (katex.attribs?.inline) !== undefined
-      return <KaTeX key={ key } block={ !isInline } math={ mathJaxContent } errorColor={ '#cc0000' }/>
+      return <KaTeX block={ !isInline } math={ mathJaxContent } errorColor={ '#cc0000' }/>
     }
   }
 }

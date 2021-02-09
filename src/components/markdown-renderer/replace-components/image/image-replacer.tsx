@@ -19,10 +19,9 @@ export class ImageReplacer extends ComponentReplacer {
     this.clickHandler = clickHandler
   }
 
-  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
+  public getReplacement(node: DomElement): React.ReactElement | undefined {
     if (node.name === 'img' && node.attribs) {
       return <ProxyImageFrame
-        key={ key }
         id={ node.attribs.id }
         className={ `${ node.attribs.class } cursor-zoom-in` }
         src={ node.attribs.src }

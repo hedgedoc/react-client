@@ -20,11 +20,11 @@ export class YoutubeReplacer extends ComponentReplacer {
     markdownItRegex(markdownIt, replaceLegacyYoutubeShortCode)
   }
 
-  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
+  public getReplacement(node: DomElement): React.ReactElement | undefined {
     const attributes = getAttributesFromHedgeDocTag(node, 'youtube')
     if (attributes && attributes.id) {
       const videoId = attributes.id
-      return <YouTubeFrame id={ videoId } key={ key }/>
+      return <YouTubeFrame id={ videoId }/>
     }
   }
 }

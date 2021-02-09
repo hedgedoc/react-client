@@ -18,12 +18,12 @@ export class AsciinemaReplacer extends ComponentReplacer {
     markdownItRegex(markdownIt, replaceAsciinemaLink)
   }
 
-  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
+  public getReplacement(node: DomElement): React.ReactElement | undefined {
     const attributes = getAttributesFromHedgeDocTag(node, 'asciinema')
     if (attributes && attributes.id) {
       const asciinemaId = attributes.id
       return (
-        <AsciinemaFrame key={ key } id={ asciinemaId }/>
+        <AsciinemaFrame id={ asciinemaId }/>
       )
     }
   }

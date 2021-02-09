@@ -47,9 +47,9 @@ export const calculateKeyFromLineMarker = (node: DomElement, lineKeys?: LineKeys
                  .join('_')
 }
 
-export const findNodeReplacement = (node: DomElement, key: string, allReplacers: ComponentReplacer[], subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): ReactElement | null | undefined => {
+export const findNodeReplacement = (node: DomElement, allReplacers: ComponentReplacer[], subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): ReactElement | null | undefined => {
   return allReplacers
-    .map((componentReplacer) => componentReplacer.getReplacement(node, key, subNodeTransform, nativeRenderer))
+    .map((componentReplacer) => componentReplacer.getReplacement(node, subNodeTransform, nativeRenderer))
     .find((replacement) => replacement !== undefined)
 }
 
@@ -68,7 +68,7 @@ export const buildTransformer = (lineKeys: (LineKeys[] | undefined), allReplacer
     const subNodeTransform: SubNodeTransform = (subNode, subIndex) => transform(subNode, subIndex, transform)
 
     const key = calculateKeyFromLineMarker(node, lineKeys) ?? (-index).toString()
-    const tryReplacement = findNodeReplacement(node, key, allReplacers, subNodeTransform, nativeRenderer)
+    const tryReplacement = findNodeReplacement(node, allReplacers, subNodeTransform, nativeRenderer)
     if (tryReplacement === null) {
       return null
     } else if (tryReplacement === undefined) {

@@ -20,11 +20,11 @@ export class VimeoReplacer extends ComponentReplacer {
     markdownItRegex(markdownIt, replaceLegacyVimeoShortCode)
   }
 
-  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
+  public getReplacement(node: DomElement): React.ReactElement | undefined {
     const attributes = getAttributesFromHedgeDocTag(node, 'vimeo')
     if (attributes && attributes.id) {
       const videoId = attributes.id
-      return <VimeoFrame id={ videoId } key={ key }/>
+      return <VimeoFrame id={ videoId }/>
     }
   }
 }

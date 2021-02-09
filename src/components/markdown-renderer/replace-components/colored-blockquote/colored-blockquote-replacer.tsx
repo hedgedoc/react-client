@@ -25,7 +25,7 @@ const findQuoteOptionsParent = (nodes: DomElement[]): DomElement | undefined => 
 }
 
 export class ColoredBlockquoteReplacer extends ComponentReplacer {
-  public getReplacement(node: DomElement, key: string, subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): ReactElement | undefined {
+  public getReplacement(node: DomElement, subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): ReactElement | undefined {
     if (node.name !== 'blockquote' || !node.children || node.children.length < 1) {
       return
     }

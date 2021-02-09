@@ -22,13 +22,12 @@ export class GistReplacer extends ComponentReplacer {
     markdownItRegex(markdownIt, replaceLegacyGistShortCode)
   }
 
-  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
+  public getReplacement(node: DomElement): React.ReactElement | undefined {
     const attributes = getAttributesFromHedgeDocTag(node, 'gist')
     if (attributes && attributes.id) {
       const gistId = attributes.id
       return (
         <OneClickEmbedding
-          key={ key }
           previewContainerClassName={ 'gist-frame' }
           loadingImageUrl={ preview }
           hoverIcon={ 'github' }

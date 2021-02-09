@@ -23,13 +23,12 @@ export class TaskListReplacer extends ComponentReplacer {
     }
   }
 
-  public getReplacement(node: DomElement, key: string): (ReactElement | undefined) {
+  public getReplacement(node: DomElement): (ReactElement | undefined) {
     if (node.attribs?.class !== 'task-list-item-checkbox') {
       return
     }
     return (
       <input
-        key={ key }
         disabled={ this.onTaskCheckedChange === undefined }
         className="task-list-item-checkbox"
         type="checkbox"
