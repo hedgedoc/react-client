@@ -47,7 +47,7 @@ export const calculateKeyFromLineMarker = (node: DomElement, lineKeys?: LineKeys
 
 export const findNodeReplacement = (node: DomElement, key: string, allReplacers: ComponentReplacer[], subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): ReactElement | null | undefined => {
   return allReplacers
-    .map((componentReplacer) => componentReplacer.getReplacement(node, subNodeTransform, nativeRenderer))
+    .map((componentReplacer) => componentReplacer.getReplacement(node, key, subNodeTransform, nativeRenderer))
     .find((replacement) => replacement !== undefined)
 }
 

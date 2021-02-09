@@ -1,7 +1,7 @@
 /*
- SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
- SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import { DomElement } from 'domhandler'
@@ -23,12 +23,13 @@ export class TaskListReplacer extends ComponentReplacer {
     }
   }
 
-  public getReplacement(node: DomElement): (ReactElement | undefined) {
+  public getReplacement(node: DomElement, key: string): (ReactElement | undefined) {
     if (node.attribs?.class !== 'task-list-item-checkbox') {
       return
     }
     return (
       <input
+        key={ key }
         disabled={ this.onTaskCheckedChange === undefined }
         className="task-list-item-checkbox"
         type="checkbox"

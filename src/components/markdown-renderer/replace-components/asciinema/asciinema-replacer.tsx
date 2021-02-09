@@ -1,7 +1,7 @@
 /*
- SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
- SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import { DomElement } from 'domhandler'
@@ -14,20 +14,16 @@ import { AsciinemaFrame } from './asciinema-frame'
 import { replaceAsciinemaLink } from './replace-asciinema-link'
 
 export class AsciinemaReplacer extends ComponentReplacer {
-  private counterMap: Map<string, number> = new Map<string, number>()
-
   public static readonly markdownItPlugin: MarkdownIt.PluginSimple = (markdownIt) => {
     markdownItRegex(markdownIt, replaceAsciinemaLink)
   }
 
-  public getReplacement(node: DomElement): React.ReactElement | undefined {
+  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
     const attributes = getAttributesFromHedgeDocTag(node, 'asciinema')
     if (attributes && attributes.id) {
       const asciinemaId = attributes.id
-      const count = (this.counterMap.get(asciinemaId) || 0) + 1
-      this.counterMap.set(asciinemaId, count)
       return (
-        <AsciinemaFrame id={ asciinemaId }/>
+        <AsciinemaFrame key={ key } id={ asciinemaId }/>
       )
     }
   }

@@ -20,7 +20,7 @@ export class LinkReplacer extends ComponentReplacer {
     super()
   }
 
-  public getReplacement(node: DomElement, subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): (ReactElement | null | undefined) {
+  public getReplacement(node: DomElement, key: string, subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): (ReactElement | null | undefined) {
     if (node.name !== 'a' || !node.attribs || !node.attribs.href) {
       return undefined
     }
@@ -37,7 +37,7 @@ export class LinkReplacer extends ComponentReplacer {
     }
 
     if (isJumpMark) {
-      return <span onClick={ createJumpToMarkClickEventHandler(id) }>
+      return <span key={ key } onClick={ createJumpToMarkClickEventHandler(id) }>
         { nativeRenderer() }
       </span>
     } else {

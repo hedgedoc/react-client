@@ -1,7 +1,7 @@
 /*
- SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
- SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import { DomElement } from 'domhandler'
@@ -15,20 +15,16 @@ import { replaceYouTubeLink } from './replace-youtube-link'
 import { YouTubeFrame } from './youtube-frame'
 
 export class YoutubeReplacer extends ComponentReplacer {
-  private counterMap: Map<string, number> = new Map<string, number>()
-
   public static readonly markdownItPlugin: MarkdownIt.PluginSimple = (markdownIt) => {
     markdownItRegex(markdownIt, replaceYouTubeLink)
     markdownItRegex(markdownIt, replaceLegacyYoutubeShortCode)
   }
 
-  public getReplacement(node: DomElement): React.ReactElement | undefined {
+  public getReplacement(node: DomElement, key: string): React.ReactElement | undefined {
     const attributes = getAttributesFromHedgeDocTag(node, 'youtube')
     if (attributes && attributes.id) {
       const videoId = attributes.id
-      const count = (this.counterMap.get(videoId) || 0) + 1
-      this.counterMap.set(videoId, count)
-      return <YouTubeFrame id={ videoId }/>
+      return <YouTubeFrame id={ videoId } key={ key }/>
     }
   }
 }
