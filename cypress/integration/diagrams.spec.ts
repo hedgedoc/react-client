@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-describe('renders diagram', () => {
+describe('Diagram codeblock gets rendered: ', () => {
   beforeEach(() => {
     cy.visitTestEditor()
   })
@@ -12,7 +12,7 @@ describe('renders diagram', () => {
   it('markmap', () => {
     cy.codemirrorFill('```markmap\n- pro\n- contra\n```')
     cy.getMarkdownBody()
-      .find('svg')
+      .find('div[data-cy=markmap] svg')
       .should('be.visible')
   })
 
@@ -26,7 +26,7 @@ describe('renders diagram', () => {
   it('graphviz', () => {
     cy.codemirrorFill('```graphviz\ngraph {\na -- b\n}\n```')
     cy.getMarkdownBody()
-      .find('svg')
+      .find('div[data-cy=graphviz] svg')
       .should('be.visible')
   })
 
@@ -40,7 +40,7 @@ describe('renders diagram', () => {
   it('flowchart', () => {
     cy.codemirrorFill('```flow\nst=>start: Start\ne=>end: End\nst->e\n```')
     cy.getMarkdownBody()
-      .find('svg')
+      .find('div[data-cy=flowchart] svg')
       .should('be.visible')
   })
 
@@ -54,7 +54,7 @@ describe('renders diagram', () => {
   it('csv', () => {
     cy.codemirrorFill('```csv delimiter=; header\na;b;c;d\n1;2;3;4\n```')
     cy.getMarkdownBody()
-      .find('table.csv-html-table')
+      .find('.csv-html-table')
       .should('be.visible')
   })
 

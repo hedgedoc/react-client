@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-describe('links to embeddable content', () => {
+describe('Link gets replaced with embedding: ', () => {
   beforeEach(() => {
     cy.visitTestEditor()
   })
@@ -12,7 +12,7 @@ describe('links to embeddable content', () => {
   it('GitHub Gist', () => {
     cy.codemirrorFill('https://gist.github.com/schacon/1')
     cy.getMarkdownBody()
-      .find('span.one-click-embedding.gist-frame')
+      .find('.one-click-embedding.gist-frame')
       .click()
     cy.getMarkdownBody()
       .find('iframe')
@@ -22,7 +22,7 @@ describe('links to embeddable content', () => {
   it('YouTube', () => {
     cy.codemirrorFill('https://www.youtube.com/watch?v=YE7VzlLtp-4')
     cy.getMarkdownBody()
-      .find('span.one-click-embedding.embed-responsive-item')
+      .find('.one-click-embedding.embed-responsive-item')
       .click()
     cy.getMarkdownBody()
       .find('iframe')
@@ -32,7 +32,7 @@ describe('links to embeddable content', () => {
   it('Vimeo', () => {
     cy.codemirrorFill('https://vimeo.com/23237102')
     cy.getMarkdownBody()
-      .find('span.one-click-embedding.embed-responsive-item')
+      .find('.one-click-embedding.embed-responsive-item')
       .click()
     cy.getMarkdownBody()
       .find('iframe')
@@ -42,7 +42,7 @@ describe('links to embeddable content', () => {
   it('Asciinema', () => {
     cy.codemirrorFill('https://asciinema.org/a/117928')
     cy.getMarkdownBody()
-      .find('span.one-click-embedding.embed-responsive-item')
+      .find('.one-click-embedding.embed-responsive-item')
       .click()
     cy.getMarkdownBody()
       .find('iframe')
