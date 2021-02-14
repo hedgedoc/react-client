@@ -62,6 +62,7 @@ describe('Diagram codeblock gets rendered: ', () => {
     cy.codemirrorFill('```plantuml\nclass Example\n```')
     cy.getMarkdownBody()
       .find('img')
-      .should('have.attr', 'title', 'uml diagram')
+      // PlantUML uses base64 encoded version of zip-deflated PlantUML code in the request URL.
+      .should('have.attr', 'src', 'http://mock-plantuml.local/svg/SoWkIImgAStDuKhEIImkLd2jICmjo4dbSaZDIm6A0W00')
   })
 })
