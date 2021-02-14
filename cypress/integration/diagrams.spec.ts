@@ -12,42 +12,42 @@ describe('Diagram codeblock gets rendered: ', () => {
   it('markmap', () => {
     cy.codemirrorFill('```markmap\n- pro\n- contra\n```')
     cy.getMarkdownBody()
-      .find('div[data-cy=markmap] svg')
+      .find('[data-cy=markmap] svg')
       .should('be.visible')
   })
 
   it('vega-lite', () => {
     cy.codemirrorFill('```vega-lite\n{"$schema":"https://vega.github.io/schema/vega-lite/v4.json","data":{"values":[{"a":"","b":28}]},"mark":"bar","encoding":{"x":{"field":"a"},"y":{"field":"b"}}}\n```')
     cy.getMarkdownBody()
-      .find('div.vega-embed canvas')
+      .find('.vega-embed canvas')
       .should('be.visible')
   })
 
   it('graphviz', () => {
     cy.codemirrorFill('```graphviz\ngraph {\na -- b\n}\n```')
     cy.getMarkdownBody()
-      .find('div[data-cy=graphviz] svg')
+      .find('[data-cy=graphviz] svg')
       .should('be.visible')
   })
 
   it('mermaid', () => {
     cy.codemirrorFill('```mermaid\ngraph TD;\n    A-->B;\n```')
     cy.getMarkdownBody()
-      .find('div.mermaid > svg')
+      .find('.mermaid > svg')
       .should('be.visible')
   })
 
   it('flowchart', () => {
     cy.codemirrorFill('```flow\nst=>start: Start\ne=>end: End\nst->e\n```')
     cy.getMarkdownBody()
-      .find('div[data-cy=flowchart] svg')
+      .find('[data-cy=flowchart] svg')
       .should('be.visible')
   })
 
   it('abc', () => {
     cy.codemirrorFill('```abc\nM:4/4\nK:G\n|:GABc dedB:|\n```')
     cy.getMarkdownBody()
-      .find('div.abcjs-score > svg')
+      .find('.abcjs-score > svg')
       .should('be.visible')
   })
 
