@@ -22,7 +22,9 @@ describe('Link gets replaced with embedding: ', () => {
   it('YouTube', () => {
     cy.codemirrorFill('https://www.youtube.com/watch?v=YE7VzlLtp-4')
     cy.getMarkdownBody()
-      .find('.one-click-embedding.embed-responsive-item')
+      .find('.one-click-embedding-preview')
+      .should('have.attr', 'src', 'https://i.ytimg.com/vi/YE7VzlLtp-4/maxresdefault.jpg')
+      .parent()
       .click()
     cy.getMarkdownBody()
       .find('iframe')
@@ -30,9 +32,21 @@ describe('Link gets replaced with embedding: ', () => {
   })
 
   it('Vimeo', () => {
+    cy.intercept({
+      method: 'GET',
+      url: 'https://vimeo.com/api/v2/video/23237102.json'
+    }, {
+      statusCode: 200,
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: '[{"thumbnail_large": "https://i.vimeocdn.com/video/503631401_640.jpg"}]'
+    })
     cy.codemirrorFill('https://vimeo.com/23237102')
     cy.getMarkdownBody()
-      .find('.one-click-embedding.embed-responsive-item')
+      .find('.one-click-embedding-preview')
+      .should('have.attr', 'src', 'https://i.vimeocdn.com/video/503631401_640.jpg')
+      .parent()
       .click()
     cy.getMarkdownBody()
       .find('iframe')
@@ -42,7 +56,9 @@ describe('Link gets replaced with embedding: ', () => {
   it('Asciinema', () => {
     cy.codemirrorFill('https://asciinema.org/a/117928')
     cy.getMarkdownBody()
-      .find('.one-click-embedding.embed-responsive-item')
+      .find('.one-click-embedding-preview')
+      .should('have.attr', 'src', 'https://asciinema.org/a/117928.png')
+      .parent()
       .click()
     cy.getMarkdownBody()
       .find('iframe')
