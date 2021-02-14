@@ -15,8 +15,8 @@ describe('Link gets replaced with embedding: ', () => {
       .find('.one-click-embedding.gist-frame')
       .click()
     cy.getMarkdownBody()
-      .find('iframe')
-      .should('have.attr', 'title', 'gist schacon/1')
+      .find('iframe[data-cy=gh-gist]')
+      .should('be.visible')
   })
 
   it('YouTube', () => {
