@@ -9,6 +9,8 @@ describe('Link gets replaced with embedding: ', () => {
     cy.visitTestEditor()
   })
 
+  // TODO Add general testing of one-click-embedding component. The tests below just test a specific use of the component.
+
   it('GitHub Gist', () => {
     cy.codemirrorFill('https://gist.github.com/schacon/1')
     cy.getMarkdownBody()
