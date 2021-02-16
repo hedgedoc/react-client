@@ -7,9 +7,8 @@
 import React, { useMemo, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { BasicMarkdownRenderer } from '../../../markdown-renderer/basic-markdown-renderer'
-import { HighlightedCode } from '../../../markdown-renderer/replace-components/highlighted-fence/highlighted-code/highlighted-code'
 import './cheatsheet.scss'
+import { CheatsheetLine } from './cheatsheet-line'
 
 export const Cheatsheet: React.FC = () => {
   const { t } = useTranslation()
@@ -35,6 +34,7 @@ export const Cheatsheet: React.FC = () => {
     `:::info\n${ t('editor.help.cheatsheet.exampleAlert') }\n:::`
   ], [checked, t])
 
+
   return (
     <Table className="table-condensed table-cheatsheet">
       <thead>
@@ -44,20 +44,13 @@ export const Cheatsheet: React.FC = () => {
       </tr>
       </thead>
       <tbody>
-      { codes.map((code, key) => {
-        return (
-          <tr key={ key }>
-            <td>
-              <BasicMarkdownRenderer content={ code } baseUrl={ 'https://example.org' }
-                                     onTaskCheckedChange={ (lineInMarkdown, checked) => setChecked(checked) }/>
-            </td>
-            <td className={ 'markdown-body' }>
-              <HighlightedCode code={ code } wrapLines={ true } startLineNumber={ 1 } language={ 'markdown' }/>
-            </td>
-          </tr>
-        )
-      }) }
+      {
+        codes.map((code) =>
+          <CheatsheetLine code={ code } key={ code } onTaskCheckedChange={ setChecked }/>)
+      }
       </tbody>
     </Table>
   )
 }
+
+export default Cheatsheet
