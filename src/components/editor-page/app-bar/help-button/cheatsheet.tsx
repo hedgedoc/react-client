@@ -34,7 +34,6 @@ export const Cheatsheet: React.FC = () => {
     `:::info\n${ t('editor.help.cheatsheet.exampleAlert') }\n:::`
   ], [checked, t])
 
-
   return (
     <Table className="table-condensed table-cheatsheet">
       <thead>
