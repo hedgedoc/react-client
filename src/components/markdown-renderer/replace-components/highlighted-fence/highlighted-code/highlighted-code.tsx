@@ -17,7 +17,7 @@ export interface HighlightedCodeProps {
   wrapLines: boolean
 }
 
-export const escapeHtml = (unsafe: string): string => {
+const escapeHtml = (unsafe: string): string => {
   return unsafe
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -69,3 +69,5 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
       </div>
     </Fragment>)
 }
+
+export default HighlightedCode

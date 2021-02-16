@@ -111,3 +111,5 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     </div>
   )
 }
+
+export default BasicMarkdownRenderer
