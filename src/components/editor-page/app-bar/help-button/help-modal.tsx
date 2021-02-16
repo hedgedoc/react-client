@@ -11,7 +11,7 @@ import React, { useMemo, useState } from 'react'
 import { CommonModalProps } from '../../../common/modals/common-modal'
 import { Shortcut } from './shortcuts'
 import { Links } from './links'
-import { Cheatsheet } from './cheatsheet'
+import { LazyCheatsheet } from './lazy-cheatsheet'
 
 export enum HelpTabStatus {
   Cheatsheet = 'cheatsheet.title',
@@ -25,7 +25,7 @@ export const HelpModal: React.FC<CommonModalProps> = ({ show, onHide }) => {
   const tabContent = useMemo(() => {
     switch (tab) {
       case HelpTabStatus.Cheatsheet:
-        return (<Cheatsheet/>)
+        return (<LazyCheatsheet/>)
       case HelpTabStatus.Shortcuts:
         return (<Shortcut/>)
       case HelpTabStatus.Links:

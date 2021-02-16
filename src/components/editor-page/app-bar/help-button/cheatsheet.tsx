@@ -52,3 +52,5 @@ export const Cheatsheet: React.FC = () => {
     </Table>
   )
 }
+
+export default Cheatsheet
