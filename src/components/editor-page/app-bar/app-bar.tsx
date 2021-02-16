@@ -5,6 +5,7 @@
  */
 
 import React from 'react'
+import equal from 'fast-deep-equal'
 import { Button, Nav, Navbar } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -21,6 +22,7 @@ import { EditorViewMode } from './editor-view-mode'
 import { HelpButton } from './help-button/help-button'
 import { NavbarBranding } from './navbar-branding'
 import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
+import { NoteType } from '../note-frontmatter/note-frontmatter'
 
 export enum AppBarMode {
   BASIC,
@@ -35,6 +37,7 @@ export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
   const { t } = useTranslation()
   const { id } = useParams<EditorPagePathParams>()
   const userExists = useSelector((state: ApplicationState) => !!state.user)
+  const noteFrontmatter = useSelector((state: ApplicationState) => state.noteDetails.frontmatter, equal)
 
   return (
     <Navbar bg={ 'light' }>
@@ -45,12 +48,22 @@ export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
           <SyncScrollButtons/>
         </ShowIf>
         <DarkModeButton/>
-        <Link to={ `/p/${ id }` } target='_blank'>
-          <Button title={ t('editor.documentBar.slideMode') } className="ml-2 text-secondary" size="sm"
-                  variant="outline-light">
-            <ForkAwesomeIcon icon="television"/>
-          </Button>
-        </Link>
+        <ShowIf condition={noteFrontmatter.type === NoteType.SLIDE}>
+          <Link to={ `/p/${ id }` } target='_blank'>
+            <Button title={ t('editor.documentBar.slideMode') } className="ml-2 text-secondary" size="sm"
+                    variant="outline-light">
+              <ForkAwesomeIcon icon="television"/>
+            </Button>
+          </Link>
+        </ShowIf>
+        <ShowIf condition={noteFrontmatter.type !== NoteType.SLIDE}>
+          <Link to={ `/s/${ id }` } target='_blank'>
+            <Button title={ t('editor.documentBar.readOnlyMode') } className="ml-2 text-secondary" size="sm"
+                    variant="outline-light">
+              <ForkAwesomeIcon icon="file-text-o"/>
+            </Button>
+          </Link>
+        </ShowIf>
         <ShowIf condition={ mode === AppBarMode.EDITOR }>
           <HelpButton/>
         </ShowIf>
