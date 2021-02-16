@@ -1,7 +1,7 @@
 /*
- SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
- SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import React, { Fragment, useEffect, useRef, useState } from 'react'
@@ -45,7 +45,7 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
       return
     }
     const actualContainer = diagramContainer.current
-    import('./markmap-loader').then(({ markmapLoader }) => {
+    import(/* webpackChunkName: "markmap" */'./markmap-loader').then(({ markmapLoader }) => {
       try {
         const svg: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
         svg.setAttribute('width', '100%')
@@ -57,7 +57,7 @@ export const MarkmapFrame: React.FC<MarkmapFrameProps> = ({ code }) => {
         console.error(error)
       }
     })
-                              .catch(() => {
+                                                               .catch(() => {
                                 console.error('error while loading markmap')
                               })
   }, [code])
