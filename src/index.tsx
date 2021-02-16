@@ -24,9 +24,9 @@ import './style/dark.scss'
 import './style/index.scss'
 import { isTestMode } from './utils/is-test-mode'
 
-const EditorPage = React.lazy(() => import(/* webpackPrefetch: true */ './components/editor-page/editor-page'))
-const RenderPage = React.lazy(() => import (/* webpackPrefetch: true */ './components/render-page/render-page'))
-const DocumentReadOnlyPage = React.lazy(() => import (/* webpackPrefetch: true */ './components/document-read-only-page/document-read-only-page'))
+const EditorPage = React.lazy(() => import(/* webpackPrefetch: true *//* webpackChunkName: "editor" */ './components/editor-page/editor-page'))
+const RenderPage = React.lazy(() => import (/* webpackPrefetch: true *//* webpackChunkName: "renderPage" */ './components/render-page/render-page'))
+const DocumentReadOnlyPage = React.lazy(() => import (/* webpackPrefetch: true *//* webpackChunkName: "documentReadOnly" */ './components/document-read-only-page/document-read-only-page'))
 
 ReactDOM.render(
   <Provider store={ store }>
