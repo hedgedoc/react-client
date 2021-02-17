@@ -12,7 +12,6 @@ export interface CheatsheetLineProps {
   onTaskCheckedChange: (newValue: boolean) => void
 }
 
-
 const HighlightedCode = React.lazy(() => import('../../../markdown-renderer/replace-components/highlighted-fence/highlighted-code/highlighted-code'))
 const BasicMarkdownRenderer = React.lazy(() => import('../../../markdown-renderer/basic-markdown-renderer'))
 
