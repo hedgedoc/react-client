@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
 import { useMemo } from 'react'
 
-export const useTrimmedContent = (content: string): [trimmedContent: string, isTrimmed: boolean] => {
+export const useTrimmedContent = (content: string): [trimmedContent: string, contentExceedsLimit: boolean] => {
   const maxLength = useSelector((state: ApplicationState) => state.config.maxDocumentLength)
   const contentExceedsLimit = content.length > maxLength
 
