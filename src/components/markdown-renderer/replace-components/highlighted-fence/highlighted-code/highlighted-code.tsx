@@ -17,6 +17,9 @@ export interface HighlightedCodeProps {
   wrapLines: boolean
 }
 
+/*
+ TODO: Test method or rewrite code so this is not necessary anymore
+ */
 const escapeHtml = (unsafe: string): string => {
   return unsafe
     .replaceAll(/&/g, '&amp;')
