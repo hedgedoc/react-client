@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-describe('Diagram codeblock gets rendered: ', () => {
+describe('Diagram codeblock ', () => {
   beforeEach(() => {
     cy.visitTestEditor()
   })
 
-  it('markmap', () => {
+  it('renders markmap', () => {
     cy.codemirrorFill('```markmap\n- pro\n- contra\n```')
     cy.getMarkdownBody()
       .find('[data-cy=markmap]')
@@ -17,7 +17,7 @@ describe('Diagram codeblock gets rendered: ', () => {
       .should('be.visible')
   })
 
-  it('vega-lite', () => {
+  it('renders vega-lite', () => {
     cy.codemirrorFill('```vega-lite\n{"$schema":"https://vega.github.io/schema/vega-lite/v4.json","data":{"values":[{"a":"","b":28}]},"mark":"bar","encoding":{"x":{"field":"a"},"y":{"field":"b"}}}\n```')
     cy.getMarkdownBody()
       .find('.vega-embed')
@@ -25,7 +25,7 @@ describe('Diagram codeblock gets rendered: ', () => {
       .should('be.visible')
   })
 
-  it('graphviz', () => {
+  it('renders graphviz', () => {
     cy.codemirrorFill('```graphviz\ngraph {\na -- b\n}\n```')
     cy.getMarkdownBody()
       .find('[data-cy=graphviz]')
@@ -33,7 +33,7 @@ describe('Diagram codeblock gets rendered: ', () => {
       .should('be.visible')
   })
 
-  it('mermaid', () => {
+  it('renders mermaid', () => {
     cy.codemirrorFill('```mermaid\ngraph TD;\n    A-->B;\n```')
     cy.getMarkdownBody()
       .find('.mermaid')
@@ -41,7 +41,7 @@ describe('Diagram codeblock gets rendered: ', () => {
       .should('be.visible')
   })
 
-  it('flowchart', () => {
+  it('renders flowcharts', () => {
     cy.codemirrorFill('```flow\nst=>start: Start\ne=>end: End\nst->e\n```')
     cy.getMarkdownBody()
       .find('[data-cy=flowchart]')
@@ -49,7 +49,7 @@ describe('Diagram codeblock gets rendered: ', () => {
       .should('be.visible')
   })
 
-  it('abc', () => {
+  it('renders abc scores', () => {
     cy.codemirrorFill('```abc\nM:4/4\nK:G\n|:GABc dedB:|\n```')
     cy.getMarkdownBody()
       .find('.abcjs-score')
@@ -57,14 +57,14 @@ describe('Diagram codeblock gets rendered: ', () => {
       .should('be.visible')
   })
 
-  it('csv', () => {
+  it('renders csv as table', () => {
     cy.codemirrorFill('```csv delimiter=; header\na;b;c;d\n1;2;3;4\n```')
     cy.getMarkdownBody()
       .find('.csv-html-table')
       .should('be.visible')
   })
 
-  it('plantuml', () => {
+  it('renders plantuml', () => {
     cy.codemirrorFill('```plantuml\nclass Example\n```')
     cy.getMarkdownBody()
       .find('img')
