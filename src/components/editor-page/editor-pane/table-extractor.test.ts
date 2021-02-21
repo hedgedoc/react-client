@@ -6,21 +6,21 @@
 
 import { isTable } from './table-extractor'
 
-describe('isTable detection', () => {
+describe('isTable detection: ', () => {
 
-  it('single line', () => {
+  it('single line is no table', () => {
     const input = 'some none table'
     expect(isTable(input))
       .toBe(false)
   })
 
-  it('multi lines without tabs', () => {
+  it('multiple lines without tabs are no table', () => {
     const input = 'some none table\nanother line'
     expect(isTable(input))
       .toBe(false)
   })
 
-  it('code blocks', () => {
+  it('code blocks are no table', () => {
     const input = '```python\ndef a:\n\tprint("a")\n\tprint("b")```'
     expect(isTable(input))
       .toBe(false)
@@ -32,7 +32,7 @@ describe('isTable detection', () => {
       .toBe(false)
   })
 
-  it('not equal number of tabs', () => {
+  it('not equal number of tabs is no table', () => {
     const input = '1 ...\n2\tabc\n3\td\te\tf\n4\t16'
     expect(isTable(input))
       .toBe(false)
@@ -50,13 +50,13 @@ describe('isTable detection', () => {
       .toBe(true)
   })
 
-  it('table with some first cells missing', () => {
+  it('valid table with some first cells missing', () => {
     const input = '1\t1\n\t0\n\t0\n4\t16\n5\t25\n'
     expect(isTable(input))
       .toBe(true)
   })
 
-  it('table with some last cells missing', () => {
+  it('valid table with some last cells missing', () => {
     const input = '1\t1\n2\t\n3\t\n4\t16\n'
     expect(isTable(input))
       .toBe(true)
