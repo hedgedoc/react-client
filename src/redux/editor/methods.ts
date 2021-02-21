@@ -12,7 +12,8 @@ import {
   EditorConfigActionType,
   SetEditorConfigAction,
   SetEditorLigaturesAction,
-  SetEditorPreferencesAction, SetEditorSmartPasteAction,
+  SetEditorPreferencesAction,
+  SetEditorSmartPasteAction,
   SetEditorSyncScrollAction
 } from './types'
 

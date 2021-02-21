@@ -45,7 +45,7 @@ describe('File upload', () => {
       cy.get('div.btn-group > input[type=file]')
         .attachFile({ filePath: 'acme.png', mimeType: 'image/png' })
       cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-        .should('have.text', `![](${imageUrl})`)
+        .should('have.text', `![](${ imageUrl })`)
     })
 
     it('via paste', () => {
@@ -110,6 +110,6 @@ describe('File upload', () => {
     cy.get('.CodeMirror-scroll')
       .trigger('paste', pasteEvent)
     cy.get('.CodeMirror-activeline > .CodeMirror-line > span')
-      .should('have.text', `${testText}`)
+      .should('have.text', `${ testText }`)
   })
 })
