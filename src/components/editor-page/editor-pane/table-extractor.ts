@@ -4,9 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { Editor } from 'codemirror'
 import { createNumberRangeArray } from '../../common/number-range/number-range'
-import { insertAtCursor } from './tool-bar/utils/toolbarButtonUtils'
 
 export const isTable = (text: string): boolean => {
   // Tables must consist of multiple rows and columns
@@ -30,7 +28,7 @@ export const isTable = (text: string): boolean => {
   return tabsPerLines.every(line => line === tabsPerLines[0])
 }
 
-export const extractTable = (pasteData: string, pasteEditor: Editor): void => {
+export const excelTableToMarkdown = (pasteData: string): string => {
   const tableRows = pasteData.split(/\r?\n/)
                              .filter(row => row.trim() !== '')
   const tableCells = tableRows.reduce((cellsInRow, row, index) => {
@@ -48,11 +46,12 @@ export const extractTable = (pasteData: string, pasteEditor: Editor): void => {
     .map(col => col + 1)
     .map(col => `| -${ '-'.repeat(col.toString().length) } `)
     .join('') + '|'
-  const body = arrayMaxRows.map(row => {
-    return arrayMaxColumns
-      .map(col => '| ' + tableCells[row][col] + ' ')
-      .join('') + '|'
-  })
-                           .join('\n')
-  insertAtCursor(pasteEditor, `${ headRow1 }\n${ headRow2 }\n${ body }`)
+  const body = arrayMaxRows
+    .map(row => {
+      return arrayMaxColumns
+        .map(col => '| ' + tableCells[row][col] + ' ')
+        .join('') + '|'
+    })
+    .join('\n')
+  return `${ headRow1 }\n${ headRow2 }\n${ body }`
 }
