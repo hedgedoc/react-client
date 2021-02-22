@@ -38,25 +38,25 @@ describe('isTable detection: ', () => {
       .toBe(false)
   })
 
-  it('valid table without newline at end', () => {
+  it('table without newline at end is valid', () => {
     const input = '1\t1\n2\t4\n3\t9\n4\t16\n5\t25'
     expect(isTable(input))
       .toBe(true)
   })
 
-  it('valid table with newline at end', () => {
+  it('table with newline at end is valid', () => {
     const input = '1\t1\n2\t4\n3\t9\n4\t16\n5\t25\n'
     expect(isTable(input))
       .toBe(true)
   })
 
-  it('valid table with some first cells missing', () => {
+  it('table with some first cells missing is valid', () => {
     const input = '1\t1\n\t0\n\t0\n4\t16\n5\t25\n'
     expect(isTable(input))
       .toBe(true)
   })
 
-  it('valid table with some last cells missing', () => {
+  it('table with some last cells missing is valid', () => {
     const input = '1\t1\n2\t\n3\t\n4\t16\n'
     expect(isTable(input))
       .toBe(true)
