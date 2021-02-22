@@ -23,6 +23,8 @@ import { HelpButton } from './help-button/help-button'
 import { NavbarBranding } from './navbar-branding'
 import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
 import { NoteType } from '../note-frontmatter/note-frontmatter'
+import { SlideModeButton } from './slide-mode-button'
+import { ReadOnlyModeButton } from './read-only-mode-button'
 
 export enum AppBarMode {
   BASIC,
@@ -49,20 +51,10 @@ export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
         </ShowIf>
         <DarkModeButton/>
         <ShowIf condition={noteFrontmatter.type === NoteType.SLIDE}>
-          <Link to={ `/p/${ id }` } target='_blank'>
-            <Button title={ t('editor.documentBar.slideMode') } className="ml-2 text-secondary" size="sm"
-                    variant="outline-light">
-              <ForkAwesomeIcon icon="television"/>
-            </Button>
-          </Link>
+          <SlideModeButton/>
         </ShowIf>
         <ShowIf condition={noteFrontmatter.type !== NoteType.SLIDE}>
-          <Link to={ `/s/${ id }` } target='_blank'>
-            <Button title={ t('editor.documentBar.readOnlyMode') } className="ml-2 text-secondary" size="sm"
-                    variant="outline-light">
-              <ForkAwesomeIcon icon="file-text-o"/>
-            </Button>
-          </Link>
+          <ReadOnlyModeButton/>
         </ShowIf>
         <ShowIf condition={ mode === AppBarMode.EDITOR }>
           <HelpButton/>
