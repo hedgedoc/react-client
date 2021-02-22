@@ -39,12 +39,10 @@ export const excelTableToMarkdown = (pasteData: string): string => {
   const arrayMaxColumns = createNumberRangeArray(Math.max(...tableCells.map(row => row.length)))
 
   const headRow1 = arrayMaxColumns
-    .map(col => col + 1)
-    .map(col => `| #${ col } `)
+    .map(col => `| #${ col + 1 } `)
     .join('') + '|'
   const headRow2 = arrayMaxColumns
-    .map(col => col + 1)
-    .map(col => `| -${ '-'.repeat(col.toString().length) } `)
+    .map(col => `| -${ '-'.repeat((col + 1).toString().length) } `)
     .join('') + '|'
   const body = arrayMaxRows
     .map(row => {
