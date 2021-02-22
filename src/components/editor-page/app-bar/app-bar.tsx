@@ -36,8 +36,8 @@ export interface AppBarProps {
 }
 
 export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
-  const { t } = useTranslation()
-  const { id } = useParams<EditorPagePathParams>()
+  useTranslation()
+
   const userExists = useSelector((state: ApplicationState) => !!state.user)
   const noteFrontmatter = useSelector((state: ApplicationState) => state.noteDetails.frontmatter, equal)
 
