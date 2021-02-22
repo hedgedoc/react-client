@@ -328,7 +328,7 @@
         },
         "export": {
             "rawHtml": "Raw HTML",
-            "pdf": "PDF export is unavailable.",
+            "pdf": "PDF file",
             "markdown-file": "Markdown file"
         },
         "import": {
