@@ -14,12 +14,11 @@ import { SidebarButton } from './sidebar-button'
 
 export const ExportMarkdownSidebarEntry: React.FC = () => {
   const { t } = useTranslation()
-  const noteTitle = store.getState().noteDetails.noteTitle
   const markdownContent = useNoteMarkdownContent()
   const onClick = useCallback(() => {
-    const sanitized = sanitize(noteTitle)
+    const sanitized = sanitize(store.getState().noteDetails.noteTitle)
     download(markdownContent, `${ sanitized !== '' ? sanitized : t('editor.untitledNote') }.md`, 'text/markdown')
-  }, [markdownContent, noteTitle, t])
+  }, [markdownContent, t])
 
   return (
     <SidebarButton data-cy={ 'menu-export-markdown' } onClick={ onClick } icon={ 'file-text' }>
