@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { ApplicationState } from '../../../redux'
 import { ShowIf } from '../../common/show-if/show-if'
+import { getApiUrl } from '../../../api/utils'
 
 export type SignInButtonProps = Omit<ButtonProps, 'href'>
 
@@ -30,7 +31,7 @@ export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props })
     const activeOneClickProviders = activeProviders.filter(entry => !INTERACTIVE_LOGIN_METHODS.includes(entry))
 
     if (activeProviders.length === 1 && activeOneClickProviders.length === 1) {
-      setLoginLink(`/api/v2/auth/${activeOneClickProviders[0]}`)
+      setLoginLink(`${ getApiUrl() }/auth/${ activeOneClickProviders[0] }`)
     }
   }, [authProviders, setLoginLink])
 
