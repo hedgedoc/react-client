@@ -39,7 +39,7 @@
         "bootstrap": "4.6.0",
         "browserstack-cypress-cli": "1.7.1",
         "codemirror": "5.59.4",
-        "copy-webpack-plugin": "6.4.1",
+        "copy-webpack-plugin": "7.0.0",
         "d3-graphviz": "3.1.0",
         "diff": "5.0.0",
         "emoji-picker-element": "1.4.0",
