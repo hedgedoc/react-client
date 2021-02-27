@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { config } from '../support/config'
-
 const authProvidersDisabled = {
   facebook: false,
   github: false,
@@ -21,20 +19,17 @@ const authProvidersDisabled = {
 }
 
 const interceptConfigWithAuthProviders = (cy: Cypress.cy, enabledProviders: Partial<typeof authProvidersDisabled>) => {
-  cy.intercept('/api/v2/config', {
-    statusCode: 200,
-    body: {
-      ...config,
-      authProviders: {
-        ...authProvidersDisabled,
-        ...enabledProviders
-      }
+  cy.loadConfig({
+    authProviders: {
+      ...authProvidersDisabled,
+      ...enabledProviders
     }
   })
 }
 
 describe('When logged-in, ', () => {
   it('sign-in button is hidden', () => {
+    cy.loadConfig()
     cy.visit('/')
     cy.get('[data-cy=sign-in-button]')
       .should('not.exist')
@@ -43,6 +38,7 @@ describe('When logged-in, ', () => {
 
 describe('When logged-out ', () => {
   beforeEach(() => {
+    cy.loadConfig()
     cy.visit('/')
     cy.logout()
   })

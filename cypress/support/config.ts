@@ -4,6 +4,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+declare namespace Cypress {
+  interface Chainable {
+    loadConfig(): Chainable<Window>
+  }
+}
+
 export const banner = {
   text: 'This is the mock banner call',
   timestamp: '2020-05-22T20:46:08.962Z'
@@ -56,9 +62,12 @@ export const config = {
   }
 }
 
-beforeEach(() => {
-  cy.intercept('/api/v2/config', {
+Cypress.Commands.add('loadConfig', (additionalConfig: Partial<typeof config>) => {
+  return cy.intercept('/api/v2/config', {
     statusCode: 200,
-    body: config
+    body: {
+      ...config,
+      ...additionalConfig
+    }
   })
 })
