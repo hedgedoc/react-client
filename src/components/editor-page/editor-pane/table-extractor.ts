@@ -28,7 +28,7 @@ export const isTable = (text: string): boolean => {
   return tabsPerLines.every(line => line === tabsPerLines[0])
 }
 
-export const excelTableToMarkdown = (pasteData: string): string => {
+export const clipboardTableToMarkdown = (pasteData: string): string => {
   const tableRows = pasteData.split(/\r?\n/)
                              .filter(row => row.trim() !== '')
   const tableCells = tableRows.reduce((cellsInRow, row, index) => {
@@ -38,9 +38,9 @@ export const excelTableToMarkdown = (pasteData: string): string => {
   const arrayMaxRows = createNumberRangeArray(tableCells.length)
   const arrayMaxColumns = createNumberRangeArray(Math.max(...tableCells.map(row => row.length)))
 
-  const headRow1 = arrayMaxColumns
-    .map(col => `| #${ col + 1 } `)
-    .join('') + '|'
+  const headRow1 = '|' + arrayMaxColumns
+    .map(col => col + 1)
+    .join(' | ') + '|'
   const headRow2 = arrayMaxColumns
     .map(col => `| -${ '-'.repeat((col + 1).toString().length) } `)
     .join('') + '|'
