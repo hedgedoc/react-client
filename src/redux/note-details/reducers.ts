@@ -49,7 +49,8 @@ export const initialState: NoteDetails = {
     GA: '',
     disqus: '',
     type: NoteType.DOCUMENT,
-    opengraph: new Map<string, string>()
+    opengraph: new Map<string, string>(),
+    template: false
   }
 }
 

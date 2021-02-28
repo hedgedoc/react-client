@@ -19,6 +19,7 @@ export interface RawNoteFrontmatter {
   type: string | undefined
   slideOptions: unknown
   opengraph: { [key: string]: string } | null
+  template: boolean
 }
 
 export const ISO6391 = ['aa', 'ab', 'af', 'am', 'ar', 'ar-ae', 'ar-bh', 'ar-dz', 'ar-eg', 'ar-iq', 'ar-jo', 'ar-kw',
@@ -59,6 +60,7 @@ export class NoteFrontmatter {
   type: NoteType
   // slideOptions: RevealOptions
   opengraph: Map<string, string>
+  template: boolean
 
   constructor(rawData: RawNoteFrontmatter) {
     this.title = rawData.title ?? ''
@@ -89,5 +91,6 @@ export class NoteFrontmatter {
       this.deprecatedTagsSyntax = false
     }
     this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
+    this.template = rawData.template ?? false
   }
 }
