@@ -14,10 +14,9 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { ApplicationState } from '../../../redux'
 import { ShowIf } from '../../common/show-if/show-if'
 import { getApiUrl } from '../../../api/utils'
+import { INTERACTIVE_LOGIN_METHODS } from '../../../api/auth'
 
 export type SignInButtonProps = Omit<ButtonProps, 'href'>
-
-const INTERACTIVE_LOGIN_METHODS = ['internal', 'ldap', 'openid']
 
 export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props }) => {
   const { t } = useTranslation()
