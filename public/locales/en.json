@@ -121,7 +121,8 @@
             "intro": "Intro",
             "history": "History",
             "newGuestNote": "New guest note",
-            "newNote": "New note"
+            "newNote": "New note",
+            "newFromTemplate": "Choose a template"
         },
         "footer": {
             "releases": "Releases",

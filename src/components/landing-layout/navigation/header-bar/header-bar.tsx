@@ -10,8 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../../redux'
 import { HeaderNavLink } from '../header-nav-link'
-import { NewGuestNoteButton } from '../new-guest-note-button'
-import { NewUserNoteButton } from '../new-user-note-button'
+import { NewNoteButton } from '../new-note-button'
 import { SignInButton } from '../sign-in-button'
 import { UserDropdown } from '../user-dropdown'
 import './header-bar.scss'
@@ -34,13 +33,13 @@ const HeaderBar: React.FC = () => {
         { !userExists
           ? <Fragment>
               <span className={ 'mx-1 d-flex' }>
-                <NewGuestNoteButton/>
+                <NewNoteButton i18nKey={'landing.navigation.newGuestNote'}/>
               </span>
             <SignInButton size="sm"/>
           </Fragment>
           : <Fragment>
               <span className={ 'mx-1 d-flex' }>
-                <NewUserNoteButton/>
+                <NewNoteButton i18nKey={'landing.navigation.newNote'}/>
               </span>
             <UserDropdown/>
           </Fragment>

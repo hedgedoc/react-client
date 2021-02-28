@@ -20,7 +20,7 @@ import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
 import { NoteType } from '../note-frontmatter/note-frontmatter'
 import { SlideModeButton } from './slide-mode-button'
 import { ReadOnlyModeButton } from './read-only-mode-button'
-import { NewNoteButton } from './new-note-button'
+import { NewNoteButton } from '../../landing-layout/navigation/new-note-button'
 
 export enum AppBarMode {
   BASIC,
@@ -55,7 +55,7 @@ export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
         </ShowIf>
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
-        <NewNoteButton/>
+        <NewNoteButton i18nKey={'landing.navigation.newNote'} className={'mx-2'} />
         <ShowIf condition={ !userExists }>
           <SignInButton size={ 'sm' }/>
         </ShowIf>
