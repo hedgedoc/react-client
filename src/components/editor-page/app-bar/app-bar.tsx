@@ -45,17 +45,17 @@ export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
         </ShowIf>
         <DarkModeButton/>
         <ShowIf condition={ mode === AppBarMode.EDITOR }>
-          <ShowIf condition={noteFrontmatter.type === NoteType.SLIDE}>
+          <ShowIf condition={ noteFrontmatter.type === NoteType.SLIDE }>
             <SlideModeButton/>
           </ShowIf>
-          <ShowIf condition={noteFrontmatter.type !== NoteType.SLIDE}>
+          <ShowIf condition={ noteFrontmatter.type !== NoteType.SLIDE }>
             <ReadOnlyModeButton/>
           </ShowIf>
           <HelpButton/>
         </ShowIf>
       </Nav>
       <Nav className="d-flex align-items-center text-secondary">
-        <NewNoteButton i18nKey={'landing.navigation.newNote'} className={'mx-2'} />
+        <NewNoteButton i18nKey={ 'landing.navigation.newNote' } className={ 'mx-2' }/>
         <ShowIf condition={ !userExists }>
           <SignInButton size={ 'sm' }/>
         </ShowIf>

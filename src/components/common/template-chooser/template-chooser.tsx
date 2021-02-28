@@ -11,7 +11,7 @@ import { ApplicationState } from '../../../redux'
 import { CommonModal, CommonModalProps } from '../modals/common-modal'
 import { ShowIf } from '../show-if/show-if'
 
-export const TemplateChooser: React.FC<Pick<CommonModalProps, "show" | "onHide">> = ({ show, onHide }) => {
+export const TemplateChooser: React.FC<Pick<CommonModalProps, 'show' | 'onHide'>> = ({ show, onHide }) => {
   const isFreeModeEnabled = useSelector((state: ApplicationState) => state.config.freeUrlMode)
   const [customAlias, setCustomAlias] = useState('')
   const [noteCreatable, setNoteCreatable] = useState(false)
@@ -28,31 +28,31 @@ export const TemplateChooser: React.FC<Pick<CommonModalProps, "show" | "onHide">
 
   return (
     <CommonModal
-      show={show}
-      onHide={onHide}
-      closeButton={true}
-      size={'lg'}
-      titleI18nKey={'common.modal.chooseTemplate.title'}
-    >
+      show={ show }
+      onHide={ onHide }
+      closeButton={ true }
+      size={ 'lg' }
+      titleI18nKey={ 'common.modal.chooseTemplate.title' }>
       <Modal.Body>
         <span>Templates will be listed here</span>
-        <ShowIf condition={isFreeModeEnabled}>
-          <hr />
+        <ShowIf condition={ isFreeModeEnabled }>
+          <hr/>
           <Form>
             <Form.Row>
-              <Form.Label column={'sm'} lg={2}>
-                <Trans i18nKey={'common.modal.chooseTemplate.customNoteAlias'} />
+              <Form.Label column={ 'sm' } lg={ 2 }>
+                <Trans i18nKey={ 'common.modal.chooseTemplate.customNoteAlias' }/>
               </Form.Label>
               <Col>
-                <Form.Control type={'text'} size={'sm'} value={customAlias} onChange={onChangeCustomAliasField} />
+                <Form.Control type={ 'text' } size={ 'sm' } value={ customAlias }
+                              onChange={ onChangeCustomAliasField }/>
               </Col>
             </Form.Row>
           </Form>
         </ShowIf>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant={'primary'} disabled={!noteCreatable}>
-          <Trans i18nKey={'common.modal.chooseTemplate.createFromTemplate'} />
+        <Button variant={ 'primary' } disabled={ !noteCreatable }>
+          <Trans i18nKey={ 'common.modal.chooseTemplate.createFromTemplate' }/>
         </Button>
       </Modal.Footer>
     </CommonModal>

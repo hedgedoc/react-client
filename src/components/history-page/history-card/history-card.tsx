@@ -28,8 +28,8 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
             <PinButton isDark={ false } isPinned={ entry.pinned }
                        onPinClick={ () => onPinClick(entry.id, entry.location) }/>
             <ShowIf condition={ entry.isTemplate }>
-              <div title={t('landing.history.templateNote')}>
-                <ForkAwesomeIcon icon={'files-o'} />
+              <div title={ t('landing.history.templateNote') }>
+                <ForkAwesomeIcon icon={ 'files-o' }/>
               </div>
             </ShowIf>
           </div>
