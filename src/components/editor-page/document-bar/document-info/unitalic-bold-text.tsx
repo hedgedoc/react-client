@@ -7,7 +7,7 @@
 import React from 'react'
 
 export interface UnitalicBoldTextProps {
-  text: string
+  text: string | number
 }
 
 export const UnitalicBoldText: React.FC<UnitalicBoldTextProps> = ({ text }) => {

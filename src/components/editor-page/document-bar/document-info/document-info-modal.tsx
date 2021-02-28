@@ -7,12 +7,13 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 import { ListGroup, Modal } from 'react-bootstrap'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { CommonModal } from '../../../common/modals/common-modal'
 import { DocumentInfoLine } from './document-info-line'
 import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-info-time-line'
 import { UnitalicBoldText } from './unitalic-bold-text'
 import { useCustomizeAssetsUrl } from '../../../../hooks/common/use-customize-assets-url'
+import { DocumentInfoLineWordCount } from './document-info-line-word-count'
 
 export interface DocumentInfoModalProps {
   show: boolean
@@ -21,6 +22,7 @@ export interface DocumentInfoModalProps {
 
 export const DocumentInfoModal: React.FC<DocumentInfoModalProps> = ({ show, onHide }) => {
   const assetsBaseUrl = useCustomizeAssetsUrl()
+  useTranslation()
 
   // TODO Replace hardcoded mock data with real/mock API requests
   return (
@@ -58,6 +60,9 @@ export const DocumentInfoModal: React.FC<DocumentInfoModalProps> = ({ show, onHi
                 <UnitalicBoldText text={'192'} />
               </Trans>
             </DocumentInfoLine>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <DocumentInfoLineWordCount/>
           </ListGroup.Item>
         </ListGroup>
       </Modal.Body>
