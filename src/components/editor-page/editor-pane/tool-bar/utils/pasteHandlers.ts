@@ -5,7 +5,7 @@
  */
 
 import { Editor } from 'codemirror'
-import { clipboardTableToMarkdown, isTable } from '../../table-extractor'
+import { convertClipboardTableToMarkdown, isTable } from '../../table-extractor'
 import { handleUpload } from '../../upload-handler'
 import { insertAtCursor } from './toolbarButtonUtils'
 
@@ -37,7 +37,7 @@ export const handleTablePaste = (event: PasteEvent, editor: Editor): boolean => 
     return false
   }
   event.preventDefault()
-  const markdownTable = clipboardTableToMarkdown(pasteText)
+  const markdownTable = convertClipboardTableToMarkdown(pasteText)
   insertAtCursor(editor, markdownTable)
   return true
 }

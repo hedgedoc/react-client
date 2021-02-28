@@ -28,7 +28,7 @@ export const isTable = (text: string): boolean => {
   return tabsPerLines.every(line => line === tabsPerLines[0])
 }
 
-export const clipboardTableToMarkdown = (pasteData: string): string => {
+export const convertClipboardTableToMarkdown = (pasteData: string): string => {
   const tableRows = pasteData.split(/\r?\n/)
                              .filter(row => row.trim() !== '')
   const tableCells = tableRows.reduce((cellsInRow, row, index) => {
