@@ -18,13 +18,15 @@ const authProvidersDisabled = {
   openid: false
 }
 
-const interceptConfigWithAuthProviders = (cy: Cypress.cy, enabledProviders: Partial<typeof authProvidersDisabled>) => {
+const initLoggedOutTestWithCustomAuthProviders = (cy: Cypress.cy, enabledProviders: Partial<typeof authProvidersDisabled>) => {
   cy.loadConfig({
     authProviders: {
       ...authProvidersDisabled,
       ...enabledProviders
     }
   })
+  cy.visit('/')
+  cy.logout()
 }
 
 describe('When logged-in, ', () => {
@@ -37,15 +39,9 @@ describe('When logged-in, ', () => {
 })
 
 describe('When logged-out ', () => {
-  beforeEach(() => {
-    cy.loadConfig()
-    cy.visit('/')
-    cy.logout()
-  })
-
   describe('and no auth-provider is enabled, ', () => {
     it('sign-in button is hidden', () => {
-      interceptConfigWithAuthProviders(cy, {})
+      initLoggedOutTestWithCustomAuthProviders(cy, {})
       cy.get('[data-cy=sign-in-button]')
         .should('not.exist')
     })
@@ -53,7 +49,7 @@ describe('When logged-out ', () => {
 
   describe('and an interactive auth-provider is enabled, ', () => {
     it('sign-in button points to login route: internal', () => {
-      interceptConfigWithAuthProviders(cy, {
+      initLoggedOutTestWithCustomAuthProviders(cy, {
         internal: true
       })
       cy.get('[data-cy=sign-in-button]')
@@ -62,7 +58,7 @@ describe('When logged-out ', () => {
     })
 
     it('sign-in button points to login route: ldap', () => {
-      interceptConfigWithAuthProviders(cy, {
+      initLoggedOutTestWithCustomAuthProviders(cy, {
         ldap: true
       })
       cy.get('[data-cy=sign-in-button]')
@@ -71,7 +67,7 @@ describe('When logged-out ', () => {
     })
 
     it('sign-in button points to login route: openid', () => {
-      interceptConfigWithAuthProviders(cy, {
+      initLoggedOutTestWithCustomAuthProviders(cy, {
         openid: true
       })
       cy.get('[data-cy=sign-in-button]')
@@ -82,18 +78,19 @@ describe('When logged-out ', () => {
 
   describe('and only one one-click auth-provider is enabled, ', () => {
     it('sign-in button points to auth-provider', () => {
-      interceptConfigWithAuthProviders(cy, {
+      initLoggedOutTestWithCustomAuthProviders(cy, {
         saml: true
       })
       cy.get('[data-cy=sign-in-button]')
         .should('be.visible')
-        .should('have.attr', 'href', '/api/v2/auth/saml')
+        // The absolute URL is used because it is defined as API base URL absolute.
+        .should('have.attr', 'href', 'http://127.0.0.1:3001/api/v2/auth/saml')
     })
   })
 
   describe('and multiple one-click auth-providers are enabled, ', () => {
     it('sign-in button points to login route', () => {
-      interceptConfigWithAuthProviders(cy, {
+      initLoggedOutTestWithCustomAuthProviders(cy, {
         saml: true,
         github: true
       })
@@ -105,7 +102,7 @@ describe('When logged-out ', () => {
 
   describe('and one-click- as well as interactive auth-providers are enabled, ', () => {
     it('sign-in button points to login route', () => {
-      interceptConfigWithAuthProviders(cy, {
+      initLoggedOutTestWithCustomAuthProviders(cy, {
         saml: true,
         internal: true
       })

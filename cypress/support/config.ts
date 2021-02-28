@@ -62,7 +62,7 @@ export const config = {
   }
 }
 
-Cypress.Commands.add('loadConfig', (additionalConfig: Partial<typeof config>) => {
+Cypress.Commands.add('loadConfig', (additionalConfig?: Partial<typeof config>) => {
   return cy.intercept('/api/v2/config', {
     statusCode: 200,
     body: {
