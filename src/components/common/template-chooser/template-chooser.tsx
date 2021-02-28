@@ -34,7 +34,10 @@ export const TemplateChooser: React.FC<Pick<CommonModalProps, 'show' | 'onHide'>
       size={ 'lg' }
       titleI18nKey={ 'common.modal.chooseTemplate.title' }>
       <Modal.Body>
-        <span>Templates will be listed here</span>
+        <span>
+          Templates will be listed here
+          <button onClick={ () => setSelectedTemplate('test') }>Debug set selected template</button>
+        </span>
         <ShowIf condition={ isFreeModeEnabled }>
           <hr/>
           <Form>
