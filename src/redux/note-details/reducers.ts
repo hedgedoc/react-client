@@ -19,6 +19,7 @@ import {
   SetNoteDetailsAction,
   SetNoteDetailsFromServerAction,
   SetNoteFrontmatterFromRenderingAction,
+  SetNoteWordCountAction,
   UpdateNoteTitleByFirstHeadingAction
 } from './types'
 import { noteDtoToNoteDetails } from '../../api/notes/dto-methods'
@@ -49,7 +50,8 @@ export const initialState: NoteDetails = {
     disqus: '',
     type: NoteType.DOCUMENT,
     opengraph: new Map<string, string>()
-  }
+  },
+  wordCount: -1
 }
 
 export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsAction> = (
@@ -75,6 +77,11 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsAction> = (
         ...state,
         frontmatter: (action as SetNoteFrontmatterFromRenderingAction).frontmatter,
         noteTitle: generateNoteTitle((action as SetNoteFrontmatterFromRenderingAction).frontmatter, state.firstHeading)
+      }
+    case NoteDetailsActionType.SET_NOTE_WORD_COUNT:
+      return {
+        ...state,
+        wordCount: (action as SetNoteWordCountAction).words
       }
     case NoteDetailsActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT:
       return {
