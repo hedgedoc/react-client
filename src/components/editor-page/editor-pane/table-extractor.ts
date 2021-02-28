@@ -29,6 +29,9 @@ export const isTable = (text: string): boolean => {
 }
 
 export const convertClipboardTableToMarkdown = (pasteData: string): string => {
+  if (pasteData.trim() === '') {
+    return ''
+  }
   const tableRows = pasteData.split(/\r?\n/)
                              .filter(row => row.trim() !== '')
   const tableCells = tableRows.reduce((cellsInRow, row, index) => {

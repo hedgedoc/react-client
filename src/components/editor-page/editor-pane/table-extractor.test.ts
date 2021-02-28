@@ -8,6 +8,11 @@ import { convertClipboardTableToMarkdown, isTable } from './table-extractor'
 
 describe('isTable detection: ', () => {
 
+  it('empty string is no table', () => {
+    expect(isTable(''))
+      .toBe(false)
+  })
+
   it('single line is no table', () => {
     const input = 'some none table'
     expect(isTable(input))
@@ -86,5 +91,9 @@ describe('Conversion from clipboard table to markdown format', () => {
     const input = '1\t1\n2\t\n3\t\n4\t16\n'
     expect(convertClipboardTableToMarkdown(input))
       .toEqual('| #1 | #2 |\n| -- | -- |\n| 1 | 1 |\n| 2 |  |\n| 3 |  |\n| 4 | 16 |')
+  })
+
+  it('empty input results in empty output', () => {
+    expect(convertClipboardTableToMarkdown('')).toEqual('')
   })
 })
