@@ -5,7 +5,7 @@
  */
 
 import equal from 'fast-deep-equal'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { Button } from 'react-bootstrap'
 import { ButtonProps } from 'react-bootstrap/Button'
 import { Trans, useTranslation } from 'react-i18next'
@@ -21,19 +21,19 @@ export type SignInButtonProps = Omit<ButtonProps, 'href'>
 export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props }) => {
   const { t } = useTranslation()
   const authProviders = useSelector((state: ApplicationState) => state.config.authProviders, equal)
-  const [loginLink, setLoginLink] = useState('/login')
   const authEnabled = useRef(Object.values(authProviders).includes(true))
 
-  useEffect(() => {
+  const loginLink = useMemo(() => {
     const activeProviders = Object.entries(authProviders)
                                   .filter((entry: [string, boolean]) => entry[1])
                                   .map(entry => entry[0])
     const activeOneClickProviders = activeProviders.filter(entry => !INTERACTIVE_LOGIN_METHODS.includes(entry))
 
     if (activeProviders.length === 1 && activeOneClickProviders.length === 1) {
-      setLoginLink(`${ getApiUrl() }/auth/${ activeOneClickProviders[0] }`)
+      return `${ getApiUrl() }/auth/${ activeOneClickProviders[0] }`
     }
-  }, [authProviders, setLoginLink])
+    return '/login'
+  }, [authProviders])
 
   return (
     <ShowIf condition={ authEnabled.current }>
