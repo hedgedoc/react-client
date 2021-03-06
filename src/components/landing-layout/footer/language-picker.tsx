@@ -1,7 +1,7 @@
 /*
- SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
- SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import { Settings } from 'luxon'
@@ -41,16 +41,16 @@ const languages = {
 }
 
 const findLanguageCode = (wantedLanguage: string): string => {
-  let foundLanguage = Object.keys(languages)
-                            .find((supportedLanguage) => wantedLanguage === supportedLanguage)
-  if (!foundLanguage) {
-    foundLanguage = Object.keys(languages)
-                          .find((supportedLanguage) => wantedLanguage.substr(0, 2) === supportedLanguage)
-  }
-  return foundLanguage || ''
+  return (
+    Object.keys(languages)
+          .find((supportedLanguage) => wantedLanguage === supportedLanguage) ??
+    Object.keys(languages)
+          .find((supportedLanguage) => wantedLanguage.substr(0, 2) === supportedLanguage) ??
+    ''
+  )
 }
 
-const LanguagePicker: React.FC = () => {
+export const LanguagePicker: React.FC = () => {
   const { i18n } = useTranslation()
 
   const onChangeLang = useCallback(() => async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -65,8 +65,7 @@ const LanguagePicker: React.FC = () => {
       size="sm"
       className="mb-2 mx-auto w-auto"
       value={ findLanguageCode(i18n.language) }
-      onChange={ onChangeLang() }
-    >
+      onChange={ onChangeLang() }>
       {
         Object.entries(languages)
               .map(([language, languageName]) => {
@@ -76,5 +75,3 @@ const LanguagePicker: React.FC = () => {
     </Form.Control>
   )
 }
-
-export { LanguagePicker }
