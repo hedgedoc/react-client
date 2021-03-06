@@ -40,15 +40,24 @@ const languages = {
   sk: 'Slovensky'
 }
 
-const findLanguageCode = (wantedLanguage: string): string => {
-  return (
+/**
+ * This function checks if the wanted language code is supported by our translations.
+ * The language code that is provided by the browser can (but don't need to) contain the region.
+ * Some of our translations are region dependent (e.g. chinese-traditional and chinese-simplified).
+ * Therefore we first need to check if the complete wanted language code is supported by our translations.
+ * If not, then we look if we at least have a region independent translation.
+ *
+ * @param wantedLanguage an ISO 639-1 standard language code
+ */
+const findLanguageCode = (wantedLanguage: string): string => (
+  (
     Object.keys(languages)
-          .find((supportedLanguage) => wantedLanguage === supportedLanguage) ??
+          .find((supportedLanguage) => wantedLanguage === supportedLanguage)
+  ) ?? (
     Object.keys(languages)
-          .find((supportedLanguage) => wantedLanguage.substr(0, 2) === supportedLanguage) ??
-    ''
-  )
-}
+          .find((supportedLanguage) => wantedLanguage.substr(0, 2) === supportedLanguage)
+  ) ?? ''
+)
 
 export const LanguagePicker: React.FC = () => {
   const { i18n } = useTranslation()
