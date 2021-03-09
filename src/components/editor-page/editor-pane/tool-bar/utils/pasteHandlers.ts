@@ -8,6 +8,7 @@ import { Editor } from 'codemirror'
 import { convertClipboardTableToMarkdown, isTable } from '../../table-extractor'
 import { handleUpload } from '../../upload-handler'
 import { insertAtCursor } from './toolbarButtonUtils'
+import { isCursorInCodefence } from './codefenceDetection'
 
 type ClipboardDataFormats = 'text' | 'url' | 'text/plain' | 'text/uri-list' | 'text/html'
 
@@ -17,18 +18,6 @@ export interface PasteEvent {
     getData: (format: ClipboardDataFormats) => string
   },
   preventDefault: () => void
-}
-
-const isCursorInCodefence = (editor: Editor): boolean => {
-  const currentLine = editor.getCursor().line
-  let codefenceCount = 0
-  for (let line = currentLine; line >= 0; --line) {
-    const markdownContentLine = editor.getDoc().getLine(line)
-    if (markdownContentLine.startsWith('```')) {
-      codefenceCount++
-    }
-  }
-  return codefenceCount % 2 === 1
 }
 
 export const handleTablePaste = (event: PasteEvent, editor: Editor): boolean => {
