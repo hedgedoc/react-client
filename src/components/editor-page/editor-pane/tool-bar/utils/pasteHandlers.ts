@@ -21,14 +21,14 @@ export interface PasteEvent {
 
 const isCursorInCodefence = (editor: Editor): boolean => {
   const currentLine = editor.getCursor().line
-  const linesToTest = [currentLine]
-  if (currentLine > editor.getDoc().firstLine()) {
-    linesToTest.push(currentLine - 1)
+  let codefenceCount = 0
+  for (let line = currentLine; line >= 0; --line) {
+    const markdownContentLine = editor.getDoc().getLine(line)
+    if (markdownContentLine.startsWith('```')) {
+      codefenceCount++
+    }
   }
-  if (currentLine < editor.getDoc().lastLine()) {
-    linesToTest.push(currentLine + 1)
-  }
-  return linesToTest.some(line => editor.getTokenTypeAt({ line, ch: 0 }) === 'm-markdown comment')
+  return codefenceCount % 2 === 1
 }
 
 export const handleTablePaste = (event: PasteEvent, editor: Editor): boolean => {
