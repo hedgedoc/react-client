@@ -5,7 +5,7 @@
  */
 
 import equal from 'fast-deep-equal'
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import { Button } from 'react-bootstrap'
 import { ButtonProps } from 'react-bootstrap/Button'
 import { Trans, useTranslation } from 'react-i18next'
@@ -21,7 +21,7 @@ export type SignInButtonProps = Omit<ButtonProps, 'href'>
 export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props }) => {
   const { t } = useTranslation()
   const authProviders = useSelector((state: ApplicationState) => state.config.authProviders, equal)
-  const authEnabled = useRef(Object.values(authProviders).includes(true))
+  const authEnabled = useMemo(() => Object.values(authProviders).includes(true), [authProviders])
 
   const loginLink = useMemo(() => {
     const activeProviders = Object.entries(authProviders)
@@ -36,7 +36,7 @@ export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props })
   }, [authProviders])
 
   return (
-    <ShowIf condition={ authEnabled.current }>
+    <ShowIf condition={ authEnabled }>
       <LinkContainer to={ loginLink } title={ t('login.signIn') }>
         <Button
           data-cy={ 'sign-in-button' }
