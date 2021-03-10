@@ -5,7 +5,7 @@
  */
 
 import { Settings } from 'luxon'
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
@@ -69,18 +69,22 @@ export const LanguagePicker: React.FC = () => {
         .catch(error => console.error('Error while switching language', error))
   }, [i18n])
 
+  const languageCode = useMemo(() => findLanguageCode(i18n.language), [i18n.language])
+
+  const languageOptions = useMemo(() =>
+    Object.entries(languages)
+          .map(([language, languageName]) =>
+            <option key={ language } value={ language }>{ languageName }</option>), [])
+
   return (
     <Form.Control
       as="select"
       size="sm"
       className="mb-2 mx-auto w-auto"
-      value={ findLanguageCode(i18n.language) }
+      value={ languageCode }
       onChange={ onChangeLang }>
       {
-        Object.entries(languages)
-              .map(([language, languageName]) => {
-                return <option key={ language } value={ language }>{ languageName }</option>
-              })
+        languageOptions
       }
     </Form.Control>
   )
