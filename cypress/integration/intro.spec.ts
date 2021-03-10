@@ -53,7 +53,6 @@ describe('Intro page', () => {
       cy.get('[data-cy="version-modal"]')
         .should('be.visible')
       cy.get('[data-cy="version-modal"] .modal-header .close')
-        .contains('Close')
         .click()
       cy.get('[data-cy="version-modal"]')
         .should('not.exist')
