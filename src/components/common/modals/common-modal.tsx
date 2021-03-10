@@ -20,7 +20,7 @@ export interface CommonModalProps {
   icon?: IconName
   size?: 'lg' | 'sm' | 'xl'
   additionalClasses?: string
-  'data-cy': string
+  'data-cy'?: string
 }
 
 export const CommonModal: React.FC<CommonModalProps> = ({ show, onHide, titleI18nKey, title, closeButton, icon, additionalClasses, size, children, ...props }) => {
