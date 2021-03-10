@@ -62,10 +62,11 @@ const findLanguageCode = (wantedLanguage: string): string => (
 export const LanguagePicker: React.FC = () => {
   const { i18n } = useTranslation()
 
-  const onChangeLang = useCallback(() => async (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const onChangeLang = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     const language = event.currentTarget.value
     Settings.defaultLocale = language
-    await i18n.changeLanguage(language)
+    i18n.changeLanguage(language)
+        .catch(error => console.error('Error while switching language', error))
   }, [i18n])
 
   return (
@@ -74,7 +75,7 @@ export const LanguagePicker: React.FC = () => {
       size="sm"
       className="mb-2 mx-auto w-auto"
       value={ findLanguageCode(i18n.language) }
-      onChange={ onChangeLang() }>
+      onChange={ onChangeLang }>
       {
         Object.entries(languages)
               .map(([language, languageName]) => {
