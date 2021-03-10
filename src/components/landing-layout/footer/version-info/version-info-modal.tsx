@@ -17,7 +17,7 @@ export const VersionInfoModal: React.FC<CommonModalProps> = ({ onHide, show }) =
   const serverVersion = useSelector((state: ApplicationState) => state.config.version, equal)
 
   return (
-    <CommonModal data-cy={ 'version-modal' } show={ show } onHide={ onHide }
+    <CommonModal data-cy={ 'version-modal' } show={ show } onHide={ onHide } closeButton={ true }
                  titleI18nKey={ 'landing.versionInfo.title' }>
       <Modal.Body>
         <Row>
