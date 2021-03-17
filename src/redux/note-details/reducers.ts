@@ -10,18 +10,21 @@ import { Note } from '../../api/notes'
 import {
   NoteFrontmatter,
   NoteTextDirection,
-  NoteType
+  NoteType,
+  RawNoteFrontmatter
 } from '../../components/editor-page/note-frontmatter/note-frontmatter'
 import {
   NoteDetails,
   NoteDetailsAction,
   NoteDetailsActionType,
+  ReplaceFrontmatterInMarkdownContentAction,
   SetCheckboxInMarkdownContentAction,
   SetNoteDetailsAction,
   SetNoteDetailsFromServerAction,
   SetNoteFrontmatterFromRenderingAction,
   UpdateNoteTitleByFirstHeadingAction
 } from './types'
+import yaml from 'js-yaml'
 
 export const initialState: NoteDetails = {
   markdownContent: '',
@@ -49,7 +52,7 @@ export const initialState: NoteDetails = {
     GA: '',
     disqus: '',
     type: NoteType.DOCUMENT,
-    opengraph: new Map<string, string>()
+    opengraph: {}
   }
 }
 
@@ -59,6 +62,11 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsAction> = (stat
       return {
         ...state,
         markdownContent: (action as SetNoteDetailsAction).content
+      }
+    case NoteDetailsActionType.REPLACE_FRONTMATTER_IN_MARKDOWN_CONTENT:
+      return {
+        ...state,
+        markdownContent: replaceFrontmatterInMarkdownContent(state.markdownContent, (action as ReplaceFrontmatterInMarkdownContentAction).frontmatter)
       }
     case NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
       return {
@@ -88,6 +96,34 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsAction> = (stat
   }
 }
 
+const replaceFrontmatterInMarkdownContent = (markdownContent: string, newFrontmatterValues: RawNoteFrontmatter): string => {
+  const lines = markdownContent.split('\n')
+  let frontMatterEndIndex: number | undefined = undefined
+
+  if (lines[0] === '---') {
+    for (let lineIndex = 1; lineIndex < lines.length; lineIndex += 1) {
+      if (lines[lineIndex] === '---') {
+        frontMatterEndIndex = lineIndex
+        break
+      }
+    }
+  }
+
+  let oldFrontmatter: RawNoteFrontmatter | undefined
+  if (frontMatterEndIndex === undefined) {
+    oldFrontmatter = {}
+  } else {
+    const oldFrontmatterLines = lines.filter((value, index) => index > 0 && index < (frontMatterEndIndex as number))
+    oldFrontmatter = yaml.load(oldFrontmatterLines.join('\n')) as RawNoteFrontmatter
+  }
+
+  const newFrontmatter = Object.assign(oldFrontmatter, newFrontmatterValues)
+  const markdownContentWithoutFrontmatter = lines.filter((value, index) => index > (frontMatterEndIndex as number))
+  console.log(newFrontmatter)
+
+  return `---\n${ yaml.dump(newFrontmatter) }---\n${ markdownContentWithoutFrontmatter.join('\n') }`
+}
+
 const TASK_REGEX = /(\s*[-*] )(\[[ xX]])( .*)/
 const setCheckboxInMarkdownContent = (markdownContent: string, lineInMarkdown: number, checked: boolean): string => {
   const lines = markdownContent.split('\n')
@@ -104,8 +140,8 @@ const setCheckboxInMarkdownContent = (markdownContent: string, lineInMarkdown: n
 const generateNoteTitle = (frontmatter: NoteFrontmatter, firstHeading?: string) => {
   if (frontmatter?.title && frontmatter?.title !== '') {
     return frontmatter.title.trim()
-  } else if (frontmatter?.opengraph && frontmatter?.opengraph.get('title') && frontmatter?.opengraph.get('title') !== '') {
-    return (frontmatter?.opengraph.get('title') ?? firstHeading ?? '').trim()
+  } else if (frontmatter?.opengraph['title'] !== '') {
+    return (frontmatter?.opengraph['title'] ?? firstHeading ?? '').trim()
   } else {
     return (firstHeading ?? firstHeading ?? '').trim()
   }

@@ -10,9 +10,9 @@ import { Col, Modal, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
-import { setNoteFrontmatter } from '../../../redux/note-details/methods'
+import { replaceFrontmatterInMarkdownContentAction } from '../../../redux/note-details/methods'
 import { CommonModal } from '../../common/modals/common-modal'
-import { NoteFrontmatter, NoteType } from '../note-frontmatter/note-frontmatter'
+import { NoteType, RawNoteFrontmatter } from '../note-frontmatter/note-frontmatter'
 import { BreaksMetadataInput } from './breaks-metadata-input'
 import { DatalistMetadataInput } from './datalist-metadata-input'
 import { InputLabel } from './input-label'
@@ -27,9 +27,9 @@ export interface MetadataEditorProps {
 }
 
 export interface MetadataInputFieldProps<T> {
-  id: string
   content: T
-  onContentChange: (newContent: T) => void
+  frontmatterKey: keyof RawNoteFrontmatter
+  onContentChange: (frontmatter: RawNoteFrontmatter) => void
 }
 
 export interface SelectMetadataOptions<T> {
@@ -54,11 +54,9 @@ export const MetadataEditor: React.FC<MetadataEditorProps> = ({ show, onHide }) 
    deprecatedTagsSyntax: false
    })*/
 
-  const setMarkdown = useCallback((changes: Partial<NoteFrontmatter>) => {
-    const newMetadata = Object.assign(yamlMetadata, changes)
-
-//    setnoteDetails(noteDetails)
-  }, [noteDetails])
+  const updateFrontmatter = useCallback((frontmatter: RawNoteFrontmatter): void => {
+    replaceFrontmatterInMarkdownContentAction(frontmatter)
+  }, [])
 
   return (
     <CommonModal
@@ -71,46 +69,48 @@ export const MetadataEditor: React.FC<MetadataEditorProps> = ({ show, onHide }) 
         <Row>
           <Col lg={ 6 }>
             <InputLabel id={ 'title' } label={ t('editor.modal.metadataEditor.labels.title') }>
-              <StringMetadataInput id={ 'title' } content={ yamlMetadata.title }
-                                   onContentChange={ title => setNoteFrontmatter({ ...yamlMetadata, title }) }/>
+              <StringMetadataInput frontmatterKey={ 'title' } content={ yamlMetadata.title }
+                                   onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'type' } label={ t('editor.modal.metadataEditor.labels.type') }>
-              <DatalistMetadataInput id={ 'type' } options={ Object.values(NoteType) } content={ yamlMetadata.type }
-                                     onContentChange={ type => setNoteFrontmatter({ ...yamlMetadata, type: (type as NoteType) }) }/>
+              <DatalistMetadataInput frontmatterKey={ 'type' } options={ Object.values(NoteType) }
+                                     content={ yamlMetadata.type }
+                                     onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'dir' } label={ t('editor.modal.metadataEditor.labels.dir') }>
-              <TextDirectionMetadataInput id={ 'dir' } content={ yamlMetadata.dir }
-                                          onContentChange={ dir => setNoteFrontmatter({ ...yamlMetadata, dir }) }/>
+              <TextDirectionMetadataInput frontmatterKey={ 'dir' } content={ yamlMetadata.dir }
+                                          onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'description' } label={ t('editor.modal.metadataEditor.labels.description') }>
-              <StringMetadataTextarea id={ 'description' } content={ yamlMetadata.description }
-                                      onContentChange={ description => setNoteFrontmatter({ ...yamlMetadata, description }) }/>
+              <StringMetadataTextarea frontmatterKey={ 'description' } content={ yamlMetadata.description }
+                                      onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'disqus' } label={ t('editor.modal.metadataEditor.labels.disqus') }>
-              <StringMetadataInput id={ 'disqus' } content={ yamlMetadata.disqus }
-                                   onContentChange={ disqus => setNoteFrontmatter({ ...yamlMetadata, disqus }) }/>
+              <StringMetadataInput frontmatterKey={ 'disqus' } content={ yamlMetadata.disqus }
+                                   onContentChange={ updateFrontmatter }/>
             </InputLabel>
           </Col>
           <Col lg={ 6 }>
             <InputLabel id={ 'lang' } label={ t('editor.modal.metadataEditor.labels.lang') }>
-              <DatalistMetadataInput id={ 'lang' } options={ ISO.getAllCodes() } content={ yamlMetadata.lang }
-                                     onContentChange={ lang => setNoteFrontmatter({ ...yamlMetadata, lang }) }/>
+              <DatalistMetadataInput frontmatterKey={ 'lang' } options={ ISO.getAllCodes() }
+                                     content={ yamlMetadata.lang }
+                                     onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'robots' } label={ t('editor.modal.metadataEditor.labels.robots') }>
-              <StringMetadataInput id={ 'robots' } content={ yamlMetadata.robots }
-                                   onContentChange={ robots => setNoteFrontmatter({ ...yamlMetadata, robots }) }/>
+              <StringMetadataInput frontmatterKey={ 'robots' } content={ yamlMetadata.robots }
+                                   onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'breaks' } label={ t('editor.modal.metadataEditor.labels.breaks') }>
-              <BreaksMetadataInput id={ 'breaks' } content={ yamlMetadata.breaks }
-                                   onContentChange={ breaks => setNoteFrontmatter({ ...yamlMetadata, breaks }) }/>
+              <BreaksMetadataInput frontmatterKey={ 'breaks' } content={ yamlMetadata.breaks }
+                                   onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'tags' } label={ t('editor.modal.metadataEditor.labels.tags') }>
-              <TagsMetadataInput id={ 'tags' } content={ yamlMetadata.tags }
-                                 onContentChange={ tags => setNoteFrontmatter({ ...yamlMetadata, tags }) }/>
+              <TagsMetadataInput frontmatterKey={ 'tags' } content={ yamlMetadata.tags }
+                                 onContentChange={ updateFrontmatter }/>
             </InputLabel>
             <InputLabel id={ 'GA' } label={ t('editor.modal.metadataEditor.labels.GA') }>
-              <StringMetadataInput id={ 'GA' } content={ yamlMetadata.GA }
-                                   onContentChange={ GA => setNoteFrontmatter({ ...yamlMetadata, GA }) }/>
+              <StringMetadataInput frontmatterKey={ 'GA' } content={ yamlMetadata.GA }
+                                   onContentChange={ updateFrontmatter }/>
             </InputLabel>
           </Col>
         </Row>

@@ -7,18 +7,18 @@
 // import { RevealOptions } from 'reveal.js'
 
 export interface RawNoteFrontmatter {
-  title: string | undefined
-  description: string | undefined
-  tags: string | string[] | undefined
-  robots: string | undefined
-  lang: string | undefined
-  dir: string | undefined
-  breaks: boolean | undefined
-  GA: string | undefined
-  disqus: string | undefined
-  type: string | undefined
-  slideOptions: unknown
-  opengraph: { [key: string]: string } | null
+  title?: string
+  description?: string
+  tags?: string | string[]
+  robots?: string
+  lang?: string
+  dir?: string
+  breaks?: boolean
+  GA?: string
+  disqus?: string
+  type?: string
+  slideOptions?: unknown
+  opengraph?: { [key: string]: string }
 }
 
 export const ISO6391 = ['aa', 'ab', 'af', 'am', 'ar', 'ar-ae', 'ar-bh', 'ar-dz', 'ar-eg', 'ar-iq', 'ar-jo', 'ar-kw',
@@ -58,7 +58,7 @@ export class NoteFrontmatter {
   disqus: string
   type: NoteType
   // slideOptions: RevealOptions
-  opengraph: Map<string, string>
+  opengraph: { [key: string]: string }
 
   constructor(rawData: RawNoteFrontmatter) {
     this.title = rawData.title ?? ''
@@ -88,6 +88,6 @@ export class NoteFrontmatter {
       this.tags = []
       this.deprecatedTagsSyntax = false
     }
-    this.opengraph = rawData?.opengraph ? new Map<string, string>(Object.entries(rawData.opengraph)) : new Map<string, string>()
+    this.opengraph = rawData?.opengraph ? rawData.opengraph : {}
   }
 }

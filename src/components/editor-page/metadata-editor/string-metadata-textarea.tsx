@@ -7,14 +7,14 @@
 import React, { useCallback } from 'react'
 import { MetadataInputFieldProps } from './metadata-editor'
 
-export const StringMetadataTextarea: React.FC<MetadataInputFieldProps<string>> = ({ id, content, onContentChange }) => {
+export const StringMetadataTextarea: React.FC<MetadataInputFieldProps<string>> = ({ frontmatterKey, content, onContentChange }) => {
   const onChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onContentChange(event.currentTarget.value)
+    onContentChange({ [frontmatterKey]: event.currentTarget.value })
   }, [onContentChange])
 
   return (
     <textarea
-      id={ id }
+      id={ frontmatterKey }
       className={ 'form-control' }
       value={ content }
       onChange={ onChange }
