@@ -39,7 +39,6 @@ export interface SelectMetadataOptions<T> {
 export const MetadataEditor: React.FC<MetadataEditorProps> = ({ show, onHide }) => {
   const { t } = useTranslation()
   const yamlMetadata = useSelector((state: ApplicationState) => state.noteDetails.frontmatter)
-  const noteDetails = useSelector((state: ApplicationState) => state.noteDetails.markdownContent)
   /*const [yamlMetadata, setNoteFrontmatter] = useState<Omit<YAMLMetaData, 'opengraph'>>({
    title: "Test Title",
    description: "Test Description\nwith two lines",

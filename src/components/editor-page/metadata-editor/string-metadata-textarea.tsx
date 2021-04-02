@@ -10,7 +10,7 @@ import { MetadataInputFieldProps } from './metadata-editor'
 export const StringMetadataTextarea: React.FC<MetadataInputFieldProps<string>> = ({ frontmatterKey, content, onContentChange }) => {
   const onChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onContentChange({ [frontmatterKey]: event.currentTarget.value })
-  }, [onContentChange])
+  }, [frontmatterKey, onContentChange])
 
   return (
     <textarea
