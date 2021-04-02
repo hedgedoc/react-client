@@ -10,19 +10,19 @@ import { Badge, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { EntryMenu } from '../entry-menu/entry-menu'
-import { HistoryEntryProps } from '../history-content/history-content'
+import { HistoryEntryProps, HistoryEventHandlers } from '../history-content/history-content'
 import { PinButton } from '../pin-button/pin-button'
 import { formatHistoryDate } from '../utils'
 import './history-card.scss'
 
-export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
+export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
   return (
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <Card className="card-min-height" text={ 'dark' } bg={ 'light' }>
         <Card.Body className="p-2 d-flex flex-row justify-content-between">
           <div className={ 'd-flex flex-column' }>
             <PinButton isDark={ false } isPinned={ entry.pinned }
-                       onPinClick={ () => onPinClick(entry.id, entry.location) }/>
+                       onPinClick={ () => onPinClick(entry.id) }/>
           </div>
           <Link to={ `/n/${ entry.id }` } className="text-decoration-none flex-fill text-dark">
             <div className={ 'd-flex flex-column justify-content-between' }>
@@ -46,10 +46,10 @@ export const HistoryCard: React.FC<HistoryEntryProps> = ({ entry, onPinClick, on
             <EntryMenu
               id={ entry.id }
               title={ entry.title }
-              location={ entry.location }
+              origin={ entry.origin }
               isDark={ false }
-              onRemove={ () => onRemoveClick(entry.id, entry.location) }
-              onDelete={ () => onDeleteClick(entry.id, entry.location) }
+              onRemove={ () => onRemoveClick(entry.id) }
+              onDelete={ () => onDeleteClick(entry.id) }
             />
           </div>
         </Card.Body>

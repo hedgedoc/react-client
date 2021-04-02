@@ -4,7 +4,7 @@
  SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { Trans, useTranslation } from 'react-i18next'
@@ -12,12 +12,13 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../common/show-if/show-if'
-import { HistoryEntry } from '../history-page'
 import { SortButton, SortModeEnum } from '../sort-button/sort-button'
 import { ClearHistoryButton } from './clear-history-button'
 import { ExportHistoryButton } from './export-history-button'
 import { ImportHistoryButton } from './import-history-button'
 import './typeahead-hacks.scss'
+import { HistoryEntryOrigin } from '../../../redux/history/types'
+import { refreshHistoryState, setHistoryEntries } from '../../../redux/history/methods'
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
@@ -37,11 +38,6 @@ export enum ViewStateEnum {
 export interface HistoryToolbarProps {
   onSettingsChange: HistoryToolbarChange
   tags: string[]
-  onClearHistory: () => void
-  onRefreshHistory: () => void
-  onExportHistory: () => void
-  onImportHistory: (entries: HistoryEntry[]) => void
-  onUploadAll: () => void
 }
 
 export const initState: HistoryToolbarState = {
@@ -52,9 +48,10 @@ export const initState: HistoryToolbarState = {
   selectedTags: []
 }
 
-export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags, onClearHistory, onRefreshHistory, onExportHistory, onImportHistory, onUploadAll }) => {
+export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags }) => {
   const [t] = useTranslation()
   const [state, setState] = useState<HistoryToolbarState>(initState)
+  const historyEntries = useSelector((state: ApplicationState) => state.history)
   const userExists = useSelector((state: ApplicationState) => !!state.user)
 
   const titleSortChanged = (direction: SortModeEnum) => {
@@ -85,6 +82,15 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
     setState(prevState => ({ ...prevState, selectedTags: selected }))
   }
 
+  const onUploadAllToRemote = useCallback(() => {
+    if (!userExists) {
+      return
+    }
+    const entries = [...historyEntries]
+    entries.forEach(entry => entry.origin = HistoryEntryOrigin.REMOTE)
+    setHistoryEntries(entries)
+  }, [userExists, historyEntries])
+
   useEffect(() => {
     onSettingsChange(state)
   }, [onSettingsChange, state])
@@ -113,22 +119,22 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
                     variant={ 'light' }><Trans i18nKey={ 'landing.history.toolbar.sortByLastVisited' }/></SortButton>
       </InputGroup>
       <InputGroup className={ 'mr-1 mb-1' }>
-        <ExportHistoryButton onExportHistory={ onExportHistory }/>
+        <ExportHistoryButton/>
       </InputGroup>
       <InputGroup className={ 'mr-1 mb-1' }>
-        <ImportHistoryButton onImportHistory={ onImportHistory }/>
+        <ImportHistoryButton/>
       </InputGroup>
       <InputGroup className={ 'mr-1 mb-1' }>
-        <ClearHistoryButton onClearHistory={ onClearHistory }/>
+        <ClearHistoryButton/>
       </InputGroup>
       <InputGroup className={ 'mr-1 mb-1' }>
-        <Button variant={ 'light' } title={ t('landing.history.toolbar.refresh') } onClick={ onRefreshHistory }>
+        <Button variant={ 'light' } title={ t('landing.history.toolbar.refresh') } onClick={ refreshHistoryState }>
           <ForkAwesomeIcon icon='refresh'/>
         </Button>
       </InputGroup>
       <ShowIf condition={ userExists }>
         <InputGroup className={ 'mr-1 mb-1' }>
-          <Button variant={ 'light' } title={ t('landing.history.toolbar.uploadAll') } onClick={ onUploadAll }>
+          <Button variant={ 'light' } title={ t('landing.history.toolbar.uploadAll') } onClick={ onUploadAllToRemote }>
             <ForkAwesomeIcon icon='cloud-upload'/>
           </Button>
         </InputGroup>

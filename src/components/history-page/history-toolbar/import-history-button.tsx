@@ -4,34 +4,45 @@
  SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ErrorModal } from '../../common/modals/error-modal'
-import { HistoryEntry, HistoryJson } from '../history-page'
-import { convertV1History, V1HistoryEntry } from '../utils'
+import { HistoryEntry, HistoryEntryOrigin, HistoryExportJson, V1HistoryEntry } from '../../../redux/history/types'
+import { convertV1History, mergeHistoryEntries, setHistoryEntries } from '../../../redux/history/methods'
+import { ApplicationState } from '../../../redux'
+import { useSelector } from 'react-redux'
 
-export interface ImportHistoryButtonProps {
-  onImportHistory: (entries: HistoryEntry[]) => void
-}
-
-export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImportHistory }) => {
+export const ImportHistoryButton: React.FC = () => {
   const { t } = useTranslation()
+  const userExists = useSelector((state: ApplicationState) => !!state.user)
+  const historyState = useSelector((state: ApplicationState) => state.history)
   const uploadInput = useRef<HTMLInputElement>(null)
   const [show, setShow] = useState(false)
   const [fileName, setFilename] = useState('')
   const [i18nKey, setI18nKey] = useState('')
 
-  const handleShow = (key: string) => {
+  const handleShow = useCallback((key: string) => {
     setI18nKey(key)
     setShow(true)
-  }
+  }, [])
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setI18nKey('')
     setShow(false)
-  }
+  }, [])
+
+  const onImportHistory = useCallback((entries: HistoryEntry[]): void => {
+    let origin: HistoryEntryOrigin
+    if (userExists) {
+      origin = HistoryEntryOrigin.REMOTE
+    } else {
+      origin = HistoryEntryOrigin.LOCAL
+    }
+    entries.forEach(entry => entry.origin = origin)
+    setHistoryEntries(mergeHistoryEntries(historyState, entries))
+  }, [historyState, userExists])
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { validity, files } = event.target
@@ -47,7 +58,7 @@ export const ImportHistoryButton: React.FC<ImportHistoryButtonProps> = ({ onImpo
         if (event.target && event.target.result) {
           try {
             const result = event.target.result as string
-            const data = JSON.parse(result) as HistoryJson
+            const data = JSON.parse(result) as HistoryExportJson
             if (data) {
               if (data.version) {
                 if (data.version === 2) {

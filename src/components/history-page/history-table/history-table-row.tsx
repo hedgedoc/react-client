@@ -8,11 +8,11 @@ import React from 'react'
 import { Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { EntryMenu } from '../entry-menu/entry-menu'
-import { HistoryEntryProps } from '../history-content/history-content'
+import { HistoryEntryProps, HistoryEventHandlers } from '../history-content/history-content'
 import { PinButton } from '../pin-button/pin-button'
 import { formatHistoryDate } from '../utils'
 
-export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
+export const HistoryTableRow: React.FC<HistoryEntryProps & HistoryEventHandlers> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
   return (
     <tr>
       <td>
@@ -28,15 +28,15 @@ export const HistoryTableRow: React.FC<HistoryEntryProps> = ({ entry, onPinClick
         }
       </td>
       <td>
-        <PinButton isDark={ true } isPinned={ entry.pinned } onPinClick={ () => onPinClick(entry.id, entry.location) }
+        <PinButton isDark={ true } isPinned={ entry.pinned } onPinClick={ () => onPinClick(entry.id) }
                    className={ 'mb-1 mr-1' }/>
         <EntryMenu
           id={ entry.id }
           title={ entry.title }
-          location={ entry.location }
+          origin={ entry.origin }
           isDark={ true }
-          onRemove={ () => onRemoveClick(entry.id, entry.location) }
-          onDelete={ () => onDeleteClick(entry.id, entry.location) }
+          onRemove={ () => onRemoveClick(entry.id) }
+          onDelete={ () => onDeleteClick(entry.id) }
         />
       </td>
     </tr>

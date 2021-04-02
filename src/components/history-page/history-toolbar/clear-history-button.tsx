@@ -9,12 +9,9 @@ import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { DeletionModal } from '../../common/modals/deletion-modal'
+import { setHistoryEntries } from '../../../redux/history/methods'
 
-export interface ClearHistoryButtonProps {
-  onClearHistory: () => void
-}
-
-export const ClearHistoryButton: React.FC<ClearHistoryButtonProps> = ({ onClearHistory }) => {
+export const ClearHistoryButton: React.FC = () => {
   const { t } = useTranslation()
   const [show, setShow] = useState(false)
 
@@ -28,7 +25,7 @@ export const ClearHistoryButton: React.FC<ClearHistoryButtonProps> = ({ onClearH
       </Button>
       <DeletionModal
         onConfirm={ () => {
-          onClearHistory()
+          setHistoryEntries([])
           handleClose()
         } }
         deletionButtonI18nKey={ 'landing.history.toolbar.clear' }

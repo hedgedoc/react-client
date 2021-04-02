@@ -9,38 +9,36 @@ import { Alert, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { PagerPagination } from '../../common/pagination/pager-pagination'
 import { HistoryCardList } from '../history-card/history-card-list'
-import { HistoryEntryOrigin, LocatedHistoryEntry } from '../history-page'
 import { HistoryTable } from '../history-table/history-table'
 import { ViewStateEnum } from '../history-toolbar/history-toolbar'
+import { HistoryEntry } from '../../../redux/history/types'
 
-type OnEntryClick = (entryId: string, location: HistoryEntryOrigin) => void
+type OnEntryClick = (entryId: string) => void
+
+export interface HistoryEventHandlers {
+  onPinClick: OnEntryClick
+  onRemoveClick: OnEntryClick
+  onDeleteClick: OnEntryClick
+}
 
 export interface HistoryContentProps {
   viewState: ViewStateEnum
-  entries: LocatedHistoryEntry[]
-  onPinClick: OnEntryClick
-  onRemoveClick: OnEntryClick
-  onDeleteClick: OnEntryClick
+  entries: HistoryEntry[]
 }
 
 export interface HistoryEntryProps {
-  entry: LocatedHistoryEntry,
-  onPinClick: OnEntryClick
-  onRemoveClick: OnEntryClick
-  onDeleteClick: OnEntryClick
+  entry: HistoryEntry,
 }
 
 export interface HistoryEntriesProps {
-  entries: LocatedHistoryEntry[]
-  onPinClick: OnEntryClick
-  onRemoveClick: OnEntryClick
-  onDeleteClick: OnEntryClick
+  entries: HistoryEntry[]
   pageIndex: number
   onLastPageIndexChange: (lastPageIndex: number) => void
 }
 
-export const HistoryContent: React.FC<HistoryContentProps> = ({ viewState, entries, onPinClick, onRemoveClick, onDeleteClick }) => {
+export const HistoryContent: React.FC<HistoryContentProps & HistoryEventHandlers> = ({ viewState, entries, onPinClick, onRemoveClick, onDeleteClick }) => {
   useTranslation()
+
   const [pageIndex, setPageIndex] = useState(0)
   const [lastPageIndex, setLastPageIndex] = useState(0)
 
