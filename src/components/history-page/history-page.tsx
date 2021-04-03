@@ -30,21 +30,21 @@ export const HistoryPage: React.FC = () => {
   const [error, setError] = useState('')
 
   const removeFromHistoryClick = useCallback((entryId: string): void => {
-    removeHistoryEntry(entryId)
+    removeHistoryEntry(entryId, () => setError('deleteEntry'))
   }, [])
 
   const deleteNoteClick = useCallback((entryId: string): void => {
     if (userExists) {
       deleteNote(entryId)
         .then(() => {
-          removeHistoryEntry(entryId)
+          removeHistoryEntry(entryId, () => setError('deleteNote'))
         })
         .catch(() => setError('deleteNote'))
     }
   }, [userExists])
 
   const pinClick = useCallback((entryId: string): void => {
-    toggleHistoryEntryPinning(entryId)
+    toggleHistoryEntryPinning(entryId, () => setError('updateEntry'))
   }, [])
 
   const resetError = () => {

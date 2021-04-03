@@ -20,40 +20,42 @@ import { download } from '../../components/common/download/download'
 import { DateTime } from 'luxon'
 import { getHistory, setHistory } from '../../api/history'
 
-export const setHistoryEntries = (entries: HistoryEntry[]): void => {
+type ErrorHandler = (message: string) => void
+
+export const setHistoryEntries = (entries: HistoryEntry[], onError?: ErrorHandler): void => {
   store.dispatch({
     type: HistoryActionType.SET_ENTRIES,
     entries
   } as SetEntriesAction)
-  storeHistory()
+  storeHistory(onError)
 }
 
-export const addHistoryEntry = (newEntry: HistoryEntry): void => {
+export const addHistoryEntry = (newEntry: HistoryEntry, onError?: ErrorHandler): void => {
   store.dispatch({
     type: HistoryActionType.ADD_ENTRY,
     newEntry
   } as AddEntryAction)
-  storeHistory()
+  storeHistory(onError)
 }
 
-export const updateHistoryEntry = (noteId: string, newEntry: HistoryEntry): void => {
+export const updateHistoryEntry = (noteId: string, newEntry: HistoryEntry, onError?: ErrorHandler): void => {
   store.dispatch({
     type: HistoryActionType.UPDATE_ENTRY,
     noteId,
     newEntry
   } as UpdateEntryAction)
-  storeHistory()
+  storeHistory(onError)
 }
 
-export const removeHistoryEntry = (noteId: string): void => {
+export const removeHistoryEntry = (noteId: string, onError?: ErrorHandler): void => {
   store.dispatch({
     type: HistoryActionType.REMOVE_ENTRY,
     noteId
   } as RemoveEntryAction)
-  storeHistory()
+  storeHistory(onError)
 }
 
-export const toggleHistoryEntryPinning = (noteId: string): void => {
+export const toggleHistoryEntryPinning = (noteId: string, onError?: ErrorHandler): void => {
   const state = store.getState().history
   const entryToUpdate = state.find(entry => entry.id === noteId)
   if (!entryToUpdate) {
@@ -63,7 +65,7 @@ export const toggleHistoryEntryPinning = (noteId: string): void => {
     entryToUpdate.pinned = false
   }
   entryToUpdate.pinned = !entryToUpdate.pinned
-  updateHistoryEntry(noteId, entryToUpdate)
+  updateHistoryEntry(noteId, entryToUpdate, onError)
 }
 
 export const downloadHistory = (): void => {
@@ -106,7 +108,7 @@ export const refreshHistoryState = (): void => {
   })
 }
 
-export const storeHistory = (): void => {
+export const storeHistory = (onError?: ErrorHandler): void => {
   const history = store.getState().history
   const localEntries = history.filter(entry => entry.origin === HistoryEntryOrigin.LOCAL)
   const remoteEntries = history.filter(entry => entry.origin === HistoryEntryOrigin.REMOTE)
@@ -124,7 +126,11 @@ export const storeHistory = (): void => {
     ...entry,
     origin: undefined
   }))).catch(error => {
-    console.error(`Error storing history entries to server: ${ String(error) }`)
+    const msg = `Error storing history entries to server: ${ String(error) }`
+    if (onError) {
+      onError(msg)
+    }
+    console.error(msg)
   })
 }
 
