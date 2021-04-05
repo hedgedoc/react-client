@@ -35,6 +35,7 @@ import { useEditorModeFromUrl } from './hooks/useEditorModeFromUrl'
 import { UiNotifications } from '../notifications/ui-notifications'
 import { useNotificationTest } from './use-notification-test'
 import { IframeCommunicatorContextProvider } from './render-context/iframe-communicator-context-provider'
+import { useUpdateHistoryEntry } from './hooks/useUpdateHistoryEntry'
 
 export interface EditorPagePathParams {
   id: string
@@ -76,6 +77,8 @@ export const EditorPage: React.FC = () => {
   useEditorModeFromUrl()
 
   const [error, loading] = useLoadNoteFromServer()
+
+  useUpdateHistoryEntry(loading, error)
 
   const setRendererToScrollSource = useCallback(() => {
     scrollSource.current = ScrollSource.RENDERER
