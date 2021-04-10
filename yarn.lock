@@ -1234,10 +1234,10 @@
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-"@cypress/webpack-preprocessor@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@cypress/webpack-preprocessor/-/webpack-preprocessor-5.6.0.tgz#9648ae22d2e52f17a604e2a493af27a9c96568bd"
-  integrity sha512-kSelTDe6gs3Skp4vPP2vfTvAl+Ua+9rR/AMTir7bgJihDvzFESqnjWtF6N1TrPo+vCFVGx0VUA6JUvDkhvpwhA==
+"@cypress/webpack-preprocessor@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@cypress/webpack-preprocessor/-/webpack-preprocessor-5.7.0.tgz#653c92662fe885260f176f5a1bd630dfd2cee8ca"
+  integrity sha512-E60lsdMoIJFR36t7J2yjcAH3vrxF1WecoTIz4PL7Km/LrIEx1/qafEeyGuHTBynr/RBd4kCaS2XLJW75hOeLSw==
   dependencies:
     bluebird "^3.7.1"
     debug "4.3.2"
@@ -5144,17 +5144,15 @@ cypress-commands@1.1.0:
   resolved "https://registry.yarnpkg.com/cypress-commands/-/cypress-commands-1.1.0.tgz#9248190168783deb8ab27ae7c722e3e01d172c97"
   integrity sha512-Q8Jr25pHJQFXwln6Hp8O+Hgs8Z506Y2wA9F1Te2cTajjc5L9gtt9WPOcw1Ogh+OgyqaMHF+uq31vdfImRTio5Q==
 
-cypress-file-upload@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-5.0.3.tgz#e2b90ac523b254074a61acd30f8fc92abd5a35ba"
-  integrity sha512-MEwXssCtcTbmcay2SJW+evwbgT4fEXns2pSBOqto9L50/QWl7llgrzRbC4Tl0b9q4w6hfs/X42gDCqmNrmZctA==
-  dependencies:
-    mime "^2.5.0"
+cypress-file-upload@5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-5.0.5.tgz#06aeaec4fd30ed807a6752a6313d6ed08be05617"
+  integrity sha512-OPV1PEKSZ0QiqNHd28UCghMpo3BU2/ZfvP/QmF6d5FRJu2DDgxhFTknYFvZfW6jHpMYwh5Jy+3MudVG1iMT3AQ==
 
-cypress@6.8.0:
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-6.8.0.tgz#8338f39212a8f71e91ff8c017a1b6e22d823d8c1"
-  integrity sha512-W2e9Oqi7DmF48QtOD0LfsOLVq6ef2hcXZvJXI/E3PgFNmZXEVwBefhAxVCW9yTPortjYA2XkM20KyC4HRkOm9w==
+cypress@6.9.1:
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-6.9.1.tgz#ce1106bfdc47f8d76381dba63f943447883f864c"
+  integrity sha512-/RVx6sOhsyTR9sd9v0BHI4tnDZAhsH9rNat7CIKCUEr5VPWxyfGH0EzK4IHhAqAH8vjFcD4U14tPiJXshoUrmQ==
   dependencies:
     "@cypress/listr-verbose-renderer" "^0.4.1"
     "@cypress/request" "^2.88.5"
@@ -9987,7 +9985,7 @@ mime@1.6.0, mime@^1.6.0:
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==
 
-mime@^2.3.1, mime@^2.4.4, mime@^2.5.0:
+mime@^2.3.1, mime@^2.4.4:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/mime/-/mime-2.5.2.tgz#6e3dc6cc2b9510643830e5f19d5cb753da5eeabe"
   integrity sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==
