@@ -11954,7 +11954,7 @@ react-router-dom@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router-use-location-state@^2.5.0:
+react-router-use-location-state@2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-router-use-location-state/-/react-router-use-location-state-2.5.0.tgz#4fe1cb6aa3cd5f8f997cfb77e7a6d5d8a55ea00f"
   integrity sha512-p0duQtatgL8SZzIITI3He2MP/4d9x9GQHJs93spPYAckVrvCRLAlQxS7k04RHYZb0e4yxwW76Rp/PBvezyez6g==
