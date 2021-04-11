@@ -21,10 +21,10 @@ export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = (
       <Card className="card-min-height" text={ 'dark' } bg={ 'light' }>
         <Card.Body className="p-2 d-flex flex-row justify-content-between">
           <div className={ 'd-flex flex-column' }>
-            <PinButton isDark={ false } isPinned={ entry.pinned }
-                       onPinClick={ () => onPinClick(entry.id) }/>
+            <PinButton isDark={ false } isPinned={ entry.pinStatus }
+                       onPinClick={ () => onPinClick(entry.identifier) }/>
           </div>
-          <Link to={ `/n/${ entry.id }` } className="text-decoration-none flex-fill text-dark">
+          <Link to={ `/n/${ entry.identifier }` } className="text-decoration-none flex-fill text-dark">
             <div className={ 'd-flex flex-column justify-content-between' }>
               <Card.Title className="m-0 mt-1dot5">{ entry.title }</Card.Title>
               <div>
@@ -44,12 +44,12 @@ export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = (
           </Link>
           <div className={ 'd-flex flex-column' }>
             <EntryMenu
-              id={ entry.id }
+              id={ entry.identifier }
               title={ entry.title }
               origin={ entry.origin }
               isDark={ false }
-              onRemove={ () => onRemoveClick(entry.id) }
-              onDelete={ () => onDeleteClick(entry.id) }
+              onRemove={ () => onRemoveClick(entry.identifier) }
+              onDelete={ () => onDeleteClick(entry.identifier) }
             />
           </div>
         </Card.Body>

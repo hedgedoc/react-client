@@ -29,7 +29,7 @@ export const HistoryTable: React.FC<HistoryEntriesProps & HistoryEventHandlers> 
         {
           entries.map((entry) =>
             <HistoryTableRow
-              key={ entry.id }
+              key={ entry.identifier }
               entry={ entry }
               onPinClick={ onPinClick }
               onRemoveClick={ onRemoveClick }

@@ -16,7 +16,7 @@ export const HistoryTableRow: React.FC<HistoryEntryProps & HistoryEventHandlers>
   return (
     <tr>
       <td>
-        <Link to={ `/n/${ entry.id }` } className="text-light">
+        <Link to={ `/n/${ entry.identifier }` } className="text-light">
           { entry.title }
         </Link>
       </td>
@@ -28,15 +28,15 @@ export const HistoryTableRow: React.FC<HistoryEntryProps & HistoryEventHandlers>
         }
       </td>
       <td>
-        <PinButton isDark={ true } isPinned={ entry.pinned } onPinClick={ () => onPinClick(entry.id) }
+        <PinButton isDark={ true } isPinned={ entry.pinStatus } onPinClick={ () => onPinClick(entry.identifier) }
                    className={ 'mb-1 mr-1' }/>
         <EntryMenu
-          id={ entry.id }
+          id={ entry.identifier }
           title={ entry.title }
           origin={ entry.origin }
           isDark={ true }
-          onRemove={ () => onRemoveClick(entry.id) }
-          onDelete={ () => onDeleteClick(entry.id) }
+          onRemove={ () => onRemoveClick(entry.identifier) }
+          onDelete={ () => onDeleteClick(entry.identifier) }
         />
       </td>
     </tr>

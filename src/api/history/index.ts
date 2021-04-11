@@ -5,21 +5,44 @@
  */
 
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
-import { HistoryEntry } from '../../redux/history/types'
+import { HistoryEntryDto, HistoryEntryPutDto, HistoryEntryUpdateDto } from './types'
 
-export const getHistory = async (): Promise<HistoryEntry[]> => {
+export const getHistory = async (): Promise<HistoryEntryDto[]> => {
   const response = await fetch(getApiUrl() + '/history')
   expectResponseCode(response)
-  return await response.json() as Promise<HistoryEntry[]>
+  return await response.json() as Promise<HistoryEntryDto[]>
 }
 
-export const setHistory = async (entries: Omit<HistoryEntry, 'origin'>[]): Promise<void> => {
+export const postHistory = async (entries: HistoryEntryPutDto[]): Promise<void> => {
   const response = await fetch(getApiUrl() + '/history', {
     ...defaultFetchConfig,
     method: 'POST',
-    body: JSON.stringify({
-      history: entries
-    })
+    body: JSON.stringify(entries)
+  })
+  expectResponseCode(response)
+}
+
+export const updateHistoryEntryPinStatus = async (noteId: string, entry: HistoryEntryUpdateDto): Promise<void> => {
+  const response = await fetch(getApiUrl() + '/history/' + noteId, {
+    ...defaultFetchConfig,
+    method: 'PUT',
+    body: JSON.stringify(entry)
+  })
+  expectResponseCode(response)
+}
+
+export const deleteHistoryEntry = async (noteId: string): Promise<void> => {
+  const response = await fetch(getApiUrl() + '/history/' + noteId, {
+    ...defaultFetchConfig,
+    method: 'DELETE'
+  })
+  expectResponseCode(response)
+}
+
+export const deleteHistory = async (): Promise<void> => {
+  const response = await fetch(getApiUrl() + '/history', {
+    ...defaultFetchConfig,
+    method: 'DELETE'
   })
   expectResponseCode(response)
 }

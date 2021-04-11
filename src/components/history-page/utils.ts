@@ -44,10 +44,10 @@ const filterByKeywordSearch = (entries: HistoryEntry[], keywords: string): Histo
 
 const sortEntries = (entries: HistoryEntry[], viewState: HistoryToolbarState): HistoryEntry[] => {
   return entries.sort((firstEntry, secondEntry) => {
-    if (firstEntry.pinned && !secondEntry.pinned) {
+    if (firstEntry.pinStatus && !secondEntry.pinStatus) {
       return -1
     }
-    if (!firstEntry.pinned && secondEntry.pinned) {
+    if (!firstEntry.pinStatus && secondEntry.pinStatus) {
       return 1
     }
 

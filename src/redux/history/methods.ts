@@ -6,7 +6,6 @@
 
 import { store } from '../index'
 import {
-  AddEntryAction,
   HistoryActionType,
   HistoryEntry,
   HistoryEntryOrigin,
@@ -18,7 +17,18 @@ import {
 } from './types'
 import { download } from '../../components/common/download/download'
 import { DateTime } from 'luxon'
-import { getHistory, setHistory } from '../../api/history'
+import {
+  deleteHistory,
+  deleteHistoryEntry,
+  getHistory,
+  postHistory,
+  updateHistoryEntryPinStatus
+} from '../../api/history'
+import {
+  historyEntryDtoToHistoryEntry,
+  historyEntryToHistoryEntryPutDto,
+  historyEntryToHistoryEntryUpdateDto
+} from '../../api/history/dto-methods'
 
 type ErrorHandler = (message: string) => void
 
@@ -27,45 +37,71 @@ export const setHistoryEntries = (entries: HistoryEntry[], onError?: ErrorHandle
     type: HistoryActionType.SET_ENTRIES,
     entries
   } as SetEntriesAction)
-  storeHistory(onError)
+  storeLocalHistory()
+  storeRemoteHistory(onError)
 }
 
-export const addHistoryEntry = (newEntry: HistoryEntry, onError?: ErrorHandler): void => {
+export const deleteAllHistoryEntries = (onError?: ErrorHandler): void => {
   store.dispatch({
-    type: HistoryActionType.ADD_ENTRY,
-    newEntry
-  } as AddEntryAction)
-  storeHistory(onError)
+    type: HistoryActionType.SET_ENTRIES,
+    entries: []
+  })
+  storeLocalHistory()
+  deleteHistory().catch(error => {
+    if (onError) {
+      onError(error)
+    }
+    console.error(error)
+  })
 }
 
-export const updateHistoryEntry = (noteId: string, newEntry: HistoryEntry, onError?: ErrorHandler): void => {
+export const updateLocalHistoryEntry = (noteId: string, newEntry: HistoryEntry): void => {
   store.dispatch({
     type: HistoryActionType.UPDATE_ENTRY,
     noteId,
     newEntry
   } as UpdateEntryAction)
-  storeHistory(onError)
+  storeLocalHistory()
 }
 
 export const removeHistoryEntry = (noteId: string, onError?: ErrorHandler): void => {
+  const entryToDelete = store.getState().history.find(entry => entry.identifier === noteId)
+  if (entryToDelete && entryToDelete.origin === HistoryEntryOrigin.REMOTE) {
+    deleteHistoryEntry(noteId).catch(error => {
+      if (onError) {
+        onError(error)
+      }
+      console.error(error)
+    })
+  }
   store.dispatch({
     type: HistoryActionType.REMOVE_ENTRY,
     noteId
   } as RemoveEntryAction)
-  storeHistory(onError)
+  storeLocalHistory()
 }
 
 export const toggleHistoryEntryPinning = (noteId: string, onError?: ErrorHandler): void => {
   const state = store.getState().history
-  const entryToUpdate = state.find(entry => entry.id === noteId)
+  const entryToUpdate = state.find(entry => entry.identifier === noteId)
   if (!entryToUpdate) {
     return
   }
-  if (entryToUpdate.pinned === undefined) {
-    entryToUpdate.pinned = false
+  if (entryToUpdate.pinStatus === undefined) {
+    entryToUpdate.pinStatus = false
   }
-  entryToUpdate.pinned = !entryToUpdate.pinned
-  updateHistoryEntry(noteId, entryToUpdate, onError)
+  entryToUpdate.pinStatus = !entryToUpdate.pinStatus
+  if (entryToUpdate.origin === HistoryEntryOrigin.LOCAL) {
+    updateLocalHistoryEntry(noteId, entryToUpdate)
+  } else {
+    const historyUpdateDto = historyEntryToHistoryEntryUpdateDto(entryToUpdate)
+    updateHistoryEntryPinStatus(noteId, historyUpdateDto).catch(error => {
+      if (onError) {
+        onError(error)
+      }
+      console.error(error)
+    })
+  }
 }
 
 export const downloadHistory = (): void => {
@@ -81,18 +117,18 @@ export const downloadHistory = (): void => {
 }
 
 export const mergeHistoryEntries = (a: HistoryEntry[], b: HistoryEntry[]): HistoryEntry[] => {
-  const noDuplicates = a.filter(entryA => !b.some(entryB => entryA.id === entryB.id))
+  const noDuplicates = a.filter(entryA => !b.some(entryB => entryA.identifier === entryB.identifier))
   return noDuplicates.concat(b)
 }
 
 export const convertV1History = (oldHistory: V1HistoryEntry[]): HistoryEntry[] => {
   return oldHistory.map(entry => ({
-    id: entry.id,
+    identifier: entry.id,
     title: entry.text,
     tags: entry.tags,
     lastVisited: DateTime.fromMillis(entry.time)
                          .toISO(),
-    pinned: entry.pinned,
+    pinStatus: entry.pinned,
     origin: HistoryEntryOrigin.LOCAL
   }))
 }
@@ -108,24 +144,24 @@ export const refreshHistoryState = (): void => {
   })
 }
 
-export const storeHistory = (onError?: ErrorHandler): void => {
+export const storeLocalHistory = (): void => {
   const history = store.getState().history
   const localEntries = history.filter(entry => entry.origin === HistoryEntryOrigin.LOCAL)
-  const remoteEntries = history.filter(entry => entry.origin === HistoryEntryOrigin.REMOTE)
-
-  const localJson = JSON.stringify(localEntries.map(entry => ({
+  const entriesWithoutOrigin = localEntries.map(entry => ({
     ...entry,
     origin: undefined
-  })))
-  window.localStorage.setItem('history', localJson)
+  }))
+  window.localStorage.setItem('history', JSON.stringify(entriesWithoutOrigin))
+}
 
+export const storeRemoteHistory = (onError?: ErrorHandler): void => {
   if (!store.getState().user) {
     return
   }
-  setHistory(remoteEntries.map(entry => ({
-    ...entry,
-    origin: undefined
-  }))).catch(error => {
+  const history = store.getState().history
+  const remoteEntries = history.filter(entry => entry.origin === HistoryEntryOrigin.REMOTE)
+  const remoteEntryDtos = remoteEntries.map(historyEntryToHistoryEntryPutDto)
+  postHistory(remoteEntryDtos).catch(error => {
     const msg = `Error storing history entries to server: ${ String(error) }`
     if (onError) {
       onError(msg)
@@ -168,10 +204,7 @@ const loadLocalHistory = (): HistoryEntry[] => {
 const loadRemoteHistory = async (): Promise<HistoryEntry[]> => {
   try {
     const remoteHistory = await getHistory()
-    remoteHistory.forEach(entry => {
-      entry.origin = HistoryEntryOrigin.REMOTE
-    })
-    return remoteHistory
+    return remoteHistory.map(historyEntryDtoToHistoryEntry)
   } catch (error) {
     console.error(`Error fetching history entries from server: ${ String(error) }`)
     return []

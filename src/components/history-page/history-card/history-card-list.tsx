@@ -17,7 +17,7 @@ export const HistoryCardList: React.FC<HistoryEntriesProps & HistoryEventHandler
         {
           entries.map((entry) => (
             <HistoryCard
-              key={ entry.id }
+              key={ entry.identifier }
               entry={ entry }
               onPinClick={ onPinClick }
               onRemoveClick={ onRemoveClick }

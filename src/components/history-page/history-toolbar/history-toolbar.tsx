@@ -49,7 +49,7 @@ export const initState: HistoryToolbarState = {
 }
 
 export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags }) => {
-  const [t] = useTranslation()
+  const { t } = useTranslation()
   const [state, setState] = useState<HistoryToolbarState>(initState)
   const historyEntries = useSelector((state: ApplicationState) => state.history)
   const userExists = useSelector((state: ApplicationState) => !!state.user)

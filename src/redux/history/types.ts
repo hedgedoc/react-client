@@ -12,11 +12,11 @@ export enum HistoryEntryOrigin {
 }
 
 export interface HistoryEntry {
-  id: string
+  identifier: string
   title: string
   lastVisited: string
   tags: string[]
-  pinned: boolean
+  pinStatus: boolean
   origin: HistoryEntryOrigin
 }
 

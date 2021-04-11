@@ -27,11 +27,11 @@ export const HistoryReducer: Reducer<HistoryEntry[], HistoryAction> = (state: Hi
       return mergeHistoryEntries(state, [(action as AddEntryAction).newEntry])
     case HistoryActionType.UPDATE_ENTRY:
       return [
-        ...state.filter(entry => entry.id !== (action as UpdateEntryAction).noteId),
+        ...state.filter(entry => entry.identifier !== (action as UpdateEntryAction).noteId),
         (action as UpdateEntryAction).newEntry
       ]
     case HistoryActionType.REMOVE_ENTRY:
-      return state.filter(entry => entry.id !== (action as RemoveEntryAction).noteId)
+      return state.filter(entry => entry.identifier !== (action as RemoveEntryAction).noteId)
     default:
       return state
   }
