@@ -25,7 +25,7 @@ export class LinkReplacer extends ComponentReplacer {
       return undefined
     }
 
-    const url = node.attribs.href
+    const url = node.attribs.href.trim()
 
     // eslint-disable-next-line no-script-url
     if (url.startsWith('data:') || url.startsWith('javascript:')) {
