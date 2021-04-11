@@ -11,7 +11,7 @@ import { ApplicationState, store } from '../../../redux'
 import { useParams } from 'react-router-dom'
 import { EditorPagePathParams } from '../editor-page'
 import { HistoryEntry, HistoryEntryOrigin } from '../../../redux/history/types'
-import { updateHistoryEntry } from '../../../redux/history/methods'
+import { updateLocalHistoryEntry } from '../../../redux/history/methods'
 
 export const useUpdateHistoryEntry = (loading: boolean, error: boolean): void => {
   const { id } = useParams<EditorPagePathParams>()
@@ -24,7 +24,7 @@ export const useUpdateHistoryEntry = (loading: boolean, error: boolean): void =>
 
 
   const updateHistory = useCallback(() => {
-    if (loading || error) {
+    if (loading || error || userExists) {
       return
     }
     // This is needed to not update the history entry on each scroll without changes
@@ -33,18 +33,21 @@ export const useUpdateHistoryEntry = (loading: boolean, error: boolean): void =>
       return
     }
     const history = store.getState().history
-    const entry: HistoryEntry = history.find(entry => entry.id === id) ?? {
-      id,
+    const entry: HistoryEntry = history.find(entry => entry.identifier === id) ?? {
+      identifier: id,
       title: '',
-      pinned: false,
+      pinStatus: false,
       lastVisited: '',
       tags: [],
-      origin: userExists ? HistoryEntryOrigin.REMOTE : HistoryEntryOrigin.LOCAL
+      origin: HistoryEntryOrigin.LOCAL
+    }
+    if (entry.origin === HistoryEntryOrigin.REMOTE) {
+      return
     }
     entry.title = noteTitle
     entry.tags = noteTags
     entry.lastVisited = new Date().toISOString()
-    updateHistoryEntry(id, entry)
+    updateLocalHistoryEntry(id, entry)
     lastTitle.current = noteTitle
     lastTags.current = noteTags
   }, [error, loading, id, noteTitle, noteTags, userExists])
