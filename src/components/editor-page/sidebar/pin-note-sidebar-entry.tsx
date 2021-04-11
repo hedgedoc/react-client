@@ -20,11 +20,11 @@ export const PinNoteSidebarEntry: React.FC<SpecificSidebarEntryProps> = ({ class
   const history = useSelector((state: ApplicationState) => state.history)
 
   const isPinned = useMemo(() => {
-    const entry = history.find(entry => entry.id === id)
+    const entry = history.find(entry => entry.identifier === id)
     if (!entry) {
       return false
     }
-    return entry.pinned
+    return entry.pinStatus
   }, [id, history])
 
   const onPinClicked = useCallback(() => {
