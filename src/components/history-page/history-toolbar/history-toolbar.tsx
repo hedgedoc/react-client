@@ -73,7 +73,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
   const previousState = useRef(initToolbarState)
   const [searchState, setSearchState] = useQueryState('search', initToolbarState.keywordSearch)
   const [tagsState, setTagsState] = useQueryState('tags', initToolbarState.selectedTags)
-  const [viewState, setViewState] = useLocationState('viewState', initToolbarState.viewState)
+  const [viewState, setViewState] = useState(initToolbarState.viewState)
   const [sortState, setSortState] = useState<ToolbarSortState>(initSortState)
 
   const titleSortChanged = useCallback((direction: SortModeEnum) => {
