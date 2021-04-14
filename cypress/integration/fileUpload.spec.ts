@@ -32,7 +32,7 @@ describe('File upload', () => {
     beforeEach(() => {
       cy.intercept({
         method: 'POST',
-        url: '/api/v2/media/upload'
+        url: '/api/private/media/upload'
       }, {
         statusCode: 201,
         body: {
@@ -87,7 +87,7 @@ describe('File upload', () => {
   it('upload fails', () => {
     cy.intercept({
       method: 'POST',
-      url: '/api/v2/media/upload'
+      url: '/api/private/media/upload'
     }, {
       statusCode: 400
     })

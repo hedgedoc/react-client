@@ -27,7 +27,7 @@ describe('History', () => {
   describe('Pinning', () => {
     describe('working', () => {
       beforeEach(() => {
-        cy.intercept('PUT', '/api/v2/history/features', (req) => {
+        cy.intercept('PUT', '/api/private/history/features', (req) => {
           req.reply(200, req.body)
         })
       })
@@ -61,7 +61,7 @@ describe('History', () => {
 
     describe('failing', () => {
       beforeEach(() => {
-        cy.intercept('PUT', '/api/v2/history/features', {
+        cy.intercept('PUT', '/api/private/history/features', {
           statusCode: 401
         })
       })
