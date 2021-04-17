@@ -7,14 +7,15 @@
 import { DateTime } from 'luxon'
 import { Action } from 'redux'
 import { Note } from '../../api/notes'
-import { NoteFrontmatter } from '../../components/editor-page/note-frontmatter/note-frontmatter'
+import { NoteFrontmatter, RawNoteFrontmatter } from '../../components/editor-page/note-frontmatter/note-frontmatter'
 
 export enum NoteDetailsActionType {
   SET_DOCUMENT_CONTENT = 'note-details/set',
   SET_NOTE_DATA_FROM_SERVER = 'note-details/data/server/set',
   SET_NOTE_FRONTMATTER = 'note-details/frontmatter/set',
   UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading',
-  SET_CHECKBOX_IN_MARKDOWN_CONTENT = 'note-details/toggle-checkbox-in-markdown-content'
+  SET_CHECKBOX_IN_MARKDOWN_CONTENT = 'note-details/toggle-checkbox-in-markdown-content',
+  REPLACE_FRONTMATTER_IN_MARKDOWN_CONTENT = 'note-details/replace-frontmatter-in-markdown-content'
 }
 
 interface LastChange {
@@ -43,6 +44,11 @@ export interface NoteDetailsAction extends Action<NoteDetailsActionType> {
 export interface SetNoteDetailsAction extends NoteDetailsAction {
   type: NoteDetailsActionType.SET_DOCUMENT_CONTENT
   content: string
+}
+
+export interface ReplaceFrontmatterInMarkdownContentAction extends NoteDetailsAction {
+  type: NoteDetailsActionType.REPLACE_FRONTMATTER_IN_MARKDOWN_CONTENT
+  frontmatter: RawNoteFrontmatter
 }
 
 export interface SetNoteDetailsFromServerAction extends NoteDetailsAction {

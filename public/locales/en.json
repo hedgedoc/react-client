@@ -339,26 +339,45 @@
         "modal": {
             "snippetImport": {
                 "title": "Import from Snippet",
-                "selectProject": "Select From Available Projects",
-                "selectSnippet": "Select From Available Snippets"
+              "selectProject": "Select From Available Projects",
+              "selectSnippet": "Select From Available Snippets"
             },
-            "documentInfo": {
-                "title": "Document info",
-                "created": "<0></0> created this note <1></1>",
-                "edited": "<0></0> was the last editor <1></1>",
-                "usersContributed": "<0></0> users contributed to this document",
-                "revisions": "<0></0> revisions are saved"
-            },
-            "gistImport": {
-                "title": "Import from Gist",
-                "insertGistUrl": "Paste your gist url here…"
-            },
-            "snippetExport": {
-                "title": "Export to Snippet",
-                "visibilityLevel": "Select Visibility Level"
-            },
-            "revision": {
-                "title": "Revisions",
+          "documentInfo": {
+            "title": "Document info",
+            "created": "<0></0> created this note <1></1>",
+            "edited": "<0></0> was the last editor <1></1>",
+            "usersContributed": "<0></0> users contributed to this document",
+            "revisions": "<0></0> revisions are saved"
+          },
+          "metadataEditor": {
+            "title": "Edit Metadata",
+            "labels": {
+              "title": "Title",
+              "type": "Document type",
+              "description": "Description",
+              "tags": "Tags",
+              "lang": "Language",
+              "dir": "Text direction",
+              "breaks": "New line style",
+              "robots": "Robots",
+              "GA": "Google Analytics",
+              "disqus": "Disqus",
+              "LTR": "left to right",
+              "RTL": "right to left",
+              "breaksOn": "hedgedoc style",
+              "breaksOff": "markdown style"
+            }
+          },
+          "gistImport": {
+            "title": "Import from Gist",
+            "insertGistUrl": "Paste your gist url here…"
+          },
+          "snippetExport": {
+            "title": "Export to Snippet",
+            "visibilityLevel": "Select Visibility Level"
+          },
+          "revision": {
+            "title": "Revisions",
                 "revertButton": "Revert",
                 "error": "An error occurred while fetching the revisions of this note.",
                 "length": "Length",

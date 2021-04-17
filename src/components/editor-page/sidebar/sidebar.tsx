@@ -10,6 +10,7 @@ import { DeleteNoteSidebarEntry } from './delete-note-sidebar-entry'
 import { DocumentInfoSidebarEntry } from './document-info-sidebar-entry'
 import { ExportMenuSidebarMenu } from './export-menu-sidebar-menu'
 import { ImportMenuSidebarMenu } from './import-menu-sidebar-menu'
+import { MetadataEditorSidebarEntry } from './metadata-editor-sidebar-entry'
 import { PermissionsSidebarEntry } from './permissions-sidebar-entry'
 import { PinNoteSidebarEntry } from './pin-note-sidebar-entry'
 import { RevisionSidebarEntry } from './revision-sidebar-entry'
@@ -40,6 +41,7 @@ export const Sidebar: React.FC = () => {
         <UsersOnlineSidebarMenu menuId={ DocumentSidebarMenuSelection.USERS_ONLINE }
                                 selectedMenuId={ selectedMenu } onClick={ toggleValue }/>
         <DocumentInfoSidebarEntry hide={ selectionIsNotNone }/>
+        <MetadataEditorSidebarEntry hide={ selectionIsNotNone }/>
         <RevisionSidebarEntry hide={ selectionIsNotNone }/>
         <PermissionsSidebarEntry hide={ selectionIsNotNone }/>
         <ImportMenuSidebarMenu menuId={ DocumentSidebarMenuSelection.IMPORT }

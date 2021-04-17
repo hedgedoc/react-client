@@ -36,6 +36,7 @@
     "@typescript-eslint/parser": "4.22.0",
     "abcjs": "6.0.0-beta.32",
     "bootstrap": "4.6.0",
+
     "codemirror": "5.60.0",
     "copy-webpack-plugin": "6.4.1",
     "d3-graphviz": "3.2.0",
@@ -56,6 +57,7 @@
     "i18next": "20.2.1",
     "i18next-browser-languagedetector": "6.1.0",
     "i18next-http-backend": "1.2.1",
+    "iso-639-1": "2.1.8",
     "js-yaml": "4.0.0",
     "katex": "0.13.2",
     "luxon": "1.26.0",

@@ -45,7 +45,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ show, onHide }) => {
           <CopyableField content={ `${ baseUrl }/p/${ id }` } nativeShareButton={ true }
                          url={ `${ baseUrl }/p/${ id }` }/>
         </ShowIf>
-        <ShowIf condition={ noteFrontmatter.type === '' }>
+        <ShowIf condition={ noteFrontmatter.type === NoteType.DOCUMENT }>
           <Trans i18nKey={ 'editor.modal.shareLink.viewOnlyDescription' }/>
           <CopyableField content={ `${ baseUrl }/s/${ id }` } nativeShareButton={ true }
                          url={ `${ baseUrl }/s/${ id }` }/>
