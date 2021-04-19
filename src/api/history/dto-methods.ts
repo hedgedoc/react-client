@@ -21,6 +21,7 @@ export const historyEntryDtoToHistoryEntry = (entryDto: HistoryEntryDto): Histor
 export const historyEntryToHistoryEntryPutDto = (entry: HistoryEntry): HistoryEntryPutDto => {
   return {
     pinStatus: entry.pinStatus,
+    lastVisited: entry.lastVisited,
     note: entry.identifier
   }
 }

@@ -7,6 +7,7 @@
 export interface HistoryEntryPutDto {
   note: string
   pinStatus: boolean
+  lastVisited: string
 }
 
 export interface HistoryEntryUpdateDto {
