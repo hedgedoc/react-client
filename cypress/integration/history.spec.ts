@@ -71,7 +71,7 @@ describe('History', () => {
         cy.get('.fa-thumb-tack')
           .first()
           .click()
-        cy.get('.modal-dialog')
+        cy.get('.notifications-area .toast')
           .should('be.visible')
       })
 
@@ -81,7 +81,7 @@ describe('History', () => {
         cy.get('.fa-thumb-tack')
           .first()
           .click()
-        cy.get('.modal-dialog')
+        cy.get('.notifications-area .toast')
           .should('be.visible')
       })
     })
