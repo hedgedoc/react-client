@@ -18,7 +18,8 @@ import { ExportHistoryButton } from './export-history-button'
 import { ImportHistoryButton } from './import-history-button'
 import './typeahead-hacks.scss'
 import { HistoryEntryOrigin } from '../../../redux/history/types'
-import { refreshHistoryState, setHistoryEntries } from '../../../redux/history/methods'
+import { importHistoryEntries, refreshHistoryState, setHistoryEntries } from '../../../redux/history/methods'
+import { showErrorNotification } from '../../notifications/error-notification'
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
@@ -82,14 +83,30 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
     setState(prevState => ({ ...prevState, selectedTags: selected }))
   }
 
+  const refreshHistory = useCallback(() => {
+    refreshHistoryState().catch(
+      showErrorNotification(t('landing.history.error.getHistory.text'))
+    )
+  }, [t])
+
   const onUploadAllToRemote = useCallback(() => {
     if (!userExists) {
       return
     }
     const entries = [...historyEntries]
+    const localEntries = entries.filter(entry => entry.origin === HistoryEntryOrigin.LOCAL).map(entry => entry.identifier)
     entries.forEach(entry => entry.origin = HistoryEntryOrigin.REMOTE)
-    setHistoryEntries(entries)
-  }, [userExists, historyEntries])
+    importHistoryEntries(entries).catch(error => {
+      showErrorNotification(t('landing.history.error.setHistory.text'))(error)
+      entries.forEach(entry => {
+        if (localEntries.includes(entry.identifier)) {
+          entry.origin = HistoryEntryOrigin.LOCAL
+        }
+      })
+      setHistoryEntries(entries)
+      refreshHistory()
+    })
+  }, [userExists, historyEntries, t, refreshHistory])
 
   useEffect(() => {
     onSettingsChange(state)
@@ -128,7 +145,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
         <ClearHistoryButton/>
       </InputGroup>
       <InputGroup className={ 'mr-1 mb-1' }>
-        <Button variant={ 'light' } title={ t('landing.history.toolbar.refresh') } onClick={ refreshHistoryState }>
+        <Button variant={ 'light' } title={ t('landing.history.toolbar.refresh') } onClick={ refreshHistory }>
           <ForkAwesomeIcon icon='refresh'/>
         </Button>
       </InputGroup>

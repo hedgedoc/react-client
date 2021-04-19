@@ -9,7 +9,8 @@ import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { DeletionModal } from '../../common/modals/deletion-modal'
-import { deleteAllHistoryEntries } from '../../../redux/history/methods'
+import { deleteAllHistoryEntries, refreshHistoryState } from '../../../redux/history/methods'
+import { showErrorNotification } from '../../notifications/error-notification'
 
 export const ClearHistoryButton: React.FC = () => {
   const { t } = useTranslation()
@@ -19,9 +20,14 @@ export const ClearHistoryButton: React.FC = () => {
   const handleClose = () => setShow(false)
 
   const onConfirm = useCallback(() => {
-    deleteAllHistoryEntries()
+    deleteAllHistoryEntries().catch(error => {
+      showErrorNotification(t('landing.history.error.deleteEntry.text'))(error)
+      refreshHistoryState().catch(
+        showErrorNotification(t('landing.history.error.getHistory.text'))
+      )
+    })
     handleClose()
-  }, [])
+  }, [t])
 
   return (
     <Fragment>

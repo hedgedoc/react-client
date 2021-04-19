@@ -10,9 +10,15 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ErrorModal } from '../../common/modals/error-modal'
 import { HistoryEntry, HistoryEntryOrigin, HistoryExportJson, V1HistoryEntry } from '../../../redux/history/types'
-import { convertV1History, mergeHistoryEntries, setHistoryEntries } from '../../../redux/history/methods'
+import {
+  convertV1History,
+  importHistoryEntries,
+  mergeHistoryEntries,
+  refreshHistoryState
+} from '../../../redux/history/methods'
 import { ApplicationState } from '../../../redux'
 import { useSelector } from 'react-redux'
+import { showErrorNotification } from '../../notifications/error-notification'
 
 export const ImportHistoryButton: React.FC = () => {
   const { t } = useTranslation()
@@ -41,8 +47,13 @@ export const ImportHistoryButton: React.FC = () => {
       origin = HistoryEntryOrigin.LOCAL
     }
     entries.forEach(entry => entry.origin = origin)
-    setHistoryEntries(mergeHistoryEntries(historyState, entries))
-  }, [historyState, userExists])
+    importHistoryEntries(mergeHistoryEntries(historyState, entries)).catch(error => {
+      showErrorNotification(t('landing.history.error.setHistory.text'))(error)
+      refreshHistoryState().catch(
+        showErrorNotification(t('landing.history.error.getHistory.text'))
+      )
+    })
+  }, [historyState, userExists, t])
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { validity, files } = event.target

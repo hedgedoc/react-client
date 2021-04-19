@@ -4,7 +4,7 @@
  SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useCallback, useState } from 'react'
 import { Alert, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { PagerPagination } from '../../common/pagination/pager-pagination'
@@ -12,6 +12,9 @@ import { HistoryCardList } from '../history-card/history-card-list'
 import { HistoryTable } from '../history-table/history-table'
 import { ViewStateEnum } from '../history-toolbar/history-toolbar'
 import { HistoryEntry } from '../../../redux/history/types'
+import { removeHistoryEntry, toggleHistoryEntryPinning } from '../../../redux/history/methods'
+import { showErrorNotification } from '../../notifications/error-notification'
+import { deleteNote } from '../../../api/notes'
 
 type OnEntryClick = (entryId: string) => void
 
@@ -36,11 +39,31 @@ export interface HistoryEntriesProps {
   onLastPageIndexChange: (lastPageIndex: number) => void
 }
 
-export const HistoryContent: React.FC<HistoryContentProps & HistoryEventHandlers> = ({ viewState, entries, onPinClick, onRemoveClick, onDeleteClick }) => {
-  useTranslation()
+export const HistoryContent: React.FC<HistoryContentProps> = ({ viewState, entries }) => {
+  const { t } = useTranslation()
 
   const [pageIndex, setPageIndex] = useState(0)
   const [lastPageIndex, setLastPageIndex] = useState(0)
+
+  const onPinClick = useCallback((noteId: string) => {
+    toggleHistoryEntryPinning(noteId).catch(
+      showErrorNotification(t('landing.history.error.updateEntry.text'))
+    )
+  }, [t])
+
+  const onDeleteClick = useCallback((noteId: string) => {
+    deleteNote(noteId).then(() => {
+      return removeHistoryEntry(noteId)
+    }).catch(
+      showErrorNotification(t('landing.history.error.deleteNote.text'))
+    )
+  }, [t])
+
+  const onRemoveClick = useCallback((noteId: string) => {
+    removeHistoryEntry(noteId).catch(
+      showErrorNotification(t('landing.history.error.deleteEntry.text'))
+    )
+  }, [t])
 
   if (entries.length === 0) {
     return (

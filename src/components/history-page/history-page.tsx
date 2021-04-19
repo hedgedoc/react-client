@@ -4,52 +4,23 @@
  SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { deleteNote } from '../../api/notes'
 import { ApplicationState } from '../../redux'
-import { ErrorModal } from '../common/modals/error-modal'
 import { HistoryContent } from './history-content/history-content'
 import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } from './history-toolbar/history-toolbar'
 import { sortAndFilterEntries } from './utils'
+import { refreshHistoryState } from '../../redux/history/methods'
 import { HistoryEntry } from '../../redux/history/types'
-import {
-  refreshHistoryState,
-  removeHistoryEntry,
-  toggleHistoryEntryPinning
-} from '../../redux/history/methods'
+import { showErrorNotification } from '../notifications/error-notification'
 
 export const HistoryPage: React.FC = () => {
-  useTranslation()
+  const { t } = useTranslation()
 
   const allEntries = useSelector((state: ApplicationState) => state.history)
   const [toolbarState, setToolbarState] = useState<HistoryToolbarState>(toolbarInitState)
-  const userExists = useSelector((state: ApplicationState) => !!state.user)
-  const [error, setError] = useState('')
-
-  const removeFromHistoryClick = useCallback((entryId: string): void => {
-    removeHistoryEntry(entryId, () => setError('deleteEntry'))
-  }, [])
-
-  const deleteNoteClick = useCallback((entryId: string): void => {
-    if (userExists) {
-      deleteNote(entryId)
-        .then(() => {
-          removeHistoryEntry(entryId, () => setError('deleteNote'))
-        })
-        .catch(() => setError('deleteNote'))
-    }
-  }, [userExists])
-
-  const pinClick = useCallback((entryId: string): void => {
-    toggleHistoryEntryPinning(entryId, () => setError('updateEntry'))
-  }, [])
-
-  const resetError = () => {
-    setError('')
-  }
 
   const tags = useMemo<string[]>(() => {
     return allEntries.map(entry => entry.tags)
@@ -67,18 +38,16 @@ export const HistoryPage: React.FC = () => {
     [allEntries, toolbarState])
 
   useEffect(() => {
-    refreshHistoryState()
-  }, [])
+    refreshHistoryState().catch(
+      showErrorNotification(t('landing.history.error.getHistory.text'))
+    )
+  }, [t])
 
   return (
     <Fragment>
-      <ErrorModal show={ error !== '' } onHide={ resetError }
-                  titleI18nKey={ error !== '' ? `landing.history.error.${ error }.title` : '' }>
-        <h5>
-          <Trans i18nKey={ error !== '' ? `landing.history.error.${ error }.text` : '' }/>
-        </h5>
-      </ErrorModal>
-      <h1 className="mb-4"><Trans i18nKey="landing.navigation.history"/></h1>
+      <h1 className="mb-4">
+        <Trans i18nKey="landing.navigation.history"/>
+      </h1>
       <Row className={ 'justify-content-center mt-5 mb-3' }>
         <HistoryToolbar
           onSettingsChange={ setToolbarState }
@@ -88,9 +57,6 @@ export const HistoryPage: React.FC = () => {
       <HistoryContent
         viewState={ toolbarState.viewState }
         entries={ entriesToShow }
-        onPinClick={ pinClick }
-        onRemoveClick={ removeFromHistoryClick }
-        onDeleteClick={ deleteNoteClick }
       />
     </Fragment>
   )

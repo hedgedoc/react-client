@@ -16,11 +16,6 @@ const customDelay: () => Promise<void> = async () => {
   }
 }
 
-const loadHistoryState = (): Promise<void> => {
-  refreshHistoryState()
-  return Promise.resolve()
-}
-
 export interface InitTask {
   name: string
   task: Promise<void>
@@ -35,7 +30,7 @@ export const createSetUpTaskList = (baseUrl: string): InitTask[] => {
     task: loadAllConfig(baseUrl)
   }, {
     name: 'Load history state',
-    task: loadHistoryState()
+    task: refreshHistoryState()
   }, {
     name: 'Add Delay',
     task: customDelay()
