@@ -36,6 +36,7 @@ import { UiNotifications } from '../notifications/ui-notifications'
 import { useNotificationTest } from './use-notification-test'
 import { IframeCommunicatorContextProvider } from './render-context/iframe-communicator-context-provider'
 import { useUpdateLocalHistoryEntry } from './hooks/useUpdateLocalHistoryEntry'
+import { NoteType } from './note-frontmatter/note-frontmatter'
 
 export interface EditorPagePathParams {
   id: string
@@ -53,6 +54,7 @@ export const EditorPage: React.FC = () => {
 
   const editorMode: EditorMode = useSelector((state: ApplicationState) => state.editorConfig.editorMode)
   const editorSyncScroll: boolean = useSelector((state: ApplicationState) => state.editorConfig.syncScroll)
+  const noteType: NoteType = useSelector((state: ApplicationState) => state.noteDetails.frontmatter.type)
 
   const [scrollState, setScrollState] = useState<DualScrollState>(() => ({
     editorScrollState: { firstLineInView: 1, scrolledPercentage: 0 },
@@ -105,13 +107,12 @@ export const EditorPage: React.FC = () => {
         markdownContent={ markdownContent }
         onMakeScrollSource={ setRendererToScrollSource }
         onFirstHeadingChange={ updateNoteTitleByFirstHeading }
-        onTaskCheckedChange={ SetCheckboxInMarkdownContent }
         onFrontmatterChange={ setNoteFrontmatter }
+        onTaskCheckedChange={ SetCheckboxInMarkdownContent }
         onScroll={ onMarkdownRendererScroll }
         scrollState={ scrollState.rendererScrollState }
-        rendererType={ RendererType.DOCUMENT }/>
-    , [markdownContent, onMarkdownRendererScroll, scrollState.rendererScrollState,
-      setRendererToScrollSource])
+        rendererType={ noteType === NoteType.SLIDE ? RendererType.SLIDESHOW : RendererType.DOCUMENT }/>
+    , [markdownContent, noteType, onMarkdownRendererScroll, scrollState.rendererScrollState, setRendererToScrollSource])
 
   return (
     <IframeCommunicatorContextProvider>

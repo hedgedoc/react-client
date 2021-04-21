@@ -11,7 +11,7 @@ import {
   BaseConfiguration,
   EditorToRendererIframeMessage,
   ImageDetails,
-  RendererToEditorIframeMessage,
+  RendererToEditorIframeMessage, RendererType,
   RenderIframeMessageType
 } from './rendering-message'
 
@@ -85,6 +85,13 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<Edito
     this.sendMessageToOtherSide({
       type: RenderIframeMessageType.SET_SCROLL_STATE,
       scrollState
+    })
+  }
+
+  public sendSetRendererType(rendererType: RendererType): void {
+    this.sendMessageToOtherSide({
+      type: RenderIframeMessageType.SET_RENDERER_TYPE,
+      rendererType
     })
   }
 

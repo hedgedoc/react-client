@@ -39,38 +39,37 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
   const [dom, setDom] = useState<ReactElement[]>()
 
   useEffect(() => {
-    import(/* webpackChunkName: "highlight.js" */ '../../../../common/hljs/hljs').then((hljs) => {
-      const languageSupported = (lang: string) => hljs.default.listLanguages()
-                                                      .includes(lang)
-      const unreplacedCode = !!language && languageSupported(language) ? hljs.default.highlight(language, code).value : escapeHtml(code)
-      const replacedDom = replaceCode(unreplacedCode)
-        .map((line, index) => (
-          <Fragment key={ index }>
+    import(/* webpackChunkName: "highlight.js" */ '../../../../common/hljs/hljs')
+      .then((hljs) => {
+        const languageSupported = (lang: string) => hljs.default.listLanguages()
+                                                        .includes(lang)
+        const unreplacedCode = !!language && languageSupported(language) ? hljs.default.highlight(language, code).value : escapeHtml(code)
+        const replacedDom = replaceCode(unreplacedCode)
+          .map((line, index) => (
+            <Fragment key={ index }>
           <span className={ 'linenumber' }>
             { (startLineNumber || 1) + index }
           </span>
-            <div className={ 'codeline' }>
-              { line }
-            </div>
-          </Fragment>
-        ))
-      setDom(replacedDom)
-    })
-                                                                                 .catch(() => {
-                                                                                   console.error('error while loading highlight.js')
-                                                                                 })
+              <div className={ 'codeline' }>
+                { line }
+              </div>
+            </Fragment>
+          ))
+        setDom(replacedDom)
+      })
+      .catch(() => console.error('error while loading highlight.js'))
   }, [code, language, startLineNumber])
 
   return (
-    <Fragment>
+    <div className={'code-block'}>
       <code
         className={ `hljs ${ startLineNumber !== undefined ? 'showGutter' : '' } ${ wrapLines ? 'wrapLines' : '' }` }>
         { dom }
+        <div className={ 'text-right copy-code-button' }>
+          <CopyToClipboardButton content={ code } data-cy="copy-code-button"/>
+        </div>
       </code>
-      <div className={ 'text-right button-inside' }>
-        <CopyToClipboardButton content={ code } data-cy="copy-code-button"/>
-      </div>
-    </Fragment>)
+    </div>)
 }
 
 export default HighlightedCode

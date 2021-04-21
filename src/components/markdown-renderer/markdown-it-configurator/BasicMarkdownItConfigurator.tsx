@@ -37,6 +37,7 @@ import { quoteExtraColor } from '../markdown-it-plugins/quote-extra-color'
 import { quoteExtra } from '../markdown-it-plugins/quote-extra'
 import { documentTableOfContents } from '../markdown-it-plugins/document-table-of-contents'
 import { frontmatterExtract } from '../markdown-it-plugins/frontmatter'
+import { revealSections } from '../markdown-it-plugins/reveal-sections'
 
 export interface ConfiguratorDetails {
   useFrontmatter: boolean,
@@ -45,6 +46,7 @@ export interface ConfiguratorDetails {
   onToc: (toc: TocAst) => void,
   onLineMarkers?: (lineMarkers: LineMarkers[]) => void
   useAlternativeBreaks?: boolean
+  headlineAnchors?: boolean
 }
 
 export class BasicMarkdownItConfigurator<T extends ConfiguratorDetails> {
@@ -77,7 +79,6 @@ export class BasicMarkdownItConfigurator<T extends ConfiguratorDetails> {
   protected configure(markdownIt: MarkdownIt): void {
     this.configurations.push(
       plantumlWithError,
-      headlineAnchors,
       KatexReplacer.markdownItPlugin,
       YoutubeReplacer.markdownItPlugin,
       VimeoReplacer.markdownItPlugin,
@@ -102,7 +103,12 @@ export class BasicMarkdownItConfigurator<T extends ConfiguratorDetails> {
       imsize,
       tasksLists,
       alertContainer,
-      spoilerContainer)
+      spoilerContainer,
+      revealSections)
+
+    if (this.options.headlineAnchors) {
+      this.configurations.push(headlineAnchors)
+    }
 
     if (this.options.useFrontmatter) {
       this.configurations.push(frontmatterExtract({

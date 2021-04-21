@@ -67,11 +67,11 @@ export const RenderIframe: React.FC<RenderIframeProps> = (
   useEffect(() => iframeCommunicator.onImageClicked(setLightboxDetails), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onRendererReady(() => {
     iframeCommunicator.sendSetBaseConfiguration({
-      baseUrl: window.location.toString(),
-      rendererType
+      baseUrl: window.location.toString()
     })
     setRendererReady(true)
   }), [darkMode, rendererType, iframeCommunicator, rendererReady, scrollState])
+  useEffect(() => iframeCommunicator.sendSetRendererType(rendererType), [iframeCommunicator, rendererType])
   useEffect(() => iframeCommunicator.onHeightChange(setFrameHeight), [iframeCommunicator])
 
   useEffect(() => {

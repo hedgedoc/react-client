@@ -84,7 +84,7 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = (
         <BasicMarkdownRenderer
           outerContainerRef={ rendererRef }
           className={ `mb-3 ${ additionalRendererClasses ?? '' }` }
-          content={ markdownContent }
+          markdownContent={ markdownContent }
           onFirstHeadingChange={ onFirstHeadingChange }
           onLineMarkerPositionChanged={ onLineMarkerPositionChanged }
           onFrontmatterChange={ onFrontmatterChange }

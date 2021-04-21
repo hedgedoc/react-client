@@ -28,6 +28,7 @@ const EditorPage = React.lazy(() => import(/* webpackPrefetch: true *//* webpack
 const RenderPage = React.lazy(() => import (/* webpackPrefetch: true *//* webpackChunkName: "renderPage" */ './components/render-page/render-page'))
 const DocumentReadOnlyPage = React.lazy(() => import (/* webpackPrefetch: true *//* webpackChunkName: "documentReadOnly" */ './components/document-read-only-page/document-read-only-page'))
 const baseUrl = new URL(document.head.baseURI).pathname
+const SlideShowPage = React.lazy(() => import (/* webpackPrefetch: true */ './components/slide-show-page/slide-show-page'))
 
 ReactDOM.render(
   <Provider store={ store }>
@@ -68,6 +69,9 @@ ReactDOM.render(
             </Route>
             <Route path="/s/:id">
               <DocumentReadOnlyPage/>
+            </Route>
+            <Route path="/p/:id">
+              <SlideShowPage/>
             </Route>
             <Route path="/:id">
               <Redirector/>

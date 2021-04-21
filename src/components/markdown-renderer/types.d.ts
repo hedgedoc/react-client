@@ -16,5 +16,5 @@ export interface LineMarkerPosition {
 
 export interface AdditionalMarkdownRendererProps {
   className?: string,
-  content: string
+  markdownContent: string
 }

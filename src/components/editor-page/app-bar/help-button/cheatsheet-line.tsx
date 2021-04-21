@@ -27,7 +27,7 @@ export const CheatsheetLine: React.FC<CheatsheetLineProps> = ({ code, onTaskChec
       <tr>
         <td>
           <BasicMarkdownRenderer
-            content={ code }
+            markdownContent={ code }
             baseUrl={ 'https://example.org' }
             onTaskCheckedChange={ checkboxClick }/>
         </td>

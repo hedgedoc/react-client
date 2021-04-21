@@ -17,7 +17,8 @@ export enum RenderIframeMessageType {
   ON_SET_FRONTMATTER = 'ON_SET_FRONTMATTER',
   IMAGE_CLICKED = 'IMAGE_CLICKED',
   ON_HEIGHT_CHANGE = 'ON_HEIGHT_CHANGE',
-  SET_BASE_CONFIGURATION = 'SET_BASE_CONFIGURATION'
+  SET_BASE_CONFIGURATION = 'SET_BASE_CONFIGURATION',
+  SET_RENDERER_TYPE='SET_RENDERER_TYPE'
 }
 
 export interface RendererToEditorSimpleMessage {
@@ -33,6 +34,11 @@ export interface ImageDetails {
   alt?: string
   src: string
   title?: string
+}
+
+export interface SetRendererTypeMessage {
+  type: RenderIframeMessageType.SET_RENDERER_TYPE,
+  rendererType: RendererType
 }
 
 export interface SetBaseUrlMessage {
@@ -80,7 +86,8 @@ export type EditorToRendererIframeMessage =
   SetMarkdownContentMessage |
   SetDarkModeMessage |
   SetScrollStateMessage |
-  SetBaseUrlMessage
+  SetBaseUrlMessage |
+  SetRendererTypeMessage
 
 export type RendererToEditorIframeMessage =
   RendererToEditorSimpleMessage |
@@ -99,5 +106,4 @@ export enum RendererType {
 
 export interface BaseConfiguration {
   baseUrl: string
-  rendererType: RendererType
 }

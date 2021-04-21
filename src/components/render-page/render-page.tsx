@@ -12,6 +12,7 @@ import { setNoteFrontmatter } from '../../redux/note-details/methods'
 import { NoteFrontmatter } from '../editor-page/note-frontmatter/note-frontmatter'
 import { ScrollState } from '../editor-page/synced-scroll/scroll-props'
 import { ImageClickHandler } from '../markdown-renderer/replace-components/image/image-replacer'
+import { SlideshowMarkdownRenderer } from '../markdown-renderer/slideshow-markdown-renderer'
 import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { IframeRendererToEditorCommunicator } from './iframe-renderer-to-editor-communicator'
 import { MarkdownDocument } from './markdown-document'
@@ -23,6 +24,7 @@ export const RenderPage: React.FC = () => {
   const [markdownContent, setMarkdownContent] = useState('')
   const [scrollState, setScrollState] = useState<ScrollState>({ firstLineInView: 1, scrolledPercentage: 0 })
   const [baseConfiguration, setBaseConfiguration] = useState<BaseConfiguration | undefined>(undefined)
+  const [rendererType, setRendererType] = useState(RendererType.DOCUMENT)
 
   const editorOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.editorOrigin)
 
@@ -41,6 +43,7 @@ export const RenderPage: React.FC = () => {
   useEffect(() => iframeCommunicator.onSetMarkdownContent(setMarkdownContent), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetDarkMode(setDarkMode), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetScrollState(setScrollState), [iframeCommunicator, scrollState])
+  useEffect(() => iframeCommunicator.onSetRendererType(setRendererType), [iframeCommunicator])
 
   const onTaskCheckedChange = useCallback((lineInMarkdown: number, checked: boolean) => {
     iframeCommunicator.sendTaskCheckBoxChange(lineInMarkdown, checked)
@@ -73,7 +76,7 @@ export const RenderPage: React.FC = () => {
     return null
   }
 
-  switch (baseConfiguration.rendererType) {
+  switch (rendererType) {
     case RendererType.DOCUMENT:
       return (
         <MarkdownDocument
@@ -88,6 +91,13 @@ export const RenderPage: React.FC = () => {
           baseUrl={ baseConfiguration.baseUrl }
           onImageClick={ onImageClick }/>
       )
+    case RendererType.SLIDESHOW:
+      return <SlideshowMarkdownRenderer
+        markdownContent={ markdownContent }
+        baseUrl={ baseConfiguration.baseUrl }
+        onFrontmatterChange={ onFrontmatterChange }
+        onFirstHeadingChange={ onFirstHeadingChange }
+        onImageClick={ onImageClick }/>
     case RendererType.INTRO:
       return (
         <MarkdownDocument
