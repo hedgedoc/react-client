@@ -18,7 +18,7 @@ import {
 } from '../../../redux/history/methods'
 import { ApplicationState } from '../../../redux'
 import { useSelector } from 'react-redux'
-import { showErrorNotification } from '../../notifications/error-notification'
+import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 export const ImportHistoryButton: React.FC = () => {
   const { t } = useTranslation()
@@ -40,13 +40,7 @@ export const ImportHistoryButton: React.FC = () => {
   }, [])
 
   const onImportHistory = useCallback((entries: HistoryEntry[]): void => {
-    let origin: HistoryEntryOrigin
-    if (userExists) {
-      origin = HistoryEntryOrigin.REMOTE
-    } else {
-      origin = HistoryEntryOrigin.LOCAL
-    }
-    entries.forEach(entry => entry.origin = origin)
+    entries.forEach(entry => entry.origin = userExists ? HistoryEntryOrigin.REMOTE : HistoryEntryOrigin.LOCAL)
     importHistoryEntries(mergeHistoryEntries(historyState, entries)).catch(error => {
       showErrorNotification(t('landing.history.error.setHistory.text'))(error)
       refreshHistoryState().catch(

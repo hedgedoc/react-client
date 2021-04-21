@@ -10,7 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { DeletionModal } from '../../common/modals/deletion-modal'
 import { deleteAllHistoryEntries, refreshHistoryState } from '../../../redux/history/methods'
-import { showErrorNotification } from '../../notifications/error-notification'
+import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 export const ClearHistoryButton: React.FC = () => {
   const { t } = useTranslation()

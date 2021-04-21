@@ -157,20 +157,19 @@ export const storeRemoteHistory = (): Promise<void> => {
 }
 
 const loadLocalHistory = (): HistoryEntry[] => {
-  const localJson = window.localStorage.getItem('history')
   const localV1Json = window.localStorage.getItem('notehistory')
-
   if (localV1Json) {
     try {
       const localV1History = JSON.parse(JSON.parse(localV1Json)) as V1HistoryEntry[]
       window.localStorage.removeItem('notehistory')
       return convertV1History(localV1History)
     } catch (error) {
-      console.error(`Error parsing converting old history entries: ${ String(error) }`)
+      console.error(`Error converting old history entries: ${ String(error) }`)
       return []
     }
   }
 
+  const localJson = window.localStorage.getItem('history')
   if (!localJson) {
     return []
   }

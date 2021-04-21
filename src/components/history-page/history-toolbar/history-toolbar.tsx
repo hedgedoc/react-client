@@ -4,7 +4,7 @@
  SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { Trans, useTranslation } from 'react-i18next'
@@ -19,7 +19,7 @@ import { ImportHistoryButton } from './import-history-button'
 import './typeahead-hacks.scss'
 import { HistoryEntryOrigin } from '../../../redux/history/types'
 import { importHistoryEntries, refreshHistoryState, setHistoryEntries } from '../../../redux/history/methods'
-import { showErrorNotification } from '../../notifications/error-notification'
+import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 export type HistoryToolbarChange = (settings: HistoryToolbarState) => void;
 
@@ -38,7 +38,6 @@ export enum ViewStateEnum {
 
 export interface HistoryToolbarProps {
   onSettingsChange: HistoryToolbarChange
-  tags: string[]
 }
 
 export const initState: HistoryToolbarState = {
@@ -49,11 +48,22 @@ export const initState: HistoryToolbarState = {
   selectedTags: []
 }
 
-export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange, tags }) => {
+export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange }) => {
   const { t } = useTranslation()
   const [state, setState] = useState<HistoryToolbarState>(initState)
   const historyEntries = useSelector((state: ApplicationState) => state.history)
   const userExists = useSelector((state: ApplicationState) => !!state.user)
+
+  const tags = useMemo<string[]>(() => {
+    return historyEntries.map(entry => entry.tags)
+                     .reduce((a, b) => ([...a, ...b]), [])
+                     .filter((value, index, array) => {
+                       if (index === 0) {
+                         return true
+                       }
+                       return (value !== array[index - 1])
+                     })
+  }, [historyEntries])
 
   const titleSortChanged = (direction: SortModeEnum) => {
     setState(prevState => ({
@@ -93,17 +103,16 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
     if (!userExists) {
       return
     }
-    const entries = [...historyEntries]
-    const localEntries = entries.filter(entry => entry.origin === HistoryEntryOrigin.LOCAL).map(entry => entry.identifier)
-    entries.forEach(entry => entry.origin = HistoryEntryOrigin.REMOTE)
-    importHistoryEntries(entries).catch(error => {
+    const localEntries = historyEntries.filter(entry => entry.origin === HistoryEntryOrigin.LOCAL).map(entry => entry.identifier)
+    historyEntries.forEach(entry => entry.origin = HistoryEntryOrigin.REMOTE)
+    importHistoryEntries(historyEntries).catch(error => {
       showErrorNotification(t('landing.history.error.setHistory.text'))(error)
-      entries.forEach(entry => {
+      historyEntries.forEach(entry => {
         if (localEntries.includes(entry.identifier)) {
           entry.origin = HistoryEntryOrigin.LOCAL
         }
       })
-      setHistoryEntries(entries)
+      setHistoryEntries(historyEntries)
       refreshHistory()
     })
   }, [userExists, historyEntries, t, refreshHistory])

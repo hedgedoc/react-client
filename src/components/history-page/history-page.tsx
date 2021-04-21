@@ -14,24 +14,13 @@ import { HistoryToolbar, HistoryToolbarState, initState as toolbarInitState } fr
 import { sortAndFilterEntries } from './utils'
 import { refreshHistoryState } from '../../redux/history/methods'
 import { HistoryEntry } from '../../redux/history/types'
-import { showErrorNotification } from '../notifications/error-notification'
+import { showErrorNotification } from '../../redux/ui-notifications/methods'
 
 export const HistoryPage: React.FC = () => {
   const { t } = useTranslation()
 
   const allEntries = useSelector((state: ApplicationState) => state.history)
   const [toolbarState, setToolbarState] = useState<HistoryToolbarState>(toolbarInitState)
-
-  const tags = useMemo<string[]>(() => {
-    return allEntries.map(entry => entry.tags)
-                     .reduce((a, b) => ([...a, ...b]), [])
-                     .filter((value, index, array) => {
-                       if (index === 0) {
-                         return true
-                       }
-                       return (value !== array[index - 1])
-                     })
-  }, [allEntries])
 
   const entriesToShow = useMemo<HistoryEntry[]>(() =>
       sortAndFilterEntries(allEntries, toolbarState),
@@ -51,7 +40,6 @@ export const HistoryPage: React.FC = () => {
       <Row className={ 'justify-content-center mt-5 mb-3' }>
         <HistoryToolbar
           onSettingsChange={ setToolbarState }
-          tags={ tags }
         />
       </Row>
       <HistoryContent

@@ -13,8 +13,8 @@ import { HistoryTable } from '../history-table/history-table'
 import { ViewStateEnum } from '../history-toolbar/history-toolbar'
 import { HistoryEntry } from '../../../redux/history/types'
 import { removeHistoryEntry, toggleHistoryEntryPinning } from '../../../redux/history/methods'
-import { showErrorNotification } from '../../notifications/error-notification'
 import { deleteNote } from '../../../api/notes'
+import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 type OnEntryClick = (entryId: string) => void
 
