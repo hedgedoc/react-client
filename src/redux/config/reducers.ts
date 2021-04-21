@@ -40,7 +40,7 @@ export const initialState: Config = {
   maxDocumentLength: 0,
   useImageProxy: false,
   plantumlServer: null,
-  specialLinks: {
+  specialUrls: {
     privacy: '',
     termsOfUse: '',
     imprint: ''

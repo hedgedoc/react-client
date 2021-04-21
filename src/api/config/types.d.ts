@@ -12,7 +12,7 @@ export interface Config {
   banner: BannerConfig,
   customAuthNames: CustomAuthNames,
   useImageProxy: boolean,
-  specialLinks: SpecialLinks,
+  specialUrls: SpecialUrls,
   version: BackendVersion,
   plantumlServer: string | null,
   maxDocumentLength: number,
@@ -60,7 +60,7 @@ export interface CustomAuthNames {
   saml: string;
 }
 
-export interface SpecialLinks {
+export interface SpecialUrls {
   privacy: string,
   termsOfUse: string,
   imprint: string,

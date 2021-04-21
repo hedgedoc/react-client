@@ -45,7 +45,7 @@ export const config = {
     saml: 'aufSAMLn.de'
   },
   maxDocumentLength: 200,
-  specialLinks: {
+  specialUrls: {
     privacy: 'https://example.com/privacy',
     termsOfUse: 'https://example.com/termsOfUse',
     imprint: 'https://example.com/imprint'
