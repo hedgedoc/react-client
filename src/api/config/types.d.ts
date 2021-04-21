@@ -35,9 +35,11 @@ export interface BannerConfig {
 }
 
 export interface BackendVersion {
-  version: string,
-  sourceCodeUrl: string
-  issueTrackerUrl: string
+  major: number
+  minor: number
+  patch: number
+  preRelease?: string
+  commit?: string
 }
 
 export interface AuthProvidersState {

@@ -36,9 +36,10 @@
     "imprint": "https://example.com/imprint"
   },
   "version": {
-    "version": "mock",
-    "sourceCodeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    "issueTrackerUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      "major": -1,
+      "minor": -1,
+      "patch": -1,
+      "commit": "mock"
   },
   "iframeCommunication": {
     "editorOrigin": "http://localhost:3001",

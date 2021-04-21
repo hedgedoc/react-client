@@ -46,9 +46,9 @@ export const initialState: Config = {
     imprint: ''
   },
   version: {
-    version: '',
-    sourceCodeUrl: '',
-    issueTrackerUrl: ''
+    major: -1,
+    minor: -1,
+    patch: -1,
   },
   iframeCommunication: {
     editorOrigin: '',
