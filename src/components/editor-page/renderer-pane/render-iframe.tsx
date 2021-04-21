@@ -44,7 +44,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = (
 
   const frameReference = useRef<HTMLIFrameElement>(null)
   const rendererOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.rendererOrigin)
-  const renderPageUrl = `${ rendererOrigin }/render`
+  const renderPageUrl = `${ rendererOrigin }render`
   const resetRendererReady = useCallback(() => setRendererReady(false), [])
   const iframeCommunicator = useContextOrStandaloneIframeCommunicator()
   const onIframeLoad = useOnIframeLoad(frameReference, iframeCommunicator, rendererOrigin, renderPageUrl, resetRendererReady)
