@@ -10,7 +10,7 @@ import { Button, Form, FormControl, InputGroup, ToggleButton, ToggleButtonGroup 
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { useLocationState, useQueryState } from 'react-router-use-location-state'
+import { useQueryState } from 'react-router-use-location-state'
 import { ApplicationState } from '../../../redux'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { ShowIf } from '../../common/show-if/show-if'
@@ -78,8 +78,8 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
 
   const titleSortChanged = useCallback((direction: SortModeEnum) => {
     setSortState({
-      titleSortDirection: direction,
-      lastVisitedSortDirection: SortModeEnum.no
+      lastVisitedSortDirection: SortModeEnum.no,
+      titleSortDirection: direction
     })
   }, [setSortState])
 
