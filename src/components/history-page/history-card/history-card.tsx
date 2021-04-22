@@ -5,7 +5,7 @@
  */
 
 import { DateTime } from 'luxon'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Badge, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
@@ -16,6 +16,14 @@ import { formatHistoryDate } from '../utils'
 import './history-card.scss'
 
 export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
+  const onRemove = useCallback(() => {
+    onRemoveClick(entry.identifier)
+  }, [])
+
+  const onDelete = useCallback(() => {
+    onDeleteClick(entry.identifier)
+  }, [])
+
   return (
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <Card className="card-min-height" text={ 'dark' } bg={ 'light' }>
@@ -48,8 +56,8 @@ export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = (
               title={ entry.title }
               origin={ entry.origin }
               isDark={ false }
-              onRemove={ () => onRemoveClick(entry.identifier) }
-              onDelete={ () => onDeleteClick(entry.identifier) }
+              onRemove={ onRemove }
+              onDelete={ onDelete }
             />
           </div>
         </Card.Body>

@@ -55,14 +55,9 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
   const userExists = useSelector((state: ApplicationState) => !!state.user)
 
   const tags = useMemo<string[]>(() => {
-    return historyEntries.map(entry => entry.tags)
-                     .reduce((a, b) => ([...a, ...b]), [])
-                     .filter((value, index, array) => {
-                       if (index === 0) {
-                         return true
-                       }
-                       return (value !== array[index - 1])
-                     })
+    const allTags = historyEntries.map(entry => entry.tags)
+                                  .flat()
+    return [...new Set(allTags)]
   }, [historyEntries])
 
   const titleSortChanged = (direction: SortModeEnum) => {
@@ -94,27 +89,30 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
   }
 
   const refreshHistory = useCallback(() => {
-    refreshHistoryState().catch(
-      showErrorNotification(t('landing.history.error.getHistory.text'))
-    )
+    refreshHistoryState()
+      .catch(
+        showErrorNotification(t('landing.history.error.getHistory.text'))
+      )
   }, [t])
 
   const onUploadAllToRemote = useCallback(() => {
     if (!userExists) {
       return
     }
-    const localEntries = historyEntries.filter(entry => entry.origin === HistoryEntryOrigin.LOCAL).map(entry => entry.identifier)
+    const localEntries = historyEntries.filter(entry => entry.origin === HistoryEntryOrigin.LOCAL)
+                                       .map(entry => entry.identifier)
     historyEntries.forEach(entry => entry.origin = HistoryEntryOrigin.REMOTE)
-    importHistoryEntries(historyEntries).catch(error => {
-      showErrorNotification(t('landing.history.error.setHistory.text'))(error)
-      historyEntries.forEach(entry => {
-        if (localEntries.includes(entry.identifier)) {
-          entry.origin = HistoryEntryOrigin.LOCAL
-        }
+    importHistoryEntries(historyEntries)
+      .catch(error => {
+        showErrorNotification(t('landing.history.error.setHistory.text'))(error)
+        historyEntries.forEach(entry => {
+          if (localEntries.includes(entry.identifier)) {
+            entry.origin = HistoryEntryOrigin.LOCAL
+          }
+        })
+        setHistoryEntries(historyEntries)
+        refreshHistory()
       })
-      setHistoryEntries(historyEntries)
-      refreshHistory()
-    })
   }, [userExists, historyEntries, t, refreshHistory])
 
   useEffect(() => {
@@ -155,18 +153,18 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
       </InputGroup>
       <InputGroup className={ 'mr-1 mb-1' }>
         <Button variant={ 'light' } title={ t('landing.history.toolbar.refresh') } onClick={ refreshHistory }>
-          <ForkAwesomeIcon icon='refresh'/>
+          <ForkAwesomeIcon icon="refresh"/>
         </Button>
       </InputGroup>
       <ShowIf condition={ userExists }>
         <InputGroup className={ 'mr-1 mb-1' }>
           <Button variant={ 'light' } title={ t('landing.history.toolbar.uploadAll') } onClick={ onUploadAllToRemote }>
-            <ForkAwesomeIcon icon='cloud-upload'/>
+            <ForkAwesomeIcon icon="cloud-upload"/>
           </Button>
         </InputGroup>
       </ShowIf>
       <InputGroup className={ 'mr-1 mb-1' }>
-        <ToggleButtonGroup type="radio" name="options" dir='ltr' value={ state.viewState } className={ 'button-height' }
+        <ToggleButtonGroup type="radio" name="options" dir="ltr" value={ state.viewState } className={ 'button-height' }
                            onChange={ (newViewState: ViewStateEnum) => {
                              toggleViewChanged(newViewState)
                            } }>
