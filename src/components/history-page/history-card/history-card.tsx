@@ -18,11 +18,11 @@ import './history-card.scss'
 export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = ({ entry, onPinClick, onRemoveClick, onDeleteClick }) => {
   const onRemove = useCallback(() => {
     onRemoveClick(entry.identifier)
-  }, [])
+  }, [onRemoveClick, entry.identifier])
 
   const onDelete = useCallback(() => {
     onDeleteClick(entry.identifier)
-  }, [])
+  }, [onDeleteClick, entry.identifier])
 
   return (
     <div className="p-2 col-xs-12 col-sm-6 col-md-6 col-lg-4">
