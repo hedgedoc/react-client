@@ -22,33 +22,34 @@ import { WaitSpinner } from '../common/wait-spinner/wait-spinner'
 
 export const IntroPage: React.FC = () => {
   const introPageContent = useIntroPageContent()
-  const [showSpinner, setShowSpinner] = useState<boolean>(true)
+  const [rendererReady, setRendererReady] = useState<boolean>(true)
 
-  return (
-    <Fragment>
-      <div className={ 'flex-fill mt-3' }>
-        <h1 dir='auto' className={ 'align-items-center d-flex justify-content-center flex-column' }>
-          <HedgeDocLogoWithText logoType={ HedgeDocLogoType.COLOR_VERTICAL } size={ HedgeDocLogoSize.BIG }/>
-        </h1>
-        <p className="lead">
-          <Trans i18nKey="app.slogan"/>
-        </p>
-        <div className={ 'mb-5' }>
-          <Branding delimiter={ false }/>
-        </div>
-        <CoverButtons/>
-        <ShowIf condition={ showSpinner }>
-          <WaitSpinner/>
-        </ShowIf>
+  return <Fragment>
+    <div className={ 'flex-fill mt-3' }>
+      <h1 dir="auto" className={ 'align-items-center d-flex justify-content-center flex-column' }>
+        <HedgeDocLogoWithText logoType={ HedgeDocLogoType.COLOR_VERTICAL } size={ HedgeDocLogoSize.BIG }/>
+      </h1>
+      <p className="lead">
+        <Trans i18nKey="app.slogan"/>
+      </p>
+      <div className={ 'mb-5' }>
+        <Branding delimiter={ false }/>
+      </div>
+      <CoverButtons/>
+      <ShowIf condition={ !rendererReady && introPageContent !== undefined }>
+        <WaitSpinner/>
+      </ShowIf>
+      <ShowIf condition={ !!introPageContent }>
         <RenderIframe
           frameClasses={ 'w-100 overflow-y-hidden' }
-          markdownContent={ introPageContent }
+          markdownContent={ introPageContent as string }
           disableToc={ true }
-          onRendererReadyChange={ (rendererReady => setShowSpinner(!rendererReady)) }
+          onRendererReadyChange={ (rendererReady => setRendererReady(!rendererReady)) }
           rendererType={ RendererType.INTRO }
           forcedDarkMode={ true }/>
-        <hr className={ 'mb-5' }/>
-      </div>
-      <FeatureLinks/>
-    </Fragment>)
+      </ShowIf>
+      <hr className={ 'mb-5' }/>
+    </div>
+    <FeatureLinks/>
+  </Fragment>
 }
