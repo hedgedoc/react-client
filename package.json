@@ -96,7 +96,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "react-use": "17.2.4",
-    "redux": "4.0.5",
+    "redux": "4.1.0",
     "sanitize-filename": "1.6.3",
     "ts-mockery": "1.2.0",
     "typescript": "4.2.4",
