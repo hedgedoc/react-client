@@ -56,7 +56,7 @@ export const initToolbarState: HistoryToolbarState = {
   ...initSortState,
   viewState: ViewStateEnum.CARD,
   keywordSearch: '',
-  selectedTags: [] as string[]
+  selectedTags: []
 }
 
 export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange }) => {
