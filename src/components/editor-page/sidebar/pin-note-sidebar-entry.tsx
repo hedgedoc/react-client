@@ -13,9 +13,10 @@ import { EditorPagePathParams } from '../editor-page'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
 import { toggleHistoryEntryPinning } from '../../../redux/history/methods'
+import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 export const PinNoteSidebarEntry: React.FC<SpecificSidebarEntryProps> = ({ className, hide }) => {
-  useTranslation()
+  const { t } = useTranslation()
   const { id } = useParams<EditorPagePathParams>()
   const history = useSelector((state: ApplicationState) => state.history)
 
@@ -28,8 +29,10 @@ export const PinNoteSidebarEntry: React.FC<SpecificSidebarEntryProps> = ({ class
   }, [id, history])
 
   const onPinClicked = useCallback(() => {
-    toggleHistoryEntryPinning(id)
-  }, [id])
+    toggleHistoryEntryPinning(id).catch(
+      showErrorNotification(t('landing.history.error.updateEntry.text'))
+    )
+  }, [id, t])
 
   return (
     <SidebarButton icon={ 'thumb-tack' } hide={ hide } onClick={ onPinClicked }
