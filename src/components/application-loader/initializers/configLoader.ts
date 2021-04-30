@@ -8,7 +8,7 @@ import { getConfig } from '../../../api/config'
 import { setApiUrl } from '../../../redux/api-url/methods'
 import { setBanner } from '../../../redux/banner/methods'
 import { setConfig } from '../../../redux/config/methods'
-import { getAndSetUser } from '../../login-page/auth/utils'
+import { fetchAndSetUser } from '../../login-page/auth/utils'
 
 export const loadAllConfig: (baseUrl: string) => Promise<void> = async (baseUrl) => {
   setApiUrl({
@@ -30,5 +30,5 @@ export const loadAllConfig: (baseUrl: string) => Promise<void> = async (baseUrl)
     })
   }
 
-  await getAndSetUser()
+  await fetchAndSetUser()
 }

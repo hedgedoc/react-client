@@ -1,7 +1,7 @@
 /*
- SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
- SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import React, { FormEvent, Fragment, useCallback, useEffect, useState } from 'react'
@@ -13,8 +13,7 @@ import { doInternalRegister } from '../../api/auth'
 import { ApplicationState } from '../../redux'
 import { TranslatedExternalLink } from '../common/links/translated-external-link'
 import { ShowIf } from '../common/show-if/show-if'
-import { getAndSetUser } from '../login-page/auth/utils'
-import { SpecialUrls } from '../../api/config/types'
+import { fetchAndSetUser } from '../login-page/auth/utils'
 
 export enum RegisterError {
   NONE = 'none',
@@ -36,7 +35,7 @@ export const RegisterPage: React.FC = () => {
 
   const doRegisterSubmit = useCallback((event: FormEvent) => {
     doInternalRegister(username, password)
-      .then(() => getAndSetUser())
+      .then(() => fetchAndSetUser())
       .catch((err: Error) => {
         console.error(err)
         setError(err.message === RegisterError.USERNAME_EXISTING ? err.message : RegisterError.OTHER)
