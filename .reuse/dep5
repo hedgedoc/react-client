@@ -3,7 +3,11 @@ Upstream-Name: react-client
 Upstream-Contact: The HedgeDoc developers <license@hedgedoc.org>
 Source: https://github.com/hedgedoc/react-client
 
-Files: public/api/*
+Files: public/mock-backend/public/*
+Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
+License: CC0-1.0
+
+Files: public/mock-backend/api/*
 Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
 License: CC0-1.0
 
@@ -15,11 +19,11 @@ Files: public/locales/*
 Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
 License: CC-BY-SA-4.0
 
-Files: public/img/*
+Files: public/mock-backend/public/img/*
 Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
 License: CC0-1.0
 
-Files: public/img/highres.jpg
+Files: public/mock-backend/public/img/highres.jpg
 Copyright: Vincent van Gogh
 License: CC0-1.0
 
@@ -27,7 +31,7 @@ Files: public/index.html
 Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
 License: CC0-1.0
 
-Files: public/intro.md
+Files: public/mock-backend/public/intro.md
 Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
 License: CC0-1.0
 
