@@ -5,7 +5,7 @@
  */
 
 import equal from 'fast-deep-equal'
-import { useCallback, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { ApplicationState, store } from '../../../redux'
 import { useParams } from 'react-router-dom'
@@ -13,23 +13,20 @@ import { EditorPagePathParams } from '../editor-page'
 import { HistoryEntry, HistoryEntryOrigin } from '../../../redux/history/types'
 import { updateLocalHistoryEntry } from '../../../redux/history/methods'
 
-export const useUpdateHistoryEntry = (loading: boolean, error: boolean): void => {
+export const useUpdateLocalHistoryEntry = (updateReady: boolean): void => {
   const { id } = useParams<EditorPagePathParams>()
   const userExists = useSelector((state: ApplicationState) => !!state.user)
-  const noteTitle = useSelector((state: ApplicationState) => state.noteDetails.noteTitle)
-  const noteTags = useSelector((state: ApplicationState) => state.noteDetails.frontmatter.tags)
+  const currentNoteTitle = useSelector((state: ApplicationState) => state.noteDetails.noteTitle)
+  const currentNoteTags = useSelector((state: ApplicationState) => state.noteDetails.frontmatter.tags)
 
-  const lastTitle = useRef('')
-  const lastTags = useRef<string[]>([])
+  const lastNoteTitle = useRef('')
+  const lastNoteTags = useRef<string[]>([])
 
-
-  const updateHistory = useCallback(() => {
-    if (loading || error || userExists) {
+  useEffect(() => {
+    if (!updateReady || userExists) {
       return
     }
-    // This is needed to not update the history entry on each scroll without changes
-    // just because title or tags redux state were touched.
-    if (noteTitle === lastTitle.current && equal(noteTags, lastTags.current)) {
+    if (currentNoteTitle === lastNoteTitle.current && equal(currentNoteTags, lastNoteTags.current)) {
       return
     }
     const history = store.getState().history
@@ -44,13 +41,11 @@ export const useUpdateHistoryEntry = (loading: boolean, error: boolean): void =>
     if (entry.origin === HistoryEntryOrigin.REMOTE) {
       return
     }
-    entry.title = noteTitle
-    entry.tags = noteTags
+    entry.title = currentNoteTitle
+    entry.tags = currentNoteTags
     entry.lastVisited = new Date().toISOString()
     updateLocalHistoryEntry(id, entry)
-    lastTitle.current = noteTitle
-    lastTags.current = noteTags
-  }, [error, loading, id, noteTitle, noteTags, userExists])
-
-  useEffect(updateHistory, [loading, updateHistory, noteTitle, noteTags])
+    lastNoteTitle.current = currentNoteTitle
+    lastNoteTags.current = currentNoteTags
+  }, [updateReady, id, userExists, currentNoteTitle, currentNoteTags])
 }
