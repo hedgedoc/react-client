@@ -8,7 +8,7 @@ import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react
 import { useSelector } from 'react-redux'
 import { useIsDarkModeActivated } from '../../../hooks/common/use-is-dark-mode-activated'
 import { ApplicationState } from '../../../redux'
-import { isTestMode } from '../../../utils/is-test-mode'
+import { isTestMode } from '../../../utils/test-modes'
 import { RendererProps } from '../../render-page/markdown-document'
 import { ImageDetails, RendererType } from '../../render-page/rendering-message'
 import { useContextOrStandaloneIframeCommunicator } from '../render-context/iframe-communicator-context-provider'
