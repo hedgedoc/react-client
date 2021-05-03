@@ -24,32 +24,33 @@ export const IntroPage: React.FC = () => {
   const introPageContent = useIntroPageContent()
   const [rendererReady, setRendererReady] = useState<boolean>(true)
 
-  return <Fragment>
-    <div className={ 'flex-fill mt-3' }>
-      <h1 dir="auto" className={ 'align-items-center d-flex justify-content-center flex-column' }>
-        <HedgeDocLogoWithText logoType={ HedgeDocLogoType.COLOR_VERTICAL } size={ HedgeDocLogoSize.BIG }/>
-      </h1>
-      <p className="lead">
-        <Trans i18nKey="app.slogan"/>
-      </p>
-      <div className={ 'mb-5' }>
-        <Branding delimiter={ false }/>
+  return (
+    <Fragment>
+      <div className={ 'flex-fill mt-3' }>
+        <h1 dir="auto" className={ 'align-items-center d-flex justify-content-center flex-column' }>
+          <HedgeDocLogoWithText logoType={ HedgeDocLogoType.COLOR_VERTICAL } size={ HedgeDocLogoSize.BIG }/>
+        </h1>
+        <p className="lead">
+          <Trans i18nKey="app.slogan"/>
+        </p>
+        <div className={ 'mb-5' }>
+          <Branding delimiter={ false }/>
+        </div>
+        <CoverButtons/>
+        <ShowIf condition={ !rendererReady && introPageContent !== undefined }>
+          <WaitSpinner/>
+        </ShowIf>
+        <ShowIf condition={ !!introPageContent }>
+          <RenderIframe
+            frameClasses={ 'w-100 overflow-y-hidden' }
+            markdownContent={ introPageContent as string }
+            disableToc={ true }
+            onRendererReadyChange={ (rendererReady => setRendererReady(!rendererReady)) }
+            rendererType={ RendererType.INTRO }
+            forcedDarkMode={ true }/>
+        </ShowIf>
+        <hr className={ 'mb-5' }/>
       </div>
-      <CoverButtons/>
-      <ShowIf condition={ !rendererReady && introPageContent !== undefined }>
-        <WaitSpinner/>
-      </ShowIf>
-      <ShowIf condition={ !!introPageContent }>
-        <RenderIframe
-          frameClasses={ 'w-100 overflow-y-hidden' }
-          markdownContent={ introPageContent as string }
-          disableToc={ true }
-          onRendererReadyChange={ (rendererReady => setRendererReady(!rendererReady)) }
-          rendererType={ RendererType.INTRO }
-          forcedDarkMode={ true }/>
-      </ShowIf>
-      <hr className={ 'mb-5' }/>
-    </div>
-    <FeatureLinks/>
-  </Fragment>
+      <FeatureLinks/>
+    </Fragment>)
 }
