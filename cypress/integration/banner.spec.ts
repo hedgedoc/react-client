@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-const BANNER_LOCAL_STORAGE_KEY = 'banner.etag'
-const MOCK_E_TAG = 'mockETag'
+const BANNER_LOCAL_STORAGE_KEY = 'banner.lastModified'
+const MOCK_LAST_MODIFIED = 'mockETag'
 const bannerMockContent = 'This is the mock banner call'
 
 describe('Banner', () => {
@@ -15,7 +15,7 @@ describe('Banner', () => {
       url: '/mock-backend/public/banner.txt'
     }, {
       statusCode: 200,
-      headers: { 'ETag': MOCK_E_TAG },
+      headers: { 'Last-Modified': MOCK_LAST_MODIFIED },
       body: bannerMockContent
     })
 
@@ -24,7 +24,7 @@ describe('Banner', () => {
       url: '/mock-backend/public/banner.txt'
     }, {
       statusCode: 200,
-      headers: { 'ETag': MOCK_E_TAG }
+      headers: { 'Last-Modified': MOCK_LAST_MODIFIED }
     })
       .as('headBanner')
 
@@ -44,9 +44,9 @@ describe('Banner', () => {
     cy.get('button[data-cy="motd-dismiss"]')
       .click()
       .then(() => {
-        expect(localStorage.getItem('banner.etag'))
+        expect(localStorage.getItem(BANNER_LOCAL_STORAGE_KEY))
           .to
-          .equal(MOCK_E_TAG)
+          .equal(MOCK_LAST_MODIFIED)
       })
     cy.get('[data-cy="no-motd-banner"]')
       .should('exist')
@@ -62,7 +62,7 @@ describe('Banner', () => {
       .then(() => {
         expect(localStorage.getItem(BANNER_LOCAL_STORAGE_KEY))
           .to
-          .equal(MOCK_E_TAG)
+          .equal(MOCK_LAST_MODIFIED)
       })
     cy.get('[data-cy="no-motd-banner"]')
       .should('exist')
