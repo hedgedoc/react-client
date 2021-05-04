@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-const TEST_STRING_UNCHECKED = '- [ ] abc\n\n* [ ] abc\n\n+ [ ] abc\n\n1. [ ] abc\n\n10. [ ] abc'
-const TEST_STRING_CHECKED_LOWER = '- [x] abc\n\n* [x] abc\n\n+ [x] abc\n\n1. [x] abc\n\n10. [x] abc'
-const TEST_STRING_CHECKED_UPPER = '- [X] abc\n\n* [X] abc\n\n+ [X] abc\n\n1. [X] abc\n\n10. [X] abc'
-const TEST_STRING_INVALID = '- [Y] abc\n\n* [  ] abc\n\n+ [-] abc\n\n1. [.] abc\n\n10. [] abc'
+const TEST_STRING_UNCHECKED = '- [ ] abc\n\n* [ ] abc\n\n+ [ ] abc\n\n1. [ ] abc\n\n10. [ ] abc\n\n5) [ ] abc'
+const TEST_STRING_CHECKED_LOWER = '- [x] abc\n\n* [x] abc\n\n+ [x] abc\n\n1. [x] abc\n\n10. [x] abc\n\n5) [x] abc'
+const TEST_STRING_CHECKED_UPPER = '- [X] abc\n\n* [X] abc\n\n+ [X] abc\n\n1. [X] abc\n\n10. [X] abc\n\n5) [X] abc'
+const TEST_STRING_INVALID = '- [Y] abc\n\n* [  ] abc\n\n+ [-] abc\n\n1. [.] abc\n\n10. [] abc\n\n5) [-] abc'
 
 describe('Task lists ', () => {
   beforeEach(() => {
@@ -19,21 +19,21 @@ describe('Task lists ', () => {
       cy.codemirrorFill(TEST_STRING_UNCHECKED)
       cy.getMarkdownBody()
         .find('input[type=checkbox]')
-        .should('have.length', 5)
+        .should('have.length', 6)
     })
 
     it('when checked lowercase', () => {
       cy.codemirrorFill(TEST_STRING_CHECKED_LOWER)
       cy.getMarkdownBody()
         .find('input[type=checkbox]')
-        .should('have.length', 5)
+        .should('have.length', 6)
     })
 
     it('when checked uppercase', () => {
       cy.codemirrorFill(TEST_STRING_CHECKED_UPPER)
       cy.getMarkdownBody()
         .find('input[type=checkbox]')
-        .should('have.length', 5)
+        .should('have.length', 6)
     })
   })
 
