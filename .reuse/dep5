@@ -23,9 +23,9 @@ Files: public/mock-backend/public/img/highres.jpg
 Copyright: Vincent van Gogh
 License: CC0-1.0
 
-Files: public/index.html
+Files: templates/index.html
 Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
-License: CC0-1.0
+License: AGPL-3.0-only
 
 Files: public/robots.txt
 Copyright: 2021 The HedgeDoc developers (see AUTHORS file)
