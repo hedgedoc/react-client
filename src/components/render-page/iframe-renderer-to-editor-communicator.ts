@@ -20,6 +20,7 @@ export class IframeRendererToEditorCommunicator extends IframeCommunicator<Rende
   private onSetDarkModeHandler?: ((darkModeActivated: boolean) => void)
   private onSetScrollStateHandler?: ((scrollState: ScrollState) => void)
   private onSetBaseConfigurationHandler?: ((baseConfiguration: BaseConfiguration) => void)
+  private onHtmlExportClickedHandler?: (raw: boolean) => void
 
   public onSetBaseConfiguration(handler?: (baseConfiguration: BaseConfiguration) => void): void {
     this.onSetBaseConfigurationHandler = handler
@@ -35,6 +36,10 @@ export class IframeRendererToEditorCommunicator extends IframeCommunicator<Rende
 
   public onSetScrollState(handler?: (scrollState: ScrollState) => void): void {
     this.onSetScrollStateHandler = handler
+  }
+
+  public onHtmlExportClicked(handler?: (raw: boolean) => void): void {
+    this.onHtmlExportClickedHandler = handler
   }
 
   public sendRendererReady(): void {
@@ -106,6 +111,9 @@ export class IframeRendererToEditorCommunicator extends IframeCommunicator<Rende
         return false
       case RenderIframeMessageType.SET_BASE_CONFIGURATION:
         this.onSetBaseConfigurationHandler?.(renderMessage.baseConfiguration)
+        return false
+      case RenderIframeMessageType.ON_HTML_EXPORT_CLICKED:
+        this.onHtmlExportClickedHandler?.(renderMessage.raw)
         return false
     }
   }

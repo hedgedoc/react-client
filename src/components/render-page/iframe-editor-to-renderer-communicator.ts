@@ -88,6 +88,13 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<Edito
     })
   }
 
+  public sendHtmlExportClicked(raw: boolean): void {
+    this.sendMessageToOtherSide({
+      type: RenderIframeMessageType.ON_HTML_EXPORT_CLICKED,
+      raw
+    })
+  }
+
   protected handleEvent(event: MessageEvent<RendererToEditorIframeMessage>): boolean | undefined {
     const renderMessage = event.data
     switch (renderMessage.type) {

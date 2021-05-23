@@ -16,6 +16,7 @@ import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { IframeRendererToEditorCommunicator } from './iframe-renderer-to-editor-communicator'
 import { MarkdownDocument } from './markdown-document'
 import { BaseConfiguration, RendererType } from './rendering-message'
+import { exportHtmlRequest } from '../editor-page/sidebar/export-sidebar-menu/export-html'
 
 export const RenderPage: React.FC = () => {
   useApplyDarkMode()
@@ -24,6 +25,7 @@ export const RenderPage: React.FC = () => {
   const [scrollState, setScrollState] = useState<ScrollState>({ firstLineInView: 1, scrolledPercentage: 0 })
   const [baseConfiguration, setBaseConfiguration] = useState<BaseConfiguration | undefined>(undefined)
 
+  const title = useSelector((state: ApplicationState) => state.noteDetails.noteTitle)
   const editorOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.editorOrigin)
 
   const iframeCommunicator = useMemo(() => {
@@ -37,10 +39,15 @@ export const RenderPage: React.FC = () => {
     return () => iframeCommunicator.unregisterEventListener()
   }, [iframeCommunicator])
 
+  const exportHtml = useCallback((raw: boolean) => {
+    exportHtmlRequest(raw, title)
+  }, [title])
+
   useEffect(() => iframeCommunicator.onSetBaseConfiguration(setBaseConfiguration), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetMarkdownContent(setMarkdownContent), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetDarkMode(setDarkMode), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetScrollState(setScrollState), [iframeCommunicator, scrollState])
+  useEffect(() => iframeCommunicator.onHtmlExportClicked(exportHtml), [iframeCommunicator, exportHtml])
 
   const onTaskCheckedChange = useCallback((lineInMarkdown: number, checked: boolean) => {
     iframeCommunicator.sendTaskCheckBoxChange(lineInMarkdown, checked)

@@ -17,7 +17,8 @@ export enum RenderIframeMessageType {
   ON_SET_FRONTMATTER = 'ON_SET_FRONTMATTER',
   IMAGE_CLICKED = 'IMAGE_CLICKED',
   ON_HEIGHT_CHANGE = 'ON_HEIGHT_CHANGE',
-  SET_BASE_CONFIGURATION = 'SET_BASE_CONFIGURATION'
+  SET_BASE_CONFIGURATION = 'SET_BASE_CONFIGURATION',
+  ON_HTML_EXPORT_CLICKED = 'ON_HTML_EXPORT_CLICKED'
 }
 
 export interface RendererToEditorSimpleMessage {
@@ -76,11 +77,17 @@ export interface OnHeightChangeMessage {
   height: number
 }
 
+export interface OnHtmlExportClickedMessage {
+  type: RenderIframeMessageType.ON_HTML_EXPORT_CLICKED,
+  raw: boolean
+}
+
 export type EditorToRendererIframeMessage =
   SetMarkdownContentMessage |
   SetDarkModeMessage |
   SetScrollStateMessage |
-  SetBaseUrlMessage
+  SetBaseUrlMessage |
+  OnHtmlExportClickedMessage
 
 export type RendererToEditorIframeMessage =
   RendererToEditorSimpleMessage |
