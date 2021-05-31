@@ -14,7 +14,6 @@
     "@types/d3-graphviz": "2.6.6",
     "@types/diff": "5.0.0",
     "@types/domhandler": "2.4.1",
-    "@types/highlight.js": "9.12.4",
     "@types/jest": "26.0.23",
     "@types/js-yaml": "4.0.1",
     "@types/luxon": "1.26.5",
