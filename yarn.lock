@@ -6044,10 +6044,10 @@ emoji-regex@^9.0.0:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.2.tgz#840c8803b0d8047f4ff0cf963176b32d4ef3ed72"
   integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
 
-emojibase-data@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/emojibase-data/-/emojibase-data-5.1.1.tgz#0a0d63dd07ce1376b3d27642f28cafa46f651de6"
-  integrity sha512-za/ma5SfogHjwUmGFnDbTvSfm8GGFvFaPS27GPti16YZSp5EPgz+UDsZCATXvJGit+oRNBbG/FtybXHKi2UQgQ==
+emojibase-data@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/emojibase-data/-/emojibase-data-6.2.0.tgz#db6c75c36905284fa623f4aa5f468d2be6ed364a"
+  integrity sha512-SWKaXD2QeQs06IE7qfJftsI5924Dqzp+V9xaa5RzZIEWhmlrG6Jt2iKwfgOPHu+5S8MEtOI7GdpKsXj46chXOw==
 
 emojis-list@^2.0.0:
   version "2.1.0"
