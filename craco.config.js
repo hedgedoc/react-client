@@ -5,8 +5,8 @@
  */
 
 const CopyPlugin = require('copy-webpack-plugin');
-const { when } = require('@craco/craco');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const {when} = require('@craco/craco');
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 module.exports = {
   webpack: {
@@ -14,8 +14,8 @@ module.exports = {
       add: [
         new CopyPlugin({
           patterns: [
-            { from: 'node_modules/@hpcc-js/wasm/dist/graphvizlib.wasm', to: 'static/js' },
-            { from: 'node_modules/@hpcc-js/wasm/dist/expatlib.wasm', to: 'static/js' },
+            {from: 'node_modules/@hpcc-js/wasm/dist/graphvizlib.wasm', to: 'static/js'},
+            {from: 'node_modules/@hpcc-js/wasm/dist/expatlib.wasm', to: 'static/js'},
             {from: 'node_modules/emoji-picker-element-data/en/emojibase/data.json', to: 'static/js/emoji-data.json'}
           ],
         }),
