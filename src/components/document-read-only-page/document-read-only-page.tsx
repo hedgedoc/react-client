@@ -60,7 +60,7 @@ export const DocumentReadOnlyPage: React.FC = () => {
           markdownContent={markdownContent}
           onFirstHeadingChange={onFirstHeadingChange}
           onFrontmatterChange={onFrontmatterChange}
-          rendererType={RendererType.DOCUMENT}
+          rendererType={ RendererType.DOCUMENT }
         />
       </ShowIf>
     </div>
