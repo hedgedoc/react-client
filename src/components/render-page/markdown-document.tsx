@@ -101,11 +101,9 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
           useAlternativeBreaks={useAlternativeBreaks}
         />
       </div>
-      <div className={ 'markdown-document-side pt-4' }>
-        <ShowIf condition={ !!tocAst && !disableToc }>
-          <WidthBasedTableOfContents
-            tocAst={ tocAst as TocAst } baseUrl={ baseUrl }
-            width={ containerWidth }/>
+      <div className={'markdown-document-side pt-4'}>
+        <ShowIf condition={!!tocAst && !disableToc}>
+          <WidthBasedTableOfContents tocAst={tocAst as TocAst} baseUrl={baseUrl} width={containerWidth} />
         </ShowIf>
       </div>
     </div>

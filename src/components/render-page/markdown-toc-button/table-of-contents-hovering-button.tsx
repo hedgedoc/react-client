@@ -25,14 +25,14 @@ export interface MarkdownTocButtonProps {
  */
 export const TableOfContentsHoveringButton: React.FC<MarkdownTocButtonProps> = ({ tocAst, baseUrl }) => {
   return (
-    <div className={ 'markdown-toc-sidebar-button' }>
-      <Dropdown drop={ 'up' }>
-        <Dropdown.Toggle id="toc-overlay-button" variant={ 'secondary' } className={ 'no-arrow' }>
-          <ForkAwesomeIcon icon={ 'list-ol' }/>
+    <div className={'markdown-toc-sidebar-button'}>
+      <Dropdown drop={'up'}>
+        <Dropdown.Toggle id='toc-overlay-button' variant={'secondary'} className={'no-arrow'}>
+          <ForkAwesomeIcon icon={'list-ol'} />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <div className={ 'p-2' }>
-            <TableOfContents ast={ tocAst } baseUrl={ baseUrl }/>
+          <div className={'p-2'}>
+            <TableOfContents ast={tocAst} baseUrl={baseUrl} />
           </div>
         </Dropdown.Menu>
       </Dropdown>
