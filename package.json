@@ -121,7 +121,6 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
     "format": "prettier -c \"src/**/*.{ts,tsx,js}\"",
     "format:fix": "prettier -w \"src/**/*.{ts,tsx,js}\"",
-    "prepare": "husky install",
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:run:chrome": "cypress run --browser chrome",
