@@ -17,47 +17,80 @@ export interface SplitterProps {
   showRight: boolean
 }
 
-const isMouseEvent = (event: MouseEvent | TouchEvent): event is MouseEvent => {
+/**
+ * Checks if the given {@link Event} is a {@link MouseEvent}
+ * @param event the event to check
+ * @return {@code true} if the given event is a {@link MouseEvent}
+ */
+const isMouseEvent = (event: Event): event is MouseEvent => {
   return (event as MouseEvent).buttons !== undefined
 }
 
+const isLeftMouseButtonClicked = (mouseEvent: MouseEvent): boolean => {
+  return mouseEvent.buttons === 1
+}
+
+/**
+ * Extracts the absolute horizontal position of the mouse or touch point from the event.
+ * If no position could be found or
+ *
+ * @param moveEvent
+ */
+const extractHorizontalPosition = (moveEvent: MouseEvent | TouchEvent): number => {
+  if (isMouseEvent(moveEvent)) {
+    return moveEvent.pageX
+  } else {
+    return moveEvent.touches[0]?.pageX
+  }
+}
+
 export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, right, showLeft, showRight }) => {
-  const [split, setSplit] = useState(50)
-  const realSplit = Math.max(0, Math.min(100, showRight ? split : 100))
-  const doResizing = useRef(false)
+  const [relativeSplitValue, setRelativeSplitValue] = useState(50)
+  const cappedRelativeSplitValue = Math.max(0, Math.min(100, showRight ? relativeSplitValue : 100))
+  const resizingInProgress = useRef(false)
   const splitContainer = useRef<HTMLDivElement>(null)
 
-  const onGrab = useCallback(() => {
-    doResizing.current = true
+  /**
+   * Starts the splitter resizing
+   */
+  const onStartResizing = useCallback(() => {
+    resizingInProgress.current = true
   }, [])
 
+  /**
+   * Stops the splitter resizing
+   */
   const onStopResizing = useCallback(() => {
-    if (doResizing.current) {
-      doResizing.current = false
+    if (resizingInProgress.current) {
+      resizingInProgress.current = false
     }
   }, [])
 
+  /**
+   * Recalculates the panel split based on the absolute mouse/touch position.
+   *
+   * @param moveEvent is a {@link MouseEvent} or {@link TouchEvent} that got triggered.
+   */
   const onMove = useCallback((moveEvent: MouseEvent | TouchEvent) => {
-    if (!doResizing.current || !splitContainer.current) {
+    if (!resizingInProgress.current || !splitContainer.current) {
       return
     }
-    let pageX
-    if (isMouseEvent(moveEvent)) {
-      if (moveEvent.buttons !== 1) {
-        doResizing.current = false
-        moveEvent.preventDefault()
-        return
-      }
-      pageX = moveEvent.pageX
-    } else {
-      pageX = moveEvent.touches[0].pageX
+    if (isMouseEvent(moveEvent) && !isLeftMouseButtonClicked(moveEvent)) {
+      resizingInProgress.current = false
+      moveEvent.preventDefault()
+      return undefined
     }
-    const x = pageX - splitContainer.current.offsetLeft
-    const newSize = x / splitContainer.current.clientWidth
-    setSplit(newSize * 100)
+
+    const horizontalPosition = extractHorizontalPosition(moveEvent)
+    const horizontalPositionInSplitContainer = horizontalPosition - splitContainer.current.offsetLeft
+    const newRelativeSize = horizontalPositionInSplitContainer / splitContainer.current.clientWidth
+    setRelativeSplitValue(newRelativeSize * 100)
     moveEvent.preventDefault()
   }, [])
 
+  /**
+   * Registers and unregisters necessary event listeners on the body so you can use the split even if the mouse isn't moving over it.
+   */
   useEffect(() => {
     const moveHandler = onMove
     const stopResizeHandler = onStopResizing
@@ -74,23 +107,23 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
       document.body.removeEventListener('touchend', stopResizeHandler)
       document.body.removeEventListener('mouseup', stopResizeHandler)
     }
-  }, [doResizing, onMove, onStopResizing])
+  }, [resizingInProgress, onMove, onStopResizing])
 
   return (
     <div
       ref={ splitContainer }
       className={ `flex-fill flex-row d-flex ${ containerClassName || '' }` }>
       <div className={ `splitter left ${ !showLeft ? 'd-none' : '' }` }
-           style={ { width: `calc(${ realSplit }% - 5px)` } }>
+           style={ { width: `calc(${ cappedRelativeSplitValue }% - 5px)` } }>
         { left }
       </div>
       <ShowIf condition={ showLeft && showRight }>
         <div className="splitter separator">
-          <SplitDivider onGrab={ onGrab }/>
+          <SplitDivider onGrab={ onStartResizing }/>
         </div>
       </ShowIf>
       <div className={ `splitter right ${ !showRight ? 'd-none' : '' }` }
-           style={ { width: `calc(100% - ${ realSplit }%)` } }>{ right }</div>
+           style={ { width: `calc(100% - ${ cappedRelativeSplitValue }%)` } }>{ right }</div>
     </div>
   )
 }
