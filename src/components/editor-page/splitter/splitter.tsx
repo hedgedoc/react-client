@@ -54,7 +54,13 @@ const extractHorizontalPosition = (moveEvent: MouseEvent | TouchEvent): number =
  * @param showRight defines if the right component should be shown or hidden. Settings this prop will hide the component with css.
  * @return the created component
  */
-export const Splitter: React.FC<SplitterProps> = ({ additionalContainerClassName, left, right, showLeft, showRight }) => {
+export const Splitter: React.FC<SplitterProps> = ({
+  additionalContainerClassName,
+  left,
+  right,
+  showLeft,
+  showRight
+}) => {
   const [relativeSplitValue, setRelativeSplitValue] = useState(50)
   const cappedRelativeSplitValue = Math.max(0, Math.min(100, showRight ? relativeSplitValue : 100))
   const resizingInProgress = useRef(false)
@@ -120,19 +126,21 @@ export const Splitter: React.FC<SplitterProps> = ({ additionalContainerClassName
   }, [resizingInProgress, onMove, onStopResizing])
 
   return (
-    <div ref={ splitContainer } className={ `flex-fill flex-row d-flex ${ additionalContainerClassName || '' }` }>
-      <div className={ `splitter left ${ !showLeft ? 'd-none' : '' }` }
-           style={ { width: `calc(${ cappedRelativeSplitValue }% - 5px)` } }>
-        { left }
+    <div ref={splitContainer} className={`flex-fill flex-row d-flex ${additionalContainerClassName || ''}`}>
+      <div
+        className={`splitter left ${!showLeft ? 'd-none' : ''}`}
+        style={{ width: `calc(${cappedRelativeSplitValue}% - 5px)` }}>
+        {left}
       </div>
-      <ShowIf condition={ showLeft && showRight }>
-        <div className="splitter separator">
-          <SplitDivider onGrab={ onStartResizing }/>
+      <ShowIf condition={showLeft && showRight}>
+        <div className='splitter separator'>
+          <SplitDivider onGrab={onStartResizing} />
         </div>
       </ShowIf>
-      <div className={ `splitter right ${ !showRight ? 'd-none' : '' }` }
-           style={ { width: `calc(100% - ${ cappedRelativeSplitValue }%)` } }>
-        { right }
+      <div
+        className={`splitter right ${!showRight ? 'd-none' : ''}`}
+        style={{ width: `calc(100% - ${cappedRelativeSplitValue}%)` }}>
+        {right}
       </div>
     </div>
   )
