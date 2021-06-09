@@ -12,7 +12,7 @@ import './splitter.scss'
 export interface SplitterProps {
   left: ReactElement
   right: ReactElement
-  containerClassName?: string
+  additionalContainerClassName?: string
   showLeft: boolean
   showRight: boolean
 }
@@ -44,7 +44,17 @@ const extractHorizontalPosition = (moveEvent: MouseEvent | TouchEvent): number =
   }
 }
 
-export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, right, showLeft, showRight }) => {
+/**
+ * Creates a Left/Right splitter react component.
+ *
+ * @param additionalContainerClassName css classes that are added to the split container.
+ * @param left the react component that should be shown on the left side.
+ * @param right the react component that should be shown on the right side.
+ * @param showLeft defines if the left component should be shown or hidden. Settings this prop will hide the component with css.
+ * @param showRight defines if the right component should be shown or hidden. Settings this prop will hide the component with css.
+ * @return the created component
+ */
+export const Splitter: React.FC<SplitterProps> = ({ additionalContainerClassName, left, right, showLeft, showRight }) => {
   const [relativeSplitValue, setRelativeSplitValue] = useState(50)
   const cappedRelativeSplitValue = Math.max(0, Math.min(100, showRight ? relativeSplitValue : 100))
   const resizingInProgress = useRef(false)
@@ -110,9 +120,7 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
   }, [resizingInProgress, onMove, onStopResizing])
 
   return (
-    <div
-      ref={ splitContainer }
-      className={ `flex-fill flex-row d-flex ${ containerClassName || '' }` }>
+    <div ref={ splitContainer } className={ `flex-fill flex-row d-flex ${ additionalContainerClassName || '' }` }>
       <div className={ `splitter left ${ !showLeft ? 'd-none' : '' }` }
            style={ { width: `calc(${ cappedRelativeSplitValue }% - 5px)` } }>
         { left }
@@ -123,7 +131,9 @@ export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, ri
         </div>
       </ShowIf>
       <div className={ `splitter right ${ !showRight ? 'd-none' : '' }` }
-           style={ { width: `calc(100% - ${ cappedRelativeSplitValue }%)` } }>{ right }</div>
+           style={ { width: `calc(100% - ${ cappedRelativeSplitValue }%)` } }>
+        { right }
+      </div>
     </div>
   )
 }

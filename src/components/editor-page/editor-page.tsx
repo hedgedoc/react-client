@@ -142,8 +142,8 @@ export const EditorPage: React.FC = () => {
               showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
               left={leftPane}
               showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
-              right={rightPane}
-              containerClassName={'overflow-hidden'}
+              right={ rightPane }
+              additionalContainerClassName={ 'overflow-hidden' }
             />
             <Sidebar />
           </div>
