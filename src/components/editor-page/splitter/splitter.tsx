@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { ShowIf } from '../../common/show-if/show-if'
 import { SplitDivider } from './split-divider/split-divider'
 import './splitter.scss'
@@ -17,65 +17,80 @@ export interface SplitterProps {
   showRight: boolean
 }
 
+const isMouseEvent = (event: MouseEvent | TouchEvent): event is MouseEvent => {
+  return (event as MouseEvent).buttons !== undefined
+}
+
 export const Splitter: React.FC<SplitterProps> = ({ containerClassName, left, right, showLeft, showRight }) => {
   const [split, setSplit] = useState(50)
   const realSplit = Math.max(0, Math.min(100, showRight ? split : 100))
-  const [doResizing, setDoResizing] = useState(false)
+  const doResizing = useRef(false)
   const splitContainer = useRef<HTMLDivElement>(null)
 
-  const recalculateSize = (mouseXPosition: number): void => {
-    if (!splitContainer.current) {
-      return
-    }
-    const x = mouseXPosition - splitContainer.current.offsetLeft
-
-    const newSize = x / splitContainer.current.clientWidth
-    setSplit(newSize * 100)
-  }
-
-  const stopResizing = useCallback(() => {
-    setDoResizing(false)
+  const onGrab = useCallback(() => {
+    doResizing.current = true
   }, [])
 
-  const onMouseMove = useCallback(
-    (mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      if (doResizing) {
-        recalculateSize(mouseEvent.pageX)
-        mouseEvent.preventDefault()
-      }
-    },
-    [doResizing]
-  )
+  const onStopResizing = useCallback(() => {
+    if (doResizing.current) {
+      doResizing.current = false
+    }
+  }, [])
 
-  const onTouchMove = useCallback(
-    (touchEvent: React.TouchEvent<HTMLDivElement>) => {
-      if (doResizing) {
-        recalculateSize(touchEvent.touches[0].pageX)
-        touchEvent.preventDefault()
+  const onMove = useCallback((moveEvent: MouseEvent | TouchEvent) => {
+    if (!doResizing.current || !splitContainer.current) {
+      return
+    }
+    let pageX
+    if (isMouseEvent(moveEvent)) {
+      if (moveEvent.buttons !== 1) {
+        doResizing.current = false
+        moveEvent.preventDefault()
+        return
       }
-    },
-    [doResizing]
-  )
+      pageX = moveEvent.pageX
+    } else {
+      pageX = moveEvent.touches[0].pageX
+    }
+    const x = pageX - splitContainer.current.offsetLeft
+    const newSize = x / splitContainer.current.clientWidth
+    setSplit(newSize * 100)
+    moveEvent.preventDefault()
+  }, [])
 
-  const onGrab = useCallback(() => setDoResizing(true), [])
+  useEffect(() => {
+    const moveHandler = onMove
+    const stopResizeHandler = onStopResizing
+    document.body.addEventListener('touchmove', moveHandler)
+    document.body.addEventListener('mousemove', moveHandler)
+    document.body.addEventListener('touchcancel', stopResizeHandler)
+    document.body.addEventListener('touchend', stopResizeHandler)
+    document.body.addEventListener('mouseup', stopResizeHandler)
+
+    return () => {
+      document.body.removeEventListener('touchmove', moveHandler)
+      document.body.removeEventListener('mousemove', moveHandler)
+      document.body.removeEventListener('touchcancel', stopResizeHandler)
+      document.body.removeEventListener('touchend', stopResizeHandler)
+      document.body.removeEventListener('mouseup', stopResizeHandler)
+    }
+  }, [doResizing, onMove, onStopResizing])
 
   return (
     <div
-      ref={splitContainer}
-      className={`flex-fill flex-row d-flex ${containerClassName || ''}`}
-      onMouseUp={stopResizing}
-      onTouchEnd={stopResizing}
-      onMouseMove={onMouseMove}
-      onTouchMove={onTouchMove}>
-      <div className={`splitter left ${!showLeft ? 'd-none' : ''}`} style={{ width: `calc(${realSplit}% - 5px)` }}>
-        {left}
+      ref={ splitContainer }
+      className={ `flex-fill flex-row d-flex ${ containerClassName || '' }` }>
+      <div className={ `splitter left ${ !showLeft ? 'd-none' : '' }` }
+           style={ { width: `calc(${ realSplit }% - 5px)` } }>
+        { left }
       </div>
-      <ShowIf condition={showLeft && showRight}>
-        <div className='splitter separator'>
-          <SplitDivider onGrab={onGrab} />
+      <ShowIf condition={ showLeft && showRight }>
+        <div className="splitter separator">
+          <SplitDivider onGrab={ onGrab }/>
         </div>
       </ShowIf>
-      <div className={`splitter right ${!showRight ? 'd-none' : ''}`} style={{ width: `calc(100% - ${realSplit}%)` }}>{right}</div>
+      <div className={ `splitter right ${ !showRight ? 'd-none' : '' }` }
+           style={ { width: `calc(100% - ${ realSplit }%)` } }>{ right }</div>
     </div>
   )
 }
