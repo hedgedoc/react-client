@@ -99,11 +99,11 @@ export const EditorPage: React.FC = () => {
   const leftPane = useMemo(
     () => (
       <EditorPane
-        onContentChange={setNoteMarkdownContent}
-        content={markdownContent}
-        scrollState={scrollState.editorScrollState}
-        onScroll={onEditorScroll}
-        onMakeScrollSource={setEditorToScrollSource}
+        onContentChange={ setNoteMarkdownContent }
+        content={ markdownContent }
+        scrollState={ scrollState.editorScrollState }
+        onScroll={ onEditorScroll }
+        onMakeScrollSource={ setEditorToScrollSource }
       />
     ),
     [markdownContent, onEditorScroll, scrollState.editorScrollState, setEditorToScrollSource]
@@ -112,15 +112,15 @@ export const EditorPage: React.FC = () => {
   const rightPane = useMemo(
     () => (
       <RenderIframe
-        frameClasses={'h-100 w-100'}
-        markdownContent={markdownContent}
-        onMakeScrollSource={setRendererToScrollSource}
-        onFirstHeadingChange={updateNoteTitleByFirstHeading}
-        onTaskCheckedChange={SetCheckboxInMarkdownContent}
-        onFrontmatterChange={setNoteFrontmatter}
-        onScroll={onMarkdownRendererScroll}
-        scrollState={scrollState.rendererScrollState}
-        rendererType={RendererType.DOCUMENT}
+        frameClasses={ 'h-100 w-100' }
+        markdownContent={ markdownContent }
+        onMakeScrollSource={ setRendererToScrollSource }
+        onFirstHeadingChange={ updateNoteTitleByFirstHeading }
+        onTaskCheckedChange={ SetCheckboxInMarkdownContent }
+        onFrontmatterChange={ setNoteFrontmatter }
+        onScroll={ onMarkdownRendererScroll }
+        scrollState={ scrollState.rendererScrollState }
+        rendererType={ RendererType.DOCUMENT }
       />
     ),
     [markdownContent, onMarkdownRendererScroll, scrollState.rendererScrollState, setRendererToScrollSource]
@@ -128,24 +128,24 @@ export const EditorPage: React.FC = () => {
 
   return (
     <IframeCommunicatorContextProvider>
-      <UiNotifications />
-      <MotdBanner />
-      <div className={'d-flex flex-column vh-100'}>
-        <AppBar mode={AppBarMode.EDITOR} />
-        <div className={'container'}>
-          <ErrorWhileLoadingNoteAlert show={error} />
-          <LoadingNoteAlert show={loading} />
+      <UiNotifications/>
+      <MotdBanner/>
+      <div className={ 'd-flex flex-column vh-100' }>
+        <AppBar mode={ AppBarMode.EDITOR }/>
+        <div className={ 'container' }>
+          <ErrorWhileLoadingNoteAlert show={ error }/>
+          <LoadingNoteAlert show={ loading }/>
         </div>
-        <ShowIf condition={!error && !loading}>
-          <div className={'flex-fill d-flex h-100 w-100 overflow-hidden flex-row'}>
+        <ShowIf condition={ !error && !loading }>
+          <div className={ 'flex-fill d-flex h-100 w-100 overflow-hidden flex-row' }>
             <Splitter
-              showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
-              left={leftPane}
-              showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
+              showLeft={ editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH }
+              left={ leftPane }
+              showRight={ editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH }
               right={ rightPane }
               additionalContainerClassName={ 'overflow-hidden' }
             />
-            <Sidebar />
+            <Sidebar/>
           </div>
         </ShowIf>
       </div>

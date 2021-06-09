@@ -23,7 +23,8 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
     }
     setError(error)
     console.error(error)
-    container.current.querySelectorAll('svg').forEach((child) => child.remove())
+    container.current.querySelectorAll('svg')
+             .forEach((child) => child.remove())
   }, [])
 
   const frontendBaseUrl = useFrontendBaseUrl()
@@ -36,7 +37,7 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
 
     import(/* webpackChunkName: "d3-graphviz" */ '@hpcc-js/wasm')
       .then((wasmPlugin) => {
-        wasmPlugin.wasmFolder(`${frontendBaseUrl}/static/js`)
+        wasmPlugin.wasmFolder(`${ frontendBaseUrl }/static/js`)
       })
       .then(() => import(/* webpackChunkName: "d3-graphviz" */ 'd3-graphviz'))
       .then((graphvizImport) => {
