@@ -47,7 +47,7 @@ export interface SetNoteDetailsAction extends NoteDetailsAction {
 }
 
 export interface SetNoteWordCountAction extends NoteDetailsAction {
-  type: NoteDetailsActionType.SET_NOTE_WORD_COUNT,
+  type: NoteDetailsActionType.SET_NOTE_WORD_COUNT
   words: number
 }
 

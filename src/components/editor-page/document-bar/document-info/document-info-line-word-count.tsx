@@ -26,13 +26,13 @@ export const DocumentInfoLineWordCount: React.FC = () => {
   }, [iframeEditorToRendererCommunicator, setWordCount])
 
   return (
-    <DocumentInfoLine icon={ 'align-left' } size={ '2x' }>
-      <ShowIf condition={ wordCount === -1 }>
-        <Trans i18nKey={ 'common.loading' }/>
+    <DocumentInfoLine icon={'align-left'} size={'2x'}>
+      <ShowIf condition={wordCount === -1}>
+        <Trans i18nKey={'common.loading'} />
       </ShowIf>
-      <ShowIf condition={ wordCount > -1 }>
-        <Trans i18nKey={ 'editor.modal.documentInfo.words' }>
-          <UnitalicBoldText text={ wordCount }/>
+      <ShowIf condition={wordCount > -1}>
+        <Trans i18nKey={'editor.modal.documentInfo.words'}>
+          <UnitalicBoldText text={wordCount} />
         </Trans>
       </ShowIf>
     </DocumentInfoLine>

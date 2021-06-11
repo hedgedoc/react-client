@@ -23,7 +23,7 @@ export class IframeRendererToEditorCommunicator extends IframeCommunicator<
   private onSetDarkModeHandler?: (darkModeActivated: boolean) => void
   private onSetScrollStateHandler?: (scrollState: ScrollState) => void
   private onSetBaseConfigurationHandler?: (baseConfiguration: BaseConfiguration) => void
-  private onGetWordCountHandler?: (() => void)
+  private onGetWordCountHandler?: () => void
 
   public onSetBaseConfiguration(handler?: (baseConfiguration: BaseConfiguration) => void): void {
     this.onSetBaseConfigurationHandler = handler

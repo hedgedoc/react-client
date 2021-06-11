@@ -10,12 +10,15 @@ const EXCLUDED_TAGS = ['img', 'pre', 'nav']
 
 export const countWordsRecursive = (node: Element | ChildNode): number => {
   let words = 0
-  if (!node || EXCLUDED_TAGS.includes(node.nodeName.toLowerCase()) ||
-    (node as HTMLElement).classList?.contains('katex-mathml')) {
+  if (
+    !node ||
+    EXCLUDED_TAGS.includes(node.nodeName.toLowerCase()) ||
+    (node as HTMLElement).classList?.contains('katex-mathml')
+  ) {
     return 0
   }
   if (node.hasChildNodes()) {
-    node.childNodes.forEach(childNode => {
+    node.childNodes.forEach((childNode) => {
       words += countWordsRecursive(childNode)
     })
   } else {

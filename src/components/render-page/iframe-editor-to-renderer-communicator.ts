@@ -27,7 +27,7 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<
   private onRendererReadyHandler?: () => void
   private onImageClickedHandler?: (details: ImageDetails) => void
   private onHeightChangeHandler?: (height: number) => void
-  private onWordCountCalculatedHandler ?: (words: number) => void
+  private onWordCountCalculatedHandler?: (words: number) => void
 
   public onHeightChange(handler?: (height: number) => void): void {
     this.onHeightChangeHandler = handler

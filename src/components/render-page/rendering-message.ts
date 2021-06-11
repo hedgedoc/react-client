@@ -83,7 +83,7 @@ export interface OnHeightChangeMessage {
 }
 
 export interface OnWordCountCalculatedMessage {
-  type: RenderIframeMessageType.ON_WORD_COUNT_CALCULATED,
+  type: RenderIframeMessageType.ON_WORD_COUNT_CALCULATED
   words: number
 }
 
@@ -91,8 +91,8 @@ export type EditorToRendererIframeMessage =
   | SetMarkdownContentMessage
   | SetDarkModeMessage
   | SetScrollStateMessage
-  | SetBaseUrlMessage |
-  GetWordCountMessage
+  | SetBaseUrlMessage
+  | GetWordCountMessage
 
 export type RendererToEditorIframeMessage =
   | RendererToEditorSimpleMessage
@@ -101,8 +101,8 @@ export type RendererToEditorIframeMessage =
   | OnFrontmatterChangeMessage
   | SetScrollStateMessage
   | ImageClickedMessage
-  | OnHeightChangeMessage |
-  OnWordCountCalculatedMessage
+  | OnHeightChangeMessage
+  | OnWordCountCalculatedMessage
 
 export enum RendererType {
   DOCUMENT,

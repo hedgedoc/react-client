@@ -62,7 +62,7 @@ export const DocumentInfoModal: React.FC<DocumentInfoModalProps> = ({ show, onHi
             </DocumentInfoLine>
           </ListGroup.Item>
           <ListGroup.Item>
-            <DocumentInfoLineWordCount/>
+            <DocumentInfoLineWordCount />
           </ListGroup.Item>
         </ListGroup>
       </Modal.Body>
