@@ -110,18 +110,18 @@ export const Splitter: React.FC<SplitterProps> = ({
   useEffect(() => {
     const moveHandler = onMove
     const stopResizeHandler = onStopResizing
-    document.body.addEventListener('touchmove', moveHandler)
-    document.body.addEventListener('mousemove', moveHandler)
-    document.body.addEventListener('touchcancel', stopResizeHandler)
-    document.body.addEventListener('touchend', stopResizeHandler)
-    document.body.addEventListener('mouseup', stopResizeHandler)
+    window.addEventListener('touchmove', moveHandler)
+    window.addEventListener('mousemove', moveHandler)
+    window.addEventListener('touchcancel', stopResizeHandler)
+    window.addEventListener('touchend', stopResizeHandler)
+    window.addEventListener('mouseup', stopResizeHandler)
 
     return () => {
-      document.body.removeEventListener('touchmove', moveHandler)
-      document.body.removeEventListener('mousemove', moveHandler)
-      document.body.removeEventListener('touchcancel', stopResizeHandler)
-      document.body.removeEventListener('touchend', stopResizeHandler)
-      document.body.removeEventListener('mouseup', stopResizeHandler)
+      window.removeEventListener('touchmove', moveHandler)
+      window.removeEventListener('mousemove', moveHandler)
+      window.removeEventListener('touchcancel', stopResizeHandler)
+      window.removeEventListener('touchend', stopResizeHandler)
+      window.removeEventListener('mouseup', stopResizeHandler)
     }
   }, [resizingInProgress, onMove, onStopResizing])
 
