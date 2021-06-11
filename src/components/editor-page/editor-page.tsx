@@ -12,7 +12,7 @@ import { useDocumentTitleWithNoteTitle } from '../../hooks/common/use-document-t
 import { useNoteMarkdownContent } from '../../hooks/common/use-note-markdown-content'
 import { ApplicationState } from '../../redux'
 import {
-  SetCheckboxInMarkdownContent,
+  setCheckboxInMarkdownContent,
   setNoteFrontmatter,
   setNoteMarkdownContent,
   updateNoteTitleByFirstHeading
@@ -116,7 +116,7 @@ export const EditorPage: React.FC = () => {
         markdownContent={markdownContent}
         onMakeScrollSource={setRendererToScrollSource}
         onFirstHeadingChange={updateNoteTitleByFirstHeading}
-        onTaskCheckedChange={SetCheckboxInMarkdownContent}
+        onTaskCheckedChange={setCheckboxInMarkdownContent}
         onFrontmatterChange={setNoteFrontmatter}
         onScroll={onMarkdownRendererScroll}
         scrollState={scrollState.rendererScrollState}
