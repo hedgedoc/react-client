@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useContext, useEffect, useMemo } from 'react'
+import React, { createContext, useContext, useEffect, useMemo } from 'react'
 import { IframeRendererToEditorCommunicator } from '../../render-page/iframe-renderer-to-editor-communicator'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../../../redux'
 
 const IFrameRendererToEditorCommunicatorContext =
-  React.createContext<IframeRendererToEditorCommunicator | undefined>(undefined)
+  createContext<IframeRendererToEditorCommunicator | undefined>(undefined)
 
 export const useIFrameRendererToEditorCommunicator: () => IframeRendererToEditorCommunicator | undefined = () =>
   useContext(IFrameRendererToEditorCommunicatorContext)
