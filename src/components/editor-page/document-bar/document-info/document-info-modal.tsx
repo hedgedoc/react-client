@@ -26,7 +26,12 @@ export const DocumentInfoModal: React.FC<DocumentInfoModalProps> = ({ show, onHi
 
   // TODO Replace hardcoded mock data with real/mock API requests
   return (
-    <CommonModal show={show} onHide={onHide} closeButton={true} titleI18nKey={'editor.modal.documentInfo.title'}>
+    <CommonModal
+      show={show}
+      onHide={onHide}
+      closeButton={true}
+      titleI18nKey={'editor.modal.documentInfo.title'}
+      data-cy={'document-info-modal'}>
       <Modal.Body>
         <ListGroup>
           <ListGroup.Item>

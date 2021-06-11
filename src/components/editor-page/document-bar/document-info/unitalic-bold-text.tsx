@@ -8,8 +8,13 @@ import React from 'react'
 
 export interface UnitalicBoldTextProps {
   text: string | number
+  dataCy?: string
 }
 
-export const UnitalicBoldText: React.FC<UnitalicBoldTextProps> = ({ text }) => {
-  return <b className={'font-style-normal mr-1'}>{text}</b>
+export const UnitalicBoldText: React.FC<UnitalicBoldTextProps> = ({ text, dataCy }) => {
+  return (
+    <b className={'font-style-normal mr-1'} data-cy={dataCy}>
+      {text}
+    </b>
+  )
 }
