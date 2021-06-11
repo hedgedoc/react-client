@@ -23,7 +23,6 @@ export const noteDtoToNoteDetails = (note: NoteDto): NoteDetails => {
     firstHeading: initialState.firstHeading,
     viewCount: note.metadata.viewCount,
     alias: note.metadata.alias,
-    authorship: note.metadata.editedBy,
-    wordCount: -1
+    authorship: note.metadata.editedBy
   }
 }

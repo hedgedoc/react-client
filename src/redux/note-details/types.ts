@@ -14,8 +14,7 @@ export enum NoteDetailsActionType {
   SET_NOTE_DATA_FROM_SERVER = 'note-details/data/server/set',
   SET_NOTE_FRONTMATTER = 'note-details/frontmatter/set',
   UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading',
-  SET_CHECKBOX_IN_MARKDOWN_CONTENT = 'note-details/toggle-checkbox-in-markdown-content',
-  SET_NOTE_WORD_COUNT = 'note-details/word-count/set'
+  SET_CHECKBOX_IN_MARKDOWN_CONTENT = 'note-details/toggle-checkbox-in-markdown-content'
 }
 
 interface LastChange {
@@ -34,7 +33,6 @@ export interface NoteDetails {
   noteTitle: string
   firstHeading?: string
   frontmatter: NoteFrontmatter
-  wordCount: number
 }
 
 export interface NoteDetailsAction extends Action<NoteDetailsActionType> {
@@ -44,11 +42,6 @@ export interface NoteDetailsAction extends Action<NoteDetailsActionType> {
 export interface SetNoteDetailsAction extends NoteDetailsAction {
   type: NoteDetailsActionType.SET_DOCUMENT_CONTENT
   content: string
-}
-
-export interface SetNoteWordCountAction extends NoteDetailsAction {
-  type: NoteDetailsActionType.SET_NOTE_WORD_COUNT
-  words: number
 }
 
 export interface SetNoteDetailsFromServerAction extends NoteDetailsAction {

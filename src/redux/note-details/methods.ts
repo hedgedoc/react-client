@@ -14,7 +14,6 @@ import {
   SetNoteDetailsAction,
   SetNoteDetailsFromServerAction,
   SetNoteFrontmatterFromRenderingAction,
-  SetNoteWordCountAction,
   UpdateNoteTitleByFirstHeadingAction
 } from './types'
 
@@ -47,13 +46,6 @@ export const setNoteFrontmatter = (frontmatter: NoteFrontmatter | undefined): vo
     type: NoteDetailsActionType.SET_NOTE_FRONTMATTER,
     frontmatter: frontmatter
   } as SetNoteFrontmatterFromRenderingAction)
-}
-
-export const setNoteWordCount = (words: number): void => {
-  store.dispatch({
-    type: NoteDetailsActionType.SET_NOTE_WORD_COUNT,
-    words
-  } as SetNoteWordCountAction)
 }
 
 export const setCheckboxInMarkdownContent = (lineInMarkdown: number, checked: boolean): void => {
