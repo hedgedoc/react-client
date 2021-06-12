@@ -5,7 +5,7 @@
  */
 
 import { Editor, Hint, Hints, Pos } from 'codemirror'
-import { findWordAtCursor, Hinter, search } from './index'
+import { findWordAtCursor, generateHintListByPrefix, Hinter } from './index'
 
 type highlightJsImport = typeof import('../../../common/hljs/hljs')
 
@@ -16,57 +16,92 @@ let allSupportedLanguages: string[] = []
  * Fetches the highlight js chunk.
  * @return the retrieved highlight js api
  */
-const loadHljs = async (): Promise<highlightJsImport | null> => {
+const loadHighlightJs = async (): Promise<highlightJsImport | null> => {
   try {
     return await import('../../../common/hljs/hljs')
   } catch (error) {
-    console.error('hljs load error', error)
+    console.error("can't load highlight js", error)
     return null
   }
 }
 
 /**
+ * Extracts the language from the current line in the editor.
+ *
+ * @param editor The editor that contains the search time
+ * @return null if no search term could be found or the found word and the cursor position.
+ */
+const extractSearchTerm = (
+  editor: Editor
+): null | {
+  searchTerm: string
+  startIndex: number
+  endIndex: number
+} => {
+  const searchTerm = findWordAtCursor(editor)
+  const searchResult = wordRegExp.exec(searchTerm.text)
+  if (searchResult === null) {
+    return null
+  }
+
+  return {
+    searchTerm: searchResult[1],
+    startIndex: searchTerm.start,
+    endIndex: searchTerm.end
+  }
+}
+
+/**
+ * Builds the list of languages that are supported by highlight js or custom embeddings.
+ * @return An array of language names
+ */
+const buildLanguageList = async (): Promise<string[]> => {
+  const highlightJs = await loadHighlightJs()
+
+  if (highlightJs === null) {
+    return []
+  }
+
+  if (allSupportedLanguages.length === 0) {
+    allSupportedLanguages = highlightJs.default
+      .listLanguages()
+      .concat('csv', 'flow', 'html', 'js', 'markmap', 'abc', 'graphviz', 'mermaid', 'vega-lite')
+  }
+
+  return allSupportedLanguages
+}
+
+/**
  * Creates a codemirror autocompletion hint with supported highlight js languages.
+ *
  * @param editor The codemirror editor that requested the autocompletion
  * @return The generated {@link Hints} or null if no hints exist.
  */
 const codeBlockHint = async (editor: Editor): Promise<Hints | null> => {
-  const highlightJs = await loadHljs()
-
-  if (highlightJs === null) {
+  const searchResult = extractSearchTerm(editor)
+  if (!searchResult) {
     return null
   }
 
-  return new Promise((resolve) => {
-    const searchTerm = findWordAtCursor(editor)
-    const searchResult = wordRegExp.exec(searchTerm.text)
-    if (searchResult === null) {
-      resolve(null)
-      return
-    }
-    const term = searchResult[1]
-    if (allSupportedLanguages.length === 0) {
-      allSupportedLanguages = highlightJs.default
-        .listLanguages()
-        .concat('csv', 'flow', 'html', 'js', 'markmap', 'abc', 'graphviz', 'mermaid', 'vega-lite')
-    }
-    const suggestions = search(term, allSupportedLanguages)
-    const cursor = editor.getCursor()
-    if (!suggestions) {
-      resolve(null)
-    } else {
-      resolve({
-        list: suggestions.map(
-          (suggestion: string): Hint => ({
-            text: '```' + suggestion + '\n\n```\n',
-            displayText: suggestion
-          })
-        ),
-        from: Pos(cursor.line, searchTerm.start),
-        to: Pos(cursor.line, searchTerm.end)
+  const languages = await buildLanguageList()
+  if (languages.length === 0) {
+    return null
+  }
+  const suggestions = generateHintListByPrefix(searchResult.searchTerm, languages)
+  if (!suggestions) {
+    return null
+  }
+  const lineIndex = editor.getCursor().line
+  return {
+    list: suggestions.map(
+      (suggestion: string): Hint => ({
+        text: '```' + suggestion + '\n\n```\n',
+        displayText: suggestion
       })
-    }
-  })
+    ),
+    from: Pos(lineIndex, searchResult.startIndex),
+    to: Pos(lineIndex, searchResult.endIndex)
+  }
 }
 
 export const CodeBlockHinter: Hinter = {
