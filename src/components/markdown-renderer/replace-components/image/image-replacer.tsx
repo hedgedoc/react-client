@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import { Element } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { ProxyImageFrame } from './proxy-image-frame'
@@ -19,7 +19,7 @@ export class ImageReplacer extends ComponentReplacer {
     this.clickHandler = clickHandler
   }
 
-  public getReplacement(node: DomElement): React.ReactElement | undefined {
+  public getReplacement(node: Element): React.ReactElement | undefined {
     if (node.name === 'img' && node.attribs) {
       return (
         <ProxyImageFrame

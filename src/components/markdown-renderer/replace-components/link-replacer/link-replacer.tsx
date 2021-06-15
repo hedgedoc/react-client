@@ -3,9 +3,9 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { DomElement } from 'domhandler'
-import React, { ReactElement } from 'react'
-import { ComponentReplacer, NativeRenderer, SubNodeTransform } from '../ComponentReplacer'
+import { Element } from 'domhandler'
+import React from 'react'
+import { ComponentReplacer, NativeRenderer, SubNodeTransform, ValidReactDomElement } from '../ComponentReplacer'
 
 export const createJumpToMarkClickEventHandler = (id: string) => {
   return (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
@@ -20,10 +20,10 @@ export class LinkReplacer extends ComponentReplacer {
   }
 
   public getReplacement(
-    node: DomElement,
+    node: Element,
     subNodeTransform: SubNodeTransform,
     nativeRenderer: NativeRenderer
-  ): ReactElement | null | undefined {
+  ): ValidReactDomElement | undefined {
     if (node.name !== 'a' || !node.attribs || !node.attribs.href) {
       return undefined
     }

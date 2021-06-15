@@ -5,12 +5,12 @@
  */
 
 import MarkdownIt from 'markdown-it/lib'
-import { ReactElement, useMemo, useRef } from 'react'
-import ReactHtmlParser from 'react-html-parser'
-import { ComponentReplacer } from '../replace-components/ComponentReplacer'
+import { useMemo, useRef } from 'react'
+import { ComponentReplacer, ValidReactDomElement } from '../replace-components/ComponentReplacer'
 import { LineKeys } from '../types'
 import { buildTransformer } from '../utils/html-react-transformer'
 import { calculateNewLineNumberMapping } from '../utils/line-number-mapping'
+import convertHtmlToReact from '@hedgedoc/html-to-react'
 
 export const useConvertMarkdownToReactDom = (
   markdownCode: string,
@@ -19,7 +19,7 @@ export const useConvertMarkdownToReactDom = (
   additionalReplacers?: () => ComponentReplacer[],
   onBeforeRendering?: () => void,
   onAfterRendering?: () => void
-): ReactElement[] => {
+): ValidReactDomElement[] => {
   const oldMarkdownLineKeys = useRef<LineKeys[]>()
   const lastUsedLineId = useRef<number>(0)
 
@@ -39,7 +39,7 @@ export const useConvertMarkdownToReactDom = (
 
     const replacers = baseReplacers().concat(additionalReplacers ? additionalReplacers() : [])
     const transformer = replacers.length > 0 ? buildTransformer(newLines, replacers) : undefined
-    const rendering = ReactHtmlParser(html, { transform: transformer })
+    const rendering = convertHtmlToReact(html, { transform: transformer })
     if (onAfterRendering) {
       onAfterRendering()
     }

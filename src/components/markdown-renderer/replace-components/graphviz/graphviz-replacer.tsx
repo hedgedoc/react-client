@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import { Element } from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { GraphvizFrame } from './graphviz-frame'
 
-export class GraphvizReplacer implements ComponentReplacer {
-  getReplacement(codeNode: DomElement): React.ReactElement | undefined {
+export class GraphvizReplacer extends ComponentReplacer {
+  getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (
       codeNode.name !== 'code' ||
       !codeNode.attribs ||
@@ -22,7 +22,7 @@ export class GraphvizReplacer implements ComponentReplacer {
       return
     }
 
-    const code = codeNode.children[0].data as string
+    const code = ComponentReplacer.extractTextChildContent(codeNode)
 
     return <GraphvizFrame code={code} />
   }

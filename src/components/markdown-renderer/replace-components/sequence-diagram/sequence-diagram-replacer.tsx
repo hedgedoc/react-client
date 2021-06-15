@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import { Element } from 'domhandler'
 import React, { Fragment } from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { MermaidChart } from '../mermaid/mermaid-chart'
 import { DeprecationWarning } from './deprecation-warning'
 
-export class SequenceDiagramReplacer implements ComponentReplacer {
-  getReplacement(codeNode: DomElement): React.ReactElement | undefined {
+export class SequenceDiagramReplacer extends ComponentReplacer {
+  getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (
       codeNode.name !== 'code' ||
       !codeNode.attribs ||
@@ -23,7 +23,7 @@ export class SequenceDiagramReplacer implements ComponentReplacer {
       return
     }
 
-    const code = codeNode.children[0].data as string
+    const code = ComponentReplacer.extractTextChildContent(codeNode)
 
     return (
       <Fragment>
