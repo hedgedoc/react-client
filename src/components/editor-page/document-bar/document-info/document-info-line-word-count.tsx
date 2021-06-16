@@ -11,28 +11,33 @@ import { DocumentInfoLine } from './document-info-line'
 import { UnitalicBoldText } from './unitalic-bold-text'
 import { useIFrameEditorToRendererCommunicator } from '../../render-context/iframe-editor-to-renderer-communicator-context-provider'
 
+/**
+ * Creates a new info line for the document information dialog that holds the
+ * word count of the note, based on counting in the rendered output.
+ */
 export const DocumentInfoLineWordCount: React.FC = () => {
   useTranslation()
   const iframeEditorToRendererCommunicator = useIFrameEditorToRendererCommunicator()
-
-  // -1 means the word count isn't determined yet, any non-negative number is the actual counting result
-  const [wordCount, setWordCount] = useState(-1)
+  const [wordCount, setWordCount] = useState<number | null>(null)
 
   useEffect(() => {
     iframeEditorToRendererCommunicator?.onWordCountCalculated((words) => {
       setWordCount(words)
     })
     iframeEditorToRendererCommunicator?.sendGetWordCount()
+    return (() => {
+      iframeEditorToRendererCommunicator?.onWordCountCalculated(undefined)
+    })
   }, [iframeEditorToRendererCommunicator, setWordCount])
 
   return (
     <DocumentInfoLine icon={'align-left'} size={'2x'}>
-      <ShowIf condition={wordCount === -1}>
+      <ShowIf condition={wordCount === null}>
         <Trans i18nKey={'common.loading'} />
       </ShowIf>
-      <ShowIf condition={wordCount > -1}>
+      <ShowIf condition={wordCount !== null}>
         <Trans i18nKey={'editor.modal.documentInfo.words'}>
-          <UnitalicBoldText text={wordCount} dataCy={'document-info-word-count'} />
+          <UnitalicBoldText text={wordCount ?? ''} dataCy={'document-info-word-count'} />
         </Trans>
       </ShowIf>
     </DocumentInfoLine>

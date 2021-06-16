@@ -14,7 +14,7 @@ import { ImageClickHandler } from '../markdown-renderer/replace-components/image
 import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { MarkdownDocument } from './markdown-document'
 import { useIFrameRendererToEditorCommunicator } from '../editor-page/render-context/iframe-renderer-to-editor-communicator-context-provider'
-import { countWordsRecursive } from './word-counter'
+import { countWords } from './word-counter'
 
 export const IframeMarkdownRenderer: React.FC = () => {
   const [markdownContent, setMarkdownContent] = useState('')
@@ -29,8 +29,8 @@ export const IframeMarkdownRenderer: React.FC = () => {
       iframeCommunicator?.sendWordCountCalculated(0)
       return
     }
-    const words = countWordsRecursive(documentContainer)
-    iframeCommunicator?.sendWordCountCalculated(words)
+    const wordCount = countWords(documentContainer)
+    iframeCommunicator?.sendWordCountCalculated(wordCount)
   }, [iframeCommunicator])
 
   useEffect(() => iframeCommunicator?.onSetBaseConfiguration(setBaseConfiguration), [iframeCommunicator])
