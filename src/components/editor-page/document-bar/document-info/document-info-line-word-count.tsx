@@ -25,9 +25,9 @@ export const DocumentInfoLineWordCount: React.FC = () => {
       setWordCount(words)
     })
     iframeEditorToRendererCommunicator?.sendGetWordCount()
-    return (() => {
+    return () => {
       iframeEditorToRendererCommunicator?.onWordCountCalculated(undefined)
-    })
+    }
   }, [iframeEditorToRendererCommunicator, setWordCount])
 
   return (

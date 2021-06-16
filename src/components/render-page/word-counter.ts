@@ -28,9 +28,7 @@ const isExcludedTag = (node: Element | ChildNode): boolean => {
  * @return true if the node should be excluded, false otherwise.
  */
 const isExcludedClass = (node: Element | ChildNode): boolean => {
-  return EXCLUDED_CLASSES.some(excludedClass => {
-    (node as HTMLElement).classList.contains(excludedClass)
-  })
+  return EXCLUDED_CLASSES.some((excludedClass) => (node as HTMLElement).classList?.contains(excludedClass))
 }
 
 /**
