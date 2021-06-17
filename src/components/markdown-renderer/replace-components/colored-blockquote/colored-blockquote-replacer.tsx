@@ -31,8 +31,7 @@ const findBlockquoteColorParentElement = (nodes: Element[]): Element | undefined
     if (child.name !== 'p' || !child.children || child.children.length < 1) {
       return false
     }
-    return child.children.filter(isTag)
-                .find(isBlockquoteColorDefinition) !== undefined
+    return child.children.filter(isTag).find(isBlockquoteColorDefinition) !== undefined
   })
 }
 
