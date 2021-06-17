@@ -14,6 +14,9 @@ import { replaceLegacyVimeoShortCode } from './replace-legacy-vimeo-short-code'
 import { replaceVimeoLink } from './replace-vimeo-link'
 import { VimeoFrame } from './vimeo-frame'
 
+/**
+ * Detects 'app-vimeo' tags and renders them as vimeo embedding.
+ */
 export class VimeoReplacer extends ComponentReplacer {
   public static readonly markdownItPlugin: MarkdownIt.PluginSimple = (markdownIt) => {
     markdownItRegex(markdownIt, replaceVimeoLink)

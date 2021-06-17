@@ -11,6 +11,12 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import './katex.scss'
 
+/**
+ * Checks if the given node is a KaTeX block.
+ *
+ * @param node the node to check
+ * @return The given node if it is a KaTeX block element, undefined otherwise.
+ */
 const getNodeIfKatexBlock = (node: Element): Element | undefined => {
   if (node.name !== 'p' || !node.children || node.children.length === 0) {
     return
@@ -20,12 +26,21 @@ const getNodeIfKatexBlock = (node: Element): Element | undefined => {
   })
 }
 
+/**
+ * Checks if the given node is a KaTeX inline element.
+ *
+ * @param node the node to check
+ * @return The given node if it is a KaTeX inline element, undefined otherwise.
+ */
 const getNodeIfInlineKatex = (node: Element): Element | undefined => {
   return node.name === 'app-katex' && node.attribs?.inline !== undefined ? node : undefined
 }
 
 const KaTeX = React.lazy(() => import(/* webpackChunkName: "katex" */ '@matejmazur/react-katex'))
 
+/**
+ * Detects LaTeX syntax and renders it with KaTeX.
+ */
 export class KatexReplacer extends ComponentReplacer {
   public static readonly markdownItPlugin: MarkdownIt.PluginSimple = mathJax({
     beforeMath: '<app-katex>',

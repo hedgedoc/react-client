@@ -11,6 +11,9 @@ import { ProxyImageFrame } from './proxy-image-frame'
 
 export type ImageClickHandler = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
 
+/**
+ * Detects image tags and loads them via image proxy if configured.
+ */
 export class ImageReplacer extends ComponentReplacer {
   private readonly clickHandler?: ImageClickHandler
 

@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { CsvTable } from './csv-table'
 
+/**
+ * Detects code blocks with "csv" as language and renders them as table.
+ */
 export class CsvReplacer extends ComponentReplacer {
   public getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (

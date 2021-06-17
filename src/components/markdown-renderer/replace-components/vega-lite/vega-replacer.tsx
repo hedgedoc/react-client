@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { VegaChart } from './vega-chart'
 
+/**
+ * Detects code blocks with 'vega-lite' as language and renders them with Vega.
+ */
 export class VegaReplacer extends ComponentReplacer {
   getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (

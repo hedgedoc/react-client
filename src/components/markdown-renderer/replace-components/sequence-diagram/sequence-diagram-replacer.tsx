@@ -10,6 +10,10 @@ import { ComponentReplacer } from '../ComponentReplacer'
 import { MermaidChart } from '../mermaid/mermaid-chart'
 import { DeprecationWarning } from './deprecation-warning'
 
+/**
+ * Detects code blocks with 'sequence' as language and renders them as
+ * sequence diagram with mermaid.
+ */
 export class SequenceDiagramReplacer extends ComponentReplacer {
   getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (

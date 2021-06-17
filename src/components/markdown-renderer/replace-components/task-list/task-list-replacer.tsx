@@ -10,6 +10,9 @@ import { ComponentReplacer } from '../ComponentReplacer'
 
 export type TaskCheckedChangeHandler = (lineInMarkdown: number, checked: boolean) => void
 
+/**
+ * Detects task lists and renders them as checkboxes that execute a callback if clicked.
+ */
 export class TaskListReplacer extends ComponentReplacer {
   onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
 

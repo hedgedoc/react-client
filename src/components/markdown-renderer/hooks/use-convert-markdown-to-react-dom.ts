@@ -20,6 +20,7 @@ import convertHtmlToReact from '@hedgedoc/html-to-react'
  * @param replacers A function that provides a list of {@link ComponentReplacer component replacers}
  * @param onBeforeRendering A callback that gets executed before the rendering
  * @param onAfterRendering A callback that gets executed after the rendering
+ * @return The React DOM that represents the rendered markdown code
  */
 export const useConvertMarkdownToReactDom = (
   markdownCode: string,

@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { GraphvizFrame } from './graphviz-frame'
 
+/**
+ * Detects code blocks with "graphviz" as language and renders them as graphviz graph.
+ */
 export class GraphvizReplacer extends ComponentReplacer {
   getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (

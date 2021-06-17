@@ -16,6 +16,9 @@ import preview from './gist-preview.png'
 import { replaceGistLink } from './replace-gist-link'
 import { replaceLegacyGistShortCode } from './replace-legacy-gist-short-code'
 
+/**
+ * Detects "app-gist" tags and renders them as gist frames.
+ */
 export class GistReplacer extends ComponentReplacer {
   public static readonly markdownItPlugin: MarkdownIt.PluginSimple = (markdownIt) => {
     markdownItRegex(markdownIt, replaceGistLink)

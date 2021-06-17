@@ -14,6 +14,9 @@ import { replaceLegacyYoutubeShortCode } from './replace-legacy-youtube-short-co
 import { replaceYouTubeLink } from './replace-youtube-link'
 import { YouTubeFrame } from './youtube-frame'
 
+/**
+ * Detects 'app-youtube' tags and renders them as youtube embedding.
+ */
 export class YoutubeReplacer extends ComponentReplacer {
   public static readonly markdownItPlugin: MarkdownIt.PluginSimple = (markdownIt) => {
     markdownItRegex(markdownIt, replaceYouTubeLink)

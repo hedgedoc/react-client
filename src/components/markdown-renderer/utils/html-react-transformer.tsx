@@ -67,6 +67,13 @@ export const findNodeReplacement = (
   }
 }
 
+/**
+ * Renders the given node without any replacement
+ *
+ * @param node The node to render
+ * @param key The unique key for the node
+ * @param transform The transform function that should be applied to the child nodes
+ */
 export const renderNativeNode = (
   node: Element,
   key: string,

@@ -7,6 +7,9 @@
 import { Element } from 'domhandler'
 import { ComponentReplacer } from '../ComponentReplacer'
 
+/**
+ * Detects line markers and suppresses them in the resulting DOM.
+ */
 export class LinemarkerReplacer extends ComponentReplacer {
   public getReplacement(codeNode: Element): null | undefined {
     return codeNode.name === 'app-linemarker' ? null : undefined

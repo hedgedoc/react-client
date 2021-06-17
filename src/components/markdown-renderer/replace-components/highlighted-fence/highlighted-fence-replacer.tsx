@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { HighlightedCode } from './highlighted-code/highlighted-code'
 
+/**
+ * Detects code blocks and renders them as highlighted code blocks
+ */
 export class HighlightedCodeReplacer extends ComponentReplacer {
   private lastLineNumber = 0
 

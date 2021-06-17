@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { FlowChart } from './flowchart/flowchart'
 
+/**
+ * Detects code blocks with "flow" as language and renders them as flow chart.
+ */
 export class FlowchartReplacer extends ComponentReplacer {
   public getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (

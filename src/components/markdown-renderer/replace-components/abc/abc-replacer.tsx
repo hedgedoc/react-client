@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { AbcFrame } from './abc-frame'
 
+/**
+ * Detects code blocks with "abc" as language and renders them as ABC.js
+ */
 export class AbcReplacer extends ComponentReplacer {
   getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (

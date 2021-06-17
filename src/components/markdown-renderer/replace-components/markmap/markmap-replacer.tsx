@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { MarkmapFrame } from './markmap-frame'
 
+/**
+ * Detects code blocks with 'markmap' as language and renders them with Markmap.
+ */
 export class MarkmapReplacer extends ComponentReplacer {
   getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (

@@ -14,6 +14,11 @@ export const createJumpToMarkClickEventHandler = (id: string) => {
   }
 }
 
+/**
+ * Detects link tags and polishs them.
+ * This replacer prevents data and javascript links,
+ * extends relative links with the base url and creates working jump links.
+ */
 export class LinkReplacer extends ComponentReplacer {
   constructor(private baseUrl?: string) {
     super()

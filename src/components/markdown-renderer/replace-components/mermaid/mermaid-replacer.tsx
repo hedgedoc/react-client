@@ -9,6 +9,9 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { MermaidChart } from './mermaid-chart'
 
+/**
+ * Detects code blocks with 'mermaid' as language and renders them with mermaid.
+ */
 export class MermaidReplacer extends ComponentReplacer {
   getReplacement(codeNode: Element): React.ReactElement | undefined {
     if (
