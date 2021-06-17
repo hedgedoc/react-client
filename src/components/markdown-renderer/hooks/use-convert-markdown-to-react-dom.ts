@@ -12,6 +12,15 @@ import { buildTransformer } from '../utils/html-react-transformer'
 import { calculateNewLineNumberMapping } from '../utils/line-number-mapping'
 import convertHtmlToReact from '@hedgedoc/html-to-react'
 
+/**
+ * Renders markdown code into react elements
+ *
+ * @param markdownCode The markdown code that should be rendered
+ * @param markdownIt The configured {@link MarkdownIt markdown it} instance that should render the code
+ * @param replacers A function that provides a list of {@link ComponentReplacer component replacers}
+ * @param onBeforeRendering A callback that gets executed before the rendering
+ * @param onAfterRendering A callback that gets executed after the rendering
+ */
 export const useConvertMarkdownToReactDom = (
   markdownCode: string,
   markdownIt: MarkdownIt,
