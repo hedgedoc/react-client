@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v2.1.6
         with:
           path: build
-          key: build-${{ github.sha }}
+          key: build-${{ hashFiles('src/**') }}
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
