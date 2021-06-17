@@ -59,9 +59,12 @@ export const findNodeReplacement = (
   subNodeTransform: SubNodeTransform,
   nativeRenderer: NativeRenderer
 ): ValidReactDomElement | undefined => {
-  return allReplacers
-    .map((componentReplacer) => componentReplacer.getReplacement(node, subNodeTransform, nativeRenderer))
-    .find((replacement) => replacement !== undefined)
+  for (const componentReplacer of allReplacers) {
+    const replacement = componentReplacer.getReplacement(node, subNodeTransform, nativeRenderer)
+    if (replacement !== undefined) {
+      return replacement
+    }
+  }
 }
 
 export const renderNativeNode = (

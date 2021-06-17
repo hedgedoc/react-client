@@ -90,8 +90,8 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
   }, [onAfterRendering])
 
   const baseReplacers = useComponentReplacers(onTaskCheckedChange, onImageClick, baseUrl)
-  const replacers = useMemo(
-    () => baseReplacers.concat(additionalReplacers ? additionalReplacers() : []),
+  const replacers = useCallback(
+    () => baseReplacers().concat(additionalReplacers ? additionalReplacers() : []),
     [additionalReplacers, baseReplacers]
   )
 

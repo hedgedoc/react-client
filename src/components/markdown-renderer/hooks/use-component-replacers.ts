@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { useMemo } from 'react'
+import { useCallback } from 'react'
 import { AbcReplacer } from '../replace-components/abc/abc-replacer'
 import { AsciinemaReplacer } from '../replace-components/asciinema/asciinema-replacer'
 import { ComponentReplacer } from '../replace-components/ComponentReplacer'
@@ -26,12 +26,18 @@ import { VegaReplacer } from '../replace-components/vega-lite/vega-replacer'
 import { VimeoReplacer } from '../replace-components/vimeo/vimeo-replacer'
 import { YoutubeReplacer } from '../replace-components/youtube/youtube-replacer'
 
+/**
+ * Provides all {@link ComponentReplacer component replacers}
+ * @param onTaskCheckedChange
+ * @param onImageClick
+ * @param baseUrl
+ */
 export const useComponentReplacers = (
   onTaskCheckedChange?: TaskCheckedChangeHandler,
   onImageClick?: ImageClickHandler,
   baseUrl?: string
-): ComponentReplacer[] =>
-  useMemo(
+): (() => ComponentReplacer[]) =>
+  useCallback(
     () => [
       new LinemarkerReplacer(),
       new GistReplacer(),

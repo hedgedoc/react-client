@@ -24,7 +24,7 @@ import convertHtmlToReact from '@hedgedoc/html-to-react'
 export const useConvertMarkdownToReactDom = (
   markdownCode: string,
   markdownIt: MarkdownIt,
-  replacers: ComponentReplacer[],
+  replacers: () => ComponentReplacer[],
   onBeforeRendering?: () => void,
   onAfterRendering?: () => void
 ): ValidReactDomElement[] => {
@@ -45,7 +45,8 @@ export const useConvertMarkdownToReactDom = (
     oldMarkdownLineKeys.current = newLines
     lastUsedLineId.current = newLastUsedLineId
 
-    const transformer = replacers.length > 0 ? buildTransformer(newLines, replacers) : undefined
+    const currentReplacers = replacers()
+    const transformer = currentReplacers.length > 0 ? buildTransformer(newLines, currentReplacers) : undefined
     const rendering = convertHtmlToReact(html, { transform: transformer })
     if (onAfterRendering) {
       onAfterRendering()
