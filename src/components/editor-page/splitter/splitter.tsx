@@ -8,6 +8,7 @@ import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'r
 import { ShowIf } from '../../common/show-if/show-if'
 import { SplitDivider } from './split-divider/split-divider'
 import './splitter.scss'
+import { useCappedRelativeSplitValue } from './hooks/use-capped-relative-split-value'
 
 export interface SplitterProps {
   left: ReactElement
@@ -62,7 +63,7 @@ export const Splitter: React.FC<SplitterProps> = ({
   showRight
 }) => {
   const [relativeSplitValue, setRelativeSplitValue] = useState(50)
-  const cappedRelativeSplitValue = Math.max(0, Math.min(100, showRight ? relativeSplitValue : 100))
+  const cappedRelativeSplitValue = useCappedRelativeSplitValue(showLeft, showRight, relativeSplitValue)
   const resizingInProgress = useRef(false)
   const splitContainer = useRef<HTMLDivElement>(null)
 
