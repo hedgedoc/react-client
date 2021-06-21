@@ -1,3 +1,4 @@
+
 <!--
 SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
 
