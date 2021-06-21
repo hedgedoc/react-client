@@ -7,14 +7,14 @@
 import { useMemo } from 'react'
 
 /**
- * Limits the given relative split value to a range from 0 to 100.
+ * Calculates the adjusted relative split value.
  *
  * @param showLeft Defines if the left split pane should be shown
  * @param showRight Defines if the right split pane should be shown
  * @param relativeSplitValue The relative size ratio of the split
- * @return the given limited relative split value. If only the left or right pane should be shown then the return value will be 100 or 0
+ * @return the limited (0% to 100%) relative split value. If only the left or right pane should be shown then the return value will be always 100 or 0
  */
-export const useCappedRelativeSplitValue = (
+export const useAdjustedRelativeSplitValue = (
   showLeft: boolean,
   showRight: boolean,
   relativeSplitValue: number
