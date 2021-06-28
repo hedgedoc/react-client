@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
-
-SPDX-License-Identifier: CC-BY-SA-4.0
--->
-
 # HedgeDoc - React Client
 
 ![test, build](https://github.com/hedgedoc/react-client/workflows/test,%20build/badge.svg)

@@ -12,6 +12,9 @@
 # testing
 /coverage
 
+# esdoc
+/docs
+
 # downloaded files during tests with cypress
 /cypress/downloads
 
