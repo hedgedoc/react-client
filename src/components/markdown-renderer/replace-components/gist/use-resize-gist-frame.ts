@@ -6,17 +6,23 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-const isLeftMouseButtonClicked = (mouseEvent: MouseEvent): boolean => {
+/**
+ * Determines if the left mouse button is pressed in the given event
+ *
+ * @param mouseEvent the mouse event that should be checked
+ * @return {@code true} if the left mouse button is pressed. {@code false} otherwise.
+ */
+const isLeftMouseButtonPressed = (mouseEvent: MouseEvent): boolean => {
   return mouseEvent.buttons === 1
 }
 
 /**
- * Extracts the absolute horizontal position of the mouse or touch point from the event.
- * If no position could be found or
+ * Extracts the absolute vertical position of the mouse or touch point from the event.
  *
- * @param moveEvent
+ * @param moveEvent the vertical position of the mouse pointer or the first touch pointer.
+ * @return the extracted vertical position.
  */
-const extractPointerPosition = (moveEvent: MouseEvent | TouchEvent): number => {
+const extractVerticalPointerPosition = (moveEvent: MouseEvent | TouchEvent): number => {
   if (isMouseEvent(moveEvent)) {
     return moveEvent.pageY
   } else {
@@ -50,13 +56,13 @@ export const useResizeGistFrame = (initialFrameHeight: number): [number, Pointer
     if (lastYPosition.current === undefined) {
       return
     }
-    if (isMouseEvent(moveEvent) && !isLeftMouseButtonClicked(moveEvent)) {
+    if (isMouseEvent(moveEvent) && !isLeftMouseButtonPressed(moveEvent)) {
       lastYPosition.current = undefined
       moveEvent.preventDefault()
       return undefined
     }
 
-    const currentPointerPosition = extractPointerPosition(moveEvent)
+    const currentPointerPosition = extractVerticalPointerPosition(moveEvent)
     const deltaPointerPosition = currentPointerPosition - lastYPosition.current
     lastYPosition.current = currentPointerPosition
     setFrameHeight((oldFrameHeight) => Math.max(0, oldFrameHeight + deltaPointerPosition))
@@ -64,7 +70,7 @@ export const useResizeGistFrame = (initialFrameHeight: number): [number, Pointer
   }, [])
 
   const onStartResizing: PointerEventHandler = useCallback((event) => {
-    lastYPosition.current = extractPointerPosition(event)
+    lastYPosition.current = extractVerticalPointerPosition(event)
   }, [])
 
   const onStopResizing = useCallback(() => {
