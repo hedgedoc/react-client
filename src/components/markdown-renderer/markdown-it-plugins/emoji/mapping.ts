@@ -5,7 +5,7 @@
  */
 
 import emojiData from 'emoji-picker-element-data/en/emojibase/data.json'
-import { ForkAwesomeIcons } from '../../../editor-page/editor-pane/tool-bar/emoji-picker/icon-names'
+import { ForkAwesomeIcons } from '../../../common/fork-awesome/fork-awesome-icons'
 
 interface EmojiEntry {
   shortcodes: string[]
