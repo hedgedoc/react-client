@@ -6,5 +6,5 @@
 
 import { ForkAwesomeIcons } from './fork-awesome-icons'
 
-export type IconName = keyof typeof ForkAwesomeIcons
+export type IconName = typeof ForkAwesomeIcons[number]
 export type IconSize = '2x' | '3x' | '4x' | '5x'
