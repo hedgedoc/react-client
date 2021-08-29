@@ -6,6 +6,12 @@
 
 export type FrontmatterExtractionResult = PresentFrontmatterExtractionResult | NonPresentFrontmatterExtractionResult
 
+export interface RendererFrontmatterInfo {
+  offsetLines: number
+  frontmatterInvalid: boolean
+  deprecatedSyntax: boolean
+}
+
 export interface PresentFrontmatterExtractionResult {
   frontmatterPresent: true
   rawFrontmatterText: string

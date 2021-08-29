@@ -11,7 +11,7 @@ import { useDocumentTitleWithNoteTitle } from '../../hooks/common/use-document-t
 import { useNoteMarkdownContent } from '../../hooks/common/use-note-markdown-content'
 import {
   setCheckboxInMarkdownContent,
-  setNoteMarkdownContent,
+  setNoteContent,
   updateNoteTitleByFirstHeading
 } from '../../redux/note-details/methods'
 import { MotdBanner } from '../common/motd-banner/motd-banner'
@@ -49,6 +49,7 @@ export const EditorPage: React.FC = () => {
   const markdownContent = useNoteMarkdownContent()
   const scrollSource = useRef<ScrollSource>(ScrollSource.EDITOR)
 
+  const documentContent = useApplicationState((state) => state.noteDetails.documentContent)
   const editorMode: EditorMode = useApplicationState((state) => state.editorConfig.editorMode)
   const editorSyncScroll: boolean = useApplicationState((state) => state.editorConfig.syncScroll)
 
@@ -97,14 +98,14 @@ export const EditorPage: React.FC = () => {
   const leftPane = useMemo(
     () => (
       <EditorPane
-        onContentChange={setNoteMarkdownContent}
-        content={markdownContent}
+        onContentChange={setNoteContent}
+        content={documentContent}
         scrollState={scrollState.editorScrollState}
         onScroll={onEditorScroll}
         onMakeScrollSource={setEditorToScrollSource}
       />
     ),
-    [markdownContent, onEditorScroll, scrollState.editorScrollState, setEditorToScrollSource]
+    [documentContent, onEditorScroll, scrollState.editorScrollState, setEditorToScrollSource]
   )
 
   const rightPane = useMemo(

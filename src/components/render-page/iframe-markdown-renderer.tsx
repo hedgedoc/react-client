@@ -13,11 +13,17 @@ import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { MarkdownDocument } from './markdown-document'
 import { useIFrameRendererToEditorCommunicator } from '../editor-page/render-context/iframe-renderer-to-editor-communicator-context-provider'
 import { countWords } from './word-counter'
+import { RendererFrontmatterInfo } from '../common/note-frontmatter/types'
 
 export const IframeMarkdownRenderer: React.FC = () => {
   const [markdownContent, setMarkdownContent] = useState('')
   const [scrollState, setScrollState] = useState<ScrollState>({ firstLineInView: 1, scrolledPercentage: 0 })
   const [baseConfiguration, setBaseConfiguration] = useState<BaseConfiguration | undefined>(undefined)
+  const [frontmatterInfo, setFrontmatterInfo] = useState<RendererFrontmatterInfo>({
+    offsetLines: 0,
+    frontmatterInvalid: false,
+    deprecatedSyntax: false
+  })
 
   const iframeCommunicator = useIFrameRendererToEditorCommunicator()
 
@@ -35,6 +41,7 @@ export const IframeMarkdownRenderer: React.FC = () => {
   useEffect(() => iframeCommunicator.onSetMarkdownContent(setMarkdownContent), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetDarkMode(setDarkMode), [iframeCommunicator])
   useEffect(() => iframeCommunicator.onSetScrollState(setScrollState), [iframeCommunicator, scrollState])
+  useEffect(() => iframeCommunicator.onSetFrontmatterInfo(setFrontmatterInfo), [iframeCommunicator, setFrontmatterInfo])
   useEffect(
     () => iframeCommunicator.onGetWordCount(countWordsInRenderedDocument),
     [iframeCommunicator, countWordsInRenderedDocument]
@@ -91,6 +98,7 @@ export const IframeMarkdownRenderer: React.FC = () => {
           onScroll={onScroll}
           baseUrl={baseConfiguration.baseUrl}
           onImageClick={onImageClick}
+          frontmatterInfo={frontmatterInfo}
         />
       )
     case RendererType.INTRO:

@@ -11,7 +11,14 @@ import { initialState } from '../../redux/note-details/reducers'
 
 export const noteDtoToNoteDetails = (note: NoteDto): NoteDetails => {
   return {
-    markdownContent: note.content,
+    documentContent: note.content,
+    markdownContent: '',
+    rawFrontmatter: '',
+    frontmatterRendererInfo: {
+      frontmatterInvalid: false,
+      deprecatedSyntax: false,
+      offsetLines: 0
+    },
     frontmatter: initialState.frontmatter,
     id: note.metadata.id,
     noteTitle: initialState.noteTitle,

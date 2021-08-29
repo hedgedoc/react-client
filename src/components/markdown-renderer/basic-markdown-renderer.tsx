@@ -33,6 +33,7 @@ export interface BasicMarkdownRendererProps {
   onImageClick?: ImageClickHandler
   outerContainerRef?: Ref<HTMLDivElement>
   useAlternativeBreaks?: boolean
+  frontmatterLineOffset?: number
 }
 
 export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & AdditionalMarkdownRendererProps> = ({
@@ -46,7 +47,8 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
   baseUrl,
   onImageClick,
   outerContainerRef,
-  useAlternativeBreaks
+  useAlternativeBreaks,
+  frontmatterLineOffset
 }) => {
   const markdownBodyRef = useRef<HTMLDivElement>(null)
   const currentLineMarkers = useRef<LineMarkers[]>()
@@ -63,9 +65,10 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
           onLineMarkerPositionChanged === undefined
             ? undefined
             : (lineMarkers) => (currentLineMarkers.current = lineMarkers),
-        useAlternativeBreaks
+        useAlternativeBreaks,
+        offsetLines: frontmatterLineOffset
       }).buildConfiguredMarkdownIt(),
-    [onLineMarkerPositionChanged, useAlternativeBreaks]
+    [onLineMarkerPositionChanged, useAlternativeBreaks, frontmatterLineOffset]
   )
 
   const baseReplacers = useComponentReplacers(onTaskCheckedChange, onImageClick, baseUrl)

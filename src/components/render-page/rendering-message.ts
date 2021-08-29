@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import { ScrollState } from '../editor-page/synced-scroll/scroll-props'
+import { RendererFrontmatterInfo } from '../common/note-frontmatter/types'
 
 export enum RenderIframeMessageType {
   SET_MARKDOWN_CONTENT = 'SET_MARKDOWN_CONTENT',
@@ -17,7 +18,8 @@ export enum RenderIframeMessageType {
   ON_HEIGHT_CHANGE = 'ON_HEIGHT_CHANGE',
   SET_BASE_CONFIGURATION = 'SET_BASE_CONFIGURATION',
   GET_WORD_COUNT = 'GET_WORD_COUNT',
-  ON_WORD_COUNT_CALCULATED = 'ON_WORD_COUNT_CALCULATED'
+  ON_WORD_COUNT_CALCULATED = 'ON_WORD_COUNT_CALCULATED',
+  SET_FRONTMATTER_INFO = 'SET_FRONTMATTER_INFO'
 }
 
 export interface RendererToEditorSimpleMessage {
@@ -70,6 +72,11 @@ export interface OnFirstHeadingChangeMessage {
   firstHeading: string | undefined
 }
 
+export interface SetFrontmatterInfoMessage {
+  type: RenderIframeMessageType.SET_FRONTMATTER_INFO
+  frontmatterInfo: RendererFrontmatterInfo
+}
+
 export interface OnHeightChangeMessage {
   type: RenderIframeMessageType.ON_HEIGHT_CHANGE
   height: number
@@ -86,6 +93,7 @@ export type EditorToRendererIframeMessage =
   | SetScrollStateMessage
   | SetBaseUrlMessage
   | GetWordCountMessage
+  | SetFrontmatterInfoMessage
 
 export type RendererToEditorIframeMessage =
   | RendererToEditorSimpleMessage

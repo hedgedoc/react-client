@@ -6,13 +6,20 @@
 
 import { DateTime } from 'luxon'
 import { Reducer } from 'redux'
-import { NoteTextDirection, NoteType } from '../../components/editor-page/note-frontmatter/types'
-import { NoteFrontmatter } from '../../components/editor-page/note-frontmatter/note-frontmatter'
+import { NoteTextDirection, NoteType } from '../../components/common/note-frontmatter/types'
+import { NoteFrontmatter } from '../../components/common/note-frontmatter/note-frontmatter'
 import { NoteDetails, NoteDetailsActions, NoteDetailsActionType } from './types'
 import { noteDtoToNoteDetails } from '../../api/notes/dto-methods'
 
 export const initialState: NoteDetails = {
+  documentContent: '',
   markdownContent: '',
+  rawFrontmatter: '',
+  frontmatterRendererInfo: {
+    frontmatterInvalid: false,
+    deprecatedSyntax: false,
+    offsetLines: 0
+  },
   id: '',
   createTime: DateTime.fromSeconds(0),
   lastChange: {
@@ -48,7 +55,12 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
     case NoteDetailsActionType.SET_DOCUMENT_CONTENT:
       return {
         ...state,
-        markdownContent: action.content
+        documentContent: action.content
+      }
+    case NoteDetailsActionType.SET_MARKDOWN_CONTENT:
+      return {
+        ...state,
+        markdownContent: action.markdownContent
       }
     case NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
       return {
@@ -63,6 +75,16 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
         ...state,
         frontmatter: action.frontmatter,
         noteTitle: generateNoteTitle(action.frontmatter, state.firstHeading)
+      }
+    case NoteDetailsActionType.SET_RAW_NOTE_FRONTMATTER:
+      return {
+        ...state,
+        rawFrontmatter: action.rawFrontmatter
+      }
+    case NoteDetailsActionType.SET_FRONTMATTER_RENDERER_INFO:
+      return {
+        ...state,
+        frontmatterRendererInfo: action.frontmatterRendererInfo
       }
     case NoteDetailsActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT:
       return {

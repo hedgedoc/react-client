@@ -41,6 +41,7 @@ export interface ConfiguratorDetails {
   onToc: (toc: TocAst) => void
   onLineMarkers?: (lineMarkers: LineMarkers[]) => void
   useAlternativeBreaks?: boolean
+  offsetLines?: number
 }
 
 export class BasicMarkdownItConfigurator<T extends ConfiguratorDetails> {
@@ -102,7 +103,7 @@ export class BasicMarkdownItConfigurator<T extends ConfiguratorDetails> {
     )
 
     if (this.options.onLineMarkers) {
-      this.configurations.push(lineNumberMarker(this.options.onLineMarkers))
+      this.configurations.push(lineNumberMarker(this.options.onLineMarkers, this.options.offsetLines ?? 0))
     }
 
     this.postConfigurations.push(linkifyExtra, MarkdownItParserDebugger)

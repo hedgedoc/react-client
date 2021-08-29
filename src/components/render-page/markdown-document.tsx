@@ -16,6 +16,8 @@ import './markdown-document.scss'
 import { WidthBasedTableOfContents } from './width-based-table-of-contents'
 import { ShowIf } from '../common/show-if/show-if'
 import { useApplicationState } from '../../hooks/common/use-application-state'
+import { RendererFrontmatterInfo } from '../common/note-frontmatter/types'
+import { InvalidYamlAlert } from '../markdown-renderer/invalid-yaml-alert'
 
 export interface RendererProps extends ScrollProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
@@ -31,6 +33,7 @@ export interface MarkdownDocumentProps extends RendererProps {
   additionalRendererClasses?: string
   disableToc?: boolean
   baseUrl: string
+  frontmatterInfo?: RendererFrontmatterInfo
 }
 
 export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
@@ -45,7 +48,8 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   onScroll,
   scrollState,
   onHeightChange,
-  disableToc
+  disableToc,
+  frontmatterInfo
 }) => {
   const rendererRef = useRef<HTMLDivElement | null>(null)
   const rendererSize = useResizeObserver({ ref: rendererRef.current })
@@ -82,7 +86,8 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
       onMouseEnter={onMakeScrollSource}>
       <div className={'markdown-document-side'} />
       <div className={'markdown-document-content'}>
-        <YamlArrayDeprecationAlert />
+        <InvalidYamlAlert show={!!frontmatterInfo?.frontmatterInvalid} />
+        <YamlArrayDeprecationAlert show={!!frontmatterInfo?.deprecatedSyntax} />
         <BasicMarkdownRenderer
           outerContainerRef={rendererRef}
           className={`mb-3 ${additionalRendererClasses ?? ''}`}
@@ -94,6 +99,7 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
           baseUrl={baseUrl}
           onImageClick={onImageClick}
           useAlternativeBreaks={useAlternativeBreaks}
+          frontmatterLineOffset={frontmatterInfo?.offsetLines}
         />
       </div>
       <div className={'markdown-document-side pt-4'}>

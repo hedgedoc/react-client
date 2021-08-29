@@ -12,6 +12,7 @@ import {
   RendererToEditorIframeMessage,
   RenderIframeMessageType
 } from './rendering-message'
+import { RendererFrontmatterInfo } from '../common/note-frontmatter/types'
 
 export class IframeEditorToRendererCommunicator extends IframeCommunicator<
   EditorToRendererIframeMessage,
@@ -92,6 +93,13 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<
   public sendGetWordCount(): void {
     this.sendMessageToOtherSide({
       type: RenderIframeMessageType.GET_WORD_COUNT
+    })
+  }
+
+  public sendSetFrontmatterInfo(frontmatterInfo: RendererFrontmatterInfo): void {
+    this.sendMessageToOtherSide({
+      type: RenderIframeMessageType.SET_FRONTMATTER_INFO,
+      frontmatterInfo: frontmatterInfo
     })
   }
 
