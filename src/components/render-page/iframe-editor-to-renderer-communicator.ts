@@ -3,8 +3,6 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-
-import { NoteFrontmatter } from '../editor-page/note-frontmatter/note-frontmatter'
 import { ScrollState } from '../editor-page/synced-scroll/scroll-props'
 import { IframeCommunicator } from './iframe-communicator'
 import {
@@ -22,7 +20,6 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<
   private onSetScrollSourceToRendererHandler?: () => void
   private onTaskCheckboxChangeHandler?: (lineInMarkdown: number, checked: boolean) => void
   private onFirstHeadingChangeHandler?: (heading?: string) => void
-  private onFrontmatterChangeHandler?: (frontmatter?: NoteFrontmatter) => void
   private onSetScrollStateHandler?: (scrollState: ScrollState) => void
   private onRendererReadyHandler?: () => void
   private onImageClickedHandler?: (details: ImageDetails) => void
@@ -31,10 +28,6 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<
 
   public onHeightChange(handler?: (height: number) => void): void {
     this.onHeightChangeHandler = handler
-  }
-
-  public onFrontmatterChange(handler?: (frontmatter?: NoteFrontmatter) => void): void {
-    this.onFrontmatterChangeHandler = handler
   }
 
   public onImageClicked(handler?: (details: ImageDetails) => void): void {
@@ -120,9 +113,6 @@ export class IframeEditorToRendererCommunicator extends IframeCommunicator<
         return false
       case RenderIframeMessageType.ON_TASK_CHECKBOX_CHANGE:
         this.onTaskCheckboxChangeHandler?.(renderMessage.lineInMarkdown, renderMessage.checked)
-        return false
-      case RenderIframeMessageType.ON_SET_FRONTMATTER:
-        this.onFrontmatterChangeHandler?.(renderMessage.frontmatter)
         return false
       case RenderIframeMessageType.IMAGE_CLICKED:
         this.onImageClickedHandler?.(renderMessage.details)

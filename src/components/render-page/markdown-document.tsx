@@ -7,7 +7,6 @@
 import { TocAst } from 'markdown-it-toc-done-right'
 import React, { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react'
 import useResizeObserver from 'use-resize-observer'
-import { NoteFrontmatter } from '../editor-page/note-frontmatter/note-frontmatter'
 import { YamlArrayDeprecationAlert } from '../editor-page/renderer-pane/yaml-array-deprecation-alert'
 import { useSyncedScrolling } from '../editor-page/synced-scroll/hooks/use-synced-scrolling'
 import { ScrollProps } from '../editor-page/synced-scroll/scroll-props'
@@ -20,7 +19,6 @@ import { useApplicationState } from '../../hooks/common/use-application-state'
 
 export interface RendererProps extends ScrollProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
-  onFrontmatterChange?: (frontmatter: NoteFrontmatter | undefined) => void
   onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
   documentRenderPaneRef?: MutableRefObject<HTMLDivElement | null>
   markdownContent: string
@@ -39,7 +37,6 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   additionalOuterContainerClasses,
   additionalRendererClasses,
   onFirstHeadingChange,
-  onFrontmatterChange,
   onMakeScrollSource,
   onTaskCheckedChange,
   baseUrl,
@@ -92,7 +89,6 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
           content={markdownContent}
           onFirstHeadingChange={onFirstHeadingChange}
           onLineMarkerPositionChanged={onLineMarkerPositionChanged}
-          onFrontmatterChange={onFrontmatterChange}
           onTaskCheckedChange={onTaskCheckedChange}
           onTocChange={setTocAst}
           baseUrl={baseUrl}

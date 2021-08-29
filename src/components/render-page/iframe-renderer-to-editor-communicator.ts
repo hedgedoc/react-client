@@ -3,8 +3,6 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-
-import { NoteFrontmatter } from '../editor-page/note-frontmatter/note-frontmatter'
 import { ScrollState } from '../editor-page/synced-scroll/scroll-props'
 import { IframeCommunicator } from './iframe-communicator'
 import {
@@ -70,13 +68,6 @@ export class IframeRendererToEditorCommunicator extends IframeCommunicator<
   public sendSetScrollSourceToRenderer(): void {
     this.sendMessageToOtherSide({
       type: RenderIframeMessageType.SET_SCROLL_SOURCE_TO_RENDERER
-    })
-  }
-
-  public sendSetFrontmatter(frontmatter: NoteFrontmatter | undefined): void {
-    this.sendMessageToOtherSide({
-      type: RenderIframeMessageType.ON_SET_FRONTMATTER,
-      frontmatter: frontmatter
     })
   }
 

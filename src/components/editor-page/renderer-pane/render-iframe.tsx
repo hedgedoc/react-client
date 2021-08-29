@@ -25,7 +25,6 @@ export interface RenderIframeProps extends RendererProps {
 export const RenderIframe: React.FC<RenderIframeProps> = ({
   markdownContent,
   onTaskCheckedChange,
-  onFrontmatterChange,
   scrollState,
   onFirstHeadingChange,
   onScroll,
@@ -66,11 +65,6 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
     iframeCommunicator.onFirstHeadingChange(onFirstHeadingChange)
     return () => iframeCommunicator.onFirstHeadingChange(undefined)
   }, [iframeCommunicator, onFirstHeadingChange])
-
-  useEffect(() => {
-    iframeCommunicator.onFrontmatterChange(onFrontmatterChange)
-    return () => iframeCommunicator.onFrontmatterChange(undefined)
-  }, [iframeCommunicator, onFrontmatterChange])
 
   useEffect(() => {
     iframeCommunicator.onSetScrollState(onScroll)

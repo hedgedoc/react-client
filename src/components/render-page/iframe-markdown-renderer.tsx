@@ -8,8 +8,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ScrollState } from '../editor-page/synced-scroll/scroll-props'
 import { BaseConfiguration, RendererType } from './rendering-message'
 import { setDarkMode } from '../../redux/dark-mode/methods'
-import { NoteFrontmatter } from '../editor-page/note-frontmatter/note-frontmatter'
-import { setNoteFrontmatter } from '../../redux/note-details/methods'
 import { ImageClickHandler } from '../markdown-renderer/replace-components/image/image-replacer'
 import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { MarkdownDocument } from './markdown-document'
@@ -60,14 +58,6 @@ export const IframeMarkdownRenderer: React.FC = () => {
     iframeCommunicator.sendSetScrollSourceToRenderer()
   }, [iframeCommunicator])
 
-  const onFrontmatterChange = useCallback(
-    (frontmatter?: NoteFrontmatter) => {
-      setNoteFrontmatter(frontmatter)
-      iframeCommunicator.sendSetFrontmatter(frontmatter)
-    },
-    [iframeCommunicator]
-  )
-
   const onScroll = useCallback(
     (scrollState: ScrollState) => {
       iframeCommunicator.sendSetScrollState(scrollState)
@@ -97,7 +87,6 @@ export const IframeMarkdownRenderer: React.FC = () => {
           onTaskCheckedChange={onTaskCheckedChange}
           onFirstHeadingChange={onFirstHeadingChange}
           onMakeScrollSource={onMakeScrollSource}
-          onFrontmatterChange={onFrontmatterChange}
           scrollState={scrollState}
           onScroll={onScroll}
           baseUrl={baseConfiguration.baseUrl}
