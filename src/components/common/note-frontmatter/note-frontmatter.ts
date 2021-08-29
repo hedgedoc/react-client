@@ -8,6 +8,9 @@
 import { load } from 'js-yaml'
 import { ISO6391, NoteTextDirection, NoteType, RawNoteFrontmatter } from './types'
 
+/**
+ * Class that represents the parsed frontmatter metadata of a note.
+ */
 export class NoteFrontmatter {
   title: string
   description: string
@@ -23,6 +26,10 @@ export class NoteFrontmatter {
   // slideOptions: RevealOptions
   opengraph: Map<string, string>
 
+  /**
+   * Creates a new frontmatter metadata instance based on the given raw metadata properties.
+   * @param rawData A {@link RawNoteFrontmatter} object containing the properties of the parsed yaml frontmatter.
+   */
   constructor(rawData: RawNoteFrontmatter) {
     this.title = rawData.title ?? ''
     this.description = rawData.description ?? ''
@@ -56,6 +63,12 @@ export class NoteFrontmatter {
       : new Map<string, string>()
   }
 
+  /**
+   * Creates a new frontmatter metadata instance based on a raw yaml string.
+   * @param content The frontmatter content in yaml format.
+   * @throws Error when the content string is invalid yaml.
+   * @return Frontmatter metadata instance containing the parsed properties from the yaml content.
+   */
   static parseFromString(content: string): NoteFrontmatter {
     const rawNoteFrontmatter = load(content) as RawNoteFrontmatter
     return new NoteFrontmatter(rawNoteFrontmatter)

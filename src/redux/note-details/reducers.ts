@@ -86,27 +86,9 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
         ...state,
         frontmatterRendererInfo: action.frontmatterRendererInfo
       }
-    case NoteDetailsActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT:
-      return {
-        ...state,
-        markdownContent: setCheckboxInMarkdownContent(state.markdownContent, action.lineInMarkdown, action.checked)
-      }
     default:
       return state
   }
-}
-
-const TASK_REGEX = /(\s*(?:[-*+]|\d+[.)]) )(\[[ xX]])( .*)/
-const setCheckboxInMarkdownContent = (markdownContent: string, lineInMarkdown: number, checked: boolean): string => {
-  const lines = markdownContent.split('\n')
-  const results = TASK_REGEX.exec(lines[lineInMarkdown])
-  if (results) {
-    const before = results[1]
-    const after = results[3]
-    lines[lineInMarkdown] = `${before}[${checked ? 'x' : ' '}]${after}`
-    return lines.join('\n')
-  }
-  return markdownContent
 }
 
 const generateNoteTitle = (frontmatter: NoteFrontmatter, firstHeading?: string) => {

@@ -71,7 +71,7 @@ export const BasicMarkdownRenderer: React.FC<BasicMarkdownRendererProps & Additi
     [onLineMarkerPositionChanged, useAlternativeBreaks, frontmatterLineOffset]
   )
 
-  const baseReplacers = useComponentReplacers(onTaskCheckedChange, onImageClick, baseUrl)
+  const baseReplacers = useComponentReplacers(onTaskCheckedChange, onImageClick, baseUrl, frontmatterLineOffset)
   const replacers = useCallback(
     () => baseReplacers().concat(additionalReplacers ? additionalReplacers() : []),
     [additionalReplacers, baseReplacers]

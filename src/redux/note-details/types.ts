@@ -17,8 +17,7 @@ export enum NoteDetailsActionType {
   SET_NOTE_FRONTMATTER = 'note-details/frontmatter/set',
   SET_FRONTMATTER_RENDERER_INFO = 'note-details/frontmatter/renderer-info/set',
   SET_RAW_NOTE_FRONTMATTER = 'note-details/frontmatter/raw/set',
-  UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading',
-  SET_CHECKBOX_IN_MARKDOWN_CONTENT = 'note-details/toggle-checkbox-in-markdown-content'
+  UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading'
 }
 
 interface LastChange {
@@ -50,7 +49,6 @@ export type NoteDetailsActions =
   | SetNoteFrontmatterAction
   | SetRawNoteFrontmatterAction
   | SetFrontmatterRendererInfoAction
-  | SetCheckboxInMarkdownContentAction
 
 export interface SetNoteDocumentContentAction extends Action<NoteDetailsActionType> {
   type: NoteDetailsActionType.SET_DOCUMENT_CONTENT
@@ -85,10 +83,4 @@ export interface SetRawNoteFrontmatterAction extends Action<NoteDetailsActionTyp
 export interface SetFrontmatterRendererInfoAction extends Action<NoteDetailsActionType> {
   type: NoteDetailsActionType.SET_FRONTMATTER_RENDERER_INFO
   frontmatterRendererInfo: RendererFrontmatterInfo
-}
-
-export interface SetCheckboxInMarkdownContentAction extends Action<NoteDetailsActionType> {
-  type: NoteDetailsActionType.SET_CHECKBOX_IN_MARKDOWN_CONTENT
-  lineInMarkdown: number
-  checked: boolean
 }

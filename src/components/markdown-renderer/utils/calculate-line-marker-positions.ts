@@ -50,8 +50,7 @@ export const useCalculateLineMarkerPosition = (
   documentElement: RefObject<HTMLDivElement>,
   lineMarkers?: LineMarkers[],
   onLineMarkerPositionChanged?: (lineMarkerPosition: LineMarkerPosition[]) => void,
-  offsetPx?: number,
-  offsetLines?: number
+  offset?: number
 ): void => {
   const lastLineMarkerPositions = useRef<LineMarkerPosition[]>()
 
@@ -60,13 +59,13 @@ export const useCalculateLineMarkerPosition = (
       return
     }
 
-    const newLines = calculateLineMarkerPositions(documentElement.current, lineMarkers, offsetPx)
+    const newLines = calculateLineMarkerPositions(documentElement.current, lineMarkers, offset)
 
     if (!equal(newLines, lastLineMarkerPositions)) {
       lastLineMarkerPositions.current = newLines
       onLineMarkerPositionChanged(newLines)
     }
-  }, [documentElement, lineMarkers, offsetPx, onLineMarkerPositionChanged])
+  }, [documentElement, lineMarkers, offset, onLineMarkerPositionChanged])
 
   useEffect(() => {
     calculateNewLineMarkerPositions()
