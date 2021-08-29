@@ -10,7 +10,7 @@ import resourcesToBackend from 'i18next-resources-to-backend'
 import { Settings } from 'luxon'
 import { initReactI18next } from 'react-i18next'
 
-export const setUpI18n = async (frontendAssetsUrl: string): Promise<void> => {
+export const setUpI18n = async (): Promise<void> => {
   await i18n
     .use(
       resourcesToBackend((language, namespace, callback) => {
@@ -28,10 +28,6 @@ export const setUpI18n = async (frontendAssetsUrl: string): Promise<void> => {
     .init({
       fallbackLng: 'en',
       debug: process.env.NODE_ENV !== 'production',
-      backend: {
-        loadPath: `${frontendAssetsUrl}locales/{{lng}}.json`
-      },
-
       interpolation: {
         escapeValue: false
       }

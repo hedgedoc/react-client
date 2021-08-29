@@ -36,7 +36,7 @@ export const createSetUpTaskList = (
   return [
     {
       name: 'Load Translations',
-      task: setUpI18n(frontendAssetsUrl)
+      task: setUpI18n()
     },
     {
       name: 'Load config',
