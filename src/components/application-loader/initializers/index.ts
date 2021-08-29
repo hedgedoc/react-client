@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { setUpI18n } from './i18n'
+import { setUpI18n } from './i18n/i18n'
 import { refreshHistoryState } from '../../../redux/history/methods'
 import { fetchAndSetBanner } from './fetch-and-set-banner'
 import { setApiUrl } from '../../../redux/api-url/methods'

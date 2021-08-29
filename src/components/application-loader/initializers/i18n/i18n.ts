@@ -6,13 +6,23 @@
 
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import Backend from 'i18next-http-backend'
+import resourcesToBackend from 'i18next-resources-to-backend'
 import { Settings } from 'luxon'
 import { initReactI18next } from 'react-i18next'
 
 export const setUpI18n = async (frontendAssetsUrl: string): Promise<void> => {
   await i18n
-    .use(Backend)
+    .use(
+      resourcesToBackend((language, namespace, callback) => {
+        import(`./locales/${language}.json`)
+          .then((resources) => {
+            callback(null, resources)
+          })
+          .catch((error) => {
+            callback(error, null)
+          })
+      })
+    )
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
