@@ -16,12 +16,14 @@ export enum NoteDetailsActionType {
   UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading',
   UPDATE_TASK_LIST_CHECKBOX = 'note-details/update-task-list-checkbox'
 }
-
 interface LastChange {
   userName: string
   timestamp: DateTime
 }
 
+/**
+ * Redux state containing the currently loaded note with its content and metadata.
+ */
 export interface NoteDetails {
   documentContent: string
   markdownContent: string
@@ -44,21 +46,33 @@ export type NoteDetailsActions =
   | UpdateNoteTitleByFirstHeadingAction
   | UpdateTaskListCheckboxAction
 
+/**
+ * Action for updating the document content of the currently loaded note.
+ */
 export interface SetNoteDocumentContentAction extends Action<NoteDetailsActionType> {
   type: NoteDetailsActionType.SET_DOCUMENT_CONTENT
   content: string
 }
 
+/**
+ * Action for overwriting the current state with the data received from the API.
+ */
 export interface SetNoteDetailsFromServerAction extends Action<NoteDetailsActionType> {
   type: NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER
-  note: NoteDto
+  dto: NoteDto
 }
 
+/**
+ * Action for updating the note title of the currently loaded note by using frontmatter data or the first heading.
+ */
 export interface UpdateNoteTitleByFirstHeadingAction extends Action<NoteDetailsActionType> {
   type: NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING
   firstHeading?: string
 }
 
+/**
+ * Action for manipulating the document content of the currently loaded note by changing the checked state of a task list checkbox.
+ */
 export interface UpdateTaskListCheckboxAction extends Action<NoteDetailsActionType> {
   type: NoteDetailsActionType.UPDATE_TASK_LIST_CHECKBOX
   changedLine: number

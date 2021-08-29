@@ -7,7 +7,7 @@
 import { NoteDto } from './types'
 import { NoteDetails } from '../../redux/note-details/types'
 import { DateTime } from 'luxon'
-import { initialState } from '../../redux/note-details/reducers'
+import { initialState } from '../../redux/note-details/initial-state'
 
 /**
  * Converts a note DTO from the API to a {@link NoteDetails} object.

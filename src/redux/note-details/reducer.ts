@@ -4,53 +4,14 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DateTime } from 'luxon'
 import { Reducer } from 'redux'
-import {
-  NoteTextDirection,
-  NoteType,
-  PresentFrontmatterExtractionResult
-} from '../../components/common/note-frontmatter/types'
+import { PresentFrontmatterExtractionResult } from '../../components/common/note-frontmatter/types'
 import { NoteFrontmatter } from '../../components/common/note-frontmatter/note-frontmatter'
 import { NoteDetails, NoteDetailsActions, NoteDetailsActionType } from './types'
 import { noteDtoToNoteDetails } from '../../api/notes/dto-methods'
 import { extractFrontmatter } from '../../components/common/note-frontmatter/extract-frontmatter'
-
-export const initialState: NoteDetails = {
-  documentContent: '',
-  markdownContent: '',
-  rawFrontmatter: '',
-  frontmatterRendererInfo: {
-    frontmatterInvalid: false,
-    deprecatedSyntax: false,
-    offsetLines: 0
-  },
-  id: '',
-  createTime: DateTime.fromSeconds(0),
-  lastChange: {
-    timestamp: DateTime.fromSeconds(0),
-    userName: ''
-  },
-  alias: '',
-  viewCount: 0,
-  authorship: [],
-  noteTitle: '',
-  firstHeading: '',
-  frontmatter: {
-    title: '',
-    description: '',
-    tags: [],
-    deprecatedTagsSyntax: false,
-    robots: '',
-    lang: 'en',
-    dir: NoteTextDirection.LTR,
-    breaks: true,
-    GA: '',
-    disqus: '',
-    type: NoteType.DOCUMENT,
-    opengraph: new Map<string, string>()
-  }
-}
+import { NoteDto } from '../../api/notes/types'
+import { initialState } from './initial-state'
 
 export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
   state: NoteDetails = initialState,
@@ -58,13 +19,13 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
 ) => {
   switch (action.type) {
     case NoteDetailsActionType.SET_DOCUMENT_CONTENT:
-      return createReduxStateFromDocumentContent(state, action.content)
+      return buildStateFromDocumentContentUpdate(state, action.content)
     case NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
-      return createReduxStateFromTitleChangeAndFirstHeading(state, action.firstHeading)
+      return buildStateFromFirstHeadingUpdate(state, action.firstHeading)
     case NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER:
-      return noteDtoToNoteDetails(action.note)
+      return buildStateFromServerDto(state, action.dto)
     case NoteDetailsActionType.UPDATE_TASK_LIST_CHECKBOX:
-      return createReduxStateFromTaskListChange(state, action.changedLine, action.checkboxChecked)
+      return buildStateFromTaskListUpdate(state, action.changedLine, action.checkboxChecked)
     default:
       return state
   }
@@ -72,7 +33,28 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
 
 const TASK_REGEX = /(\s*(?:[-*+]|\d+[.)]) )(\[[ xX]])( .*)/
 
-const createReduxStateFromTaskListChange = (
+/**
+ * Builds a {@link NoteDetails} redux state from a DTO received as an API response.
+ * @param state The previous redux state.
+ * @param dto The first DTO received from the API containing the relevant information about the note.
+ * @return An updated {@link NoteDetails} redux state.
+ */
+const buildStateFromServerDto = (state: NoteDetails, dto: NoteDto): NoteDetails => {
+  const newState = {
+    ...state,
+    ...noteDtoToNoteDetails(dto)
+  }
+  return buildStateFromDocumentContentUpdate(newState, newState.documentContent)
+}
+
+/**
+ * Builds a {@link NoteDetails} redux state where a checkbox in the markdown content either gets checked or unchecked.
+ * @param state The previous redux state.
+ * @param changedLine The number of the line in which the checkbox should be updated.
+ * @param checkboxChecked true if the checkbox should be checked, false otherwise.
+ * @return An updated {@link NoteDetails} redux state.
+ */
+const buildStateFromTaskListUpdate = (
   state: NoteDetails,
   changedLine: number,
   checkboxChecked: boolean
@@ -83,12 +65,18 @@ const createReduxStateFromTaskListChange = (
     const before = results[1]
     const after = results[3]
     lines[changedLine] = `${before}[${checkboxChecked ? 'x' : ' '}]${after}`
-    return createReduxStateFromDocumentContent(state, lines.join('\n'))
+    return buildStateFromDocumentContentUpdate(state, lines.join('\n'))
   }
   return state
 }
 
-const createReduxStateFromDocumentContent = (state: NoteDetails, documentContent: string): NoteDetails => {
+/**
+ * Builds a {@link NoteDetails} redux state from a fresh document content.
+ * @param state The previous redux state.
+ * @param documentContent The fresh document content consisting of the frontmatter and markdown part.
+ * @return An updated {@link NoteDetails} redux state.
+ */
+const buildStateFromDocumentContentUpdate = (state: NoteDetails, documentContent: string): NoteDetails => {
   const frontmatterExtraction = extractFrontmatter(documentContent)
   if (!frontmatterExtraction.frontmatterPresent) {
     return {
@@ -100,20 +88,24 @@ const createReduxStateFromDocumentContent = (state: NoteDetails, documentContent
       frontmatterRendererInfo: initialState.frontmatterRendererInfo
     }
   }
-  return createReduxStateFromFrontmatterAndContent(
+  return buildStateFromFrontmatterUpdate(
     {
       ...state,
       documentContent: documentContent,
       markdownContent: documentContent.split('\n').slice(frontmatterExtraction.frontmatterLines).join('\n')
     },
-    documentContent,
     frontmatterExtraction
   )
 }
 
-const createReduxStateFromFrontmatterAndContent = (
+/**
+ * Builds a {@link NoteDetails} redux state from extracted frontmatter data.
+ * @param state The previous redux state.
+ * @param frontmatterExtraction The result of the frontmatter extraction containing the raw data and the line offset.
+ * @return An updated {@link NoteDetails} redux state.
+ */
+const buildStateFromFrontmatterUpdate = (
   state: NoteDetails,
-  documentContent: string,
   frontmatterExtraction: PresentFrontmatterExtractionResult
 ): NoteDetails => {
   if (frontmatterExtraction.rawFrontmatterText === state.rawFrontmatter) {
@@ -125,6 +117,7 @@ const createReduxStateFromFrontmatterAndContent = (
       ...state,
       rawFrontmatter: frontmatterExtraction.rawFrontmatterText,
       frontmatter: frontmatter,
+      noteTitle: generateNoteTitle(frontmatter),
       frontmatterRendererInfo: {
         offsetLines: frontmatterExtraction.frontmatterLines,
         deprecatedSyntax: frontmatter.deprecatedTagsSyntax,
@@ -145,7 +138,13 @@ const createReduxStateFromFrontmatterAndContent = (
   }
 }
 
-const createReduxStateFromTitleChangeAndFirstHeading = (state: NoteDetails, firstHeading?: string): NoteDetails => {
+/**
+ * Builds a {@link NoteDetails} redux state with an updated note title from frontmatter data and the first heading.
+ * @param state The previous redux state.
+ * @param firstHeading The first heading of the document. Should be {@code undefined} if there is no such heading.
+ * @return An updated {@link NoteDetails} redux state.
+ */
+const buildStateFromFirstHeadingUpdate = (state: NoteDetails, firstHeading?: string): NoteDetails => {
   return {
     ...state,
     firstHeading: firstHeading,

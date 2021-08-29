@@ -32,9 +32,8 @@ export const setNoteContent = (content: string): void => {
 export const setNoteDataFromServer = (apiResponse: NoteDto): void => {
   store.dispatch({
     type: NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER,
-    note: apiResponse
+    dto: apiResponse
   } as SetNoteDetailsFromServerAction)
-  setNoteContent(apiResponse.content)
 }
 
 /**
