@@ -6,11 +6,8 @@
 
 import { DateTime } from 'luxon'
 import { Reducer } from 'redux'
-import {
-  NoteFrontmatter,
-  NoteTextDirection,
-  NoteType
-} from '../../components/editor-page/note-frontmatter/note-frontmatter'
+import { NoteTextDirection, NoteType } from '../../components/editor-page/note-frontmatter/types'
+import { NoteFrontmatter } from '../../components/editor-page/note-frontmatter/note-frontmatter'
 import { NoteDetails, NoteDetailsActions, NoteDetailsActionType } from './types'
 import { noteDtoToNoteDetails } from '../../api/notes/dto-methods'
 
