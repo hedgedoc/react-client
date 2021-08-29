@@ -6,10 +6,15 @@
 
 import { DateTime } from 'luxon'
 import { Reducer } from 'redux'
-import { NoteTextDirection, NoteType } from '../../components/common/note-frontmatter/types'
+import {
+  NoteTextDirection,
+  NoteType,
+  PresentFrontmatterExtractionResult
+} from '../../components/common/note-frontmatter/types'
 import { NoteFrontmatter } from '../../components/common/note-frontmatter/note-frontmatter'
 import { NoteDetails, NoteDetailsActions, NoteDetailsActionType } from './types'
 import { noteDtoToNoteDetails } from '../../api/notes/dto-methods'
+import { extractFrontmatter } from '../../components/common/note-frontmatter/extract-frontmatter'
 
 export const initialState: NoteDetails = {
   documentContent: '',
@@ -53,41 +58,98 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
 ) => {
   switch (action.type) {
     case NoteDetailsActionType.SET_DOCUMENT_CONTENT:
-      return {
-        ...state,
-        documentContent: action.content
-      }
-    case NoteDetailsActionType.SET_MARKDOWN_CONTENT:
-      return {
-        ...state,
-        markdownContent: action.markdownContent
-      }
+      return createReduxStateFromDocumentContent(state, action.content)
     case NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
-      return {
-        ...state,
-        firstHeading: action.firstHeading,
-        noteTitle: generateNoteTitle(state.frontmatter, action.firstHeading)
-      }
+      return createReduxStateFromTitleChangeAndFirstHeading(state, action.firstHeading)
     case NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER:
       return noteDtoToNoteDetails(action.note)
-    case NoteDetailsActionType.SET_NOTE_FRONTMATTER:
-      return {
-        ...state,
-        frontmatter: action.frontmatter,
-        noteTitle: generateNoteTitle(action.frontmatter, state.firstHeading)
-      }
-    case NoteDetailsActionType.SET_RAW_NOTE_FRONTMATTER:
-      return {
-        ...state,
-        rawFrontmatter: action.rawFrontmatter
-      }
-    case NoteDetailsActionType.SET_FRONTMATTER_RENDERER_INFO:
-      return {
-        ...state,
-        frontmatterRendererInfo: action.frontmatterRendererInfo
-      }
+    case NoteDetailsActionType.UPDATE_TASK_LIST_CHECKBOX:
+      return createReduxStateFromTaskListChange(state, action.changedLine, action.checkboxChecked)
     default:
       return state
+  }
+}
+
+const TASK_REGEX = /(\s*(?:[-*+]|\d+[.)]) )(\[[ xX]])( .*)/
+
+const createReduxStateFromTaskListChange = (
+  state: NoteDetails,
+  changedLine: number,
+  checkboxChecked: boolean
+): NoteDetails => {
+  const lines = state.documentContent.split('\n')
+  const results = TASK_REGEX.exec(lines[changedLine])
+  if (results) {
+    const before = results[1]
+    const after = results[3]
+    lines[changedLine] = `${before}[${checkboxChecked ? 'x' : ' '}]${after}`
+    return createReduxStateFromDocumentContent(state, lines.join('\n'))
+  }
+  return state
+}
+
+const createReduxStateFromDocumentContent = (state: NoteDetails, documentContent: string): NoteDetails => {
+  const frontmatterExtraction = extractFrontmatter(documentContent)
+  if (!frontmatterExtraction.frontmatterPresent) {
+    return {
+      ...state,
+      documentContent: documentContent,
+      markdownContent: documentContent,
+      rawFrontmatter: '',
+      frontmatter: initialState.frontmatter,
+      frontmatterRendererInfo: initialState.frontmatterRendererInfo
+    }
+  }
+  return createReduxStateFromFrontmatterAndContent(
+    {
+      ...state,
+      documentContent: documentContent,
+      markdownContent: documentContent.split('\n').slice(frontmatterExtraction.frontmatterLines).join('\n')
+    },
+    documentContent,
+    frontmatterExtraction
+  )
+}
+
+const createReduxStateFromFrontmatterAndContent = (
+  state: NoteDetails,
+  documentContent: string,
+  frontmatterExtraction: PresentFrontmatterExtractionResult
+): NoteDetails => {
+  if (frontmatterExtraction.rawFrontmatterText === state.rawFrontmatter) {
+    return state
+  }
+  try {
+    const frontmatter = NoteFrontmatter.parseFromString(frontmatterExtraction.rawFrontmatterText)
+    return {
+      ...state,
+      rawFrontmatter: frontmatterExtraction.rawFrontmatterText,
+      frontmatter: frontmatter,
+      frontmatterRendererInfo: {
+        offsetLines: frontmatterExtraction.frontmatterLines,
+        deprecatedSyntax: frontmatter.deprecatedTagsSyntax,
+        frontmatterInvalid: false
+      }
+    }
+  } catch (e) {
+    return {
+      ...state,
+      rawFrontmatter: frontmatterExtraction.rawFrontmatterText,
+      frontmatter: initialState.frontmatter,
+      frontmatterRendererInfo: {
+        offsetLines: frontmatterExtraction.frontmatterLines,
+        deprecatedSyntax: false,
+        frontmatterInvalid: true
+      }
+    }
+  }
+}
+
+const createReduxStateFromTitleChangeAndFirstHeading = (state: NoteDetails, firstHeading?: string): NoteDetails => {
+  return {
+    ...state,
+    firstHeading: firstHeading,
+    noteTitle: generateNoteTitle(state.frontmatter, firstHeading)
   }
 }
 

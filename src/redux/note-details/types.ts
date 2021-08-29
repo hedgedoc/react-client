@@ -12,12 +12,9 @@ import { RendererFrontmatterInfo } from '../../components/common/note-frontmatte
 
 export enum NoteDetailsActionType {
   SET_DOCUMENT_CONTENT = 'note-details/content/set',
-  SET_MARKDOWN_CONTENT = 'note-details/content/markdown/set',
   SET_NOTE_DATA_FROM_SERVER = 'note-details/data/server/set',
-  SET_NOTE_FRONTMATTER = 'note-details/frontmatter/set',
-  SET_FRONTMATTER_RENDERER_INFO = 'note-details/frontmatter/renderer-info/set',
-  SET_RAW_NOTE_FRONTMATTER = 'note-details/frontmatter/raw/set',
-  UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading'
+  UPDATE_NOTE_TITLE_BY_FIRST_HEADING = 'note-details/update-note-title-by-first-heading',
+  UPDATE_TASK_LIST_CHECKBOX = 'note-details/update-task-list-checkbox'
 }
 
 interface LastChange {
@@ -43,21 +40,13 @@ export interface NoteDetails {
 
 export type NoteDetailsActions =
   | SetNoteDocumentContentAction
-  | SetNoteMarkdownContentAction
   | SetNoteDetailsFromServerAction
   | UpdateNoteTitleByFirstHeadingAction
-  | SetNoteFrontmatterAction
-  | SetRawNoteFrontmatterAction
-  | SetFrontmatterRendererInfoAction
+  | UpdateTaskListCheckboxAction
 
 export interface SetNoteDocumentContentAction extends Action<NoteDetailsActionType> {
   type: NoteDetailsActionType.SET_DOCUMENT_CONTENT
   content: string
-}
-
-export interface SetNoteMarkdownContentAction extends Action<NoteDetailsActionType> {
-  type: NoteDetailsActionType.SET_MARKDOWN_CONTENT
-  markdownContent: string
 }
 
 export interface SetNoteDetailsFromServerAction extends Action<NoteDetailsActionType> {
@@ -70,17 +59,8 @@ export interface UpdateNoteTitleByFirstHeadingAction extends Action<NoteDetailsA
   firstHeading?: string
 }
 
-export interface SetNoteFrontmatterAction extends Action<NoteDetailsActionType> {
-  type: NoteDetailsActionType.SET_NOTE_FRONTMATTER
-  frontmatter: NoteFrontmatter
-}
-
-export interface SetRawNoteFrontmatterAction extends Action<NoteDetailsActionType> {
-  type: NoteDetailsActionType.SET_RAW_NOTE_FRONTMATTER
-  rawFrontmatter: string
-}
-
-export interface SetFrontmatterRendererInfoAction extends Action<NoteDetailsActionType> {
-  type: NoteDetailsActionType.SET_FRONTMATTER_RENDERER_INFO
-  frontmatterRendererInfo: RendererFrontmatterInfo
+export interface UpdateTaskListCheckboxAction extends Action<NoteDetailsActionType> {
+  type: NoteDetailsActionType.UPDATE_TASK_LIST_CHECKBOX
+  changedLine: number
+  checkboxChecked: boolean
 }
