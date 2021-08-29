@@ -5,7 +5,7 @@
  */
 
 /**
- * Parses a given text and parses it as comma separated values (CSV)
+ * Parses a given text as comma separated values (CSV).
  *
  * @param csvText The raw csv text
  * @param csvColumnDelimiter The delimiter for the columns
@@ -17,8 +17,7 @@ export const parseCsv = (csvText: string, csvColumnDelimiter: string): string[][
     return []
   }
   const splitRegex = new RegExp(`${escapeRegexCharacters(csvColumnDelimiter)}(?=(?:[^"]*"[^"]*")*[^"]*$)`)
-  return rows.filter((row) => row !== '')
-             .map((row) => row.split(splitRegex))
+  return rows.filter((row) => row !== '').map((row) => row.split(splitRegex))
 }
 
 /**
@@ -26,6 +25,6 @@ export const parseCsv = (csvText: string, csvColumnDelimiter: string): string[][
  * @param unsafe The unescaped string
  * @return The escaped string
  */
-function escapeRegexCharacters(unsafe: string) {
+const escapeRegexCharacters = (unsafe: string): string => {
   return unsafe.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
