@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+const WorkerPlugin = require('worker-plugin')
 const CopyPlugin = require('copy-webpack-plugin');
 const { when } = require('@craco/craco');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -12,6 +13,7 @@ module.exports = {
   webpack: {
     plugins: {
       add: [
+        new WorkerPlugin(),
         new CopyPlugin({
           patterns: [
             { from: 'node_modules/@hpcc-js/wasm/dist/graphvizlib.wasm', to: 'static/js' },
