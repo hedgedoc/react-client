@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { combineReducers, createStore, Reducer } from 'redux'
+import { applyMiddleware, combineReducers, createStore, Reducer } from 'redux'
+import thunk from 'redux-thunk'
 import { Config } from '../api/config/types'
 import { ApiUrlReducer } from './api-url/reducers'
 import { ApiUrlObject } from './api-url/types'
@@ -52,4 +53,4 @@ export const allReducers: Reducer<ApplicationState> = combineReducers<Applicatio
   rendererStatus: RendererStatusReducer
 })
 
-export const store = createStore(allReducers)
+export const store = createStore(allReducers, applyMiddleware(thunk))

@@ -7,22 +7,24 @@
 import { store } from '..'
 import { NoteDto } from '../../api/notes/types'
 import {
+  NoteDetails,
+  NoteDetailsActions,
   NoteDetailsActionType,
   SetNoteDetailsFromServerAction,
-  SetNoteDocumentContentAction,
   UpdateNoteTitleByFirstHeadingAction,
   UpdateTaskListCheckboxAction
 } from './types'
+import { ActionCreator, Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
 
 /**
  * Sets the content of the current note, extracts and parses the frontmatter and extracts the markdown content part.
  * @param content The note content as it is written inside the editor pane.
  */
-export const setNoteContent = (content: string): void => {
-  store.dispatch({
-    type: NoteDetailsActionType.SET_DOCUMENT_CONTENT,
-    content: content
-  } as SetNoteDocumentContentAction)
+export const setNoteContent: ActionCreator<ThunkAction<NoteDetailsActions, NoteDetails, void, any>> = (content: string) => {
+  return async (dispatch: Dispatch<NoteDetails>, getState: any): Promise<NoteDetailsActions> => {
+
+  }
 }
 
 /**
