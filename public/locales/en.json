@@ -1,22 +1,22 @@
 {
-  "app": {
-    "slogan": "The best platform to write and share markdown.",
-    "title": "Collaborative markdown notes"
-  },
-  "notificationTest": {
-    "title": "Test",
-    "content": "It works!"
-  },
-  "renderer": {
-    "highlightCode": {
-      "copyCode": "Copy code to clipboard"
+    "app": {
+        "slogan": "The best platform to write and share markdown.",
+        "title": "Collaborative markdown notes"
     },
-    "markmap": {
-      "locked": "Mouse input locked",
-      "unlocked": "Mouse input unlocked"
+    "notificationTest": {
+      "title": "Test",
+      "content": "It works!"
     },
-    "flowchart": {
-      "invalidSyntax": "Invalid flowchart.js syntax!"
+    "renderer": {
+        "highlightCode": {
+            "copyCode": "Copy code to clipboard"
+        },
+        "markmap": {
+            "locked": "Mouse input locked",
+            "unlocked": "Mouse input unlocked"
+        },
+        "flowchart": {
+            "invalidSyntax": "Invalid flowchart.js syntax!"
         },
         "mermaid": {
             "unknownError": "Unknown rendering error. Please check your browser console."
