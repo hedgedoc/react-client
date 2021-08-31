@@ -8,10 +8,10 @@ import { Reducer } from 'redux'
 import { PresentFrontmatterExtractionResult } from '../../components/common/note-frontmatter/types'
 import { NoteFrontmatter } from '../../components/common/note-frontmatter/note-frontmatter'
 import { NoteDetails, NoteDetailsActions, NoteDetailsActionType } from './types'
-import { noteDtoToNoteDetails } from '../../api/notes/dto-methods'
 import { extractFrontmatter } from '../../components/common/note-frontmatter/extract-frontmatter'
 import { NoteDto } from '../../api/notes/types'
 import { initialState } from './initial-state'
+import { DateTime } from 'luxon'
 
 export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
   state: NoteDetails = initialState,
@@ -23,7 +23,7 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
     case NoteDetailsActionType.UPDATE_NOTE_TITLE_BY_FIRST_HEADING:
       return buildStateFromFirstHeadingUpdate(state, action.firstHeading)
     case NoteDetailsActionType.SET_NOTE_DATA_FROM_SERVER:
-      return buildStateFromServerDto(state, action.dto)
+      return buildStateFromServerDto(action.dto)
     case NoteDetailsActionType.UPDATE_TASK_LIST_CHECKBOX:
       return buildStateFromTaskListUpdate(state, action.changedLine, action.checkboxChecked)
     default:
@@ -35,15 +35,11 @@ const TASK_REGEX = /(\s*(?:[-*+]|\d+[.)]) )(\[[ xX]])( .*)/
 
 /**
  * Builds a {@link NoteDetails} redux state from a DTO received as an API response.
- * @param state The previous redux state.
  * @param dto The first DTO received from the API containing the relevant information about the note.
  * @return An updated {@link NoteDetails} redux state.
  */
-const buildStateFromServerDto = (state: NoteDetails, dto: NoteDto): NoteDetails => {
-  const newState = {
-    ...state,
-    ...noteDtoToNoteDetails(dto)
-  }
+const buildStateFromServerDto = (dto: NoteDto): NoteDetails => {
+  const newState = convertNoteDtoToNoteDetails(dto)
   return buildStateFromDocumentContentUpdate(newState, newState.documentContent)
 }
 
@@ -163,5 +159,36 @@ const generateNoteTitle = (frontmatter: NoteFrontmatter, firstHeading?: string) 
     return (frontmatter?.opengraph.get('title') ?? firstHeading ?? '').trim()
   } else {
     return (firstHeading ?? firstHeading ?? '').trim()
+  }
+}
+
+/**
+ * Converts a note DTO from the HTTP API to a {@link NoteDetails} object.
+ * Note that the documentContent will be set but the markdownContent and rawFrontmatterContent are yet to be processed.
+ * @param note The NoteDTO as defined in the backend.
+ * @return The NoteDetails object corresponding to the DTO.
+ */
+const convertNoteDtoToNoteDetails = (note: NoteDto): NoteDetails => {
+  return {
+    documentContent: note.content,
+    markdownContent: '',
+    rawFrontmatter: '',
+    frontmatterRendererInfo: {
+      frontmatterInvalid: false,
+      deprecatedSyntax: false,
+      offsetLines: 0
+    },
+    frontmatter: initialState.frontmatter,
+    id: note.metadata.id,
+    noteTitle: initialState.noteTitle,
+    createTime: DateTime.fromISO(note.metadata.createTime),
+    lastChange: {
+      userName: note.metadata.updateUser.userName,
+      timestamp: DateTime.fromISO(note.metadata.updateTime)
+    },
+    firstHeading: initialState.firstHeading,
+    viewCount: note.metadata.viewCount,
+    alias: note.metadata.alias,
+    authorship: note.metadata.editedBy
   }
 }
