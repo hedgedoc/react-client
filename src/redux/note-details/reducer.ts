@@ -108,7 +108,7 @@ const buildStateFromFrontmatterUpdate = (
     return state
   }
   try {
-    const frontmatter = NoteFrontmatter.parseFromString(frontmatterExtraction.rawFrontmatterText)
+    const frontmatter = NoteFrontmatter.createFromYaml(frontmatterExtraction.rawFrontmatterText)
     return {
       ...state,
       rawFrontmatter: frontmatterExtraction.rawFrontmatterText,

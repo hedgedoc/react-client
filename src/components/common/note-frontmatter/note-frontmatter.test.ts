@@ -8,23 +8,23 @@ import { NoteFrontmatter } from './note-frontmatter'
 
 describe('yaml frontmatter', () => {
   it('should parse "title"', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString('title: test')
+    const noteFrontmatter = NoteFrontmatter.createFromYaml('title: test')
     expect(noteFrontmatter.title).toEqual('test')
   })
 
   it('should parse "robots"', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString('robots: index, follow')
+    const noteFrontmatter = NoteFrontmatter.createFromYaml('robots: index, follow')
     expect(noteFrontmatter.robots).toEqual('index, follow')
   })
 
   it('should parse the deprecated tags syntax', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString('tags: test123, abc')
+    const noteFrontmatter = NoteFrontmatter.createFromYaml('tags: test123, abc')
     expect(noteFrontmatter.tags).toEqual(['test123', 'abc'])
     expect(noteFrontmatter.deprecatedTagsSyntax).toEqual(true)
   })
 
   it('should parse the tags list syntax', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString(`tags:
+    const noteFrontmatter = NoteFrontmatter.createFromYaml(`tags:
       - test123
       - abc
     `)
@@ -33,89 +33,30 @@ describe('yaml frontmatter', () => {
   })
 
   it('should parse the tag inline-list syntax', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString("tags: ['test123', 'abc']")
+    const noteFrontmatter = NoteFrontmatter.createFromYaml("tags: ['test123', 'abc']")
     expect(noteFrontmatter.tags).toEqual(['test123', 'abc'])
     expect(noteFrontmatter.deprecatedTagsSyntax).toEqual(false)
   })
 
   it('should parse "breaks"', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString('breaks: false')
+    const noteFrontmatter = NoteFrontmatter.createFromYaml('breaks: false')
     expect(noteFrontmatter.breaks).toEqual(false)
   })
 
-  /*
-   it('slideOptions nothing', () => {
-   NoteFrontmatter.parseFromString(`---
-   slideOptions:
-   ___
-   `,
-   {
-   slideOptions: null
-   },
-   {
-   slideOptions: {
-   theme: 'white',
-   transition: 'none'
-   }
-   })
-   })
-
-   it('slideOptions.theme only', () => {
-   NoteFrontmatter.parseFromString(`---
-   slideOptions:
-   theme: sky
-   ___
-   `,
-   {
-   slideOptions: {
-   theme: 'sky',
-   transition: undefined
-   }
-   },
-   {
-   slideOptions: {
-   theme: 'sky',
-   transition: 'none'
-   }
-   })
-   })
-
-   it('slideOptions full', () => {
-   NoteFrontmatter.parseFromString(`---
-   slideOptions:
-   transition: zoom
-   theme: sky
-   ___
-   `,
-   {
-   slideOptions: {
-   theme: 'sky',
-   transition: 'zoom'
-   }
-   },
-   {
-   slideOptions: {
-   theme: 'sky',
-   transition: 'zoom'
-   }
-   })
-   })
-   */
-
   it('should parse an empty opengraph object', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString('opengraph:')
+    const noteFrontmatter = NoteFrontmatter.createFromYaml('opengraph:')
     expect(noteFrontmatter.opengraph).toEqual(new Map<string, string>())
   })
 
   it('should parse an opengraph title', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString(`opengraph:
+    const noteFrontmatter = NoteFrontmatter.createFromYaml(`opengraph:
       title: Testtitle
     `)
     expect(noteFrontmatter.opengraph.get('title')).toEqual('Testtitle')
   })
 
   it('should parse multiple opengraph values', () => {
-    const noteFrontmatter = NoteFrontmatter.parseFromString(`opengraph:
+    const noteFrontmatter = NoteFrontmatter.createFromYaml(`opengraph:
       title: Testtitle
       image: https://dummyimage.com/48.png
       image:type: image/png

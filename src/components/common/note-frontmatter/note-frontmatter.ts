@@ -23,7 +23,6 @@ export class NoteFrontmatter {
   GA: string
   disqus: string
   type: NoteType
-  // slideOptions: RevealOptions
   opengraph: Map<string, string>
 
   /**
@@ -43,11 +42,6 @@ export class NoteFrontmatter {
     this.dir =
       (rawData.dir ? Object.values(NoteTextDirection).find((dir) => dir === rawData.dir) : undefined) ??
       NoteTextDirection.LTR
-
-    /* this.slideOptions = (rawData?.slideOptions as RevealOptions) ?? {
-     transition: 'none',
-     theme: 'white'
-     } */
     if (typeof rawData?.tags === 'string') {
       this.tags = rawData?.tags?.split(',').map((entry) => entry.trim()) ?? []
       this.deprecatedTagsSyntax = true
@@ -65,12 +59,12 @@ export class NoteFrontmatter {
 
   /**
    * Creates a new frontmatter metadata instance based on a raw yaml string.
-   * @param content The frontmatter content in yaml format.
+   * @param rawYaml The frontmatter content in yaml format.
    * @throws Error when the content string is invalid yaml.
    * @return Frontmatter metadata instance containing the parsed properties from the yaml content.
    */
-  static parseFromString(content: string): NoteFrontmatter {
-    const rawNoteFrontmatter = load(content) as RawNoteFrontmatter
+  static createFromYaml(rawYaml: string): NoteFrontmatter {
+    const rawNoteFrontmatter = load(rawYaml) as RawNoteFrontmatter
     return new NoteFrontmatter(rawNoteFrontmatter)
   }
 }
