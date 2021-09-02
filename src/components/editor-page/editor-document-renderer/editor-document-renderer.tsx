@@ -10,6 +10,11 @@ import { useNoteMarkdownContentWithoutFrontmatter } from '../../../hooks/common/
 
 export type EditorDocumentRendererProps = Omit<RenderIframeProps, 'markdownContent'>
 
+/**
+ * Renders the markdown content from the global application state with the iframe renderer.
+ *
+ * @param props Every property from the {@link RenderIframe} except the markdown content.
+ */
 export const EditorDocumentRenderer: React.FC<EditorDocumentRendererProps> = (props) => {
   const markdownContent = useNoteMarkdownContentWithoutFrontmatter()
   return <RenderIframe frameClasses={'h-100 w-100'} markdownContent={markdownContent} {...props} />

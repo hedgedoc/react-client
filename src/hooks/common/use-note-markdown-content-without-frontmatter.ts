@@ -8,6 +8,10 @@ import { useNoteMarkdownContent } from './use-note-markdown-content'
 import { useApplicationState } from './use-application-state'
 import { useMemo } from 'react'
 
+/**
+ * Extracts the markdown content of the current note from the global application state and removes the frontmatter.
+ * @return the markdown content of the note without frontmatter
+ */
 export const useNoteMarkdownContentWithoutFrontmatter = (): string => {
   const markdownContent = useNoteMarkdownContent()
   const offsetLines = useApplicationState((state) => state.noteDetails.frontmatterRendererInfo.offsetLines)
