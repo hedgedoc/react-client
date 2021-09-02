@@ -127,8 +127,9 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       }
       setNoteContent(value)
     },
-    [maxLengthWarningAlreadyShown]
+    [maxLength]
   )
+
   const onEditorDidMount = useCallback(
     (mountedEditor: Editor) => {
       setStatusBarInfo(createStatusInfo(mountedEditor, maxLength))
