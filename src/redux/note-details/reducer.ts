@@ -84,10 +84,10 @@ const buildStateFromMarkdownContentUpdate = (state: NoteDetails, markdownContent
       frontmatterRendererInfo: initialState.frontmatterRendererInfo
     }
   }
-    return buildStateFromFrontmatterUpdate(
-      {
-        ...state,
-        markdownContent: markdownContent
+  return buildStateFromFrontmatterUpdate(
+    {
+      ...state,
+      markdownContent: markdownContent
     },
     frontmatterExtraction
   )
