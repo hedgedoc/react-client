@@ -10,6 +10,11 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   webpack: {
+    configure: {
+      stats: {
+        warningsFilter: [/Critical dependency: the request of a dependency is an expression/i],
+      }
+    },
     plugins: {
       add: [
         new CopyPlugin({
