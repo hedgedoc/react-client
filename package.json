@@ -157,7 +157,7 @@
     "tabWidth": 2,
     "trailingComma": "none",
     "bracketSpacing": true,
-    "jsxBracketSameLine": true,
+    "bracketSameLine": true,
     "arrowParens": "always"
   },
   "browserslist": {
