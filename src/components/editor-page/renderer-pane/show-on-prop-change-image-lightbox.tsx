@@ -6,7 +6,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import { ImageLightboxModal } from '../../markdown-renderer/replace-components/image/image-lightbox-modal'
-import { ImageDetails } from '../../render-page/rendering-message'
+import { ImageDetails } from '../../render-page/window-post-message-communicator/rendering-message'
 
 export interface ShowOnPropChangeImageLightboxProps {
   details?: ImageDetails

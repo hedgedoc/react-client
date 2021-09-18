@@ -21,14 +21,14 @@ import { useViewModeShortcuts } from './hooks/useViewModeShortcuts'
 import { Sidebar } from './sidebar/sidebar'
 import { Splitter } from './splitter/splitter'
 import { DualScrollState, ScrollState } from './synced-scroll/scroll-props'
-import { RendererType } from '../render-page/rendering-message'
+import { RendererType } from '../render-page/window-post-message-communicator/rendering-message'
 import { useEditorModeFromUrl } from './hooks/useEditorModeFromUrl'
 import { UiNotifications } from '../notifications/ui-notifications'
 import { useNotificationTest } from './use-notification-test'
-import { IframeEditorToRendererCommunicatorContextProvider } from './render-context/iframe-editor-to-renderer-communicator-context-provider'
 import { useUpdateLocalHistoryEntry } from './hooks/useUpdateLocalHistoryEntry'
 import { useApplicationState } from '../../hooks/common/use-application-state'
 import { EditorDocumentRenderer } from './editor-document-renderer/editor-document-renderer'
+import { EditorToRendererCommunicatorContextProvider } from './render-context/iframe-editor-to-renderer-communicator-context-provider'
 
 export interface EditorPagePathParams {
   id: string
@@ -114,7 +114,7 @@ export const EditorPage: React.FC = () => {
   )
 
   return (
-    <IframeEditorToRendererCommunicatorContextProvider>
+    <EditorToRendererCommunicatorContextProvider>
       <UiNotifications />
       <MotdBanner />
       <div className={'d-flex flex-column vh-100'}>
@@ -136,7 +136,7 @@ export const EditorPage: React.FC = () => {
           </div>
         </ShowIf>
       </div>
-    </IframeEditorToRendererCommunicatorContextProvider>
+    </EditorToRendererCommunicatorContextProvider>
   )
 }
 

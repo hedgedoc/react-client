@@ -6,15 +6,27 @@
 import equal from 'fast-deep-equal'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
-import { useIsDarkModeActivated } from '../../../hooks/common/use-is-dark-mode-activated'
 import { isTestMode } from '../../../utils/test-modes'
 import { RendererProps } from '../../render-page/markdown-document'
-import { ImageDetails, RendererType } from '../../render-page/rendering-message'
-import { useIFrameEditorToRendererCommunicator } from '../render-context/iframe-editor-to-renderer-communicator-context-provider'
+import {
+  CommunicationMessageType,
+  ImageClickedMessage,
+  ImageDetails,
+  OnFirstHeadingChangeMessage,
+  OnHeightChangeMessage,
+  OnTaskCheckboxChangeMessage,
+  RendererType,
+  SetScrollStateMessage
+} from '../../render-page/window-post-message-communicator/rendering-message'
+import { useEditorToRendererCommunicator } from '../render-context/iframe-editor-to-renderer-communicator-context-provider'
 import { ScrollState } from '../synced-scroll/scroll-props'
 import { useOnIframeLoad } from './hooks/use-on-iframe-load'
 import { ShowOnPropChangeImageLightbox } from './show-on-prop-change-image-lightbox'
 import { setRendererStatus } from '../../../redux/renderer-status/methods'
+import { useEditorReceiveHandler } from '../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
+import { useDoIfRendererReady } from '../../render-page/window-post-message-communicator/hooks/use-do-if-renderer-ready'
+import { useRendererReady } from '../../render-page/window-post-message-communicator/hooks/use-renderer-ready'
+import { useSendDarkModeStatus } from './hooks/use-send-dark-mode-status'
 
 export interface RenderIframeProps extends RendererProps {
   rendererType: RendererType
@@ -33,8 +45,6 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   rendererType,
   forcedDarkMode
 }) => {
-  const savedDarkMode = useIsDarkModeActivated()
-  const darkMode = forcedDarkMode ?? savedDarkMode
   const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)
 
   const frameReference = useRef<HTMLIFrameElement>(null)
@@ -42,7 +52,8 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
   const renderPageUrl = `${rendererOrigin}render`
   const resetRendererReady = useCallback(() => setRendererStatus(false), [])
-  const iframeCommunicator = useIFrameEditorToRendererCommunicator()
+  const iframeCommunicator = useEditorToRendererCommunicator()
+  const rendererReady = useRendererReady()
   const onIframeLoad = useOnIframeLoad(
     frameReference,
     iframeCommunicator,
@@ -52,8 +63,6 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   )
   const [frameHeight, setFrameHeight] = useState<number>(0)
 
-  const rendererReady = useApplicationState((state) => state.rendererStatus.rendererReady)
-
   useEffect(
     () => () => {
       iframeCommunicator.unregisterEventListener()
@@ -62,72 +71,88 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
     [iframeCommunicator]
   )
 
-  useEffect(() => {
-    iframeCommunicator.onFirstHeadingChange(onFirstHeadingChange)
-    return () => iframeCommunicator.onFirstHeadingChange(undefined)
-  }, [iframeCommunicator, onFirstHeadingChange])
+  useEditorReceiveHandler(
+    CommunicationMessageType.ON_FIRST_HEADING_CHANGE,
+    useCallback(
+      (values: OnFirstHeadingChangeMessage) => onFirstHeadingChange?.(values.firstHeading),
+      [onFirstHeadingChange]
+    )
+  )
 
-  useEffect(() => {
-    iframeCommunicator.onSetScrollState(onScroll)
-    return () => iframeCommunicator.onSetScrollState(undefined)
-  }, [iframeCommunicator, onScroll])
+  useEditorReceiveHandler(
+    CommunicationMessageType.SET_SCROLL_STATE,
+    useCallback((values: SetScrollStateMessage) => onScroll?.(values.scrollState), [onScroll])
+  )
 
-  useEffect(() => {
-    iframeCommunicator.onSetScrollSourceToRenderer(onMakeScrollSource)
-    return () => iframeCommunicator.onSetScrollSourceToRenderer(undefined)
-  }, [iframeCommunicator, onMakeScrollSource])
+  useEditorReceiveHandler(
+    CommunicationMessageType.SET_SCROLL_SOURCE_TO_RENDERER,
+    useCallback(() => onMakeScrollSource?.(), [onMakeScrollSource])
+  )
 
-  useEffect(() => {
-    iframeCommunicator.onTaskCheckboxChange(onTaskCheckedChange)
-    return () => iframeCommunicator.onTaskCheckboxChange(undefined)
-  }, [iframeCommunicator, onTaskCheckedChange])
+  useEditorReceiveHandler(
+    CommunicationMessageType.ON_TASK_CHECKBOX_CHANGE,
+    useCallback(
+      (values: OnTaskCheckboxChangeMessage) => onTaskCheckedChange?.(values.lineInMarkdown, values.checked),
+      [onTaskCheckedChange]
+    )
+  )
 
-  useEffect(() => {
-    iframeCommunicator.onImageClicked(setLightboxDetails)
-    return () => iframeCommunicator.onImageClicked(undefined)
-  }, [iframeCommunicator])
+  useEditorReceiveHandler(
+    CommunicationMessageType.IMAGE_CLICKED,
+    useCallback((values: ImageClickedMessage) => setLightboxDetails?.(values.details), [setLightboxDetails])
+  )
 
-  useEffect(() => {
-    iframeCommunicator.onHeightChange(setFrameHeight)
-    return () => iframeCommunicator.onHeightChange(undefined)
-  }, [iframeCommunicator])
+  useEditorReceiveHandler(
+    CommunicationMessageType.ON_HEIGHT_CHANGE,
+    useCallback((values: OnHeightChangeMessage) => setFrameHeight?.(values.height), [setFrameHeight])
+  )
 
-  useEffect(() => {
-    iframeCommunicator.onRendererReady(() => {
-      iframeCommunicator.sendSetBaseConfiguration({
-        baseUrl: window.location.toString(),
-        rendererType
+  useEditorReceiveHandler(
+    CommunicationMessageType.RENDERER_READY,
+    useCallback(() => {
+      iframeCommunicator.enableCommunication()
+      iframeCommunicator.sendMessageToOtherSide({
+        type: CommunicationMessageType.SET_BASE_CONFIGURATION,
+        baseConfiguration: {
+          baseUrl: window.location.toString(),
+          rendererType
+        }
       })
       setRendererStatus(true)
-    })
-    return () => iframeCommunicator.onRendererReady(undefined)
-  }, [iframeCommunicator, rendererType])
+    }, [iframeCommunicator, rendererType])
+  )
 
-  useEffect(() => {
-    if (rendererReady) {
-      iframeCommunicator.sendSetDarkmode(darkMode)
-    }
-  }, [darkMode, iframeCommunicator, rendererReady])
+  useSendDarkModeStatus(forcedDarkMode)
 
   const oldScrollState = useRef<ScrollState | undefined>(undefined)
-  useEffect(() => {
-    if (rendererReady && !equal(scrollState, oldScrollState.current)) {
-      oldScrollState.current = scrollState
-      iframeCommunicator.sendScrollState(scrollState)
-    }
-  }, [iframeCommunicator, rendererReady, scrollState])
+  useDoIfRendererReady(
+    useCallback(() => {
+      if (scrollState && !equal(scrollState, oldScrollState.current)) {
+        oldScrollState.current = scrollState
+        iframeCommunicator.sendMessageToOtherSide({ type: CommunicationMessageType.SET_SCROLL_STATE, scrollState })
+      }
+    }, [iframeCommunicator, scrollState])
+  )
 
-  useEffect(() => {
-    if (rendererReady) {
-      iframeCommunicator.sendSetMarkdownContent(markdownContent)
-    }
-  }, [iframeCommunicator, markdownContent, rendererReady])
+  useDoIfRendererReady(
+    useCallback(() => {
+      iframeCommunicator.sendMessageToOtherSide({
+        type: CommunicationMessageType.SET_MARKDOWN_CONTENT,
+        content: markdownContent
+      })
+    }, [iframeCommunicator, markdownContent])
+  )
 
-  useEffect(() => {
-    if (rendererReady && frontmatterInfo !== undefined) {
-      iframeCommunicator.sendSetFrontmatterInfo(frontmatterInfo)
-    }
-  }, [iframeCommunicator, rendererReady, frontmatterInfo])
+  useDoIfRendererReady(
+    useCallback(() => {
+      if (frontmatterInfo !== undefined) {
+        iframeCommunicator.sendMessageToOtherSide({
+          type: CommunicationMessageType.SET_FRONTMATTER_INFO,
+          frontmatterInfo
+        })
+      }
+    }, [frontmatterInfo, iframeCommunicator])
+  )
 
   return (
     <Fragment>

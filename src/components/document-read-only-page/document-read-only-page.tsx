@@ -19,10 +19,10 @@ import { RenderIframe } from '../editor-page/renderer-pane/render-iframe'
 import { DocumentInfobar } from './document-infobar'
 import { ErrorWhileLoadingNoteAlert } from './ErrorWhileLoadingNoteAlert'
 import { LoadingNoteAlert } from './LoadingNoteAlert'
-import { RendererType } from '../render-page/rendering-message'
+import { RendererType } from '../render-page/window-post-message-communicator/rendering-message'
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { IframeEditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/iframe-editor-to-renderer-communicator-context-provider'
 import { useNoteMarkdownContentWithoutFrontmatter } from '../../hooks/common/use-note-markdown-content-without-frontmatter'
+import { EditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/iframe-editor-to-renderer-communicator-context-provider'
 
 export const DocumentReadOnlyPage: React.FC = () => {
   useTranslation()
@@ -37,7 +37,7 @@ export const DocumentReadOnlyPage: React.FC = () => {
   const noteDetails = useApplicationState((state) => state.noteDetails)
 
   return (
-    <IframeEditorToRendererCommunicatorContextProvider>
+    <EditorToRendererCommunicatorContextProvider>
       <div className={'d-flex flex-column mvh-100 bg-light'}>
         <MotdBanner />
         <AppBar mode={AppBarMode.BASIC} />
@@ -63,7 +63,7 @@ export const DocumentReadOnlyPage: React.FC = () => {
           />
         </ShowIf>
       </div>
-    </IframeEditorToRendererCommunicatorContextProvider>
+    </EditorToRendererCommunicatorContextProvider>
   )
 }
 
