@@ -23,7 +23,6 @@ import { useEditorReceiveHandler } from '../../render-page/window-post-message-c
 import { useRendererReady } from '../../render-page/window-post-message-communicator/hooks/use-renderer-ready'
 import { useSendDarkModeStatusToRenderer } from './hooks/use-send-dark-mode-status-to-renderer'
 import { useSendMarkdownToRenderer } from './hooks/use-send-markdown-to-renderer'
-import { useSendFrontmatterInfoToRenderer } from './hooks/use-send-frontmatter-info-to-renderer'
 import { useSendScrollState } from './hooks/use-send-scroll-state'
 
 export interface RenderIframeProps extends RendererProps {
@@ -115,7 +114,6 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   useSendScrollState(scrollState)
   useSendDarkModeStatusToRenderer(forcedDarkMode)
   useSendMarkdownToRenderer(markdownContent)
-  useSendFrontmatterInfoToRenderer()
 
   return (
     <Fragment>

@@ -8,6 +8,11 @@ import { useSendToRenderer } from '../../../render-page/window-post-message-comm
 import { useMemo } from 'react'
 import { CommunicationMessageType } from '../../../render-page/window-post-message-communicator/rendering-message'
 
+/**
+ * Sends the given markdown content to the renderer.
+ *
+ * @param markdownContent The markdown content to send.
+ */
 export const useSendMarkdownToRenderer = (markdownContent: string): void => {
   return useSendToRenderer(
     useMemo(

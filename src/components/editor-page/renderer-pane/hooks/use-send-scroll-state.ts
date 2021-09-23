@@ -11,6 +11,10 @@ import { useEffectOnRendererReady } from '../../../render-page/window-post-messa
 import equal from 'fast-deep-equal'
 import { useEditorToRendererCommunicator } from '../../render-context/iframe-editor-to-renderer-communicator-context-provider'
 
+/**
+ * Sends the given {@link ScrollState scroll state} to the renderer if the content changed.
+ * @param scrollState The scroll state to send
+ */
 export const useSendScrollState = (scrollState: ScrollState | undefined): void => {
   const iframeCommunicator = useEditorToRendererCommunicator()
   const oldScrollState = useRef<ScrollState | undefined>(undefined)

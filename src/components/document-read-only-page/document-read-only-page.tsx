@@ -23,6 +23,7 @@ import { RendererType } from '../render-page/window-post-message-communicator/re
 import { useApplicationState } from '../../hooks/common/use-application-state'
 import { useNoteMarkdownContentWithoutFrontmatter } from '../../hooks/common/use-note-markdown-content-without-frontmatter'
 import { EditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { useSendFrontmatterInfoFromReduxToRenderer } from '../editor-page/renderer-pane/hooks/use-send-frontmatter-info-from-redux-to-renderer'
 
 export const DocumentReadOnlyPage: React.FC = () => {
   useTranslation()
@@ -35,6 +36,7 @@ export const DocumentReadOnlyPage: React.FC = () => {
   const [error, loading] = useLoadNoteFromServer()
   const markdownContent = useNoteMarkdownContentWithoutFrontmatter()
   const noteDetails = useApplicationState((state) => state.noteDetails)
+  useSendFrontmatterInfoFromReduxToRenderer()
 
   return (
     <EditorToRendererCommunicatorContextProvider>

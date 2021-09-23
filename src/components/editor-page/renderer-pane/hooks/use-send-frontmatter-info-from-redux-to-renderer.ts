@@ -9,7 +9,11 @@ import { useMemo } from 'react'
 import { CommunicationMessageType } from '../../../render-page/window-post-message-communicator/rendering-message'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 
-export const useSendFrontmatterInfoToRenderer = (): void => {
+/**
+ * Extracts the {@link RendererFrontmatterInfo frontmatter data}
+ * from the global application state and sends it to the renderer.
+ */
+export const useSendFrontmatterInfoFromReduxToRenderer = (): void => {
   const frontmatterInfo = useApplicationState((state) => state.noteDetails.frontmatterRendererInfo)
 
   return useSendToRenderer(

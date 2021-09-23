@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 
 /**
- * Executes the given callback as it changes or the renderer is ready for receiving messages.
+ * Executes the given callback if it changes or the renderer is ready for receiving messages.
  *
  * @param sendOnReadyCallback The callback that should get executed.
  */
