@@ -6,7 +6,7 @@
 
 import { useEffect } from 'react'
 import { CommunicationMessages, RendererToEditorMessageType } from '../rendering-message'
-import { useEditorToRendererCommunicator } from '../../../editor-page/render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { useEditorToRendererCommunicator } from '../../../editor-page/render-context/editor-to-renderer-communicator-context-provider'
 import { Handler } from '../window-post-message-communicator'
 
 /**

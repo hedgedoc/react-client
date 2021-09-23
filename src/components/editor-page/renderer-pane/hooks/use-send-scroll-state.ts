@@ -9,7 +9,7 @@ import { ScrollState } from '../../synced-scroll/scroll-props'
 import { CommunicationMessageType } from '../../../render-page/window-post-message-communicator/rendering-message'
 import { useEffectOnRendererReady } from '../../../render-page/window-post-message-communicator/hooks/use-effect-on-renderer-ready'
 import equal from 'fast-deep-equal'
-import { useEditorToRendererCommunicator } from '../../render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { useEditorToRendererCommunicator } from '../../render-context/editor-to-renderer-communicator-context-provider'
 
 /**
  * Sends the given {@link ScrollState scroll state} to the renderer if the content changed.

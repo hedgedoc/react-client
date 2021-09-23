@@ -15,7 +15,7 @@ import {
   RendererType,
   SetScrollStateMessage
 } from '../../render-page/window-post-message-communicator/rendering-message'
-import { useEditorToRendererCommunicator } from '../render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { useEditorToRendererCommunicator } from '../render-context/editor-to-renderer-communicator-context-provider'
 import { useOnIframeLoad } from './hooks/use-on-iframe-load'
 import { CommunicatorImageLightbox } from './communicator-image-lightbox'
 import { setRendererStatus } from '../../../redux/renderer-status/methods'

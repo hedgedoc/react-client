@@ -22,7 +22,7 @@ import { LoadingNoteAlert } from './LoadingNoteAlert'
 import { RendererType } from '../render-page/window-post-message-communicator/rendering-message'
 import { useApplicationState } from '../../hooks/common/use-application-state'
 import { useNoteMarkdownContentWithoutFrontmatter } from '../../hooks/common/use-note-markdown-content-without-frontmatter'
-import { EditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { EditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/editor-to-renderer-communicator-context-provider'
 import { useSendFrontmatterInfoFromReduxToRenderer } from '../editor-page/renderer-pane/hooks/use-send-frontmatter-info-from-redux-to-renderer'
 
 export const DocumentReadOnlyPage: React.FC = () => {

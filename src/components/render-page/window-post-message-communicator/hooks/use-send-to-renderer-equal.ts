@@ -6,7 +6,7 @@
 
 import { useCallback, useRef } from 'react'
 import { CommunicationMessages, EditorToRendererMessageType } from '../rendering-message'
-import { useEditorToRendererCommunicator } from '../../../editor-page/render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { useEditorToRendererCommunicator } from '../../../editor-page/render-context/editor-to-renderer-communicator-context-provider'
 import { PostMessage } from '../window-post-message-communicator'
 import { useEffectOnRendererReady } from './use-effect-on-renderer-ready'
 import equal from 'fast-deep-equal'

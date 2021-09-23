@@ -9,7 +9,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ShowIf } from '../../../common/show-if/show-if'
 import { DocumentInfoLine } from './document-info-line'
 import { UnitalicBoldText } from './unitalic-bold-text'
-import { useEditorToRendererCommunicator } from '../../render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { useEditorToRendererCommunicator } from '../../render-context/editor-to-renderer-communicator-context-provider'
 import {
   CommunicationMessageType,
   OnWordCountCalculatedMessage

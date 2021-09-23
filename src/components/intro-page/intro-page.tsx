@@ -20,7 +20,7 @@ import { ShowIf } from '../common/show-if/show-if'
 import { RendererType } from '../render-page/window-post-message-communicator/rendering-message'
 import { WaitSpinner } from '../common/wait-spinner/wait-spinner'
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { EditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/iframe-editor-to-renderer-communicator-context-provider'
+import { EditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/editor-to-renderer-communicator-context-provider'
 
 export const IntroPage: React.FC = () => {
   const introPageContent = useIntroPageContent()
