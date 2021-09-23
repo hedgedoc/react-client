@@ -3,15 +3,12 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import equal from 'fast-deep-equal'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { isTestMode } from '../../../utils/test-modes'
 import { RendererProps } from '../../render-page/markdown-document'
 import {
   CommunicationMessageType,
-  ImageClickedMessage,
-  ImageDetails,
   OnFirstHeadingChangeMessage,
   OnHeightChangeMessage,
   OnTaskCheckboxChangeMessage,
@@ -19,14 +16,15 @@ import {
   SetScrollStateMessage
 } from '../../render-page/window-post-message-communicator/rendering-message'
 import { useEditorToRendererCommunicator } from '../render-context/iframe-editor-to-renderer-communicator-context-provider'
-import { ScrollState } from '../synced-scroll/scroll-props'
 import { useOnIframeLoad } from './hooks/use-on-iframe-load'
-import { ShowOnPropChangeImageLightbox } from './show-on-prop-change-image-lightbox'
+import { CommunicatorImageLightbox } from './communicator-image-lightbox'
 import { setRendererStatus } from '../../../redux/renderer-status/methods'
 import { useEditorReceiveHandler } from '../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
-import { useDoIfRendererReady } from '../../render-page/window-post-message-communicator/hooks/use-do-if-renderer-ready'
 import { useRendererReady } from '../../render-page/window-post-message-communicator/hooks/use-renderer-ready'
-import { useSendDarkModeStatus } from './hooks/use-send-dark-mode-status'
+import { useSendDarkModeStatusToRenderer } from './hooks/use-send-dark-mode-status-to-renderer'
+import { useSendMarkdownToRenderer } from './hooks/use-send-markdown-to-renderer'
+import { useSendFrontmatterInfoToRenderer } from './hooks/use-send-frontmatter-info-to-renderer'
+import { useSendScrollState } from './hooks/use-send-scroll-state'
 
 export interface RenderIframeProps extends RendererProps {
   rendererType: RendererType
@@ -45,10 +43,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   rendererType,
   forcedDarkMode
 }) => {
-  const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)
-
   const frameReference = useRef<HTMLIFrameElement>(null)
-  const frontmatterInfo = useApplicationState((state) => state.noteDetails.frontmatterRendererInfo)
   const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
   const renderPageUrl = `${rendererOrigin}render`
   const resetRendererReady = useCallback(() => setRendererStatus(false), [])
@@ -98,11 +93,6 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   )
 
   useEditorReceiveHandler(
-    CommunicationMessageType.IMAGE_CLICKED,
-    useCallback((values: ImageClickedMessage) => setLightboxDetails?.(values.details), [setLightboxDetails])
-  )
-
-  useEditorReceiveHandler(
     CommunicationMessageType.ON_HEIGHT_CHANGE,
     useCallback((values: OnHeightChangeMessage) => setFrameHeight?.(values.height), [setFrameHeight])
   )
@@ -122,41 +112,14 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
     }, [iframeCommunicator, rendererType])
   )
 
-  useSendDarkModeStatus(forcedDarkMode)
-
-  const oldScrollState = useRef<ScrollState | undefined>(undefined)
-  useDoIfRendererReady(
-    useCallback(() => {
-      if (scrollState && !equal(scrollState, oldScrollState.current)) {
-        oldScrollState.current = scrollState
-        iframeCommunicator.sendMessageToOtherSide({ type: CommunicationMessageType.SET_SCROLL_STATE, scrollState })
-      }
-    }, [iframeCommunicator, scrollState])
-  )
-
-  useDoIfRendererReady(
-    useCallback(() => {
-      iframeCommunicator.sendMessageToOtherSide({
-        type: CommunicationMessageType.SET_MARKDOWN_CONTENT,
-        content: markdownContent
-      })
-    }, [iframeCommunicator, markdownContent])
-  )
-
-  useDoIfRendererReady(
-    useCallback(() => {
-      if (frontmatterInfo !== undefined) {
-        iframeCommunicator.sendMessageToOtherSide({
-          type: CommunicationMessageType.SET_FRONTMATTER_INFO,
-          frontmatterInfo
-        })
-      }
-    }, [frontmatterInfo, iframeCommunicator])
-  )
+  useSendScrollState(scrollState)
+  useSendDarkModeStatusToRenderer(forcedDarkMode)
+  useSendMarkdownToRenderer(markdownContent)
+  useSendFrontmatterInfoToRenderer()
 
   return (
     <Fragment>
-      <ShowOnPropChangeImageLightbox details={lightboxDetails} />
+      <CommunicatorImageLightbox />
       <iframe
         style={{ height: `${frameHeight}px` }}
         data-cy={'documentIframe'}

@@ -15,7 +15,7 @@ import {
   OnWordCountCalculatedMessage
 } from '../../../render-page/window-post-message-communicator/rendering-message'
 import { useEditorReceiveHandler } from '../../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
-import { useDoIfRendererReady } from '../../../render-page/window-post-message-communicator/hooks/use-do-if-renderer-ready'
+import { useEffectOnRendererReady } from '../../../render-page/window-post-message-communicator/hooks/use-effect-on-renderer-ready'
 
 /**
  * Creates a new info line for the document information dialog that holds the
@@ -31,7 +31,7 @@ export const DocumentInfoLineWordCount: React.FC = () => {
     useCallback((values: OnWordCountCalculatedMessage) => setWordCount(values.words), [setWordCount])
   )
 
-  useDoIfRendererReady(
+  useEffectOnRendererReady(
     useCallback(() => {
       editorToRendererCommunicator.sendMessageToOtherSide({ type: CommunicationMessageType.GET_WORD_COUNT })
     }, [editorToRendererCommunicator])

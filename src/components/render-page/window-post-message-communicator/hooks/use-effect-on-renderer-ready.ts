@@ -12,7 +12,7 @@ import { useApplicationState } from '../../../../hooks/common/use-application-st
  *
  * @param sendOnReadyCallback The callback that should get executed.
  */
-export const useDoIfRendererReady = (sendOnReadyCallback: () => void): void => {
+export const useEffectOnRendererReady = (sendOnReadyCallback: () => void): void => {
   const rendererReady = useApplicationState((state) => state.rendererStatus.rendererReady)
 
   useEffect(() => {
