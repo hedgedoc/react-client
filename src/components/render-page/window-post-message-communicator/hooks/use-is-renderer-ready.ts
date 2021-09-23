@@ -9,4 +9,4 @@ import { useApplicationState } from '../../../../hooks/common/use-application-st
 /**
  * Returns the current ready status of the renderer.
  */
-export const useRendererReady = (): boolean => useApplicationState((state) => state.rendererStatus.rendererReady)
+export const useIsRendererReady = (): boolean => useApplicationState((state) => state.rendererStatus.rendererReady)

@@ -20,7 +20,7 @@ import { useOnIframeLoad } from './hooks/use-on-iframe-load'
 import { CommunicatorImageLightbox } from './communicator-image-lightbox'
 import { setRendererStatus } from '../../../redux/renderer-status/methods'
 import { useEditorReceiveHandler } from '../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
-import { useRendererReady } from '../../render-page/window-post-message-communicator/hooks/use-renderer-ready'
+import { useIsRendererReady } from '../../render-page/window-post-message-communicator/hooks/use-is-renderer-ready'
 import { useSendDarkModeStatusToRenderer } from './hooks/use-send-dark-mode-status-to-renderer'
 import { useSendMarkdownToRenderer } from './hooks/use-send-markdown-to-renderer'
 import { useSendScrollState } from './hooks/use-send-scroll-state'
@@ -47,7 +47,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   const renderPageUrl = `${rendererOrigin}render`
   const resetRendererReady = useCallback(() => setRendererStatus(false), [])
   const iframeCommunicator = useEditorToRendererCommunicator()
-  const rendererReady = useRendererReady()
+  const rendererReady = useIsRendererReady()
   const onIframeLoad = useOnIframeLoad(
     frameReference,
     iframeCommunicator,
