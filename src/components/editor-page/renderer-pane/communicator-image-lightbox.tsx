@@ -19,10 +19,13 @@ export const CommunicatorImageLightbox: React.FC = () => {
 
   useEditorReceiveHandler(
     CommunicationMessageType.IMAGE_CLICKED,
-    useCallback((values: ImageClickedMessage) => {
-      setLightboxDetails?.(values.details)
-      setShow(true)
-    }, [setLightboxDetails])
+    useCallback(
+      (values: ImageClickedMessage) => {
+        setLightboxDetails?.(values.details)
+        setShow(true)
+      },
+      [setLightboxDetails]
+    )
   )
 
   const hideLightbox = useCallback(() => {
