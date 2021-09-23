@@ -14,4 +14,9 @@ export class RendererToEditorCommunicator extends WindowPostMessageCommunicator<
   EditorToRendererMessageType,
   RendererToEditorMessageType,
   CommunicationMessages
-> {}
+> {
+
+  protected generateLogIdentifier(): string {
+    return 'E<=R';
+  }
+}

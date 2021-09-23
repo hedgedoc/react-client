@@ -91,13 +91,15 @@ export abstract class WindowPostMessageCommunicator<
         `Communication isn't enabled. Maybe the other side is not ready?\nMessage was: ${JSON.stringify(message)}`
       )
     }
-    console.debug('[WPMC] Sent event', message)
+    console.debug('[WPMC' + this.generateLogIdentifier() + '] Sent event', message)
     this.messageTarget.postMessage(message, this.targetOrigin)
   }
 
   public setHandler<R extends RECEIVE_TYPE>(eventType: R, handler: Handler<MESSAGES, R>): void {
     this.handlers[eventType] = handler as Handler<MESSAGES, RECEIVE_TYPE>
   }
+
+  protected abstract generateLogIdentifier(): string;
 
   /**
    * Receives the message events and calls the handler that is mapped to the correct type.
@@ -112,7 +114,7 @@ export abstract class WindowPostMessageCommunicator<
     if (!handler) {
       return true
     }
-    console.debug('[WPMC] Received event ', data)
+    console.debug('[WPMC'+ this.generateLogIdentifier() + '] Received event ', data)
     handler(data as Extract<MESSAGES, PostMessage<RECEIVE_TYPE>>)
     return false
   }
