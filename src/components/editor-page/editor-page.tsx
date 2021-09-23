@@ -54,8 +54,8 @@ export const EditorPage: React.FC = () => {
     (newScrollState: ScrollState) => {
       if (scrollSource.current === ScrollSource.RENDERER && editorSyncScroll) {
         setScrollState((old) => {
-          const newState = { editorScrollState: newScrollState, rendererScrollState: old.rendererScrollState };
-          console.debug("[EditorPage] set scroll state because of renderer scroll", newState)
+          const newState = { editorScrollState: newScrollState, rendererScrollState: old.rendererScrollState }
+          console.debug('[EditorPage] set scroll state because of renderer scroll', newState)
           return newState
         })
       }
@@ -68,7 +68,7 @@ export const EditorPage: React.FC = () => {
       if (scrollSource.current === ScrollSource.EDITOR && editorSyncScroll) {
         setScrollState((old) => {
           const newState = { rendererScrollState: newScrollState, editorScrollState: old.editorScrollState }
-          console.debug("[EditorPage] set scroll state because of editor scroll", newState)
+          console.debug('[EditorPage] set scroll state because of editor scroll', newState)
           return newState
         })
       }
@@ -87,12 +87,12 @@ export const EditorPage: React.FC = () => {
 
   const setRendererToScrollSource = useCallback(() => {
     scrollSource.current = ScrollSource.RENDERER
-    console.debug("[EditorPage] Make renderer scroll source")
+    console.debug('[EditorPage] Make renderer scroll source')
   }, [])
 
   const setEditorToScrollSource = useCallback(() => {
     scrollSource.current = ScrollSource.EDITOR
-    console.debug("[EditorPage] Make editor scroll source")
+    console.debug('[EditorPage] Make editor scroll source')
   }, [])
 
   useNotificationTest()

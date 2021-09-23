@@ -99,7 +99,7 @@ export abstract class WindowPostMessageCommunicator<
     this.handlers[eventType] = handler as Handler<MESSAGES, RECEIVE_TYPE>
   }
 
-  protected abstract generateLogIdentifier(): string;
+  protected abstract generateLogIdentifier(): string
 
   /**
    * Receives the message events and calls the handler that is mapped to the correct type.
@@ -114,7 +114,7 @@ export abstract class WindowPostMessageCommunicator<
     if (!handler) {
       return true
     }
-    console.debug('[WPMC'+ this.generateLogIdentifier() + '] Received event ', data)
+    console.debug('[WPMC' + this.generateLogIdentifier() + '] Received event ', data)
     handler(data as Extract<MESSAGES, PostMessage<RECEIVE_TYPE>>)
     return false
   }
