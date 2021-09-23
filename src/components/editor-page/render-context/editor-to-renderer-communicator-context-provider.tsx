@@ -23,6 +23,9 @@ export const useEditorToRendererCommunicator: () => EditorToRendererCommunicator
   return communicatorFromContext
 }
 
+/**
+ * Provides a {@link EditorToRendererCommunicator editor to renderer communicator} for the child components via Context.
+ */
 export const EditorToRendererCommunicatorContextProvider: React.FC = ({ children }) => {
   const communicator = useMemo<EditorToRendererCommunicator>(() => new EditorToRendererCommunicator(), [])
 

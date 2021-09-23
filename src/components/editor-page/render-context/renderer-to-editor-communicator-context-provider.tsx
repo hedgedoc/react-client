@@ -10,7 +10,7 @@ import { ApplicationState } from '../../../redux'
 import { RendererToEditorCommunicator } from '../../render-page/window-post-message-communicator/renderer-to-editor-communicator'
 import { CommunicationMessageType } from '../../render-page/window-post-message-communicator/rendering-message'
 
-const IFrameRendererToEditorCommunicatorContext = createContext<RendererToEditorCommunicator | undefined>(undefined)
+const RendererToEditorCommunicatorContext = createContext<RendererToEditorCommunicator | undefined>(undefined)
 
 /**
  * Provides the {@link RendererToEditorCommunicator renderer to editor iframe communicator} that is set by a {@link RendererToEditorCommunicatorContextProvider context provider}.
@@ -19,7 +19,7 @@ const IFrameRendererToEditorCommunicatorContext = createContext<RendererToEditor
  * @throws Error if no communicator was received
  */
 export const useRendererToEditorCommunicator: () => RendererToEditorCommunicator = () => {
-  const communicatorFromContext = useContext(IFrameRendererToEditorCommunicatorContext)
+  const communicatorFromContext = useContext(RendererToEditorCommunicatorContext)
   if (!communicatorFromContext) {
     throw new Error('No renderer-to-editor-iframe-communicator received. Did you forget to use the provider component?')
   }
@@ -43,9 +43,12 @@ export const RendererToEditorCommunicatorContextProvider: React.FC = ({ children
     return () => currentCommunicator?.unregisterEventListener()
   }, [communicator])
 
+  /**
+   * Provides a {@link RendererToEditorCommunicator renderer to editor communicator} for the child components via Context.
+   */
   return (
-    <IFrameRendererToEditorCommunicatorContext.Provider value={communicator}>
+    <RendererToEditorCommunicatorContext.Provider value={communicator}>
       {children}
-    </IFrameRendererToEditorCommunicatorContext.Provider>
+    </RendererToEditorCommunicatorContext.Provider>
   )
 }
