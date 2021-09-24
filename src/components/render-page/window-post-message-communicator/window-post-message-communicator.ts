@@ -95,10 +95,21 @@ export abstract class WindowPostMessageCommunicator<
     this.messageTarget.postMessage(message, this.targetOrigin)
   }
 
-  public setHandler<R extends RECEIVE_TYPE>(eventType: R, handler: Handler<MESSAGES, R>): void {
-    this.handlers[eventType] = handler as Handler<MESSAGES, RECEIVE_TYPE>
+  /**
+   * Sets the handler method that processes messages with the given message type.
+   * If there is already a handler for the given message type then the handler will be overwritten.
+   *
+   * @param messageType The message type for which the handler should be called
+   * @param handler The handler that processes messages with the given message type.
+   */
+  public setHandler<R extends RECEIVE_TYPE>(messageType: R, handler: Handler<MESSAGES, R>): void {
+    this.handlers[messageType] = handler as Handler<MESSAGES, RECEIVE_TYPE>
   }
 
+  /**
+   * Generates a unique identifier that helps to separate log messages in the console from different communicators.
+   * @return the identifier
+   */
   protected abstract generateLogIdentifier(): string
 
   /**
