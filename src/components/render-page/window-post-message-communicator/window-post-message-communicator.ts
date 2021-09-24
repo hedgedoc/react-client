@@ -91,7 +91,7 @@ export abstract class WindowPostMessageCommunicator<
         `Communication isn't enabled. Maybe the other side is not ready?\nMessage was: ${JSON.stringify(message)}`
       )
     }
-    console.debug('[WPMC' + this.generateLogIdentifier() + '] Sent event', message)
+    console.debug('[WPMC ' + this.generateLogIdentifier() + '] Sent event', message)
     this.messageTarget.postMessage(message, this.targetOrigin)
   }
 
@@ -114,7 +114,7 @@ export abstract class WindowPostMessageCommunicator<
     if (!handler) {
       return true
     }
-    console.debug('[WPMC' + this.generateLogIdentifier() + '] Received event ', data)
+    console.debug('[WPMC ' + this.generateLogIdentifier() + '] Received event ', data)
     handler(data as Extract<MESSAGES, PostMessage<RECEIVE_TYPE>>)
     return false
   }
