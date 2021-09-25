@@ -16,7 +16,7 @@ const RendererToEditorCommunicatorContext = createContext<RendererToEditorCommun
  * Provides the {@link RendererToEditorCommunicator renderer to editor iframe communicator} that is set by a {@link RendererToEditorCommunicatorContextProvider context provider}.
  *
  * @return the received communicator
- * @throws Error if no communicator was received
+ * @throws {Error} if no communicator was received
  */
 export const useRendererToEditorCommunicator: () => RendererToEditorCommunicator = () => {
   const communicatorFromContext = useContext(RendererToEditorCommunicatorContext)
