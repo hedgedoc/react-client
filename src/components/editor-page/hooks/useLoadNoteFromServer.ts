@@ -9,6 +9,9 @@ import { useParams } from 'react-router'
 import { getNote } from '../../../api/notes'
 import { setNoteDataFromServer } from '../../../redux/note-details/methods'
 import { EditorPagePathParams } from '../editor-page'
+import { Logger } from '../../../utils/logger'
+
+const log = new Logger('load note from server')
 
 export const useLoadNoteFromServer = (): [boolean, boolean] => {
   const { id } = useParams<EditorPagePathParams>()
@@ -23,7 +26,7 @@ export const useLoadNoteFromServer = (): [boolean, boolean] => {
       })
       .catch((e) => {
         setError(true)
-        console.error(e)
+        log.error(e)
       })
       .finally(() => setLoading(false))
   }, [id])

@@ -9,6 +9,9 @@ import convertHtmlToReact from '@hedgedoc/html-to-react'
 import { CopyToClipboardButton } from '../../../../common/copyable/copy-to-clipboard-button/copy-to-clipboard-button'
 import '../../../utils/button-inside.scss'
 import './highlighted-code.scss'
+import { Logger } from '../../../../../utils/logger'
+
+const log = new Logger('highlighted code')
 
 export interface HighlightedCodeProps {
   code: string
@@ -56,7 +59,7 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
         setDom(replacedDom)
       })
       .catch(() => {
-        console.error('error while loading highlight.js')
+        log.error('error while loading highlight.js')
       })
   }, [code, language, startLineNumber])
 

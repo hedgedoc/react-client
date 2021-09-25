@@ -8,6 +8,9 @@ import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react
 import { Alert } from 'react-bootstrap'
 import { ShowIf } from '../../../common/show-if/show-if'
 import { useFrontendBaseUrl } from '../../../../hooks/common/use-frontend-base-url'
+import { Logger } from '../../../../utils/logger'
+
+const log = new Logger('graphviz')
 
 export interface GraphvizFrameProps {
   code: string
@@ -22,7 +25,7 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
       return
     }
     setError(error)
-    console.error(error)
+    log.error(error)
     container.current.querySelectorAll('svg').forEach((child) => child.remove())
   }, [])
 
@@ -54,7 +57,7 @@ export const GraphvizFrame: React.FC<GraphvizFrameProps> = ({ code }) => {
         }
       })
       .catch(() => {
-        console.error('error while loading graphviz')
+        log.error('error while loading graphviz')
       })
   }, [code, error, frontendBaseUrl, showError])
 

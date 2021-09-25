@@ -9,6 +9,9 @@ import { Alert } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { VisualizationSpec } from 'vega-embed'
 import { ShowIf } from '../../../common/show-if/show-if'
+import { Logger } from '../../../../utils/logger'
+
+const log = new Logger('vega')
 
 export interface VegaChartProps {
   code: string
@@ -23,7 +26,7 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
     if (!diagramContainer.current) {
       return
     }
-    console.error(error)
+    log.error(error)
     setError(error)
   }, [])
 
@@ -59,7 +62,7 @@ export const VegaChart: React.FC<VegaChartProps> = ({ code }) => {
         }
       })
       .catch(() => {
-        console.error('error while loading vega-light')
+        log.error('error while loading vega-light')
       })
   }, [code, showError, t])
 

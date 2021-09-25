@@ -6,6 +6,9 @@
 
 import { store } from '..'
 import { DarkModeConfig, DarkModeConfigActionType, SetDarkModeConfigAction } from './types'
+import { Logger } from '../../utils/logger'
+
+const log = new Logger('dark mode')
 
 export const setDarkMode = (darkMode: boolean): void => {
   store.dispatch({
@@ -18,7 +21,7 @@ export const saveToLocalStorage = (darkModeConfig: DarkModeConfig): void => {
   try {
     window.localStorage.setItem('nightMode', String(darkModeConfig.darkMode))
   } catch (e) {
-    console.error('Saving dark-mode setting to local storage failed: ', e)
+    log.error('Saving to local storage failed: ', e)
   }
 }
 
@@ -32,7 +35,7 @@ export const loadFromLocalStorage = (): DarkModeConfig | undefined => {
       darkMode: storedValue === 'true'
     }
   } catch (e) {
-    console.error('Loading dark-mode setting from local storage failed: ', e)
+    log.error('Loading from local storage failed: ', e)
     return undefined
   }
 }
@@ -44,7 +47,7 @@ export const determineDarkModeBrowserSetting = (): DarkModeConfig | undefined =>
       darkMode: mediaQueryResult
     }
   } catch (e) {
-    console.error('Can not determine dark-mode setting from browser: ', e)
+    log.error('Can not determine setting from browser: ', e)
     return undefined
   }
 }

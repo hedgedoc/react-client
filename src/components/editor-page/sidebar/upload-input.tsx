@@ -5,6 +5,9 @@
  */
 
 import React, { MutableRefObject, useCallback, useEffect, useRef } from 'react'
+import { Logger } from '../../../utils/logger'
+
+const log = new Logger('upload input')
 
 export interface UploadInputProps {
   onLoad: (file: File) => Promise<void>
@@ -30,7 +33,7 @@ export const UploadInput: React.FC<UploadInputProps> = ({ onLoad, acceptedFiles,
           fileInput.value = ''
         })
         .catch((error) => {
-          console.error(error)
+          log.error(error)
         })
     })
     fileInput.click()

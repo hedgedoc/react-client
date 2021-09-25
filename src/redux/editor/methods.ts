@@ -16,6 +16,9 @@ import {
   SetEditorSyncScrollAction,
   SetEditorViewModeAction
 } from './types'
+import { Logger } from '../../utils/logger'
+
+const log = new Logger('redux editor')
 
 export const loadFromLocalStorage = (): EditorConfig | undefined => {
   try {
@@ -34,7 +37,7 @@ export const saveToLocalStorage = (editorConfig: EditorConfig): void => {
     const json = JSON.stringify(editorConfig)
     localStorage.setItem('editorConfig', json)
   } catch (e) {
-    console.error('Can not persist editor config in local storage: ', e)
+    log.error('Can not persist editor config in local storage: ', e)
   }
 }
 
