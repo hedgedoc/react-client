@@ -166,7 +166,7 @@ const loadLocalHistory = (): HistoryEntry[] => {
       window.localStorage.removeItem('notehistory')
       return convertV1History(localV1History)
     } catch (error) {
-      log.error(`Error converting old history entries: ${String(error)}`)
+      log.error('Error while converting old history entries', error)
       return []
     }
   }

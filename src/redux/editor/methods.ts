@@ -36,8 +36,8 @@ export const saveToLocalStorage = (editorConfig: EditorConfig): void => {
   try {
     const json = JSON.stringify(editorConfig)
     localStorage.setItem('editorConfig', json)
-  } catch (e) {
-    log.error('Can not persist editor config in local storage: ', e)
+  } catch (error) {
+    log.error('Error while saving editor config in local storage', error)
   }
 }
 

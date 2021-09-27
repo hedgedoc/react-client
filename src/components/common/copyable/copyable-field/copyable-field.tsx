@@ -31,7 +31,7 @@ export const CopyableField: React.FC<CopyableFieldProps> = ({ content, nativeSha
         url: url
       })
       .catch((err) => {
-        log.error('Native sharing failed: ', err)
+        log.error('Native sharing failed', err)
       })
   }, [content, url])
 
