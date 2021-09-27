@@ -183,7 +183,7 @@ const loadLocalHistory = (): HistoryEntry[] => {
     })
     return localHistory
   } catch (error) {
-    log.error(`Error parsing local stored history entries: ${String(error)}`)
+    log.error('Error while parsing locally stored history entries', error)
     return []
   }
 }
@@ -193,7 +193,7 @@ const loadRemoteHistory = async (): Promise<HistoryEntry[]> => {
     const remoteHistory = await getHistory()
     return remoteHistory.map(historyEntryDtoToHistoryEntry)
   } catch (error) {
-    log.error(`Error fetching history entries from server: ${String(error)}`)
+    log.error('Error while fetching history entries from server', error)
     return []
   }
 }
