@@ -28,7 +28,7 @@ const findEmojiInDatabase = async (emojiIndex: Database, term: string): Promise<
       return queryResult
     }
   } catch (error) {
-    log.error("Error while searching for emoji", term, error)
+    log.error('Error while searching for emoji', term, error)
     return []
   }
 }
