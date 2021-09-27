@@ -10,7 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useIsDarkModeActivated } from '../../../../../hooks/common/use-is-dark-mode-activated'
 import { Logger } from '../../../../../utils/logger'
 
-const log = new Logger('flowchart')
+const log = new Logger('FlowChart')
 
 export interface FlowChartProps {
   code: string

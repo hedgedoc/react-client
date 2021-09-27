@@ -31,7 +31,7 @@ import {
 } from '../../api/history/dto-methods'
 import { Logger } from '../../utils/logger'
 
-const log = new Logger('history redux')
+const log = new Logger('Redux > History')
 
 export const setHistoryEntries = (entries: HistoryEntry[]): void => {
   store.dispatch({

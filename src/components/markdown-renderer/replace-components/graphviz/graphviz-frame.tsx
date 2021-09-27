@@ -10,7 +10,7 @@ import { ShowIf } from '../../../common/show-if/show-if'
 import { useFrontendBaseUrl } from '../../../../hooks/common/use-frontend-base-url'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('graphviz')
+const log = new Logger('GraphvizFrame')
 
 export interface GraphvizFrameProps {
   code: string

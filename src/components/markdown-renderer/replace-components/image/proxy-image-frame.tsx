@@ -9,7 +9,7 @@ import { getProxiedUrl } from '../../../../api/media'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('image proxy')
+const log = new Logger('ProxyImageFrame')
 
 export const ProxyImageFrame: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ src, title, alt, ...props }) => {
   const [imageUrl, setImageUrl] = useState('')

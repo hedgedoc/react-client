@@ -14,7 +14,7 @@ import { Logger } from '../../../../utils/logger'
 
 const emojiIndex = new Database(emojiPickerConfig)
 const emojiWordRegex = /^:([\w-_+]*)$/
-const log = new Logger('autocompletion emoji')
+const log = new Logger('Autocompletion > Emoji')
 
 const findEmojiInDatabase = async (emojiIndex: Database, term: string): Promise<Emoji[]> => {
   try {
@@ -28,7 +28,7 @@ const findEmojiInDatabase = async (emojiIndex: Database, term: string): Promise<
       return queryResult
     }
   } catch (error) {
-    log.error(error)
+    log.error("Error while searching for emoji", term, error)
     return []
   }
 }

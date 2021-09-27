@@ -13,7 +13,7 @@ import { useCustomizeAssetsUrl } from '../../hooks/common/use-customize-assets-u
 import { useFrontendAssetsUrl } from '../../hooks/common/use-frontend-assets-url'
 import { Logger } from '../../utils/logger'
 
-const log = new Logger('application loader')
+const log = new Logger('ApplicationLoader')
 
 export const ApplicationLoader: React.FC = ({ children }) => {
   const frontendAssetsUrl = useFrontendAssetsUrl()

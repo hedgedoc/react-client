@@ -11,7 +11,7 @@ import { ShowIf } from '../../../common/show-if/show-if'
 import './mermaid.scss'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('mermaid')
+const log = new Logger('MermaidChart')
 export interface MermaidChartProps {
   code: string
 }

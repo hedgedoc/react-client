@@ -6,11 +6,11 @@
 
 import { DateTime } from 'luxon'
 
-enum LogLevel {
-  DEBUG,
-  INFO,
-  WARN,
-  ERROR
+export enum LogLevel {
+  DEBUG = 'debug',
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error'
 }
 
 type OutputFunction = (...data: unknown[]) => void

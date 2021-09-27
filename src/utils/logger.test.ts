@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { Logger } from './logger'
+import { Logger, LogLevel } from './logger'
 import { Settings } from 'luxon'
 
 describe('Logger', () => {
@@ -12,7 +12,7 @@ describe('Logger', () => {
   let originalNow: () => number
   let dateShift = 0
 
-  function mockConsole(methodToMock: 'error' | 'warn' | 'debug' | 'info', onResult: (result: string) => void) {
+  function mockConsole(methodToMock: LogLevel, onResult: (result: string) => void) {
     consoleMock = jest.spyOn(console, methodToMock).mockImplementation((...data: string[]) => {
       const result = data.reduce((state, current) => state + ' ' + current)
       onResult(result)
@@ -31,7 +31,7 @@ describe('Logger', () => {
 
   it('logs a debug message into the console', (done) => {
     dateShift = 0
-    mockConsole('debug', (result) => {
+    mockConsole(LogLevel.DEBUG, (result) => {
       expect(consoleMock).toBeCalled()
       expect(result).toEqual('%c[2021-10-25 00:01:02] %c(prefix) color: yellow color: orange beans')
       done()
@@ -41,7 +41,7 @@ describe('Logger', () => {
 
   it('logs a info message into the console', (done) => {
     dateShift = 1
-    mockConsole('info', (result) => {
+    mockConsole(LogLevel.INFO, (result) => {
       expect(consoleMock).toBeCalled()
       expect(result).toEqual('%c[2021-10-25 01:02:03] %c(prefix) color: yellow color: orange toast')
       done()
@@ -51,7 +51,7 @@ describe('Logger', () => {
 
   it('logs a warn message into the console', (done) => {
     dateShift = 2
-    mockConsole('warn', (result) => {
+    mockConsole(LogLevel.WARN, (result) => {
       expect(consoleMock).toBeCalled()
       expect(result).toEqual('%c[2021-10-25 02:03:04] %c(prefix) color: yellow color: orange eggs')
       done()
@@ -61,7 +61,7 @@ describe('Logger', () => {
 
   it('logs a error message into the console', (done) => {
     dateShift = 3
-    mockConsole('error', (result) => {
+    mockConsole(LogLevel.ERROR, (result) => {
       expect(consoleMock).toBeCalled()
       expect(result).toEqual('%c[2021-10-25 03:04:05] %c(prefix) color: yellow color: orange bacon')
       done()

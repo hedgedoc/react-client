@@ -17,7 +17,7 @@ import { DeletionModal } from '../../common/modals/deletion-modal'
 import { ShowIf } from '../../common/show-if/show-if'
 import { Logger } from '../../../utils/logger'
 
-const log = new Logger('profile access token')
+const log = new Logger('ProfileAccessTokens')
 
 export const ProfileAccessTokens: React.FC = () => {
   const { t } = useTranslation()

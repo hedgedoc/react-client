@@ -10,7 +10,7 @@ import { DismissUiNotificationAction, DispatchOptions, UiNotificationActionType 
 import { DateTime } from 'luxon'
 import { Logger } from '../../utils/logger'
 
-const log = new Logger('redux notifications')
+const log = new Logger('Redux > Notifications')
 
 export const DEFAULT_DURATION_IN_SECONDS = 10
 

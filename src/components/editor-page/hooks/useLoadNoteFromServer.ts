@@ -11,7 +11,7 @@ import { setNoteDataFromServer } from '../../../redux/note-details/methods'
 import { EditorPagePathParams } from '../editor-page'
 import { Logger } from '../../../utils/logger'
 
-const log = new Logger('load note from server')
+const log = new Logger('Load Note From Server')
 
 export const useLoadNoteFromServer = (): [boolean, boolean] => {
   const { id } = useParams<EditorPagePathParams>()
@@ -24,9 +24,9 @@ export const useLoadNoteFromServer = (): [boolean, boolean] => {
       .then((note) => {
         setNoteDataFromServer(note)
       })
-      .catch((e) => {
+      .catch((error) => {
         setError(true)
-        log.error(e)
+        log.error("Error while fetching note from server", error)
       })
       .finally(() => setLoading(false))
   }, [id])

@@ -8,7 +8,7 @@ import { store } from '..'
 import { DarkModeConfig, DarkModeConfigActionType, SetDarkModeConfigAction } from './types'
 import { Logger } from '../../utils/logger'
 
-const log = new Logger('dark mode')
+const log = new Logger('Redux > DarkMode')
 
 export const setDarkMode = (darkMode: boolean): void => {
   store.dispatch({
@@ -20,8 +20,8 @@ export const setDarkMode = (darkMode: boolean): void => {
 export const saveToLocalStorage = (darkModeConfig: DarkModeConfig): void => {
   try {
     window.localStorage.setItem('nightMode', String(darkModeConfig.darkMode))
-  } catch (e) {
-    log.error('Saving to local storage failed: ', e)
+  } catch (error) {
+    log.error('Saving to local storage failed', error)
   }
 }
 
@@ -34,8 +34,8 @@ export const loadFromLocalStorage = (): DarkModeConfig | undefined => {
     return {
       darkMode: storedValue === 'true'
     }
-  } catch (e) {
-    log.error('Loading from local storage failed: ', e)
+  } catch (error) {
+    log.error('Loading from local storage failed', error)
     return undefined
   }
 }
@@ -46,8 +46,8 @@ export const determineDarkModeBrowserSetting = (): DarkModeConfig | undefined =>
     return {
       darkMode: mediaQueryResult
     }
-  } catch (e) {
-    log.error('Can not determine setting from browser: ', e)
+  } catch (error) {
+    log.error('Can not determine setting from browser', error)
     return undefined
   }
 }

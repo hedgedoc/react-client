@@ -8,7 +8,7 @@ import React, { useEffect, useRef } from 'react'
 import './abc.scss'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('abcjs')
+const log = new Logger('AbcFrame')
 
 export interface AbcFrameProps {
   code: string

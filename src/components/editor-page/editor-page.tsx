@@ -40,7 +40,7 @@ export enum ScrollSource {
   RENDERER
 }
 
-const log = new Logger('editor page')
+const log = new Logger('EditorPage')
 
 export const EditorPage: React.FC = () => {
   useTranslation()
@@ -58,7 +58,7 @@ export const EditorPage: React.FC = () => {
       if (scrollSource.current === ScrollSource.RENDERER && editorSyncScroll) {
         setScrollState((old) => {
           const newState = { editorScrollState: newScrollState, rendererScrollState: old.rendererScrollState }
-          log.debug('[EditorPage] set scroll state because of renderer scroll', newState)
+          log.debug('Set scroll state because of renderer scroll', newState)
           return newState
         })
       }
@@ -71,7 +71,7 @@ export const EditorPage: React.FC = () => {
       if (scrollSource.current === ScrollSource.EDITOR && editorSyncScroll) {
         setScrollState((old) => {
           const newState = { rendererScrollState: newScrollState, editorScrollState: old.editorScrollState }
-          log.debug('[EditorPage] set scroll state because of editor scroll', newState)
+          log.debug('Set scroll state because of editor scroll', newState)
           return newState
         })
       }
@@ -90,12 +90,12 @@ export const EditorPage: React.FC = () => {
 
   const setRendererToScrollSource = useCallback(() => {
     scrollSource.current = ScrollSource.RENDERER
-    log.debug('[EditorPage] Make renderer scroll source')
+    log.debug('Make renderer scroll source')
   }, [])
 
   const setEditorToScrollSource = useCallback(() => {
     scrollSource.current = ScrollSource.EDITOR
-    log.debug('[EditorPage] Make editor scroll source')
+    log.debug('Make editor scroll source')
   }, [])
 
   useNotificationTest()

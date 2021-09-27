@@ -10,7 +10,7 @@ import { Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { Logger } from '../../../utils/logger'
 
-const log = new Logger('language picker')
+const log = new Logger('LanguagePicker')
 const languages = {
   en: 'English',
   'zh-CN': '简体中文',

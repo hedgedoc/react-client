@@ -17,6 +17,6 @@ export class RendererToEditorCommunicator extends WindowPostMessageCommunicator<
   CommunicationMessages
 > {
   protected createLogger(): Logger {
-    return new Logger('WPMC[E<R]')
+    return new Logger('RendererToEditorCommunicator')
   }
 }

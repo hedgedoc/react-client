@@ -9,7 +9,7 @@ import { dispatchUiNotification } from '../../redux/ui-notifications/methods'
 import { Logger } from '../../utils/logger'
 
 const localStorageKey = 'dontshowtestnotification'
-const log = new Logger('notifications')
+const log = new Logger('Notification Test')
 
 /**
  * Spawns a notification to test the system. Only for tech demo show case.

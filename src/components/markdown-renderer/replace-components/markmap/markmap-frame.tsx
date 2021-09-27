@@ -10,7 +10,7 @@ import { LockButton } from '../../../common/lock-button/lock-button'
 import '../../utils/button-inside.scss'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('markmap')
+const log = new Logger('MarkmapFrame')
 
 export interface MarkmapFrameProps {
   code: string

@@ -38,9 +38,9 @@ const DocumentReadOnlyPage = React.lazy(
     )
 )
 const baseUrl = new URL(document.head.baseURI).pathname
-const log = new Logger('index')
+const log = new Logger('Index')
 
-log.info('Starting Hedgedoc!')
+log.info('Starting HedgeDoc!')
 
 ReactDOM.render(
   <Provider store={store}>

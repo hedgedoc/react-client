@@ -21,7 +21,7 @@ import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
 import { Logger } from './utils/logger'
 
-const log = new Logger('service-worker')
+const log = new Logger('ServiceWorker')
 
 declare const self: ServiceWorkerGlobalScope
 

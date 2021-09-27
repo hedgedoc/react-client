@@ -11,7 +11,7 @@ import { VisualizationSpec } from 'vega-embed'
 import { ShowIf } from '../../../common/show-if/show-if'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('vega')
+const log = new Logger('VegaChart')
 
 export interface VegaChartProps {
   code: string

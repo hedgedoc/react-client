@@ -12,7 +12,7 @@ import { ForkAwesomeIcon } from '../common/fork-awesome/fork-awesome-icon'
 import { ExternalLink } from '../common/links/external-link'
 import { Logger } from '../../utils/logger'
 
-const log = new Logger('error-boundary')
+const log = new Logger('ErrorBoundary')
 
 export class ErrorBoundary extends Component {
   state: {

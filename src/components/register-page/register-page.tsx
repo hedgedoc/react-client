@@ -15,7 +15,7 @@ import { ShowIf } from '../common/show-if/show-if'
 import { fetchAndSetUser } from '../login-page/auth/utils'
 import { Logger } from '../../utils/logger'
 
-const log = new Logger('register page')
+const log = new Logger('RegisterPage')
 
 export enum RegisterError {
   NONE = 'none',

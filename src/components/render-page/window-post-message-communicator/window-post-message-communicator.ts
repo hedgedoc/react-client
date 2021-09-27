@@ -125,7 +125,7 @@ export abstract class WindowPostMessageCommunicator<
     if (!handler) {
       return true
     }
-    this.log.debug('Received event ', data)
+    this.log.debug('Received event', data)
     handler(data as Extract<MESSAGES, PostMessage<RECEIVE_TYPE>>)
     return false
   }

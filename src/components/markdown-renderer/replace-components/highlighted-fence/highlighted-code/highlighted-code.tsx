@@ -11,7 +11,7 @@ import '../../../utils/button-inside.scss'
 import './highlighted-code.scss'
 import { Logger } from '../../../../../utils/logger'
 
-const log = new Logger('highlighted code')
+const log = new Logger('HighlightedCode')
 
 export interface HighlightedCodeProps {
   code: string

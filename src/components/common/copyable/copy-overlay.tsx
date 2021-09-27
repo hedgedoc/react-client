@@ -16,7 +16,7 @@ export interface CopyOverlayProps {
   clickComponent: RefObject<HTMLElement>
 }
 
-const log = new Logger('copy overlay')
+const log = new Logger('CopyOverlay')
 
 export const CopyOverlay: React.FC<CopyOverlayProps> = ({ content, clickComponent }) => {
   useTranslation()

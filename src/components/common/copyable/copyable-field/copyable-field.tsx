@@ -18,7 +18,7 @@ export interface CopyableFieldProps {
   url?: string
 }
 
-const log = new Logger('copyable field')
+const log = new Logger('CopyableField')
 
 export const CopyableField: React.FC<CopyableFieldProps> = ({ content, nativeShareButton, url }) => {
   useTranslation()

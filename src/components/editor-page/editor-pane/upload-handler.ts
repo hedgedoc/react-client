@@ -11,7 +11,7 @@ import { store } from '../../../redux'
 import { supportedMimeTypes } from '../../common/upload-image-mimetypes'
 import { Logger } from '../../../utils/logger'
 
-const log = new Logger('file upload')
+const log = new Logger('File Uploader Handler')
 
 export const handleUpload = (file: File, editor: Editor): void => {
   if (!file) {

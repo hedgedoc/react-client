@@ -12,7 +12,7 @@ import './one-click-embedding.scss'
 import { ProxyImageFrame } from '../image/proxy-image-frame'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('one click embedding')
+const log = new Logger('OneClickEmbedding')
 
 interface OneClickFrameProps {
   onImageFetch?: () => Promise<string>

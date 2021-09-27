@@ -17,7 +17,7 @@
 // opt-in, read https://cra.link/PWA
 import { Logger } from './utils/logger'
 
-const log = new Logger('service worker registration')
+const log = new Logger('ServiceWorker > Registration')
 
 const localhostRegex = /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
 

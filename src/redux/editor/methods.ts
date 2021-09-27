@@ -18,7 +18,7 @@ import {
 } from './types'
 import { Logger } from '../../utils/logger'
 
-const log = new Logger('redux editor')
+const log = new Logger('Redux > Editor')
 
 export const loadFromLocalStorage = (): EditorConfig | undefined => {
   try {

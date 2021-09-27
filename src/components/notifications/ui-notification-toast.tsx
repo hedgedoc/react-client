@@ -15,7 +15,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Logger } from '../../utils/logger'
 
 const STEPS_PER_SECOND = 10
-const log = new Logger('notifications')
+const log = new Logger('UiNotificationToast')
 
 export interface UiNotificationProps extends UiNotification {
   notificationId: number
