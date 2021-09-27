@@ -12,7 +12,7 @@ const log = new Logger('MarkdownItParserDebugger')
 export const MarkdownItParserDebugger: MarkdownIt.PluginSimple = (md: MarkdownIt) => {
   if (process.env.NODE_ENV !== 'production') {
     md.core.ruler.push('test', (state) => {
-      log.debug("Current state", state)
+      log.debug('Current state', state)
       return false
     })
   }

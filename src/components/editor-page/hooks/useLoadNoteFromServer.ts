@@ -26,7 +26,7 @@ export const useLoadNoteFromServer = (): [boolean, boolean] => {
       })
       .catch((error) => {
         setError(true)
-        log.error("Error while fetching note from server", error)
+        log.error('Error while fetching note from server', error)
       })
       .finally(() => setLoading(false))
   }, [id])
