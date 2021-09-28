@@ -34,8 +34,8 @@ export const MermaidChart: React.FC<MermaidChartProps> = ({ code }) => {
           mermaid.default.initialize({ startOnLoad: false })
           mermaidInitialized = true
         })
-        .catch(() => {
-          log.error('error while loading mermaid')
+        .catch((error) => {
+          log.error('Error while loading mermaid', error)
         })
     }
   }, [])

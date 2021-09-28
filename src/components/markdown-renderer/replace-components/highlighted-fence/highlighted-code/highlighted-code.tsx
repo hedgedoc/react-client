@@ -58,8 +58,8 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
         ))
         setDom(replacedDom)
       })
-      .catch(() => {
-        log.error('error while loading highlight.js')
+      .catch((error) => {
+        log.error('Error while loading highlight.js', error)
       })
   }, [code, language, startLineNumber])
 

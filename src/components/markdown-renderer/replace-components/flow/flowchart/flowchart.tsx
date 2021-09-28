@@ -46,7 +46,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({ code }) => {
           setError(true)
         }
       })
-      .catch(() => log.error('error while loading flowchart.js'))
+      .catch((error) => log.error('Error while loading flowchart.js', error))
 
     return () => {
       Array.from(currentDiagramRef.children).forEach((value) => value.remove())

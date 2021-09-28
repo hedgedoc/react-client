@@ -8,7 +8,7 @@ import { RefObject, useCallback, useRef } from 'react'
 import { EditorToRendererCommunicator } from '../../../render-page/window-post-message-communicator/editor-to-renderer-communicator'
 import { Logger } from '../../../../utils/logger'
 
-const log = new Logger('IFrameLoader')
+const log = new Logger('IframeLoader')
 
 export const useOnIframeLoad = (
   frameReference: RefObject<HTMLIFrameElement>,
