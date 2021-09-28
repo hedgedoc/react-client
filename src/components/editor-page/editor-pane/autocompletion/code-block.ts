@@ -24,7 +24,7 @@ const loadHighlightJs = async (): Promise<highlightJsImport | null> => {
     return await import('../../../common/hljs/hljs')
   } catch (error) {
     showErrorNotification('common.errorWhileLoadingLibrary', { name: 'highlight.js' })(error as Error)
-    log.error('Error while loading highlight js', error)
+    log.error('Error while loading highlight.js', error)
     return null
   }
 }
