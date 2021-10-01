@@ -16,7 +16,7 @@ interface RouteParameters {
 }
 
 /**
- * Redirects the user to the editor if the link is a root level direct link to a note.
+ * Redirects the user to the editor if the link is a root level direct link to a version 1 note.
  */
 export const NoteDirectLinkRedirector: React.FC = () => {
   const { id } = useParams<RouteParameters>()
