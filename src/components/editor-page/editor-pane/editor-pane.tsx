@@ -4,15 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { Editor, EditorChange, EditorConfiguration, ScrollInfo } from 'codemirror'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Editor, EditorChange, ScrollInfo } from 'codemirror'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Controlled as ControlledCodeMirror } from 'react-codemirror2'
-import { useTranslation } from 'react-i18next'
 import { MaxLengthWarningModal } from '../editor-modals/max-length-warning-modal'
 import { ScrollProps, ScrollState } from '../synced-scroll/scroll-props'
 import { allHinters, findWordAtCursor } from './autocompletion'
 import './editor-pane.scss'
-import { defaultKeyMap } from './key-map'
 import { createStatusInfo, defaultState, StatusBar, StatusBarInfo } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 import { handleUpload } from './upload-handler'
@@ -21,6 +19,7 @@ import { useApplicationState } from '../../../hooks/common/use-application-state
 import './codemirror-imports'
 import { setNoteContent } from '../../../redux/note-details/methods'
 import { useNoteMarkdownContent } from '../../../hooks/common/use-note-markdown-content'
+import { useCodeMirrorOptions } from './hooks/use-code-mirror-options'
 
 const onChange = (editor: Editor) => {
   for (const hinter of allHinters) {
@@ -49,14 +48,12 @@ interface DropEvent {
 
 export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMakeScrollSource }) => {
   const markdownContent = useNoteMarkdownContent()
-  const { t } = useTranslation()
   const maxLength = useApplicationState((state) => state.config.maxDocumentLength)
   const smartPasteEnabled = useApplicationState((state) => state.editorConfig.smartPaste)
   const [showMaxLengthWarning, setShowMaxLengthWarning] = useState(false)
   const maxLengthWarningAlreadyShown = useRef(false)
   const [editor, setEditor] = useState<Editor>()
   const [statusBarInfo, setStatusBarInfo] = useState<StatusBarInfo>(defaultState)
-  const editorPreferences = useApplicationState((state) => state.editorConfig.preferences)
   const ligaturesEnabled = useApplicationState((state) => state.editorConfig.ligatures)
 
   const lastScrollPosition = useRef<number>()
@@ -161,35 +158,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   }, [])
 
   const onMaxLengthHide = useCallback(() => setShowMaxLengthWarning(false), [])
-
-  const codeMirrorOptions: EditorConfiguration = useMemo<EditorConfiguration>(
-    () => ({
-      ...editorPreferences,
-      mode: 'gfm',
-      viewportMargin: 20,
-      styleActiveLine: true,
-      lineNumbers: true,
-      lineWrapping: true,
-      showCursorWhenSelecting: true,
-      highlightSelectionMatches: true,
-      inputStyle: 'textarea',
-      matchBrackets: true,
-      autoCloseBrackets: true,
-      matchTags: {
-        bothTags: true
-      },
-      autoCloseTags: true,
-      foldGutter: true,
-      gutters: ['CodeMirror-linenumbers', 'authorship-gutters', 'CodeMirror-foldgutter'],
-      extraKeys: defaultKeyMap,
-      flattenSpans: true,
-      addModeClass: true,
-      autoRefresh: true,
-      // otherCursors: true,
-      placeholder: t('editor.placeholder')
-    }),
-    [t, editorPreferences]
-  )
+  const codeMirrorOptions = useCodeMirrorOptions()
 
   return (
     <div className={'d-flex flex-column h-100 position-relative'} onMouseEnter={onMakeScrollSource}>
