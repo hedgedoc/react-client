@@ -45,10 +45,6 @@ export const initialState: Config = {
     major: -1,
     minor: -1,
     patch: -1
-  },
-  iframeCommunication: {
-    editorOrigin: '',
-    rendererOrigin: ''
   }
 }
 

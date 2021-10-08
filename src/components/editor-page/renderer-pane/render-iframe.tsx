@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
-import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { isTestMode } from '../../../utils/test-modes'
 import { RendererProps } from '../../render-page/markdown-document'
 import {
@@ -16,7 +15,7 @@ import {
   SetScrollStateMessage
 } from '../../render-page/window-post-message-communicator/rendering-message'
 import { useEditorToRendererCommunicator } from '../render-context/editor-to-renderer-communicator-context-provider'
-import { useOnIframeLoad } from './hooks/use-on-iframe-load'
+import { useForceUrlOnIframeLoadCallback } from './hooks/use-force-url-on-iframe-load-callback'
 import { CommunicatorImageLightbox } from './communicator-image-lightbox'
 import { setRendererStatus } from '../../../redux/renderer-status/methods'
 import { useEditorReceiveHandler } from '../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
@@ -43,18 +42,20 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   forcedDarkMode
 }) => {
   const frameReference = useRef<HTMLIFrameElement>(null)
-  const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
-  const renderPageUrl = `${rendererOrigin}render`
+  const renderPageUrl = `/render`
   const resetRendererReady = useCallback(() => setRendererStatus(false), [])
   const iframeCommunicator = useEditorToRendererCommunicator()
   const rendererReady = useIsRendererReady()
-  const onIframeLoad = useOnIframeLoad(
-    frameReference,
-    iframeCommunicator,
-    rendererOrigin,
-    renderPageUrl,
-    resetRendererReady
-  )
+
+  const onWindowChange = useCallback((frameWindow: Window | null) => {
+    if (frameWindow) {
+      iframeCommunicator.setMessageTarget(frameWindow)
+    } else {
+      iframeCommunicator.unsetMessageTarget()
+    }
+  }, [iframeCommunicator])
+
+  const onIframeLoad = useForceUrlOnIframeLoadCallback(frameReference, renderPageUrl, resetRendererReady, onWindowChange)
   const [frameHeight, setFrameHeight] = useState<number>(0)
 
   useEffect(

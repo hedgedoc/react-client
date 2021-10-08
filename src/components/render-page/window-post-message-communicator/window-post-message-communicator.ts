@@ -32,7 +32,6 @@ export abstract class WindowPostMessageCommunicator<
   MESSAGES extends PostMessage<RECEIVE_TYPE | SEND_TYPE>
 > {
   private messageTarget?: Window
-  private targetOrigin?: string
   private communicationEnabled: boolean
   private handlers: HandlerMap<MESSAGES, RECEIVE_TYPE> = {}
   private log
@@ -58,11 +57,9 @@ export abstract class WindowPostMessageCommunicator<
    *
    * @see enableCommunication
    * @param otherSide The target {@link Window} that should receive the messages.
-   * @param otherOrigin The origin from the URL of the target. If this isn't correct then the message sending will produce CORS errors.
    */
-  public setMessageTarget(otherSide: Window, otherOrigin: string): void {
+  public setMessageTarget(otherSide: Window): void {
     this.messageTarget = otherSide
-    this.targetOrigin = otherOrigin
     this.communicationEnabled = false
   }
 
@@ -71,7 +68,6 @@ export abstract class WindowPostMessageCommunicator<
    */
   public unsetMessageTarget(): void {
     this.messageTarget = undefined
-    this.targetOrigin = undefined
     this.communicationEnabled = false
   }
 
@@ -89,7 +85,7 @@ export abstract class WindowPostMessageCommunicator<
    * @param message The message to send.
    */
   public sendMessageToOtherSide(message: Extract<MESSAGES, PostMessage<SEND_TYPE>>): void {
-    if (this.messageTarget === undefined || this.targetOrigin === undefined) {
+    if (this.messageTarget === undefined) {
       throw new IframeCommunicatorSendingError(`Other side is not set.\nMessage was: ${JSON.stringify(message)}`)
     }
     if (!this.communicationEnabled) {
@@ -98,7 +94,7 @@ export abstract class WindowPostMessageCommunicator<
       )
     }
     this.log.debug('Sent event', message)
-    this.messageTarget.postMessage(message, this.targetOrigin)
+    this.messageTarget.postMessage(message, window.location.origin)
   }
 
   /**

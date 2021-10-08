@@ -40,9 +40,5 @@
       "minor": -1,
       "patch": -1,
       "commit": "mock"
-  },
-  "iframeCommunication": {
-    "editorOrigin": "http://localhost:3001/",
-    "rendererOrigin": "http://localhost:3001/"
   }
 }
