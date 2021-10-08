@@ -4,43 +4,36 @@
  SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import './gist-frame.scss'
-import { useResizeGistFrame } from './use-resize-gist-frame'
+import HighlightedCode from '../highlighted-fence/highlighted-code/highlighted-code'
+import { Logger } from '../../../../utils/logger'
+import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 
 export interface GistFrameProps {
   id: string
 }
 
+const log = new Logger('Gist Embedding')
+
 /**
- * This component renders a GitHub Gist by placing the gist URL in an {@link HTMLIFrameElement iframe}.
+ * This component renders a GitHub Gist by fetching the content from the API.
  *
  * @param id The id of the gist
  */
 export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
-  const [frameHeight, onStartResizing] = useResizeGistFrame(150)
+  const [code, setCode] = useState<string | undefined>(undefined)
 
-  const onStart = useCallback(
-    (event) => {
-      onStartResizing(event)
-    },
-    [onStartResizing]
-  )
+  useEffect(() => {
+    fetch(`https://gist.githubusercontent.com/${id}/raw`)
+      .then((response) => response.text())
+      .then((value) => setCode(value))
+      .catch((error) => log.error(`Error while loading gist ${id}`, error))
+  })
 
-  return (
-    <span>
-      <iframe
-        sandbox=''
-        data-cy={'gh-gist'}
-        width='100%'
-        height={`${frameHeight}px`}
-        frameBorder='0'
-        title={`gist ${id}`}
-        src={`https://gist.github.com/${id}.pibb`}
-      />
-      <span className={'gist-resizer-row'}>
-        <span className={'gist-resizer'} onMouseDown={onStart} onTouchStart={onStart} />
-      </span>
-    </span>
-  )
+  if (!code) {
+    return <ForkAwesomeIcon fixedWidth={true} className={'fa-spin'} icon={'spinner'} />
+  } else {
+    return <HighlightedCode code={code} startLineNumber={1} wrapLines={false} cy-data={'gh-gist'} />
+  }
 }
