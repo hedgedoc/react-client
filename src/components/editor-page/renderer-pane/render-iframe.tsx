@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { isTestMode } from '../../../utils/test-modes'
 import { RendererProps } from '../../render-page/markdown-document'
 import {
@@ -23,6 +23,7 @@ import { useIsRendererReady } from '../../render-page/window-post-message-commun
 import { useSendDarkModeStatusToRenderer } from './hooks/use-send-dark-mode-status-to-renderer'
 import { useSendMarkdownToRenderer } from './hooks/use-send-markdown-to-renderer'
 import { useSendScrollState } from './hooks/use-send-scroll-state'
+import { useFrontendBaseUrl } from '../../../hooks/common/use-frontend-base-url'
 
 export interface RenderIframeProps extends RendererProps {
   rendererType: RendererType
@@ -42,10 +43,11 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   forcedDarkMode
 }) => {
   const frameReference = useRef<HTMLIFrameElement>(null)
-  const renderPageUrl = `/render`
   const resetRendererReady = useCallback(() => setRendererStatus(false), [])
   const iframeCommunicator = useEditorToRendererCommunicator()
   const rendererReady = useIsRendererReady()
+  const frontendBaseUrl = useFrontendBaseUrl()
+  const renderPageUrl = useMemo(() =>  `${frontendBaseUrl}/render`, [frontendBaseUrl])
 
   const onWindowChange = useCallback((frameWindow: Window | null) => {
     if (frameWindow) {
@@ -125,7 +127,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
         onLoad={onIframeLoad}
         title='render'
         src={renderPageUrl}
-        {...(isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' })}
+        {...(isTestMode() ? {} : { sandbox: 'allow-downloads allow-scripts allow-popups' })}
         ref={frameReference}
         className={`border-0 ${frameClasses ?? ''}`}
         data-content-ready={rendererReady}
