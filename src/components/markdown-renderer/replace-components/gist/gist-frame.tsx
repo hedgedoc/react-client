@@ -34,8 +34,10 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
   if (!code) {
     return <ForkAwesomeIcon fixedWidth={true} className={'fa-spin'} icon={'spinner'} />
   } else {
-    return <span data-cy={'gh-gist'}>
-      <HighlightedCode code={code} startLineNumber={1} wrapLines={false}/>
-    </span>
+    return (
+      <span data-cy={'gh-gist'}>
+        <HighlightedCode code={code} startLineNumber={1} wrapLines={false} />
+      </span>
+    )
   }
 }
