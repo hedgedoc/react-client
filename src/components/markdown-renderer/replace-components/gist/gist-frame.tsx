@@ -6,7 +6,7 @@
 
 import React, { useEffect, useState } from 'react'
 import './gist-frame.scss'
-import HighlightedCode from '../highlighted-fence/highlighted-code/highlighted-code'
+import { HighlightedCode } from '../highlighted-fence/highlighted-code/highlighted-code'
 import { Logger } from '../../../../utils/logger'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 
@@ -34,6 +34,8 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
   if (!code) {
     return <ForkAwesomeIcon fixedWidth={true} className={'fa-spin'} icon={'spinner'} />
   } else {
-    return <HighlightedCode code={code} startLineNumber={1} wrapLines={false} cy-data={'gh-gist'} />
+    return <span data-cy={'gh-gist'}>
+      <HighlightedCode code={code} startLineNumber={1} wrapLines={false}/>
+    </span>
   }
 }
