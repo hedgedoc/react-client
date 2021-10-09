@@ -5,7 +5,7 @@
  */
 
 import { Action } from 'redux'
-import { Config } from '../../api/config/types'
+import { ConfigFromBackend } from '../../api/config/types'
 
 export enum ConfigActionType {
   SET_CONFIG = 'config/set'
@@ -15,5 +15,5 @@ export type ConfigActions = SetConfigAction
 
 export interface SetConfigAction extends Action<ConfigActionType> {
   type: ConfigActionType.SET_CONFIG
-  state: Config
+  state: ConfigFromBackend
 }

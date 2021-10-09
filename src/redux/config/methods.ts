@@ -5,10 +5,10 @@
  */
 
 import { store } from '..'
-import { Config } from '../../api/config/types'
+import { ConfigFromBackend } from '../../api/config/types'
 import { ConfigActionType, SetConfigAction } from './types'
 
-export const setConfig = (state: Config): void => {
+export const setConfig = (state: ConfigFromBackend): void => {
   store.dispatch({
     type: ConfigActionType.SET_CONFIG,
     state: state

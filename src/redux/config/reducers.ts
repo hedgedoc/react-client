@@ -5,10 +5,10 @@
  */
 
 import { Reducer } from 'redux'
-import { Config } from '../../api/config/types'
+import { ConfigFromBackend } from '../../api/config/types'
 import { ConfigActions, ConfigActionType } from './types'
 
-export const initialState: Config = {
+export const initialState: ConfigFromBackend = {
   allowAnonymous: true,
   allowRegister: true,
   authProviders: {
@@ -52,7 +52,10 @@ export const initialState: Config = {
   }
 }
 
-export const ConfigReducer: Reducer<Config, ConfigActions> = (state: Config = initialState, action: ConfigActions) => {
+export const ConfigReducer: Reducer<ConfigFromBackend, ConfigActions> = (
+  state: ConfigFromBackend = initialState,
+  action: ConfigActions
+) => {
   switch (action.type) {
     case ConfigActionType.SET_CONFIG:
       return action.state
