@@ -5,7 +5,7 @@
  */
 
 import { combineReducers, createStore, Reducer } from 'redux'
-import { Config } from '../api/config/types'
+import { ConfigFromBackend } from '../api/config/types'
 import { ApiUrlReducer } from './api-url/reducers'
 import { ApiUrlObject } from './api-url/types'
 import { BannerReducer } from './banner/reducers'
@@ -28,7 +28,7 @@ import { RendererStatus } from './renderer-status/types'
 
 export interface ApplicationState {
   user: OptionalUserState
-  config: Config
+  config: ConfigFromBackend
   banner: BannerState
   history: HistoryEntry[]
   apiUrl: ApiUrlObject
