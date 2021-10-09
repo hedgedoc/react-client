@@ -21,7 +21,7 @@ beforeEach(() => {
     "content": "",
     "metadata": {
       "id": "ABC11",
-      "alias": "banner",
+      "alias": "motd",
       "version": 2,
       "viewCount": 0,
       "updateTime": "2021-04-24T09:27:51.000Z",

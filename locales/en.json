@@ -455,6 +455,7 @@
         "export": "Export",
         "refresh": "Refresh",
         "cancel": "Cancel",
+        "dismiss": "Dismiss",
         "ok": "OK",
         "close": "Close",
         "save": "Save",
