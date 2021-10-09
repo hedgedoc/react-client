@@ -14,7 +14,7 @@ export const setUpI18n = async (): Promise<void> => {
   await i18n
     .use(
       resourcesToBackend((language, namespace, callback) => {
-        import(`../../../../../locales/${language}.json`)
+        import(`../../../../locales/${language}.json`)
           .then((resources) => {
             callback(null, resources)
           })

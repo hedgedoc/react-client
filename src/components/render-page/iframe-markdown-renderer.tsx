@@ -11,7 +11,6 @@ import {
   CommunicationMessageType,
   RendererType
 } from './window-post-message-communicator/rendering-message'
-import { setDarkMode } from '../../redux/dark-mode/methods'
 import { ImageClickHandler } from '../markdown-renderer/replace-components/image/image-replacer'
 import { useImageClickHandler } from './hooks/use-image-click-handler'
 import { MarkdownDocument } from './markdown-document'
@@ -19,6 +18,7 @@ import { countWords } from './word-counter'
 import { RendererFrontmatterInfo } from '../common/note-frontmatter/types'
 import { useRendererToEditorCommunicator } from '../editor-page/render-context/renderer-to-editor-communicator-context-provider'
 import { useRendererReceiveHandler } from './window-post-message-communicator/hooks/use-renderer-receive-handler'
+import { setDarkMode } from '../../redux/global-user-interface/methods'
 
 export const IframeMarkdownRenderer: React.FC = () => {
   const [markdownContent, setMarkdownContent] = useState('')

@@ -7,5 +7,5 @@
 import { useApplicationState } from './use-application-state'
 
 export const useIsDarkModeActivated = (): boolean => {
-  return useApplicationState((state) => state.darkMode.darkMode)
+  return useApplicationState((state) => state.globalUserInterfaceConfig.darkMode)
 }

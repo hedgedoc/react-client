@@ -11,8 +11,6 @@ import { ApiUrlObject } from './api-url/types'
 import { MotdReducer } from './motd/reducers'
 import { OptionalMotdState } from './motd/types'
 import { ConfigReducer } from './config/reducers'
-import { DarkModeConfigReducer } from './dark-mode/reducers'
-import { DarkModeConfig } from './dark-mode/types'
 import { EditorConfigReducer } from './editor/reducers'
 import { EditorConfig } from './editor/types'
 import { NoteDetailsReducer } from './note-details/reducer'
@@ -25,6 +23,8 @@ import { HistoryEntry } from './history/types'
 import { HistoryReducer } from './history/reducers'
 import { RendererStatusReducer } from './renderer-status/reducers'
 import { RendererStatus } from './renderer-status/types'
+import { GlobalUserInterfaceConfig } from './global-user-interface/types'
+import { GlobalUserInterfaceConfigReducer } from './global-user-interface/reducers'
 
 export interface ApplicationState {
   user: OptionalUserState
@@ -33,7 +33,7 @@ export interface ApplicationState {
   history: HistoryEntry[]
   apiUrl: ApiUrlObject
   editorConfig: EditorConfig
-  darkMode: DarkModeConfig
+  globalUserInterfaceConfig: GlobalUserInterfaceConfig
   noteDetails: NoteDetails
   uiNotifications: UiNotificationState
   rendererStatus: RendererStatus
@@ -46,7 +46,7 @@ export const allReducers: Reducer<ApplicationState> = combineReducers<Applicatio
   apiUrl: ApiUrlReducer,
   history: HistoryReducer,
   editorConfig: EditorConfigReducer,
-  darkMode: DarkModeConfigReducer,
+  globalUserInterfaceConfig: GlobalUserInterfaceConfigReducer,
   noteDetails: NoteDetailsReducer,
   uiNotifications: UiNotificationReducer,
   rendererStatus: RendererStatusReducer
