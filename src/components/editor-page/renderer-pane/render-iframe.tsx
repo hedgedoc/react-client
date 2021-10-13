@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { isTestMode } from '../../../utils/test-modes'
 import { RendererProps } from '../../render-page/markdown-document'
 import {
@@ -15,7 +15,7 @@ import {
   SetScrollStateMessage
 } from '../../render-page/window-post-message-communicator/rendering-message'
 import { useEditorToRendererCommunicator } from '../render-context/editor-to-renderer-communicator-context-provider'
-import { useForceUrlOnIframeLoadCallback } from './hooks/use-force-url-on-iframe-load-callback'
+import { useForceRenderPageUrlOnIframeLoadCallback } from './hooks/use-force-render-page-url-on-iframe-load-callback'
 import { CommunicatorImageLightbox } from './communicator-image-lightbox'
 import { setRendererStatus } from '../../../redux/renderer-status/methods'
 import { useEditorReceiveHandler } from '../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
@@ -54,8 +54,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
     setRendererStatus(false)
   }, [iframeCommunicator])
   const rendererReady = useIsRendererReady()
-  const renderPageUrl = useMemo(() => `${rendererOrigin}render`, [rendererOrigin])
-  const onIframeLoad = useForceUrlOnIframeLoadCallback(frameReference, renderPageUrl, resetRendererReady)
+  const onIframeLoad = useForceRenderPageUrlOnIframeLoadCallback(frameReference, rendererOrigin, resetRendererReady)
   const [frameHeight, setFrameHeight] = useState<number>(0)
 
   useEffect(
