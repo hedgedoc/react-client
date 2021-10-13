@@ -11,13 +11,11 @@ import { useTranslation } from 'react-i18next'
 /**
  * Hook that returns a memo for the title of a note in the history when present or the localized untitled name otherwise.
  * @param entry The history entry containing a title property, that might be an empty string.
+ * @return A memoized string containing either the title of the entry or the translated version of "untitled".
  */
 export const useHistoryEntryTitle = (entry: HistoryEntry): string => {
   const { t } = useTranslation()
   return useMemo(() => {
-    if (entry.title !== '') {
-      return entry.title
-    }
-    return t('editor.untitledNote')
+    return entry.title !== '' ? entry.title : t('editor.untitledNote')
   }, [t, entry])
 }
