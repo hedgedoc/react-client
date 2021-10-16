@@ -12,7 +12,7 @@ import { useExtractFirstHeadline } from './hooks/use-extract-first-headline'
 import { TocAst } from 'markdown-it-toc-done-right'
 import { useOnRefChange } from './hooks/use-on-ref-change'
 import { useTrimmedContent } from './hooks/use-trimmed-content'
-import { useReveal } from './hooks/use-reveal'
+import { REVEAL_STATUS, useReveal } from './hooks/use-reveal'
 import './slideshow.scss'
 import { ScrollProps } from '../editor-page/synced-scroll/scroll-props'
 import { DocumentLengthLimitReachedAlert } from './document-length-limit-reached-alert'
@@ -20,6 +20,7 @@ import { BasicMarkdownItConfigurator } from './markdown-it-configurator/basic-ma
 import { SlideOptions } from '../common/note-frontmatter/types'
 import { processRevealCommentNodes } from './process-reveal-comment-nodes'
 import { CommonMarkdownRendererProps } from './common-markdown-renderer-props'
+import { LoadingSlide } from './loading-slide'
 
 export interface SlideshowMarkdownRendererProps extends CommonMarkdownRendererProps {
   slideOptions: SlideOptions
@@ -62,14 +63,19 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
 
   useExtractFirstHeadline(markdownBodyRef, content, onFirstHeadingChange)
   useOnRefChange(tocAst, onTocChange)
-  useReveal(content, slideOptions)
+  const revealStatus = useReveal(content, slideOptions)
+
+  const slideShowDOM = useMemo(
+    () => (revealStatus === REVEAL_STATUS.INITIALISED ? markdownReactDom : <LoadingSlide />),
+    [markdownReactDom, revealStatus]
+  )
 
   return (
     <Fragment>
       <DocumentLengthLimitReachedAlert show={contentExceedsLimit} />
       <div className={'reveal'}>
         <div ref={markdownBodyRef} className={`${className ?? ''} slides`}>
-          {markdownReactDom}
+          {slideShowDOM}
         </div>
       </div>
     </Fragment>
