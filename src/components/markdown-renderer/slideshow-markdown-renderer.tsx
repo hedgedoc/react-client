@@ -60,10 +60,14 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
     replacers,
     processRevealCommentNodes
   )
-
-  useExtractFirstHeadline(markdownBodyRef, content, onFirstHeadingChange)
-  useOnRefChange(tocAst, onTocChange)
   const revealStatus = useReveal(content, slideOptions)
+
+  useExtractFirstHeadline(
+    markdownBodyRef,
+    revealStatus === REVEAL_STATUS.INITIALISED ? content : undefined,
+    onFirstHeadingChange
+  )
+  useOnRefChange(tocAst, onTocChange)
 
   const slideShowDOM = useMemo(
     () => (revealStatus === REVEAL_STATUS.INITIALISED ? markdownReactDom : <LoadingSlide />),
