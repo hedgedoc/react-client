@@ -223,7 +223,7 @@ export const HistoryToolbar: React.FC<HistoryToolbarProps> = ({ onSettingsChange
           <ToggleButton className={'btn-light'} value={ViewStateEnum.CARD} title={t('landing.history.toolbar.cards')}>
             <ForkAwesomeIcon icon={'sticky-note'} className={'fa-fix-line-height'} />
           </ToggleButton>
-          <ToggleButton className={'btn-light'} value={ViewStateEnum.TABLE} title={t('landing.history.toolbar.table')}>
+          <ToggleButton data-cy={'history-mode-table'} className={'btn-light'} value={ViewStateEnum.TABLE} title={t('landing.history.toolbar.table')}>
             <ForkAwesomeIcon icon={'table'} className={'fa-fix-line-height'} />
           </ToggleButton>
         </ToggleButtonGroup>

@@ -16,7 +16,7 @@ describe('History', () => {
     })
 
     it('Table', () => {
-      cy.get('i.fa-table').click()
+      cy.get('[data-cy="history-mode-table"]').click()
       cy.get('table.history-table').should('be.visible')
     })
   })
@@ -40,7 +40,7 @@ describe('History', () => {
       })
 
       it('in table view', () => {
-        cy.get('i.fa-table').click()
+        cy.get('[data-cy="history-mode-table"]').click()
         cy.get('[data-cy="history-entry-title"]').contains('Features')
       })
 
@@ -66,7 +66,7 @@ describe('History', () => {
       })
 
       it('in table view', () => {
-        cy.get('i.fa-table').click()
+        cy.get('[data-cy="history-mode-table"]').click()
         cy.get('[data-cy="history-entry-title"]').contains('Untitled')
       })
 
