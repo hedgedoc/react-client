@@ -10,6 +10,7 @@ import { useNoteMarkdownContent } from '../../../hooks/common/use-note-markdown-
 import { setNoteContent } from '../../../redux/note-details/methods'
 import { SidebarButton } from './sidebar-button'
 import { UploadInput } from './upload-input'
+import { dataCy } from '../../../utils/cypress-attribute'
 
 export const ImportMarkdownSidebarEntry: React.FC = () => {
   const markdownContent = useNoteMarkdownContent()
@@ -42,12 +43,12 @@ export const ImportMarkdownSidebarEntry: React.FC = () => {
 
   return (
     <Fragment>
-      <SidebarButton data-cy={'menu-import-markdown'} icon={'file-text-o'} onClick={buttonClick}>
+      <SidebarButton {...dataCy('menu-import-markdown')} icon={'file-text-o'} onClick={buttonClick}>
         <Trans i18nKey={'editor.import.file'} />
       </SidebarButton>
       <UploadInput
         onLoad={onImportMarkdown}
-        data-cy={'menu-import-markdown-input'}
+        {...dataCy('menu-import-markdown-input')}
         acceptedFiles={'.md, text/markdown, text/plain'}
         onClickRef={clickRef}
       />

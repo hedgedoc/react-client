@@ -11,6 +11,7 @@ import { SidebarButton } from './sidebar-button'
 import { SidebarMenu } from './sidebar-menu'
 import type { SpecificSidebarMenuProps } from './types'
 import { DocumentSidebarMenuSelection } from './types'
+import { dataCy } from '../../../utils/cypress-attribute'
 
 export const ImportMenuSidebarMenu: React.FC<SpecificSidebarMenuProps> = ({
   className,
@@ -29,7 +30,7 @@ export const ImportMenuSidebarMenu: React.FC<SpecificSidebarMenuProps> = ({
   return (
     <Fragment>
       <SidebarButton
-        data-cy={'menu-import'}
+        {...dataCy('menu-import')}
         hide={hide}
         icon={expand ? 'arrow-left' : 'cloud-upload'}
         className={className}

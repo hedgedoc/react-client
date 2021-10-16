@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { setEditorMode } from '../../../redux/editor/methods'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
+import { dataCy } from '../../../utils/cypress-attribute'
 
 export enum EditorMode {
   PREVIEW = 'view',
@@ -30,21 +31,21 @@ export const EditorViewMode: React.FC = () => {
         setEditorMode(value)
       }}>
       <ToggleButton
-        data-cy={'view-mode-preview'}
+        {...dataCy('view-mode-preview')}
         value={EditorMode.PREVIEW}
         variant='outline-secondary'
         title={t('editor.viewMode.view')}>
         <ForkAwesomeIcon icon='eye' />
       </ToggleButton>
       <ToggleButton
-        data-cy={'view-mode-both'}
+        {...dataCy('view-mode-both')}
         value={EditorMode.BOTH}
         variant='outline-secondary'
         title={t('editor.viewMode.both')}>
         <ForkAwesomeIcon icon='columns' />
       </ToggleButton>
       <ToggleButton
-        data-cy={'view-mode-editor'}
+        {...dataCy('view-mode-editor')}
         value={EditorMode.EDITOR}
         variant='outline-secondary'
         title={t('editor.viewMode.edit')}>
