@@ -23,8 +23,8 @@ export const HistoryTableRow: React.FC<HistoryEntryProps & HistoryEventHandlers>
   return (
     <tr>
       <td>
-        <Link to={`/n/${entry.identifier}`} className='text-light'>
-          {entry.title}
+        <Link to={`/n/${entry.identifier}`} className='text-light' data-cy={'history-entry-title'}>
+          {entryTitle}
         </Link>
       </td>
       <td>{formatHistoryDate(entry.lastVisited)}</td>
