@@ -18,7 +18,7 @@ interface PropsWithDataCy {
  * @param identifier The identifier that is used to find the element
  * @return An object if in test mode, undefined otherwise.
  */
-export const dataCy = (identifier: string | undefined | PropsWithDataCy): Record<'data-cy', string> | undefined => {
+export const testId = (identifier: string | undefined | PropsWithDataCy): Record<'data-cy', string> | undefined => {
   if (!isTestMode() || !identifier) {
     return
   }

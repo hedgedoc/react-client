@@ -7,7 +7,7 @@
 import type { MutableRefObject } from 'react'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { Logger } from '../../../utils/logger'
-import { dataCy } from '../../../utils/cypress-attribute'
+import { testId } from '../../../utils/cypress-attribute'
 
 const log = new Logger('UploadInput')
 
@@ -45,5 +45,5 @@ export const UploadInput: React.FC<UploadInputProps> = ({ onLoad, acceptedFiles,
     onClickRef.current = onClick
   })
 
-  return <input {...dataCy(props)} type='file' ref={fileInputReference} className='d-none' accept={acceptedFiles} />
+  return <input {...testId(props)} type='file' ref={fileInputReference} className='d-none' accept={acceptedFiles} />
 }

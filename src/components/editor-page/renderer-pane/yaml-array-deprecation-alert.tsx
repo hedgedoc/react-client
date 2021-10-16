@@ -11,14 +11,14 @@ import links from '../../../links.json'
 import { TranslatedExternalLink } from '../../common/links/translated-external-link'
 import { ShowIf } from '../../common/show-if/show-if'
 import type { CommonModalProps } from '../../common/modals/common-modal'
-import { dataCy } from '../../../utils/cypress-attribute'
+import { testId } from '../../../utils/cypress-attribute'
 
 export const YamlArrayDeprecationAlert: React.FC<Partial<CommonModalProps>> = ({ show }) => {
   useTranslation()
 
   return (
     <ShowIf condition={!!show}>
-      <Alert {...dataCy('yamlArrayDeprecationAlert')} className={'text-wrap'} variant='warning' dir='auto'>
+      <Alert {...testId('yamlArrayDeprecationAlert')} className={'text-wrap'} variant='warning' dir='auto'>
         <span className={'text-wrap'}>
           <span className={'text-wrap'}>
             <Trans i18nKey='editor.deprecatedTags' />

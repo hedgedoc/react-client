@@ -8,7 +8,7 @@ import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { CommonModal } from '../../common/modals/common-modal'
-import { dataCy } from '../../../utils/cypress-attribute'
+import { testId } from '../../../utils/cypress-attribute'
 
 export interface MaxLengthWarningModalProps {
   show: boolean
@@ -21,7 +21,7 @@ export const MaxLengthWarningModal: React.FC<MaxLengthWarningModalProps> = ({ sh
 
   return (
     <CommonModal
-      {...dataCy('limitReachedModal')}
+      {...testId('limitReachedModal')}
       show={show}
       onHide={onHide}
       titleI18nKey={'editor.error.limitReached.title'}

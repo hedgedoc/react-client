@@ -8,14 +8,14 @@ import React from 'react'
 import { Alert } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import links from '../../../../links.json'
-import { dataCy } from '../../../../utils/cypress-attribute'
+import { testId } from '../../../../utils/cypress-attribute'
 import { TranslatedExternalLink } from '../../../common/links/translated-external-link'
 
 export const DeprecationWarning: React.FC = () => {
   useTranslation()
 
   return (
-    <Alert {...dataCy('yaml')} className={'mt-2'} variant={'warning'}>
+    <Alert {...testId('yaml')} className={'mt-2'} variant={'warning'}>
       <span className={'text-wrap'}>
         <Trans i18nKey={'renderer.sequence.deprecationWarning'} />
       </span>

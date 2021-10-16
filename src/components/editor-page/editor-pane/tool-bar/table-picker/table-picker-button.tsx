@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { addTable } from '../utils/toolbarButtonUtils'
 import { TablePicker } from './table-picker'
-import { dataCy } from '../../../../../utils/cypress-attribute'
+import { testId } from '../../../../../utils/cypress-attribute'
 
 export interface TablePickerButtonProps {
   editor: CodeMirror.Editor
@@ -32,7 +32,7 @@ export const TablePickerButton: React.FC<TablePickerButtonProps> = ({ editor }) 
         }}
       />
       <Button
-        {...dataCy('show-table-overlay')}
+        {...testId('show-table-overlay')}
         variant='light'
         onClick={() => setShowTablePicker((old) => !old)}
         title={t('editor.editorToolbar.table.title')}>

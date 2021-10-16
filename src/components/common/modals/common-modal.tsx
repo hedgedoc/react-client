@@ -10,7 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../fork-awesome/fork-awesome-icon'
 import type { IconName } from '../fork-awesome/types'
 import { ShowIf } from '../show-if/show-if'
-import { dataCy } from '../../../utils/cypress-attribute'
+import { testId } from '../../../utils/cypress-attribute'
 
 export interface CommonModalProps {
   show: boolean
@@ -40,7 +40,7 @@ export const CommonModal: React.FC<CommonModalProps> = ({
 
   return (
     <Modal
-      {...dataCy(props)}
+      {...testId(props)}
       show={show}
       onHide={onHide}
       animation={true}

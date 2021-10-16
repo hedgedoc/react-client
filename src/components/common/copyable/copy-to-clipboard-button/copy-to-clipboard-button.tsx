@@ -10,7 +10,7 @@ import type { Variant } from 'react-bootstrap/types'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../fork-awesome/fork-awesome-icon'
 import { CopyOverlay } from '../copy-overlay'
-import { dataCy } from '../../../../utils/cypress-attribute'
+import { testId } from '../../../../utils/cypress-attribute'
 
 export interface CopyToClipboardButtonProps {
   content: string
@@ -35,7 +35,7 @@ export const CopyToClipboardButton: React.FC<CopyToClipboardButtonProps> = ({
         size={size}
         variant={variant}
         title={t('renderer.highlightCode.copyCode')}
-        {...dataCy(props)}>
+        {...testId(props)}>
         <ForkAwesomeIcon icon='files-o' />
       </Button>
       <CopyOverlay content={content} clickComponent={button} />

@@ -14,7 +14,7 @@ import { DocumentInfoLineWithTimeMode, DocumentInfoTimeLine } from './document-i
 import { UnitalicBoldText } from './unitalic-bold-text'
 import { useCustomizeAssetsUrl } from '../../../../hooks/common/use-customize-assets-url'
 import { DocumentInfoLineWordCount } from './document-info-line-word-count'
-import { dataCy } from '../../../../utils/cypress-attribute'
+import { testId } from '../../../../utils/cypress-attribute'
 
 export interface DocumentInfoModalProps {
   show: boolean
@@ -32,7 +32,7 @@ export const DocumentInfoModal: React.FC<DocumentInfoModalProps> = ({ show, onHi
       onHide={onHide}
       closeButton={true}
       titleI18nKey={'editor.modal.documentInfo.title'}
-      {...dataCy('document-info-modal')}>
+      {...testId('document-info-modal')}>
       <Modal.Body>
         <ListGroup>
           <ListGroup.Item>
