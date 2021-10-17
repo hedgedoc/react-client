@@ -33,7 +33,7 @@ import {
   superscriptSelection,
   underlineSelection
 } from './utils/toolbarButtonUtils'
-import { testId } from '../../../../utils/cypress-attribute'
+import { cypressId } from '../../../../utils/cypress-attribute'
 
 export interface ToolBarProps {
   editor?: Editor
@@ -50,42 +50,42 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
     <ButtonToolbar className='bg-light'>
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <Button
-          {...testId('format-bold')}
+          {...cypressId('format-bold')}
           variant='light'
           onClick={() => makeSelectionBold(editor)}
           title={t('editor.editorToolbar.bold')}>
           <ForkAwesomeIcon icon='bold' />
         </Button>
         <Button
-          {...testId('format-italic')}
+          {...cypressId('format-italic')}
           variant='light'
           onClick={() => makeSelectionItalic(editor)}
           title={t('editor.editorToolbar.italic')}>
           <ForkAwesomeIcon icon='italic' />
         </Button>
         <Button
-          {...testId('format-underline')}
+          {...cypressId('format-underline')}
           variant='light'
           onClick={() => underlineSelection(editor)}
           title={t('editor.editorToolbar.underline')}>
           <ForkAwesomeIcon icon='underline' />
         </Button>
         <Button
-          {...testId('format-strikethrough')}
+          {...cypressId('format-strikethrough')}
           variant='light'
           onClick={() => strikeThroughSelection(editor)}
           title={t('editor.editorToolbar.strikethrough')}>
           <ForkAwesomeIcon icon='strikethrough' />
         </Button>
         <Button
-          {...testId('format-subscript')}
+          {...cypressId('format-subscript')}
           variant='light'
           onClick={() => subscriptSelection(editor)}
           title={t('editor.editorToolbar.subscript')}>
           <ForkAwesomeIcon icon='subscript' />
         </Button>
         <Button
-          {...testId('format-superscript')}
+          {...cypressId('format-superscript')}
           variant='light'
           onClick={() => superscriptSelection(editor)}
           title={t('editor.editorToolbar.superscript')}>
@@ -94,42 +94,42 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
       </ButtonGroup>
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <Button
-          {...testId('format-heading')}
+          {...cypressId('format-heading')}
           variant='light'
           onClick={() => addHeaderLevel(editor)}
           title={t('editor.editorToolbar.header')}>
           <ForkAwesomeIcon icon='header' />
         </Button>
         <Button
-          {...testId('format-code-block')}
+          {...cypressId('format-code-block')}
           variant='light'
           onClick={() => addCodeFences(editor)}
           title={t('editor.editorToolbar.code')}>
           <ForkAwesomeIcon icon='code' />
         </Button>
         <Button
-          {...testId('format-block-quote')}
+          {...cypressId('format-block-quote')}
           variant='light'
           onClick={() => addQuotes(editor)}
           title={t('editor.editorToolbar.blockquote')}>
           <ForkAwesomeIcon icon='quote-right' />
         </Button>
         <Button
-          {...testId('format-unordered-list')}
+          {...cypressId('format-unordered-list')}
           variant='light'
           onClick={() => addList(editor)}
           title={t('editor.editorToolbar.unorderedList')}>
           <ForkAwesomeIcon icon='list' />
         </Button>
         <Button
-          {...testId('format-ordered-list')}
+          {...cypressId('format-ordered-list')}
           variant='light'
           onClick={() => addOrderedList(editor)}
           title={t('editor.editorToolbar.orderedList')}>
           <ForkAwesomeIcon icon='list-ol' />
         </Button>
         <Button
-          {...testId('format-check-list')}
+          {...cypressId('format-check-list')}
           variant='light'
           onClick={() => addTaskList(editor)}
           title={t('editor.editorToolbar.checkList')}>
@@ -138,14 +138,14 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
       </ButtonGroup>
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <Button
-          {...testId('format-link')}
+          {...cypressId('format-link')}
           variant='light'
           onClick={() => addLink(editor)}
           title={t('editor.editorToolbar.link')}>
           <ForkAwesomeIcon icon='link' />
         </Button>
         <Button
-          {...testId('format-image')}
+          {...cypressId('format-image')}
           variant='light'
           onClick={() => addImage(editor)}
           title={t('editor.editorToolbar.image')}>
@@ -156,21 +156,21 @@ export const ToolBar: React.FC<ToolBarProps> = ({ editor }) => {
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <TablePickerButton editor={editor} />
         <Button
-          {...testId('format-add-line')}
+          {...cypressId('format-add-line')}
           variant='light'
           onClick={() => addLine(editor)}
           title={t('editor.editorToolbar.line')}>
           <ForkAwesomeIcon icon='minus' />
         </Button>
         <Button
-          {...testId('format-collapsable-block')}
+          {...cypressId('format-collapsable-block')}
           variant='light'
           onClick={() => addCollapsableBlock(editor)}
           title={t('editor.editorToolbar.collapsableBlock')}>
           <ForkAwesomeIcon icon='caret-square-o-down' />
         </Button>
         <Button
-          {...testId('format-add-comment')}
+          {...cypressId('format-add-comment')}
           variant='light'
           onClick={() => addComment(editor)}
           title={t('editor.editorToolbar.comment')}>

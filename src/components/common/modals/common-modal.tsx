@@ -10,9 +10,9 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../fork-awesome/fork-awesome-icon'
 import type { IconName } from '../fork-awesome/types'
 import { ShowIf } from '../show-if/show-if'
-import { testId } from '../../../utils/cypress-attribute'
+import { cypressId, PropsWithDataCypressId } from '../../../utils/cypress-attribute'
 
-export interface CommonModalProps {
+export interface CommonModalProps extends PropsWithDataCypressId {
   show: boolean
   onHide?: () => void
   titleI18nKey?: string
@@ -21,7 +21,6 @@ export interface CommonModalProps {
   icon?: IconName
   size?: 'lg' | 'sm' | 'xl'
   additionalClasses?: string
-  'data-cy'?: string
 }
 
 export const CommonModal: React.FC<CommonModalProps> = ({
@@ -40,7 +39,7 @@ export const CommonModal: React.FC<CommonModalProps> = ({
 
   return (
     <Modal
-      {...testId(props)}
+      {...cypressId(props)}
       show={show}
       onHide={onHide}
       animation={true}

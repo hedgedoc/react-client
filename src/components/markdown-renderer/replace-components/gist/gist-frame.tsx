@@ -5,7 +5,7 @@
  */
 
 import React, { useCallback } from 'react'
-import { testId } from '../../../../utils/cypress-attribute'
+import { cypressId } from '../../../../utils/cypress-attribute'
 import './gist-frame.scss'
 import { useResizeGistFrame } from './use-resize-gist-frame'
 
@@ -32,7 +32,7 @@ export const GistFrame: React.FC<GistFrameProps> = ({ id }) => {
     <span>
       <iframe
         sandbox=''
-        {...testId('gh-gist')}
+        {...cypressId('gh-gist')}
         width='100%'
         height={`${frameHeight}px`}
         frameBorder='0'

@@ -13,7 +13,7 @@ import { ShowIf } from '../../common/show-if/show-if'
 import { getApiUrl } from '../../../api/utils'
 import { INTERACTIVE_LOGIN_METHODS } from '../../../api/auth'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
-import { testId } from '../../../utils/cypress-attribute'
+import { cypressId } from '../../../utils/cypress-attribute'
 
 export type SignInButtonProps = Omit<ButtonProps, 'href'>
 
@@ -37,7 +37,7 @@ export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props })
   return (
     <ShowIf condition={authEnabled}>
       <LinkContainer to={loginLink} title={t('login.signIn')}>
-        <Button {...testId('sign-in-button')} variant={variant || 'success'} {...props}>
+        <Button {...cypressId('sign-in-button')} variant={variant || 'success'} {...props}>
           <Trans i18nKey='login.signIn' />
         </Button>
       </LinkContainer>

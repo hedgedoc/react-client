@@ -26,7 +26,7 @@ import { useSendScrollState } from './hooks/use-send-scroll-state'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { Logger } from '../../../utils/logger'
 import { useEffectOnRenderTypeChange } from './hooks/use-effect-on-render-type-change'
-import { testId } from '../../../utils/cypress-attribute'
+import { cypressId } from '../../../utils/cypress-attribute'
 
 export interface RenderIframeProps extends RendererProps {
   rendererType: RendererType
@@ -140,7 +140,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
       <CommunicatorImageLightbox />
       <iframe
         style={{ height: `${frameHeight}px` }}
-        {...testId('documentIframe')}
+        {...cypressId('documentIframe')}
         onLoad={onIframeLoad}
         title='render'
         {...(isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' })}

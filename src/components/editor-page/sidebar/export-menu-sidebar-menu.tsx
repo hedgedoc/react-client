@@ -12,7 +12,7 @@ import { SidebarButton } from './sidebar-button'
 import { SidebarMenu } from './sidebar-menu'
 import type { SpecificSidebarMenuProps } from './types'
 import { DocumentSidebarMenuSelection } from './types'
-import { testId } from '../../../utils/cypress-attribute'
+import { cypressId } from '../../../utils/cypress-attribute'
 
 export const ExportMenuSidebarMenu: React.FC<SpecificSidebarMenuProps> = ({
   className,
@@ -31,7 +31,7 @@ export const ExportMenuSidebarMenu: React.FC<SpecificSidebarMenuProps> = ({
   return (
     <Fragment>
       <SidebarButton
-        {...testId('menu-export')}
+        {...cypressId('menu-export')}
         hide={hide}
         icon={expand ? 'arrow-left' : 'cloud-download'}
         className={className}
