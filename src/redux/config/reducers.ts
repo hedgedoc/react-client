@@ -5,7 +5,7 @@
  */
 
 import { Reducer } from 'redux'
-import { Config } from '../../api/config/types'
+import type { Config } from '../../api/config/types'
 import { ConfigActions, ConfigActionType } from './types'
 
 export const initialState: Config = {

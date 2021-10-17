@@ -5,14 +5,14 @@
  */
 
 import { Reducer } from 'redux'
-import { PresentFrontmatterExtractionResult } from '../../components/common/note-frontmatter/types'
+import type { PresentFrontmatterExtractionResult } from '../../components/common/note-frontmatter/types'
 import {
   createNoteFrontmatterFromYaml,
   NoteFrontmatter
 } from '../../components/common/note-frontmatter/note-frontmatter'
 import { NoteDetails, NoteDetailsActions, NoteDetailsActionType } from './types'
 import { extractFrontmatter } from '../../components/common/note-frontmatter/extract-frontmatter'
-import { NoteDto } from '../../api/notes/types'
+import type { NoteDto } from '../../api/notes/types'
 import { initialState } from './initial-state'
 import { DateTime } from 'luxon'
 

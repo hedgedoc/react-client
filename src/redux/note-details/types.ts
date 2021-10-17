@@ -7,7 +7,7 @@
 import { DateTime } from 'luxon'
 import { Action } from 'redux'
 import { NoteFrontmatter } from '../../components/common/note-frontmatter/note-frontmatter'
-import { NoteDto } from '../../api/notes/types'
+import type { NoteDto } from '../../api/notes/types'
 import { RendererFrontmatterInfo } from '../../components/common/note-frontmatter/types'
 
 export enum NoteDetailsActionType {

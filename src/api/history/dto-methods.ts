@@ -5,7 +5,7 @@
  */
 
 import { HistoryEntry, HistoryEntryOrigin } from '../../redux/history/types'
-import { HistoryEntryDto, HistoryEntryPutDto, HistoryEntryUpdateDto } from './types'
+import type { HistoryEntryDto, HistoryEntryPutDto, HistoryEntryUpdateDto } from './types'
 
 export const historyEntryDtoToHistoryEntry = (entryDto: HistoryEntryDto): HistoryEntry => {
   return {

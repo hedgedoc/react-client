@@ -6,7 +6,7 @@
 
 import { Editor, Hint, Hints, Pos } from 'codemirror'
 import Database from 'emoji-picker-element/database'
-import { Emoji, EmojiClickEventDetail, NativeEmoji } from 'emoji-picker-element/shared'
+import type { Emoji, EmojiClickEventDetail, NativeEmoji } from 'emoji-picker-element/shared'
 import { emojiPickerConfig } from '../tool-bar/emoji-picker/emoji-picker'
 import { getEmojiIcon, getEmojiShortCode } from '../tool-bar/utils/emojiUtils'
 import { findWordAtCursor, Hinter } from './index'

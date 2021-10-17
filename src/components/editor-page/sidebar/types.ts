@@ -5,7 +5,7 @@
  */
 
 import { RefObject } from 'react'
-import { IconName } from '../../common/fork-awesome/types'
+import type { IconName } from '../../common/fork-awesome/types'
 import { SidebarEntryVariant } from './sidebar-button'
 
 export interface SpecificSidebarEntryProps {

@@ -6,7 +6,7 @@
 
 import { Action } from 'redux'
 import { DateTime } from 'luxon'
-import { IconName } from '../../components/common/fork-awesome/types'
+import type { IconName } from '../../components/common/fork-awesome/types'
 import { TOptions } from 'i18next'
 
 export enum UiNotificationActionType {

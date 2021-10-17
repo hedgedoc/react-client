@@ -7,7 +7,7 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { IconName } from '../../../common/fork-awesome/types'
+import type { IconName } from '../../../common/fork-awesome/types'
 import { UserAvatar } from '../../../common/user-avatar/user-avatar'
 import { DocumentInfoLine } from './document-info-line'
 import { TimeFromNow } from './time-from-now'

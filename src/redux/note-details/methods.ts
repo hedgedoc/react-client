@@ -5,7 +5,7 @@
  */
 
 import { store } from '..'
-import { NoteDto } from '../../api/notes/types'
+import type { NoteDto } from '../../api/notes/types'
 import {
   NoteDetailsActionType,
   SetNoteDetailsFromServerAction,
