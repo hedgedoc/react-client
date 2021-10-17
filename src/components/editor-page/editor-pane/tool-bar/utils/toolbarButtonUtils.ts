@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { Editor } from 'codemirror'
+import type { Editor } from 'codemirror'
 import type { EmojiClickEventDetail } from 'emoji-picker-element/shared'
 import { createNumberRangeArray } from '../../../../common/number-range/number-range'
 import { getEmojiShortCode } from './emojiUtils'

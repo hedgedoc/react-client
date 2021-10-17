@@ -5,7 +5,8 @@
  */
 
 import { DateTime } from 'luxon'
-import React, { ChangeEvent, FormEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Col, Form, ListGroup, Modal, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { deleteAccessToken, getAccessTokenList, postNewAccessToken } from '../../../api/tokens'

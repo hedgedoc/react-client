@@ -5,7 +5,7 @@
  */
 
 import { diffArrays } from 'diff'
-import { TextDifferenceResult } from './html-react-transformer'
+import type { TextDifferenceResult } from './html-react-transformer'
 import type { LineKeys } from '../types'
 
 export const calculateNewLineNumberMapping = (

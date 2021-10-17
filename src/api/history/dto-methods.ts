@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { HistoryEntry, HistoryEntryOrigin } from '../../redux/history/types'
+import type { HistoryEntry } from '../../redux/history/types'
+import { HistoryEntryOrigin } from '../../redux/history/types'
 import type { HistoryEntryDto, HistoryEntryPutDto, HistoryEntryUpdateDto } from './types'
 
 export const historyEntryDtoToHistoryEntry = (entryDto: HistoryEntryDto): HistoryEntry => {

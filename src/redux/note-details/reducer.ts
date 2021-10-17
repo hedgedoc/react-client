@@ -4,13 +4,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { Reducer } from 'redux'
+import type { Reducer } from 'redux'
 import type { PresentFrontmatterExtractionResult } from '../../components/common/note-frontmatter/types'
-import {
-  createNoteFrontmatterFromYaml,
-  NoteFrontmatter
-} from '../../components/common/note-frontmatter/note-frontmatter'
-import { NoteDetails, NoteDetailsActions, NoteDetailsActionType } from './types'
+import type { NoteFrontmatter } from '../../components/common/note-frontmatter/note-frontmatter'
+import { createNoteFrontmatterFromYaml } from '../../components/common/note-frontmatter/note-frontmatter'
+import type { NoteDetails, NoteDetailsActions } from './types'
+import { NoteDetailsActionType } from './types'
 import { extractFrontmatter } from '../../components/common/note-frontmatter/extract-frontmatter'
 import type { NoteDto } from '../../api/notes/types'
 import { initialState } from './initial-state'

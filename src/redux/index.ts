@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { combineReducers, createStore, Reducer } from 'redux'
+import type { Reducer } from 'redux'
+import { combineReducers, createStore } from 'redux'
 import type { Config } from '../api/config/types'
 import { ApiUrlReducer } from './api-url/reducers'
 import type { ApiUrlObject } from './api-url/types'

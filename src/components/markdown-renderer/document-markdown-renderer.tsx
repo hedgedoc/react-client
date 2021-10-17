@@ -11,14 +11,14 @@ import './markdown-renderer.scss'
 import type { LineMarkerPosition } from './types'
 import { useComponentReplacers } from './hooks/use-component-replacers'
 import { useTranslation } from 'react-i18next'
-import { LineMarkers } from './replace-components/linemarker/line-number-marker'
+import type { LineMarkers } from './replace-components/linemarker/line-number-marker'
 import { useCalculateLineMarkerPosition } from './utils/calculate-line-marker-positions'
 import { useExtractFirstHeadline } from './hooks/use-extract-first-headline'
-import { TocAst } from 'markdown-it-toc-done-right'
+import type { TocAst } from 'markdown-it-toc-done-right'
 import { useOnRefChange } from './hooks/use-on-ref-change'
 import { BasicMarkdownItConfigurator } from './markdown-it-configurator/basic-markdown-it-configurator'
 import { useTrimmedContent } from './hooks/use-trimmed-content'
-import { CommonMarkdownRendererProps } from './common-markdown-renderer-props'
+import type { CommonMarkdownRendererProps } from './common-markdown-renderer-props'
 
 export interface DocumentMarkdownRendererProps extends CommonMarkdownRendererProps {
   onLineMarkerPositionChanged?: (lineMarkerPosition: LineMarkerPosition[]) => void

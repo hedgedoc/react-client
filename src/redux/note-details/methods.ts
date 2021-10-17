@@ -6,13 +6,13 @@
 
 import { store } from '..'
 import type { NoteDto } from '../../api/notes/types'
-import {
-  NoteDetailsActionType,
+import type {
   SetNoteDetailsFromServerAction,
   SetNoteDocumentContentAction,
   UpdateNoteTitleByFirstHeadingAction,
   UpdateTaskListCheckboxAction
 } from './types'
+import { NoteDetailsActionType } from './types'
 
 /**
  * Sets the content of the current note, extracts and parses the frontmatter and extracts the markdown content part.

@@ -5,7 +5,8 @@
  */
 
 import React, { useMemo } from 'react'
-import { CommonModal, CommonModalProps } from '../../../common/modals/common-modal'
+import type { CommonModalProps } from '../../../common/modals/common-modal'
+import { CommonModal } from '../../../common/modals/common-modal'
 import { Modal, Row } from 'react-bootstrap'
 import { VersionInfoModalColumn } from './version-info-modal-column'
 import frontendVersion from '../../../../version.json'
