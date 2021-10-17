@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import type { PropsWithDataCypressId } from '../../../../utils/cypress-attribute';
+import type { PropsWithDataCypressId } from '../../../../utils/cypress-attribute'
 import { cypressId } from '../../../../utils/cypress-attribute'
 
 export interface UnitalicBoldTextProps extends PropsWithDataCypressId {

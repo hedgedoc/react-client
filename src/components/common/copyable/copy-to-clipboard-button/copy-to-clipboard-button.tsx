@@ -10,7 +10,8 @@ import type { Variant } from 'react-bootstrap/types'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../fork-awesome/fork-awesome-icon'
 import { CopyOverlay } from '../copy-overlay'
-import { cypressId, PropsWithDataCypressId } from '../../../../utils/cypress-attribute'
+import type { PropsWithDataCypressId } from '../../../../utils/cypress-attribute'
+import { cypressId } from '../../../../utils/cypress-attribute'
 
 export interface CopyToClipboardButtonProps extends PropsWithDataCypressId {
   content: string

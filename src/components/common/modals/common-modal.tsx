@@ -10,7 +10,8 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../fork-awesome/fork-awesome-icon'
 import type { IconName } from '../fork-awesome/types'
 import { ShowIf } from '../show-if/show-if'
-import { cypressId, PropsWithDataCypressId } from '../../../utils/cypress-attribute'
+import type { PropsWithDataCypressId } from '../../../utils/cypress-attribute'
+import { cypressId } from '../../../utils/cypress-attribute'
 
 export interface CommonModalProps extends PropsWithDataCypressId {
   show: boolean

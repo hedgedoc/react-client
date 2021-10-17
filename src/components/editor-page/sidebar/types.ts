@@ -7,7 +7,7 @@
 import type { RefObject } from 'react'
 import type { IconName } from '../../common/fork-awesome/types'
 import type { SidebarEntryVariant } from './sidebar-button'
-import { PropsWithDataCypressId } from '../../../utils/cypress-attribute'
+import type { PropsWithDataCypressId } from '../../../utils/cypress-attribute'
 
 export interface SpecificSidebarEntryProps {
   className?: string

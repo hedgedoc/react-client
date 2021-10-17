@@ -7,11 +7,12 @@
 import type { MutableRefObject } from 'react'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { Logger } from '../../../utils/logger'
-import { cypressId, PropsWithDataCypressId } from '../../../utils/cypress-attribute'
+import type { PropsWithDataCypressId } from '../../../utils/cypress-attribute'
+import { cypressId } from '../../../utils/cypress-attribute'
 
 const log = new Logger('UploadInput')
 
-export interface UploadInputProps extends PropsWithDataCypressId{
+export interface UploadInputProps extends PropsWithDataCypressId {
   onLoad: (file: File) => Promise<void>
   acceptedFiles: string
   onClickRef: MutableRefObject<(() => void) | undefined>
