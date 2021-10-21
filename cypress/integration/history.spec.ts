@@ -16,7 +16,7 @@ describe('History', () => {
     })
 
     it('Table', () => {
-      cy.get('[data-cy="history-mode-table"]').click()
+      cy.get('[data-cypress-id="history-mode-table"]').click()
       cy.get('table.history-table').should('be.visible')
     })
   })
@@ -40,12 +40,12 @@ describe('History', () => {
       })
 
       it('in table view', () => {
-        cy.get('[data-cy="history-mode-table"]').click()
-        cy.get('[data-cy="history-entry-title"]').contains('Features')
+        cy.get('[data-cypress-id="history-mode-table"]').click()
+        cy.get('[data-cypress-id="history-entry-title"]').contains('Features')
       })
 
       it('in cards view', () => {
-        cy.get('[data-cy="history-entry-title"]').contains('Features')
+        cy.get('[data-cypress-id="history-entry-title"]').contains('Features')
       })
     })
     describe('is untitled when not empty', () => {
@@ -66,12 +66,12 @@ describe('History', () => {
       })
 
       it('in table view', () => {
-        cy.get('[data-cy="history-mode-table"]').click()
-        cy.get('[data-cy="history-entry-title"]').contains('Untitled')
+        cy.get('[data-cypress-id="history-mode-table"]').click()
+        cy.get('[data-cypress-id="history-entry-title"]').contains('Untitled')
       })
 
       it('in cards view', () => {
-        cy.get('[data-cy="history-entry-title"]').contains('Untitled')
+        cy.get('[data-cypress-id="history-entry-title"]').contains('Untitled')
       })
     })
   })

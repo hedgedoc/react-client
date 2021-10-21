@@ -15,6 +15,7 @@ import { PinButton } from '../pin-button/pin-button'
 import { formatHistoryDate } from '../utils'
 import './history-card.scss'
 import { useHistoryEntryTitle } from '../use-history-entry-title'
+import { cypressId } from '../../../utils/cypress-attribute'
 
 export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = ({
   entry,
@@ -41,7 +42,7 @@ export const HistoryCard: React.FC<HistoryEntryProps & HistoryEventHandlers> = (
           </div>
           <Link to={`/n/${entry.identifier}`} className='text-decoration-none flex-fill text-dark'>
             <div className={'d-flex flex-column justify-content-between'}>
-              <Card.Title className='m-0 mt-1dot5' data-cy={'history-entry-title'}>
+              <Card.Title className='m-0 mt-1dot5' {...cypressId('history-entry-title')}>
                 {entryTitle}
               </Card.Title>
               <div>

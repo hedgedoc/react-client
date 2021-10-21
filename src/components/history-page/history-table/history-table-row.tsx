@@ -12,6 +12,7 @@ import type { HistoryEntryProps, HistoryEventHandlers } from '../history-content
 import { PinButton } from '../pin-button/pin-button'
 import { formatHistoryDate } from '../utils'
 import { useHistoryEntryTitle } from '../use-history-entry-title'
+import { cypressId } from '../../../utils/cypress-attribute'
 
 export const HistoryTableRow: React.FC<HistoryEntryProps & HistoryEventHandlers> = ({
   entry,
@@ -23,7 +24,7 @@ export const HistoryTableRow: React.FC<HistoryEntryProps & HistoryEventHandlers>
   return (
     <tr>
       <td>
-        <Link to={`/n/${entry.identifier}`} className='text-light' data-cy={'history-entry-title'}>
+        <Link to={`/n/${entry.identifier}`} className='text-light' {...cypressId('history-entry-title')}>
           {entryTitle}
         </Link>
       </td>
