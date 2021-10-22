@@ -84,10 +84,10 @@ try {
   let compiler
   try {
     compiler = webpack(config)
-  } catch (err) {
+  } catch (err: unknown) {
     console.log(chalk.red('Failed to compile.'))
     console.log()
-    console.log(err.message || err)
+    console.log((err as Error).message || err)
     console.log()
     process.exit(1)
   }
@@ -130,8 +130,8 @@ try {
   }
 
 } catch (err) {
-  if (err && err.message) {
-    console.log(err.message)
+  if (err && (err as Error).message) {
+    console.log((err as Error).message)
   }
   process.exit(1)
 }
