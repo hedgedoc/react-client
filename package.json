@@ -2,7 +2,81 @@
   "name": "react_client",
   "license": "AGPL-3.0",
   "version": "0.1.0",
-  "dependencies": {
+  "scripts": {
+    "start": "cross-env PORT=3001 ts-node scripts/start.ts",
+    "start:test": "cross-env REACT_APP_TEST_MODE=true yarn start",
+    "start:for-real-backend": "cross-env REACT_APP_BACKEND_BASE_URL=http://localhost:3000/ yarn start",
+    "serve:build": "http-server build/ -s -p 3001 -P \"http://localhost:3001?\"",
+    "build:test": "cross-env REACT_APP_BACKEND_BASE_URL=/mock-backend/ REACT_APP_TEST_MODE=true ts-node scripts/build.ts",
+    "build:mock": "cross-env REACT_APP_BACKEND_BASE_URL=/mock-backend/ ts-node scripts/build.ts",
+    "build:production": "cross-env ts-node scripts/build.ts",
+    "analyze": "cross-env ANALYZE=true yarn build:mock",
+    "test": "ts-node scripts/test.ts",
+    "lint": "eslint --max-warnings=0 --ext .ts,.tsx src",
+    "lint:fix": "eslint --fix --ext .ts,.tsx src",
+    "format": "prettier -c \"src/**/*.{ts,tsx,js}\"",
+    "format:fix": "prettier -w \"src/**/*.{ts,tsx,js}\"",
+    "cy:open": "cypress open",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "tsconfigRootDir": "",
+      "project": [
+        "./tsconfig.json"
+      ]
+    },
+    "rules": {
+      "no-use-before-define": "off",
+      "no-debugger": "warn",
+      "default-param-last": "off",
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          "prefer": "type-imports",
+          "disallowTypeAnnotations": false
+        }
+      ]
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "react-app",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:import/recommended",
+      "plugin:import/typescript",
+      "prettier"
+    ]
+  },
+  "prettier": {
+    "parser": "typescript",
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "semi": false,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "bracketSameLine": true,
+    "arrowParens": "always"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
     "@babel/core": "7.14.2",
     "@fontsource/source-sans-pro": "4.5.0",
     "@hedgedoc/html-to-react": "1.1.0",
@@ -157,83 +231,7 @@
     "webpack-dev-server": "3.11.1",
     "webpack-manifest-plugin": "3.1.1",
     "workbox-webpack-plugin": "6.1.5",
-    "words-count": "2.0.2"
-  },
-  "scripts": {
-    "start": "cross-env PORT=3001 ts-node scripts/start.ts",
-    "start:test": "cross-env REACT_APP_TEST_MODE=true yarn start",
-    "start:for-real-backend": "cross-env REACT_APP_BACKEND_BASE_URL=http://localhost:3000/ yarn start",
-    "serve:build": "http-server build/ -s -p 3001 -P \"http://localhost:3001?\"",
-    "build:test": "cross-env REACT_APP_BACKEND_BASE_URL=/mock-backend/ REACT_APP_TEST_MODE=true ts-node scripts/build.ts",
-    "build:mock": "cross-env REACT_APP_BACKEND_BASE_URL=/mock-backend/ ts-node scripts/build.ts",
-    "build:production": "cross-env ts-node scripts/build.ts",
-    "analyze": "cross-env ANALYZE=true yarn build:mock",
-    "test": "ts-node scripts/test.ts",
-    "lint": "eslint --max-warnings=0 --ext .ts,.tsx src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx src",
-    "format": "prettier -c \"src/**/*.{ts,tsx,js}\"",
-    "format:fix": "prettier -w \"src/**/*.{ts,tsx,js}\"",
-    "cy:open": "cypress open",
-    "cy:run:chrome": "cypress run --browser chrome",
-    "cy:run:firefox": "cypress run --browser firefox"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "tsconfigRootDir": "",
-      "project": [
-        "./tsconfig.json"
-      ]
-    },
-    "rules": {
-      "no-use-before-define": "off",
-      "no-debugger": "warn",
-      "default-param-last": "off",
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        {
-          "prefer": "type-imports",
-          "disallowTypeAnnotations": false
-        }
-      ]
-    },
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "react-app",
-      "eslint:recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      "plugin:import/recommended",
-      "plugin:import/typescript",
-      "prettier"
-    ]
-  },
-  "prettier": {
-    "parser": "typescript",
-    "singleQuote": true,
-    "jsxSingleQuote": true,
-    "semi": false,
-    "tabWidth": 2,
-    "trailingComma": "none",
-    "bracketSpacing": true,
-    "bracketSameLine": true,
-    "arrowParens": "always"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
+    "words-count": "2.0.2",
     "@cypress/webpack-preprocessor": "5.9.1",
     "@testing-library/cypress": "8.0.1",
     "@types/redux-devtools": "3.0.47",
