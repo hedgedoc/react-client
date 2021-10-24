@@ -78,11 +78,6 @@ export class NodeToReactTransformer {
       return Optional.empty()
     }
 
-    const key = element.attribs['data-key']
-    if (key) {
-      return Optional.of(key)
-    }
-
     return Optional.ofNullable(element.prev)
       .map((lineMarker) => NodeToReactTransformer.extractLineIndexFromLineMarker(lineMarker))
       .map(([startLineIndex, endLineIndex]) =>
@@ -168,7 +163,6 @@ export class NodeToReactTransformer {
       node.attribs = {}
     }
 
-    delete node.attribs['data-key']
     return convertNodeToReactElement(node, key, this.translateNodeToReactElement.bind(this))
   }
 

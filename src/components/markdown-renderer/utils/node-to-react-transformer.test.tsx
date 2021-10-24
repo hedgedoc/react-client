@@ -8,6 +8,7 @@ import { NodeToReactTransformer } from './node-to-react-transformer'
 import { Element } from 'domhandler'
 import type { ReactElement, ReactHTMLElement } from 'react'
 import type { NodeReplacement } from '../replace-components/component-replacer'
+import { DO_NOT_REPLACE, REPLACE_WITH_NOTHING } from '../replace-components/component-replacer'
 
 describe('node to react transformer', () => {
   let nodeToReactTransformer: NodeToReactTransformer
@@ -29,7 +30,7 @@ describe('node to react transformer', () => {
       nodeToReactTransformer.setReplacers([
         {
           replace(): NodeReplacement {
-            return null
+            return REPLACE_WITH_NOTHING
           }
         }
       ])
@@ -41,7 +42,7 @@ describe('node to react transformer', () => {
       nodeToReactTransformer.setReplacers([
         {
           replace(): NodeReplacement {
-            return undefined
+            return DO_NOT_REPLACE
           }
         }
       ])
@@ -74,17 +75,6 @@ describe('node to react transformer', () => {
           line: 'test'
         }
       ])
-    })
-
-    it('can set an explicit key', () => {
-      defaultTestSpanElement.attribs['data-key'] = 'test-key'
-      const result = nodeToReactTransformer.translateNodeToReactElement(
-        defaultTestSpanElement,
-        1
-      ) as ReactHTMLElement<HTMLDivElement>
-
-      expect(result.type).toEqual('span')
-      expect(result.key).toEqual('test-key')
     })
 
     it('can calculate a fallback key', () => {
