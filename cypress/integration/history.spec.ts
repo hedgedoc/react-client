@@ -5,7 +5,6 @@
  */
 
 describe('History', () => {
-
   describe('History Mode', () => {
     beforeEach(() => {
       cy.visit('/history')
@@ -142,8 +141,9 @@ describe('History', () => {
         filePath: 'history.json',
         mimeType: 'application/json'
       })
-      cy.wait(200)
-      cy.get('[data-cypress-id="history-entry-title"]').contains('cy-Test')
+      cy.get('[data-cypress-id="history-entry-title"]')
+        .should('have.length', 1)
+        .contains('cy-Test')
     })
 
     it('fails on invalid file', () => {
@@ -152,7 +152,6 @@ describe('History', () => {
         filePath: 'history.json.license',
         mimeType: 'text/plain'
       })
-      cy.wait(200)
       cy.get('[data-cypress-id="notification-toast"]').should('be.visible')
     })
 
@@ -162,16 +161,18 @@ describe('History', () => {
         filePath: 'history.json',
         mimeType: 'application/json'
       })
-      cy.wait(200)
-      cy.get('[data-cypress-id="history-entry-title"]').contains('cy-Test')
+      cy.get('[data-cypress-id="history-entry-title"]')
+        .should('have.length', 1)
+        .contains('cy-Test')
       cy.get('[data-cypress-id="import-history-file-button"]').click()
       cy.get('[data-cypress-id="import-history-file-input"]').attachFile({
         filePath: 'history-2.json',
         fileName: 'history.json',
         mimeType: 'application/json'
       })
-      cy.wait(200)
-      cy.get('[data-cypress-id="history-entry-title"]').contains('cy-Test2')
+      cy.get('[data-cypress-id="history-entry-title"]')
+        .should('have.length', 2)
+        .contains('cy-Test2')
     })
   })
 })
