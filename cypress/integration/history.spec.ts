@@ -17,7 +17,7 @@ describe('History', () => {
 
     it('Table', () => {
       cy.get('[data-cypress-id="history-mode-table"]').click()
-      cy.get('table.history-table').should('be.visible')
+      cy.get('[data-cypress-id="history-table"]').should('be.visible')
     })
   })
 
@@ -41,6 +41,7 @@ describe('History', () => {
 
       it('in table view', () => {
         cy.get('[data-cypress-id="history-mode-table"]').click()
+        cy.get('[data-cypress-id="history-table"]').should('be.visible')
         cy.get('[data-cypress-id="history-entry-title"]').contains('Features')
       })
 
@@ -67,6 +68,7 @@ describe('History', () => {
 
       it('in table view', () => {
         cy.get('[data-cypress-id="history-mode-table"]').click()
+        cy.get('[data-cypress-id="history-table"]').should('be.visible')
         cy.get('[data-cypress-id="history-entry-title"]').contains('Untitled')
       })
 

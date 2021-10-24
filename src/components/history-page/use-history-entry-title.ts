@@ -9,7 +9,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 /**
- * Hook that returns a memo for the title of a note in the history when present or the localized untitled name otherwise.
+ * Hook that returns the title of a note in the history if present or the translation for "untitled" otherwise.
  * @param entry The history entry containing a title property, that might be an empty string.
  * @return A memoized string containing either the title of the entry or the translated version of "untitled".
  */
