@@ -38,9 +38,9 @@ export class TaskListReplacer extends ComponentReplacer {
     }
     return (
       <TaskListCheckbox
-        onTaskCheckedChange={ this.onTaskCheckedChange }
-        checked={ node.attribs.checked !== undefined }
-        lineInMarkdown={ lineInMarkdown }
+        onTaskCheckedChange={this.onTaskCheckedChange}
+        checked={node.attribs.checked !== undefined}
+        lineInMarkdown={lineInMarkdown}
       />
     )
   }
