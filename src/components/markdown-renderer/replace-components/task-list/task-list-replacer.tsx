@@ -33,14 +33,15 @@ export class TaskListReplacer extends ComponentReplacer {
       return
     }
     const lineInMarkdown = Number(node.attribs['data-line'])
-    if (!isNaN(lineInMarkdown)) {
-      return (
-        <TaskListCheckbox
-          onTaskCheckedChange={this.onTaskCheckedChange}
-          checked={node.attribs.checked !== undefined}
-          lineInMarkdown={lineInMarkdown}
-        />
-      )
+    if (isNaN(lineInMarkdown)) {
+      return undefined
     }
+    return (
+      <TaskListCheckbox
+        onTaskCheckedChange={ this.onTaskCheckedChange }
+        checked={ node.attribs.checked !== undefined }
+        lineInMarkdown={ lineInMarkdown }
+      />
+    )
   }
 }
