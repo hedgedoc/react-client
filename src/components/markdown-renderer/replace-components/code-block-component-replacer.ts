@@ -14,6 +14,9 @@ export interface CodeProps {
   code: string
 }
 
+/**
+ * Checks if the given checked node is a code block with a specific language attribute and creates an react-element that receives the code.
+ */
 export class CodeBlockComponentReplacer extends ComponentReplacer {
   constructor(private component: FunctionComponent<CodeProps>, private language: string) {
     super()
@@ -24,9 +27,16 @@ export class CodeBlockComponentReplacer extends ComponentReplacer {
     return code ? React.createElement(this.component, { code: code }) : undefined
   }
 
-  public static extractTextFromCodeNode(node: Element, language: string): string | undefined {
-    return node.name === 'code' && node.attribs['data-highlight-language'] === language && node.children[0]
-      ? ComponentReplacer.extractTextChildContent(node)
+  /**
+   * Extracts the text content if the given {@link Element} is a code block with a specific language.
+   *
+   * @param element The {@link Element} to check.
+   * @param language The language that code block should be assigned to.
+   * @return The text content or undefined if the element isn't a code block or has the wrong language attribute.
+   */
+  public static extractTextFromCodeNode(element: Element, language: string): string | undefined {
+    return element.name === 'code' && element.attribs['data-highlight-language'] === language && element.children[0]
+      ? ComponentReplacer.extractTextChildContent(element)
       : undefined
   }
 }
