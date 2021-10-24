@@ -31,8 +31,7 @@ export const GistFrame: React.FC<IdProps> = ({ id }) => {
     <OneClickEmbedding
       previewContainerClassName={'gist-frame'}
       loadingImageUrl={preview}
-      hoverIcon={'github'}
-      tooltip={'click to load gist'}>
+      hoverIcon={'github'}>
       <iframe
         sandbox=''
         {...cypressId('gh-gist')}
