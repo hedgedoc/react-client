@@ -133,8 +133,6 @@ describe('History', () => {
       })
       cy.visit('/history')
       cy.logout()
-      cy.get('[data-cypress-id="history-clear-button"]').click()
-      cy.get('.modal-footer .btn-danger').click()
     })
 
     it('works with valid file', () => {
