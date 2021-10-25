@@ -61,7 +61,7 @@ export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({
 
   const target = useMemo(() => {
     return targetDescription ? t('renderer.one-click-embedding', { target: targetDescription }) : ''
-  }, [t, targetDescription]);
+  }, [t, targetDescription])
 
   return (
     <span className={containerClassName}>
