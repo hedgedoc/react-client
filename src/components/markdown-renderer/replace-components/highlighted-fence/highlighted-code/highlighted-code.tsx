@@ -42,6 +42,16 @@ const replaceCode = (code: string): (ReactElement | null | string)[][] => {
     .map((line) => convertHtmlToReact(line, {}))
 }
 
+const createImportAdjustedLanguage = (language: string): string => {
+  if (language === 'html') {
+    return 'xml'
+  } else if (language === 'js') {
+    return 'javascript'
+  } else {
+    return language.replace('-', '_')
+  }
+}
+
 export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language, startLineNumber, wrapLines }) => {
   const [html, setHtml] = useState<string>('')
 
@@ -50,16 +60,7 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
       setHtml(escapeHtml(code))
       return
     } else {
-      let adjustedLanguage: string;
-      if (language === 'html') {
-        adjustedLanguage = 'xml'
-      } else if (language === 'js') {
-        adjustedLanguage = 'javascript'
-      } else {
-        adjustedLanguage = language.replace('-', '_')
-      }
-
-      import('highlight.js/lib/languages/' + adjustedLanguage)
+      import('highlight.js/lib/languages/' + createImportAdjustedLanguage(language))
         .then((imported: { default: LanguageFn }) => {
           hljs.registerLanguage(language, imported.default)
           const unreplacedCode = language ? hljs.highlight(code, { language }).value : escapeHtml(code)
@@ -72,14 +73,16 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
     }
   }, [code, language, startLineNumber])
 
-  const replacedDom = useMemo(() => {
-    return replaceCode(html).map((line, index) => (
-      <Fragment key={index}>
-        <span className={'linenumber'}>{(startLineNumber || 1) + index}</span>
-        <div className={'codeline'}>{line}</div>
-      </Fragment>
-    ))
-  }, [html, startLineNumber])
+  const replacedDom = useMemo(
+    () =>
+      replaceCode(html).map((line, index) => (
+        <Fragment key={index}>
+          <span className={'linenumber'}>{(startLineNumber || 1) + index}</span>
+          <div className={'codeline'}>{line}</div>
+        </Fragment>
+      )),
+    [html, startLineNumber]
+  )
 
   return (
     <div className={'code-highlighter'}>
