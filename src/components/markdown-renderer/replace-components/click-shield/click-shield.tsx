@@ -85,19 +85,17 @@ export const ClickShield: React.FC<ClickShieldProps> = ({
   }, [t, targetDescription])
 
   const previewBackground = useMemo(() => {
-    if (previewImageUrl !== undefined) {
-      return (
-        <ProxyImageFrame
-          className={'preview-background embed-responsive-item'}
-          style={fallbackBackgroundStyle}
-          src={previewImageUrl}
-          alt={previewHoverText}
-          title={previewHoverText}
-        />
-      )
-    } else {
-      return <span className={'preview-background embed-responsive-item'} style={fallbackBackgroundStyle} />
-    }
+    return previewImageUrl === undefined ? (
+      <span className={'preview-background embed-responsive-item'} style={fallbackBackgroundStyle} />
+    ) : (
+      <ProxyImageFrame
+        className={'preview-background embed-responsive-item'}
+        style={fallbackBackgroundStyle}
+        src={previewImageUrl}
+        alt={previewHoverText}
+        title={previewHoverText}
+      />
+    )
   }, [fallbackBackgroundStyle, previewHoverText, previewImageUrl])
 
   return (
