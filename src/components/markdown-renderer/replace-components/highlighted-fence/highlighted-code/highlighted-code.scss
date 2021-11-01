@@ -5,10 +5,10 @@
  */
 
 .code-highlighter {
-  @import '../../../../../../node_modules/highlight.js/styles/github';
+  @import '~highlight.js/styles/github';
 
   body.dark & {
-    @import '../../../../../../node_modules/highlight.js/styles/github-dark';
+    @import '~highlight.js/styles/github-dark';
   }
 
   position: relative;

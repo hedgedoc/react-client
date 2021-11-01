@@ -5,13 +5,14 @@
  */
 
 import type { ReactElement } from 'react'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import convertHtmlToReact from '@hedgedoc/html-to-react'
-import { CopyToClipboardButton } from '../../../../common/copyable/copy-to-clipboard-button/copy-to-clipboard-button'
-import '../../../utils/button-inside.scss'
 import './highlighted-code.scss'
-import { Logger } from '../../../../../utils/logger'
+import hljs from 'highlight.js/lib/core'
+import type { LanguageFn } from 'highlight.js'
 import { cypressId } from '../../../../../utils/cypress-attribute'
+import { CopyToClipboardButton } from '../../../../common/copyable/copy-to-clipboard-button/copy-to-clipboard-button'
+import { Logger } from '../../../../../utils/logger'
 
 const log = new Logger('HighlightedCode')
 
@@ -42,33 +43,48 @@ const replaceCode = (code: string): (ReactElement | null | string)[][] => {
 }
 
 export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language, startLineNumber, wrapLines }) => {
-  const [dom, setDom] = useState<ReactElement[]>()
+  const [html, setHtml] = useState<string>('')
 
   useEffect(() => {
-    import(/* webpackChunkName: "highlight.js" */ '../../../../common/hljs/hljs')
-      .then((hljs) => {
-        const languageSupported = (lang: string) => hljs.default.listLanguages().includes(lang)
-        const unreplacedCode =
-          !!language && languageSupported(language)
-            ? hljs.default.highlight(code, { language }).value
-            : escapeHtml(code)
-        const replacedDom = replaceCode(unreplacedCode).map((line, index) => (
-          <Fragment key={index}>
-            <span className={'linenumber'}>{(startLineNumber || 1) + index}</span>
-            <div className={'codeline'}>{line}</div>
-          </Fragment>
-        ))
-        setDom(replacedDom)
-      })
-      .catch((error: Error) => {
-        log.error('Error while loading highlight.js', error)
-      })
+    if (!language) {
+      setHtml(escapeHtml(code))
+      return
+    } else {
+      let adjustedLanguage: string;
+      if (language === 'html') {
+        adjustedLanguage = 'xml'
+      } else if (language === 'js') {
+        adjustedLanguage = 'javascript'
+      } else {
+        adjustedLanguage = language.replace('-', '_')
+      }
+
+      import('highlight.js/lib/languages/' + adjustedLanguage)
+        .then((imported: { default: LanguageFn }) => {
+          hljs.registerLanguage(language, imported.default)
+          const unreplacedCode = language ? hljs.highlight(code, { language }).value : escapeHtml(code)
+          setHtml(unreplacedCode)
+        })
+        .catch((error: Error) => {
+          log.error('Unknown language ' + language)
+          setHtml(escapeHtml(code))
+        })
+    }
   }, [code, language, startLineNumber])
+
+  const replacedDom = useMemo(() => {
+    return replaceCode(html).map((line, index) => (
+      <Fragment key={index}>
+        <span className={'linenumber'}>{(startLineNumber || 1) + index}</span>
+        <div className={'codeline'}>{line}</div>
+      </Fragment>
+    ))
+  }, [html, startLineNumber])
 
   return (
     <div className={'code-highlighter'}>
       <code className={`hljs ${startLineNumber !== undefined ? 'showGutter' : ''} ${wrapLines ? 'wrapLines' : ''}`}>
-        {dom}
+        {replacedDom}
       </code>
       <div className={'text-right button-inside'}>
         <CopyToClipboardButton content={code} {...cypressId('copy-code-button')} />
