@@ -5,7 +5,7 @@
  */
 
 import React, { useMemo, useState } from 'react'
-import { Table } from 'react-bootstrap'
+import { Col, Container, Row, Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import './cheatsheet.scss'
 import { CheatsheetLine } from './cheatsheet-line'
@@ -38,23 +38,19 @@ export const Cheatsheet: React.FC = () => {
   )
 
   return (
-    <Table className='table-condensed table-cheatsheet'>
-      <thead>
-        <tr>
-          <th>
-            <Trans i18nKey='editor.help.cheatsheet.example' />
-          </th>
-          <th>
-            <Trans i18nKey='editor.help.cheatsheet.syntax' />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {codes.map((code) => (
-          <CheatsheetLine code={code} key={code} onTaskCheckedChange={setChecked} />
-        ))}
-      </tbody>
-    </Table>
+    <Container>
+      <Row className={'my-3'}>
+        <Col md={5}>
+          <Trans i18nKey='editor.help.cheatsheet.example' />
+        </Col>
+        <Col md={7}>
+          <Trans i18nKey='editor.help.cheatsheet.syntax' />
+        </Col>
+      </Row>
+      {codes.map((code) => (
+        <CheatsheetLine code={code} key={code} onTaskCheckedChange={setChecked} />
+      ))}
+    </Container>
   )
 }
 

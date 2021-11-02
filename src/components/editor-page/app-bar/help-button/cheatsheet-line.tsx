@@ -6,6 +6,7 @@
 
 import React, { Suspense, useCallback } from 'react'
 import { WaitSpinner } from '../../../common/wait-spinner/wait-spinner'
+import { Col, Row } from 'react-bootstrap'
 
 export interface CheatsheetLineProps {
   code: string
@@ -26,26 +27,24 @@ export const CheatsheetLine: React.FC<CheatsheetLineProps> = ({ code, onTaskChec
   )
 
   return (
-    <Suspense
-      fallback={
-        <tr>
-          <td colSpan={2}>
+    <Row className={'mb-4'}>
+      <Suspense
+        fallback={
+          <Col>
             <WaitSpinner />
-          </td>
-        </tr>
-      }>
-      <tr>
-        <td>
+          </Col>
+        }>
+        <Col md={5}>
           <DocumentMarkdownRenderer
             content={code}
             baseUrl={'https://example.org'}
             onTaskCheckedChange={checkboxClick}
           />
-        </td>
-        <td className={'markdown-body'}>
+        </Col>
+        <Col md={7} className={'markdown-body'}>
           <HighlightedCode code={code} wrapLines={true} startLineNumber={1} language={'markdown'} />
-        </td>
-      </tr>
-    </Suspense>
+        </Col>
+      </Suspense>
+    </Row>
   )
 }
