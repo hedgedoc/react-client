@@ -32,7 +32,7 @@ export const GistFrame: React.FC<IdProps> = ({ id }) => {
       previewContainerClassName={'gist-frame'}
       loadingImageUrl={preview}
       hoverIcon={'github'}
-      targetDescription={'gist'}>
+      targetDescription={'GitHub Gist'}>
       <iframe
         sandbox=''
         {...cypressId('gh-gist')}

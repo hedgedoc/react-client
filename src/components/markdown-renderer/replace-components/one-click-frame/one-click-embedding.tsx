@@ -59,8 +59,8 @@ export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({
       })
   }, [onImageFetch])
 
-  const target = useMemo(() => {
-    return targetDescription ? t('renderer.one-click-embedding', { target: targetDescription }) : ''
+  const previewHoverText = useMemo(() => {
+    return targetDescription ? t('renderer.one-click-embedding.previewHoverText', { target: targetDescription }) : ''
   }, [t, targetDescription])
 
   return (
@@ -72,8 +72,8 @@ export const OneClickEmbedding: React.FC<OneClickFrameProps> = ({
             <ProxyImageFrame
               className={'one-click-embedding-preview'}
               src={previewImageUrl}
-              alt={target}
-              title={target}
+              alt={previewHoverText}
+              title={previewHoverText}
             />
           </ShowIf>
           <ShowIf condition={!!hoverIcon}>
