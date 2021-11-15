@@ -60,7 +60,7 @@ export const useMarkdownExtensions = (
   onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void,
   onImageClick?: ImageClickHandler,
   onTocChange?: (ast?: TocAst) => void
-) => {
+): MarkdownExtension[] => {
   const plantumlServer = useApplicationState((state) => state.config.plantumlServer)
 
   return useMemo(() => {
