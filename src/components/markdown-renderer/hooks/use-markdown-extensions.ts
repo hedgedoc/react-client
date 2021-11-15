@@ -98,5 +98,5 @@ export const useMarkdownExtensions = (
       new HighlightedCodeMarkdownExtension(),
       new DebuggerMarkdownExtension()
     ]
-  }, [baseUrl, lineOffset, onImageClick, onTaskCheckedChange, onTocChange])
+  }, [additionalExtensions, baseUrl, currentLineMarkers, lineOffset, onImageClick, onTaskCheckedChange, onTocChange, plantumlServer])
 }
