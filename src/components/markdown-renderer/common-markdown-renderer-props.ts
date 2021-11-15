@@ -15,7 +15,7 @@ export interface CommonMarkdownRendererProps {
   baseUrl: string
   onImageClick?: ImageClickHandler
   outerContainerRef?: Ref<HTMLDivElement>
-  useAlternativeBreaks?: boolean
+  newlinesAreBreaks?: boolean
   lineOffset?: number
   className?: string
   content: string

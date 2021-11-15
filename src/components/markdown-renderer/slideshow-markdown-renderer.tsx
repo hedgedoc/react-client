@@ -36,7 +36,7 @@ import { BlockquoteExtraTagMarkdownExtension } from './markdown-extension/blockq
 import { HighlightedCodeMarkdownExtension } from './markdown-extension/highlighted-fence/highlighted-code-markdown-extension'
 import { KatexMarkdownExtension } from './markdown-extension/katex/katex-markdown-extension'
 import { TaskListMarkdownExtension } from './markdown-extension/task-list/task-list-markdown-extension'
-import { PlantumlMarkdownExtension } from './markdown-extension/plantuml-markdown-extension'
+import { PlantumlMarkdownExtension } from './markdown-extension/plantuml/plantuml-markdown-extension'
 import { store } from '../../redux'
 import { LegacyShortcodesMarkdownExtension } from './markdown-extension/legacy-short-codes/legacy-shortcodes-markdown-extension'
 import { TableOfContentsMarkdownExtension } from './markdown-extension/table-of-contents-markdown-extension'
@@ -48,6 +48,8 @@ import { LinkifyFixMarkdownExtension } from './markdown-extension/linkify-fix-ma
 import { DebuggerMarkdownExtension } from './markdown-extension/debugger-markdown-extension'
 import { RevealMarkdownExtension } from './markdown-extension/reveal/reveal-markdown-extension'
 import { LinkAdjustmentMarkdownExtension } from './markdown-extension/link-replacer/link-adjustment-markdown-extension'
+import { useMarkdownExtensions } from './hooks/use-markdown-extensions'
+import { HeadlineAnchorsMarkdownExtension } from './markdown-extension/headline-anchors-markdown-extension'
 
 export interface SlideshowMarkdownRendererProps extends CommonMarkdownRendererProps {
   slideOptions: SlideOptions
@@ -61,7 +63,7 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
   onTocChange,
   baseUrl,
   onImageClick,
-  useAlternativeBreaks,
+  newlinesAreBreaks,
   lineOffset,
   slideOptions
 }) => {
@@ -69,42 +71,17 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
   const tocAst = useRef<TocAst>()
   const [trimmedContent, contentExceedsLimit] = useTrimmedContent(content)
 
-  const extensions = useMemo(
-    () => [
-      new TableOfContentsMarkdownExtension(onTocChange),
-      new RevealMarkdownExtension(),
-      new VegaLiteMarkdownExtension(),
-      new MarkmapMarkdownExtension(),
-      new LinemarkerMarkdownExtension(undefined, lineOffset),
-      new GistMarkdownExtension(),
-      new YoutubeMarkdownExtension(),
-      new VimeoMarkdownExtension(),
-      new AsciinemaMarkdownExtension(),
-      new ProxyImageMarkdownExtension(onImageClick),
-      new CsvTableMarkdownExtension(),
-      new AbcjsMarkdownExtension(),
-      new SequenceDiagramMarkdownExtension(),
-      new FlowchartMarkdownExtension(),
-      new MermaidMarkdownExtension(),
-      new GraphvizMarkdownExtension(),
-      new BlockquoteExtraTagMarkdownExtension(),
-      new LinkAdjustmentMarkdownExtension(baseUrl),
-      new KatexMarkdownExtension(),
-      new TaskListMarkdownExtension(lineOffset, onTaskCheckedChange),
-      new PlantumlMarkdownExtension(store.getState().config.plantumlServer),
-      new LegacyShortcodesMarkdownExtension(),
-      new EmojiMarkdownExtension(),
-      new GenericSyntaxMarkdownExtension(),
-      new AlertMarkdownExtension(),
-      new SpoilerMarkdownExtension(),
-      new LinkifyFixMarkdownExtension(),
-      new HighlightedCodeMarkdownExtension(),
-      new DebuggerMarkdownExtension()
-    ],
-    [baseUrl, lineOffset, onImageClick, onTaskCheckedChange, onTocChange]
+  const extensions = useMarkdownExtensions(
+    baseUrl,
+    undefined,
+    [new RevealMarkdownExtension()],
+    lineOffset,
+    onTaskCheckedChange,
+    onImageClick,
+    onTocChange
   )
 
-  const markdownReactDom = useConvertMarkdownToReactDom(trimmedContent, extensions, useAlternativeBreaks)
+  const markdownReactDom = useConvertMarkdownToReactDom(trimmedContent, extensions, newlinesAreBreaks)
   const revealStatus = useReveal(content, slideOptions)
 
   useExtractFirstHeadline(

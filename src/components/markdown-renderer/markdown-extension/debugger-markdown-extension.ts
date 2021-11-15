@@ -13,7 +13,7 @@ const log = new Logger('DebuggerMarkdownExtension')
 export class DebuggerMarkdownExtension extends MarkdownExtension {
   public configureMarkdownItPost(markdownIt: MarkdownIt): void {
     if (process.env.NODE_ENV !== 'production') {
-      markdownIt.core.ruler.push('test', (state) => {
+      markdownIt.core.ruler.push('printStateToConsole', (state) => {
         log.debug('Current state', state)
         return false
       })

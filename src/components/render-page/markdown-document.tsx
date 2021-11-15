@@ -61,7 +61,7 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
 
   const [tocAst, setTocAst] = useState<TocAst>()
 
-  const useAlternativeBreaks = useApplicationState((state) => state.noteDetails.frontmatter.breaks)
+  const newlinesAreBreaks = useApplicationState((state) => state.noteDetails.frontmatter.newlinesAreBreaks)
 
   useEffect(() => {
     if (!onHeightChange) {
@@ -99,7 +99,7 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
           onTocChange={setTocAst}
           baseUrl={baseUrl}
           onImageClick={onImageClick}
-          useAlternativeBreaks={useAlternativeBreaks}
+          newlinesAreBreaks={newlinesAreBreaks}
           lineOffset={frontmatterInfo?.lineOffset}
         />
       </div>

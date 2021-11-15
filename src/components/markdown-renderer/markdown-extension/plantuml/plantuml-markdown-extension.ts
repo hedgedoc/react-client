@@ -4,13 +4,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { MarkdownExtension } from './markdown-extension'
+import { MarkdownExtension } from '../markdown-extension'
 import type MarkdownIt from 'markdown-it'
 import plantuml from 'markdown-it-plantuml'
-import type { RenderRule } from 'markdown-it/lib/renderer'
 import type Renderer from 'markdown-it/lib/renderer'
+import type { RenderRule } from 'markdown-it/lib/renderer'
 import type Token from 'markdown-it/lib/token'
 import type { Options } from 'markdown-it/lib'
+import type { ComponentReplacer } from '../../replace-components/component-replacer'
+import { PlantumlNotConfiguredComponentReplacer } from './plantuml-not-configured-component-replacer'
 
 export class PlantumlMarkdownExtension extends MarkdownExtension {
   constructor(private plantumlServer: string | null) {
@@ -21,7 +23,7 @@ export class PlantumlMarkdownExtension extends MarkdownExtension {
     const defaultRenderer: RenderRule = markdownIt.renderer.rules.fence || (() => '')
     markdownIt.renderer.rules.fence = (tokens: Token[], idx: number, options: Options, env, slf: Renderer) => {
       return tokens[idx].info === 'plantuml'
-        ? "<p class='alert alert-danger'>PlantUML plugin is enabled but not properly configured.</p>"
+        ? '<plantuml-not-configured></plantuml-not-configured>'
         : defaultRenderer(tokens, idx, options, env, slf)
     }
   }
@@ -36,5 +38,9 @@ export class PlantumlMarkdownExtension extends MarkdownExtension {
     } else {
       this.plantumlError(markdownIt)
     }
+  }
+
+  buildReplacers(): ComponentReplacer[] {
+    return [new PlantumlNotConfiguredComponentReplacer()]
   }
 }
