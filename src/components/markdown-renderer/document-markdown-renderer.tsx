@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { DocumentLengthLimitReachedAlert } from './document-length-limit-reached-alert'
 import { useConvertMarkdownToReactDom } from './hooks/use-convert-markdown-to-react-dom'
 import './markdown-renderer.scss'
@@ -45,7 +45,7 @@ export const DocumentMarkdownRenderer: React.FC<DocumentMarkdownRendererProps> =
   const extensions = useMarkdownExtensions(
     baseUrl,
     currentLineMarkers,
-    [new HeadlineAnchorsMarkdownExtension()],
+    useMemo(() => [new HeadlineAnchorsMarkdownExtension()], []),
     lineOffset,
     onTaskCheckedChange,
     onImageClick,

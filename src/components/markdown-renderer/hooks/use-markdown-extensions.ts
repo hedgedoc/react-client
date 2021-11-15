@@ -4,10 +4,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import type { MutableRefObject} from 'react';
+import type { MutableRefObject } from 'react'
 import { useMemo } from 'react'
 import { TableOfContentsMarkdownExtension } from '../markdown-extension/table-of-contents-markdown-extension'
-import { HeadlineAnchorsMarkdownExtension } from '../markdown-extension/headline-anchors-markdown-extension'
 import { VegaLiteMarkdownExtension } from '../markdown-extension/vega-lite/vega-lite-markdown-extension'
 import { MarkmapMarkdownExtension } from '../markdown-extension/markmap/markmap-markdown-extension'
 import { LinemarkerMarkdownExtension } from '../markdown-extension/linemarker/linemarker-markdown-extension'
@@ -41,6 +40,18 @@ import type { ImageClickHandler } from '../markdown-extension/image/proxy-image-
 import type { TocAst } from 'markdown-it-toc-done-right'
 import type { MarkdownExtension } from '../markdown-extension/markdown-extension'
 
+/**
+ * Provides a list of {@link MarkdownExtension markdown extensions} that is a combination of the common extensions and the given additional.
+ *
+ * @param baseUrl The base url for the {@link LinkAdjustmentMarkdownExtension}
+ * @param currentLineMarkers A {@link MutableRefObject reference} to {@link LineMarkers} for the {@link LinemarkerMarkdownExtension}
+ * @param additionalExtensions The additional extensions that should be included in the list
+ * @param lineOffset The line offset for the {@link LinemarkerMarkdownExtension} and {@link TaskListMarkdownExtension}
+ * @param onTaskCheckedChange The checkbox click callback for the {@link TaskListMarkdownExtension}
+ * @param onImageClick The image click callback for the {@link ProxyImageMarkdownExtension}
+ * @param onTocChange The toc-changed callback for the {@link TableOfContentsMarkdownExtension}
+ * @return The created list of markdown extensions
+ */
 export const useMarkdownExtensions = (
   baseUrl: string,
   currentLineMarkers: MutableRefObject<LineMarkers[] | undefined> | undefined,
@@ -58,7 +69,10 @@ export const useMarkdownExtensions = (
       ...additionalExtensions,
       new VegaLiteMarkdownExtension(),
       new MarkmapMarkdownExtension(),
-      new LinemarkerMarkdownExtension(currentLineMarkers ? (lineMarkers) => (currentLineMarkers.current = lineMarkers) : undefined, lineOffset),
+      new LinemarkerMarkdownExtension(
+        currentLineMarkers ? (lineMarkers) => (currentLineMarkers.current = lineMarkers) : undefined,
+        lineOffset
+      ),
       new GistMarkdownExtension(),
       new YoutubeMarkdownExtension(),
       new VimeoMarkdownExtension(),
