@@ -78,7 +78,7 @@ describe('Motd', () => {
         expect(localStorage.getItem(MOTD_LOCAL_STORAGE_KEY)).to.equal(MOCK_LAST_MODIFIED)
       })
     cy.getById('motd').should('not.exist')
-    cy.get('#navLinkHistory').click()
+    cy.getById('navLinkHistory').click()
     cy.get('main').should('exist')
     cy.getById('motd').should('not.exist')
   })
