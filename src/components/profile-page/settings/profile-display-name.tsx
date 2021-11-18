@@ -6,7 +6,7 @@
 
 import type { ChangeEvent, FormEvent } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Alert, Button, Card, Form } from 'react-bootstrap'
+import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { updateDisplayName } from '../../../api/me'
 import { fetchAndSetUser } from '../../login-page/auth/utils'
@@ -29,10 +29,6 @@ export const ProfileDisplayName: React.FC = () => {
       setDisplayName(userName)
     }
   }, [userName])
-
-  if (!userName) {
-    return <Alert variant={'danger'}>User not logged in</Alert>
-  }
 
   const onChangeDisplayName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setSubmittable(!REGEX_INVALID_DISPLAY_NAME.test(event.target.value))
