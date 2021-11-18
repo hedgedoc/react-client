@@ -178,7 +178,10 @@
             "deleteUser": {
                 "title": "Delete user",
                 "message": "Do you really want to delete your user account?",
-                "subMessage": "This will delete your account, all notes that are owned by you and remove all references to your account from other notes."
+                "subMessage": "This will delete your account, all notes that are owned by you and remove all references to your account from other notes.",
+                "failed": "There was an error deleting your account. Please try it again or contact your instance's administrator.",
+                "notificationTitle": "Account deleted",
+                "notificationText": "Your account has been successfully deleted."
             },
             "addedAccessToken": {
                 "title": "Token added",

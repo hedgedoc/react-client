@@ -11,7 +11,7 @@ import { useApplicationState } from '../../hooks/common/use-application-state'
 import { LoginProvider } from '../../redux/user/types'
 import { ShowIf } from '../common/show-if/show-if'
 import { ProfileAccessTokens } from './access-tokens/profile-access-tokens'
-import { ProfileAccountManagement } from './settings/profile-account-management'
+import { ProfileAccountManagement } from './account-management/profile-account-management'
 import { ProfileChangePassword } from './settings/profile-change-password'
 import { ProfileDisplayName } from './settings/profile-display-name'
 

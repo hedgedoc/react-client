@@ -35,12 +35,17 @@ export const ProfileDisplayName: React.FC = () => {
     setDisplayName(event.target.value)
   }, [])
 
-  const onSubmitNameChange = useCallback((event: FormEvent) => {
-    event.preventDefault()
-    updateDisplayName(displayName).then(async () => {
-      await fetchAndSetUser()
-    }).catch(showErrorNotification('profile.changeDisplayNameFailed'))
-  }, [displayName])
+  const onSubmitNameChange = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault()
+      updateDisplayName(displayName)
+        .then(async () => {
+          await fetchAndSetUser()
+        })
+        .catch(showErrorNotification('profile.changeDisplayNameFailed'))
+    },
+    [displayName]
+  )
 
   return (
     <Card className='bg-dark mb-4'>

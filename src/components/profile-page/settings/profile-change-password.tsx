@@ -28,18 +28,25 @@ export const ProfileChangePassword: React.FC = () => {
     setOldPassword(event.target.value)
   }, [])
 
-  const onChangeNewPassword = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(event.target.value)
-    setNewPasswordValid(REGEX_VALID_PASSWORD.test(event.target.value))
-    setNewPasswordAgainValid(event.target.value === newPasswordAgain)
-  }, [newPasswordAgain])
+  const onChangeNewPassword = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setNewPassword(event.target.value)
+      setNewPasswordValid(REGEX_VALID_PASSWORD.test(event.target.value))
+      setNewPasswordAgainValid(event.target.value === newPasswordAgain)
+    },
+    [newPasswordAgain]
+  )
 
-  const onChangeNewPasswordAgain = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewPasswordAgain(event.target.value)
-    setNewPasswordAgainValid(event.target.value === newPassword)
-  }, [newPassword])
+  const onChangeNewPasswordAgain = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setNewPasswordAgain(event.target.value)
+      setNewPasswordAgainValid(event.target.value === newPassword)
+    },
+    [newPassword]
+  )
 
-  const onSubmitPasswordChange = useCallback((event: FormEvent) => {
+  const onSubmitPasswordChange = useCallback(
+    (event: FormEvent) => {
       event.preventDefault()
       changePassword(oldPassword, newPassword).catch(showErrorNotification('profile.changePassword.failed'))
     },
