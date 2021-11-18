@@ -5,11 +5,17 @@
  */
 
 import type { ChangeEvent, FormEvent } from 'react'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { changePassword } from '../../../api/me'
+import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
+const REGEX_VALID_PASSWORD = /^[^\s].{5,}$/
+
+/**
+ * Profile page section for changing the password when using internal login.
+ */
 export const ProfileChangePassword: React.FC = () => {
   useTranslation()
   const [oldPassword, setOldPassword] = useState('')
@@ -18,23 +24,27 @@ export const ProfileChangePassword: React.FC = () => {
   const [newPasswordValid, setNewPasswordValid] = useState(false)
   const [newPasswordAgainValid, setNewPasswordAgainValid] = useState(false)
 
-  const regexPassword = /^[^\s].{5,}$/
+  const onChangeOldPassword = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setOldPassword(event.target.value)
+  }, [])
 
-  const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeNewPassword = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(event.target.value)
-    setNewPasswordValid(regexPassword.test(event.target.value))
+    setNewPasswordValid(REGEX_VALID_PASSWORD.test(event.target.value))
     setNewPasswordAgainValid(event.target.value === newPasswordAgain)
-  }
+  }, [newPasswordAgain])
 
-  const onChangeNewPasswordAgain = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeNewPasswordAgain = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setNewPasswordAgain(event.target.value)
     setNewPasswordAgainValid(event.target.value === newPassword)
-  }
+  }, [newPassword])
 
-  const updatePasswordSubmit = async (event: FormEvent) => {
-    await changePassword(oldPassword, newPassword)
-    event.preventDefault()
-  }
+  const onSubmitPasswordChange = useCallback((event: FormEvent) => {
+      event.preventDefault()
+      changePassword(oldPassword, newPassword).catch(showErrorNotification('profile.changePassword.failed'))
+    },
+    [oldPassword, newPassword]
+  )
 
   return (
     <Card className='bg-dark mb-4'>
@@ -42,7 +52,7 @@ export const ProfileChangePassword: React.FC = () => {
         <Card.Title>
           <Trans i18nKey='profile.changePassword.title' />
         </Card.Title>
-        <Form onSubmit={updatePasswordSubmit} className='text-left'>
+        <Form onSubmit={onSubmitPasswordChange} className='text-left'>
           <Form.Group controlId='oldPassword'>
             <Form.Label>
               <Trans i18nKey='profile.changePassword.old' />
@@ -51,8 +61,9 @@ export const ProfileChangePassword: React.FC = () => {
               type='password'
               size='sm'
               className='bg-dark text-light'
+              autoComplete='current-password'
               required
-              onChange={(event) => setOldPassword(event.target.value)}
+              onChange={onChangeOldPassword}
             />
           </Form.Group>
           <Form.Group controlId='newPassword'>

@@ -158,8 +158,10 @@
             "old": "Old password",
             "new": "New password",
             "newAgain": "New password again",
-            "info": "Your new password should contain at least 6 characters."
+            "info": "Your new password should contain at least 6 characters.",
+            "failed": "Changing your password failed. Check your old password and try again."
         },
+        "changeDisplayNameFailed": "There was an error changing your display name.",
         "accountManagement": "Account management",
         "deleteUser": "Delete user",
         "exportUserData": "Export user data",

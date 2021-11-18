@@ -15,6 +15,10 @@ import { ProfileAccountManagement } from './settings/profile-account-management'
 import { ProfileChangePassword } from './settings/profile-change-password'
 import { ProfileDisplayName } from './settings/profile-display-name'
 
+/**
+ * Profile page that includes forms for changing display name, password (if internal login is used),
+ * managing access tokens and deleting the account.
+ */
 export const ProfilePage: React.FC = () => {
   const userProvider = useApplicationState((state) => state.user?.provider)
 
