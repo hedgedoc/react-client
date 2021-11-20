@@ -59,7 +59,7 @@ describe('profile page', () => {
 
     it('add token', () => {
       cy.getById('access-token-add-button').should('be.disabled')
-      cy.getById('access-token-add-input').type('cypress')
+      cy.getById('access-token-add-input-label').type('cypress')
       cy.getById('access-token-modal-add').should('not.exist')
       cy.getById('access-token-add-button').should('not.be.disabled').click()
       cy.getById('access-token-modal-add')
