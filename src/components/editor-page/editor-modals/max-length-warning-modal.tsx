@@ -7,11 +7,11 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import type { ModalVisibilityProps } from '../../common/modals/common-modal';
+import type { ModalVisibilityProps } from '../../common/modals/common-modal'
 import { CommonModal } from '../../common/modals/common-modal'
 import { cypressId } from '../../../utils/cypress-attribute'
 
-export interface MaxLengthWarningModalProps extends ModalVisibilityProps{
+export interface MaxLengthWarningModalProps extends ModalVisibilityProps {
   maxLength: number
 }
 

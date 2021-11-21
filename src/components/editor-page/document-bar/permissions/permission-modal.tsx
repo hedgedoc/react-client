@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Modal } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { getUserById } from '../../../../api/users'
-import type { ModalVisibilityProps } from '../../../common/modals/common-modal';
+import type { ModalVisibilityProps } from '../../../common/modals/common-modal'
 import { CommonModal } from '../../../common/modals/common-modal'
 import { ShowIf } from '../../../common/show-if/show-if'
 import type { UserAvatarProps } from '../../../common/user-avatar/user-avatar'
