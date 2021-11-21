@@ -7,10 +7,10 @@
 import React from 'react'
 import './lightbox.scss'
 import { ProxyImageFrame } from './proxy-image-frame'
-import type { ModalVisibilityProps } from '../../../common/modals/common-modal';
+import type { ModalVisibilityProps } from '../../../common/modals/common-modal'
 import { CommonModal } from '../../../common/modals/common-modal'
 
-export interface ImageLightboxModalProps extends ModalVisibilityProps{
+export interface ImageLightboxModalProps extends ModalVisibilityProps {
   alt?: string
   src?: string
   title?: string
