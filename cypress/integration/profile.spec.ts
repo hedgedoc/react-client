@@ -15,7 +15,10 @@ describe('profile page', () => {
         body: [
           {
             label: 'cypress-App',
-            created: 1601991518
+            keyId: 'cypress',
+            created: '2021-11-21T01:11:12+01:00',
+            lastUsed: '2021-11-21T01:11:12+01:00',
+            validUntil: '2023-11-21'
           }
         ]
       }
@@ -28,14 +31,14 @@ describe('profile page', () => {
       {
         body: {
           label: 'cypress',
-          secret: 'c-y-p-r-e-s-s',
-          created: Date.now()
+          keyId: 'cypress2',
+          secret: 'c-y-p-r-e-s-s'
         }
       }
     )
     cy.intercept(
       {
-        url: '/mock-backend/api/private/tokens/1601991518',
+        url: '/mock-backend/api/private/tokens/cypress',
         method: 'DELETE'
       },
       {
