@@ -5,7 +5,7 @@
  */
 
 import type { ChangeEvent, FormEvent } from 'react'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { updateDisplayName } from '../../../api/me'
@@ -13,15 +13,12 @@ import { fetchAndSetUser } from '../../login-page/auth/utils'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
-const REGEX_INVALID_DISPLAY_NAME = /^\s*$/
-
 /**
  * Profile page section for changing the current display name.
  */
 export const ProfileDisplayName: React.FC = () => {
   const { t } = useTranslation()
   const userName = useApplicationState((state) => state.user?.name)
-  const [submittable, setSubmittable] = useState(false)
   const [displayName, setDisplayName] = useState('')
 
   useEffect(() => {
@@ -31,7 +28,6 @@ export const ProfileDisplayName: React.FC = () => {
   }, [userName])
 
   const onChangeDisplayName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setSubmittable(!REGEX_INVALID_DISPLAY_NAME.test(event.target.value))
     setDisplayName(event.target.value)
   }, [])
 
@@ -39,13 +35,15 @@ export const ProfileDisplayName: React.FC = () => {
     (event: FormEvent) => {
       event.preventDefault()
       updateDisplayName(displayName)
-        .then(async () => {
-          await fetchAndSetUser()
-        })
+        .then(fetchAndSetUser)
         .catch(showErrorNotification('profile.changeDisplayNameFailed'))
     },
     [displayName]
   )
+
+  const formSubmittable = useMemo(() => {
+    return displayName.trim() !== ''
+  }, [displayName])
 
   return (
     <Card className='bg-dark mb-4'>
@@ -65,7 +63,7 @@ export const ProfileDisplayName: React.FC = () => {
               value={displayName}
               className='bg-dark text-light'
               onChange={onChangeDisplayName}
-              isValid={submittable}
+              isValid={formSubmittable}
               required
             />
             <Form.Text>
@@ -73,7 +71,7 @@ export const ProfileDisplayName: React.FC = () => {
             </Form.Text>
           </Form.Group>
 
-          <Button type='submit' variant='primary' disabled={!submittable}>
+          <Button type='submit' variant='primary' disabled={!formSubmittable}>
             <Trans i18nKey='common.save' />
           </Button>
         </Form>

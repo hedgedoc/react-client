@@ -4,33 +4,25 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import type { ButtonProps } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
+import { useInterval } from 'react-use'
 
 export interface CountdownButtonProps extends ButtonProps {
-  countdownSeconds: number
+  countdownStartSeconds: number
 }
 
 /**
  * Button that starts a countdown on render and is only clickable after the countdown has finished.
  */
-export const CountdownButton: React.FC<CountdownButtonProps> = ({ countdownSeconds, children, ...props }) => {
-  const intervalRef = useRef<NodeJS.Timeout>()
-  const [secondsRemaining, setSecondsRemaining] = useState(countdownSeconds)
+export const CountdownButton: React.FC<CountdownButtonProps> = ({ countdownStartSeconds, children, ...props }) => {
+  const [secondsRemaining, setSecondsRemaining] = useState(countdownStartSeconds)
 
-  const onTimerTick = useCallback(() => {
-    setSecondsRemaining((previous) => previous - 1)
-  }, [])
-
-  useEffect(() => {
-    intervalRef.current = setInterval(onTimerTick, 1000)
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
-    }
-  }, [onTimerTick])
+  useInterval(
+    () => setSecondsRemaining((previous) => previous - 1),
+    useMemo(() => (secondsRemaining <= 0 ? null : 1000), [secondsRemaining])
+  )
 
   return (
     <Button disabled={secondsRemaining > 0} {...props}>

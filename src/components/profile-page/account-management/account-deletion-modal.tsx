@@ -47,7 +47,7 @@ export const AccountDeletionModal: React.FC<Pick<CommonModalProps, 'show' | 'onH
         <Button variant='secondary' onClick={onHide}>
           <Trans i18nKey='common.close' />
         </Button>
-        <CountdownButton variant='danger' onClick={deleteUserAccount} countdownSeconds={10}>
+        <CountdownButton variant='danger' onClick={deleteUserAccount} countdownStartSeconds={10}>
           <Trans i18nKey={'profile.modal.deleteUser.title'} />
         </CountdownButton>
       </Modal.Footer>

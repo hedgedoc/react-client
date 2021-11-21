@@ -5,7 +5,7 @@
  */
 
 import type { ChangeEvent, FormEvent } from 'react'
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { cypressId } from '../../../utils/cypress-attribute'
 import { Trans, useTranslation } from 'react-i18next'
@@ -20,39 +20,6 @@ import { showErrorNotification } from '../../../redux/ui-notifications/methods'
  */
 export const AccessTokenCreationForm: React.FC = () => {
   const { t } = useTranslation()
-  const [newTokenLabel, setNewTokenLabel] = useState('')
-  const [newTokenExpiry, setNewTokenExpiry] = useState('')
-  const [newTokenWithSecret, setNewTokenWithSecret] = useState<AccessTokenWithSecret>()
-  const [showCreatedModal, setShowCreatedModal] = useState(false)
-
-  const onHideCratedModal = useCallback(() => {
-    setShowCreatedModal(false)
-  }, [])
-
-  const onChangeTokenLabel = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewTokenLabel(event.target.value)
-  }, [])
-
-  const onChangeTokenExpiry = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewTokenExpiry(event.target.value)
-  }, [])
-
-  const onCreateToken = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      postNewAccessToken(newTokenLabel, newTokenExpiry)
-        .then((tokenWithSecret) => {
-          setNewTokenWithSecret(tokenWithSecret)
-          setShowCreatedModal(true)
-        })
-        .catch(showErrorNotification('profile.accessTokens.creationFailed'))
-    },
-    [newTokenLabel, newTokenExpiry]
-  )
-
-  const newTokenCreatable = useMemo(() => {
-    return newTokenLabel.trim() !== ''
-  }, [newTokenLabel])
 
   const expiryDates = useMemo(() => {
     const today = DateTime.now()
@@ -71,9 +38,37 @@ export const AccessTokenCreationForm: React.FC = () => {
     }
   }, [])
 
-  useEffect(() => {
-    setNewTokenExpiry(expiryDates.default)
-  }, [expiryDates])
+  const [newTokenLabel, setNewTokenLabel] = useState('')
+  const [newTokenExpiry, setNewTokenExpiry] = useState(expiryDates.default)
+  const [newTokenWithSecret, setNewTokenWithSecret] = useState<AccessTokenWithSecret>()
+
+  const onHideCreatedModal = useCallback(() => {
+    setNewTokenWithSecret(undefined)
+  }, [])
+
+  const onChangeTokenLabel = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setNewTokenLabel(event.target.value)
+  }, [])
+
+  const onChangeTokenExpiry = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setNewTokenExpiry(event.target.value)
+  }, [])
+
+  const onCreateToken = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      postNewAccessToken(newTokenLabel, newTokenExpiry)
+        .then((tokenWithSecret) => {
+          setNewTokenWithSecret(tokenWithSecret)
+        })
+        .catch(showErrorNotification('profile.accessTokens.creationFailed'))
+    },
+    [newTokenLabel, newTokenExpiry]
+  )
+
+  const newTokenCreatable = useMemo(() => {
+    return newTokenLabel.trim() !== ''
+  }, [newTokenLabel])
 
   return (
     <Fragment>
@@ -124,8 +119,8 @@ export const AccessTokenCreationForm: React.FC = () => {
       </Form>
       <AccessTokenCreatedModal
         tokenWithSecret={newTokenWithSecret}
-        show={showCreatedModal}
-        onHide={onHideCratedModal}
+        show={!!newTokenWithSecret}
+        onHide={onHideCreatedModal}
       />
     </Fragment>
   )

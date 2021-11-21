@@ -81,6 +81,7 @@ export const ProfileChangePassword: React.FC = () => {
               type='password'
               size='sm'
               className='bg-dark text-light'
+              autoComplete='new-password'
               required
               onChange={onChangeNewPassword}
               isValid={newPasswordValid}
@@ -98,6 +99,7 @@ export const ProfileChangePassword: React.FC = () => {
               size='sm'
               className='bg-dark text-light'
               required
+              autoComplete='new-password'
               onChange={onChangeNewPasswordAgain}
               isValid={newPasswordAgainValid}
               isInvalid={newPasswordAgain !== '' && !newPasswordAgainValid}
