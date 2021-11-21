@@ -5,7 +5,7 @@
  */
 
 import { Button, Modal } from 'react-bootstrap'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import React, { useMemo, useState } from 'react'
 import type { ModalVisibilityProps } from '../../../common/modals/common-modal'
 import { CommonModal } from '../../../common/modals/common-modal'
@@ -21,6 +21,7 @@ export enum HelpTabStatus {
 
 export const HelpModal: React.FC<ModalVisibilityProps> = ({ show, onHide }) => {
   const [tab, setTab] = useState<HelpTabStatus>(HelpTabStatus.Cheatsheet)
+  const { t } = useTranslation()
 
   const tabContent = useMemo(() => {
     switch (tab) {
@@ -33,13 +34,16 @@ export const HelpModal: React.FC<ModalVisibilityProps> = ({ show, onHide }) => {
     }
   }, [tab])
 
+  const modalTitle = useMemo(() => t('editor.documentBar.help') + ' - ' + t(`editor.help.${tab}`), [t, tab])
+
   return (
     <CommonModal
       modalSize={'lg'}
       titleIcon={'question-circle'}
       show={show}
       onHide={onHide}
-      title={'editor.documentBar.help'}>
+      title={modalTitle}
+      titleIsI18nKey={false}>
       <Modal.Body>
         <nav className='nav nav-tabs'>
           <Button
