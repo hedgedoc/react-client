@@ -16,7 +16,7 @@ describe('profile page', () => {
           {
             label: 'cypress-App',
             keyId: 'cypress',
-            created: '2021-11-21T01:11:12+01:00',
+            createdAt: '2021-11-21T01:11:12+01:00',
             lastUsed: '2021-11-21T01:11:12+01:00',
             validUntil: '2023-11-21'
           }
@@ -32,7 +32,10 @@ describe('profile page', () => {
         body: {
           label: 'cypress',
           keyId: 'cypress2',
-          secret: 'c-y-p-r-e-s-s'
+          secret: 'c-y-p-r-e-s-s',
+          createdAt: '2021-11-21T01:11:12+01:00',
+          lastUsed: '2021-11-21T01:11:12+01:00',
+          validUntil: '2023-11-21'
         }
       }
     )
