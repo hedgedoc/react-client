@@ -15,6 +15,11 @@ import type { AccessTokenWithSecret } from '../../../api/tokens/types'
 import { postNewAccessToken } from '../../../api/tokens'
 import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
+interface NewTokenFormValues {
+  label: string
+  expiryDate: string
+}
+
 /**
  * Form for creating a new access token.
  */
@@ -38,37 +43,46 @@ export const AccessTokenCreationForm: React.FC = () => {
     }
   }, [])
 
-  const [newTokenLabel, setNewTokenLabel] = useState('')
-  const [newTokenExpiry, setNewTokenExpiry] = useState(expiryDates.default)
+  const tokenDataInitialState = {
+    expiryDate: expiryDates.default,
+    label: ''
+  }
+
+  const [newTokenData, setNewTokenData] = useState<NewTokenFormValues>(() => tokenDataInitialState)
   const [newTokenWithSecret, setNewTokenWithSecret] = useState<AccessTokenWithSecret>()
 
   const onHideCreatedModal = useCallback(() => {
+    setNewTokenData(tokenDataInitialState)
     setNewTokenWithSecret(undefined)
   }, [])
 
   const onChangeTokenLabel = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewTokenLabel(event.target.value)
+    setNewTokenData((previousData) => {return {
+      ...previousData, label: event.target.value
+    }})
   }, [])
 
   const onChangeTokenExpiry = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewTokenExpiry(event.target.value)
+    setNewTokenData((previousData) => {return {
+      ...previousData, expiryDate: event.target.value
+    }})
   }, [])
 
   const onCreateToken = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      postNewAccessToken(newTokenLabel, newTokenExpiry)
+      postNewAccessToken(newTokenData.label, newTokenData.expiryDate)
         .then((tokenWithSecret) => {
           setNewTokenWithSecret(tokenWithSecret)
         })
         .catch(showErrorNotification('profile.accessTokens.creationFailed'))
     },
-    [newTokenLabel, newTokenExpiry]
+    [newTokenData]
   )
 
   const newTokenCreatable = useMemo(() => {
-    return newTokenLabel.trim() !== ''
-  }, [newTokenLabel])
+    return newTokenData.label.trim() !== ''
+  }, [newTokenData])
 
   return (
     <Fragment>
@@ -84,7 +98,7 @@ export const AccessTokenCreationForm: React.FC = () => {
             type='text'
             size='sm'
             placeholder={t('profile.accessTokens.label')}
-            value={newTokenLabel}
+            value={newTokenData.label}
             className='bg-dark text-light'
             onChange={onChangeTokenLabel}
             isValid={newTokenCreatable}
@@ -99,7 +113,7 @@ export const AccessTokenCreationForm: React.FC = () => {
           <Form.Control
             type='date'
             size='sm'
-            value={newTokenExpiry}
+            value={newTokenData.expiryDate}
             className='bg-dark text-light'
             onChange={onChangeTokenExpiry}
             min={expiryDates.min}
