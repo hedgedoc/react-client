@@ -43,10 +43,12 @@ export const AccessTokenCreationForm: React.FC = () => {
     }
   }, [])
 
-  const tokenDataInitialState = {
-    expiryDate: expiryDates.default,
-    label: ''
-  }
+  const tokenDataInitialState = useMemo(() => {
+    return {
+      expiryDate: expiryDates.default,
+      label: ''
+    }
+  }, [expiryDates])
 
   const [newTokenData, setNewTokenData] = useState<NewTokenFormValues>(() => tokenDataInitialState)
   const [newTokenWithSecret, setNewTokenWithSecret] = useState<AccessTokenWithSecret>()
@@ -54,18 +56,24 @@ export const AccessTokenCreationForm: React.FC = () => {
   const onHideCreatedModal = useCallback(() => {
     setNewTokenData(tokenDataInitialState)
     setNewTokenWithSecret(undefined)
-  }, [])
+  }, [tokenDataInitialState])
 
   const onChangeTokenLabel = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewTokenData((previousData) => {return {
-      ...previousData, label: event.target.value
-    }})
+    setNewTokenData((previousData) => {
+      return {
+        ...previousData,
+        label: event.target.value
+      }
+    })
   }, [])
 
   const onChangeTokenExpiry = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setNewTokenData((previousData) => {return {
-      ...previousData, expiryDate: event.target.value
-    }})
+    setNewTokenData((previousData) => {
+      return {
+        ...previousData,
+        expiryDate: event.target.value
+      }
+    })
   }, [])
 
   const onCreateToken = useCallback(
