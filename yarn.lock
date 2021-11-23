@@ -5071,10 +5071,10 @@ cypress-commands@2.0.1:
   dependencies:
     path-browserify "^1.0.1"
 
-cypress-file-upload@5.0.8:
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-5.0.8.tgz#d8824cbeaab798e44be8009769f9a6c9daa1b4a1"
-  integrity sha512-+8VzNabRk3zG6x8f8BWArF/xA/W0VK4IZNx3MV0jFWrJS/qKn8eHfa5nU73P9fOQAgwHFJx7zjg4lwOnljMO8g==
+cypress-file-upload@6.0.0-beta.0:
+  version "6.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-6.0.0-beta.0.tgz#77cb3a89cf719dd9124869fc5c76c094e1c84c27"
+  integrity sha512-6CDL3TKpLoPl0zme9twxQqfyI/SkzOjryy/Q49ijF4MD6ZXfoos1JZJY0wtWNqNJI9sy1YxH7OrlWVD0AlAigQ==
 
 cypress@9.1.1:
   version "9.1.1"
