@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import type { Editor, Position } from 'codemirror'
+import type { Position } from 'codemirror'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ShowIf } from '../../../common/show-if/show-if'
@@ -29,56 +29,60 @@ export const defaultState: StatusBarInfo = {
   remainingCharacters: 0
 }
 
-export const createStatusInfo = (editor: Editor, maxDocumentLength: number): StatusBarInfo => ({
-  position: editor.getCursor(),
-  charactersInDocument: editor.getValue().length,
-  remainingCharacters: maxDocumentLength - editor.getValue().length,
-  linesInDocument: editor.lineCount(),
-  selectedColumns: editor.getSelection().length,
-  selectedLines: editor.getSelection().split('\n').length
-})
+export interface StatusBarProps {
+  statusBarInfo: StatusBarInfo
+}
 
-export const StatusBar: React.FC<StatusBarInfo> = ({
-  position,
-  selectedColumns,
-  selectedLines,
-  charactersInDocument,
-  linesInDocument,
-  remainingCharacters
-}) => {
+/**
+ * Shows additional information about the document length and the current selection.
+ *
+ * @param statusBarInfo The information to show
+ */
+export const StatusBar: React.FC<StatusBarProps> = ({ statusBarInfo }) => {
   const { t } = useTranslation()
 
   const getLengthTooltip = useMemo(() => {
-    if (remainingCharacters === 0) {
+    if (statusBarInfo.remainingCharacters === 0) {
       return t('editor.statusBar.lengthTooltip.maximumReached')
     }
-    if (remainingCharacters < 0) {
-      return t('editor.statusBar.lengthTooltip.exceeded', { exceeded: -remainingCharacters })
+    if (statusBarInfo.remainingCharacters < 0) {
+      return t('editor.statusBar.lengthTooltip.exceeded', { exceeded: -statusBarInfo.remainingCharacters })
     }
-    return t('editor.statusBar.lengthTooltip.remaining', { remaining: remainingCharacters })
-  }, [remainingCharacters, t])
+    return t('editor.statusBar.lengthTooltip.remaining', { remaining: statusBarInfo.remainingCharacters })
+  }, [statusBarInfo, t])
 
   return (
     <div className='d-flex flex-row status-bar px-2'>
       <div>
-        <span>{t('editor.statusBar.cursor', { line: position.line + 1, columns: position.ch + 1 })}</span>
-        <ShowIf condition={selectedColumns !== 0 && selectedLines !== 0}>
-          <ShowIf condition={selectedLines === 1}>
-            <span>&nbsp;–&nbsp;{t('editor.statusBar.selection.column', { count: selectedColumns })}</span>
+        <span>
+          {t('editor.statusBar.cursor', {
+            line: statusBarInfo.position.line + 1,
+            columns: statusBarInfo.position.ch + 1
+          })}
+        </span>
+        <ShowIf condition={statusBarInfo.selectedColumns !== 0 && statusBarInfo.selectedLines !== 0}>
+          <ShowIf condition={statusBarInfo.selectedLines === 1}>
+            <span>&nbsp;–&nbsp;{t('editor.statusBar.selection.column', { count: statusBarInfo.selectedColumns })}</span>
           </ShowIf>
-          <ShowIf condition={selectedLines > 1}>
-            <span>&nbsp;–&nbsp;{t('editor.statusBar.selection.line', { count: selectedLines })}</span>
+          <ShowIf condition={statusBarInfo.selectedLines > 1}>
+            <span>&nbsp;–&nbsp;{t('editor.statusBar.selection.line', { count: statusBarInfo.selectedLines })}</span>
           </ShowIf>
         </ShowIf>
       </div>
       <div className='ml-auto'>
-        <span>{t('editor.statusBar.lines', { lines: linesInDocument })}</span>
+        <span>{t('editor.statusBar.lines', { lines: statusBarInfo.linesInDocument })}</span>
         &nbsp;–&nbsp;
         <span
           {...cypressId('remainingCharacters')}
           title={getLengthTooltip}
-          className={remainingCharacters <= 0 ? 'text-danger' : remainingCharacters <= 100 ? 'text-warning' : ''}>
-          {t('editor.statusBar.length', { length: charactersInDocument })}
+          className={
+            statusBarInfo.remainingCharacters <= 0
+              ? 'text-danger'
+              : statusBarInfo.remainingCharacters <= 100
+              ? 'text-warning'
+              : ''
+          }>
+          {t('editor.statusBar.length', { length: statusBarInfo.charactersInDocument })}
         </span>
       </div>
     </div>
