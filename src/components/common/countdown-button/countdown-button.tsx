@@ -19,10 +19,7 @@ export interface CountdownButtonProps extends ButtonProps {
 export const CountdownButton: React.FC<CountdownButtonProps> = ({ countdownStartSeconds, children, ...props }) => {
   const [secondsRemaining, setSecondsRemaining] = useState(countdownStartSeconds)
 
-  useInterval(
-    () => setSecondsRemaining((previous) => previous - 1),
-    secondsRemaining <= 0 ? null : 1000
-  )
+  useInterval(() => setSecondsRemaining((previous) => previous - 1), secondsRemaining <= 0 ? null : 1000)
 
   return (
     <Button disabled={secondsRemaining > 0} {...props}>

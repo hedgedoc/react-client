@@ -5,7 +5,7 @@
  */
 
 import React, { useCallback } from 'react'
-import type { CommonModalProps } from '../../common/modals/common-modal'
+import type { ModalVisibilityProps } from '../../common/modals/common-modal'
 import { CommonModal } from '../../common/modals/common-modal'
 import { Trans, useTranslation } from 'react-i18next'
 import { Button, Modal } from 'react-bootstrap'
@@ -17,7 +17,7 @@ import { dispatchUiNotification, showErrorNotification } from '../../../redux/ui
 /**
  * Confirmation modal for deleting your account.
  */
-export const AccountDeletionModal: React.FC<Pick<CommonModalProps, 'show' | 'onHide'>> = ({ show, onHide }) => {
+export const AccountDeletionModal: React.FC<ModalVisibilityProps> = ({ show, onHide }) => {
   useTranslation()
 
   const deleteUserAccount = useCallback(() => {
@@ -39,7 +39,7 @@ export const AccountDeletionModal: React.FC<Pick<CommonModalProps, 'show' | 'onH
   }, [onHide])
 
   return (
-    <CommonModal show={show} titleI18nKey={'profile.modal.deleteUser.message'} onHide={onHide} closeButton={true}>
+    <CommonModal show={show} title={'profile.modal.deleteUser.message'} onHide={onHide} showCloseButton={true}>
       <Modal.Body>
         <Trans i18nKey='profile.modal.deleteUser.subMessage' />
       </Modal.Body>

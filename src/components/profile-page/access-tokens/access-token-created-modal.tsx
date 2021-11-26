@@ -9,11 +9,11 @@ import { cypressId } from '../../../utils/cypress-attribute'
 import { Button, Modal } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
 import { CopyableField } from '../../common/copyable/copyable-field/copyable-field'
-import type { CommonModalProps } from '../../common/modals/common-modal'
+import type { ModalVisibilityProps } from '../../common/modals/common-modal'
 import { CommonModal } from '../../common/modals/common-modal'
 import type { AccessTokenWithSecret } from '../../../api/tokens/types'
 
-export interface AccessTokenCreatedModalProps extends Pick<CommonModalProps, 'show' | 'onHide'> {
+export interface AccessTokenCreatedModalProps extends ModalVisibilityProps {
   tokenWithSecret?: AccessTokenWithSecret
 }
 
@@ -29,7 +29,7 @@ export const AccessTokenCreatedModal: React.FC<AccessTokenCreatedModalProps> = (
     <CommonModal
       show={show}
       onHide={onHide}
-      titleI18nKey='profile.modal.addedAccessToken.title'
+      title='profile.modal.addedAccessToken.title'
       {...cypressId('access-token-modal-add')}>
       <Modal.Body>
         <Trans

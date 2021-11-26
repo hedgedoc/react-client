@@ -5,7 +5,7 @@
  */
 
 import React, { useCallback } from 'react'
-import type { CommonModalProps } from '../../common/modals/common-modal'
+import type { ModalVisibilityProps } from '../../common/modals/common-modal'
 import { CommonModal } from '../../common/modals/common-modal'
 import { cypressId } from '../../../utils/cypress-attribute'
 import { Button, Modal } from 'react-bootstrap'
@@ -14,7 +14,7 @@ import type { AccessToken } from '../../../api/tokens/types'
 import { deleteAccessToken } from '../../../api/tokens'
 import { dispatchUiNotification, showErrorNotification } from '../../../redux/ui-notifications/methods'
 
-export interface AccessTokenDeletionModalProps extends Pick<CommonModalProps, 'show' | 'onHide'> {
+export interface AccessTokenDeletionModalProps extends ModalVisibilityProps {
   token: AccessToken
 }
 
@@ -45,7 +45,7 @@ export const AccessTokenDeletionModal: React.FC<AccessTokenDeletionModalProps> =
     <CommonModal
       show={show}
       onHide={onHide}
-      titleI18nKey={'profile.modal.deleteAccessToken.title'}
+      title={'profile.modal.deleteAccessToken.title'}
       {...cypressId('access-token-modal-delete')}>
       <Modal.Body>
         <Trans i18nKey='profile.modal.deleteAccessToken.message' />
