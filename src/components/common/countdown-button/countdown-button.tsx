@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import type { ButtonProps } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
 import { useInterval } from 'react-use'
@@ -21,7 +21,7 @@ export const CountdownButton: React.FC<CountdownButtonProps> = ({ countdownStart
 
   useInterval(
     () => setSecondsRemaining((previous) => previous - 1),
-    useMemo(() => (secondsRemaining <= 0 ? null : 1000), [secondsRemaining])
+    secondsRemaining <= 0 ? null : 1000
   )
 
   return (
