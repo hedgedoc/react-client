@@ -5,11 +5,14 @@
  */
 
 import type { Position } from 'codemirror'
-import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { ShowIf } from '../../../common/show-if/show-if'
+import React from 'react'
 import './status-bar.scss'
-import { cypressId } from '../../../../utils/cypress-attribute'
+import { RemainingCharactersInfo } from './remaining-characters-info'
+import { NumberOfLinesInDocumentInfo } from './number-of-lines-in-document-info'
+import { CursorPositionInfo } from './cursor-position-info'
+import { SelectionInfo } from './selection-info'
+import { ShowIf } from '../../../common/show-if/show-if'
+import { SeparatorDash } from './separator-dash'
 
 export interface StatusBarInfo {
   position: Position
@@ -39,51 +42,26 @@ export interface StatusBarProps {
  * @param statusBarInfo The information to show
  */
 export const StatusBar: React.FC<StatusBarProps> = ({ statusBarInfo }) => {
-  const { t } = useTranslation()
-
-  const getLengthTooltip = useMemo(() => {
-    if (statusBarInfo.remainingCharacters === 0) {
-      return t('editor.statusBar.lengthTooltip.maximumReached')
-    }
-    if (statusBarInfo.remainingCharacters < 0) {
-      return t('editor.statusBar.lengthTooltip.exceeded', { exceeded: -statusBarInfo.remainingCharacters })
-    }
-    return t('editor.statusBar.lengthTooltip.remaining', { remaining: statusBarInfo.remainingCharacters })
-  }, [statusBarInfo, t])
-
   return (
     <div className='d-flex flex-row status-bar px-2'>
       <div>
-        <span>
-          {t('editor.statusBar.cursor', {
-            line: statusBarInfo.position.line + 1,
-            columns: statusBarInfo.position.ch + 1
-          })}
-        </span>
-        <ShowIf condition={statusBarInfo.selectedColumns !== 0 && statusBarInfo.selectedLines !== 0}>
-          <ShowIf condition={statusBarInfo.selectedLines === 1}>
-            <span>&nbsp;–&nbsp;{t('editor.statusBar.selection.column', { count: statusBarInfo.selectedColumns })}</span>
-          </ShowIf>
-          <ShowIf condition={statusBarInfo.selectedLines > 1}>
-            <span>&nbsp;–&nbsp;{t('editor.statusBar.selection.line', { count: statusBarInfo.selectedLines })}</span>
-          </ShowIf>
+        <CursorPositionInfo cursorPosition={statusBarInfo.position} />
+        <ShowIf condition={statusBarInfo.selectedLines === 1}>
+          <SeparatorDash />
+          <SelectionInfo count={statusBarInfo.selectedColumns} translationKey={'column'} />
+        </ShowIf>
+        <ShowIf condition={statusBarInfo.selectedLines > 1}>
+          <SeparatorDash />
+          <SelectionInfo count={statusBarInfo.selectedLines} translationKey={'line'} />
         </ShowIf>
       </div>
       <div className='ml-auto'>
-        <span>{t('editor.statusBar.lines', { lines: statusBarInfo.linesInDocument })}</span>
-        &nbsp;–&nbsp;
-        <span
-          {...cypressId('remainingCharacters')}
-          title={getLengthTooltip}
-          className={
-            statusBarInfo.remainingCharacters <= 0
-              ? 'text-danger'
-              : statusBarInfo.remainingCharacters <= 100
-              ? 'text-warning'
-              : ''
-          }>
-          {t('editor.statusBar.length', { length: statusBarInfo.charactersInDocument })}
-        </span>
+        <NumberOfLinesInDocumentInfo numberOfLinesInDocument={statusBarInfo.linesInDocument} />
+        <SeparatorDash />
+        <RemainingCharactersInfo
+          remainingCharacters={statusBarInfo.remainingCharacters}
+          charactersInDocument={statusBarInfo.charactersInDocument}
+        />
       </div>
     </div>
   )
