@@ -6,7 +6,7 @@
 
 import React, { useMemo } from 'react'
 import { Trans } from 'react-i18next'
-import { Position } from 'codemirror'
+import type { Position } from 'codemirror'
 
 export interface CursorPositionInfoProps {
   cursorPosition: Position
