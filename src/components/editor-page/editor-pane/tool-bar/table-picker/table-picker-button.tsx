@@ -5,37 +5,41 @@
  */
 
 import type CodeMirror from 'codemirror'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { addTable } from '../utils/toolbarButtonUtils'
-import { TablePicker } from './table-picker'
+import { TableSizePicker } from './table-size-picker'
 import { cypressId } from '../../../../../utils/cypress-attribute'
 
 export interface TablePickerButtonProps {
   editor: CodeMirror.Editor
 }
 
+/**
+ * Toggles the visibility of a {@link TableSizePicker table size picker overlay} and inserts the result into the editor.
+ *
+ * @param editor The editor in which the result should get inserted
+ */
 export const TablePickerButton: React.FC<TablePickerButtonProps> = ({ editor }) => {
   const { t } = useTranslation()
   const [showTablePicker, setShowTablePicker] = useState(false)
+  const onDismiss = useCallback(() => setShowTablePicker(false), [])
+  const onTablePicked = useCallback(
+    (rows: number, cols: number) => {
+      setShowTablePicker(false)
+      addTable(editor, rows, cols)
+    },
+    [editor]
+  )
+  const toggleOverlayVisibility = useCallback(() => setShowTablePicker((old) => !old), [])
+  const tableTitle = useMemo(() => t('editor.editorToolbar.table.title'), [t])
 
   return (
     <Fragment>
-      <TablePicker
-        show={showTablePicker}
-        onDismiss={() => setShowTablePicker(false)}
-        onTablePicked={(rows, cols) => {
-          setShowTablePicker(false)
-          addTable(editor, rows, cols)
-        }}
-      />
-      <Button
-        {...cypressId('show-table-overlay')}
-        variant='light'
-        onClick={() => setShowTablePicker((old) => !old)}
-        title={t('editor.editorToolbar.table.title')}>
+      <TableSizePicker show={showTablePicker} onDismiss={onDismiss} onSizeSelection={onTablePicked} />
+      <Button {...cypressId('show-table-overlay')} variant='light' onClick={toggleOverlayVisibility} title={tableTitle}>
         <ForkAwesomeIcon icon='table' />
       </Button>
     </Fragment>
