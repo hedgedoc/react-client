@@ -46,7 +46,7 @@ export const RemainingCharactersInfo: React.FC<LengthInfoProps> = ({ remainingCh
 
   return (
     <span {...cypressId('remainingCharacters')} title={lengthTooltip} className={remainingCharactersClass}>
-      <Trans i18nKey={'editor.statusBar.length'} tOptions={translationOptions} />
+      <Trans i18nKey={'editor.statusBar.length'} values={translationOptions} />
     </span>
   )
 }

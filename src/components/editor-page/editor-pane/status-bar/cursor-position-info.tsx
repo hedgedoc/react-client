@@ -28,7 +28,7 @@ export const CursorPositionInfo: React.FC<CursorPositionInfoProps> = ({ cursorPo
 
   return (
     <span>
-      <Trans i18nKey={'editor.statusBar.cursor'} tOptions={translationOptions} />
+      <Trans i18nKey={'editor.statusBar.cursor'} values={translationOptions} />
     </span>
   )
 }

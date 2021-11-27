@@ -23,9 +23,10 @@ export const SelectionInfo: React.FC<SelectionInfoProps> = ({ count, translation
 
   const countTranslationOptions = useMemo(() => ({ count: count }), [count])
 
+  console.log(count, translationKey)
   return (
     <span>
-      <Trans i18nKey={`editor.statusBar.selection.${translationKey}`} tOptions={countTranslationOptions} />
+      <Trans i18nKey={`editor.statusBar.selection.${translationKey}`} values={countTranslationOptions} />
     </span>
   )
 }

@@ -23,7 +23,7 @@ export const NumberOfLinesInDocumentInfo: React.FC<LinesInDocumentInfoProps> = (
 
   return (
     <span>
-      <Trans i18nKey={'editor.statusBar.lines'} tOptions={translationOptions} />
+      <Trans i18nKey={'editor.statusBar.lines'} values={translationOptions} />
     </span>
   )
 }

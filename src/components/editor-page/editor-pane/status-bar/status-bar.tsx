@@ -46,7 +46,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({ statusBarInfo }) => {
     <div className='d-flex flex-row status-bar px-2'>
       <div>
         <CursorPositionInfo cursorPosition={statusBarInfo.position} />
-        <ShowIf condition={statusBarInfo.selectedLines === 1}>
+        <ShowIf condition={statusBarInfo.selectedLines === 1 && statusBarInfo.selectedColumns > 0}>
           <SeparatorDash />
           <SelectionInfo count={statusBarInfo.selectedColumns} translationKey={'column'} />
         </ShowIf>
