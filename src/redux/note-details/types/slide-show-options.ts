@@ -6,11 +6,6 @@
 
 import type { RevealOptions } from 'reveal.js'
 
-type WantedRevealOptions =
-  | 'autoSlide'
-  | 'autoSlideStoppable'
-  | 'transition'
-  | 'backgroundTransition'
-  | 'slideNumber'
+type WantedRevealOptions = 'autoSlide' | 'autoSlideStoppable' | 'transition' | 'backgroundTransition' | 'slideNumber'
 
 export type SlideOptions = Required<Pick<RevealOptions, WantedRevealOptions>>
