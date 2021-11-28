@@ -18,7 +18,12 @@ export class IframeCapsuleReplacer extends ComponentReplacer {
   replace(node: Element, subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): NodeReplacement {
     if (node.name === 'iframe') {
       return (
-        <ClickShield hoverIcon={'globe'} targetDescription={node.attribs.src} data-cypress-id={'iframe-capsule-click-shield'}>{nativeRenderer()}</ClickShield>
+        <ClickShield
+          hoverIcon={'globe'}
+          targetDescription={node.attribs.src}
+          data-cypress-id={'iframe-capsule-click-shield'}>
+          {nativeRenderer()}
+        </ClickShield>
       )
     } else {
       return DO_NOT_REPLACE
