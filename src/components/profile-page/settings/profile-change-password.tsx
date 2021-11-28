@@ -5,7 +5,7 @@
  */
 
 import type { ChangeEvent, FormEvent } from 'react'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { changePassword } from '../../../api/me'
@@ -21,29 +21,26 @@ export const ProfileChangePassword: React.FC = () => {
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordAgain, setNewPasswordAgain] = useState('')
-  const [newPasswordValid, setNewPasswordValid] = useState(false)
-  const [newPasswordAgainValid, setNewPasswordAgainValid] = useState(false)
+
+  const newPasswordValid = useMemo(() => {
+    return REGEX_VALID_PASSWORD.test(newPassword)
+  }, [newPassword])
+
+  const newPasswordAgainValid = useMemo(() => {
+    return newPassword === newPasswordAgain
+  }, [newPassword, newPasswordAgain])
 
   const onChangeOldPassword = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setOldPassword(event.target.value)
   }, [])
 
-  const onChangeNewPassword = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setNewPassword(event.target.value)
-      setNewPasswordValid(REGEX_VALID_PASSWORD.test(event.target.value))
-      setNewPasswordAgainValid(event.target.value === newPasswordAgain)
-    },
-    [newPasswordAgain]
-  )
+  const onChangeNewPassword = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(event.target.value)
+  }, [])
 
-  const onChangeNewPasswordAgain = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setNewPasswordAgain(event.target.value)
-      setNewPasswordAgainValid(event.target.value === newPassword)
-    },
-    [newPassword]
-  )
+  const onChangeNewPasswordAgain = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setNewPasswordAgain(event.target.value)
+  }, [])
 
   const onSubmitPasswordChange = useCallback(
     (event: FormEvent) => {
