@@ -8,7 +8,7 @@ import type { Reducer } from 'redux'
 import { createNoteFrontmatterFromYaml } from './raw-note-frontmatter-parser/parser'
 import type { NoteDetailsActions } from './types'
 import { NoteDetailsActionType } from './types'
-import { extractor } from './frontmatter-extractor/extractor'
+import { extractFrontmatter } from './frontmatter-extractor/extractor'
 import type { NoteDto } from '../../api/notes/types'
 import { initialState } from './initial-state'
 import { DateTime } from 'luxon'
@@ -74,7 +74,7 @@ const buildStateFromTaskListUpdate = (
  * @return An updated {@link NoteDetails} redux state.
  */
 const buildStateFromMarkdownContentUpdate = (state: NoteDetails, markdownContent: string): NoteDetails => {
-  const frontmatterExtraction = extractor(markdownContent)
+  const frontmatterExtraction = extractFrontmatter(markdownContent)
   if (!frontmatterExtraction.isPresent) {
     return {
       ...state,
