@@ -7,9 +7,9 @@
 import { load } from 'js-yaml'
 import type { SlideOptions } from '../types/slide-show-options'
 import type { NoteFrontmatter } from '../types/note-details'
+import { NoteTextDirection, NoteType } from '../types/note-details'
 import { ISO6391 } from '../types/iso6391'
 import type { RawNoteFrontmatter } from './types'
-import { NoteTextDirection, NoteType } from '../types/note-details'
 import { initialSlideOptions } from '../initial-state'
 
 /**
@@ -49,11 +49,8 @@ const parseRawNoteFrontmatter = (rawData: RawNoteFrontmatter): NoteFrontmatter =
     GA: rawData.GA ?? '',
     disqus: rawData.disqus ?? '',
     lang: (rawData.lang ? ISO6391.find((lang) => lang === rawData.lang) : undefined) ?? 'en',
-    type:
-      (rawData.type ? Object.values(NoteType).find((type) => type === rawData.type) : undefined) ?? NoteType.DOCUMENT,
-    dir:
-      (rawData.dir ? Object.values(NoteTextDirection).find((dir) => dir === rawData.dir) : undefined) ??
-      NoteTextDirection.LTR,
+    type: rawData.type === NoteType.SLIDE ? NoteType.SLIDE : NoteType.DOCUMENT,
+    dir: rawData.dir === NoteTextDirection.LTR ? NoteTextDirection.LTR : NoteTextDirection.RTL,
     opengraph: rawData?.opengraph
       ? new Map<string, string>(Object.entries(rawData.opengraph))
       : new Map<string, string>(),
