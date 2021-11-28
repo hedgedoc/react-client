@@ -18,7 +18,7 @@ const FRONTMATTER_END_REGEX = /^(?:-{3,}|\.{3,})$/
  *         { frontmatterLines }   if a block was found, this property contains the number of lines to skip from the
  *                                given multiline string for retrieving the non-frontmatter content.
  */
-export const extractFrontmatter = (content: string): FrontmatterExtractionResult => {
+export const extractor = (content: string): FrontmatterExtractionResult => {
   const lines = content.split('\n')
   if (lines.length < 2 || !FRONTMATTER_BEGIN_REGEX.test(lines[0])) {
     return {
