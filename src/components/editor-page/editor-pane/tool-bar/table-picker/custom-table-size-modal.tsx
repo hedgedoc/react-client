@@ -10,12 +10,17 @@ import { Button, Form, ModalFooter } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../../common/modals/common-modal'
-import type { TableSize } from './table-size-picker'
+import type { TableSize } from './table-size-picker-popover'
 
 export interface CustomTableSizeModalProps {
   showModal: boolean
   onDismiss: () => void
   onSizeSelect: (row: number, cols: number) => void
+}
+
+const initialTableSize: TableSize = {
+  rows: 0,
+  columns: 0
 }
 
 /**
@@ -27,16 +32,12 @@ export interface CustomTableSizeModalProps {
  */
 export const CustomTableSizeModal: React.FC<CustomTableSizeModalProps> = ({ showModal, onDismiss, onSizeSelect }) => {
   const { t } = useTranslation()
-  const [tableSize, setTableSize] = useState<TableSize>(() => ({
-    rows: 0,
-    columns: 0
-  }))
+  const [tableSize, setTableSize] = useState<TableSize>(() => initialTableSize)
 
   useEffect(() => {
-    setTableSize({
-      rows: 0,
-      columns: 0
-    })
+    if (showModal) {
+      setTableSize(initialTableSize)
+    }
   }, [showModal])
 
   const onClick = useCallback(() => {

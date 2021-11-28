@@ -6,7 +6,7 @@
 
 import React, { useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import type { TableSize } from './table-size-picker'
+import type { TableSize } from './table-size-picker-popover'
 
 export interface TableSizeProps {
   tableSize?: TableSize

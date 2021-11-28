@@ -9,10 +9,10 @@ import type { MutableRefObject } from 'react'
 import { useEffect, useRef } from 'react'
 
 export const useOnRefChange = <T>(
-  reference: MutableRefObject<T | undefined>,
-  onChange?: (newValue?: T) => void
+  reference: MutableRefObject<T>,
+  onChange?: (newValue: T) => void
 ): void => {
-  const lastValue = useRef<T | undefined>()
+  const lastValue = useRef<T>()
   useEffect(() => {
     if (onChange && !equal(reference, lastValue.current)) {
       lastValue.current = reference.current
