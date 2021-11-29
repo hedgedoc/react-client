@@ -49,6 +49,10 @@ export abstract class ComponentReplacer {
     return node.children.map((value, index) => subNodeTransform(value, index))
   }
 
+  public reset(): void {
+    // intentionally left blank
+  }
+
   /**
    * Checks if the current node should be altered or replaced and does if needed.
    *

@@ -40,6 +40,8 @@ import type { ImageClickHandler } from '../markdown-extension/image/proxy-image-
 import type { TocAst } from 'markdown-it-toc-done-right'
 import type { MarkdownExtension } from '../markdown-extension/markdown-extension'
 import { IframeCapsuleMarkdownExtension } from '../markdown-extension/iframe-capsule/iframe-capsule-markdown-extension'
+import { ImagePlaceholderMarkdownExtension } from '../markdown-extension/image-placeholder/image-placeholder-markdown-extension'
+import { UploadIndicatingImageFrameMarkdownExtension } from '../markdown-extension/upload-indicating-image-frame/upload-indicating-image-frame-markdown-extension'
 
 /**
  * Provides a list of {@link MarkdownExtension markdown extensions} that is a combination of the common extensions and the given additional.
@@ -75,6 +77,8 @@ export const useMarkdownExtensions = (
         lineOffset
       ),
       new IframeCapsuleMarkdownExtension(),
+      new ImagePlaceholderMarkdownExtension(),
+      new UploadIndicatingImageFrameMarkdownExtension(),
       new GistMarkdownExtension(),
       new YoutubeMarkdownExtension(),
       new VimeoMarkdownExtension(),
