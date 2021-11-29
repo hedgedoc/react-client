@@ -451,7 +451,11 @@
             }
         },
         "embeddings": {
-            "clickToLoad": "Click to load"
+            "clickToLoad": "Click to load",
+            "placeholderImage": {
+                "placeholderText": "Placeholder",
+                "upload": "Upload image"
+            }
         }
     },
     "views": {

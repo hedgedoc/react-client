@@ -31,6 +31,10 @@ export class NodeToReactTransformer {
     this.replacers = replacers
   }
 
+  public resetReplacers(): void {
+    this.replacers.forEach((replacer) => replacer.reset())
+  }
+
   /**
    * Converts the given {@link Node} to a react element.
    *

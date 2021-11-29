@@ -7,6 +7,7 @@
 import { store } from '..'
 import type { NoteDto } from '../../api/notes/types'
 import type {
+  ReplaceInMarkdownContentAction,
   SetNoteDetailsFromServerAction,
   SetNoteDocumentContentAction,
   UpdateNoteTitleByFirstHeadingAction,
@@ -58,4 +59,12 @@ export const setCheckboxInMarkdownContent = (lineInDocumentContent: number, chec
     checkboxChecked: checked,
     changedLine: lineInDocumentContent
   } as UpdateTaskListCheckboxAction)
+}
+
+export const replaceInMarkdownContent = (placeholder: string, replacement: string): void => {
+  store.dispatch({
+    type: NoteDetailsActionType.REPLACE_IN_MARKDOWN_CONTENT,
+    placeholder,
+    replacement
+  } as ReplaceInMarkdownContentAction)
 }

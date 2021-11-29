@@ -28,9 +28,19 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
       return buildStateFromServerDto(action.dto)
     case NoteDetailsActionType.UPDATE_TASK_LIST_CHECKBOX:
       return buildStateFromTaskListUpdate(state, action.changedLine, action.checkboxChecked)
+    case NoteDetailsActionType.REPLACE_IN_MARKDOWN_CONTENT:
+      return buildStateChangeFromDocumentContentReplacement(state, action.placeholder, action.replacement)
     default:
       return state
   }
+}
+
+const buildStateChangeFromDocumentContentReplacement = (
+  state: NoteDetails,
+  placeholder: string,
+  replacement: string
+): NoteDetails => {
+  return buildStateFromMarkdownContentUpdate(state, state.markdownContent.replaceAll(placeholder, replacement))
 }
 
 /**
