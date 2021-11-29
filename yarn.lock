@@ -11745,10 +11745,10 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-query-state-core@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/query-state-core/-/query-state-core-2.5.0.tgz#7cac3fdc1f79c58c22f35efe8a5f5880f55728d3"
-  integrity sha512-XVo7I/K+gKXqu+HlxtGXfjUtQ+LPjs5bTHB4RC4vDs6yCYLmchc4IxcZWt5EdZZLqIg/CuY+PUxN141t3J17fQ==
+query-state-core@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/query-state-core/-/query-state-core-3.0.0.tgz#b830d1d34e2dabcad65ecd2b8c8c68cb58a29604"
+  integrity sha512-Vmo3LLQn6YHJGbkhlEaHxh+NihLbyeov5Svz2F/kznLg07ax4bJr/CwioAnWK8eZI2eq0wBAKZgoYfLaqeqx+Q==
 
 query-string@^4.1.0:
   version "4.3.4"
@@ -12032,12 +12032,12 @@ react-router-dom@5.3.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router-use-location-state@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-router-use-location-state/-/react-router-use-location-state-2.5.0.tgz#4fe1cb6aa3cd5f8f997cfb77e7a6d5d8a55ea00f"
-  integrity sha512-p0duQtatgL8SZzIITI3He2MP/4d9x9GQHJs93spPYAckVrvCRLAlQxS7k04RHYZb0e4yxwW76Rp/PBvezyez6g==
+react-router-use-location-state@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-router-use-location-state/-/react-router-use-location-state-3.0.0.tgz#5cd6a50ddd9f76facbb29486299bee812f47f65a"
+  integrity sha512-4iuQyGDtDAIktQF/EFixQYz3CBzElpbfOfehMNiOnwcxDTxTmWmMnKY3AfB3R8wHYHd6d4IDrcK7txlmDSsDAg==
   dependencies:
-    use-location-state "^2.5.0"
+    use-location-state "^3.0.0"
 
 react-router@5.2.1:
   version "5.2.1"
@@ -14172,12 +14172,12 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-location-state@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/use-location-state/-/use-location-state-2.5.0.tgz#c71e6b5391898fa23ee1a6242d193924db6767c0"
-  integrity sha512-Gsn37xXWTVa4gGZA8WobtmC7ixm46TkQUyr9MApLhh9YIDcxOKuLCH/0wuKY7YcrCsb5t/S0b77qP50/mbvibQ==
+use-location-state@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/use-location-state/-/use-location-state-3.0.0.tgz#5bc56e700eb6d5dc78bb5dae674238d818a4f0b7"
+  integrity sha512-VvnbBfBYrFh2EO8I1j7zbC49xh8fqa6ZGrQIs5oImsKOWdzWW2xqaOzXElFX6MNscJhHzXkN+6HO2mOC7Fs9ZQ==
   dependencies:
-    query-state-core "^2.5.0"
+    query-state-core "^3.0.0"
 
 use-resize-observer@8.0.0:
   version "8.0.0"
