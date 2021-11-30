@@ -55,9 +55,7 @@ export const TableSizePickerPopover: React.FC<TableSizePickerPopoverProps> = ({
           return (
             <div
               key={`${row}_${col}`}
-              className={`table-cell ${
-                selected ? 'bg-primary border-primary' : ''
-              }`}
+              className={`table-cell ${selected ? 'bg-primary border-primary' : ''}`}
               {...cypressAttribute('selected', selected ? 'true' : 'false')}
               onMouseEnter={onSizeHover(row + 1, col + 1)}
               title={t('editor.editorToolbar.table.size', { cols: col + 1, rows: row + 1 })}
@@ -73,7 +71,12 @@ export const TableSizePickerPopover: React.FC<TableSizePickerPopoverProps> = ({
   useOnRefChange(popoverRef, (newRef) => onRefUpdate(newRef))
 
   return (
-    <Popover {...props} ref={popoverRef} id={'table-picker'} {...cypressId('table-size-picker-popover')} className={`table-picker-container bg-light`}>
+    <Popover
+      {...props}
+      ref={popoverRef}
+      id={'table-picker'}
+      {...cypressId('table-size-picker-popover')}
+      className={`table-picker-container bg-light`}>
       <Popover.Title>
         <TableSizeText tableSize={tableSize} />
         <Trans i18nKey={'editor.editorToolbar.table.title'} />

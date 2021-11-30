@@ -181,8 +181,12 @@ describe('Toolbar Buttons', () => {
     })
 
     it('should select table size', () => {
-      cy.getById('table-size-picker-popover').find('.table-container > .table-cell:nth-of-type(25)').trigger('mouseover')
-      cy.getById('table-size-picker-popover').find('.table-container > .table-cell[data-cypress-selected="true"]').should('have.length', 15)
+      cy.getById('table-size-picker-popover')
+        .find('.table-container > .table-cell:nth-of-type(25)')
+        .trigger('mouseover')
+      cy.getById('table-size-picker-popover')
+        .find('.table-container > .table-cell[data-cypress-selected="true"]')
+        .should('have.length', 15)
       cy.getById('table-size-picker-popover').find('.popover-header').contains('5x3')
       cy.getById('table-size-picker-popover').find('.table-container > .table-cell:nth-of-type(25)').click()
     })
