@@ -9,10 +9,11 @@ import { createNumberRangeArray } from '../../../../common/number-range/number-r
 import { Button, Popover } from 'react-bootstrap'
 import { TableSizeText } from './table-size-text'
 import { Trans, useTranslation } from 'react-i18next'
-import { cypressId } from '../../../../../utils/cypress-attribute'
+import { cypressAttribute, cypressId } from '../../../../../utils/cypress-attribute'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import type { PopoverProps } from 'react-bootstrap/Popover'
 import { useOnRefChange } from '../../../../markdown-renderer/hooks/use-on-ref-change'
+import './table-picker.scss'
 
 export interface TableSizePickerPopoverProps extends Omit<PopoverProps, 'id'> {
   onShowCustomSizeModal: () => void
@@ -49,17 +50,21 @@ export const TableSizePickerPopover: React.FC<TableSizePickerPopoverProps> = ({
   const tableContainer = useMemo(
     () =>
       createNumberRangeArray(8).map((row: number) =>
-        createNumberRangeArray(10).map((col: number) => (
-          <div
-            key={`${row}_${col}`}
-            className={`table-cell ${
-              tableSize && row < tableSize.rows && col < tableSize.columns ? 'bg-primary border-primary' : ''
-            }`}
-            onMouseEnter={onSizeHover(row + 1, col + 1)}
-            title={t('editor.editorToolbar.table.size', { cols: col + 1, rows: row + 1 })}
-            onClick={() => onTableSizeSelected(row + 1, col + 1)}
-          />
-        ))
+        createNumberRangeArray(10).map((col: number) => {
+          const selected = tableSize && row < tableSize.rows && col < tableSize.columns
+          return (
+            <div
+              key={`${row}_${col}`}
+              className={`table-cell ${
+                selected ? 'bg-primary border-primary' : ''
+              }`}
+              {...cypressAttribute('selected', selected ? 'true' : 'false')}
+              onMouseEnter={onSizeHover(row + 1, col + 1)}
+              title={t('editor.editorToolbar.table.size', { cols: col + 1, rows: row + 1 })}
+              onClick={() => onTableSizeSelected(row + 1, col + 1)}
+            />
+          )
+        })
       ),
     [onTableSizeSelected, onSizeHover, t, tableSize]
   )
@@ -68,7 +73,7 @@ export const TableSizePickerPopover: React.FC<TableSizePickerPopoverProps> = ({
   useOnRefChange(popoverRef, (newRef) => onRefUpdate(newRef))
 
   return (
-    <Popover {...props} ref={popoverRef} id={'table-picker'} className={`table-picker-container bg-light`}>
+    <Popover {...props} ref={popoverRef} id={'table-picker'} {...cypressId('table-size-picker-popover')} className={`table-picker-container bg-light`}>
       <Popover.Title>
         <TableSizeText tableSize={tableSize} />
         <Trans i18nKey={'editor.editorToolbar.table.title'} />

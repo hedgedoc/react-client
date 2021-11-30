@@ -11,6 +11,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
 import { CommonModal } from '../../../../common/modals/common-modal'
 import type { TableSize } from './table-size-picker-popover'
+import { cypressId } from '../../../../../utils/cypress-attribute'
 
 export interface CustomTableSizeModalProps {
   showModal: boolean
@@ -67,7 +68,8 @@ export const CustomTableSizeModal: React.FC<CustomTableSizeModalProps> = ({ show
       onHide={onDismiss}
       title={'editor.editorToolbar.table.customSize'}
       showCloseButton={true}
-      titleIcon={'table'}>
+      titleIcon={'table'}
+      {...cypressId('custom-table-size-modal')}>
       <div className={'col-lg-10 d-flex flex-row p-3 align-items-center'}>
         <Form.Control
           type={'number'}

@@ -13,8 +13,8 @@ import { addTable } from '../utils/toolbarButtonUtils'
 import { cypressId } from '../../../../../utils/cypress-attribute'
 import { TableSizePickerPopover } from './table-size-picker-popover'
 import { CustomTableSizeModal } from './custom-table-size-modal'
-import './table-picker.scss'
 import type { OverlayInjectedProps } from 'react-bootstrap/Overlay'
+import { ShowIf } from '../../../../common/show-if/show-if'
 
 export interface TablePickerButtonProps {
   editor: CodeMirror.Editor
@@ -83,7 +83,7 @@ export const TablePickerButton: React.FC<TablePickerButtonProps> = ({ editor }) 
   return (
     <Fragment>
       <Button
-        {...cypressId('show-table-overlay')}
+        {...cypressId('table-size-picker-button')}
         variant='light'
         onClick={toggleOverlayVisibility}
         title={tableTitle}
@@ -98,11 +98,13 @@ export const TablePickerButton: React.FC<TablePickerButtonProps> = ({ editor }) 
         rootClose={true}>
         {createPopoverElement}
       </Overlay>
-      <CustomTableSizeModal
-        showModal={pickerMode === PickerMode.CUSTOM}
-        onDismiss={onDismiss}
-        onSizeSelect={onSizeSelect}
-      />
+      <ShowIf condition={pickerMode === PickerMode.CUSTOM}>
+        <CustomTableSizeModal
+          showModal={pickerMode === PickerMode.CUSTOM}
+          onDismiss={onDismiss}
+          onSizeSelect={onSizeSelect}
+        />
+      </ShowIf>
     </Fragment>
   )
 }
