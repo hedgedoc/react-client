@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { ChangeEvent, Fragment, useCallback, useMemo, useState } from 'react'
+import type { ChangeEvent } from 'react'
+import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { AccessTokenCreatedModal } from '../access-token-created-modal'
@@ -70,7 +71,7 @@ export const AccessTokenCreationForm: React.FC = () => {
       <Form onSubmit={onCreateToken} className='text-start'>
         <AccessTokenCreationFormLabelField onChangeLabel={onChangeLabel} formValues={formValues} />
         <AccessTokenCreationFormExpiryField onChangeExpiry={onChangeExpiry} formValues={formValues} />
-        <AccessTokenCreationFormSubmitButton />
+        <AccessTokenCreationFormSubmitButton formValues={formValues} />
       </Form>
       <AccessTokenCreatedModal
         tokenWithSecret={newTokenWithSecret}
