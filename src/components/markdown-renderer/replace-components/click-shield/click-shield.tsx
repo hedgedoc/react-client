@@ -97,6 +97,8 @@ export const ClickShield: React.FC<ClickShieldProps> = ({
     )
   }, [fallbackBackgroundStyle, previewHoverText, previewImageUrl])
 
+  const hoverTextTranslationValues = useMemo(() => ({ target: targetDescription }), [targetDescription])
+
   return (
     <span className={containerClassName} {...cypressId(props['data-cypress-id'])}>
       <ShowIf condition={showChildren}>{children}</ShowIf>
@@ -105,7 +107,7 @@ export const ClickShield: React.FC<ClickShieldProps> = ({
           {previewBackground}
           <span className={`preview-hover text-center`}>
             <span className={'preview-hover-text'}>
-              <Trans i18nKey={'renderer.clickShield.previewHoverText'} tOptions={{ target: targetDescription }} />
+              <Trans i18nKey={'renderer.clickShield.previewHoverText'} values={hoverTextTranslationValues} />
             </span>
             <br />
             <ForkAwesomeIcon icon={hoverIcon} size={'5x'} className={'mb-2'} />
