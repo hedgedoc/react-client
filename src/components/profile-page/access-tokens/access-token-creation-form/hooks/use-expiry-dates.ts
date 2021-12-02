@@ -13,6 +13,10 @@ interface ExpiryDates {
   max: string
 }
 
+/**
+ * Returns the minimal, maximal and default expiry date for new access tokens.
+ * @return Memoized expiry dates.
+ */
 export const useExpiryDates = (): ExpiryDates => {
   return useMemo(() => {
     const today = DateTime.now()
