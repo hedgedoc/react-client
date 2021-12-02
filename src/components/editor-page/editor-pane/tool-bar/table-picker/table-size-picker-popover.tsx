@@ -79,7 +79,6 @@ export const TableSizePickerPopover: React.FC<TableSizePickerPopoverProps> = ({
       className={`table-picker-container bg-light`}>
       <Popover.Title>
         <TableSizeText tableSize={tableSize} />
-        <Trans i18nKey={'editor.editorToolbar.table.title'} />
       </Popover.Title>
       <Popover.Content>
         <div className={'table-container'} role='grid'>

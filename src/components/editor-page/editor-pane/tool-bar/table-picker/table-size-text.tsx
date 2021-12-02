@@ -25,8 +25,8 @@ export const TableSizeText: React.FC<TableSizeProps> = ({ tableSize }) => {
   }, [tableSize])
 
   if (!translationValues) {
-    return null
+    return <Trans i18nKey={'editor.editorToolbar.table.titleWithoutSize'} />
   } else {
-    return <Trans i18nKey={'editor.editorToolbar.table.size'} values={translationValues} />
+    return <Trans i18nKey={'editor.editorToolbar.table.titleWithSize'} values={translationValues} />
   }
 }
