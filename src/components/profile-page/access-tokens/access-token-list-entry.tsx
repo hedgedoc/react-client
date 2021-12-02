@@ -19,6 +19,7 @@ export interface AccessTokenListEntryProps {
 
 /**
  * List entry that represents an access token with the possibility to delete it.
+ * @param token The access token.
  */
 export const AccessTokenListEntry: React.FC<AccessTokenListEntryProps> = ({ token }) => {
   useTranslation()

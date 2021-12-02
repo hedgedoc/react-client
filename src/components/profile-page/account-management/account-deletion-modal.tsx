@@ -16,6 +16,8 @@ import { dispatchUiNotification, showErrorNotification } from '../../../redux/ui
 
 /**
  * Confirmation modal for deleting your account.
+ * @param show True if the modal should be shown, false otherwise.
+ * @param onHide Callback that is fired when the modal is closed.
  */
 export const AccountDeletionModal: React.FC<ModalVisibilityProps> = ({ show, onHide }) => {
   useTranslation()

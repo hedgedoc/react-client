@@ -15,6 +15,7 @@ export interface CountdownButtonProps extends ButtonProps {
 
 /**
  * Button that starts a countdown on render and is only clickable after the countdown has finished.
+ * @param countdownStartSeconds The initial amount of seconds for the countdown.
  */
 export const CountdownButton: React.FC<CountdownButtonProps> = ({ countdownStartSeconds, children, ...props }) => {
   const [secondsRemaining, setSecondsRemaining] = useState(countdownStartSeconds)

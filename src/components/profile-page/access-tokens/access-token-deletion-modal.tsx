@@ -20,6 +20,9 @@ export interface AccessTokenDeletionModalProps extends ModalVisibilityProps {
 
 /**
  * Modal that asks for confirmation when deleting an access token.
+ * @param show True when the deletion modal should be shown, false otherwise.
+ * @param token The access token to delete.
+ * @param onHide Callback that is fired when the modal is closed.
  */
 export const AccessTokenDeletionModal: React.FC<AccessTokenDeletionModalProps> = ({ show, token, onHide }) => {
   useTranslation()
