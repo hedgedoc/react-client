@@ -10,7 +10,7 @@ import { getAccessTokenList } from '../../../api/tokens'
 import type { AccessToken } from '../../../api/tokens/types'
 import { ShowIf } from '../../common/show-if/show-if'
 import { AccessTokenListEntry } from './access-token-list-entry'
-import { AccessTokenCreationForm } from './access-token-creation-form'
+import { AccessTokenCreationForm } from './access-token-creation-form/access-token-creation-form'
 import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 /**
