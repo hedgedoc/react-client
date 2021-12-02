@@ -75,7 +75,15 @@ const buildStateFromTaskListUpdate = (
  */
 const buildStateFromMarkdownContentUpdate = (state: NoteDetails, markdownContent: string): NoteDetails => {
   const frontmatterExtraction = extractFrontmatter(markdownContent)
-  if (!frontmatterExtraction.isPresent) {
+  if (frontmatterExtraction.isPresent) {
+    return buildStateFromFrontmatterUpdate(
+      {
+        ...state,
+        markdownContent: markdownContent
+      },
+      frontmatterExtraction
+    )
+  } else {
     return {
       ...state,
       markdownContent: markdownContent,
@@ -84,14 +92,6 @@ const buildStateFromMarkdownContentUpdate = (state: NoteDetails, markdownContent
       frontmatter: initialState.frontmatter,
       frontmatterRendererInfo: initialState.frontmatterRendererInfo
     }
-  } else {
-    return buildStateFromFrontmatterUpdate(
-      {
-        ...state,
-        markdownContent: markdownContent
-      },
-      frontmatterExtraction
-    )
   }
 }
 
