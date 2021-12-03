@@ -19,7 +19,10 @@ export const addLineToPlaceholderImageTags: MarkdownIt.PluginSimple = (markdownI
         return
       }
       token.children?.forEach((childToken) => {
-        if (childToken.type === 'image' && childToken.attrGet('src') === ImagePlaceholderMarkdownExtension.PLACEHOLDER_URL) {
+        if (
+          childToken.type === 'image' &&
+          childToken.attrGet('src') === ImagePlaceholderMarkdownExtension.PLACEHOLDER_URL
+        ) {
           const line = token.map?.[0]
           if (line !== undefined) {
             childToken.attrSet('data-line', String(line))
