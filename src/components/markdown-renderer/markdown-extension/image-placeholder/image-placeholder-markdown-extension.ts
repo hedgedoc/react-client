@@ -5,14 +5,19 @@
  */
 
 import { MarkdownExtension } from '../markdown-extension'
-import { imagePlaceholderMarkdownPlugin } from './image-placeholder-markdown-plugin'
+import { addLineToPlaceholderImageTags } from './add-line-to-placeholder-image-tags'
 import type MarkdownIt from 'markdown-it/lib'
 import type { ComponentReplacer } from '../../replace-components/component-replacer'
 import { ImagePlaceholderReplacer } from './image-placeholder-replacer'
 
+/**
+ * A markdown extension that
+ */
 export class ImagePlaceholderMarkdownExtension extends MarkdownExtension {
+  public static readonly PLACEHOLDER_URL = 'https://'
+
   configureMarkdownIt(markdownIt: MarkdownIt): void {
-    imagePlaceholderMarkdownPlugin(markdownIt)
+    addLineToPlaceholderImageTags(markdownIt)
   }
 
   buildReplacers(): ComponentReplacer[] {

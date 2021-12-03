@@ -8,7 +8,11 @@ import type { NativeRenderer, NodeReplacement, SubNodeTransform } from '../../re
 import { ComponentReplacer } from '../../replace-components/component-replacer'
 import type { Element } from 'domhandler'
 import { ImagePlaceholder } from './image-placeholder'
+import { ImagePlaceholderMarkdownExtension } from './image-placeholder-markdown-extension'
 
+/**
+ * Replaces every image tag that has the {@link ImagePlaceholderMarkdownExtension.PLACEHOLDER_URL placeholder url} with the {@link ImagePlaceholder image placeholder element}.
+ */
 export class ImagePlaceholderReplacer extends ComponentReplacer {
   private countPerSourceLine = new Map<number, number>()
 
@@ -17,7 +21,7 @@ export class ImagePlaceholderReplacer extends ComponentReplacer {
   }
 
   replace(node: Element, subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): NodeReplacement {
-    if (node.name === 'img' && node.attribs && node.attribs.src === 'https://') {
+    if (node.name === 'img' && node.attribs && node.attribs.src === ImagePlaceholderMarkdownExtension.PLACEHOLDER_URL) {
       const lineIndex = Number(node.attribs['data-line'])
       const indexInLine = this.countPerSourceLine.get(lineIndex) ?? 0
       this.countPerSourceLine.set(lineIndex, indexInLine + 1)

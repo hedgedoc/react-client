@@ -31,6 +31,9 @@ export class NodeToReactTransformer {
     this.replacers = replacers
   }
 
+  /**
+   * Resets all replacers before rendering.
+   */
   public resetReplacers(): void {
     this.replacers.forEach((replacer) => replacer.reset())
   }
