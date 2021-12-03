@@ -31,8 +31,8 @@ export class ImagePlaceholderReplacer extends ComponentReplacer {
           title={node.attribs.title}
           width={node.attribs.width}
           height={node.attribs.height}
-          line={isNaN(lineIndex) ? undefined : lineIndex}
-          indexInLine={indexInLine}
+          lineIndex={isNaN(lineIndex) ? undefined : lineIndex}
+          placeholderIndexInLine={indexInLine}
         />
       )
     }

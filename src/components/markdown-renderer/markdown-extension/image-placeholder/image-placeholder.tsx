@@ -10,59 +10,39 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './image-placeholder.scss'
 import { usePlaceholderSizeStyle } from './build-placeholder-size-css'
-import { useRendererToEditorCommunicator } from '../../../editor-page/render-context/renderer-to-editor-communicator-context-provider'
-import { CommunicationMessageType } from '../../../render-page/window-post-message-communicator/rendering-message'
-import { Logger } from '../../../../utils/logger'
 import { acceptedMimeTypes } from '../../../common/upload-image-mimetypes'
+import { useOnImageUpload } from './hooks/use-on-image-upload'
 
 export interface PlaceholderImageFrameProps {
   alt?: string
   title?: string
   width?: string | number
   height?: string | number
-  line?: number
-  indexInLine?: number
+  lineIndex?: number
+  placeholderIndexInLine?: number
 }
 
-const readFileAsDataUrl = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = (error) => reject(error)
-  })
-}
-
-const log = new Logger('PlaceholderImageFrame')
-
+/**
+ * Shows a placeholder for an actual image with the possibility to upload images via button or drag'n'drop.
+ *
+ * @param alt The alt text of the image. Will be shown in the placeholder
+ * @param title The title text of the image. Will be shown in the placeholder
+ * @param width The width of the placeholder
+ * @param height The height of the placeholder
+ * @param lineIndex The index of the line in the markdown content where the placeholder is defined
+ * @param placeholderIndexInLine The index of the placeholder in the markdown line
+ */
 export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
   alt,
   title,
   width,
   height,
-  line,
-  indexInLine
+  lineIndex,
+  placeholderIndexInLine
 }) => {
   useTranslation()
   const fileInputReference = useRef<HTMLInputElement>(null)
-  const communicator = useRendererToEditorCommunicator()
-
-  const onImageUpload = useCallback(
-    (file: File) => {
-      readFileAsDataUrl(file)
-        .then((dataUri) => {
-          communicator.sendMessageToOtherSide({
-            type: CommunicationMessageType.IMAGE_UPLOAD,
-            dataUri,
-            fileName: file.name,
-            optionalLineIndex: line,
-            indexInLine
-          })
-        })
-        .catch((error: ProgressEvent) => log.error('Error while uploading image', error))
-    },
-    [communicator, indexInLine, line]
-  )
+  const onImageUpload = useOnImageUpload(lineIndex, placeholderIndexInLine)
 
   const onDropHandler = useCallback(
     (event: React.DragEvent<HTMLSpanElement>) => {

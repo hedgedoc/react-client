@@ -28,7 +28,7 @@ export const useOnImageUploadFromRenderer = (editor: Editor | undefined): void =
     CommunicationMessageType.IMAGE_UPLOAD,
     useCallback(
       (values: ImageUploadMessage) => {
-        const { dataUri, fileName, optionalLineIndex, indexInLine } = values
+        const { dataUri, fileName, lineIndex, placeholderIndexInLine } = values
         if (!editor) {
           return
         }
@@ -41,8 +41,8 @@ export const useOnImageUploadFromRenderer = (editor: Editor | undefined): void =
           .then((result) => result.blob())
           .then((blob) => {
             const file = new File([blob], fileName, { type: blob.type })
-            const [cursorFrom, cursorTo] = Optional.ofNullable(optionalLineIndex)
-              .map((lineIndex) => calculatePlaceholderPositionInMarkdownContent(lineIndex, indexInLine))
+            const [cursorFrom, cursorTo] = Optional.ofNullable(lineIndex)
+              .map((actualLineIndex) => calculatePlaceholderPositionInMarkdownContent(actualLineIndex, placeholderIndexInLine))
               .orElseGet(() => calculateInsertAtCurrentCursorPosition(editor))
             handleUpload(file, editor, cursorFrom, cursorTo)
           })

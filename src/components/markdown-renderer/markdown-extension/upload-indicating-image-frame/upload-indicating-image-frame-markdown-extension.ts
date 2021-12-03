@@ -6,8 +6,11 @@
 
 import { MarkdownExtension } from '../markdown-extension'
 import type { ComponentReplacer } from '../../replace-components/component-replacer'
-import { UploadIndicatingImageFrameReplacer } from '../upload-indicating-image-frame/upload-indicating-image-frame-replacer'
+import { UploadIndicatingImageFrameReplacer } from './upload-indicating-image-frame-replacer'
 
+/**
+ * A markdown extension that shows {@link UploadIndicatingFrame} for images that are getting uploaded.
+ */
 export class UploadIndicatingImageFrameMarkdownExtension extends MarkdownExtension {
   buildReplacers(): ComponentReplacer[] {
     return [new UploadIndicatingImageFrameReplacer()]
