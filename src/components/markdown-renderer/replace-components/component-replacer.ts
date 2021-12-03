@@ -49,8 +49,11 @@ export abstract class ComponentReplacer {
     return node.children.map((value, index) => subNodeTransform(value, index))
   }
 
+  /**
+   * Should be used to reset the replacers internal state before rendering.
+   */
   public reset(): void {
-    // intentionally left blank
+    // left blank for overrides
   }
 
   /**
