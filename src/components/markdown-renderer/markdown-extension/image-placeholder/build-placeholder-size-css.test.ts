@@ -29,15 +29,15 @@ describe('convertToNumber', () => {
 
 describe('calculatePlaceholderContainerSize', () => {
   it('width undefined | height undefined', () => {
-    expect(calculatePlaceholderContainerSize(undefined, undefined)).toStrictEqual({ width: '500px', height: '200px' })
+    expect(calculatePlaceholderContainerSize(undefined, undefined)).toStrictEqual([500, 200])
   })
   it('width 200 | height undefined', () => {
-    expect(calculatePlaceholderContainerSize(200, undefined)).toStrictEqual({ width: '200px', height: '80px' })
+    expect(calculatePlaceholderContainerSize(200, undefined)).toStrictEqual([200, 80])
   })
   it('width undefined | height 100', () => {
-    expect(calculatePlaceholderContainerSize(undefined, 100)).toStrictEqual({ width: '250px', height: '100px' })
+    expect(calculatePlaceholderContainerSize(undefined, 100)).toStrictEqual([250, 100])
   })
   it('width 345 | height 234', () => {
-    expect(calculatePlaceholderContainerSize(345, 234)).toStrictEqual({ width: '345px', height: '234px' })
+    expect(calculatePlaceholderContainerSize(345, 234)).toStrictEqual([345, 234])
   })
 })
