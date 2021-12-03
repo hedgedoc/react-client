@@ -4,11 +4,18 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import type React from 'react'
+import type { CSSProperties } from 'react'
+import { useMemo } from 'react'
 
 const regex = /^([0-9]{1-4})px$/
 
-export const convertToNumber = (value: string | number | undefined): number | undefined => {
+/**
+ * Inspects the given value and checks if it is a number or a pixel size string.
+ *
+ * @param value The value to check
+ * @return the number representation of the string or undefined if it couldn't be parsed
+ */
+export const parseSizeNumber = (value: string | number | undefined): number | undefined => {
   if (value === undefined) {
     return undefined
   }
@@ -31,27 +38,50 @@ export const convertToNumber = (value: string | number | undefined): number | un
   }
 }
 
-export const buildPlaceholderSizeCss = (
+/**
+ * Calculates the final width and height for a placeholder container.
+ * Every parameter that is empty will be defaulted using a 500:200 ratio.
+ *
+ * @param width The wanted width
+ * @param height The wanted height
+ * @return the calculated size
+ */
+export const calculatePlaceholderContainerSize = (
   width: string | number | undefined,
   height: string | number | undefined
-): React.CSSProperties => {
+): [width: number, height: number] => {
   const defaultWidth = 500
   const defaultHeight = 200
   const ratio = defaultWidth / defaultHeight
 
-  let convertedWidth = convertToNumber(width)
-  let convertedHeight = convertToNumber(height)
+  const convertedWidth = parseSizeNumber(width)
+  const convertedHeight = parseSizeNumber(height)
 
-  if (!convertedWidth && convertedHeight) {
-    // only height set
-    convertedWidth = convertedHeight * ratio
-  } else if (convertedWidth && !convertedHeight) {
-    // only width set
-    convertedHeight = convertedWidth * (1 / ratio)
+  if (convertedWidth === undefined && convertedHeight !== undefined) {
+    return [convertedHeight * ratio, convertedHeight]
+  } else if (convertedWidth !== undefined && convertedHeight === undefined) {
+    return [convertedWidth, convertedWidth * (1 / ratio)]
+  } else if (convertedWidth !== undefined && convertedHeight !== undefined) {
+    return [convertedWidth, convertedHeight]
+  } else {
+    return [defaultWidth, defaultHeight]
   }
+}
 
-  return {
-    width: `${convertedWidth ?? defaultWidth}px`,
-    height: `${convertedHeight ?? defaultHeight}px`
-  }
+/**
+ * Creates the style attribute for a placeholder container with width and height.
+ *
+ * @param width The wanted width
+ * @param height The wanted height
+ * @return The created style attributes
+ */
+export const usePlaceholderSizeStyle = (width?: string | number, height?: string | number): CSSProperties => {
+  return useMemo(() => {
+    const [convertedWidth, convertedHeight] = calculatePlaceholderContainerSize(width, height)
+
+    return {
+      width: `${convertedWidth}px`,
+      height: `${convertedHeight}px`
+    }
+  }, [height, width])
 }

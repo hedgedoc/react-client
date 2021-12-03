@@ -42,7 +42,7 @@ export interface ImageUploadMessage {
   type: CommunicationMessageType.IMAGE_UPLOAD
   dataUri: string
   fileName: string
-  line?: number
+  optionalLineIndex?: number
   indexInLine?: number
 }
 

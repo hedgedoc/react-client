@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './image-placeholder.scss'
-import { buildPlaceholderSizeCss } from './build-placeholder-size-css'
+import { usePlaceholderSizeStyle } from './build-placeholder-size-css'
 import { useRendererToEditorCommunicator } from '../../../editor-page/render-context/renderer-to-editor-communicator-context-provider'
 import { CommunicationMessageType } from '../../../render-page/window-post-message-communicator/rendering-message'
 import { Logger } from '../../../../utils/logger'
@@ -55,7 +55,7 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
             type: CommunicationMessageType.IMAGE_UPLOAD,
             dataUri,
             fileName: file.name,
-            line,
+            optionalLineIndex: line,
             indexInLine
           })
         })
@@ -88,11 +88,12 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
   )
 
   const uploadButtonClicked = useCallback(() => fileInputReference.current?.click(), [])
+  const containerStyle = usePlaceholderSizeStyle(width, height)
 
   return (
     <span
       className='image-drop d-inline-flex flex-column align-items-center bg-primary text-light p-1'
-      style={buildPlaceholderSizeCss(width, height)}
+      style={containerStyle}
       onDrop={onDropHandler}
       onDragOver={onDragOverHandler}>
       <input
