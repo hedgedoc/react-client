@@ -9,20 +9,16 @@
  *
  * @param line The line that should be searched through
  * @param regex The regex that should find matches in the line
- * @param wantedOccurrenceIndex The index of the occurrence to find
+ * @param matchIndex The index of the match to find
  * @return The regex match of the found occurrence or undefined if no match could be found
  */
-export const findRegexMatchInLine = (
-  line: string,
-  regex: RegExp,
-  wantedOccurrenceIndex: number
-): RegExpMatchArray | undefined => {
-  if (wantedOccurrenceIndex < 0) {
+export const findRegexMatchInLine = (line: string, regex: RegExp, matchIndex: number): RegExpMatchArray | undefined => {
+  if (matchIndex < 0) {
     return
   }
   let currentIndex = 0
   for (const match of line.matchAll(regex)) {
-    if (currentIndex === wantedOccurrenceIndex) {
+    if (currentIndex === matchIndex) {
       return match
     }
     currentIndex += 1
