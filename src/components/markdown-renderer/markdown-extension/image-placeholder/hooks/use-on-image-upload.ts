@@ -32,7 +32,10 @@ const readFileAsDataUrl = (file: File): Promise<string> => {
  * @param lineIndex The index of the line in the markdown content where the placeholder is defined
  * @param placeholderIndexInLine The index of the placeholder in the markdown content line
  */
-export const useOnImageUpload = (lineIndex: number | undefined, placeholderIndexInLine: number | undefined) => {
+export const useOnImageUpload = (
+  lineIndex: number | undefined,
+  placeholderIndexInLine: number | undefined
+): ((file: File) => void) => {
   const communicator = useRendererToEditorCommunicator()
 
   return useCallback(
