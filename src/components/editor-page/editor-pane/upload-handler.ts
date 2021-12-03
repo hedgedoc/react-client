@@ -14,6 +14,14 @@ import { t } from 'i18next'
 
 const log = new Logger('File Uploader Handler')
 
+/**
+ * Uploads the given file and writes the progress into the given editor at the given cursor positions.
+ *
+ * @param file The file to upload
+ * @param editor The editor that should be used to show the progress
+ * @param cursorFrom The position where the progress message should be placed
+ * @param cursorTo An optional position that should be used to replace content in the editor
+ */
 export const handleUpload = (file: File, editor: Editor, cursorFrom?: Position, cursorTo?: Position): void => {
   if (!file) {
     return
