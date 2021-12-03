@@ -50,6 +50,7 @@ export const updateNoteTitleByFirstHeading = (firstHeading?: string): void => {
 
 /**
  * Changes a checkbox state in the note document content. Triggered when a checkbox in the rendering is clicked.
+ *
  * @param lineInDocumentContent The line in the document content to change.
  * @param checked true if the checkbox is checked, false otherwise.
  */
@@ -61,10 +62,16 @@ export const setCheckboxInMarkdownContent = (lineInDocumentContent: number, chec
   } as UpdateTaskListCheckboxAction)
 }
 
-export const replaceInMarkdownContent = (placeholder: string, replacement: string): void => {
+/**
+ * Replaces a string in the markdown content in the global application state.
+ *
+ * @param replaceable The string that should be replaced
+ * @param replacement The replacement for the replaceable
+ */
+export const replaceInMarkdownContent = (replaceable: string, replacement: string): void => {
   store.dispatch({
     type: NoteDetailsActionType.REPLACE_IN_MARKDOWN_CONTENT,
-    placeholder,
+    placeholder: replaceable,
     replacement
   } as ReplaceInMarkdownContentAction)
 }

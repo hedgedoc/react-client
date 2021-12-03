@@ -11,6 +11,9 @@ import { UploadIndicatingFrame } from './upload-indicating-frame'
 
 const uploadIdRegex = /^upload-(.*)$/
 
+/**
+ * Replaces an image tag whose url is an upload-id with the {@link UploadIndicatingFrame upload indicating frame}.
+ */
 export class UploadIndicatingImageFrameReplacer extends ComponentReplacer {
   replace(node: Element, subNodeTransform: SubNodeTransform, nativeRenderer: NativeRenderer): NodeReplacement {
     if (node.name === 'img' && uploadIdRegex.test(node.attribs.src)) {

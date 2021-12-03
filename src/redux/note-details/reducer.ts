@@ -35,12 +35,20 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
   }
 }
 
+/**
+ * Builds a {@link NoteDetails} redux state with a modified markdown content.
+ *
+ * @param state The previous redux state
+ * @param replaceable The string that should be replaced in the old markdown content
+ * @param replacement The string that should replace the replaceable
+ * @return An updated {@link NoteDetails} redux state
+ */
 const buildStateChangeFromDocumentContentReplacement = (
   state: NoteDetails,
-  placeholder: string,
+  replaceable: string,
   replacement: string
 ): NoteDetails => {
-  return buildStateFromMarkdownContentUpdate(state, state.markdownContent.replaceAll(placeholder, replacement))
+  return buildStateFromMarkdownContentUpdate(state, state.markdownContent.replaceAll(replaceable, replacement))
 }
 
 /**

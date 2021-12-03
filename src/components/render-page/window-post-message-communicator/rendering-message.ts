@@ -42,8 +42,8 @@ export interface ImageUploadMessage {
   type: CommunicationMessageType.IMAGE_UPLOAD
   dataUri: string
   fileName: string
-  optionalLineIndex?: number
-  indexInLine?: number
+  lineIndex?: number
+  placeholderIndexInLine?: number
 }
 
 export interface SetBaseUrlMessage {
