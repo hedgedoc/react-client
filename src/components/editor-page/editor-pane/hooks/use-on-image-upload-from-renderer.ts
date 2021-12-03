@@ -42,7 +42,9 @@ export const useOnImageUploadFromRenderer = (editor: Editor | undefined): void =
           .then((blob) => {
             const file = new File([blob], fileName, { type: blob.type })
             const [cursorFrom, cursorTo] = Optional.ofNullable(lineIndex)
-              .map((actualLineIndex) => calculatePlaceholderPositionInMarkdownContent(actualLineIndex, placeholderIndexInLine))
+              .map((actualLineIndex) =>
+                calculatePlaceholderPositionInMarkdownContent(actualLineIndex, placeholderIndexInLine)
+              )
               .orElseGet(() => calculateInsertAtCurrentCursorPosition(editor))
             handleUpload(file, editor, cursorFrom, cursorTo)
           })
