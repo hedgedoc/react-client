@@ -72,7 +72,7 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
 
   return (
     <span
-      className='image-drop d-inline-flex flex-column align-items-center bg-primary text-light p-1'
+      className='image-drop d-inline-flex flex-column align-items-center text-light p-1'
       style={containerStyle}
       onDrop={onDropHandler}
       onDragOver={onDragOverHandler}>
