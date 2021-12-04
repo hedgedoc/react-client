@@ -178,7 +178,7 @@
     "react-i18next": "11.14.3",
     "react-redux": "7.2.6",
     "react-router": "5.2.1",
-    "react-router-bootstrap": "0.25.0",
+    "react-router-bootstrap": "0.26.0",
     "react-router-dom": "5.3.0",
     "react-router-use-location-state": "2.5.0",
     "react-scripts": "4.0.3",
