@@ -72,7 +72,7 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
 
   return (
     <span
-      className='image-drop d-inline-flex flex-column align-items-center text-light p-1'
+      className='image-drop d-inline-flex flex-column align-items-center text-dark p-1'
       style={containerStyle}
       onDrop={onDropHandler}
       onDragOver={onDragOverHandler}>
@@ -83,7 +83,7 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
         onChange={onChangeHandler}
         ref={fileInputReference}
       />
-      <div className={'align-items-center flex-column justify-content-center flex-fill d-flex text-white'}>
+      <div className={'align-items-center flex-column justify-content-center flex-fill d-flex'}>
         <div className={'d-flex flex-column'}>
           <span className='my-2'>
             <Trans i18nKey={'editor.embeddings.placeholderImage.placeholderText'} />
@@ -91,7 +91,7 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
           <span className={'altText'}>{alt ?? title ?? ''}</span>
         </div>
       </div>
-      <Button size={'sm'} variant={'light'} onClick={uploadButtonClicked}>
+      <Button size={'sm'} variant={'primary'} onClick={uploadButtonClicked}>
         <ForkAwesomeIcon icon={'upload'} fixedWidth={true} className='my-2' />
         <Trans i18nKey={'editor.embeddings.placeholderImage.upload'} className='my-2' />
       </Button>

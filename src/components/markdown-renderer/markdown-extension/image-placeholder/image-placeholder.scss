@@ -5,7 +5,14 @@
  */
 
 .image-drop {
-  border: 3px dashed white;
+  @import "../../../../style/variables.light.scss";
+  border: 3px dashed $dark;
+
+  body.dark & {
+    @import "../../../../style/variables.dark.scss";
+    border-color: $dark;
+  }
+
   border-radius: 3px;
 
   .altText {
