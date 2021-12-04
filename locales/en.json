@@ -202,7 +202,10 @@
     },
     "editor": {
         "upload": {
-            "uploadFile": "Uploading file...{{fileName}}",
+            "uploadFile": {
+              "withoutDescription": "Uploading file...{{fileName}}",
+              "withDescription": "Uploading file...{{fileName}} - {{description}}"
+            },
             "dropImage": "Drop Image to insert"
         },
         "untitledNote": "Untitled",

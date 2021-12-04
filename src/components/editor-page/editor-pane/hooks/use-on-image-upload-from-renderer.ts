@@ -16,7 +16,7 @@ import { findRegexMatchInLine } from '../find-regex-match-in-line'
 import Optional from 'optional-js'
 
 const log = new Logger('useOnImageUpload')
-const imageWithPlaceholderLinkRegex = /(!\[[^\]]*]\(https:\/\/\))/g
+const imageWithPlaceholderLinkRegex = /!\[([^\]]*)]\(https:\/\/([^)]*)\)/g
 
 /**
  * Receives {@link CommunicationMessageType.IMAGE_UPLOAD image upload events} via iframe communication and processes the attached uploads.
@@ -41,18 +41,23 @@ export const useOnImageUploadFromRenderer = (editor: Editor | undefined): void =
           .then((result) => result.blob())
           .then((blob) => {
             const file = new File([blob], fileName, { type: blob.type })
-            const [cursorFrom, cursorTo] = Optional.ofNullable(lineIndex)
-              .map((actualLineIndex) =>
-                calculatePlaceholderPositionInMarkdownContent(actualLineIndex, placeholderIndexInLine)
-              )
+            const { cursorFrom, cursorTo, description, additionalText } = Optional.ofNullable(lineIndex)
+              .map((actualLineIndex) => findPlaceholderInMarkdownContent(actualLineIndex, placeholderIndexInLine))
               .orElseGet(() => calculateInsertAtCurrentCursorPosition(editor))
-            handleUpload(file, editor, cursorFrom, cursorTo)
+            handleUpload(file, editor, cursorFrom, cursorTo, description, additionalText)
           })
           .catch((error) => log.error(error))
       },
       [editor]
     )
   )
+}
+
+export interface ExtractResult {
+  cursorFrom: Position
+  cursorTo: Position
+  description?: string
+  additionalText?: string
 }
 
 /**
@@ -62,10 +67,7 @@ export const useOnImageUploadFromRenderer = (editor: Editor | undefined): void =
  * @param replacementIndexInLine If multiple image placeholders are present in the target line then this number describes the index of the wanted placeholder.
  * @return the calculated start and end position or undefined if no position could be determined
  */
-const calculatePlaceholderPositionInMarkdownContent = (
-  lineIndex: number,
-  replacementIndexInLine = 0
-): [Position, Position] | undefined => {
+const findPlaceholderInMarkdownContent = (lineIndex: number, replacementIndexInLine = 0): ExtractResult | undefined => {
   const currentMarkdownContentLines = store.getState().noteDetails.markdownContent.split('\n')
   const lineAtIndex = currentMarkdownContentLines[lineIndex]
   if (lineAtIndex === undefined) {
@@ -86,22 +88,24 @@ const findImagePlaceholderInLine = (
   line: string,
   lineIndex: number,
   replacementIndexInLine = 0
-): [Position, Position] | undefined => {
+): ExtractResult | undefined => {
   const startOfImageTag = findRegexMatchInLine(line, imageWithPlaceholderLinkRegex, replacementIndexInLine)
   if (startOfImageTag === undefined || startOfImageTag.index === undefined) {
     return
   }
 
-  return [
-    {
+  return {
+    cursorFrom: {
       ch: startOfImageTag.index,
       line: lineIndex
     },
-    {
+    cursorTo: {
       ch: startOfImageTag.index + startOfImageTag[0].length,
       line: lineIndex
-    }
-  ]
+    },
+    description: startOfImageTag[1],
+    additionalText: startOfImageTag[2]
+  }
 }
 
 /**
@@ -110,7 +114,7 @@ const findImagePlaceholderInLine = (
  *
  * @param editor The editor whose cursor should be used
  */
-const calculateInsertAtCurrentCursorPosition = (editor: Editor): [Position, Position] => {
+const calculateInsertAtCurrentCursorPosition = (editor: Editor): ExtractResult => {
   const editorCursor = editor.getCursor()
-  return [editorCursor, editorCursor]
+  return { cursorFrom: editorCursor, cursorTo: editorCursor }
 }

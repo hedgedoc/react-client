@@ -16,11 +16,15 @@ import { ImagePlaceholderReplacer } from './image-placeholder-replacer'
 export class ImagePlaceholderMarkdownExtension extends MarkdownExtension {
   public static readonly PLACEHOLDER_URL = 'https://'
 
+  constructor(private lineOffset: number) {
+    super()
+  }
+
   configureMarkdownIt(markdownIt: MarkdownIt): void {
     addLineToPlaceholderImageTags(markdownIt)
   }
 
   buildReplacers(): ComponentReplacer[] {
-    return [new ImagePlaceholderReplacer()]
+    return [new ImagePlaceholderReplacer(this.lineOffset)]
   }
 }

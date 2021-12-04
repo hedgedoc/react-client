@@ -21,8 +21,17 @@ const log = new Logger('File Uploader Handler')
  * @param editor The editor that should be used to show the progress
  * @param cursorFrom The position where the progress message should be placed
  * @param cursorTo An optional position that should be used to replace content in the editor
+ * @param imageDescription The text that should be used in the description part of the resulting image tag
+ * @param additionalUrlText Additional text that should be inserted behind the link but within the tag
  */
-export const handleUpload = (file: File, editor: Editor, cursorFrom?: Position, cursorTo?: Position): void => {
+export const handleUpload = (
+  file: File,
+  editor: Editor,
+  cursorFrom?: Position,
+  cursorTo?: Position,
+  imageDescription?: string,
+  additionalUrlText?: string
+): void => {
   if (!file) {
     return
   }
@@ -30,8 +39,12 @@ export const handleUpload = (file: File, editor: Editor, cursorFrom?: Position, 
     return
   }
   const randomId = Math.random().toString(36).slice(7)
-  const label = t('editor.upload.uploadFile', { fileName: file.name })
-  const uploadPlaceholder = `![${label}](upload-${randomId})`
+  const uploadFileInfo =
+    imageDescription !== undefined
+      ? t('editor.upload.uploadFile.withDescription', { fileName: file.name, description: imageDescription })
+      : t('editor.upload.uploadFile.withoutDescription', { fileName: file.name })
+
+  const uploadPlaceholder = `![${uploadFileInfo}](upload-${randomId}${additionalUrlText ?? ''})`
   const noteId = store.getState().noteDetails.id
   const insertCode = (replacement: string) => {
     replaceInMarkdownContent(uploadPlaceholder, replacement)
@@ -40,7 +53,7 @@ export const handleUpload = (file: File, editor: Editor, cursorFrom?: Position, 
   editor.replaceRange(uploadPlaceholder, cursorFrom ?? editor.getCursor(), cursorTo, '+input')
   uploadFile(noteId, file)
     .then(({ link }) => {
-      insertCode(`![](${link})`)
+      insertCode(`![${imageDescription ?? ''}](${link}${additionalUrlText ?? ''})`)
     })
     .catch((error: Error) => {
       log.error('error while uploading file', error)

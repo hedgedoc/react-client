@@ -59,7 +59,7 @@ export const useMarkdownExtensions = (
   baseUrl: string,
   currentLineMarkers: MutableRefObject<LineMarkers[] | undefined> | undefined,
   additionalExtensions: MarkdownExtension[],
-  lineOffset?: number,
+  lineOffset: number,
   onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void,
   onImageClick?: ImageClickHandler,
   onTocChange?: (ast?: TocAst) => void
@@ -73,11 +73,11 @@ export const useMarkdownExtensions = (
       new VegaLiteMarkdownExtension(),
       new MarkmapMarkdownExtension(),
       new LinemarkerMarkdownExtension(
-        currentLineMarkers ? (lineMarkers) => (currentLineMarkers.current = lineMarkers) : undefined,
-        lineOffset
+        lineOffset,
+        currentLineMarkers ? (lineMarkers) => (currentLineMarkers.current = lineMarkers) : undefined
       ),
       new IframeCapsuleMarkdownExtension(),
-      new ImagePlaceholderMarkdownExtension(),
+      new ImagePlaceholderMarkdownExtension(lineOffset),
       new UploadIndicatingImageFrameMarkdownExtension(),
       new GistMarkdownExtension(),
       new YoutubeMarkdownExtension(),
