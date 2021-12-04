@@ -201,7 +201,6 @@
     "words-count": "2.0.2"
   },
   "resolutions": {
-    "cypress": "7.7.0",
-    "katex": "0.15.1"
+    "cypress": "7.7.0"
   }
 }
