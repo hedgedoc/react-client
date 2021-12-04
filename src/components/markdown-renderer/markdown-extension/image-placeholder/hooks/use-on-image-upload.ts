@@ -8,7 +8,6 @@ import { useRendererToEditorCommunicator } from '../../../../editor-page/render-
 import { useCallback } from 'react'
 import { CommunicationMessageType } from '../../../../render-page/window-post-message-communicator/rendering-message'
 import { Logger } from '../../../../../utils/logger'
-import { parseSizeNumber } from '../build-placeholder-size-css'
 
 const log = new Logger('useOnImageUpload')
 
