@@ -32,7 +32,7 @@ export const doLocalLogin = async (username: string, password: string): Promise<
     throw new Error(AuthError.INVALID_CREDENTIALS)
   }
 
-  expectResponseCode(response)
+  expectResponseCode(response, 201)
 }
 
 /**

@@ -46,7 +46,7 @@ export interface AuthProvidersState {
   google: boolean
   saml: boolean
   oauth2: boolean
-  internal: boolean
+  local: boolean
   openid: boolean
 }
 

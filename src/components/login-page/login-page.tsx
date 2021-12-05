@@ -70,9 +70,9 @@ export const LoginPage: React.FC = () => {
     <Fragment>
       <div className='my-3'>
         <Row className='h-100 flex justify-content-center'>
-          <ShowIf condition={authProviders.internal || authProviders.ldap || authProviders.openid}>
+          <ShowIf condition={authProviders.local || authProviders.ldap || authProviders.openid}>
             <Col xs={12} sm={10} lg={4}>
-              <ShowIf condition={authProviders.internal}>
+              <ShowIf condition={authProviders.local}>
                 <ViaLocal />
               </ShowIf>
               <ShowIf condition={authProviders.ldap}>

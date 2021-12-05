@@ -5,7 +5,7 @@
  */
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 
-export const INTERACTIVE_LOGIN_METHODS = ['internal', 'ldap', 'openid']
+export const INTERACTIVE_LOGIN_METHODS = ['local', 'ldap', 'openid']
 
 export enum AuthError {
   INVALID_CREDENTIALS = 'invalidCredentials',
@@ -30,5 +30,5 @@ export const doLogout = async (): Promise<void> => {
     method: 'DELETE'
   })
 
-  expectResponseCode(response, 204)
+  expectResponseCode(response)
 }

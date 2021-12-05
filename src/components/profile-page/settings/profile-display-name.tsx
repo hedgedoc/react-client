@@ -18,7 +18,7 @@ import { showErrorNotification } from '../../../redux/ui-notifications/methods'
  */
 export const ProfileDisplayName: React.FC = () => {
   const { t } = useTranslation()
-  const userName = useApplicationState((state) => state.user?.name)
+  const userName = useApplicationState((state) => state.user?.displayName)
   const [displayName, setDisplayName] = useState('')
 
   useEffect(() => {
