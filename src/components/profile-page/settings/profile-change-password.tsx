@@ -8,7 +8,7 @@ import type { ChangeEvent, FormEvent } from 'react'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { changePassword } from '../../../api/me'
+import { doLocalPasswordChange } from '../../../api/auth/local'
 import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 const REGEX_VALID_PASSWORD = /^[^\s].{5,}$/
@@ -45,7 +45,7 @@ export const ProfileChangePassword: React.FC = () => {
   const onSubmitPasswordChange = useCallback(
     (event: FormEvent) => {
       event.preventDefault()
-      changePassword(oldPassword, newPassword).catch(showErrorNotification('profile.changePassword.failed'))
+      doLocalPasswordChange(oldPassword, newPassword).catch(showErrorNotification('profile.changePassword.failed'))
     },
     [oldPassword, newPassword]
   )
