@@ -119,8 +119,8 @@
     "codemirror": "5.64.0",
     "copy-webpack-plugin": "6.4.1",
     "cross-env": "7.0.3",
-    "cypress": "7.7.0",
-    "cypress-commands": "1.1.0",
+    "cypress": "9.1.1",
+    "cypress-commands": "2.0.1",
     "cypress-file-upload": "5.0.8",
     "d3-graphviz": "3.2.0",
     "diff": "5.0.0",
@@ -201,6 +201,6 @@
     "words-count": "2.0.2"
   },
   "resolutions": {
-    "cypress": "7.7.0"
+    "cypress": "9.1.1"
   }
 }
