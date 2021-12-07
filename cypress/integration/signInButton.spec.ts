@@ -14,7 +14,7 @@ const authProvidersDisabled = {
   google: false,
   saml: false,
   oauth2: false,
-  internal: false,
+  local: false,
   openid: false
 }
 
@@ -50,7 +50,7 @@ describe('When logged-out ', () => {
   describe('and an interactive auth-provider is enabled, ', () => {
     it('sign-in button points to login route: internal', () => {
       initLoggedOutTestWithCustomAuthProviders(cy, {
-        internal: true
+        local: true
       })
       cy.getById('sign-in-button').should('be.visible').should('have.attr', 'href', '/login')
     })
@@ -78,7 +78,7 @@ describe('When logged-out ', () => {
       cy.getById('sign-in-button')
         .should('be.visible')
         // The absolute URL is used because it is defined as API base URL absolute.
-        .should('have.attr', 'href', '/mock-backend/api/private/auth/saml')
+        .should('have.attr', 'href', '/mock-backend/auth/saml')
     })
   })
 
@@ -96,7 +96,7 @@ describe('When logged-out ', () => {
     it('sign-in button points to login route', () => {
       initLoggedOutTestWithCustomAuthProviders(cy, {
         saml: true,
-        internal: true
+        local: true
       })
       cy.getById('sign-in-button').should('be.visible').should('have.attr', 'href', '/login')
     })

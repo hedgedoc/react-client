@@ -25,7 +25,7 @@ export const authProviders = {
   google: true,
   saml: true,
   oauth2: true,
-  internal: true,
+  local: true,
   openid: true
 }
 
