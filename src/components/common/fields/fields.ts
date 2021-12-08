@@ -6,7 +6,7 @@
 
 import type { ChangeEvent } from 'react'
 
-export interface RegisterFieldProps {
+export interface CommonFieldProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   value: string
 }

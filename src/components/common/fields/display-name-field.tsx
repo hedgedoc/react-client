@@ -5,21 +5,26 @@
  */
 
 import React, { useMemo } from 'react'
-import type { RegisterFieldProps } from './fields'
+import type { CommonFieldProps } from './fields'
 import { Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
+
+interface DisplayNameFieldProps extends CommonFieldProps {
+  initialValue?: string
+}
 
 /**
  * Renders an input field for the display name when registering.
  * @param onChange Hook that is called when the entered display name changes.
  * @param value The currently entered display name.
+ * @param initialValue The initial input field value.
  */
-export const DisplayNameField: React.FC<RegisterFieldProps> = ({ onChange, value }) => {
+export const DisplayNameField: React.FC<DisplayNameFieldProps> = ({ onChange, value, initialValue }) => {
   const { t } = useTranslation()
 
   const isValid = useMemo(() => {
-    return value.trim() !== ''
-  }, [value])
+    return value.trim() !== '' && value !== initialValue
+  }, [value, initialValue])
 
   return (
     <Form.Group>

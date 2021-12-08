@@ -5,11 +5,11 @@
  */
 
 import React, { useMemo } from 'react'
-import type { RegisterFieldProps } from './fields'
+import type { CommonFieldProps } from './fields'
 import { Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 
-interface PasswordAgainFieldProps extends RegisterFieldProps {
+interface PasswordAgainFieldProps extends CommonFieldProps {
   password: string
 }
 
@@ -22,8 +22,12 @@ interface PasswordAgainFieldProps extends RegisterFieldProps {
 export const PasswordAgainField: React.FC<PasswordAgainFieldProps> = ({ onChange, value, password }) => {
   const { t } = useTranslation()
 
+  const isInvalid = useMemo(() => {
+    return value !== '' && password !== value
+  }, [password, value])
+
   const isValid = useMemo(() => {
-    return value.trim() !== '' && value === password
+    return password !== '' && password === value
   }, [password, value])
 
   return (
@@ -34,7 +38,7 @@ export const PasswordAgainField: React.FC<PasswordAgainFieldProps> = ({ onChange
       <Form.Control
         type='password'
         size='sm'
-        isInvalid={!isValid}
+        isInvalid={isInvalid}
         isValid={isValid}
         onChange={onChange}
         placeholder={t('login.register.passwordAgain')}

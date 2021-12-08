@@ -14,10 +14,10 @@ import { useApplicationState } from '../../hooks/common/use-application-state'
 import { fetchAndSetUser } from '../login-page/auth/utils'
 import { RegisterError as RegisterErrorType } from '../../api/auth'
 import { RegisterInfos } from './register-infos/register-infos'
-import { UsernameField } from './fields/username-field'
-import { DisplayNameField } from './fields/display-name-field'
-import { PasswordField } from './fields/password-field'
-import { PasswordAgainField } from './fields/password-again-field'
+import { UsernameField } from '../common/fields/username-field'
+import { DisplayNameField } from '../common/fields/display-name-field'
+import { NewPasswordField } from '../common/fields/new-password-field'
+import { PasswordAgainField } from '../common/fields/password-again-field'
 import { useOnInputChange } from '../../hooks/common/use-on-input-change'
 import { RegisterError } from './register-error/register-error'
 
@@ -86,7 +86,7 @@ export const RegisterPage: React.FC = () => {
               <Form onSubmit={doRegisterSubmit}>
                 <UsernameField onChange={onUsernameChange} value={username} />
                 <DisplayNameField onChange={onDisplayNameChange} value={displayName} />
-                <PasswordField onChange={onPasswordChange} value={password} />
+                <NewPasswordField onChange={onPasswordChange} value={password} />
                 <PasswordAgainField password={password} onChange={onPasswordAgainChange} value={passwordAgain} />
 
                 <RegisterInfos />
