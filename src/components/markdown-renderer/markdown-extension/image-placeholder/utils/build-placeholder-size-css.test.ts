@@ -47,10 +47,10 @@ describe('calculatePlaceholderContainerSize', () => {
     expect(calculatePlaceholderContainerSize(undefined, 100)).toStrictEqual([250, 100])
   })
   it('width "0" | height 0', () => {
-    expect(calculatePlaceholderContainerSize("0", 0)).toStrictEqual([0, 0])
+    expect(calculatePlaceholderContainerSize('0', 0)).toStrictEqual([0, 0])
   })
   it('width 0 | height "0"', () => {
-    expect(calculatePlaceholderContainerSize(0, "0")).toStrictEqual([0, 0])
+    expect(calculatePlaceholderContainerSize(0, '0')).toStrictEqual([0, 0])
   })
   it('width -345 | height 234', () => {
     expect(calculatePlaceholderContainerSize(-345, 234)).toStrictEqual([-345, 234])
@@ -59,9 +59,9 @@ describe('calculatePlaceholderContainerSize', () => {
     expect(calculatePlaceholderContainerSize(345, -234)).toStrictEqual([345, -234])
   })
   it('width "-345" | height -234', () => {
-    expect(calculatePlaceholderContainerSize("-345", -234)).toStrictEqual([-345, -234])
+    expect(calculatePlaceholderContainerSize('-345', -234)).toStrictEqual([-345, -234])
   })
   it('width -345 | height "-234"', () => {
-    expect(calculatePlaceholderContainerSize(-345, "-234")).toStrictEqual([-345, -234])
+    expect(calculatePlaceholderContainerSize(-345, '-234')).toStrictEqual([-345, -234])
   })
 })
