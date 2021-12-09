@@ -206,7 +206,8 @@
               "withoutDescription": "Uploading file...{{fileName}}",
               "withDescription": "Uploading file...{{fileName}} - {{description}}"
             },
-            "dropImage": "Drop Image to insert"
+            "dropImage": "Drop Image to insert",
+            "failed": "Error while uploading {{fileName}}"
         },
         "untitledNote": "Untitled",
         "placeholder": "← Start by entering a title here\n===\nVisit the features page if you don't know what to do.\nHappy hacking :)",

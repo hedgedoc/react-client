@@ -29,7 +29,7 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
     case NoteDetailsActionType.UPDATE_TASK_LIST_CHECKBOX:
       return buildStateFromTaskListUpdate(state, action.changedLine, action.checkboxChecked)
     case NoteDetailsActionType.REPLACE_IN_MARKDOWN_CONTENT:
-      return buildStateChangeFromDocumentContentReplacement(state, action.placeholder, action.replacement)
+      return buildStateFromDocumentContentReplacement(state, action.placeholder, action.replacement)
     default:
       return state
   }
@@ -43,7 +43,7 @@ export const NoteDetailsReducer: Reducer<NoteDetails, NoteDetailsActions> = (
  * @param replacement The string that should replace the replaceable
  * @return An updated {@link NoteDetails} redux state
  */
-const buildStateChangeFromDocumentContentReplacement = (
+const buildStateFromDocumentContentReplacement = (
   state: NoteDetails,
   replaceable: string,
   replacement: string

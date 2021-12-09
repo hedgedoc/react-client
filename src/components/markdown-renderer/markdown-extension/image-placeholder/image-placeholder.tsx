@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './image-placeholder.scss'
-import { usePlaceholderSizeStyle } from './build-placeholder-size-css'
+import { usePlaceholderSizeStyle } from './utils/build-placeholder-size-css'
 import { acceptedMimeTypes } from '../../../common/upload-image-mimetypes'
 import { useOnImageUpload } from './hooks/use-on-image-upload'
 

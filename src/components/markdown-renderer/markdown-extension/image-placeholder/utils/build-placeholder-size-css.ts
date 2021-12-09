@@ -7,7 +7,7 @@
 import type { CSSProperties } from 'react'
 import { useMemo } from 'react'
 
-const regex = /^([0-9]{1-4})px$/
+const regex = /^(-?[0-9]+)px$/
 
 /**
  * Inspects the given value and checks if it is a number or a pixel size string.
@@ -24,10 +24,10 @@ export const parseSizeNumber = (value: string | number | undefined): number | un
     return value
   }
 
-  if (regex.test(value)) {
-    const regexMatches = regex.exec(value)
-    if (regexMatches && regexMatches.length === 1) {
-      return parseInt(regexMatches[0])
+  const regexMatches = regex.exec(value)
+  if (regexMatches !== null) {
+    if (regexMatches && regexMatches.length > 1) {
+      return parseInt(regexMatches[1])
     } else {
       return undefined
     }
@@ -66,22 +66,4 @@ export const calculatePlaceholderContainerSize = (
   } else {
     return [defaultWidth, defaultHeight]
   }
-}
-
-/**
- * Creates the style attribute for a placeholder container with width and height.
- *
- * @param width The wanted width
- * @param height The wanted height
- * @return The created style attributes
- */
-export const usePlaceholderSizeStyle = (width?: string | number, height?: string | number): CSSProperties => {
-  return useMemo(() => {
-    const [convertedWidth, convertedHeight] = calculatePlaceholderContainerSize(width, height)
-
-    return {
-      width: `${convertedWidth}px`,
-      height: `${convertedHeight}px`
-    }
-  }, [height, width])
 }

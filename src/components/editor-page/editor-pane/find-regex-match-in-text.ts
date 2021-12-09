@@ -12,7 +12,7 @@
  * @param matchIndex The index of the match to find
  * @return The regex match of the found occurrence or undefined if no match could be found
  */
-export const findRegexMatchInLine = (line: string, regex: RegExp, matchIndex: number): RegExpMatchArray | undefined => {
+export const findRegexMatchInText = (line: string, regex: RegExp, matchIndex: number): RegExpMatchArray | undefined => {
   if (matchIndex < 0) {
     return
   }

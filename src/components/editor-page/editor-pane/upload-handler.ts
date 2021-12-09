@@ -11,6 +11,7 @@ import { supportedMimeTypes } from '../../common/upload-image-mimetypes'
 import { Logger } from '../../../utils/logger'
 import { replaceInMarkdownContent } from '../../../redux/note-details/methods'
 import { t } from 'i18next'
+import { showErrorNotification } from '../../../redux/ui-notifications/methods'
 
 const log = new Logger('File Uploader Handler')
 
@@ -56,7 +57,7 @@ export const handleUpload = (
       insertCode(`![${imageDescription ?? ''}](${link}${additionalUrlText ?? ''})`)
     })
     .catch((error: Error) => {
-      log.error('error while uploading file', error)
+      showErrorNotification('editor.upload.failed', { fileName: file.name })(error)
       insertCode(`![upload of ${file.name} failed]()`)
     })
 }

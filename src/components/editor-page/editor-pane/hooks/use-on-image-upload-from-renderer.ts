@@ -12,7 +12,7 @@ import { store } from '../../../../redux'
 import { handleUpload } from '../upload-handler'
 import type { Editor, Position } from 'codemirror'
 import { Logger } from '../../../../utils/logger'
-import { findRegexMatchInLine } from '../find-regex-match-in-line'
+import { findRegexMatchInText } from '../find-regex-match-in-text'
 import Optional from 'optional-js'
 
 const log = new Logger('useOnImageUpload')
@@ -89,7 +89,7 @@ const findImagePlaceholderInLine = (
   lineIndex: number,
   replacementIndexInLine = 0
 ): ExtractResult | undefined => {
-  const startOfImageTag = findRegexMatchInLine(line, imageWithPlaceholderLinkRegex, replacementIndexInLine)
+  const startOfImageTag = findRegexMatchInText(line, imageWithPlaceholderLinkRegex, replacementIndexInLine)
   if (startOfImageTag === undefined || startOfImageTag.index === undefined) {
     return
   }
