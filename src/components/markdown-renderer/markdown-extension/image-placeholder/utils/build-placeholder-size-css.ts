@@ -4,9 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import type { CSSProperties } from 'react'
-import { useMemo } from 'react'
-
 const regex = /^(-?[0-9]+)px$/
 
 /**

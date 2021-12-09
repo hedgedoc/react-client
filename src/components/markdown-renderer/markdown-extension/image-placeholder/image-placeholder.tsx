@@ -9,9 +9,9 @@ import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import './image-placeholder.scss'
-import { usePlaceholderSizeStyle } from './utils/build-placeholder-size-css'
 import { acceptedMimeTypes } from '../../../common/upload-image-mimetypes'
 import { useOnImageUpload } from './hooks/use-on-image-upload'
+import { usePlaceholderSizeStyle } from './hooks/use-placeholder-size-style'
 
 export interface PlaceholderImageFrameProps {
   alt?: string

@@ -8,12 +8,9 @@ import type { Editor, Position } from 'codemirror'
 import { uploadFile } from '../../../api/media'
 import { store } from '../../../redux'
 import { supportedMimeTypes } from '../../common/upload-image-mimetypes'
-import { Logger } from '../../../utils/logger'
 import { replaceInMarkdownContent } from '../../../redux/note-details/methods'
 import { t } from 'i18next'
 import { showErrorNotification } from '../../../redux/ui-notifications/methods'
-
-const log = new Logger('File Uploader Handler')
 
 /**
  * Uploads the given file and writes the progress into the given editor at the given cursor positions.

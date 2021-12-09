@@ -5,8 +5,8 @@
  */
 
 import React from 'react'
-import { usePlaceholderSizeStyle } from '../image-placeholder/utils/build-placeholder-size-css'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
+import { usePlaceholderSizeStyle } from '../image-placeholder/hooks/use-placeholder-size-style'
 
 export interface PlaceholderImageFrameProps {
   width?: string | number
