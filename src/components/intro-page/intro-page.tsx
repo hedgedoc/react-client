@@ -45,7 +45,7 @@ export const IntroPage: React.FC = () => {
         <ShowIf condition={!!introPageContent}>
           <RenderIframe
             frameClasses={'w-100 overflow-y-hidden'}
-            markdownContent={introPageContent as string}
+            markdownContentLines={introPageContent as string[]}
             rendererType={RendererType.INTRO}
             forcedDarkMode={true}
           />

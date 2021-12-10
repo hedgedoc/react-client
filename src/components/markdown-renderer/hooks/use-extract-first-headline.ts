@@ -9,7 +9,7 @@ import { useCallback, useEffect, useRef } from 'react'
 
 export const useExtractFirstHeadline = (
   documentElement: React.RefObject<HTMLDivElement>,
-  content: string | undefined,
+  markdownContentLines: string[] | undefined,
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
 ): void => {
   const extractInnerText = useCallback((node: ChildNode | null): string => {
@@ -46,5 +46,5 @@ export const useExtractFirstHeadline = (
         onFirstHeadingChange(headingText)
       }
     }
-  }, [documentElement, extractInnerText, onFirstHeadingChange, content])
+  }, [documentElement, extractInnerText, onFirstHeadingChange, markdownContentLines])
 }
