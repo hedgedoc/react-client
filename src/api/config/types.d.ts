@@ -47,7 +47,6 @@ export interface AuthProvidersState {
   saml: boolean
   oauth2: boolean
   local: boolean
-  openid: boolean
 }
 
 export interface CustomAuthNames {

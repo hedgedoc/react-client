@@ -5,7 +5,7 @@
  */
 import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
 
-export const INTERACTIVE_LOGIN_METHODS = ['local', 'ldap', 'openid']
+export const INTERACTIVE_LOGIN_METHODS = ['local', 'ldap']
 
 export enum AuthError {
   INVALID_CREDENTIALS = 'invalidCredentials',

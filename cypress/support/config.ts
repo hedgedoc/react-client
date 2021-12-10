@@ -25,8 +25,7 @@ export const authProviders = {
   google: true,
   saml: true,
   oauth2: true,
-  local: true,
-  openid: true
+  local: true
 }
 
 export const config = {

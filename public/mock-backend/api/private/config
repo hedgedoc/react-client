@@ -10,8 +10,7 @@
     "google": true,
     "saml": true,
     "oauth2": true,
-    "internal": true,
-    "openid": true
+    "internal": true
   },
   "allowRegister": true,
   "branding": {

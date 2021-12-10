@@ -12,7 +12,6 @@ import { ShowIf } from '../common/show-if/show-if'
 import { ViaLocal } from './auth/via-local'
 import { ViaLdap } from './auth/via-ldap'
 import { OneClickType, ViaOneClick } from './auth/via-one-click'
-import { ViaOpenId } from './auth/via-openid'
 import { useApplicationState } from '../../hooks/common/use-application-state'
 
 /**
@@ -70,16 +69,13 @@ export const LoginPage: React.FC = () => {
     <Fragment>
       <div className='my-3'>
         <Row className='h-100 flex justify-content-center'>
-          <ShowIf condition={authProviders.local || authProviders.ldap || authProviders.openid}>
+          <ShowIf condition={authProviders.local || authProviders.ldap}>
             <Col xs={12} sm={10} lg={4}>
               <ShowIf condition={authProviders.local}>
                 <ViaLocal />
               </ShowIf>
               <ShowIf condition={authProviders.ldap}>
                 <ViaLdap />
-              </ShowIf>
-              <ShowIf condition={authProviders.openid}>
-                <ViaOpenId />
               </ShowIf>
             </Col>
           </ShowIf>

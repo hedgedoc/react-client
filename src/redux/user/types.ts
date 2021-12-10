@@ -40,8 +40,7 @@ export enum LoginProvider {
   SAML = 'saml',
   OAUTH2 = 'oauth2',
   LOCAL = 'local',
-  LDAP = 'ldap',
-  OPENID = 'openid'
+  LDAP = 'ldap'
 }
 
 export type OptionalUserState = UserState | null

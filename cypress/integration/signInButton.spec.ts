@@ -14,8 +14,7 @@ const authProvidersDisabled = {
   google: false,
   saml: false,
   oauth2: false,
-  local: false,
-  openid: false
+  local: false
 }
 
 const initLoggedOutTestWithCustomAuthProviders = (
@@ -58,13 +57,6 @@ describe('When logged-out ', () => {
     it('sign-in button points to login route: ldap', () => {
       initLoggedOutTestWithCustomAuthProviders(cy, {
         ldap: true
-      })
-      cy.getById('sign-in-button').should('be.visible').should('have.attr', 'href', '/login')
-    })
-
-    it('sign-in button points to login route: openid', () => {
-      initLoggedOutTestWithCustomAuthProviders(cy, {
-        openid: true
       })
       cy.getById('sign-in-button').should('be.visible').should('have.attr', 'href', '/login')
     })
