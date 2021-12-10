@@ -28,17 +28,18 @@ export const IntroPage: React.FC = () => {
   const introContent = useMemo(() => {
     if (introPageContent === undefined) {
       return
+    } else {
+      return !rendererReady ? (
+        <WaitSpinner />
+      ) : (
+        <RenderIframe
+          frameClasses={'w-100 overflow-y-hidden'}
+          markdownContentLines={introPageContent}
+          rendererType={RendererType.INTRO}
+          forcedDarkMode={true}
+        />
+      )
     }
-    return !rendererReady ? (
-      <WaitSpinner />
-    ) : (
-      <RenderIframe
-        frameClasses={'w-100 overflow-y-hidden'}
-        markdownContentLines={introPageContent}
-        rendererType={RendererType.INTRO}
-        forcedDarkMode={true}
-      />
-    )
   }, [introPageContent, rendererReady])
 
   return (
