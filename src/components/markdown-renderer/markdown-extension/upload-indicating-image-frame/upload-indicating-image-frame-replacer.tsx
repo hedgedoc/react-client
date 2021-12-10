@@ -9,7 +9,7 @@ import { ComponentReplacer } from '../../replace-components/component-replacer'
 import type { Element } from 'domhandler'
 import { UploadIndicatingFrame } from './upload-indicating-frame'
 
-const uploadIdRegex = /^upload-(.*)$/
+const uploadIdRegex = /^upload-(.+)$/
 
 /**
  * Replaces an image tag whose url is an upload-id with the {@link UploadIndicatingFrame upload indicating frame}.
