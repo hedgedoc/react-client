@@ -25,13 +25,15 @@ export const IntroPage: React.FC = () => {
   const introPageContent = useIntroPageContent()
   const rendererReady = useApplicationState((state) => state.rendererStatus.rendererReady)
 
+  const spinner = useMemo(() => {
+    if (!rendererReady && introPageContent !== undefined) {
+      return <WaitSpinner />
+    }
+  }, [introPageContent, rendererReady])
+
   const introContent = useMemo(() => {
-    if (introPageContent === undefined) {
-      return
-    } else {
-      return !rendererReady ? (
-        <WaitSpinner />
-      ) : (
+    if (introPageContent !== undefined) {
+      return (
         <RenderIframe
           frameClasses={'w-100 overflow-y-hidden'}
           markdownContentLines={introPageContent}
@@ -40,7 +42,7 @@ export const IntroPage: React.FC = () => {
         />
       )
     }
-  }, [introPageContent, rendererReady])
+  }, [introPageContent])
 
   return (
     <EditorToRendererCommunicatorContextProvider>
@@ -55,6 +57,7 @@ export const IntroPage: React.FC = () => {
           <Branding delimiter={false} />
         </div>
         <CoverButtons />
+        {spinner}
         {introContent}
         <hr className={'mb-5'} />
       </div>
