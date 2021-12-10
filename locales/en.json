@@ -34,6 +34,9 @@
         },
         "clickShield": {
           "previewHoverText": "Click to load content from {{target}}"
+        },
+        "uploadIndicator": {
+          "uploadMessage": "Uploading file"
         }
     },
     "landing": {
@@ -203,8 +206,8 @@
     "editor": {
         "upload": {
             "uploadFile": {
-              "withoutDescription": "Uploading file...{{fileName}}",
-              "withDescription": "Uploading file...{{fileName}} - {{description}}"
+              "withoutDescription": "Uploading file {{fileName}}",
+              "withDescription": "Uploading file {{fileName}} - {{description}}"
             },
             "dropImage": "Drop Image to insert",
             "failed": "Error while uploading {{fileName}}"
