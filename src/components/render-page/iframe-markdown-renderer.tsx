@@ -20,8 +20,8 @@ import { initialState } from '../../redux/note-details/initial-state'
 import type { RendererFrontmatterInfo } from '../../redux/note-details/types/note-details'
 
 export const IframeMarkdownRenderer: React.FC = () => {
-  const [markdownContentLines, setMarkdownContentLines] = useState<string[]>(() => ([]))
-  const [scrollState, setScrollState] = useState<ScrollState>(() =>({ firstLineInView: 1, scrolledPercentage: 0 }))
+  const [markdownContentLines, setMarkdownContentLines] = useState<string[]>([])
+  const [scrollState, setScrollState] = useState<ScrollState>({ firstLineInView: 1, scrolledPercentage: 0 })
   const [baseConfiguration, setBaseConfiguration] = useState<BaseConfiguration | undefined>(undefined)
   const [frontmatterInfo, setFrontmatterInfo] = useState<RendererFrontmatterInfo>(initialState.frontmatterRendererInfo)
 

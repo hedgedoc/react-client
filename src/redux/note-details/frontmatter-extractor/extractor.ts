@@ -12,7 +12,7 @@ const FRONTMATTER_END_REGEX = /^(?:-{3,}|\.{3,})$/
  * Extracts a frontmatter block from a given multiline string.
  * A valid frontmatter block requires the content to start with a line containing at least three dashes.
  * The block is terminated by a line containing the same amount of dashes or dots as the first line.
- * @param content The multiline string from which the frontmatter should be extracted.
+ * @param lines The lines from which the frontmatter should be extracted.
  * @return { isPresent } false if no frontmatter block could be found, true if a block was found.
  *         { rawFrontmatterText } if a block was found, this property contains the extracted text without the fencing.
  *         { frontmatterLines }   if a block was found, this property contains the number of lines to skip from the
