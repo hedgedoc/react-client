@@ -136,6 +136,7 @@ describe('History', () => {
     })
 
     it('works with valid file', () => {
+      cy.getById('import-history-file-button').should('be.visible')
       cy.getById('import-history-file-input').attachFixture({
         filePath: 'history.json',
         mimeType: 'application/json'
@@ -144,6 +145,7 @@ describe('History', () => {
     })
 
     it('fails on invalid file', () => {
+      cy.getById('import-history-file-button').should('be.visible')
       cy.getById('import-history-file-input').attachFixture({
         filePath: 'invalid-history.txt',
         mimeType: 'text/plain'
@@ -152,11 +154,13 @@ describe('History', () => {
     })
 
     it('works when selecting two files with the same name', () => {
+      cy.getById('import-history-file-button').should('be.visible')
       cy.getById('import-history-file-input').attachFixture({
         filePath: 'history.json',
         mimeType: 'application/json'
       })
       cy.getById('history-entry-title').should('have.length', 1).contains('cy-Test')
+      cy.getById('import-history-file-button').should('be.visible')
       cy.getById('import-history-file-input').attachFixture({
         filePath: 'history-2.json',
         fileName: 'history.json',

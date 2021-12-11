@@ -124,7 +124,8 @@ export const ImportHistoryButton: React.FC = () => {
       <Button
         variant={'light'}
         title={t('landing.history.toolbar.import')}
-        onClick={() => uploadInput.current?.click()}>
+        onClick={() => uploadInput.current?.click()}
+        {...cypressId('import-history-file-button')}>
         <ForkAwesomeIcon icon='upload' />
       </Button>
     </div>

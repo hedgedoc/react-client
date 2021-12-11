@@ -11,6 +11,7 @@ describe('Import markdown file', () => {
 
   it('import on blank note', () => {
     cy.getById('menu-import').click()
+    cy.getById('menu-import-markdown-button').should('be.visible')
     cy.getById('menu-import-markdown-input').attachFixture({
       filePath: 'import.md',
       mimeType: 'text/markdown'
@@ -25,6 +26,7 @@ describe('Import markdown file', () => {
   it('import on note with content', () => {
     cy.setCodemirrorContent('test\nabc')
     cy.getById('menu-import').click()
+    cy.getById('menu-import-markdown-button').should('be.visible')
     cy.getById('menu-import-markdown-input').attachFixture({
       filePath: 'import.md',
       mimeType: 'text/markdown'
