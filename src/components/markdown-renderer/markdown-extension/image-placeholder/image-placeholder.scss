@@ -14,6 +14,7 @@
   }
 
   border-radius: 3px;
+  transition: background-color 50ms, color 50ms;
 
   .altText {
     text-overflow: ellipsis;

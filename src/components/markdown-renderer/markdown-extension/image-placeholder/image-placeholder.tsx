@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
@@ -44,6 +44,8 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
   const fileInputReference = useRef<HTMLInputElement>(null)
   const onImageUpload = useOnImageUpload(lineIndex, placeholderIndexInLine)
 
+  const [showDragStatus, setShowDragStatus] = useState(false)
+
   const onDropHandler = useCallback(
     (event: React.DragEvent<HTMLSpanElement>) => {
       event.preventDefault()
@@ -54,7 +56,14 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
     [onImageUpload]
   )
 
-  const onDragOverHandler = useCallback((event: React.DragEvent<HTMLSpanElement>) => event.preventDefault(), [])
+  const onDragOverHandler = useCallback((event: React.DragEvent<HTMLSpanElement>) => {
+    event.preventDefault()
+    setShowDragStatus(true)
+  }, [])
+
+  const onDragLeave = useCallback(() => {
+    setShowDragStatus(false)
+  }, [])
 
   const onChangeHandler = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,12 +79,15 @@ export const ImagePlaceholder: React.FC<PlaceholderImageFrameProps> = ({
   const uploadButtonClicked = useCallback(() => fileInputReference.current?.click(), [])
   const containerStyle = usePlaceholderSizeStyle(width, height)
 
+  const containerDragClasses = useMemo(() => (showDragStatus ? 'bg-primary text-white' : 'text-dark'), [showDragStatus])
+
   return (
     <span
-      className='image-drop d-inline-flex flex-column align-items-center text-dark p-1'
+      className={`image-drop d-inline-flex flex-column align-items-center ${containerDragClasses} p-1`}
       style={containerStyle}
       onDrop={onDropHandler}
-      onDragOver={onDragOverHandler}>
+      onDragOver={onDragOverHandler}
+      onDragLeave={onDragLeave}>
       <input
         type='file'
         className='d-none'
