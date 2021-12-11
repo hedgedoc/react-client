@@ -44,8 +44,7 @@ export const UploadImageButton: React.FC<UploadImageButtonProps> = ({ editor }) 
       <Button
         variant='light'
         onClick={buttonClick}
-        title={t('editor.editorToolbar.uploadImage')}
-        {...cypressId('editor-toolbar-upload-image-button')}>
+        title={t('editor.editorToolbar.uploadImage')}>
         <ForkAwesomeIcon icon={'upload'} />
       </Button>
       <UploadInput

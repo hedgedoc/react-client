@@ -40,7 +40,6 @@ describe('File upload', () => {
       )
     })
     it('via button', () => {
-      cy.getById('editor-toolbar-upload-image-button').click()
       cy.getById('editor-toolbar-upload-image-input').attachFixture({
         filePath: 'demo.png',
         mimeType: 'image/png'
@@ -86,12 +85,9 @@ describe('File upload', () => {
         statusCode: 400
       }
     )
-    cy.getById('editor-toolbar-upload-image-button').click()
-    cy.fixture('demo.png').then(() => {
-      cy.getById('editor-toolbar-upload-image-input').attachFixture({
-        filePath: 'demo.png',
-        mimeType: 'image/png'
-      })
+    cy.getById('editor-toolbar-upload-image-input').attachFixture({
+      filePath: 'demo.png',
+      mimeType: 'image/png'
     })
     cy.get('.CodeMirror-activeline').contains('![upload of demo.png failed]()')
   })
