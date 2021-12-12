@@ -56,13 +56,14 @@ export const useExtractFirstHeadline = (
   const lastFirstHeading = useRef<string | undefined>()
 
   return useCallback(() => {
-    if (onFirstHeadingChange && documentElement.current) {
-      const firstHeading = documentElement.current.getElementsByTagName('h1').item(0)
-      const headingText = extractInnerText(firstHeading).trim()
-      if (headingText !== lastFirstHeading.current) {
-        lastFirstHeading.current = headingText
-        onFirstHeadingChange(headingText)
-      }
+    if (!onFirstHeadingChange || !documentElement.current) {
+      return
+    }
+    const firstHeading = documentElement.current.getElementsByTagName('h1').item(0)
+    const headingText = extractInnerText(firstHeading).trim()
+    if (headingText !== lastFirstHeading.current) {
+      lastFirstHeading.current = headingText
+      onFirstHeadingChange(headingText)
     }
   }, [documentElement, onFirstHeadingChange])
 }
