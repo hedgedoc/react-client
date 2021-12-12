@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { useConvertMarkdownToReactDom } from './hooks/use-convert-markdown-to-react-dom'
 import './markdown-renderer.scss'
 import { useExtractFirstHeadline } from './hooks/use-extract-first-headline'
@@ -51,11 +51,15 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
   const markdownReactDom = useConvertMarkdownToReactDom(markdownContentLines, extensions, newlinesAreBreaks)
   const revealStatus = useReveal(markdownContentLines, slideOptions)
 
-  useExtractFirstHeadline(
-    markdownBodyRef,
-    revealStatus === REVEAL_STATUS.INITIALISED ? markdownContentLines : undefined,
-    onFirstHeadingChange
-  )
+  useExtractFirstHeadline(markdownBodyRef, onFirstHeadingChange)
+
+  const extractFirstHeadline = useExtractFirstHeadline(markdownBodyRef, onFirstHeadingChange)
+  useEffect(() => {
+    if (revealStatus === REVEAL_STATUS.INITIALISED) {
+      extractFirstHeadline()
+    }
+  }, [extractFirstHeadline, markdownContentLines, revealStatus])
+
   useOnRefChange(tocAst, onTocChange)
 
   const slideShowDOM = useMemo(

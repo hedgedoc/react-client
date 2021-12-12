@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { useConvertMarkdownToReactDom } from './hooks/use-convert-markdown-to-react-dom'
 import './markdown-renderer.scss'
 import type { LineMarkerPosition } from './markdown-extension/linemarker/types'
@@ -57,7 +57,11 @@ export const DocumentMarkdownRenderer: React.FC<DocumentMarkdownRendererProps> =
     onLineMarkerPositionChanged,
     markdownBodyRef.current?.offsetTop ?? 0
   )
-  useExtractFirstHeadline(markdownBodyRef, markdownContentLines, onFirstHeadingChange)
+  const extractFirstHeadline = useExtractFirstHeadline(markdownBodyRef, onFirstHeadingChange)
+  useEffect(() => {
+    extractFirstHeadline()
+  }, [extractFirstHeadline, markdownContentLines])
+
   useOnRefChange(tocAst, onTocChange)
 
   return (
