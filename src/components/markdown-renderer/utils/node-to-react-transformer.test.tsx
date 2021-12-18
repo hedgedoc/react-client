@@ -29,6 +29,9 @@ describe('node to react transformer', () => {
     it('can replace an element nothing', () => {
       nodeToReactTransformer.setReplacers([
         {
+          reset() {
+            /*noop */
+          },
           replace(): NodeReplacement {
             return REPLACE_WITH_NOTHING
           }
@@ -41,6 +44,9 @@ describe('node to react transformer', () => {
     it('can translate an element with no matching replacer', () => {
       nodeToReactTransformer.setReplacers([
         {
+          reset() {
+            /*noop */
+          },
           replace(): NodeReplacement {
             return DO_NOT_REPLACE
           }
@@ -55,6 +61,9 @@ describe('node to react transformer', () => {
     it('can replace an element', () => {
       nodeToReactTransformer.setReplacers([
         {
+          reset() {
+            /*noop */
+          },
           replace(): NodeReplacement {
             return <div data-test2={'test2'} />
           }
