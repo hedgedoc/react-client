@@ -117,7 +117,7 @@
     "abcjs": "6.0.0-beta.35",
     "bootstrap": "4.6.1",
     "codemirror": "5.65.0",
-    "copy-webpack-plugin": "6.4.1",
+    "copy-webpack-plugin": "10.2.0",
     "cross-env": "7.0.3",
     "cypress": "9.2.0",
     "cypress-commands": "2.0.1",
