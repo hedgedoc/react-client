@@ -32,12 +32,6 @@ export const ApplicationLoader: React.FC = ({ children }) => {
     }
   }, [])
 
-  useEffect(() => {
-    if (isTestMode()) {
-      log.warn('This build runs in test mode. This means:\n - no sandboxed iframe')
-    }
-  }, [])
-
   if (loading) {
     return <LoadingScreen failedTaskName={error?.message} />
   } else {

@@ -27,6 +27,7 @@ import { useApplicationState } from '../../../hooks/common/use-application-state
 import { Logger } from '../../../utils/logger'
 import { useEffectOnRenderTypeChange } from './hooks/use-effect-on-render-type-change'
 import { cypressAttribute, cypressId } from '../../../utils/cypress-attribute'
+import { useRendererOrigin } from '../render-context/use-renderer-origin'
 
 export interface RenderIframeProps extends RendererProps {
   rendererType: RendererType
@@ -48,7 +49,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   forcedDarkMode
 }) => {
   const frameReference = useRef<HTMLIFrameElement>(null)
-  const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
+  const rendererOrigin = useRendererOrigin()
   const iframeCommunicator = useEditorToRendererCommunicator()
   const resetRendererReady = useCallback(() => {
     log.debug('Reset render status')

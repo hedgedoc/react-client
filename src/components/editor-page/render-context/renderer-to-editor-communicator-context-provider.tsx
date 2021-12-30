@@ -5,10 +5,9 @@
  */
 
 import React, { createContext, useContext, useEffect, useMemo } from 'react'
-import { useSelector } from 'react-redux'
 import { RendererToEditorCommunicator } from '../../render-page/window-post-message-communicator/renderer-to-editor-communicator'
 import { CommunicationMessageType } from '../../render-page/window-post-message-communicator/rendering-message'
-import type { ApplicationState } from '../../../redux/application-state'
+import { useEditorOrigin } from './use-editor-origin'
 
 const RendererToEditorCommunicatorContext = createContext<RendererToEditorCommunicator | undefined>(undefined)
 
@@ -27,7 +26,7 @@ export const useRendererToEditorCommunicator: () => RendererToEditorCommunicator
 }
 
 export const RendererToEditorCommunicatorContextProvider: React.FC = ({ children }) => {
-  const editorOrigin = useSelector((state: ApplicationState) => state.config.iframeCommunication.editorOrigin)
+  const editorOrigin = useEditorOrigin()
   const communicator = useMemo<RendererToEditorCommunicator>(() => {
     const newCommunicator = new RendererToEditorCommunicator()
     newCommunicator.setMessageTarget(window.parent, editorOrigin)
