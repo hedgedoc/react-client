@@ -15,6 +15,12 @@ import { deleteNote } from '../../../../api/notes'
 import { DeleteNoteModal } from './delete-note-modal'
 import { ShowIf } from '../../../common/show-if/show-if'
 
+/**
+ * Sidebar entry that can be used to delete the current note.
+ *
+ * @param hide {@code true} if the entry shouldn't be visible
+ * @param className Additional css class names for the sidebar entry
+ */
 export const DeleteNoteSidebarEntry: React.FC<SpecificSidebarEntryProps> = ({ hide, className }) => {
   useTranslation()
   const [showDialog, setShowDialog] = useState(false)
