@@ -64,6 +64,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
     [updateStatusBarInfo]
   )
 
+
   const onDrop = useOnEditorFileDrop()
   const codeMirrorOptions = useCodeMirrorOptions()
 
