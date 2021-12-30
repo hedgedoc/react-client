@@ -4,8 +4,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import LogoColor from './logo_color.svg'
+import { useTranslation } from 'react-i18next'
 
 export enum HedgeDocLogoSize {
   SMALL = 32,
@@ -18,5 +19,9 @@ export interface HedgeDocLogoProps {
 }
 
 export const HedgeDocLogo: React.FC<HedgeDocLogoProps> = ({ size = HedgeDocLogoSize.MEDIUM }) => {
-  return <LogoColor alt='logo' className={'w-auto'} title={'HedgeDoc logo with text'} style={{ height: size }} />
+  const { t } = useTranslation()
+  const altText = useMemo(() => t('app.icon'), [t])
+  const style = useMemo(() => ({ height: size }), [size])
+
+  return <LogoColor alt='logo' className={'w-auto'} title={altText} style={style} />
 }
