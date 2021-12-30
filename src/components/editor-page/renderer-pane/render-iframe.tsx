@@ -26,7 +26,7 @@ import { useSendScrollState } from './hooks/use-send-scroll-state'
 import { Logger } from '../../../utils/logger'
 import { useEffectOnRenderTypeChange } from './hooks/use-effect-on-render-type-change'
 import { cypressAttribute, cypressId } from '../../../utils/cypress-attribute'
-import { useRendererOrigin } from '../render-context/use-renderer-origin'
+import { ORIGIN_TYPE, useOriginFromConfig } from '../render-context/use-origin-from-config'
 
 export interface RenderIframeProps extends RendererProps {
   rendererType: RendererType
@@ -48,7 +48,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   forcedDarkMode
 }) => {
   const frameReference = useRef<HTMLIFrameElement>(null)
-  const rendererOrigin = useRendererOrigin()
+  const rendererOrigin = useOriginFromConfig(ORIGIN_TYPE.RENDERER)
   const iframeCommunicator = useEditorToRendererCommunicator()
   const resetRendererReady = useCallback(() => {
     log.debug('Reset render status')
