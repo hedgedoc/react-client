@@ -48,7 +48,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.build-cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: yarn install --frozen-lockfile --cached
 
       - name: Build test production build
         if: steps.build-cache.outputs.cache-hit != 'true'
