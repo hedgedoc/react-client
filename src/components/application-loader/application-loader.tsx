@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense } from 'react'
 import { useBackendBaseUrl } from '../../hooks/common/use-backend-base-url'
 import { createSetUpTaskList } from './initializers'
 import { LoadingScreen } from './loading-screen'
@@ -12,7 +12,6 @@ import { useCustomizeAssetsUrl } from '../../hooks/common/use-customize-assets-u
 import { Logger } from '../../utils/logger'
 import { useAsync } from 'react-use'
 import { ApplicationLoaderError } from './application-loader-error'
-import { isTestMode } from '../../utils/test-modes'
 
 const log = new Logger('ApplicationLoader')
 

@@ -6,7 +6,6 @@
 
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { useMemo } from 'react'
-import { isDevMode, isTestMode } from '../../../utils/test-modes'
 
 /**
  * Returns the url origin of the editor
