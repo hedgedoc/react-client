@@ -17,6 +17,7 @@ import { NoteDetailsReducer } from './note-details/reducer'
 import { UiNotificationReducer } from './ui-notifications/reducers'
 import { RendererStatusReducer } from './renderer-status/reducers'
 import type { ApplicationState } from './application-state'
+import { AwarenessReducer } from './awareness/reducers'
 
 export const allReducers: Reducer<ApplicationState> = combineReducers<ApplicationState>({
   user: UserReducer,
@@ -28,5 +29,6 @@ export const allReducers: Reducer<ApplicationState> = combineReducers<Applicatio
   darkMode: DarkModeConfigReducer,
   noteDetails: NoteDetailsReducer,
   uiNotifications: UiNotificationReducer,
-  rendererStatus: RendererStatusReducer
+  rendererStatus: RendererStatusReducer,
+  awareness: AwarenessReducer
 })

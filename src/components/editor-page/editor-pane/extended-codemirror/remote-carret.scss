@@ -1,0 +1,28 @@
+/*
+ * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+.remote-caret {
+  position: absolute;
+  border-left: 2px solid black;
+  height: 1em;
+  z-index: 9001;
+}
+.remote-caret > div {
+  position: relative;
+  top: -1.05em;
+  font-size: 1rem;
+  background-color: rgb(250, 129, 0);
+  font-family: "Source Sans Pro", Helvetica, Arial, "Twemoji", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  user-select: none;
+  color: white;
+  padding-left: 2px;
+  padding-right: 2px;
+  z-index: 9001;
+  white-space: nowrap;
+}

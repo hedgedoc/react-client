@@ -21,6 +21,7 @@ import { MaxLengthWarning } from './max-length-warning/max-length-warning'
 import { useCreateStatusBarInfo } from './hooks/use-create-status-bar-info'
 import { useOnImageUploadFromRenderer } from './hooks/use-on-image-upload-from-renderer'
 import { ExtendedCodemirror } from './extended-codemirror/extended-codemirror'
+import { useYjs } from './hooks/yjs/use-yjs'
 
 export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMakeScrollSource }) => {
   const markdownContent = useNoteMarkdownContent()
@@ -50,6 +51,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
 
   const onDrop = useOnEditorFileDrop()
   const codeMirrorOptions = useCodeMirrorOptions()
+  useYjs(editor)
 
   return (
     <div className={`d-flex flex-column h-100 position-relative`} onMouseEnter={onMakeScrollSource}>

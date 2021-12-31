@@ -14,6 +14,7 @@ import type { DarkModeConfig } from './dark-mode/types'
 import type { NoteDetails } from './note-details/types/note-details'
 import type { UiNotificationState } from './ui-notifications/types'
 import type { RendererStatus } from './renderer-status/types'
+import type { AwarenessState } from './awareness/types'
 
 export interface ApplicationState {
   user: OptionalUserState
@@ -26,4 +27,5 @@ export interface ApplicationState {
   noteDetails: NoteDetails
   uiNotifications: UiNotificationState
   rendererStatus: RendererStatus
+  awareness: AwarenessState
 }
