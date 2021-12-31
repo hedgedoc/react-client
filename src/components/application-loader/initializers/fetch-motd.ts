@@ -7,6 +7,7 @@
 import { setMotd } from '../../../redux/motd/methods'
 import { defaultFetchConfig } from '../../../api/utils'
 import { Logger } from '../../../utils/logger'
+import { customizeAssetsUrl } from '../../../utils/customize-assets-url'
 
 export const MOTD_LOCAL_STORAGE_KEY = 'motd.lastModified'
 const log = new Logger('Motd')
@@ -16,11 +17,9 @@ const log = new Logger('Motd')
  * If the motd hasn't changed since the last time then the global application state won't be changed.
  * To check if the motd has changed the "last modified" header from the request
  * will be compared to the saved value from the browser's local storage.
- *
- * @param customizeAssetsUrl the URL where the motd.md can be found.
  * @return A promise that gets resolved if the motd was fetched successfully.
  */
-export const fetchMotd = async (customizeAssetsUrl: string): Promise<void> => {
+export const fetchMotd = async (): Promise<void> => {
   const cachedLastModified = window.localStorage.getItem(MOTD_LOCAL_STORAGE_KEY)
   const motdUrl = `${customizeAssetsUrl}motd.md`
 

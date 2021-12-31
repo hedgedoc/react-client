@@ -16,6 +16,7 @@
     "lint": "eslint --max-warnings=0 --ext .ts,.tsx src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
     "start": "cross-env PORT=3001 next start",
+    "start:mock": "cross-env PORT=3001 NEXT_PUBLIC_USE_MOCK_API=true next start",
     "start:ci": "cross-env NEXT_PUBLIC_USE_MOCK_API=true NEXT_PUBLIC_TEST_MODE=true PORT=3001 next start",
     "cy:open": "cypress open",
     "cy:run:chrome": "cypress run --browser chrome",
