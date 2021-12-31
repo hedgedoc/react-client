@@ -1,49 +1,50 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+import { doApiCall, extractJsonResponse, sendApiData, sendApiDataAndGetResponse } from '../utils'
+import type { ImageProxyRequestDto, ImageProxyResponse, MediaUpload } from './types'
 
-import { isMockMode, isTestMode } from '../../utils/test-modes'
-import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
-
-export interface ImageProxyResponse {
-  src: string
-}
-
-export const getProxiedUrl = async (imageUrl: string): Promise<ImageProxyResponse> => {
-  const response = await fetch(getApiUrl() + 'media/proxy', {
-    ...defaultFetchConfig,
-    method: 'POST',
-    body: JSON.stringify({
-      src: imageUrl
-    })
+/**
+ * Requests an image-proxy URL from the backend for a given image URL.
+ * @param imageUrl The image URL which should be proxied.
+ * @return The proxy URL for the image.
+ */
+export const getProxiedUrl = (imageUrl: string): Promise<ImageProxyResponse> => {
+  return sendApiDataAndGetResponse<ImageProxyRequestDto, ImageProxyResponse>('media/proxy', 'POST', {
+    url: imageUrl
   })
-  expectResponseCode(response)
-  return (await response.json()) as Promise<ImageProxyResponse>
 }
 
-export interface UploadedMedia {
-  link: string
-}
-
-export const uploadFile = async (noteId: string, media: Blob): Promise<UploadedMedia> => {
-  const response = await fetch(`${getApiUrl()}media/upload${isMockMode() ? '-post' : ''}`, {
-    ...defaultFetchConfig,
-    headers: {
-      'Content-Type': media.type,
-      'HedgeDoc-Note': noteId
+/**
+ * Uploads a media file to the backend.
+ * @param noteIdOrAlias The id or alias of the note from which the media is uploaded.
+ * @param media The binary media content.
+ * @return The URL of the uploaded media object.
+ */
+export const uploadFile = async (noteIdOrAlias: string, media: Blob): Promise<MediaUpload> => {
+  const postData = new FormData()
+  postData.append('file', media)
+  const response = await doApiCall(
+    'media',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'HedgeDoc-Note': noteIdOrAlias
+      },
+      body: postData
     },
-    method: isMockMode() ? 'GET' : 'POST',
-    body: isMockMode() ? undefined : media
-  })
+    201
+  )
+  return extractJsonResponse<MediaUpload>(response)
+}
 
-  if (isMockMode() && !isTestMode()) {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 3000)
-    })
-  }
-
-  expectResponseCode(response, isMockMode() ? 200 : 201)
-  return (await response.json()) as Promise<UploadedMedia>
+/**
+ * Deletes some uploaded media object.
+ * @param mediaId The identifier of the media object to delete.
+ */
+export const deleteUploadedMedia = (mediaId: string): Promise<unknown> => {
+  return sendApiData<undefined>('media/' + mediaId, 'DELETE', undefined, 204)
 }

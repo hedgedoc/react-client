@@ -1,50 +1,50 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { defaultFetchConfig, expectResponseCode, getApiUrl } from '../utils'
-import type { HistoryEntryDto, HistoryEntryPutDto, HistoryEntryUpdateDto } from './types'
+import { getApiResponse, sendApiData, sendApiDataAndGetResponse } from '../utils'
+import type { ChangePinStatusDto, HistoryEntry, HistoryEntryPutDto } from './types'
 
-export const getHistory = async (): Promise<HistoryEntryDto[]> => {
-  const response = await fetch(getApiUrl() + 'me/history', {
-    ...defaultFetchConfig
-  })
-  expectResponseCode(response)
-  return (await response.json()) as Promise<HistoryEntryDto[]>
+/**
+ * Fetches the remote history for the user from the server.
+ * @return The remote history entries of the user.
+ */
+export const getRemoteHistory = (): Promise<HistoryEntry[]> => {
+  return getApiResponse<HistoryEntry[]>('me/history')
 }
 
-export const postHistory = async (entries: HistoryEntryPutDto[]): Promise<void> => {
-  const response = await fetch(getApiUrl() + 'me/history', {
-    ...defaultFetchConfig,
-    method: 'POST',
-    body: JSON.stringify(entries)
-  })
-  expectResponseCode(response)
+/**
+ * Replaces the remote history of the user with the given history entries.
+ * @param entries The history entries to store remotely.
+ */
+export const setRemoteHistoryEntries = (entries: HistoryEntryPutDto[]): Promise<unknown> => {
+  return sendApiData<HistoryEntryPutDto[]>('me/history', 'POST', entries, 201)
 }
 
-export const updateHistoryEntryPinStatus = async (noteId: string, entry: HistoryEntryUpdateDto): Promise<void> => {
-  const response = await fetch(getApiUrl() + 'me/history/' + noteId, {
-    ...defaultFetchConfig,
-    method: 'PUT',
-    body: JSON.stringify(entry)
+/**
+ * Updates a remote history entry's pin state.
+ * @param noteIdOrAlias The note id for which to update the pinning state.
+ * @param pinStatus True when the note should be pinned, false otherwise.
+ */
+export const updateRemoteHistoryEntryPinStatus = (noteIdOrAlias: string, pinStatus: boolean): Promise<HistoryEntry> => {
+  return sendApiDataAndGetResponse<ChangePinStatusDto, HistoryEntry>('me/history/' + noteIdOrAlias, 'PUT', {
+    pinStatus
   })
-  expectResponseCode(response)
 }
 
-export const deleteHistoryEntry = async (noteId: string): Promise<void> => {
-  const response = await fetch(getApiUrl() + 'me/history/' + noteId, {
-    ...defaultFetchConfig,
-    method: 'DELETE'
-  })
-  expectResponseCode(response)
+/**
+ * Deletes a remote history entry.
+ * @param noteIdOrAlias The note id or alias of the history entry to remove.
+ */
+export const deleteRemoteHistoryEntry = (noteIdOrAlias: string): Promise<unknown> => {
+  return sendApiData<undefined>('me/history/' + noteIdOrAlias, 'DELETE', undefined, 204)
 }
 
-export const deleteHistory = async (): Promise<void> => {
-  const response = await fetch(getApiUrl() + 'me/history', {
-    ...defaultFetchConfig,
-    method: 'DELETE'
-  })
-  expectResponseCode(response)
+/**
+ * Deletes the complete remote history.
+ */
+export const deleteRemoteHistory = async (): Promise<unknown> => {
+  return sendApiData<undefined>('me/history', 'DELETE', undefined, 204)
 }

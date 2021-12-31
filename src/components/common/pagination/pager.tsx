@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useMemo } from 'react'
 
 export interface PagerPageProps {
   pageIndex: number
@@ -25,12 +25,12 @@ export const Pager: React.FC<PagerPageProps> = ({
     onLastPageIndexChange(maxPageIndex)
   }, [children, maxPageIndex, numberOfElementsPerPage, onLastPageIndexChange])
 
-  return (
-    <Fragment>
-      {React.Children.toArray(children).filter((value, index) => {
-        const pageOfElement = Math.floor(index / numberOfElementsPerPage)
-        return pageOfElement === correctedPageIndex
-      })}
-    </Fragment>
-  )
+  const filteredChildren = useMemo(() => {
+    return React.Children.toArray(children).filter((value, index) => {
+      const pageOfElement = Math.floor(index / numberOfElementsPerPage)
+      return pageOfElement === correctedPageIndex
+    })
+  }, [children, numberOfElementsPerPage, correctedPageIndex])
+
+  return <Fragment>{filteredChildren}</Fragment>
 }
