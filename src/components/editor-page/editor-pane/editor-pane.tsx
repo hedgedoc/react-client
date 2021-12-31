@@ -5,7 +5,7 @@
  */
 
 import type { Editor, EditorChange } from 'codemirror'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import type { ScrollProps } from '../synced-scroll/scroll-props'
 import { StatusBar } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
@@ -34,6 +34,19 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
 
   const onBeforeChange = useCallback((editor: Editor, data: EditorChange, value: string) => {
     setNoteContent(value)
+  }, [])
+
+  useEffect(() => {
+    const worker = new Worker(new URL('./worker/pingpong.worker.ts', import.meta.url))
+
+    worker.addEventListener('message', (event: MessageEvent<string>) => {
+      if (event.data === 'pong') {
+        console.log('main thread received pong')
+      } else {
+        console.error('main thread received unknown message')
+      }
+    })
+    worker.postMessage('ping')
   }, [])
 
   const [statusBarInfo, updateStatusBarInfo] = useCreateStatusBarInfo()
