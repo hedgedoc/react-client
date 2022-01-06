@@ -4,11 +4,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useMemo, useState } from 'react'
+import React, { Suspense, useCallback, useMemo, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
-import { CheatsheetLine } from './cheatsheet-line'
 import styles from './cheatsheet.module.scss'
+import { WaitSpinner } from '../../../common/wait-spinner/wait-spinner'
+import { TaskListCheckboxChangeCallbackProvider } from '../../../markdown-renderer/markdown-extension/task-list/task-list-checkbox-change-callback-context'
+import type { TaskCheckedChangeCallback } from '../../../markdown-renderer/markdown-extension/task-list/task-list-checkbox'
+
+const CheatsheetLine = React.lazy(() => import('./cheatsheet-line'))
 
 export const CheatsheetTabContent: React.FC = () => {
   const { t } = useTranslation()
@@ -37,25 +41,31 @@ export const CheatsheetTabContent: React.FC = () => {
     [checked, t]
   )
 
+  const checkboxClick: TaskCheckedChangeCallback = useCallback((lineInMarkdown, checked) => setChecked(checked), [])
+
+  const cheatsheetLines = useMemo(() => {
+    return codes.map((code) => <CheatsheetLine markdown={code} key={code} />)
+  }, [codes])
+
   return (
-    <Table className={`table-condensed ${styles['table-cheatsheet']}`}>
-      <thead>
-        <tr>
-          <th>
-            <Trans i18nKey='editor.help.cheatsheet.example' />
-          </th>
-          <th>
-            <Trans i18nKey='editor.help.cheatsheet.syntax' />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {codes.map((code) => (
-          <CheatsheetLine markdown={code} key={code} onTaskCheckedChange={setChecked} />
-        ))}
-      </tbody>
-    </Table>
+    <Suspense fallback={<WaitSpinner />}>
+      <Table className={`table-condensed ${styles['table-cheatsheet']}`}>
+        <thead>
+          <tr>
+            <th>
+              <Trans i18nKey='editor.help.cheatsheet.example' />
+            </th>
+            <th>
+              <Trans i18nKey='editor.help.cheatsheet.syntax' />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <TaskListCheckboxChangeCallbackProvider onTaskCheckedChange={checkboxClick}>
+            {cheatsheetLines}
+          </TaskListCheckboxChangeCallbackProvider>
+        </tbody>
+      </Table>
+    </Suspense>
   )
 }
-
-export default CheatsheetTabContent

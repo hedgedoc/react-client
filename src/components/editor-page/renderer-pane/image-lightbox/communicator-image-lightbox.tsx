@@ -1,17 +1,17 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import React, { useCallback, useState } from 'react'
-import { ImageLightboxModal } from '../../markdown-renderer/markdown-extension/image/image-lightbox-modal'
+import { ImageLightboxModal } from './image-lightbox-modal'
 import type {
   ImageClickedMessage,
   ImageDetails
-} from '../../render-page/window-post-message-communicator/rendering-message'
-import { CommunicationMessageType } from '../../render-page/window-post-message-communicator/rendering-message'
-import { useEditorReceiveHandler } from '../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
+} from '../../../render-page/window-post-message-communicator/rendering-message'
+import { CommunicationMessageType } from '../../../render-page/window-post-message-communicator/rendering-message'
+import { useEditorReceiveHandler } from '../../../render-page/window-post-message-communicator/hooks/use-editor-receive-handler'
 
 export const CommunicatorImageLightbox: React.FC = () => {
   const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)

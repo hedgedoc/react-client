@@ -19,7 +19,6 @@ export const DocumentReadOnlyPageContent: React.FC = () => {
 
   const markdownContentLines = useTrimmedNoteMarkdownContentWithoutFrontmatter()
   const noteDetails = useApplicationState((state) => state.noteDetails)
-  useSendFrontmatterInfoFromReduxToRenderer()
 
   return (
     <Fragment>

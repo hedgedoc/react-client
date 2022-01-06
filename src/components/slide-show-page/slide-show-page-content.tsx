@@ -15,7 +15,6 @@ import { useTrimmedNoteMarkdownContentWithoutFrontmatter } from '../../hooks/com
 export const SlideShowPageContent: React.FC = () => {
   const markdownContentLines = useTrimmedNoteMarkdownContentWithoutFrontmatter()
   useTranslation()
-  useSendFrontmatterInfoFromReduxToRenderer()
 
   return (
     <div className={'vh-100 vw-100'}>

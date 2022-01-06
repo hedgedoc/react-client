@@ -8,7 +8,7 @@ import type { Element } from 'domhandler'
 import type { ReactElement } from 'react'
 import React from 'react'
 import { ComponentReplacer } from '../../replace-components/component-replacer'
-import { TaskListCheckbox } from './task-list-checkbox'
+import { ContextTaskListCheckbox } from './context-task-list-checkbox'
 
 export type TaskCheckedChangeHandler = (lineInMarkdown: number, checked: boolean) => void
 
@@ -16,16 +16,8 @@ export type TaskCheckedChangeHandler = (lineInMarkdown: number, checked: boolean
  * Detects task lists and renders them as checkboxes that execute a callback if clicked.
  */
 export class TaskListReplacer extends ComponentReplacer {
-  onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
-
-  constructor(frontmatterLinesToSkip: number, onTaskCheckedChange?: TaskCheckedChangeHandler) {
+  constructor() {
     super()
-    this.onTaskCheckedChange = (lineInMarkdown, checked) => {
-      if (onTaskCheckedChange === undefined) {
-        return
-      }
-      onTaskCheckedChange(frontmatterLinesToSkip + lineInMarkdown, checked)
-    }
   }
 
   public replace(node: Element): ReactElement | undefined {
@@ -37,8 +29,7 @@ export class TaskListReplacer extends ComponentReplacer {
       return undefined
     }
     return (
-      <TaskListCheckbox
-        onTaskCheckedChange={this.onTaskCheckedChange}
+      <ContextTaskListCheckbox
         checked={node.attribs.checked !== undefined}
         lineInMarkdown={lineInMarkdown}
       />

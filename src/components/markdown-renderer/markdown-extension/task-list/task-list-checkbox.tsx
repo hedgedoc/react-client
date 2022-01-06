@@ -6,8 +6,10 @@
 
 import React, { useCallback } from 'react'
 
+export type TaskCheckedChangeCallback = (lineInMarkdown: number, checked: boolean) => void
+
 export interface TaskListProps {
-  onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
+  onTaskCheckedChange?: TaskCheckedChangeCallback
   checked: boolean
   lineInMarkdown?: number
 }

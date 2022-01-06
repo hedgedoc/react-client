@@ -6,26 +6,25 @@
 
 import type { TocAst } from 'markdown-it-toc-done-right'
 import type { MutableRefObject } from 'react'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useResizeObserver from 'use-resize-observer'
 import { YamlArrayDeprecationAlert } from '../editor-page/renderer-pane/yaml-array-deprecation-alert'
 import { useDocumentSyncScrolling } from './hooks/sync-scroll/use-document-sync-scrolling'
 import type { ScrollProps } from '../editor-page/synced-scroll/scroll-props'
 import { DocumentMarkdownRenderer } from '../markdown-renderer/document-markdown-renderer'
-import type { ImageClickHandler } from '../markdown-renderer/markdown-extension/image/proxy-image-replacer'
 import styles from './markdown-document.module.scss'
 import { WidthBasedTableOfContents } from './width-based-table-of-contents'
 import { ShowIf } from '../common/show-if/show-if'
 import { useApplicationState } from '../../hooks/common/use-application-state'
 import { InvalidYamlAlert } from '../markdown-renderer/invalid-yaml-alert'
 import type { RendererFrontmatterInfo } from '../../redux/note-details/types/note-details'
+import type { TaskCheckedChangeCallback } from '../markdown-renderer/markdown-extension/task-list/task-list-checkbox'
 
 export interface RendererProps extends ScrollProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
-  onTaskCheckedChange?: (lineInMarkdown: number, checked: boolean) => void
+  onTaskCheckedChange?: TaskCheckedChangeCallback
   documentRenderPaneRef?: MutableRefObject<HTMLDivElement | null>
   markdownContentLines: string[]
-  onImageClick?: ImageClickHandler
   onHeightChange?: (height: number) => void
 }
 
@@ -42,10 +41,8 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   additionalRendererClasses,
   onFirstHeadingChange,
   onMakeScrollSource,
-  onTaskCheckedChange,
   baseUrl,
   markdownContentLines,
-  onImageClick,
   onScroll,
   scrollState,
   onHeightChange,
@@ -60,6 +57,10 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   const containerWidth = internalDocumentRenderPaneSize.width ?? 0
 
   const [tocAst, setTocAst] = useState<TocAst>()
+
+  const onTocChange = useCallback((ast: TocAst|undefined) => {
+    setTocAst(ast)
+  },[])
 
   const newlinesAreBreaks = useApplicationState((state) => state.noteDetails.frontmatter.newlinesAreBreaks)
 
@@ -87,24 +88,19 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
       onMouseEnter={onMakeScrollSource}>
       <div className={styles['markdown-document-side']} />
       <div className={styles['markdown-document-content']}>
-        <InvalidYamlAlert show={!!frontmatterInfo?.frontmatterInvalid} />
-        <YamlArrayDeprecationAlert show={!!frontmatterInfo?.deprecatedSyntax} />
         <DocumentMarkdownRenderer
           outerContainerRef={rendererRef}
           className={`mb-3 ${additionalRendererClasses ?? ''}`}
           markdownContentLines={markdownContentLines}
           onFirstHeadingChange={onFirstHeadingChange}
           onLineMarkerPositionChanged={onLineMarkerPositionChanged}
-          onTaskCheckedChange={onTaskCheckedChange}
-          onTocChange={setTocAst}
+          onTocChange={onTocChange}
           baseUrl={baseUrl}
-          onImageClick={onImageClick}
           newlinesAreBreaks={newlinesAreBreaks}
-          lineOffset={frontmatterInfo?.lineOffset}
         />
       </div>
       <div className={`${styles['markdown-document-side']} pt-4`}>
-        <ShowIf condition={!!tocAst && !disableToc}>
+        <ShowIf condition={!!tocAst && disableToc !== true}>
           <WidthBasedTableOfContents tocAst={tocAst as TocAst} baseUrl={baseUrl} width={containerWidth} />
         </ShowIf>
       </div>

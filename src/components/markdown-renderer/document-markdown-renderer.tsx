@@ -25,13 +25,10 @@ export const DocumentMarkdownRenderer: React.FC<DocumentMarkdownRendererProps> =
   markdownContentLines,
   onFirstHeadingChange,
   onLineMarkerPositionChanged,
-  onTaskCheckedChange,
   onTocChange,
   baseUrl,
-  onImageClick,
   outerContainerRef,
-  newlinesAreBreaks,
-  lineOffset
+  newlinesAreBreaks
 }) => {
   const markdownBodyRef = useRef<HTMLDivElement>(null)
   const currentLineMarkers = useRef<LineMarkers[]>()
@@ -40,9 +37,6 @@ export const DocumentMarkdownRenderer: React.FC<DocumentMarkdownRendererProps> =
     baseUrl,
     currentLineMarkers,
     useMemo(() => [new HeadlineAnchorsMarkdownExtension()], []),
-    lineOffset ?? 0,
-    onTaskCheckedChange,
-    onImageClick,
     onTocChange
   )
   const markdownReactDom = useConvertMarkdownToReactDom(markdownContentLines, extensions, newlinesAreBreaks)

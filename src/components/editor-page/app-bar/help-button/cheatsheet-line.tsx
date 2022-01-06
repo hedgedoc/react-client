@@ -4,49 +4,40 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Suspense, useCallback, useMemo } from 'react'
-import { WaitSpinner } from '../../../common/wait-spinner/wait-spinner'
+import React, { useMemo } from 'react'
+import { useConvertMarkdownToReactDom } from '../../../markdown-renderer/hooks/use-convert-markdown-to-react-dom'
+import { TaskListMarkdownExtension } from '../../../markdown-renderer/markdown-extension/task-list/task-list-markdown-extension'
+import { HighlightedCode } from '../../../markdown-renderer/markdown-extension/highlighted-fence/highlighted-code'
+import { AlertMarkdownExtension } from '../../../markdown-renderer/markdown-extension/alert-markdown-extension'
+import { EmojiMarkdownExtension } from '../../../markdown-renderer/markdown-extension/emoji/emoji-markdown-extension'
+import { HighlightedCodeMarkdownExtension } from '../../../markdown-renderer/markdown-extension/highlighted-fence/highlighted-code-markdown-extension'
 
 export interface CheatsheetLineProps {
   markdown: string
-  onTaskCheckedChange: (newValue: boolean) => void
 }
 
-const HighlightedCode = React.lazy(
-  () => import('../../../markdown-renderer/markdown-extension/highlighted-fence/highlighted-code')
-)
-const DocumentMarkdownRenderer = React.lazy(() => import('../../../markdown-renderer/document-markdown-renderer'))
+const extensions = [
+  new TaskListMarkdownExtension(),
+  new HighlightedCodeMarkdownExtension(),
+  new AlertMarkdownExtension(),
+  new EmojiMarkdownExtension()
+]
 
-export const CheatsheetLine: React.FC<CheatsheetLineProps> = ({ markdown, onTaskCheckedChange }) => {
+export const CheatsheetLine: React.FC<CheatsheetLineProps> = ({ markdown }) => {
   const lines = useMemo(() => markdown.split('\n'), [markdown])
-  const checkboxClick = useCallback(
-    (lineInMarkdown: number, newValue: boolean) => {
-      onTaskCheckedChange(newValue)
-    },
-    [onTaskCheckedChange]
-  )
+
+  const markdownReactDom = useConvertMarkdownToReactDom(lines, extensions, true)
 
   return (
-    <Suspense
-      fallback={
-        <tr>
-          <td colSpan={2}>
-            <WaitSpinner />
-          </td>
-        </tr>
-      }>
-      <tr>
-        <td>
-          <DocumentMarkdownRenderer
-            markdownContentLines={lines}
-            baseUrl={'https://example.org'}
-            onTaskCheckedChange={checkboxClick}
-          />
-        </td>
-        <td className={'markdown-body'}>
-          <HighlightedCode code={markdown} wrapLines={true} startLineNumber={1} language={'markdown'} />
-        </td>
-      </tr>
-    </Suspense>
+    <tr>
+      <td>
+        <div className={`markdown-body`}>{markdownReactDom}</div>
+      </td>
+      <td>
+        <HighlightedCode code={markdown} wrapLines={true} startLineNumber={1} language={'markdown'} />
+      </td>
+    </tr>
   )
 }
+
+export default CheatsheetLine

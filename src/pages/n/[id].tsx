@@ -122,10 +122,7 @@ export const EditorPage: NextPage = () => {
   const rightPane = useMemo(
     () => (
       <EditorDocumentRenderer
-        frameClasses={'h-100 w-100'}
         onMakeScrollSource={setRendererToScrollSource}
-        onFirstHeadingChange={updateNoteTitleByFirstHeading}
-        onTaskCheckedChange={setCheckboxInMarkdownContent}
         onScroll={onMarkdownRendererScroll}
         scrollState={scrollState.rendererScrollState}
         rendererType={noteType === NoteType.SLIDE ? RendererType.SLIDESHOW : RendererType.DOCUMENT}

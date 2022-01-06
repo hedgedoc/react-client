@@ -6,18 +6,17 @@
 
 import { MarkdownExtension } from '../markdown-extension'
 import type { ComponentReplacer } from '../../replace-components/component-replacer'
-import type { ImageClickHandler } from './proxy-image-replacer'
 import { ProxyImageReplacer } from './proxy-image-replacer'
 
 /**
  * Adds support for image lightbox and image proxy redirection.
  */
 export class ProxyImageMarkdownExtension extends MarkdownExtension {
-  constructor(private onImageClick?: ImageClickHandler) {
+  constructor() {
     super()
   }
 
   buildReplacers(): ComponentReplacer[] {
-    return [new ProxyImageReplacer(this.onImageClick)]
+    return [new ProxyImageReplacer()]
   }
 }

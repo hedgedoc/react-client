@@ -19,7 +19,6 @@ export enum CommunicationMessageType {
   SET_BASE_CONFIGURATION = 'SET_BASE_CONFIGURATION',
   GET_WORD_COUNT = 'GET_WORD_COUNT',
   ON_WORD_COUNT_CALCULATED = 'ON_WORD_COUNT_CALCULATED',
-  SET_FRONTMATTER_INFO = 'SET_FRONTMATTER_INFO',
   IMAGE_UPLOAD = 'IMAGE_UPLOAD'
 }
 
@@ -81,11 +80,6 @@ export interface OnFirstHeadingChangeMessage {
   firstHeading: string | undefined
 }
 
-export interface SetFrontmatterInfoMessage {
-  type: CommunicationMessageType.SET_FRONTMATTER_INFO
-  frontmatterInfo: RendererFrontmatterInfo
-}
-
 export interface OnHeightChangeMessage {
   type: CommunicationMessageType.ON_HEIGHT_CHANGE
   height: number
@@ -106,7 +100,6 @@ export type CommunicationMessages =
   | SetScrollStateMessage
   | OnTaskCheckboxChangeMessage
   | OnFirstHeadingChangeMessage
-  | SetFrontmatterInfoMessage
   | OnHeightChangeMessage
   | OnWordCountCalculatedMessage
   | ImageUploadMessage
@@ -117,7 +110,6 @@ export type EditorToRendererMessageType =
   | CommunicationMessageType.SET_SCROLL_STATE
   | CommunicationMessageType.SET_BASE_CONFIGURATION
   | CommunicationMessageType.GET_WORD_COUNT
-  | CommunicationMessageType.SET_FRONTMATTER_INFO
 
 export type RendererToEditorMessageType =
   | CommunicationMessageType.RENDERER_READY

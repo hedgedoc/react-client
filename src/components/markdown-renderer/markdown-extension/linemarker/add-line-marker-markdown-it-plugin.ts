@@ -19,20 +19,19 @@ export interface LineMarkers {
  */
 export const addLineMarkerMarkdownItPlugin: (
   markdownIt: MarkdownIt,
-  lineOffset: number,
   onLineMarkerChange?: (lineMarkers: LineMarkers[]) => void
-) => void = (md: MarkdownIt, lineOffset, onLineMarkerChange) => {
+) => void = (markdownIt, onLineMarkerChange) => {
   // add app_linemarker token before each opening or self-closing level-0 tag
-  md.core.ruler.push('line_number_marker', (state) => {
+  markdownIt.core.ruler.push('line_number_marker', (state) => {
     const lineMarkers: LineMarkers[] = []
-    tagTokens(state.tokens, lineMarkers, lineOffset)
+    tagTokens(state.tokens, lineMarkers)
     if (onLineMarkerChange) {
       onLineMarkerChange(lineMarkers)
     }
     return true
   })
 
-  md.renderer.rules.app_linemarker = (tokens: Token[], index: number): string => {
+  markdownIt.renderer.rules.app_linemarker = (tokens: Token[], index: number): string => {
     const startLineNumber = tokens[index].attrGet('data-start-line')
     const endLineNumber = tokens[index].attrGet('data-end-line')
 
@@ -58,7 +57,7 @@ export const addLineMarkerMarkdownItPlugin: (
     tokens.splice(tokenPosition, 0, startToken)
   }
 
-  const tagTokens = (tokens: Token[], lineMarkers: LineMarkers[], lineOffset: number) => {
+  const tagTokens = (tokens: Token[], lineMarkers: LineMarkers[]) => {
     for (let tokenPosition = 0; tokenPosition < tokens.length; tokenPosition++) {
       const token = tokens[tokenPosition]
       if (token.hidden) {
@@ -73,14 +72,14 @@ export const addLineMarkerMarkdownItPlugin: (
       const endLineNumber = token.map[1] + 1
 
       if (token.level === 0) {
-        lineMarkers.push({ startLine: startLineNumber + lineOffset, endLine: endLineNumber + lineOffset })
+        lineMarkers.push({ startLine: startLineNumber, endLine: endLineNumber })
       }
 
       insertNewLineMarker(startLineNumber, endLineNumber, tokenPosition, token.level, tokens)
       tokenPosition += 1
 
       if (token.children) {
-        tagTokens(token.children, lineMarkers, lineOffset)
+        tagTokens(token.children, lineMarkers)
       }
     }
   }

@@ -1,12 +1,12 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import React from 'react'
 import styles from './lightbox.module.scss'
-import { ProxyImageFrame } from './proxy-image-frame'
+import { ProxyImageFrame } from '../../../markdown-renderer/markdown-extension/image/proxy-image-frame'
 import type { ModalVisibilityProps } from '../../../common/modals/common-modal'
 import { CommonModal } from '../../../common/modals/common-modal'
 

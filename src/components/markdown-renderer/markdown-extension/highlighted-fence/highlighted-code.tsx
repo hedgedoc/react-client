@@ -85,5 +85,3 @@ export const HighlightedCode: React.FC<HighlightedCodeProps> = ({ code, language
     </div>
   )
 }
-
-export default HighlightedCode

@@ -25,12 +25,9 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
   className,
   markdownContentLines,
   onFirstHeadingChange,
-  onTaskCheckedChange,
   onTocChange,
   baseUrl,
-  onImageClick,
   newlinesAreBreaks,
-  lineOffset,
   slideOptions
 }) => {
   const markdownBodyRef = useRef<HTMLDivElement>(null)
@@ -40,9 +37,6 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
     baseUrl,
     undefined,
     useMemo(() => [new RevealMarkdownExtension()], []),
-    lineOffset ?? 0,
-    onTaskCheckedChange,
-    onImageClick,
     onTocChange
   )
 
@@ -71,5 +65,3 @@ export const SlideshowMarkdownRenderer: React.FC<SlideshowMarkdownRendererProps 
     </div>
   )
 }
-
-export default SlideshowMarkdownRenderer
