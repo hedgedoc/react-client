@@ -9,3 +9,5 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 import { allReducers } from './reducers'
 
 export const store = createStore(allReducers, composeWithDevTools())
+
+export const getGlobalState = () => store.getState()

@@ -18,9 +18,9 @@ import { useOnEditorFileDrop } from './hooks/use-on-editor-file-drop'
 import { useOnEditorScroll } from './hooks/use-on-editor-scroll'
 import { useApplyScrollState } from './hooks/use-apply-scroll-state'
 import { MaxLengthWarning } from './max-length-warning/max-length-warning'
-import { useCreateStatusBarInfo } from './hooks/use-create-status-bar-info'
 import { useOnImageUploadFromRenderer } from './hooks/use-on-image-upload-from-renderer'
 import { ExtendedCodemirror } from './extended-codemirror/extended-codemirror'
+import { useCursorActivityCallback } from './hooks/use-cursor-activity-callback'
 
 export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMakeScrollSource }) => {
   const markdownContent = useNoteMarkdownContent()
@@ -36,38 +36,33 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
     setNoteContent(value)
   }, [])
 
-  const [statusBarInfo, updateStatusBarInfo] = useCreateStatusBarInfo()
+  useOnImageUploadFromRenderer()
 
-  useOnImageUploadFromRenderer(editor)
+  const onEditorDidMount = useCallback((mountedEditor: Editor) => {
+    setEditor(mountedEditor)
+  }, [])
 
-  const onEditorDidMount = useCallback(
-    (mountedEditor: Editor) => {
-      updateStatusBarInfo(mountedEditor)
-      setEditor(mountedEditor)
-    },
-    [updateStatusBarInfo]
-  )
-
+  const onCursorActivity = useCursorActivityCallback()
   const onDrop = useOnEditorFileDrop()
   const codeMirrorOptions = useCodeMirrorOptions()
 
   return (
     <div className={`d-flex flex-column h-100 position-relative`} onMouseEnter={onMakeScrollSource}>
       <MaxLengthWarning />
-      <ToolBar editor={editor} />
+      <ToolBar />
       <ExtendedCodemirror
         className={`overflow-hidden w-100 flex-fill`}
         value={markdownContent}
         options={codeMirrorOptions}
         onPaste={onPaste}
         onDrop={onDrop}
-        onCursorActivity={updateStatusBarInfo}
+        onCursorActivity={onCursorActivity}
         editorDidMount={onEditorDidMount}
         onBeforeChange={onBeforeChange}
         onScroll={onEditorScroll}
         ligatures={ligaturesEnabled}
       />
-      <StatusBar statusBarInfo={statusBarInfo} />
+      <StatusBar />
     </div>
   )
 }

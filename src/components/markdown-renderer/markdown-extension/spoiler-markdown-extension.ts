@@ -13,24 +13,35 @@ import { escapeHtml } from 'markdown-it/lib/common/utils'
 export class SpoilerMarkdownExtension extends MarkdownExtension {
   private static readonly spoilerRegEx = /^spoiler\s+(.*)$/
 
-  private createSpoilerContainer(): (tokens: Token[], index: number) => void {
-    return (tokens: Token[], index: number) => {
-      const matches = SpoilerMarkdownExtension.spoilerRegEx.exec(tokens[index].info.trim())
+  /**
+   * Renders the opening and closing token of the container.
+   *
+   * @param tokens The tokens of the document
+   * @param index The currently viewed token
+   * @return The html rendering of the tokens
+   */
+  private static renderSpoilerContainer(tokens: Token[], index: number): string {
+    const matches = SpoilerMarkdownExtension.spoilerRegEx.exec(tokens[index].info.trim())
 
-      if (tokens[index].nesting === 1 && matches && matches[1]) {
-        // opening tag
-        return `<details><summary>${escapeHtml(matches[1])}</summary>`
-      } else {
-        // closing tag
-        return '</details>\n'
-      }
-    }
+    return SpoilerMarkdownExtension.isOpeningToken(tokens, index) && matches && matches[1]
+      ? `<details><summary>${escapeHtml(matches[1])}</summary>`
+      : '</details>\n'
+  }
+
+  /**
+   * Checks if the {@link Token token} at the given index is an opening token.
+   * @param tokens The tokens of the document
+   * @param index The index of the token that is currently viewed
+   * @return {@code true} if the token is an opening token. {@code false} otherwise.
+   */
+  private static isOpeningToken(tokens: Token[], index: number): boolean {
+    return tokens[index].nesting === 1
   }
 
   public configureMarkdownIt(markdownIt: MarkdownIt): void {
     markdownItContainer(markdownIt, 'spoiler', {
       validate: (params: string) => SpoilerMarkdownExtension.spoilerRegEx.test(params),
-      render: () => this.createSpoilerContainer()
+      render: SpoilerMarkdownExtension.renderSpoilerContainer.bind(this)
     })
   }
 }
