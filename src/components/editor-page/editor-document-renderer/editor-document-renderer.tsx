@@ -46,19 +46,23 @@ export const EditorDocumentRenderer: React.FC<EditorDocumentRendererProps> = ({ 
    */
   return (
     <div className={'d-flex flex-column w-100 h-100'}>
-      <div className={'d-flex justify-content-end bg-light'}>
-        <Button variant={'warning'} className={'m-1'} title={t('editor.deprecatedTags')}>
+      <div className={'d-flex justify-content-between bg-light'} style={{
+        borderBottom: "solid 2px #cdcdcd"
+      }}>
+        <div className={'d-flex'}>
+        <Button variant={'warning'} className={'m-1 justify-self-start'} title={t('editor.deprecatedTags')}>
+          <ForkAwesomeIcon icon={'tags'} />
+        </Button>
+        <Button variant={'danger'} className={'m-1'} title={t('editor.invalidYaml')}>
           <ForkAwesomeIcon icon={'exclamation-triangle'} />
         </Button>
-        <Button variant={'warning'} className={'m-1'} title={t('editor.invalidYaml')}>
-          <ForkAwesomeIcon icon={'exclamation-triangle'} />
-        </Button>
-
+        </div>
+        <div className={'d-flex'}>
         <TableOfContentsHoveringButton tocAst={{l: 1, c: [], n: 'asd'}} baseUrl={window.location.toString()} />
 
-        <Button className={'m-1'}>
+        <Button variant={'outline-primary'} className={'m-1  justify-self-end'}>
           <ForkAwesomeIcon icon={'expand'} />
-        </Button>
+        </Button></div>
       </div>
       <RenderIframe
         {...props}

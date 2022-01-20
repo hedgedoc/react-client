@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import { Nav, Navbar } from 'react-bootstrap'
+import { Button, Nav, Navbar } from 'react-bootstrap'
 import { ShowIf } from '../../common/show-if/show-if'
 import { SignInButton } from '../../landing-layout/navigation/sign-in-button'
 import { UserDropdown } from '../../landing-layout/navigation/user-dropdown'
@@ -19,6 +19,7 @@ import { ReadOnlyModeButton } from './read-only-mode-button'
 import { NewNoteButton } from './new-note-button'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { NoteType } from '../../../redux/note-details/types/note-details'
+import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 
 export enum AppBarMode {
   BASIC,
@@ -37,11 +38,9 @@ export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
     <Navbar bg={'light'}>
       <Nav className='mr-auto d-flex align-items-center'>
         <NavbarBranding />
-        <ShowIf condition={mode === AppBarMode.EDITOR}>
-          <EditorViewMode />
-          <SyncScrollButtons />
-        </ShowIf>
-        <DarkModeButton />
+        <Button variant={'outline-secondary'} className={'ml-2'}>
+          <ForkAwesomeIcon icon={'cog'}/>
+        </Button>
         <ShowIf condition={mode === AppBarMode.EDITOR}>
           <ShowIf condition={noteFrontmatter.type === NoteType.SLIDE}>
             <SlideModeButton />

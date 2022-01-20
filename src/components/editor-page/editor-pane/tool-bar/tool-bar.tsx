@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import { ButtonGroup, ButtonToolbar } from 'react-bootstrap'
+import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { EditorPreferences } from './editor-preferences/editor-preferences'
 import { EmojiPickerButton } from './emoji-picker/emoji-picker-button'
 import { TablePickerButton } from './table-picker/table-picker-button'
@@ -13,6 +13,7 @@ import styles from './tool-bar.module.scss'
 import { UploadImageButton } from './upload-image-button'
 import { ToolbarButton } from './toolbar-button'
 import { FormatType } from '../../../../redux/note-details/types'
+import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 
 export const ToolBar: React.FC = () => {
   return (
@@ -49,6 +50,9 @@ export const ToolBar: React.FC = () => {
       <ButtonGroup className={'mx-1 flex-wrap'}>
         <EditorPreferences />
       </ButtonGroup>
+      <Button variant={'outline-primary'} className={'m-1'}>
+        <ForkAwesomeIcon icon={'expand'} />
+      </Button>
     </ButtonToolbar>
   )
 }

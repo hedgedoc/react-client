@@ -21,9 +21,8 @@ export const HelpButton: React.FC = () => {
       <Button
         {...cypressId('editor-help-button')}
         title={t('editor.documentBar.help')}
-        className='ml-2 text-secondary'
-        size='sm'
-        variant='outline-light'
+        className='ml-2'
+        variant='outline-secondary'
         onClick={() => setShow(true)}>
         <ForkAwesomeIcon icon='question-circle' />
       </Button>

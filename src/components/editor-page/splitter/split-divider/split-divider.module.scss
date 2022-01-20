@@ -5,11 +5,16 @@
  */
 
 .split-divider {
-  width: 10px;
+  width: 15px;
   background: white;
   z-index: 1;
   cursor: col-resize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 3px 0 6px #e7e7e7;
+  font-size: 10pt;
+  color: #717171;
 
   :global(body.dark) & {
     box-shadow: 3px 0 6px #7b7b7b;

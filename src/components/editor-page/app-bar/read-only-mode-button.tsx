@@ -20,9 +20,8 @@ export const ReadOnlyModeButton: React.FC = () => {
       <a target='_blank'>
         <Button
           title={t('editor.documentBar.readOnlyMode')}
-          className='ml-2 text-secondary'
-          size='sm'
-          variant='outline-light'>
+          className='ml-2'
+          variant='outline-secondary'>
           <ForkAwesomeIcon icon='file-text-o' />
         </Button>
       </a>

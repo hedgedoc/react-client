@@ -6,7 +6,7 @@
 
 import type { TocAst } from 'markdown-it-toc-done-right'
 import type { MutableRefObject } from 'react'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useResizeObserver from 'use-resize-observer'
 import { useDocumentSyncScrolling } from './hooks/sync-scroll/use-document-sync-scrolling'
 import type { ScrollProps } from '../editor-page/synced-scroll/scroll-props'
@@ -49,6 +49,10 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   const rendererSize = useResizeObserver({ ref: rendererRef.current })
 
   const [tocAst, setTocAst] = useState<TocAst>()
+  const onTocChange = useCallback((ast: TocAst|undefined) => {
+    setTocAst(ast)
+  },[])
+
   const internalDocumentRenderPaneRef = useRef<HTMLDivElement>(null)
 
   const newlinesAreBreaks = useApplicationState((state) => state.noteDetails.frontmatter.newlinesAreBreaks)
@@ -83,7 +87,7 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
           markdownContentLines={markdownContentLines}
           onFirstHeadingChange={onFirstHeadingChange}
           onLineMarkerPositionChanged={onLineMarkerPositionChanged}
-          //   onTocChange={onTocChange}
+          onTocChange={onTocChange}
           baseUrl={baseUrl}
           newlinesAreBreaks={newlinesAreBreaks}
         />
