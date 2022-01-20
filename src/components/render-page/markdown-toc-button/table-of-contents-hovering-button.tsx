@@ -9,7 +9,6 @@ import { Dropdown } from 'react-bootstrap'
 import type { TocAst } from 'markdown-it-toc-done-right'
 import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { TableOfContents } from '../../editor-page/table-of-contents/table-of-contents'
-import styles from './markdown-toc-button.module.scss'
 
 export interface MarkdownTocButtonProps {
   tocAst: TocAst
@@ -25,17 +24,15 @@ export interface MarkdownTocButtonProps {
  */
 export const TableOfContentsHoveringButton: React.FC<MarkdownTocButtonProps> = ({ tocAst, baseUrl }) => {
   return (
-    <div className={styles['markdown-toc-sidebar-button']}>
-      <Dropdown drop={'up'}>
-        <Dropdown.Toggle id='toc-overlay-button' variant={'secondary'} className={'no-arrow'}>
-          <ForkAwesomeIcon icon={'list-ol'} />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <div className={'p-2'}>
-            <TableOfContents ast={tocAst} baseUrl={baseUrl} />
-          </div>
-        </Dropdown.Menu>
-      </Dropdown>
-    </div>
+    <Dropdown className={'p-1'}>
+      <Dropdown.Toggle id='toc-overlay-button' variant={'secondary'} className={'no-arrow'}>
+        <ForkAwesomeIcon icon={'list-ol'} />
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <div className={'p-2'}>
+          <TableOfContents ast={tocAst} baseUrl={baseUrl} />
+        </div>
+      </Dropdown.Menu>
+    </Dropdown>
   )
 }

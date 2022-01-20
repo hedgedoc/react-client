@@ -143,7 +143,7 @@ export const Splitter: React.FC<SplitterProps> = ({
       </ShowIf>
       <div
         {...cypressId('splitter-right')}
-        className={`${styles['splitter']} ${styles['right']} ${!showRight ? 'd-none' : ''}`}
+        className={`${styles['splitter']} ${!showRight ? 'd-none' : ''}`}
         style={{ width: `calc(100% - ${adjustedRelativeSplitValue}%)` }}>
         {right}
       </div>

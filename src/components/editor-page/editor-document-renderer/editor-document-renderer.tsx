@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import type { RenderIframeProps } from '../renderer-pane/render-iframe'
 import { RenderIframe } from '../renderer-pane/render-iframe'
 import { useTrimmedNoteMarkdownContentWithoutFrontmatter } from '../../../hooks/common/use-trimmed-note-markdown-content-without-frontmatter'
@@ -12,8 +12,10 @@ import { useScrollStateWithoutLineOffset } from './hooks/use-scroll-state-withou
 import { useOnScrollWithLineOffset } from './hooks/use-on-scroll-with-line-offset'
 import { useOnTaskCheckedChangeWithLineOffset } from './hooks/use-on-task-checked-change-with-line-offset'
 import { updateNoteTitleByFirstHeading } from '../../../redux/note-details/methods'
-import { InvalidYamlAlert } from '../../markdown-renderer/invalid-yaml-alert'
-import { YamlArrayDeprecationAlert } from '../renderer-pane/yaml-array-deprecation-alert'
+import { Button } from 'react-bootstrap'
+import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
+import { useTranslation } from 'react-i18next'
+import { TableOfContentsHoveringButton } from '../../render-page/markdown-toc-button/table-of-contents-hovering-button'
 
 export type EditorDocumentRendererProps = Omit<RenderIframeProps, 'markdownContentLines'>
 
@@ -29,22 +31,44 @@ export const EditorDocumentRenderer: React.FC<EditorDocumentRendererProps> = ({ 
   const adjustedOnScroll = useOnScrollWithLineOffset(onScroll)
   const adjustedOnTaskCheckedChange = useOnTaskCheckedChangeWithLineOffset()
 
-  return (
-    <Fragment>
-      <InvalidYamlAlert show={true} />
-      <YamlArrayDeprecationAlert show={true} />
-      <div>
+  const { t } = useTranslation()
 
+  /*
+   <InvalidYamlAlert show={true} />
+   <YamlArrayDeprecationAlert show={true} />
+
+
+   const [tocAst, setTocAst] = useState<TocAst>()
+
+   const onTocChange = useCallback((ast: TocAst|undefined) => {
+   setTocAst(ast)
+   },[])
+   */
+  return (
+    <div className={'d-flex flex-column w-100 h-100'}>
+      <div className={'d-flex justify-content-end bg-light'}>
+        <Button variant={'warning'} className={'m-1'} title={t('editor.deprecatedTags')}>
+          <ForkAwesomeIcon icon={'exclamation-triangle'} />
+        </Button>
+        <Button variant={'warning'} className={'m-1'} title={t('editor.invalidYaml')}>
+          <ForkAwesomeIcon icon={'exclamation-triangle'} />
+        </Button>
+
+        <TableOfContentsHoveringButton tocAst={{l: 1, c: [], n: 'asd'}} baseUrl={window.location.toString()} />
+
+        <Button className={'m-1'}>
+          <ForkAwesomeIcon icon={'expand'} />
+        </Button>
       </div>
       <RenderIframe
         {...props}
-        frameClasses={'h-100 w-100'}
+        frameClasses={'flex-fill w-100'}
         onFirstHeadingChange={updateNoteTitleByFirstHeading}
         onTaskCheckedChange={adjustedOnTaskCheckedChange}
         scrollState={adjustedScrollState}
         onScroll={adjustedOnScroll}
         markdownContentLines={trimmedContentLines}
       />
-    </Fragment>
+    </div>
   )
 }

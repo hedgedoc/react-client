@@ -6,17 +6,13 @@
 
 import type { TocAst } from 'markdown-it-toc-done-right'
 import type { MutableRefObject } from 'react'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import useResizeObserver from 'use-resize-observer'
-import { YamlArrayDeprecationAlert } from '../editor-page/renderer-pane/yaml-array-deprecation-alert'
 import { useDocumentSyncScrolling } from './hooks/sync-scroll/use-document-sync-scrolling'
 import type { ScrollProps } from '../editor-page/synced-scroll/scroll-props'
 import { DocumentMarkdownRenderer } from '../markdown-renderer/document-markdown-renderer'
 import styles from './markdown-document.module.scss'
-import { WidthBasedTableOfContents } from './width-based-table-of-contents'
-import { ShowIf } from '../common/show-if/show-if'
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { InvalidYamlAlert } from '../markdown-renderer/invalid-yaml-alert'
 import type { RendererFrontmatterInfo } from '../../redux/note-details/types/note-details'
 import type { TaskCheckedChangeCallback } from '../markdown-renderer/markdown-extension/task-list/task-list-checkbox'
 
@@ -52,15 +48,8 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   const rendererRef = useRef<HTMLDivElement | null>(null)
   const rendererSize = useResizeObserver({ ref: rendererRef.current })
 
-  const internalDocumentRenderPaneRef = useRef<HTMLDivElement>(null)
-  const internalDocumentRenderPaneSize = useResizeObserver({ ref: internalDocumentRenderPaneRef.current })
-  const containerWidth = internalDocumentRenderPaneSize.width ?? 0
-
   const [tocAst, setTocAst] = useState<TocAst>()
-
-  const onTocChange = useCallback((ast: TocAst|undefined) => {
-    setTocAst(ast)
-  },[])
+  const internalDocumentRenderPaneRef = useRef<HTMLDivElement>(null)
 
   const newlinesAreBreaks = useApplicationState((state) => state.noteDetails.frontmatter.newlinesAreBreaks)
 
@@ -94,16 +83,12 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
           markdownContentLines={markdownContentLines}
           onFirstHeadingChange={onFirstHeadingChange}
           onLineMarkerPositionChanged={onLineMarkerPositionChanged}
-          onTocChange={onTocChange}
+          //   onTocChange={onTocChange}
           baseUrl={baseUrl}
           newlinesAreBreaks={newlinesAreBreaks}
         />
       </div>
-      <div className={`${styles['markdown-document-side']} pt-4`}>
-        <ShowIf condition={!!tocAst && disableToc !== true}>
-          <WidthBasedTableOfContents tocAst={tocAst as TocAst} baseUrl={baseUrl} width={containerWidth} />
-        </ShowIf>
-      </div>
+      <div className={`${styles['markdown-document-side']}`} />
     </div>
   )
 }
