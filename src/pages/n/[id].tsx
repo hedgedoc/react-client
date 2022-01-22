@@ -95,11 +95,17 @@ export const EditorPage: NextPage = () => {
   useUpdateLocalHistoryEntry(!error && !loading)
 
   const setRendererToScrollSource = useCallback(() => {
+    if (scrollSource.current === ScrollSource.RENDERER) {
+      return
+    }
     scrollSource.current = ScrollSource.RENDERER
     log.debug('Make renderer scroll source')
   }, [])
 
   const setEditorToScrollSource = useCallback(() => {
+    if (scrollSource.current === ScrollSource.EDITOR) {
+      return
+    }
     scrollSource.current = ScrollSource.EDITOR
     log.debug('Make editor scroll source')
   }, [])

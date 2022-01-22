@@ -27,9 +27,7 @@ export interface RendererProps extends ScrollProps {
 export interface MarkdownDocumentProps extends RendererProps {
   additionalOuterContainerClasses?: string
   additionalRendererClasses?: string
-  disableToc?: boolean
   baseUrl: string
-  frontmatterInfo?: RendererFrontmatterInfo
 }
 
 export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
@@ -42,13 +40,10 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   onScroll,
   scrollState,
   onHeightChange,
-  disableToc,
-  frontmatterInfo
 }) => {
   const rendererRef = useRef<HTMLDivElement | null>(null)
   const rendererSize = useResizeObserver({ ref: rendererRef.current })
 
-  const [tocAst, setTocAst] = useState<TocAst>()
   const internalDocumentRenderPaneRef = useRef<HTMLDivElement>(null)
 
   const newlinesAreBreaks = useApplicationState((state) => state.noteDetails.frontmatter.newlinesAreBreaks)
@@ -83,7 +78,6 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
           markdownContentLines={markdownContentLines}
           onFirstHeadingChange={onFirstHeadingChange}
           onLineMarkerPositionChanged={onLineMarkerPositionChanged}
-          //   onTocChange={onTocChange}
           baseUrl={baseUrl}
           newlinesAreBreaks={newlinesAreBreaks}
         />

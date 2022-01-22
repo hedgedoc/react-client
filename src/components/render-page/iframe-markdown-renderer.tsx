@@ -99,7 +99,6 @@ export const IframeMarkdownRenderer: React.FC = () => {
             scrollState={ scrollState }
             onScroll={ onScroll }
             baseUrl={ baseConfiguration.baseUrl }
-            //frontmatterInfo={frontmatterInfo}
           />
         )
       case RendererType.SLIDESHOW:
@@ -126,7 +125,6 @@ export const IframeMarkdownRenderer: React.FC = () => {
             additionalOuterContainerClasses={ 'vh-100 bg-light overflow-y-hidden' }
             markdownContentLines={ markdownContentLines }
             baseUrl={ baseConfiguration.baseUrl }
-            disableToc={ true }
             onHeightChange={ onHeightChange }
           />
         )
