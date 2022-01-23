@@ -11,7 +11,8 @@ const replaceAllExists = String.prototype.replaceAll !== undefined
 
 /**
  * A replace-all string function that uses a polyfill if the environment doesn't
- * support replace-all (like node 14).
+ * support replace-all (like node 14 for unit tests).
+ * TODO: Remove polyfill when node 14 is removed
  *
  * @param haystack The string that should be modified
  * @param needle The string that should get replaced
