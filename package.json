@@ -36,6 +36,7 @@
     ]
   },
   "dependencies": {
+    "@codemirror/gutter": "0.19.9",
     "@codemirror/lang-markdown": "0.19.5",
     "@codemirror/language-data": "0.19.1",
     "@codemirror/theme-one-dark": "0.19.1",

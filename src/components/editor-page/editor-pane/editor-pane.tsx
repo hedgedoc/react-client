@@ -30,6 +30,27 @@ import { EditorView } from '@codemirror/view'
 import { autocompletion } from '@codemirror/autocomplete'
 import { useCodeMirrorFocusReference } from './hooks/use-code-mirror-focus-reference'
 import { useOffScreenScrollProtection } from './hooks/use-off-screen-scroll-protection'
+import { gutter, GutterMarker } from '@codemirror/gutter'
+
+class emptyMarker extends GutterMarker {
+  toDOM(view: EditorView) {
+    console.log('create')
+    const ele = document.createElement('i')
+    ele.className = 'fa fa-warning'
+    return ele
+  }
+}
+
+const e = new emptyMarker()
+
+const emptyLineGutter = gutter({
+  lineMarker(view, line) {
+    //  console.log('eval ', line)
+    return line.from !== line.to ? e : null
+  },
+  updateSpacer: () => e,
+  initialSpacer: () => e
+})
 
 const logger = new Logger('EditorPane')
 
@@ -64,6 +85,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       markdown({ base: markdownLanguage, codeLanguages: languages }),
       ...saveOffFocusScrollStateExtensions,
       focusExtension,
+      emptyLineGutter,
       EditorView.lineWrapping,
       editorScrollExtension,
       editorPasteExtension,
