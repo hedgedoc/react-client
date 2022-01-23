@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { stringSplice } from './utils/stringSplice'
+import { stringSplice } from './utils/string-splice'
 import type { CursorSelection } from '../../../editor/types'
 
 const beforeDescription = '['

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { stringSplice } from './stringSplice'
+import { stringSplice } from './string-splice'
 
 describe('string splice', () => {
   it(`won't modify a string without deletion or text to add`, () => {
