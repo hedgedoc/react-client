@@ -41,7 +41,7 @@ export const addLink = (markdownContentLines: string[], selection: CursorSelecti
 }
 
 const buildLink = (selectedText: string, prefix: string): string => {
-  const linkRegex = /^(?:https?|ftp|mailto):/
+  const linkRegex = /^(?:https?|mailto):/
   if (linkRegex.test(selectedText)) {
     return prefix + beforeDescription + afterDescriptionBeforeLink + selectedText + afterLink
   } else {
