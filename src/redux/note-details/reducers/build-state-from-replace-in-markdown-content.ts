@@ -14,7 +14,6 @@ const replaceAllExists = String.prototype.replaceAll !== undefined
  * support replace-all (like node 14 for unit tests).
  * TODO: Remove polyfill when node 14 is removed
  *
- *
  * @param haystack The string that should be modified
  * @param needle The string that should get replaced
  * @param replacement The string that should replace
