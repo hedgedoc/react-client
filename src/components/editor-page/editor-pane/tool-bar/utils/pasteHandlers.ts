@@ -7,7 +7,7 @@
 import { convertClipboardTableToMarkdown, isTable } from '../../table-extractor'
 import { handleUpload } from '../../upload-handler'
 import { replaceSelection } from '../../../../../redux/note-details/methods'
-import { isCursorInCodefence } from './codefenceDetection'
+import { isCursorInCodeFence } from './codefenceDetection'
 import { getGlobalState } from '../../../../../redux'
 import Optional from 'optional-js'
 
@@ -30,7 +30,7 @@ export interface PasteEvent {
  * @return {@code true} if the event was processed. {@code false} otherwise
  */
 export const handleTablePaste = (event: PasteEvent): boolean => {
-  if (!getGlobalState().editorConfig.smartPaste || isCursorInCodefence()) {
+  if (!getGlobalState().editorConfig.smartPaste || isCursorInCodeFence()) {
     return false
   }
 

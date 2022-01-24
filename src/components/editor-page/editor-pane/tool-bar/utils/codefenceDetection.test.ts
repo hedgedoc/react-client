@@ -6,7 +6,7 @@
 
 import type { ApplicationState } from '../../../../../redux/application-state'
 import { initialState } from '../../../../../redux/note-details/initial-state'
-import { isCursorInCodefence } from './codefenceDetection'
+import { isCursorInCodeFence } from './codefenceDetection'
 import * as storeModule from '../../../../../redux'
 import { Mock } from 'ts-mockery'
 
@@ -42,26 +42,26 @@ describe('Check whether cursor is in codefence', () => {
 
   it('returns false for empty document', () => {
     mockRedux('', 0)
-    expect(isCursorInCodefence()).toBe(false)
+    expect(isCursorInCodeFence()).toBe(false)
   })
 
   it('returns true with one open codefence directly above', () => {
     mockRedux('```\n', 1)
-    expect(isCursorInCodefence()).toBe(true)
+    expect(isCursorInCodeFence()).toBe(true)
   })
 
   it('returns true with one open codefence and empty lines above', () => {
     mockRedux('```\n\n\n', 3)
-    expect(isCursorInCodefence()).toBe(true)
+    expect(isCursorInCodeFence()).toBe(true)
   })
 
   it('returns false with one completed codefence above', () => {
     mockRedux('```\n\n```\n', 3)
-    expect(isCursorInCodefence()).toBe(false)
+    expect(isCursorInCodeFence()).toBe(false)
   })
 
   it('returns true with one completed and one open codefence above', () => {
     mockRedux('```\n\n```\n\n```\n\n', 6)
-    expect(isCursorInCodefence()).toBe(true)
+    expect(isCursorInCodeFence()).toBe(true)
   })
 })

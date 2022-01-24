@@ -7,9 +7,9 @@
 import { getGlobalState } from '../../../../../redux'
 
 /**
- * Checks if the current
+ * Checks if the start of the current {@link CursorSelection cursor selection} is in a code fence.
  */
-export const isCursorInCodefence = (): boolean => {
+export const isCursorInCodeFence = (): boolean => {
   const lines = getGlobalState().noteDetails.markdownContentLines.slice(
     0,
     getGlobalState().noteDetails.selection.from.line

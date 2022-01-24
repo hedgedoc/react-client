@@ -14,8 +14,8 @@ import { updateCursorPositions } from '../../../../redux/note-details/methods'
  *
  * @return the generated callback
  */
-export const useCursorActivityCallback = () => {
-  return useCallback((editor: Editor) => {
+export const useCursorActivityCallback = (): ((editor: Editor) => void) => {
+  return useCallback((editor) => {
     const firstSelection = editor.listSelections()[0]
     if (firstSelection === undefined) {
       return
