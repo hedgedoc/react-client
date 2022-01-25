@@ -5,7 +5,7 @@
  */
 
 import type { Editor, EditorChange } from 'codemirror'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useRef } from 'react'
 import type { ScrollProps } from '../synced-scroll/scroll-props'
 import { StatusBar } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
@@ -25,7 +25,7 @@ import { useCursorActivityCallback } from './hooks/use-cursor-activity-callback'
 export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMakeScrollSource }) => {
   const markdownContent = useNoteMarkdownContent()
 
-  const [editor, setEditor] = useState<Editor>()
+  const editor = useRef<Editor>()
   const ligaturesEnabled = useApplicationState((state) => state.editorConfig.ligatures)
 
   const onPaste = useOnEditorPasteCallback()
@@ -39,12 +39,33 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   useOnImageUploadFromRenderer()
 
   const onEditorDidMount = useCallback((mountedEditor: Editor) => {
-    setEditor(mountedEditor)
+    editor.current = mountedEditor
   }, [])
 
   const onCursorActivity = useCursorActivityCallback()
   const onDrop = useOnEditorFileDrop()
   const codeMirrorOptions = useCodeMirrorOptions()
+
+  const editorFocus = useRef<boolean>(false)
+  const onFocus = useCallback(() => {
+    editorFocus.current = true
+    if (editor.current) {
+      onCursorActivity(editor.current)
+    }
+  }, [editor, onCursorActivity])
+
+  const onBlur = useCallback(() => {
+    editorFocus.current = false
+  }, [])
+
+  const cursorActivity = useCallback(
+    (editor: Editor) => {
+      if (editorFocus.current) {
+        onCursorActivity(editor)
+      }
+    },
+    [onCursorActivity]
+  )
 
   return (
     <div className={`d-flex flex-column h-100 position-relative`} onMouseEnter={onMakeScrollSource}>
@@ -56,10 +77,12 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
         options={codeMirrorOptions}
         onPaste={onPaste}
         onDrop={onDrop}
-        onCursorActivity={onCursorActivity}
+        onCursorActivity={cursorActivity}
         editorDidMount={onEditorDidMount}
         onBeforeChange={onBeforeChange}
         onScroll={onEditorScroll}
+        onFocus={onFocus}
+        onBlur={onBlur}
         ligatures={ligaturesEnabled}
       />
       <StatusBar />
