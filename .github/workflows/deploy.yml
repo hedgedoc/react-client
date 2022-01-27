@@ -49,7 +49,7 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: Preview
+          env: "PR #${{ github.event.number }}"
           no_override: false
           ref: ${{ github.head_ref }}
 
