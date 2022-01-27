@@ -6,7 +6,7 @@
 
 if [[ -z "${GITHUB_ACTIONS}" ]]; then
     echo "Running in netlify CI or manual"
-    yarn build:netlify
+    exec yarn build:netlify
 else
     echo "Running in GitHub actions CI"
     echo "Build is not necessary as already done prior to this step."
