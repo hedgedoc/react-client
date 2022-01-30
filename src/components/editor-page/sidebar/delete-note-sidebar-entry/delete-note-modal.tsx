@@ -59,7 +59,7 @@ export const DeleteNoteModal: React.FC<DeleteNoteModalProps & DeleteHistoryNoteM
         <Trans i18nKey={modalQuestionI18nKey ?? 'editor.modal.deleteNote.question'} />
       </h5>
       <ul>
-        <li {...cypressId('sidebar.deleteNote.modal.noteTitle')}>&nbsp;{optionalNoteTitle ?? noteTitle}</li>
+        <li {...cypressId('sidebar.deleteNote.modal.noteTitle')}>{optionalNoteTitle ?? noteTitle}</li>
       </ul>
       <h6>
         <Trans i18nKey={modalWarningI18nKey ?? 'editor.modal.deleteNote.warning'} />
