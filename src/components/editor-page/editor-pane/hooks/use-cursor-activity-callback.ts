@@ -4,27 +4,33 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import type { Editor } from 'codemirror'
+import type { RefObject } from 'react'
 import { useCallback } from 'react'
-import type { CursorPosition } from '../../../../redux/editor/types'
 import { updateCursorPositions } from '../../../../redux/note-details/methods'
+import type { ViewUpdate } from '@codemirror/view'
+import { Logger } from '../../../../utils/logger'
+
+const logger = new Logger('useCursorActivityCallback')
 
 /**
  * Provides a callback for codemirror that handles cursor changes
  *
  * @return the generated callback
  */
-export const useCursorActivityCallback = (): ((editor: Editor) => void) => {
-  return useCallback((editor) => {
-    const firstSelection = editor.listSelections()[0]
-    if (firstSelection === undefined) {
-      return
-    }
-    const start: CursorPosition = { line: firstSelection.from().line, character: firstSelection.from().ch }
-    const end: CursorPosition = { line: firstSelection.to().line, character: firstSelection.to().ch }
-    updateCursorPositions({
-      from: start,
-      to: start.line === end.line && start.character === end.character ? undefined : end
-    })
-  }, [])
+export const useCursorActivityCallback = (editorFocused: RefObject<boolean>) => {
+  return useCallback(
+    (viewUpdate: ViewUpdate): void => {
+      if (!editorFocused.current) {
+        logger.debug("Don't post updated cursor because editor isn't focused")
+        return
+      }
+      const firstSelection = viewUpdate.state.selection.main
+      const newCursorPos = {
+        from: firstSelection.from,
+        to: firstSelection.to === firstSelection.from ? undefined : firstSelection.to
+      }
+      updateCursorPositions(newCursorPos)
+    },
+    [editorFocused]
+  )
 }
