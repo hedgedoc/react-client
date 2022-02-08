@@ -63,7 +63,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   )
 
   const offFocusScrollState = useRef<ScrollState>()
-  const saveOffFocusScrollStateExtension = useCodeMirrorFocusExtension(
+  const saveOffFocusScrollStateExtension = useCodeMirrorBlurExtension(
     useCallback(() => {
       Optional.ofNullable(codeMirrorRef.current?.view).ifPresent((view) => {
         offFocusScrollState.current = extractScrollState(view)
