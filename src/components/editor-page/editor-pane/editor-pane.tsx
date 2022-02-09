@@ -26,7 +26,7 @@ import { useCodeMirrorPasteExtension } from './hooks/code-mirror-extensions/use-
 import { useCodeMirrorFileDropExtension } from './hooks/code-mirror-extensions/use-code-mirror-file-drop-extension'
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { languages } from '@codemirror/language-data'
-import { EditorView, ViewUpdate } from '@codemirror/view'
+import { EditorView } from '@codemirror/view'
 import { autocompletion } from '@codemirror/autocomplete'
 import { useCodeMirrorFocusReference } from './hooks/use-code-mirror-focus-reference'
 import { useOffScreenScrollProtection } from './hooks/use-off-screen-scroll-protection'
@@ -45,7 +45,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   const editorPasteExtension = useCodeMirrorPasteExtension()
   const dropExtension = useCodeMirrorFileDropExtension()
   const [focusExtension, editorFocused] = useCodeMirrorFocusReference()
-  const saveOffFocusScrollStateExtension = useOffScreenScrollProtection(codeMirrorRef)
+  const saveOffFocusScrollStateExtensions = useOffScreenScrollProtection()
   const cursorActivityExtension = useCursorActivityCallback(editorFocused)
 
   const onBeforeChange = useCallback(
@@ -62,7 +62,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   const extensions = useMemo(
     () => [
       markdown({ base: markdownLanguage, codeLanguages: languages }),
-      saveOffFocusScrollStateExtension,
+      ...saveOffFocusScrollStateExtensions,
       focusExtension,
       EditorView.lineWrapping,
       editorScrollExtension,
@@ -77,7 +77,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       editorPasteExtension,
       editorScrollExtension,
       focusExtension,
-      saveOffFocusScrollStateExtension
+      saveOffFocusScrollStateExtensions
     ]
   )
 

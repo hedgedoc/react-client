@@ -4,26 +4,28 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import type { RefObject } from 'react'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import type { ScrollState } from '../../synced-scroll/scroll-props'
 import { extractScrollState } from './code-mirror-extensions/use-code-mirror-scroll-watch-extension'
 import { applyScrollState } from './use-apply-scroll-state'
 import { store } from '../../../../redux'
 import type { Extension } from '@codemirror/state'
 import { Logger } from '../../../../utils/logger'
-import type { ReactCodeMirrorRef } from '@uiw/react-codemirror'
-import { useNoteMarkdownContent } from '../../../../hooks/common/use-note-markdown-content'
 import { EditorView } from '@codemirror/view'
 
 const logger = new Logger('useOffScreenScrollProtection')
 
-export const useOffScreenScrollProtection = (codeMirrorRef: RefObject<ReactCodeMirrorRef>): Extension => {
+/**
+ * If the editor content changes while the editor isn't focused then the editor starts jumping around.
+ * This extension fixes this behaviour by saving the scroll state when the editor looses focus and applies it on content changes.
+ *
+ * @returns necessary {@link Extension code mirror extensions} to provide the functionality
+ */
+export const useOffScreenScrollProtection = (): Extension[] => {
   const offFocusScrollState = useRef<ScrollState>()
-  const markdownContent = useNoteMarkdownContent()
 
-  const saveOffFocusScrollStateExtension = useMemo(() => {
-    return EditorView.domEventHandlers({
+  return useMemo(() => {
+    const saveOffFocusScrollStateExtension = EditorView.domEventHandlers({
       blur: (event, view) => {
         offFocusScrollState.current = extractScrollState(view)
         logger.debug('Save off-focus scroll state', offFocusScrollState.current)
@@ -32,12 +34,13 @@ export const useOffScreenScrollProtection = (codeMirrorRef: RefObject<ReactCodeM
         offFocusScrollState.current = undefined
       }
     })
-  }, [])
 
-  useEffect(() => {
-    const view = codeMirrorRef.current?.view
-    const scrollState = offFocusScrollState.current
-    if (offFocusScrollState.current !== undefined && !!scrollState && !!view) {
+    const changeExtension = EditorView.updateListener.of((update) => {
+      const view = update.view
+      const scrollState = offFocusScrollState.current
+      if (!(!!scrollState && update.docChanged)) {
+        return
+      }
       logger.debug('Apply off-focus scroll state', scrollState)
       applyScrollState(view, scrollState)
       const selection = store.getState().noteDetails.selection
@@ -49,8 +52,8 @@ export const useOffScreenScrollProtection = (codeMirrorRef: RefObject<ReactCodeM
           }
         })
       )
-    }
-  }, [codeMirrorRef, markdownContent])
+    })
 
-  return saveOffFocusScrollStateExtension
+    return [saveOffFocusScrollStateExtension, changeExtension]
+  }, [])
 }
