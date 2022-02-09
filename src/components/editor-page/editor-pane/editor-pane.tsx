@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import type { ScrollProps, ScrollState } from '../synced-scroll/scroll-props'
+import React, { useCallback, useMemo, useRef } from 'react'
+import type { ScrollProps } from '../synced-scroll/scroll-props'
 import { StatusBar } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
@@ -16,25 +16,20 @@ import { useOnImageUploadFromRenderer } from './hooks/use-on-image-upload-from-r
 import type { ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import ReactCodeMirror from '@uiw/react-codemirror'
 import { useCursorActivityCallback } from './hooks/use-cursor-activity-callback'
-import { applyScrollState, useApplyScrollState } from './hooks/use-apply-scroll-state'
+import { useApplyScrollState } from './hooks/use-apply-scroll-state'
 import styles from './extended-codemirror/codemirror.module.scss'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { useTranslation } from 'react-i18next'
 import { Logger } from '../../../utils/logger'
-import {
-  extractScrollState,
-  useCodeMirrorScrollWatchExtension
-} from './hooks/code-mirror-extensions/use-code-mirror-scroll-watch-extension'
+import { useCodeMirrorScrollWatchExtension } from './hooks/code-mirror-extensions/use-code-mirror-scroll-watch-extension'
 import { useCodeMirrorPasteExtension } from './hooks/code-mirror-extensions/use-code-mirror-paste-extension'
 import { useCodeMirrorFileDropExtension } from './hooks/code-mirror-extensions/use-code-mirror-file-drop-extension'
-import { useCodeMirrorFocusExtension } from './hooks/code-mirror-extensions/use-code-mirror-focus-extension'
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { languages } from '@codemirror/language-data'
-import { EditorView } from '@codemirror/view'
-import Optional from 'optional-js'
-import { useCodeMirrorBlurExtension } from './hooks/code-mirror-extensions/use-code-mirror-blur-extension'
-import { store } from '../../../redux'
+import { EditorView, ViewUpdate } from '@codemirror/view'
 import { autocompletion } from '@codemirror/autocomplete'
+import { useCodeMirrorFocusReference } from './hooks/use-code-mirror-focus-reference'
+import { useOffScreenScrollProtection } from './hooks/use-off-screen-scroll-protection'
 
 const logger = new Logger('EditorPane')
 
@@ -49,67 +44,9 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   const editorScrollExtension = useCodeMirrorScrollWatchExtension(onScroll)
   const editorPasteExtension = useCodeMirrorPasteExtension()
   const dropExtension = useCodeMirrorFileDropExtension()
-
-  const editorFocused = useRef<boolean>(false)
-  const blurExtension = useCodeMirrorBlurExtension(
-    useCallback(() => {
-      editorFocused.current = false
-    }, [])
-  )
-  const focusExtension = useCodeMirrorFocusExtension(
-    useCallback(() => {
-      editorFocused.current = true
-    }, [])
-  )
-
-  const offFocusScrollState = useRef<ScrollState>()
-  const saveOffFocusScrollStateExtension = useCodeMirrorBlurExtension(
-    useCallback(() => {
-      Optional.ofNullable(codeMirrorRef.current?.view).ifPresent((view) => {
-        offFocusScrollState.current = extractScrollState(view)
-        logger.debug('Save off-focus scroll state', offFocusScrollState.current)
-      })
-    }, [])
-  )
-  useEffect(() => {
-    const view = codeMirrorRef.current?.view
-    const scrollState = offFocusScrollState.current
-    if (!editorFocused.current && !!scrollState && !!view) {
-      logger.debug('Apply off-focus scroll state', scrollState)
-      applyScrollState(view, scrollState)
-      const selection = store.getState().noteDetails.selection
-      view.dispatch(
-        view.state.update({
-          selection: {
-            anchor: selection.from,
-            head: selection.to
-          }
-        })
-      )
-    }
-  }, [markdownContent])
-
-  const extensions = useMemo(
-    () => [
-      markdown({ base: markdownLanguage, codeLanguages: languages }),
-      EditorView.lineWrapping,
-      editorScrollExtension,
-      editorPasteExtension,
-      dropExtension,
-      focusExtension,
-      blurExtension,
-      saveOffFocusScrollStateExtension,
-      autocompletion()
-    ],
-    [
-      blurExtension,
-      dropExtension,
-      editorPasteExtension,
-      editorScrollExtension,
-      focusExtension,
-      saveOffFocusScrollStateExtension
-    ]
-  )
+  const [focusExtension, editorFocused] = useCodeMirrorFocusReference()
+  const saveOffFocusScrollStateExtension = useOffScreenScrollProtection(codeMirrorRef)
+  const cursorActivityExtension = useCursorActivityCallback(editorFocused)
 
   const onBeforeChange = useCallback(
     (value: string): void => {
@@ -122,9 +59,29 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
     [editorFocused]
   )
 
-  useOnImageUploadFromRenderer()
+  const extensions = useMemo(
+    () => [
+      markdown({ base: markdownLanguage, codeLanguages: languages }),
+      saveOffFocusScrollStateExtension,
+      focusExtension,
+      EditorView.lineWrapping,
+      editorScrollExtension,
+      editorPasteExtension,
+      dropExtension,
+      autocompletion(),
+      cursorActivityExtension
+    ],
+    [
+      cursorActivityExtension,
+      dropExtension,
+      editorPasteExtension,
+      editorScrollExtension,
+      focusExtension,
+      saveOffFocusScrollStateExtension
+    ]
+  )
 
-  const onCursorActivity = useCursorActivityCallback(editorFocused)
+  useOnImageUploadFromRenderer()
 
   const codeMirrorClassName = useMemo(
     () => `overflow-hidden ${styles.extendedCodemirror} h-100 ${ligaturesEnabled ? '' : styles['no-ligatures']}`,
@@ -148,7 +105,6 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
         className={codeMirrorClassName}
         theme={oneDark}
         value={markdownContent}
-        onUpdate={onCursorActivity}
         onChange={onBeforeChange}
         ref={codeMirrorRef}
       />
