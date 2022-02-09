@@ -137,7 +137,11 @@ describe('apply format type to markdown lines', () => {
 
   it('can process the format type horizontal line with only from cursor', () => {
     const randomCursorPosition = 138743857
-    const result = applyFormatTypeToMarkdownLines(markdownContentMock, { from: randomCursorPosition }, FormatType.HORIZONTAL_LINE)
+    const result = applyFormatTypeToMarkdownLines(
+      markdownContentMock,
+      { from: randomCursorPosition },
+      FormatType.HORIZONTAL_LINE
+    )
     expect(result).toEqual(replaceSelectionMockResponse)
     expect(replaceSelectionMock).toBeCalledWith(markdownContentMock, { from: randomCursorPosition }, `\n----`)
   })
