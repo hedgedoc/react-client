@@ -4,12 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { RefObject, useMemo } from 'react'
+import type { RefObject } from 'react'
+import { useMemo } from 'react'
 import { updateCursorPositions } from '../../../../redux/note-details/methods'
 import type { ViewUpdate } from '@codemirror/view'
 import { EditorView } from '@codemirror/view'
 import { Logger } from '../../../../utils/logger'
-import { Extension } from '@codemirror/state'
+import type { Extension } from '@codemirror/state'
 
 const logger = new Logger('useCursorActivityCallback')
 
