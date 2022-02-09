@@ -10,7 +10,7 @@ import { applyFormatTypeToMarkdownLines } from './apply-format-type-to-markdown-
 import type { CursorSelection } from '../../editor/types'
 import { FormatType } from '../types'
 import * as changeCursorsToWholeLineIfNoToCursorModule from './formatters/utils/change-cursors-to-whole-line-if-no-to-cursor'
-import * as replaceLinesOfSelectionModule from './formatters/prepend-lines-of-selection'
+import * as prependLinesOfSelectionModule from './formatters/prepend-lines-of-selection'
 import * as replaceSelectionModule from './formatters/replace-selection'
 import * as addLinkModule from './formatters/add-link'
 
@@ -29,7 +29,7 @@ describe('apply format type to markdown lines', () => {
   )
   const changeCursorsToWholeLineIfNoToCursorMockResponse = Mock.of<CursorSelection>()
 
-  const prependLinesOfSelectionMock = jest.spyOn(replaceLinesOfSelectionModule, 'prependLinesOfSelection')
+  const prependLinesOfSelectionMock = jest.spyOn(prependLinesOfSelectionModule, 'prependLinesOfSelection')
 
   const replaceSelectionMock = jest.spyOn(replaceSelectionModule, 'replaceSelection')
   const replaceSelectionMockResponse = Mock.of<[string, CursorSelection]>()
@@ -136,10 +136,10 @@ describe('apply format type to markdown lines', () => {
   })
 
   it('can process the format type horizontal line with only from cursor', () => {
-    const fromCursor = 138743857
-    const result = applyFormatTypeToMarkdownLines(markdownContentMock, { from: fromCursor }, FormatType.HORIZONTAL_LINE)
+    const randomCursorPosition = 138743857
+    const result = applyFormatTypeToMarkdownLines(markdownContentMock, { from: randomCursorPosition }, FormatType.HORIZONTAL_LINE)
     expect(result).toEqual(replaceSelectionMockResponse)
-    expect(replaceSelectionMock).toBeCalledWith(markdownContentMock, { from: fromCursor }, `\n----`)
+    expect(replaceSelectionMock).toBeCalledWith(markdownContentMock, { from: randomCursorPosition }, `\n----`)
   })
 
   it('can process the format type horizontal line with from and to cursor', () => {

@@ -31,6 +31,14 @@ export const changeCursorsToWholeLineIfNoToCursor = (
   }
 }
 
+/**
+ * Finds the position of the first character after the nearest
+ * new line before the given start position.
+ *
+ * @param content The content that should be looked through
+ * @param startPosition The position from which the search should start
+ * @return The found new line character or the start of the content if no new line could be found
+ */
 export const searchForStartOfLine = (content: string, startPosition: number): number => {
   const adjustedStartPosition = Math.min(Math.max(0, startPosition), content.length)
 
@@ -42,6 +50,14 @@ export const searchForStartOfLine = (content: string, startPosition: number): nu
   return 0
 }
 
+/**
+ * Finds the position of the last character before the nearest
+ * new line after the given start position.
+ *
+ * @param content The content that should be looked through
+ * @param startPosition The position from which the search should start
+ * @return The found new line character or the end of the content if no new line could be found
+ */
 export const searchForEndOfLine = (content: string, startPosition: number): number => {
   const adjustedStartPosition = Math.min(Math.max(0, startPosition), content.length)
 
@@ -51,17 +67,4 @@ export const searchForEndOfLine = (content: string, startPosition: number): numb
     }
   }
   return content.length
-}
-
-export const searchForNewline = (haystack: string, startPosition: number, step: number): number | undefined => {
-  const adjustedStartPosition = Math.min(Math.max(0, startPosition), haystack.length)
-  for (
-    let characterIndex = adjustedStartPosition;
-    characterIndex > 0 && characterIndex < haystack.length;
-    characterIndex += step
-  ) {
-    if (haystack.slice(characterIndex, characterIndex + step) === '\n') {
-      return characterIndex
-    }
-  }
 }
