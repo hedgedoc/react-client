@@ -17,7 +17,7 @@ import Optional from 'optional-js'
  */
 export const useCodeMirrorFileDropExtension = (): Extension => {
   const onDrop = useCallback((event: DragEvent, view: EditorView): void => {
-    if (!(event.pageX && event.pageY)) {
+    if (!event.pageX || !event.pageY) {
       return
     }
     Optional.ofNullable(event.dataTransfer?.files)

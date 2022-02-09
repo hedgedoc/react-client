@@ -4,14 +4,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import type { RefObject} from 'react';
+import type { RefObject } from 'react'
 import { useMemo, useRef } from 'react'
 import { EditorView } from '@codemirror/view'
 import type { Extension } from '@codemirror/state'
 
 export const useCodeMirrorFocusReference = (): [Extension, RefObject<boolean>] => {
   const focusReference = useRef<boolean>(false)
-  const codeMirrorExtension = useMemo(() =>
+  const codeMirrorExtension = useMemo(
+    () =>
       EditorView.domEventHandlers({
         blur: () => {
           focusReference.current = false
@@ -19,8 +20,9 @@ export const useCodeMirrorFocusReference = (): [Extension, RefObject<boolean>] =
         focus: () => {
           focusReference.current = true
         }
-      })
-    , [])
+      }),
+    []
+  )
 
   return [codeMirrorExtension, focusReference]
 }

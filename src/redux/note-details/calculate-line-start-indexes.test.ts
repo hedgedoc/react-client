@@ -15,4 +15,7 @@ describe('calculateLineStartIndexes', () => {
       0, 2, 5, 9, 14, 20, 27
     ])
   })
+  it('works with an non empty list with empty lines', () => {
+    expect(calculateLineStartIndexes(['', '', ''])).toEqual([0, 1, 2])
+  })
 })
