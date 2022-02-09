@@ -11,6 +11,12 @@ import type { ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import { EditorView } from '@codemirror/view'
 import equal from 'fast-deep-equal'
 
+/**
+ * Applies the given {@link ScrollState scroll state} to the given {@link EditorView code mirror editor view}.
+ *
+ * @param view The {@link EditorView view} that should be scrolled
+ * @param scrollState The {@link ScrollState scroll state} that should be applied
+ */
 export const applyScrollState = (view: EditorView, scrollState: ScrollState): void => {
   const line = view.state.doc.line(scrollState.firstLineInView)
   const lineBlock = view.lineBlockAt(line.from)

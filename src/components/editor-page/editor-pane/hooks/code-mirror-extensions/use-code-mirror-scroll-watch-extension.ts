@@ -11,6 +11,11 @@ import type { Extension } from '@codemirror/state'
 
 export type OnScrollCallback = ((scrollState: ScrollState) => void) | undefined
 
+/**
+ * Extracts the {@link ScrollState scroll state} from the given {@link EditorView editor view}.
+ *
+ * @param view The {@link EditorView editor view} whose scroll state should be extracted.
+ */
 export const extractScrollState = (view: EditorView): ScrollState => {
   const state = view.state
   const scrollTop = view.scrollDOM.scrollTop
