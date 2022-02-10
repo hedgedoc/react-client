@@ -27,7 +27,7 @@ import { SanitizerMarkdownExtension } from '../markdown-extension/sanitizer/sani
 export const useConvertMarkdownToReactDom = (
   markdownContentLines: string[],
   additionalMarkdownExtensions: MarkdownExtension[],
-  newlinesAreBreaks?: boolean,
+  newlinesAreBreaks = true,
   allowHtml = true
 ): ValidReactDomElement[] => {
   const lineNumberMapper = useMemo(() => new LineIdMapper(), [])
@@ -43,7 +43,7 @@ export const useConvertMarkdownToReactDom = (
   const markdownIt = useMemo(() => {
     const newMarkdownIt = new MarkdownIt('default', {
       html: allowHtml,
-      breaks: newlinesAreBreaks ?? true,
+      breaks: newlinesAreBreaks,
       langPrefix: '',
       typographer: true
     })
