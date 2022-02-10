@@ -36,7 +36,7 @@ export const useOnImageUploadFromRenderer = (): void => {
         .then((blob) => {
           const file = new File([blob], fileName, { type: blob.type })
           const { cursorSelection, alt, title } = Optional.ofNullable(lineIndex)
-            .map((actualLineIndex) => findPlaceholderInMarkdownContent(actualLineIndex, placeholderIndexInLine))
+            .flatMap((actualLineIndex) => findPlaceholderInMarkdownContent(actualLineIndex, placeholderIndexInLine))
             .orElseGet(() => ({}))
           handleUpload(file, cursorSelection, alt, title)
         })
@@ -58,15 +58,12 @@ export interface ExtractResult {
  * @param replacementIndexInLine If multiple image placeholders are present in the target line then this number describes the index of the wanted placeholder.
  * @return the calculated start and end position or undefined if no position could be determined
  */
-const findPlaceholderInMarkdownContent = (lineIndex: number, replacementIndexInLine = 0): ExtractResult | undefined => {
+const findPlaceholderInMarkdownContent = (lineIndex: number, replacementIndexInLine = 0): Optional<ExtractResult> => {
   const noteDetails = getGlobalState().noteDetails
   const currentMarkdownContentLines = noteDetails.markdownContent.lines
-  const lineAtIndex = currentMarkdownContentLines[lineIndex]
-  if (lineAtIndex === undefined) {
-    return
-  }
-  const startIndexOfLine = noteDetails.markdownContent.lineStartIndexes[lineIndex]
-  return findImagePlaceholderInLine(currentMarkdownContentLines[lineIndex], startIndexOfLine, replacementIndexInLine)
+  return Optional.ofNullable(noteDetails.markdownContent.lineStartIndexes[lineIndex]).map((startIndexOfLine) =>
+    findImagePlaceholderInLine(currentMarkdownContentLines[lineIndex], startIndexOfLine, replacementIndexInLine)
+  )
 }
 
 /**
