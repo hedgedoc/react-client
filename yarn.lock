@@ -2229,7 +2229,7 @@ __metadata:
     flowchart.js: 1.17.1
     fork-awesome: 1.2.0
     highlight.js: 11.4.0
-    i18next: 21.6.10
+    i18next: 21.6.11
     i18next-browser-languagedetector: 6.1.3
     i18next-resources-to-backend: 1.0.0
     jest: 27.5.1
@@ -2265,7 +2265,7 @@ __metadata:
     react-bootstrap-typeahead: 5.2.1
     react-diff-viewer: 3.1.1
     react-dom: 17.0.2
-    react-i18next: 11.15.3
+    react-i18next: 11.15.4
     react-redux: 7.2.6
     react-test-renderer: 17.0.2
     react-use: 17.3.2
@@ -2277,7 +2277,7 @@ __metadata:
     sharp: 0.30.1
     ts-loader: 9.2.6
     ts-mockery: 1.2.0
-    ts-node: 10.4.0
+    ts-node: 10.5.0
     twemoji-colr-font: 0.0.4
     typescript: 4.5.5
     use-resize-observer: 8.0.0
@@ -11812,12 +11812,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:21.6.10":
-  version: 21.6.10
-  resolution: "i18next@npm:21.6.10"
+"i18next@npm:21.6.11":
+  version: 21.6.11
+  resolution: "i18next@npm:21.6.11"
   dependencies:
     "@babel/runtime": ^7.12.0
-  checksum: 0b01761d71a2fd79fad12bcccebbb14d72286f7eb94eec04f383dd67448022a2b2d9bee56d46ec800197724e1389578abfb11ef9105c647ad80ce1feb3da8c6c
+  checksum: 42716a7519d6066a8c9400639ab80fba0b568ae02205b1155ec9c4e627704bb2181dd182ff5eb0c91f6c67c8038ddd0754214e1932de5699d488c21ffd617c5e
   languageName: node
   linkType: hard
 
@@ -16877,9 +16877,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:11.15.3":
-  version: 11.15.3
-  resolution: "react-i18next@npm:11.15.3"
+"react-i18next@npm:11.15.4":
+  version: 11.15.4
+  resolution: "react-i18next@npm:11.15.4"
   dependencies:
     "@babel/runtime": ^7.14.5
     html-escaper: ^2.0.2
@@ -16892,7 +16892,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 8bb926e40136f57c21771d41b92c445ce457b70243fef45642c98967d2c6bb2d8a0df3c0db16909c2c6a8b007b2f7a4355b949a80e07f7e1152ed1be4756400d
+  checksum: 1fa984c55ee252a7e5815deaf60a488aa8ef8508791c02c275290c6119a326be9491668e7a9a8e87e44a7dfef75b3c226e6e26ac79fe268576f9d4695860aed4
   languageName: node
   linkType: hard
 
@@ -19308,7 +19308,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.4.0, ts-node@npm:^10.4.0":
+"ts-node@npm:10.5.0":
+  version: 10.5.0
+  resolution: "ts-node@npm:10.5.0"
+  dependencies:
+    "@cspotcode/source-map-support": 0.7.0
+    "@tsconfig/node10": ^1.0.7
+    "@tsconfig/node12": ^1.0.7
+    "@tsconfig/node14": ^1.0.0
+    "@tsconfig/node16": ^1.0.2
+    acorn: ^8.4.1
+    acorn-walk: ^8.1.1
+    arg: ^4.1.0
+    create-require: ^1.1.0
+    diff: ^4.0.1
+    make-error: ^1.1.1
+    v8-compile-cache-lib: ^3.0.0
+    yn: 3.1.1
+  peerDependencies:
+    "@swc/core": ">=1.2.50"
+    "@swc/wasm": ">=1.2.50"
+    "@types/node": "*"
+    typescript: ">=2.7"
+  peerDependenciesMeta:
+    "@swc/core":
+      optional: true
+    "@swc/wasm":
+      optional: true
+  bin:
+    ts-node: dist/bin.js
+    ts-node-cwd: dist/bin-cwd.js
+    ts-node-script: dist/bin-script.js
+    ts-node-transpile-only: dist/bin-transpile.js
+    ts-script: dist/bin-script-deprecated.js
+  checksum: d51ac8a9b3582ce3705cef8d35f3372e40caa277dbd7c7baeb651961538f13d2f11f22402614348f78d9b10501bd1cb5f05ec4f2ec9a74bd0e288de769c32335
+  languageName: node
+  linkType: hard
+
+"ts-node@npm:^10.4.0":
   version: 10.4.0
   resolution: "ts-node@npm:10.4.0"
   dependencies:
@@ -19865,6 +19902,13 @@ __metadata:
   bin:
     uuid: dist/bin/uuid
   checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
+  languageName: node
+  linkType: hard
+
+"v8-compile-cache-lib@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "v8-compile-cache-lib@npm:3.0.0"
+  checksum: 674e312bbca796584b61dc915f33c7e7dc4e06d196e0048cb772c8964493a1ec723f1dd014d9419fd55c24a6eae148f60769da23f622e05cd13268063fa1ed6b
   languageName: node
   linkType: hard
 
