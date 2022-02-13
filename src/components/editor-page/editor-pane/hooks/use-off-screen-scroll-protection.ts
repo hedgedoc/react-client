@@ -38,7 +38,7 @@ export const useOffScreenScrollProtection = (): Extension[] => {
     const changeExtension = EditorView.updateListener.of((update) => {
       const view = update.view
       const scrollState = offFocusScrollState.current
-      if (!(!!scrollState && update.docChanged)) {
+      if (!scrollState || !update.docChanged) {
         return
       }
       logger.debug('Apply off-focus scroll state', scrollState)
