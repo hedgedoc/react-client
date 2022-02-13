@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Suspense } from 'react'
+import React, { Fragment, Suspense } from 'react'
 import { ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { TablePickerButton } from './table-picker/table-picker-button'
 import styles from './tool-bar.module.scss'
@@ -44,7 +44,7 @@ export const ToolBar: React.FC = () => {
         <ToolbarButton icon={'minus'} formatType={FormatType.HORIZONTAL_LINE} />
         <ToolbarButton icon={'caret-square-o-down'} formatType={FormatType.COLLAPSIBLE_BLOCK} />
         <ToolbarButton icon={'comment'} formatType={FormatType.COMMENT} />
-        <Suspense fallback={<></>}>
+        <Suspense fallback={<Fragment />}>
           <EmojiPickerButton />
         </Suspense>
       </ButtonGroup>
