@@ -50,7 +50,7 @@ jobs:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
           env: "PR #${{ github.event.number }}"
-          no_override: false
+          override: true
           ref: ${{ github.head_ref }}
 
       - name: Run netlify CLI deployment
@@ -69,4 +69,4 @@ jobs:
           logs: ${{ steps.netlify-result.outputs.logs }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.github-deployment.outputs.deployment_id }}
-          no_override: false
+          override: true
