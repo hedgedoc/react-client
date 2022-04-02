@@ -6,8 +6,7 @@
 
 import type { TocAst } from 'markdown-it-toc-done-right'
 import type { MutableRefObject } from 'react'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import useResizeObserver from 'use-resize-observer'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { YamlArrayDeprecationAlert } from '../editor-page/renderer-pane/yaml-array-deprecation-alert'
 import { useDocumentSyncScrolling } from './hooks/sync-scroll/use-document-sync-scrolling'
 import type { ScrollProps } from '../editor-page/synced-scroll/scroll-props'
@@ -19,6 +18,7 @@ import { ShowIf } from '../common/show-if/show-if'
 import { useApplicationState } from '../../hooks/common/use-application-state'
 import { InvalidYamlAlert } from '../markdown-renderer/invalid-yaml-alert'
 import type { RendererFrontmatterInfo } from '../../redux/note-details/types/note-details'
+import useResizeObserver from '@react-hook/resize-observer'
 
 export interface RendererProps extends ScrollProps {
   onFirstHeadingChange?: (firstHeading: string | undefined) => void
@@ -53,22 +53,23 @@ export const MarkdownDocument: React.FC<MarkdownDocumentProps> = ({
   frontmatterInfo
 }) => {
   const rendererRef = useRef<HTMLDivElement | null>(null)
-  const rendererSize = useResizeObserver({ ref: rendererRef.current })
+  useResizeObserver(rendererRef.current, (entry) => {
+    const newHeight = entry.contentRect.height
+    onHeightChange?.(newHeight + 1)
+  })
 
+  const [containerWidth, setContainerWidth] = useState(0)
   const internalDocumentRenderPaneRef = useRef<HTMLDivElement>(null)
-  const internalDocumentRenderPaneSize = useResizeObserver({ ref: internalDocumentRenderPaneRef.current })
-  const containerWidth = internalDocumentRenderPaneSize.width ?? 0
+  useResizeObserver(
+    internalDocumentRenderPaneRef.current,
+    useCallback((entry) => {
+      setContainerWidth(entry.contentRect.width)
+    }, [])
+  )
 
   const [tocAst, setTocAst] = useState<TocAst>()
 
   const newlinesAreBreaks = useApplicationState((state) => state.noteDetails.frontmatter.newlinesAreBreaks)
-
-  useEffect(() => {
-    if (!onHeightChange) {
-      return
-    }
-    onHeightChange(rendererSize.height ? rendererSize.height + 1 : 0)
-  }, [rendererSize.height, onHeightChange])
 
   const contentLineCount = useMemo(() => markdownContentLines.length, [markdownContentLines])
   const [onLineMarkerPositionChanged, onUserScroll] = useDocumentSyncScrolling(
