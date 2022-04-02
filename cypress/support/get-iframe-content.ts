@@ -10,18 +10,28 @@ declare namespace Cypress {
   interface Chainable {
     getIframeBody(rendererType?: RendererType): Chainable<Element>
 
+    getIframeWindow(rendererType?: RendererType): Chainable<Window>
+
     getReveal(): Chainable<Element>
 
     getMarkdownBody(): Chainable<Element>
   }
 }
 
-Cypress.Commands.add('getIframeBody', (rendererType?: RendererType) => {
+Cypress.Commands.add('getIframeWindow', (rendererType?: RendererType) => {
   const renderTypeAttribute = rendererType ? `[data-cypress-renderer-type="${rendererType}"]` : ''
   return cy
     .get(`iframe[data-cypress-id="documentIframe"][data-cypress-renderer-ready="true"]${renderTypeAttribute}`)
     .should('be.visible')
-    .its('0.contentDocument')
+    .its('0.contentWindow')
+    .should('exist')
+    .then(cy.wrap.bind(cy))
+})
+
+Cypress.Commands.add('getIframeBody', (rendererType?: RendererType) => {
+  return cy
+    .getIframeWindow(rendererType)
+    .its('document')
     .should('exist')
     .its('body')
     .should('not.be.undefined')
