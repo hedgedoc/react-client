@@ -8,6 +8,7 @@ import { AuthProviderType } from '../../../../api/config/types'
 import type { IconName } from '../../../common/fork-awesome/types'
 import styles from '../via-one-click.module.scss'
 import { backendUrl } from '../../../../utils/backend-url'
+import { Logger } from '../../../../utils/logger'
 
 export interface OneClickMetadata {
   name: string
@@ -19,6 +20,8 @@ export interface OneClickMetadata {
 const getBackendAuthUrl = (providerIdentifer: string): string => {
   return `${backendUrl}auth/${providerIdentifer}`
 }
+
+const logger = new Logger('GetOneClickProviderMetadata')
 
 /**
  * Returns metadata about the given one-click provider for rendering a relevant login button.
@@ -84,6 +87,7 @@ export const getOneClickProviderMetadata = (provider: AuthProvider): OneClickMet
         url: getBackendAuthUrl('twitter')
       }
     default:
+      logger.warn('Metadata for one-click-provider does not exist', provider)
       return {
         name: '',
         icon: 'exclamation',

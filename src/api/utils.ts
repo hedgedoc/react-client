@@ -19,11 +19,16 @@ export const defaultFetchConfig: Partial<RequestInit> = {
 
 /**
  * Handles a request to the API while ensuring the response status is as expected and CSRF handling is done.
+ *
  * @param apiRoute The API route to request. Example: 'notes/example-note/revisions'
  * @param requestOptions Additional request options (like headers and POST data) for the underlying fetch.
  * @param validResponseCode The expected response status code. Defaults to 200 if not defined.
  * @param responseCodeErrorMapping Mapping from invalid response codes to error messages that should be thrown.
+ *
  * @return The response object received from the fetch call.
+ *
+ * @throws Error if the received response status code does not match the expected one.
+ *         May contain a custom message if there is a message defined for the status code.
  */
 export const doApiCall = async (
   apiRoute: string,
@@ -48,8 +53,13 @@ export const doApiCall = async (
 
 /**
  * Extracts and parses the JSON content from a given response.
+ *
  * @param response The response object that should contain the JSON data as body.
+ *
  * @return The parsed data.
+ *
+ * @throws Error if the response does not contain JSON body content.
+ *         This is determined by the received Content-Type header.
  */
 export const extractJsonResponse = async <ResponseType>(response: Response): Promise<ResponseType> => {
   if (!response.headers.get('Content-Type')?.startsWith('application/json')) {
@@ -60,8 +70,10 @@ export const extractJsonResponse = async <ResponseType>(response: Response): Pro
 
 /**
  * Retrieves data from the API without specifying advanced request options or sending data.
+ *
  * @param apiRoute The API route to request data from.
- * @return The
+ *
+ * @return The parsed JSON response body data from the API.
  */
 export const getApiResponse = async <ResponseType>(apiRoute: string): Promise<ResponseType> => {
   const response = await doApiCall(apiRoute, undefined, 200)
@@ -70,11 +82,14 @@ export const getApiResponse = async <ResponseType>(apiRoute: string): Promise<Re
 
 /**
  * Sends data to the API.
+ *
  * @param apiRoute The API route to send data to.
  * @param method The method to use. Example: POST or DELETE.
  * @param data The data to send.
  * @param validResponseCode The expected response code.
  * @param responseCodeErrorMapping A mapping from status codes to errors that can be thrown.
+ *
+ * @return The response object from the HTTP request.
  */
 export const sendApiData = async <BodyData>(
   apiRoute: string,
@@ -96,8 +111,9 @@ export const sendApiData = async <BodyData>(
 
 /**
  * Sends data to the API and returns the parsed response.
- * @return
  * @see {sendApiData}
+ *
+ * @return The parsed JSON response body data from the API.
  */
 export const sendApiDataAndGetResponse = async <BodyData, ResponseType>(
   apiRoute: string,
