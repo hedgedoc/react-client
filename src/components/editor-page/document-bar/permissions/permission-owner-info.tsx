@@ -7,9 +7,9 @@
 import React, { Fragment } from 'react'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { Button } from 'react-bootstrap'
-import { UserAvatar } from '../../../common/user-avatar/user-avatar'
 import { useTranslation } from 'react-i18next'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
+import { UserAvatarForUsername } from '../../../common/user-avatar/user-avatar-for-username'
 
 export interface PermissionOwnerInfoProps {
   onEditOwner: () => void
@@ -25,7 +25,7 @@ export const PermissionOwnerInfo: React.FC<PermissionOwnerInfoProps> = ({ onEdit
 
   return (
     <Fragment>
-      <UserAvatar username={noteOwner} />
+      <UserAvatarForUsername username={noteOwner} />
       <Button variant='light' title={t('editor.modal.permissions.ownerChange.button')} onClick={onEditOwner}>
         <ForkAwesomeIcon icon={'pencil'} />
       </Button>

@@ -5,12 +5,12 @@
  */
 import React, { useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { UserAvatar } from '../../../common/user-avatar/user-avatar'
 import { NoteInfoLine } from './note-info-line'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 import type { NoteInfoTimeLineProps } from './note-info-time-line'
 import { UnitalicBoldTimeFromNow } from './utils/unitalic-bold-time-from-now'
 import { UnitalicBoldTrans } from './utils/unitalic-bold-trans'
+import { UserAvatarForUsername } from '../../../common/user-avatar/user-avatar-for-username'
 
 /**
  * Renders an info line about the last update of the current note.
@@ -26,7 +26,7 @@ export const NoteInfoLineUpdated: React.FC<NoteInfoTimeLineProps> = ({ size }) =
       return <UnitalicBoldTrans i18nKey={'common.guestUser'} />
     }
     return (
-      <UserAvatar
+      <UserAvatarForUsername
         username={noteUpdateUser}
         additionalClasses={'font-style-normal bold font-weight-bold'}
         size={size ? 'lg' : undefined}

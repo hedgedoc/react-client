@@ -11,7 +11,7 @@ import { Alert } from 'react-bootstrap'
 
 export interface AsyncLoadingBoundaryProps {
   loading: boolean
-  error?: boolean
+  error?: Error | boolean
   componentName: string
 }
 
@@ -31,7 +31,7 @@ export const AsyncLoadingBoundary: React.FC<AsyncLoadingBoundaryProps> = ({
   children
 }) => {
   useTranslation()
-  if (error === true) {
+  if (error !== undefined && error !== false) {
     return (
       <Alert variant={'danger'}>
         <Trans i18nKey={'common.errorWhileLoading'} values={{ name: componentName }} />
