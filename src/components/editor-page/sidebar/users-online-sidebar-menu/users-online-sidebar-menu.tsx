@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -49,10 +49,10 @@ export const UsersOnlineSidebarMenu: React.FC<SpecificSidebarMenuProps> = ({
       </SidebarButton>
       <SidebarMenu expand={expand}>
         <SidebarButton>
-          <UserLine user={undefined} color='red' status={ActiveIndicatorStatus.INACTIVE} />
+          <UserLine username={null} color='red' status={ActiveIndicatorStatus.INACTIVE} />
         </SidebarButton>
         <SidebarButton>
-          <UserLine user={undefined} color='blue' status={ActiveIndicatorStatus.ACTIVE} />
+          <UserLine username={null} color='blue' status={ActiveIndicatorStatus.ACTIVE} />
         </SidebarButton>
       </SidebarMenu>
     </Fragment>

@@ -36,7 +36,7 @@ export const doApiCall = async (
   validResponseCode = 200,
   responseCodeErrorMapping: Record<number, string> = {}
 ): Promise<Response> => {
-  // TODO Add CSRF handling
+  // TODO Add CSRF handling (hedgedoc/hedgedoc#221)
   const response = await fetch(apiUrl + apiRoute, {
     ...defaultFetchConfig,
     ...requestOptions
