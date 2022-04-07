@@ -5,7 +5,7 @@
  */
 
 import { setMotd } from '../../../redux/motd/methods'
-import { defaultFetchConfig } from '../../../api/utils'
+import { defaultFetchConfig } from '../../../api/request-utils'
 import { Logger } from '../../../utils/logger'
 import { customizeAssetsUrl } from '../../../utils/customize-assets-url'
 

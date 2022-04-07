@@ -3,9 +3,12 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { sendApiDataAndGetResponse } from '../utils'
 import type { NotePermissions } from '../notes/types'
 import type { OwnerChangeDto, PermissionSetDto } from './types'
+import {
+  doApiDeleteRequestWithJsonResponse,
+  doApiPutRequestWithJsonResponse
+} from '../request-utils/with-json-response'
 
 /**
  * Sets the owner of a note.
@@ -14,9 +17,8 @@ import type { OwnerChangeDto, PermissionSetDto } from './types'
  * @return The updated note permissions.
  */
 export const setNoteOwner = (noteId: string, owner: string): Promise<NotePermissions> => {
-  return sendApiDataAndGetResponse<OwnerChangeDto, NotePermissions>(
+  return doApiPutRequestWithJsonResponse<OwnerChangeDto, NotePermissions>(
     `notes/${noteId}/metadata/permissions/owner`,
-    'PUT',
     {
       owner
     }
@@ -30,9 +32,8 @@ export const setNoteOwner = (noteId: string, owner: string): Promise<NotePermiss
  * @param canEdit true if the user should be able to update the note, false otherwise.
  */
 export const setUserPermission = (noteId: string, username: string, canEdit: boolean): Promise<NotePermissions> => {
-  return sendApiDataAndGetResponse<PermissionSetDto, NotePermissions>(
+  return doApiPutRequestWithJsonResponse<PermissionSetDto, NotePermissions>(
     `notes/${noteId}/metadata/permissions/users/${username}`,
-    'PUT',
     {
       canEdit
     }
@@ -46,9 +47,8 @@ export const setUserPermission = (noteId: string, username: string, canEdit: boo
  * @param canEdit true if the group should be able to update the note, false otherwise.
  */
 export const setGroupPermission = (noteId: string, groupName: string, canEdit: boolean): Promise<NotePermissions> => {
-  return sendApiDataAndGetResponse<PermissionSetDto, NotePermissions>(
+  return doApiPutRequestWithJsonResponse<PermissionSetDto, NotePermissions>(
     `notes/${noteId}/metadata/permissions/groups/${groupName}`,
-    'PUT',
     {
       canEdit
     }
@@ -61,11 +61,7 @@ export const setGroupPermission = (noteId: string, groupName: string, canEdit: b
  * @param username The name of the user to remove the permission of.
  */
 export const removeUserPermission = (noteId: string, username: string): Promise<NotePermissions> => {
-  return sendApiDataAndGetResponse<undefined, NotePermissions>(
-    `notes/${noteId}/metadata/permissions/users/${username}`,
-    'DELETE',
-    undefined
-  )
+  return doApiDeleteRequestWithJsonResponse<NotePermissions>(`notes/${noteId}/metadata/permissions/users/${username}`)
 }
 
 /**
@@ -74,9 +70,5 @@ export const removeUserPermission = (noteId: string, username: string): Promise<
  * @param groupName The name of the group to remove the permission of.
  */
 export const removeGroupPermission = (noteId: string, groupName: string): Promise<NotePermissions> => {
-  return sendApiDataAndGetResponse<undefined, NotePermissions>(
-    `notes/${noteId}/metadata/permissions/groups/${groupName}`,
-    'DELETE',
-    undefined
-  )
+  return doApiDeleteRequestWithJsonResponse<NotePermissions>(`notes/${noteId}/metadata/permissions/groups/${groupName}`)
 }

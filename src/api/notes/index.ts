@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { doApiCall, extractJsonResponse, getApiResponse, sendApiData } from '../utils'
+import { doApiDeleteRequest } from '../request-utils'
 import type { Note } from './types'
 import type { MediaUpload } from '../media/types'
+import { doApiGetRequestWithJsonResponse, doApiPostRequestWithJsonResponse } from '../request-utils/with-json-response'
 
 /**
  * Retrieves the content and metadata about the specified note.
@@ -14,7 +15,7 @@ import type { MediaUpload } from '../media/types'
  * @return Content and metadata of the specified note.
  */
 export const getNote = (noteIdOrAlias: string): Promise<Note> => {
-  return getApiResponse<Note>('notes/' + noteIdOrAlias)
+  return doApiGetRequestWithJsonResponse<Note>('notes/' + noteIdOrAlias)
 }
 
 /**
@@ -23,7 +24,7 @@ export const getNote = (noteIdOrAlias: string): Promise<Note> => {
  * @return List of media object metadata associated with specified note.
  */
 export const getMediaForNote = (noteIdOrAlias: string): Promise<MediaUpload[]> => {
-  return getApiResponse<MediaUpload[]>(`notes/${noteIdOrAlias}/media`)
+  return doApiGetRequestWithJsonResponse<MediaUpload[]>(`notes/${noteIdOrAlias}/media`)
 }
 
 /**
@@ -32,18 +33,13 @@ export const getMediaForNote = (noteIdOrAlias: string): Promise<MediaUpload[]> =
  * @return Content and metadata of the new note.
  */
 export const createNote = async (markdown: string): Promise<Note> => {
-  const response = await doApiCall(
-    'notes',
-    {
-      method: 'POST',
+  return await doApiPostRequestWithJsonResponse<string, Note>('notes', markdown, {
+    additionalRequestInit: {
       headers: {
         'Content-Type': 'text/markdown'
-      },
-      body: markdown
-    },
-    201
-  )
-  return extractJsonResponse<Note>(response)
+      }
+    }
+  })
 }
 
 /**
@@ -53,18 +49,13 @@ export const createNote = async (markdown: string): Promise<Note> => {
  * @return Content and metadata of the new note.
  */
 export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias: string): Promise<Note> => {
-  const response = await doApiCall(
-    'notes/' + primaryAlias,
-    {
-      method: 'POST',
+  return await doApiPostRequestWithJsonResponse<string, Note>('notes/' + primaryAlias, markdown, {
+    additionalRequestInit: {
       headers: {
         'Content-Type': 'text/markdown'
-      },
-      body: markdown
-    },
-    201
-  )
-  return extractJsonResponse<Note>(response)
+      }
+    }
+  })
 }
 
 /**
@@ -72,5 +63,5 @@ export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias:
  * @param noteIdOrAlias The id or alias of the note to delete.
  */
 export const deleteNote = (noteIdOrAlias: string): Promise<unknown> => {
-  return sendApiData<undefined>('notes/' + noteIdOrAlias, 'DELETE', undefined, 204)
+  return doApiDeleteRequest('notes/' + noteIdOrAlias)
 }

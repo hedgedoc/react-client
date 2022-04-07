@@ -2204,6 +2204,7 @@ __metadata:
     cypress-commands: 2.0.1
     cypress-fill-command: 1.0.2
     d3-graphviz: 3.2.0
+    deepmerge: ^4.2.2
     diff: 5.0.0
     dompurify: 2.3.6
     emoji-picker-element: 1.11.1

@@ -53,6 +53,7 @@
     "copy-webpack-plugin": "10.2.4",
     "cross-env": "7.0.3",
     "d3-graphviz": "3.2.0",
+    "deepmerge": "4.2.2",
     "diff": "5.0.0",
     "dompurify": "2.3.6",
     "emoji-picker-element": "1.11.1",

@@ -3,7 +3,8 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { sendApiData, sendApiDataAndGetResponse } from '../utils'
+import { doApiDeleteRequest } from '../request-utils'
+import { doApiPostRequestWithJsonResponse } from '../request-utils/with-json-response'
 import type { Alias, NewAliasDto, PrimaryAliasDto } from './types'
 
 /**
@@ -13,15 +14,10 @@ import type { Alias, NewAliasDto, PrimaryAliasDto } from './types'
  * @return Information about the newly created alias.
  */
 export const addAlias = (noteIdOrAlias: string, newAlias: string): Promise<Alias> => {
-  return sendApiDataAndGetResponse<NewAliasDto, Alias>(
-    'alias',
-    'POST',
-    {
-      noteIdOrAlias,
-      newAlias
-    },
-    201
-  )
+  return doApiPostRequestWithJsonResponse<NewAliasDto, Alias>('alias', {
+    noteIdOrAlias,
+    newAlias
+  })
 }
 
 /**
@@ -31,7 +27,7 @@ export const addAlias = (noteIdOrAlias: string, newAlias: string): Promise<Alias
  * @return The updated information about the alias.
  */
 export const markAliasAsPrimary = (alias: string): Promise<Alias> => {
-  return sendApiDataAndGetResponse<PrimaryAliasDto, Alias>('alias/' + alias, 'PUT', {
+  return doApiPostRequestWithJsonResponse<PrimaryAliasDto, Alias>('alias/' + alias, {
     primaryAlias: true
   })
 }
@@ -41,5 +37,5 @@ export const markAliasAsPrimary = (alias: string): Promise<Alias> => {
  * @param alias The alias to remove from its note.
  */
 export const deleteAlias = (alias: string): Promise<unknown> => {
-  return sendApiData<undefined>('alias/' + alias, 'DELETE', undefined, 204)
+  return doApiDeleteRequest('alias/' + alias)
 }

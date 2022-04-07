@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { sendApiData } from '../utils'
+import { doApiPostRequest, doApiPutRequest } from '../request-utils'
 import type { ChangePasswordDto, LoginDto, RegisterDto } from './types'
 import { AuthError, RegisterError } from './types'
 
@@ -16,10 +16,16 @@ import { AuthError, RegisterError } from './types'
  * @throws {AuthError.LOGIN_DISABLED} when the local login is disabled on the backend.
  */
 export const doLocalLogin = (username: string, password: string): Promise<unknown> => {
-  return sendApiData<LoginDto>('auth/local/login', 'POST', { username, password }, 201, {
-    400: AuthError.LOGIN_DISABLED,
-    401: AuthError.INVALID_CREDENTIALS
-  })
+  return doApiPostRequest<LoginDto>(
+    'auth/local/login',
+    { username, password },
+    {
+      responseCodeErrorMapping: {
+        400: AuthError.LOGIN_DISABLED,
+        401: AuthError.INVALID_CREDENTIALS
+      }
+    }
+  )
 }
 
 /**
@@ -31,18 +37,18 @@ export const doLocalLogin = (username: string, password: string): Promise<unknow
  * @throws {RegisterError.REGISTRATION_DISABLED} when the registration of local users has been disabled on the backend.
  */
 export const doLocalRegister = (username: string, displayName: string, password: string): Promise<unknown> => {
-  return sendApiData<RegisterDto>(
+  return doApiPostRequest<RegisterDto>(
     'auth/local',
-    'POST',
     {
       username,
       displayName,
       password
     },
-    201,
     {
-      400: RegisterError.REGISTRATION_DISABLED,
-      409: RegisterError.USERNAME_EXISTING
+      responseCodeErrorMapping: {
+        400: RegisterError.REGISTRATION_DISABLED,
+        409: RegisterError.USERNAME_EXISTING
+      }
     }
   )
 }
@@ -55,17 +61,17 @@ export const doLocalRegister = (username: string, displayName: string, password:
  * @throws {AuthError.LOGIN_DISABLED} when local login is disabled on the backend.
  */
 export const doLocalPasswordChange = async (currentPassword: string, newPassword: string): Promise<unknown> => {
-  return sendApiData<ChangePasswordDto>(
+  return doApiPutRequest<ChangePasswordDto>(
     'auth/local',
-    'PUT',
     {
       currentPassword,
       newPassword
     },
-    200,
     {
-      400: AuthError.LOGIN_DISABLED,
-      401: AuthError.INVALID_CREDENTIALS
+      responseCodeErrorMapping: {
+        400: AuthError.LOGIN_DISABLED,
+        401: AuthError.INVALID_CREDENTIALS
+      }
     }
   )
 }
