@@ -4,8 +4,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { getApiResponse, sendApiData } from '../utils'
+import { doApiDeleteRequest } from '../request-utils'
 import type { RevisionDetails, RevisionMetadata } from './types'
+import { doApiGetRequestWithJsonResponse } from '../request-utils/with-json-response'
 
 /**
  * Retrieves a note revision while using a cache for often retrieved revisions.
@@ -14,7 +15,7 @@ import type { RevisionDetails, RevisionMetadata } from './types'
  * @return The revision.
  */
 export const getRevision = (noteId: string, revisionId: number): Promise<RevisionDetails> => {
-  return getApiResponse<RevisionDetails>(`notes/${noteId}/revisions/${revisionId}`)
+  return doApiGetRequestWithJsonResponse<RevisionDetails>(`notes/${noteId}/revisions/${revisionId}`)
 }
 
 /**
@@ -23,7 +24,7 @@ export const getRevision = (noteId: string, revisionId: number): Promise<Revisio
  * @return A list of revision ids.
  */
 export const getAllRevisions = (noteId: string): Promise<RevisionMetadata[]> => {
-  return getApiResponse<RevisionMetadata[]>(`notes/${noteId}/revisions`)
+  return doApiGetRequestWithJsonResponse<RevisionMetadata[]>(`notes/${noteId}/revisions`)
 }
 
 /**
@@ -31,5 +32,5 @@ export const getAllRevisions = (noteId: string): Promise<RevisionMetadata[]> => 
  * @param noteIdOrAlias The id or alias of the note to delete all revisions for.
  */
 export const deleteRevisionsForNote = async (noteIdOrAlias: string): Promise<unknown> => {
-  return sendApiData<undefined>(`notes/${noteIdOrAlias}/revisions`, 'DELETE', undefined, 204)
+  return doApiDeleteRequest(`notes/${noteIdOrAlias}/revisions`)
 }

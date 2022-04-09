@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { defaultFetchConfig } from '../../api/utils'
+import { defaultFetchConfig } from '../../api/request-utils'
 import { customizeAssetsUrl } from '../../utils/customize-assets-url'
 
 export const fetchFrontPageContent = async (): Promise<string> => {

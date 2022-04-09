@@ -4,15 +4,16 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { getApiResponse, sendApiData, sendApiDataAndGetResponse } from '../utils'
+import { doApiDeleteRequest } from '../request-utils'
 import type { AccessToken, AccessTokenWithSecret, CreateAccessTokenDto } from './types'
+import { doApiGetRequestWithJsonResponse, doApiPostRequestWithJsonResponse } from '../request-utils/with-json-response'
 
 /**
  * Retrieves the access tokens for the current user.
  * @return List of access token metadata.
  */
 export const getAccessTokenList = (): Promise<AccessToken[]> => {
-  return getApiResponse<AccessToken[]>('tokens')
+  return doApiGetRequestWithJsonResponse<AccessToken[]>('tokens')
 }
 
 /**
@@ -22,15 +23,10 @@ export const getAccessTokenList = (): Promise<AccessToken[]> => {
  * @return The new access token metadata along with its secret.
  */
 export const postNewAccessToken = (label: string, validUntil: number): Promise<AccessTokenWithSecret> => {
-  return sendApiDataAndGetResponse<CreateAccessTokenDto, AccessTokenWithSecret>(
-    'tokens',
-    'POST',
-    {
-      label,
-      validUntil
-    },
-    201
-  )
+  return doApiPostRequestWithJsonResponse<CreateAccessTokenDto, AccessTokenWithSecret>('tokens', {
+    label,
+    validUntil
+  })
 }
 
 /**
@@ -38,5 +34,5 @@ export const postNewAccessToken = (label: string, validUntil: number): Promise<A
  * @param keyId The key id of the access token to delete.
  */
 export const deleteAccessToken = (keyId: string): Promise<unknown> => {
-  return sendApiData<undefined>('tokens/' + keyId, 'DELETE', undefined, 204)
+  return doApiDeleteRequest('tokens/' + keyId)
 }

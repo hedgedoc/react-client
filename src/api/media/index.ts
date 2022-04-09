@@ -3,16 +3,17 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { doApiCall, extractJsonResponse, sendApiData, sendApiDataAndGetResponse } from '../utils'
+import { doApiDeleteRequest } from '../request-utils'
 import type { ImageProxyRequestDto, ImageProxyResponse, MediaUpload } from './types'
+import { doApiPostRequestWithJsonResponse } from '../request-utils/with-json-response'
 
 /**
  * Requests an image-proxy URL from the backend for a given image URL.
  * @param imageUrl The image URL which should be proxied.
  * @return The proxy URL for the image.
  */
-export const getProxiedUrl = (imageUrl: string): Promise<ImageProxyResponse> => {
-  return sendApiDataAndGetResponse<ImageProxyRequestDto, ImageProxyResponse>('media/proxy', 'POST', {
+export const getProxiedUrl = async (imageUrl: string): Promise<ImageProxyResponse> => {
+  return await doApiPostRequestWithJsonResponse<ImageProxyRequestDto, ImageProxyResponse>('media/proxy', {
     url: imageUrl
   })
 }
@@ -26,19 +27,14 @@ export const getProxiedUrl = (imageUrl: string): Promise<ImageProxyResponse> => 
 export const uploadFile = async (noteIdOrAlias: string, media: Blob): Promise<MediaUpload> => {
   const postData = new FormData()
   postData.append('file', media)
-  const response = await doApiCall(
-    'media',
-    {
-      method: 'POST',
+  return doApiPostRequestWithJsonResponse<FormData, MediaUpload>('media', postData, {
+    additionalRequestInit: {
       headers: {
         'Content-Type': 'multipart/form-data',
         'HedgeDoc-Note': noteIdOrAlias
-      },
-      body: postData
-    },
-    201
-  )
-  return extractJsonResponse<MediaUpload>(response)
+      }
+    }
+  })
 }
 
 /**
@@ -46,5 +42,5 @@ export const uploadFile = async (noteIdOrAlias: string, media: Blob): Promise<Me
  * @param mediaId The identifier of the media object to delete.
  */
 export const deleteUploadedMedia = (mediaId: string): Promise<unknown> => {
-  return sendApiData<undefined>('media/' + mediaId, 'DELETE', undefined, 204)
+  return doApiDeleteRequest('media/' + mediaId)
 }

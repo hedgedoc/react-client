@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { getApiResponse, sendApiData, sendApiDataAndGetResponse } from '../utils'
+import { doApiDeleteRequest, doApiPostRequest } from '../request-utils'
+import { doApiGetRequestWithJsonResponse, doApiPostRequestWithJsonResponse } from '../request-utils/with-json-response'
 import type { ChangePinStatusDto, HistoryEntry, HistoryEntryPutDto } from './types'
 
 /**
@@ -12,7 +13,7 @@ import type { ChangePinStatusDto, HistoryEntry, HistoryEntryPutDto } from './typ
  * @return The remote history entries of the user.
  */
 export const getRemoteHistory = (): Promise<HistoryEntry[]> => {
-  return getApiResponse<HistoryEntry[]>('me/history')
+  return doApiGetRequestWithJsonResponse<HistoryEntry[]>('me/history')
 }
 
 /**
@@ -20,7 +21,7 @@ export const getRemoteHistory = (): Promise<HistoryEntry[]> => {
  * @param entries The history entries to store remotely.
  */
 export const setRemoteHistoryEntries = (entries: HistoryEntryPutDto[]): Promise<unknown> => {
-  return sendApiData<HistoryEntryPutDto[]>('me/history', 'POST', entries, 201)
+  return doApiPostRequest<HistoryEntryPutDto[]>('me/history', entries)
 }
 
 /**
@@ -29,7 +30,7 @@ export const setRemoteHistoryEntries = (entries: HistoryEntryPutDto[]): Promise<
  * @param pinStatus True when the note should be pinned, false otherwise.
  */
 export const updateRemoteHistoryEntryPinStatus = (noteIdOrAlias: string, pinStatus: boolean): Promise<HistoryEntry> => {
-  return sendApiDataAndGetResponse<ChangePinStatusDto, HistoryEntry>('me/history/' + noteIdOrAlias, 'PUT', {
+  return doApiPostRequestWithJsonResponse<ChangePinStatusDto, HistoryEntry>('me/history/' + noteIdOrAlias, {
     pinStatus
   })
 }
@@ -39,12 +40,12 @@ export const updateRemoteHistoryEntryPinStatus = (noteIdOrAlias: string, pinStat
  * @param noteIdOrAlias The note id or alias of the history entry to remove.
  */
 export const deleteRemoteHistoryEntry = (noteIdOrAlias: string): Promise<unknown> => {
-  return sendApiData<undefined>('me/history/' + noteIdOrAlias, 'DELETE', undefined, 204)
+  return doApiDeleteRequest('me/history/' + noteIdOrAlias)
 }
 
 /**
  * Deletes the complete remote history.
  */
 export const deleteRemoteHistory = async (): Promise<unknown> => {
-  return sendApiData<undefined>('me/history', 'DELETE', undefined, 204)
+  return doApiDeleteRequest('me/history')
 }

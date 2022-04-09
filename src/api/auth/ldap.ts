@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { sendApiData } from '../utils'
+import { doApiPostRequest } from '../request-utils'
 import type { LoginDto } from './types'
 import { AuthError } from './types'
 
@@ -16,16 +16,16 @@ import { AuthError } from './types'
  * @throws {AuthError.INVALID_CREDENTIALS} if the LDAP provider denied the given credentials.
  */
 export const doLdapLogin = (provider: string, username: string, password: string): Promise<unknown> => {
-  return sendApiData<LoginDto>(
+  return doApiPostRequest<LoginDto>(
     'auth/ldap/' + provider,
-    'POST',
     {
       username: username,
       password: password
     },
-    201,
     {
-      401: AuthError.INVALID_CREDENTIALS
+      responseCodeErrorMapping: {
+        401: AuthError.INVALID_CREDENTIALS
+      }
     }
   )
 }

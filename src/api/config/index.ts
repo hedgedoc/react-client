@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { getApiResponse } from '../utils'
 import type { Config } from './types'
+import { doApiGetRequestWithJsonResponse } from '../request-utils/with-json-response'
 
 /**
  * Fetches the frontend config from the backend.
  * @return The frontend config.
  */
 export const getConfig = (): Promise<Config> => {
-  return getApiResponse<Config>('config')
+  return doApiGetRequestWithJsonResponse<Config>('config')
 }

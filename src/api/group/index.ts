@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { getApiResponse } from '../utils'
 import type { GroupInfo } from './types'
+import { doApiGetRequestWithJsonResponse } from '../request-utils/with-json-response'
 
 /**
  * Retrieves information about a group with a given name.
@@ -13,5 +13,5 @@ import type { GroupInfo } from './types'
  * @return Information about the group.
  */
 export const getGroup = (groupName: string): Promise<GroupInfo> => {
-  return getApiResponse<GroupInfo>('groups/' + groupName)
+  return doApiGetRequestWithJsonResponse<GroupInfo>('groups/' + groupName)
 }
