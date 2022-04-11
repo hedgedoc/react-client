@@ -5,10 +5,7 @@
  */
 import type { NotePermissions } from '../notes/types'
 import type { OwnerChangeDto, PermissionSetDto } from './types'
-import {
-  doApiDeleteRequestWithJsonResponse,
-  doApiPutRequestWithJsonResponse
-} from '../request-utils/with-json-response'
+import { ApiRequest } from '../common/api-request'
 
 /**
  * Sets the owner of a note.
@@ -16,13 +13,13 @@ import {
  * @param owner The username of the new owner.
  * @return The updated note permissions.
  */
-export const setNoteOwner = (noteId: string, owner: string): Promise<NotePermissions> => {
-  return doApiPutRequestWithJsonResponse<OwnerChangeDto, NotePermissions>(
-    `notes/${noteId}/metadata/permissions/owner`,
-    {
+export const setNoteOwner = async (noteId: string, owner: string): Promise<NotePermissions> => {
+  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/owner`)
+    .withJsonBody<OwnerChangeDto>({
       owner
-    }
-  )
+    })
+    .sendPutRequest()
+  return response.getResponseJson<NotePermissions>()
 }
 
 /**
@@ -31,13 +28,17 @@ export const setNoteOwner = (noteId: string, owner: string): Promise<NotePermiss
  * @param username The username of the user to set the permission for.
  * @param canEdit true if the user should be able to update the note, false otherwise.
  */
-export const setUserPermission = (noteId: string, username: string, canEdit: boolean): Promise<NotePermissions> => {
-  return doApiPutRequestWithJsonResponse<PermissionSetDto, NotePermissions>(
-    `notes/${noteId}/metadata/permissions/users/${username}`,
-    {
+export const setUserPermission = async (
+  noteId: string,
+  username: string,
+  canEdit: boolean
+): Promise<NotePermissions> => {
+  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/users/${username}`)
+    .withJsonBody<PermissionSetDto>({
       canEdit
-    }
-  )
+    })
+    .sendPutRequest()
+  return response.getResponseJson<NotePermissions>()
 }
 
 /**
@@ -46,13 +47,17 @@ export const setUserPermission = (noteId: string, username: string, canEdit: boo
  * @param groupName The name of the group to set the permission for.
  * @param canEdit true if the group should be able to update the note, false otherwise.
  */
-export const setGroupPermission = (noteId: string, groupName: string, canEdit: boolean): Promise<NotePermissions> => {
-  return doApiPutRequestWithJsonResponse<PermissionSetDto, NotePermissions>(
-    `notes/${noteId}/metadata/permissions/groups/${groupName}`,
-    {
+export const setGroupPermission = async (
+  noteId: string,
+  groupName: string,
+  canEdit: boolean
+): Promise<NotePermissions> => {
+  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/groups/${groupName}`)
+    .withJsonBody<PermissionSetDto>({
       canEdit
-    }
-  )
+    })
+    .sendPutRequest()
+  return response.getResponseJson<NotePermissions>()
 }
 
 /**
@@ -60,8 +65,11 @@ export const setGroupPermission = (noteId: string, groupName: string, canEdit: b
  * @param noteId The id of the note.
  * @param username The name of the user to remove the permission of.
  */
-export const removeUserPermission = (noteId: string, username: string): Promise<NotePermissions> => {
-  return doApiDeleteRequestWithJsonResponse<NotePermissions>(`notes/${noteId}/metadata/permissions/users/${username}`)
+export const removeUserPermission = async (noteId: string, username: string): Promise<NotePermissions> => {
+  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/users/${username}`)
+    .withExpectedStatusCode(200)
+    .sendDeleteRequest()
+  return response.getResponseJson<NotePermissions>()
 }
 
 /**
@@ -69,6 +77,9 @@ export const removeUserPermission = (noteId: string, username: string): Promise<
  * @param noteId The id of the note.
  * @param groupName The name of the group to remove the permission of.
  */
-export const removeGroupPermission = (noteId: string, groupName: string): Promise<NotePermissions> => {
-  return doApiDeleteRequestWithJsonResponse<NotePermissions>(`notes/${noteId}/metadata/permissions/groups/${groupName}`)
+export const removeGroupPermission = async (noteId: string, groupName: string): Promise<NotePermissions> => {
+  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/groups/${groupName}`)
+    .withExpectedStatusCode(200)
+    .sendDeleteRequest()
+  return response.getResponseJson<NotePermissions>()
 }

@@ -3,9 +3,8 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { doApiDeleteRequest } from '../request-utils'
-import { doApiPostRequestWithJsonResponse } from '../request-utils/with-json-response'
 import type { Alias, NewAliasDto, PrimaryAliasDto } from './types'
+import { ApiRequest } from '../common/api-request'
 
 /**
  * Adds an alias to an existing note.
@@ -13,11 +12,14 @@ import type { Alias, NewAliasDto, PrimaryAliasDto } from './types'
  * @param newAlias The new alias.
  * @return Information about the newly created alias.
  */
-export const addAlias = (noteIdOrAlias: string, newAlias: string): Promise<Alias> => {
-  return doApiPostRequestWithJsonResponse<NewAliasDto, Alias>('alias', {
-    noteIdOrAlias,
-    newAlias
-  })
+export const addAlias = async (noteIdOrAlias: string, newAlias: string): Promise<Alias> => {
+  const response = await new ApiRequest('alias')
+    .withJsonBody<NewAliasDto>({
+      noteIdOrAlias,
+      newAlias
+    })
+    .sendPostRequest()
+  return response.getResponseJson<Alias>()
 }
 
 /**
@@ -26,16 +28,19 @@ export const addAlias = (noteIdOrAlias: string, newAlias: string): Promise<Alias
  * @param alias The alias to mark as primary for its corresponding note.
  * @return The updated information about the alias.
  */
-export const markAliasAsPrimary = (alias: string): Promise<Alias> => {
-  return doApiPostRequestWithJsonResponse<PrimaryAliasDto, Alias>('alias/' + alias, {
-    primaryAlias: true
-  })
+export const markAliasAsPrimary = async (alias: string): Promise<Alias> => {
+  const response = await new ApiRequest('alias/' + alias)
+    .withJsonBody<PrimaryAliasDto>({
+      primaryAlias: true
+    })
+    .sendPostRequest()
+  return response.getResponseJson<Alias>()
 }
 
 /**
  * Removes a given alias from its corresponding note.
  * @param alias The alias to remove from its note.
  */
-export const deleteAlias = (alias: string): Promise<unknown> => {
-  return doApiDeleteRequest('alias/' + alias)
+export const deleteAlias = async (alias: string): Promise<void> => {
+  await new ApiRequest('alias/' + alias).sendDeleteRequest()
 }

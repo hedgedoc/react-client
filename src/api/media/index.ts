@@ -3,9 +3,8 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { doApiDeleteRequest } from '../request-utils'
 import type { ImageProxyRequestDto, ImageProxyResponse, MediaUpload } from './types'
-import { doApiPostRequestWithJsonResponse } from '../request-utils/with-json-response'
+import { ApiRequest } from '../common/api-request'
 
 /**
  * Requests an image-proxy URL from the backend for a given image URL.
@@ -13,9 +12,12 @@ import { doApiPostRequestWithJsonResponse } from '../request-utils/with-json-res
  * @return The proxy URL for the image.
  */
 export const getProxiedUrl = async (imageUrl: string): Promise<ImageProxyResponse> => {
-  return await doApiPostRequestWithJsonResponse<ImageProxyRequestDto, ImageProxyResponse>('media/proxy', {
-    url: imageUrl
-  })
+  const response = await new ApiRequest('media/proxy')
+    .withJsonBody<ImageProxyRequestDto>({
+      url: imageUrl
+    })
+    .sendPostRequest()
+  return response.getResponseJson<ImageProxyResponse>()
 }
 
 /**
@@ -27,20 +29,18 @@ export const getProxiedUrl = async (imageUrl: string): Promise<ImageProxyRespons
 export const uploadFile = async (noteIdOrAlias: string, media: Blob): Promise<MediaUpload> => {
   const postData = new FormData()
   postData.append('file', media)
-  return doApiPostRequestWithJsonResponse<FormData, MediaUpload>('media', postData, {
-    additionalRequestInit: {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'HedgeDoc-Note': noteIdOrAlias
-      }
-    }
-  })
+  const response = await new ApiRequest('media')
+    .withHeader('Content-Type', 'multipart/form-data')
+    .withHeader('HedgeDoc-Note', noteIdOrAlias)
+    .withBody(postData)
+    .sendPostRequest()
+  return response.getResponseJson<MediaUpload>()
 }
 
 /**
  * Deletes some uploaded media object.
  * @param mediaId The identifier of the media object to delete.
  */
-export const deleteUploadedMedia = (mediaId: string): Promise<unknown> => {
-  return doApiDeleteRequest('media/' + mediaId)
+export const deleteUploadedMedia = async (mediaId: string): Promise<void> => {
+  await new ApiRequest('media/' + mediaId).sendDeleteRequest()
 }

@@ -5,12 +5,13 @@
  */
 
 import type { Config } from './types'
-import { doApiGetRequestWithJsonResponse } from '../request-utils/with-json-response'
+import { ApiRequest } from '../common/api-request'
 
 /**
  * Fetches the frontend config from the backend.
  * @return The frontend config.
  */
-export const getConfig = (): Promise<Config> => {
-  return doApiGetRequestWithJsonResponse<Config>('config')
+export const getConfig = async (): Promise<Config> => {
+  const response = await new ApiRequest('config').sendGetRequest()
+  return response.getResponseJson<Config>()
 }

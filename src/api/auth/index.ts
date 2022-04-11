@@ -3,12 +3,12 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { doApiDeleteRequest } from '../request-utils'
+import { ApiRequest } from '../common/api-request'
 
 /**
  * Requests to log out the current user.
  * @throws Error if logout is not possible.
  */
-export const doLogout = (): Promise<unknown> => {
-  return doApiDeleteRequest('auth/logout')
+export const doLogout = async (): Promise<void> => {
+  await new ApiRequest('auth/logout').sendDeleteRequest()
 }

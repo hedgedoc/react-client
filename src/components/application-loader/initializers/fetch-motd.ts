@@ -1,13 +1,13 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import { setMotd } from '../../../redux/motd/methods'
-import { defaultFetchConfig } from '../../../api/request-utils'
 import { Logger } from '../../../utils/logger'
 import { customizeAssetsUrl } from '../../../utils/customize-assets-url'
+import { defaultConfig } from '../../../api/common/default-config'
 
 export const MOTD_LOCAL_STORAGE_KEY = 'motd.lastModified'
 const log = new Logger('Motd')
@@ -25,7 +25,7 @@ export const fetchMotd = async (): Promise<void> => {
 
   if (cachedLastModified) {
     const response = await fetch(motdUrl, {
-      ...defaultFetchConfig,
+      ...defaultConfig,
       method: 'HEAD'
     })
     if (response.status !== 200) {
@@ -38,7 +38,7 @@ export const fetchMotd = async (): Promise<void> => {
   }
 
   const response = await fetch(motdUrl, {
-    ...defaultFetchConfig
+    ...defaultConfig
   })
 
   if (response.status !== 200) {

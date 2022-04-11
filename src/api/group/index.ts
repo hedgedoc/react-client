@@ -5,13 +5,14 @@
  */
 
 import type { GroupInfo } from './types'
-import { doApiGetRequestWithJsonResponse } from '../request-utils/with-json-response'
+import { ApiRequest } from '../common/api-request'
 
 /**
  * Retrieves information about a group with a given name.
  * @param groupName The name of the group.
  * @return Information about the group.
  */
-export const getGroup = (groupName: string): Promise<GroupInfo> => {
-  return doApiGetRequestWithJsonResponse<GroupInfo>('groups/' + groupName)
+export const getGroup = async (groupName: string): Promise<GroupInfo> => {
+  const response = await new ApiRequest('groups/' + groupName).sendGetRequest()
+  return response.getResponseJson<GroupInfo>()
 }

@@ -3,10 +3,9 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-
-import { doApiPostRequest, doApiPutRequest } from '../request-utils'
 import type { ChangePasswordDto, LoginDto, RegisterDto } from './types'
 import { AuthError, RegisterError } from './types'
+import { ApiRequest } from '../common/api-request'
 
 /**
  * Requests to do a local login with a provided username and password.
@@ -15,17 +14,17 @@ import { AuthError, RegisterError } from './types'
  * @throws {AuthError.INVALID_CREDENTIALS} when the username or password is wrong.
  * @throws {AuthError.LOGIN_DISABLED} when the local login is disabled on the backend.
  */
-export const doLocalLogin = (username: string, password: string): Promise<unknown> => {
-  return doApiPostRequest<LoginDto>(
-    'auth/local/login',
-    { username, password },
-    {
-      responseCodeErrorMapping: {
-        400: AuthError.LOGIN_DISABLED,
-        401: AuthError.INVALID_CREDENTIALS
-      }
-    }
-  )
+export const doLocalLogin = async (username: string, password: string): Promise<void> => {
+  await new ApiRequest('auth/local/login')
+    .withJsonBody<LoginDto>({
+      username,
+      password
+    })
+    .withStatusCodeErrorMapping({
+      400: AuthError.LOGIN_DISABLED,
+      401: AuthError.INVALID_CREDENTIALS
+    })
+    .sendPostRequest()
 }
 
 /**
@@ -36,21 +35,18 @@ export const doLocalLogin = (username: string, password: string): Promise<unknow
  * @throws {RegisterError.USERNAME_EXISTING} when there is already an existing user with the same username.
  * @throws {RegisterError.REGISTRATION_DISABLED} when the registration of local users has been disabled on the backend.
  */
-export const doLocalRegister = (username: string, displayName: string, password: string): Promise<unknown> => {
-  return doApiPostRequest<RegisterDto>(
-    'auth/local',
-    {
+export const doLocalRegister = async (username: string, displayName: string, password: string): Promise<void> => {
+  await new ApiRequest('auth/local')
+    .withJsonBody<RegisterDto>({
       username,
       displayName,
       password
-    },
-    {
-      responseCodeErrorMapping: {
-        400: RegisterError.REGISTRATION_DISABLED,
-        409: RegisterError.USERNAME_EXISTING
-      }
-    }
-  )
+    })
+    .withStatusCodeErrorMapping({
+      400: RegisterError.REGISTRATION_DISABLED,
+      409: RegisterError.USERNAME_EXISTING
+    })
+    .sendPostRequest()
 }
 
 /**
@@ -60,18 +56,15 @@ export const doLocalRegister = (username: string, displayName: string, password:
  * @throws {AuthError.INVALID_CREDENTIALS} when the current password is wrong.
  * @throws {AuthError.LOGIN_DISABLED} when local login is disabled on the backend.
  */
-export const doLocalPasswordChange = async (currentPassword: string, newPassword: string): Promise<unknown> => {
-  return doApiPutRequest<ChangePasswordDto>(
-    'auth/local',
-    {
+export const doLocalPasswordChange = async (currentPassword: string, newPassword: string): Promise<void> => {
+  await new ApiRequest('auth/local')
+    .withJsonBody<ChangePasswordDto>({
       currentPassword,
       newPassword
-    },
-    {
-      responseCodeErrorMapping: {
-        400: AuthError.LOGIN_DISABLED,
-        401: AuthError.INVALID_CREDENTIALS
-      }
-    }
-  )
+    })
+    .withStatusCodeErrorMapping({
+      400: AuthError.LOGIN_DISABLED,
+      401: AuthError.INVALID_CREDENTIALS
+    })
+    .sendPutRequest()
 }
