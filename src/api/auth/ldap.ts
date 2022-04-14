@@ -6,7 +6,7 @@
 
 import type { LoginDto } from './types'
 import { AuthError } from './types'
-import { ApiRequest } from '../common/api-request'
+import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-request-builder'
 
 /**
  * Requests to login a user via LDAP credentials.
@@ -16,13 +16,13 @@ import { ApiRequest } from '../common/api-request'
  * @throws {AuthError.INVALID_CREDENTIALS} if the LDAP provider denied the given credentials.
  */
 export const doLdapLogin = async (provider: string, username: string, password: string): Promise<void> => {
-  await new ApiRequest('auth/ldap/' + provider)
-    .withJsonBody<LoginDto>({
+  await new PostApiRequestBuilder<void, LoginDto>('auth/ldap/' + provider)
+    .withJsonBody({
       username: username,
       password: password
     })
     .withStatusCodeErrorMapping({
       401: AuthError.INVALID_CREDENTIALS
     })
-    .sendPostRequest()
+    .sendRequest()
 }

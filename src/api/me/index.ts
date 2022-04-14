@@ -5,7 +5,9 @@
  */
 import type { MediaUpload } from '../media/types'
 import type { ChangeDisplayNameDto, LoginUserInfo } from './types'
-import { ApiRequest } from '../common/api-request'
+import { GetApiRequestBuilder } from '../common/api-request-builder/get-api-request-builder'
+import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-api-request-builder'
+import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-request-builder'
 
 /**
  * Returns metadata about the currently signed-in user from the API.
@@ -13,15 +15,15 @@ import { ApiRequest } from '../common/api-request'
  * @return The user metadata.
  */
 export const getMe = async (): Promise<LoginUserInfo> => {
-  const response = await new ApiRequest('me').sendGetRequest()
-  return response.getResponseJson<LoginUserInfo>()
+  const response = await new GetApiRequestBuilder<LoginUserInfo>('me').sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
  * Deletes the current user from the server.
  */
 export const deleteUser = async (): Promise<void> => {
-  await new ApiRequest('me').sendDeleteRequest()
+  await new DeleteApiRequestBuilder('me').sendRequest()
 }
 
 /**
@@ -29,11 +31,11 @@ export const deleteUser = async (): Promise<void> => {
  * @param displayName The new display name to set.
  */
 export const updateDisplayName = async (displayName: string): Promise<void> => {
-  await new ApiRequest('me/profile')
-    .withJsonBody<ChangeDisplayNameDto>({
+  await new PostApiRequestBuilder<void, ChangeDisplayNameDto>('me/profile')
+    .withJsonBody({
       displayName
     })
-    .sendPostRequest()
+    .sendRequest()
 }
 
 /**
@@ -41,6 +43,6 @@ export const updateDisplayName = async (displayName: string): Promise<void> => {
  * @return List of media object information.
  */
 export const getMyMedia = async (): Promise<MediaUpload[]> => {
-  const response = await new ApiRequest('me/media').sendGetRequest()
-  return response.getResponseJson<MediaUpload[]>()
+  const response = await new GetApiRequestBuilder<MediaUpload[]>('me/media').sendRequest()
+  return response.asParsedJsonObject()
 }

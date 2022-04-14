@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import type { Alias, NewAliasDto, PrimaryAliasDto } from './types'
-import { ApiRequest } from '../common/api-request'
+import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-request-builder'
+import { PutApiRequestBuilder } from '../common/api-request-builder/put-api-request-builder'
+import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-api-request-builder'
 
 /**
  * Adds an alias to an existing note.
@@ -13,13 +15,13 @@ import { ApiRequest } from '../common/api-request'
  * @return Information about the newly created alias.
  */
 export const addAlias = async (noteIdOrAlias: string, newAlias: string): Promise<Alias> => {
-  const response = await new ApiRequest('alias')
-    .withJsonBody<NewAliasDto>({
+  const response = await new PostApiRequestBuilder<Alias, NewAliasDto>('alias')
+    .withJsonBody({
       noteIdOrAlias,
       newAlias
     })
-    .sendPostRequest()
-  return response.getResponseJson<Alias>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -29,12 +31,12 @@ export const addAlias = async (noteIdOrAlias: string, newAlias: string): Promise
  * @return The updated information about the alias.
  */
 export const markAliasAsPrimary = async (alias: string): Promise<Alias> => {
-  const response = await new ApiRequest('alias/' + alias)
-    .withJsonBody<PrimaryAliasDto>({
+  const response = await new PutApiRequestBuilder<Alias, PrimaryAliasDto>('alias/' + alias)
+    .withJsonBody({
       primaryAlias: true
     })
-    .sendPostRequest()
-  return response.getResponseJson<Alias>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -42,5 +44,5 @@ export const markAliasAsPrimary = async (alias: string): Promise<Alias> => {
  * @param alias The alias to remove from its note.
  */
 export const deleteAlias = async (alias: string): Promise<void> => {
-  await new ApiRequest('alias/' + alias).sendDeleteRequest()
+  await new DeleteApiRequestBuilder('alias/' + alias).sendRequest()
 }

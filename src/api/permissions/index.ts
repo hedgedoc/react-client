@@ -5,7 +5,8 @@
  */
 import type { NotePermissions } from '../notes/types'
 import type { OwnerChangeDto, PermissionSetDto } from './types'
-import { ApiRequest } from '../common/api-request'
+import { PutApiRequestBuilder } from '../common/api-request-builder/put-api-request-builder'
+import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-api-request-builder'
 
 /**
  * Sets the owner of a note.
@@ -14,12 +15,14 @@ import { ApiRequest } from '../common/api-request'
  * @return The updated note permissions.
  */
 export const setNoteOwner = async (noteId: string, owner: string): Promise<NotePermissions> => {
-  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/owner`)
-    .withJsonBody<OwnerChangeDto>({
+  const response = await new PutApiRequestBuilder<NotePermissions, OwnerChangeDto>(
+    `notes/${noteId}/metadata/permissions/owner`
+  )
+    .withJsonBody({
       owner
     })
-    .sendPutRequest()
-  return response.getResponseJson<NotePermissions>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -33,12 +36,14 @@ export const setUserPermission = async (
   username: string,
   canEdit: boolean
 ): Promise<NotePermissions> => {
-  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/users/${username}`)
-    .withJsonBody<PermissionSetDto>({
+  const response = await new PutApiRequestBuilder<NotePermissions, PermissionSetDto>(
+    `notes/${noteId}/metadata/permissions/users/${username}`
+  )
+    .withJsonBody({
       canEdit
     })
-    .sendPutRequest()
-  return response.getResponseJson<NotePermissions>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -52,12 +57,14 @@ export const setGroupPermission = async (
   groupName: string,
   canEdit: boolean
 ): Promise<NotePermissions> => {
-  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/groups/${groupName}`)
-    .withJsonBody<PermissionSetDto>({
+  const response = await new PutApiRequestBuilder<NotePermissions, PermissionSetDto>(
+    `notes/${noteId}/metadata/permissions/groups/${groupName}`
+  )
+    .withJsonBody({
       canEdit
     })
-    .sendPutRequest()
-  return response.getResponseJson<NotePermissions>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -66,10 +73,12 @@ export const setGroupPermission = async (
  * @param username The name of the user to remove the permission of.
  */
 export const removeUserPermission = async (noteId: string, username: string): Promise<NotePermissions> => {
-  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/users/${username}`)
+  const response = await new DeleteApiRequestBuilder<NotePermissions>(
+    `notes/${noteId}/metadata/permissions/users/${username}`
+  )
     .withExpectedStatusCode(200)
-    .sendDeleteRequest()
-  return response.getResponseJson<NotePermissions>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -78,8 +87,10 @@ export const removeUserPermission = async (noteId: string, username: string): Pr
  * @param groupName The name of the group to remove the permission of.
  */
 export const removeGroupPermission = async (noteId: string, groupName: string): Promise<NotePermissions> => {
-  const response = await new ApiRequest(`notes/${noteId}/metadata/permissions/groups/${groupName}`)
+  const response = await new DeleteApiRequestBuilder<NotePermissions>(
+    `notes/${noteId}/metadata/permissions/groups/${groupName}`
+  )
     .withExpectedStatusCode(200)
-    .sendDeleteRequest()
-  return response.getResponseJson<NotePermissions>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }

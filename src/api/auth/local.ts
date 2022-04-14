@@ -5,7 +5,8 @@
  */
 import type { ChangePasswordDto, LoginDto, RegisterDto } from './types'
 import { AuthError, RegisterError } from './types'
-import { ApiRequest } from '../common/api-request'
+import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-request-builder'
+import { PutApiRequestBuilder } from '../common/api-request-builder/put-api-request-builder'
 
 /**
  * Requests to do a local login with a provided username and password.
@@ -15,8 +16,8 @@ import { ApiRequest } from '../common/api-request'
  * @throws {AuthError.LOGIN_DISABLED} when the local login is disabled on the backend.
  */
 export const doLocalLogin = async (username: string, password: string): Promise<void> => {
-  await new ApiRequest('auth/local/login')
-    .withJsonBody<LoginDto>({
+  await new PostApiRequestBuilder<void, LoginDto>('auth/local/login')
+    .withJsonBody({
       username,
       password
     })
@@ -24,7 +25,7 @@ export const doLocalLogin = async (username: string, password: string): Promise<
       400: AuthError.LOGIN_DISABLED,
       401: AuthError.INVALID_CREDENTIALS
     })
-    .sendPostRequest()
+    .sendRequest()
 }
 
 /**
@@ -36,8 +37,8 @@ export const doLocalLogin = async (username: string, password: string): Promise<
  * @throws {RegisterError.REGISTRATION_DISABLED} when the registration of local users has been disabled on the backend.
  */
 export const doLocalRegister = async (username: string, displayName: string, password: string): Promise<void> => {
-  await new ApiRequest('auth/local')
-    .withJsonBody<RegisterDto>({
+  await new PostApiRequestBuilder<void, RegisterDto>('auth/local')
+    .withJsonBody({
       username,
       displayName,
       password
@@ -46,7 +47,7 @@ export const doLocalRegister = async (username: string, displayName: string, pas
       400: RegisterError.REGISTRATION_DISABLED,
       409: RegisterError.USERNAME_EXISTING
     })
-    .sendPostRequest()
+    .sendRequest()
 }
 
 /**
@@ -57,8 +58,8 @@ export const doLocalRegister = async (username: string, displayName: string, pas
  * @throws {AuthError.LOGIN_DISABLED} when local login is disabled on the backend.
  */
 export const doLocalPasswordChange = async (currentPassword: string, newPassword: string): Promise<void> => {
-  await new ApiRequest('auth/local')
-    .withJsonBody<ChangePasswordDto>({
+  await new PutApiRequestBuilder<void, ChangePasswordDto>('auth/local')
+    .withJsonBody({
       currentPassword,
       newPassword
     })
@@ -66,5 +67,5 @@ export const doLocalPasswordChange = async (currentPassword: string, newPassword
       400: AuthError.LOGIN_DISABLED,
       401: AuthError.INVALID_CREDENTIALS
     })
-    .sendPutRequest()
+    .sendRequest()
 }

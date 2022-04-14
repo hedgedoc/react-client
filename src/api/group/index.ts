@@ -5,7 +5,7 @@
  */
 
 import type { GroupInfo } from './types'
-import { ApiRequest } from '../common/api-request'
+import { GetApiRequestBuilder } from '../common/api-request-builder/get-api-request-builder'
 
 /**
  * Retrieves information about a group with a given name.
@@ -13,6 +13,6 @@ import { ApiRequest } from '../common/api-request'
  * @return Information about the group.
  */
 export const getGroup = async (groupName: string): Promise<GroupInfo> => {
-  const response = await new ApiRequest('groups/' + groupName).sendGetRequest()
-  return response.getResponseJson<GroupInfo>()
+  const response = await new GetApiRequestBuilder<GroupInfo>('groups/' + groupName).sendRequest()
+  return response.asParsedJsonObject()
 }

@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import type { ImageProxyRequestDto, ImageProxyResponse, MediaUpload } from './types'
-import { ApiRequest } from '../common/api-request'
+import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-request-builder'
+import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-api-request-builder'
 
 /**
  * Requests an image-proxy URL from the backend for a given image URL.
@@ -12,12 +13,12 @@ import { ApiRequest } from '../common/api-request'
  * @return The proxy URL for the image.
  */
 export const getProxiedUrl = async (imageUrl: string): Promise<ImageProxyResponse> => {
-  const response = await new ApiRequest('media/proxy')
-    .withJsonBody<ImageProxyRequestDto>({
+  const response = await new PostApiRequestBuilder<ImageProxyResponse, ImageProxyRequestDto>('media/proxy')
+    .withJsonBody({
       url: imageUrl
     })
-    .sendPostRequest()
-  return response.getResponseJson<ImageProxyResponse>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -29,12 +30,12 @@ export const getProxiedUrl = async (imageUrl: string): Promise<ImageProxyRespons
 export const uploadFile = async (noteIdOrAlias: string, media: Blob): Promise<MediaUpload> => {
   const postData = new FormData()
   postData.append('file', media)
-  const response = await new ApiRequest('media')
+  const response = await new PostApiRequestBuilder<MediaUpload, void>('media')
     .withHeader('Content-Type', 'multipart/form-data')
     .withHeader('HedgeDoc-Note', noteIdOrAlias)
     .withBody(postData)
-    .sendPostRequest()
-  return response.getResponseJson<MediaUpload>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -42,5 +43,5 @@ export const uploadFile = async (noteIdOrAlias: string, media: Blob): Promise<Me
  * @param mediaId The identifier of the media object to delete.
  */
 export const deleteUploadedMedia = async (mediaId: string): Promise<void> => {
-  await new ApiRequest('media/' + mediaId).sendDeleteRequest()
+  await new DeleteApiRequestBuilder('media/' + mediaId).sendRequest()
 }

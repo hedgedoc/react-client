@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import type { RevisionDetails, RevisionMetadata } from './types'
-import { ApiRequest } from '../common/api-request'
+import { GetApiRequestBuilder } from '../common/api-request-builder/get-api-request-builder'
+import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-api-request-builder'
 
 /**
  * Retrieves a note revision while using a cache for often retrieved revisions.
@@ -13,8 +14,10 @@ import { ApiRequest } from '../common/api-request'
  * @return The revision.
  */
 export const getRevision = async (noteId: string, revisionId: number): Promise<RevisionDetails> => {
-  const response = await new ApiRequest(`notes/${noteId}/revisions/${revisionId}`).sendGetRequest()
-  return response.getResponseJson<RevisionDetails>()
+  const response = await new GetApiRequestBuilder<RevisionDetails>(
+    `notes/${noteId}/revisions/${revisionId}`
+  ).sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -23,8 +26,8 @@ export const getRevision = async (noteId: string, revisionId: number): Promise<R
  * @return A list of revision ids.
  */
 export const getAllRevisions = async (noteId: string): Promise<RevisionMetadata[]> => {
-  const response = await new ApiRequest(`notes/${noteId}/revisions`).sendGetRequest()
-  return response.getResponseJson<RevisionMetadata[]>()
+  const response = await new GetApiRequestBuilder<RevisionMetadata[]>(`notes/${noteId}/revisions`).sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -32,5 +35,5 @@ export const getAllRevisions = async (noteId: string): Promise<RevisionMetadata[
  * @param noteIdOrAlias The id or alias of the note to delete all revisions for.
  */
 export const deleteRevisionsForNote = async (noteIdOrAlias: string): Promise<void> => {
-  await new ApiRequest(`notes/${noteIdOrAlias}/revisions`).sendDeleteRequest()
+  await new DeleteApiRequestBuilder(`notes/${noteIdOrAlias}/revisions`).sendRequest()
 }

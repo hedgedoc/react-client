@@ -5,13 +5,13 @@
  */
 
 /**
- * Class that represents the response of an {@link ApiRequest}.
+ * Class that represents the response of an {@link ApiRequestBuilder}.
  */
-export class ApiResponse {
+export class ApiResponse<ResponseType> {
   private readonly response: Response
 
   /**
-   * Initializes a new API response instance based on a HTTP response.
+   * Initializes a new API response instance based on an HTTP response.
    * @param response The HTTP response from the fetch call.
    */
   constructor(response: Response) {
@@ -23,7 +23,7 @@ export class ApiResponse {
    *
    * @return The response from the fetch call.
    */
-  getResponse(): Response {
+  getRaw(): Response {
     return this.response
   }
 
@@ -33,10 +33,19 @@ export class ApiResponse {
    * @return The parsed JSON response.
    * @throws Error if the response is not JSON encoded.
    */
-  async getResponseJson<ResponseType>(): Promise<ResponseType> {
+  async asParsedJsonObject(): Promise<ResponseType> {
     if (!this.response.headers.get('Content-Type')?.startsWith('application/json')) {
       throw new Error('Response body does not seem to be JSON encoded.')
     }
     return (await this.response.json()) as ResponseType
+  }
+
+  /**
+   * Returns the response as a Blob.
+   *
+   * @return The response body as a blob.
+   */
+  async asBlob(): Promise<Blob> {
+    return await this.response.blob()
   }
 }

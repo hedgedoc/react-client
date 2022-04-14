@@ -7,7 +7,7 @@
 import React from 'react'
 import { cypressId } from '../../../../utils/cypress-attribute'
 
-export interface UnitalicBoldContent {
+export interface UnitalicBoldContentProps {
   text?: string | number
 }
 
@@ -15,7 +15,7 @@ export interface UnitalicBoldContent {
  * Renders the children elements in a non-italic but bold style.
  * @param text Optional text content that should be rendered.
  */
-export const UnitalicBoldContent: React.FC<UnitalicBoldContent> = ({ text, children, ...props }) => {
+export const UnitalicBoldContent: React.FC<UnitalicBoldContentProps> = ({ text, children, ...props }) => {
   return (
     <strong className={'font-style-normal mr-1'} {...cypressId(props)}>
       {text}

@@ -4,15 +4,17 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import type { AccessToken, AccessTokenWithSecret, CreateAccessTokenDto } from './types'
-import { ApiRequest } from '../common/api-request'
+import { GetApiRequestBuilder } from '../common/api-request-builder/get-api-request-builder'
+import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-request-builder'
+import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-api-request-builder'
 
 /**
  * Retrieves the access tokens for the current user.
  * @return List of access token metadata.
  */
 export const getAccessTokenList = async (): Promise<AccessToken[]> => {
-  const response = await new ApiRequest('tokens').sendGetRequest()
-  return response.getResponseJson<AccessToken[]>()
+  const response = await new GetApiRequestBuilder<AccessToken[]>('tokens').sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -22,13 +24,13 @@ export const getAccessTokenList = async (): Promise<AccessToken[]> => {
  * @return The new access token metadata along with its secret.
  */
 export const postNewAccessToken = async (label: string, validUntil: number): Promise<AccessTokenWithSecret> => {
-  const response = await new ApiRequest('tokens')
-    .withJsonBody<CreateAccessTokenDto>({
+  const response = await new PostApiRequestBuilder<AccessTokenWithSecret, CreateAccessTokenDto>('tokens')
+    .withJsonBody({
       label,
       validUntil
     })
-    .sendPostRequest()
-  return response.getResponseJson<AccessTokenWithSecret>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -36,5 +38,5 @@ export const postNewAccessToken = async (label: string, validUntil: number): Pro
  * @param keyId The key id of the access token to delete.
  */
 export const deleteAccessToken = async (keyId: string): Promise<void> => {
-  await new ApiRequest('tokens/' + keyId).sendDeleteRequest()
+  await new DeleteApiRequestBuilder('tokens/' + keyId).sendRequest()
 }

@@ -5,7 +5,9 @@
  */
 import type { Note } from './types'
 import type { MediaUpload } from '../media/types'
-import { ApiRequest } from '../common/api-request'
+import { GetApiRequestBuilder } from '../common/api-request-builder/get-api-request-builder'
+import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-request-builder'
+import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-api-request-builder'
 
 /**
  * Retrieves the content and metadata about the specified note.
@@ -13,8 +15,8 @@ import { ApiRequest } from '../common/api-request'
  * @return Content and metadata of the specified note.
  */
 export const getNote = async (noteIdOrAlias: string): Promise<Note> => {
-  const response = await new ApiRequest('notes/' + noteIdOrAlias).sendGetRequest()
-  return response.getResponseJson<Note>()
+  const response = await new GetApiRequestBuilder<Note>('notes/' + noteIdOrAlias).sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -23,8 +25,8 @@ export const getNote = async (noteIdOrAlias: string): Promise<Note> => {
  * @return List of media object metadata associated with specified note.
  */
 export const getMediaForNote = async (noteIdOrAlias: string): Promise<MediaUpload[]> => {
-  const response = await new ApiRequest(`notes/${noteIdOrAlias}/media`).sendGetRequest()
-  return response.getResponseJson<MediaUpload[]>()
+  const response = await new GetApiRequestBuilder<MediaUpload[]>(`notes/${noteIdOrAlias}/media`).sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -33,11 +35,11 @@ export const getMediaForNote = async (noteIdOrAlias: string): Promise<MediaUploa
  * @return Content and metadata of the new note.
  */
 export const createNote = async (markdown: string): Promise<Note> => {
-  const response = await new ApiRequest('notes')
+  const response = await new PostApiRequestBuilder<Note, void>('notes')
     .withHeader('Content-Type', 'text/markdown')
     .withBody(markdown)
-    .sendPostRequest()
-  return response.getResponseJson<Note>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -47,11 +49,11 @@ export const createNote = async (markdown: string): Promise<Note> => {
  * @return Content and metadata of the new note.
  */
 export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias: string): Promise<Note> => {
-  const response = await new ApiRequest('notes/' + primaryAlias)
+  const response = await new PostApiRequestBuilder<Note, void>('notes/' + primaryAlias)
     .withHeader('Content-Type', 'text/markdown')
     .withBody(markdown)
-    .sendPostRequest()
-  return response.getResponseJson<Note>()
+    .sendRequest()
+  return response.asParsedJsonObject()
 }
 
 /**
@@ -59,5 +61,5 @@ export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias:
  * @param noteIdOrAlias The id or alias of the note to delete.
  */
 export const deleteNote = async (noteIdOrAlias: string): Promise<void> => {
-  await new ApiRequest('notes/' + noteIdOrAlias).sendDeleteRequest()
+  await new DeleteApiRequestBuilder('notes/' + noteIdOrAlias).sendRequest()
 }

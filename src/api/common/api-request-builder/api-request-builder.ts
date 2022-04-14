@@ -4,15 +4,18 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { apiUrl } from '../../utils/api-url'
+import { apiUrl } from '../../../utils/api-url'
 import deepmerge from 'deepmerge'
-import { defaultConfig, defaultHeaders } from './default-config'
-import { ApiResponse } from './api-response'
+import { defaultConfig, defaultHeaders } from '../default-config'
+import { ApiResponse } from '../api-response'
 
 /**
- * Class that represents a prepared call to the HTTP API.
+ * Builder to construct and execute a call to the HTTP API.
+ *
+ * @param ResponseType The type of the response if applicable.
+ * @param RequestBodyType The type of the request body if applicable.
  */
-export class ApiRequest {
+export abstract class ApiRequestBuilder<ResponseType, RequestBodyType> {
   private readonly targetUrl: string
   private overrideExpectedResponseStatus: number | undefined
   private customRequestOptions = defaultConfig
@@ -29,7 +32,10 @@ export class ApiRequest {
     this.targetUrl = apiUrl + endpoint
   }
 
-  private async sendRequest(httpMethod: RequestInit['method'], defaultExpectedStatus: number): Promise<ApiResponse> {
+  protected async sendRequestAndVerifyResponse(
+    httpMethod: RequestInit['method'],
+    defaultExpectedStatus: number
+  ): Promise<ApiResponse<ResponseType>> {
     const response = await fetch(this.targetUrl, {
       ...this.customRequestOptions,
       method: httpMethod,
@@ -59,7 +65,7 @@ export class ApiRequest {
    * @param value The value of the HTTP header to add. Example: 'text/markdown'
    * @return The API request instance itself for chaining.
    */
-  withHeader(name: string, value: string): ApiRequest {
+  withHeader(name: string, value: string): ApiRequestBuilder<ResponseType, RequestBodyType> {
     this.customRequestHeaders.set(name, value)
     return this
   }
@@ -71,7 +77,7 @@ export class ApiRequest {
    * @param bodyData The data to use as request body.
    * @return The API request instance itself for chaining.
    */
-  withBody(bodyData: BodyInit): ApiRequest {
+  withBody(bodyData: BodyInit): ApiRequestBuilder<ResponseType, RequestBodyType> {
     this.requestBody = bodyData
     return this
   }
@@ -79,11 +85,11 @@ export class ApiRequest {
   /**
    * Adds a JSON-encoded body part to the API request. This method will set the content-type header appropriately.
    *
-   * @see {withBody}
    * @param bodyData The data to use as request body. Will get stringified to JSON.
    * @return The API request instance itself for chaining.
+   * @see {withBody}
    */
-  withJsonBody<RequestBodyType>(bodyData: RequestBodyType): ApiRequest {
+  withJsonBody(bodyData: RequestBodyType): ApiRequestBuilder<ResponseType, RequestBodyType> {
     this.withHeader('Content-Type', 'application/json')
     return this.withBody(JSON.stringify(bodyData))
   }
@@ -94,7 +100,7 @@ export class ApiRequest {
    * @param options The options to set for the fetch request.
    * @return The API request instance itself for chaining.
    */
-  withCustomOptions(options: Partial<RequestInit>): ApiRequest {
+  withCustomOptions(options: Partial<RequestInit>): ApiRequestBuilder<ResponseType, RequestBodyType> {
     this.customRequestOptions = deepmerge(this.customRequestOptions, options)
     return this
   }
@@ -106,7 +112,7 @@ export class ApiRequest {
    * @param mapping The mapping from response status codes to error messages.
    * @return The API request instance itself for chaining.
    */
-  withStatusCodeErrorMapping(mapping: Record<number, string>): ApiRequest {
+  withStatusCodeErrorMapping(mapping: Record<number, string>): ApiRequestBuilder<ResponseType, RequestBodyType> {
     this.customStatusCodeErrorMapping = mapping
     return this
   }
@@ -118,7 +124,7 @@ export class ApiRequest {
    * @param expectedCode The expected status code of the response.
    * @return The API request instance itself for chaining.
    */
-  withExpectedStatusCode(expectedCode: number): ApiRequest {
+  withExpectedStatusCode(expectedCode: number): ApiRequestBuilder<ResponseType, RequestBodyType> {
     this.overrideExpectedResponseStatus = expectedCode
     return this
   }
@@ -130,40 +136,5 @@ export class ApiRequest {
    * @throws Error when the status code does not match the expected one or is defined as in the custom status code
    *         error mapping.
    */
-  async sendGetRequest(): Promise<ApiResponse> {
-    return this.sendRequest('GET', 200)
-  }
-
-  /**
-   * Send the prepared API call as a POST request. A default status code of 201 is expected.
-   *
-   * @return The API response.
-   * @throws Error when the status code does not match the expected one or is defined as in the custom status code
-   *         error mapping.
-   */
-  async sendPostRequest(): Promise<ApiResponse> {
-    return this.sendRequest('POST', 201)
-  }
-
-  /**
-   * Send the prepared API call as a PUT request. A default status code of 200 is expected.
-   *
-   * @return The API response.
-   * @throws Error when the status code does not match the expected one or is defined as in the custom status code
-   *         error mapping.
-   */
-  async sendPutRequest(): Promise<ApiResponse> {
-    return this.sendRequest('PUT', 200)
-  }
-
-  /**
-   * Send the prepared API call as a DELETE request. A default status code of 204 is expected.
-   *
-   * @return The API response.
-   * @throws Error when the status code does not match the expected one or is defined as in the custom status code
-   *         error mapping.
-   */
-  async sendDeleteRequest(): Promise<ApiResponse> {
-    return this.sendRequest('DELETE', 204)
-  }
+  abstract sendRequest(): Promise<ApiResponse<ResponseType>>
 }
