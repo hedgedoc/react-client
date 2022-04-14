@@ -3,9 +3,8 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-
-import { ApiRequestBuilder } from './api-request-builder'
 import type { ApiResponse } from '../api-response'
+import { ApiRequestBuilderWithBody } from './api-request-builder-with-body'
 
 /**
  * Builder to construct a DELETE request to the API.
@@ -14,7 +13,7 @@ import type { ApiResponse } from '../api-response'
  * @param RequestBodyType The type of the request body. Defaults to no request body.
  * @see {ApiRequestBuilder}
  */
-export class DeleteApiRequestBuilder<ResponseType = void, RequestBodyType = void> extends ApiRequestBuilder<
+export class DeleteApiRequestBuilder<ResponseType = void, RequestBodyType = void> extends ApiRequestBuilderWithBody<
   ResponseType,
   RequestBodyType
 > {

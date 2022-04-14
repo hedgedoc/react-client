@@ -13,21 +13,7 @@ import type { ApiResponse } from '../api-response'
  * @param ResponseType The type of the expected response.
  * @see {ApiRequestBuilder}
  */
-export class GetApiRequestBuilder<ResponseType> extends ApiRequestBuilder<ResponseType, undefined> {
-  /**
-   * @see {ApiRequestBuilder#withBody}
-   */
-  withBody(): GetApiRequestBuilder<ResponseType> {
-    throw new Error('GET request may not contain a body')
-  }
-
-  /**
-   * @see {ApiRequestBuilder#withJsonBody}
-   */
-  withJsonBody(): GetApiRequestBuilder<ResponseType> {
-    throw new Error('GET request may not contain a body')
-  }
-
+export class GetApiRequestBuilder<ResponseType> extends ApiRequestBuilder<ResponseType> {
   /**
    * @see {ApiRequestBuilder#sendRequest}
    */

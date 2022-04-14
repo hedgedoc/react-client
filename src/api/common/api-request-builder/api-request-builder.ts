@@ -13,15 +13,14 @@ import { ApiResponse } from '../api-response'
  * Builder to construct and execute a call to the HTTP API.
  *
  * @param ResponseType The type of the response if applicable.
- * @param RequestBodyType The type of the request body if applicable.
  */
-export abstract class ApiRequestBuilder<ResponseType, RequestBodyType> {
+export abstract class ApiRequestBuilder<ResponseType> {
   private readonly targetUrl: string
   private overrideExpectedResponseStatus: number | undefined
   private customRequestOptions = defaultConfig
   private customRequestHeaders = new Headers(defaultHeaders)
   private customStatusCodeErrorMapping: Record<number, string> | undefined
-  private requestBody: BodyInit | undefined
+  protected requestBody: BodyInit | undefined
 
   /**
    * Initializes a new API call with the default request options.
@@ -65,33 +64,9 @@ export abstract class ApiRequestBuilder<ResponseType, RequestBodyType> {
    * @param value The value of the HTTP header to add. Example: 'text/markdown'
    * @return The API request instance itself for chaining.
    */
-  withHeader(name: string, value: string): ApiRequestBuilder<ResponseType, RequestBodyType> {
+  withHeader(name: string, value: string): this {
     this.customRequestHeaders.set(name, value)
     return this
-  }
-
-  /**
-   * Adds a body part to the API request. If this is called multiple times, only the body of the last invocation will be
-   * used during the execution of the request.
-   *
-   * @param bodyData The data to use as request body.
-   * @return The API request instance itself for chaining.
-   */
-  withBody(bodyData: BodyInit): ApiRequestBuilder<ResponseType, RequestBodyType> {
-    this.requestBody = bodyData
-    return this
-  }
-
-  /**
-   * Adds a JSON-encoded body part to the API request. This method will set the content-type header appropriately.
-   *
-   * @param bodyData The data to use as request body. Will get stringified to JSON.
-   * @return The API request instance itself for chaining.
-   * @see {withBody}
-   */
-  withJsonBody(bodyData: RequestBodyType): ApiRequestBuilder<ResponseType, RequestBodyType> {
-    this.withHeader('Content-Type', 'application/json')
-    return this.withBody(JSON.stringify(bodyData))
   }
 
   /**
@@ -100,7 +75,7 @@ export abstract class ApiRequestBuilder<ResponseType, RequestBodyType> {
    * @param options The options to set for the fetch request.
    * @return The API request instance itself for chaining.
    */
-  withCustomOptions(options: Partial<RequestInit>): ApiRequestBuilder<ResponseType, RequestBodyType> {
+  withCustomOptions(options: Partial<RequestInit>): this {
     this.customRequestOptions = deepmerge(this.customRequestOptions, options)
     return this
   }
@@ -112,7 +87,7 @@ export abstract class ApiRequestBuilder<ResponseType, RequestBodyType> {
    * @param mapping The mapping from response status codes to error messages.
    * @return The API request instance itself for chaining.
    */
-  withStatusCodeErrorMapping(mapping: Record<number, string>): ApiRequestBuilder<ResponseType, RequestBodyType> {
+  withStatusCodeErrorMapping(mapping: Record<number, string>): this {
     this.customStatusCodeErrorMapping = mapping
     return this
   }
@@ -124,7 +99,7 @@ export abstract class ApiRequestBuilder<ResponseType, RequestBodyType> {
    * @param expectedCode The expected status code of the response.
    * @return The API request instance itself for chaining.
    */
-  withExpectedStatusCode(expectedCode: number): ApiRequestBuilder<ResponseType, RequestBodyType> {
+  withExpectedStatusCode(expectedCode: number): this {
     this.overrideExpectedResponseStatus = expectedCode
     return this
   }
