@@ -60,6 +60,9 @@ export const RevisionViewer: React.FC<RevisionViewerProps> = ({ selectedRevision
     return null
   }
 
+  // TODO Rework the revision viewer to use pre-calculated diffs
+  // see https://github.com/hedgedoc/react-client/issues/1989
+
   return (
     <AsyncLoadingBoundary
       loading={selectedRevision.loading || previousRevisionContent.loading}

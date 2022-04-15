@@ -37,6 +37,8 @@ export class ApiResponse<ResponseType> {
     if (!this.response.headers.get('Content-Type')?.startsWith('application/json')) {
       throw new Error('Response body does not seem to be JSON encoded.')
     }
+    // TODO Responses should better be type validated
+    // see https://github.com/hedgedoc/react-client/issues/1219
     return (await this.response.json()) as ResponseType
   }
 
