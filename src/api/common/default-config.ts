@@ -11,6 +11,5 @@ export const defaultConfig: Partial<RequestInit> = {
   cache: 'no-cache',
   credentials: 'same-origin',
   redirect: 'follow',
-  referrerPolicy: 'no-referrer',
-  method: 'GET'
+  referrerPolicy: 'no-referrer'
 }
