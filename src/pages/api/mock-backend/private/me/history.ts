@@ -5,11 +5,7 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {
-  HttpMethod,
-  respondMethodNotAllowed,
-  respondToMatchingRequest
-} from '../../../../../handler-utils/respond-to-matching-request'
+import { HttpMethod, respondToMatchingRequest } from '../../../../../handler-utils/respond-to-matching-request'
 import type { HistoryEntry } from '../../../../../api/history/types'
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
@@ -42,7 +38,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       pinStatus: false,
       tags: ['agenda', 'HedgeDoc community', 'community call']
     }
-  ]) || respondMethodNotAllowed(res)
+  ])
 }
 
 export default handler

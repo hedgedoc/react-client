@@ -3,17 +3,16 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 import { useAsync } from 'react-use'
 import type { RevisionDetails, RevisionMetadata } from '../../../../api/revisions/types'
 import { getRevision } from '../../../../api/revisions'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
-import { ShowIf } from '../../../common/show-if/show-if'
-import { WaitSpinner } from '../../../common/wait-spinner/wait-spinner'
 import { useNoteMarkdownContent } from '../../../../hooks/common/use-note-markdown-content'
 import { useIsDarkModeActivated } from '../../../../hooks/common/use-is-dark-mode-activated'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
+import { AsyncLoadingBoundary } from '../../../common/async-loading-boundary'
 
 export interface RevisionViewerProps {
   selectedRevisionId?: number
@@ -62,25 +61,17 @@ export const RevisionViewer: React.FC<RevisionViewerProps> = ({ selectedRevision
   }
 
   return (
-    <Fragment>
-      <ShowIf condition={selectedRevision.loading || previousRevisionContent.loading}>
-        <WaitSpinner />
-      </ShowIf>
-      <ShowIf
-        condition={
-          !selectedRevision.loading &&
-          !selectedRevision.error &&
-          !previousRevisionContent.loading &&
-          !previousRevisionContent.error
-        }>
-        <ReactDiffViewer
-          oldValue={previousRevisionContent.value ?? ''}
-          newValue={(selectedRevision as AsyncState<RevisionDetails>).value?.content}
-          splitView={false}
-          compareMethod={DiffMethod.WORDS}
-          useDarkTheme={darkModeEnabled}
-        />
-      </ShowIf>
-    </Fragment>
+    <AsyncLoadingBoundary
+      loading={selectedRevision.loading || previousRevisionContent.loading}
+      componentName={'RevisionViewer'}
+      error={selectedRevision.error || previousRevisionContent.error}>
+      <ReactDiffViewer
+        oldValue={previousRevisionContent.value ?? ''}
+        newValue={(selectedRevision as AsyncState<RevisionDetails>).value?.content}
+        splitView={false}
+        compareMethod={DiffMethod.WORDS}
+        useDarkTheme={darkModeEnabled}
+      />
+    </AsyncLoadingBoundary>
   )
 }

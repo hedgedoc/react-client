@@ -5,11 +5,7 @@
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { AccessToken } from '../../../../api/tokens/types'
-import {
-  HttpMethod,
-  respondMethodNotAllowed,
-  respondToMatchingRequest
-} from '../../../../handler-utils/respond-to-matching-request'
+import { HttpMethod, respondToMatchingRequest } from '../../../../handler-utils/respond-to-matching-request'
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   respondToMatchingRequest<AccessToken[]>(HttpMethod.GET, req, res, [
@@ -27,7 +23,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       lastUsedAt: '2021-11-20T23:54:13+01:00',
       validUntil: '2021-11-20'
     }
-  ]) || respondMethodNotAllowed(res)
+  ])
 }
 
 export default handler

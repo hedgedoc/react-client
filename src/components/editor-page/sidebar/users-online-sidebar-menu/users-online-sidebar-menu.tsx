@@ -36,6 +36,7 @@ export const UsersOnlineSidebarMenu: React.FC<SpecificSidebarMenuProps> = ({
   }, [menuId, onClick])
 
   // TODO Use real users here
+  // see https://github.com/hedgedoc/react-client/issues/1988
   return (
     <Fragment>
       <SidebarButton

@@ -4,11 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {
-  HttpMethod,
-  respondMethodNotAllowed,
-  respondToMatchingRequest
-} from '../../../../../handler-utils/respond-to-matching-request'
+import { HttpMethod, respondToMatchingRequest } from '../../../../../handler-utils/respond-to-matching-request'
 import type { GroupInfo } from '../../../../../api/group/types'
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,7 +12,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     name: '_LOGGED_IN',
     displayName: 'All registered users',
     special: true
-  }) || respondMethodNotAllowed(res)
+  })
 }
 
 export default handler

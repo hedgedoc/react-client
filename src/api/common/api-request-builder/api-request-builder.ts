@@ -70,12 +70,12 @@ export abstract class ApiRequestBuilder<ResponseType> {
   }
 
   /**
-   * Sets custom request options for the underlying fetch request.
+   * Adds custom request options for the underlying fetch request by merging them with the existing options.
    *
    * @param options The options to set for the fetch request.
    * @return The API request instance itself for chaining.
    */
-  withCustomOptions(options: Partial<RequestInit>): this {
+  withCustomOptions(options: Partial<Omit<RequestInit, 'method' | 'headers' | 'body'>>): this {
     this.customRequestOptions = deepmerge(this.customRequestOptions, options)
     return this
   }

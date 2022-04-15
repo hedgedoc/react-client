@@ -23,7 +23,7 @@ export class ApiResponse<ResponseType> {
    *
    * @return The response from the fetch call.
    */
-  getRaw(): Response {
+  getResponse(): Response {
     return this.response
   }
 

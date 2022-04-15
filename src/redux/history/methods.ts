@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -41,7 +41,6 @@ export const setHistoryEntries = (entries: HistoryEntryWithOrigin[]): void => {
  * @param entries The history entries to import.
  */
 export const importHistoryEntries = (entries: HistoryEntryWithOrigin[]): Promise<unknown> => {
-  // TODO Add filtering of entries by validating user-input
   setHistoryEntries(entries)
   return storeRemoteHistory()
 }

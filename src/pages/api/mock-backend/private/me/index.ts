@@ -5,11 +5,7 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {
-  HttpMethod,
-  respondMethodNotAllowed,
-  respondToMatchingRequest
-} from '../../../../../handler-utils/respond-to-matching-request'
+import { HttpMethod, respondToMatchingRequest } from '../../../../../handler-utils/respond-to-matching-request'
 import type { LoginUserInfo } from '../../../../../api/me/types'
 
 const handler = (req: NextApiRequest, res: NextApiResponse): void => {
@@ -19,7 +15,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse): void => {
     displayName: 'Mock User',
     authProvider: 'local',
     email: 'mock@hedgedoc.test'
-  }) || respondMethodNotAllowed(res)
+  })
 }
 
 export default handler

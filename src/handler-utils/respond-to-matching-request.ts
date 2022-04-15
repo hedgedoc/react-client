@@ -14,7 +14,9 @@ export enum HttpMethod {
 }
 
 /**
- * Intercepts a mock HTTP request to check the used request method.
+ * Intercepts a mock HTTP request, checks the used request method and responds with given response content or an error
+ * that the request method is not allowed.
+ *
  * @param method The expected HTTP method.
  * @param req The request object.
  * @param res The response object.
@@ -30,17 +32,10 @@ export const respondToMatchingRequest = <T>(
   statusCode = 200
 ): boolean => {
   if (method !== req.method) {
+    res.status(405).send('Method not allowed')
     return false
   } else {
     res.status(statusCode).json(response)
     return true
   }
-}
-
-/**
- * HTTP Handler that responds with a status code of HTTP 405 Method Not Allowed.
- * @param res The response object to use.
- */
-export const respondMethodNotAllowed = (res: NextApiResponse): void => {
-  res.status(405).send('Method not allowed')
 }

@@ -5,11 +5,7 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {
-  HttpMethod,
-  respondMethodNotAllowed,
-  respondToMatchingRequest
-} from '../../../../../handler-utils/respond-to-matching-request'
+import { HttpMethod, respondToMatchingRequest } from '../../../../../handler-utils/respond-to-matching-request'
 import type { UserInfo } from '../../../../../api/users/types'
 
 const handler = (req: NextApiRequest, res: NextApiResponse): void => {
@@ -17,7 +13,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse): void => {
     username: 'molly',
     displayName: 'Molly',
     photo: '/mock-public/img/avatar.png'
-  }) || respondMethodNotAllowed(res)
+  })
 }
 
 export default handler

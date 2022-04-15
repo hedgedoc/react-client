@@ -6,11 +6,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { MediaUpload } from '../../../../api/media/types'
-import {
-  HttpMethod,
-  respondMethodNotAllowed,
-  respondToMatchingRequest
-} from '../../../../handler-utils/respond-to-matching-request'
+import { HttpMethod, respondToMatchingRequest } from '../../../../handler-utils/respond-to-matching-request'
 import { isMockMode, isTestMode } from '../../../../utils/test-modes'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
@@ -31,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
       createdAt: '2022-02-27T21:54:23.856Z'
     },
     201
-  ) || respondMethodNotAllowed(res)
+  )
 }
 
 export default handler

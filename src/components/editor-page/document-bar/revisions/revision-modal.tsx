@@ -1,23 +1,22 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import React, { useCallback, useMemo, useState } from 'react'
-import { Alert, Col, ListGroup, Modal, Row } from 'react-bootstrap'
-import { Trans, useTranslation } from 'react-i18next'
+import { Col, ListGroup, Modal, Row } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 import { getAllRevisions } from '../../../../api/revisions'
 import type { ModalVisibilityProps } from '../../../common/modals/common-modal'
 import { CommonModal } from '../../../common/modals/common-modal'
-import { ShowIf } from '../../../common/show-if/show-if'
 import { RevisionListEntry } from './revision-list-entry'
 import styles from './revision-modal.module.scss'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 import { useAsync } from 'react-use'
 import { RevisionModalFooter } from './revision-modal-footer'
-import { WaitSpinner } from '../../../common/wait-spinner/wait-spinner'
 import { RevisionViewer } from './revision-viewer'
+import { AsyncLoadingBoundary } from '../../../common/async-loading-boundary'
 
 /**
  * Modal that shows the available revisions and allows for comparison between them.
@@ -66,17 +65,9 @@ export const RevisionModal: React.FC<ModalVisibilityProps> = ({ show, onHide }) 
             <ListGroup as='ul'>{revisionList}</ListGroup>
           </Col>
           <Col lg={8} className={styles['scroll-col']}>
-            <ShowIf condition={loading}>
-              <WaitSpinner />
-            </ShowIf>
-            <ShowIf condition={!!error}>
-              <Alert variant='danger'>
-                <Trans i18nKey='editor.modal.revision.error' />
-              </Alert>
-            </ShowIf>
-            <ShowIf condition={!loading && !error}>
+            <AsyncLoadingBoundary loading={loading} componentName={'RevisionModal'} error={error}>
               <RevisionViewer selectedRevisionId={selectedRevisionId} allRevisions={value} />
-            </ShowIf>
+            </AsyncLoadingBoundary>
           </Col>
         </Row>
       </Modal.Body>

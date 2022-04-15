@@ -30,6 +30,8 @@ export const RevisionModalFooter: React.FC<RevisionModalFooterProps & Pick<Modal
   const noteIdentifier = useApplicationState((state) => state.noteDetails.primaryAddress)
 
   const onRevertToRevision = useCallback(() => {
+    // TODO Websocket message handler missing
+    // see https://github.com/hedgedoc/hedgedoc/issues/1984
     window.alert('Not yet implemented. Requires websocket.')
   }, [])
 

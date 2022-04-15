@@ -9,10 +9,6 @@ import { useApplicationState } from '../../../../hooks/common/use-application-st
 import { PermissionEntrySpecialGroup } from './permission-entry-special-group'
 import { AccessLevel, SpecialGroup } from './types'
 
-// Defined in https://github.com/hedgedoc/hedgedoc/blob/cbd2d3231/src/groups/groups.special.ts
-export const SPECIAL_GROUP_EVERYONE = '_EVERYONE'
-export const SPECIAL_GROUP_LOGGED_IN = '_LOGGED_IN'
-
 /**
  * Section of the permission modal for managing special group access to the note.
  */
@@ -21,8 +17,8 @@ export const PermissionSectionSpecialGroups: React.FC = () => {
   const groupPermissions = useApplicationState((state) => state.noteDetails.permissions.sharedToGroups)
 
   const specialGroupEntries = useMemo(() => {
-    const groupEveryone = groupPermissions.find((entry) => entry.groupName === SPECIAL_GROUP_EVERYONE)
-    const groupLoggedIn = groupPermissions.find((entry) => entry.groupName === SPECIAL_GROUP_LOGGED_IN)
+    const groupEveryone = groupPermissions.find((entry) => entry.groupName === SpecialGroup.EVERYONE)
+    const groupLoggedIn = groupPermissions.find((entry) => entry.groupName === SpecialGroup.LOGGED_IN)
 
     return {
       everyone: groupEveryone

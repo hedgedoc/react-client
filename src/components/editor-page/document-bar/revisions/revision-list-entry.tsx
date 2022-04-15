@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -42,10 +42,8 @@ export const RevisionListEntry: React.FC<RevisionListEntryProps> = ({ active, on
   }, [revision.createdAt])
 
   const revisionAuthors = useAsync(async () => {
-    // TODO This is currently not implemented in the backend and therefore hardcoded.
-    const authors: string[] = ['dermolly', 'emcrx', 'mrdrogdrog']
     try {
-      const authorDetails = await getUserDataForRevision(authors)
+      const authorDetails = await getUserDataForRevision(revision.authorUsernames)
       return authorDetails.map((author) => (
         <UserAvatar user={author} key={author.username} showName={false} additionalClasses={'mx-1'} />
       ))

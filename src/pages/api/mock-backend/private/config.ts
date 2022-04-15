@@ -6,11 +6,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Config } from '../../../../api/config/types'
 import { AuthProviderType } from '../../../../api/config/types'
-import {
-  HttpMethod,
-  respondMethodNotAllowed,
-  respondToMatchingRequest
-} from '../../../../handler-utils/respond-to-matching-request'
+import { HttpMethod, respondToMatchingRequest } from '../../../../handler-utils/respond-to-matching-request'
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   respondToMatchingRequest<Config>(HttpMethod.GET, req, res, {
@@ -78,7 +74,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       editorOrigin: process.env.NEXT_PUBLIC_EDITOR_ORIGIN ?? 'http://localhost:3001/',
       rendererOrigin: process.env.NEXT_PUBLIC_RENDERER_ORIGIN ?? 'http://127.0.0.1:3001/'
     }
-  }) || respondMethodNotAllowed(res)
+  })
 }
 
 export default handler
