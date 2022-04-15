@@ -5,7 +5,7 @@
  */
 
 import { expectFetch } from './test-utils/expect-fetch'
-import { GetApiRequestBuilder } from './get-api-request-builder'
+import { PutApiRequestBuilder } from './put-api-request-builder'
 
 let originalFetch: typeof global['fetch']
 
@@ -17,9 +17,9 @@ afterAll(() => {
   global.fetch = originalFetch
 })
 
-describe('GetApiRequestBuilder', () => {
+describe('PutApiRequestBuilder', () => {
   it('sendRequest', async () => {
     expectFetch('/api/mock-backend/private/test', 200, { method: 'PUT' })
-    await new GetApiRequestBuilder('test').sendRequest()
+    await new PutApiRequestBuilder('test').sendRequest()
   })
 })

@@ -5,7 +5,7 @@
  */
 
 import { expectFetch } from './test-utils/expect-fetch'
-import { GetApiRequestBuilder } from './get-api-request-builder'
+import { DeleteApiRequestBuilder } from './delete-api-request-builder'
 
 let originalFetch: typeof global['fetch']
 
@@ -20,6 +20,6 @@ afterAll(() => {
 describe('GetApiRequestBuilder', () => {
   it('sendRequest', async () => {
     expectFetch('/api/mock-backend/private/test', 204, { method: 'DELETE' })
-    await new GetApiRequestBuilder('test').sendRequest()
+    await new DeleteApiRequestBuilder('test').sendRequest()
   })
 })
