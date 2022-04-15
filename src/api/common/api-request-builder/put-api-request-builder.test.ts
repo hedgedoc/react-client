@@ -8,7 +8,6 @@ import { expectFetch } from './test-utils/expect-fetch'
 import { PutApiRequestBuilder } from './put-api-request-builder'
 
 describe('PutApiRequestBuilder', () => {
-
   let originalFetch: typeof global['fetch']
 
   beforeAll(() => {
@@ -21,28 +20,26 @@ describe('PutApiRequestBuilder', () => {
 
   describe('sendRequest without body', () => {
     it('without headers', async () => {
-      expectFetch('/api/mock-backend/private/test', 201, { method: 'PUT' })
+      expectFetch('/api/mock-backend/private/test', 200, { method: 'PUT' })
       await new PutApiRequestBuilder<string, undefined>('test').sendRequest()
     })
 
     it('with single header', async () => {
       const expectedHeaders = new Headers()
       expectedHeaders.append('test', 'true')
-      expectFetch('/api/mock-backend/private/test', 201, {
+      expectFetch('/api/mock-backend/private/test', 200, {
         method: 'PUT',
-        headers: expectedHeaders,
+        headers: expectedHeaders
       })
-      await new PutApiRequestBuilder<string, undefined>('test')
-        .withHeader('test', 'true')
-        .sendRequest()
+      await new PutApiRequestBuilder<string, undefined>('test').withHeader('test', 'true').sendRequest()
     })
 
     it('with overriding single header', async () => {
       const expectedHeaders = new Headers()
       expectedHeaders.append('test', 'false')
-      expectFetch('/api/mock-backend/private/test', 201, {
+      expectFetch('/api/mock-backend/private/test', 200, {
         method: 'PUT',
-        headers: expectedHeaders,
+        headers: expectedHeaders
       })
       await new PutApiRequestBuilder<string, undefined>('test')
         .withHeader('test', 'true')
@@ -54,9 +51,9 @@ describe('PutApiRequestBuilder', () => {
       const expectedHeaders = new Headers()
       expectedHeaders.append('test', 'true')
       expectedHeaders.append('test2', 'false')
-      expectFetch('/api/mock-backend/private/test', 201, {
+      expectFetch('/api/mock-backend/private/test', 200, {
         method: 'PUT',
-        headers: expectedHeaders,
+        headers: expectedHeaders
       })
       await new PutApiRequestBuilder<string, undefined>('test')
         .withHeader('test', 'true')
@@ -69,13 +66,11 @@ describe('PutApiRequestBuilder', () => {
     const expectedHeaders = new Headers()
     expectedHeaders.append('Content-Type', 'application/json')
 
-    expectFetch('/api/mock-backend/private/test', 201,
-      {
-        method: 'PUT',
-        headers: expectedHeaders,
-        body: '{"test":true,"foo":"bar"}'
-      }
-    )
+    expectFetch('/api/mock-backend/private/test', 200, {
+      method: 'PUT',
+      headers: expectedHeaders,
+      body: '{"test":true,"foo":"bar"}'
+    })
     await new PutApiRequestBuilder('test')
       .withJsonBody({
         test: true,
@@ -85,62 +80,56 @@ describe('PutApiRequestBuilder', () => {
   })
 
   it('sendRequest with other body', async () => {
-    expectFetch('/api/mock-backend/private/test', 201,
-      {
-        method: 'PUT',
-        body: 'HedgeDoc'
-      }
-    )
-    await new PutApiRequestBuilder('test')
-      .withBody('HedgeDoc')
-      .sendRequest()
+    expectFetch('/api/mock-backend/private/test', 200, {
+      method: 'PUT',
+      body: 'HedgeDoc'
+    })
+    await new PutApiRequestBuilder('test').withBody('HedgeDoc').sendRequest()
   })
 
   it('sendRequest with expected status code', async () => {
     expectFetch('/api/mock-backend/private/test', 200, { method: 'PUT' })
-    await new PutApiRequestBuilder<string, undefined>('test')
-      .withExpectedStatusCode(200)
-      .sendRequest()
+    await new PutApiRequestBuilder<string, undefined>('test').withExpectedStatusCode(200).sendRequest()
   })
 
-  describe('sendRequest with custom options',  () => {
+  describe('sendRequest with custom options', () => {
     it('with one option', async () => {
-      expectFetch('/api/mock-backend/private/test', 201, {
+      expectFetch('/api/mock-backend/private/test', 200, {
         method: 'PUT',
-        cache: 'force-cache',
+        cache: 'force-cache'
       })
       await new PutApiRequestBuilder<string, undefined>('test')
         .withCustomOptions({
-          cache: 'force-cache',
+          cache: 'force-cache'
         })
         .sendRequest()
     })
 
     it('overriding single option', async () => {
-      expectFetch('/api/mock-backend/private/test', 201, {
+      expectFetch('/api/mock-backend/private/test', 200, {
         method: 'PUT',
-        cache: 'no-store',
+        cache: 'no-store'
       })
       await new PutApiRequestBuilder<string, undefined>('test')
         .withCustomOptions({
-          cache: 'force-cache',
+          cache: 'force-cache'
         })
         .withCustomOptions({
-          cache: 'no-store',
+          cache: 'no-store'
         })
         .sendRequest()
     })
 
     it('with multiple options', async () => {
-      expectFetch('/api/mock-backend/private/test', 201, {
+      expectFetch('/api/mock-backend/private/test', 200, {
         method: 'PUT',
         cache: 'force-cache',
-        integrity: 'test',
+        integrity: 'test'
       })
       await new PutApiRequestBuilder<string, undefined>('test')
         .withCustomOptions({
           cache: 'force-cache',
-          integrity: 'test',
+          integrity: 'test'
         })
         .sendRequest()
     })
@@ -148,7 +137,7 @@ describe('PutApiRequestBuilder', () => {
 
   describe('sendRequest with custom error map', () => {
     it('for valid status code', async () => {
-      expectFetch('/api/mock-backend/private/test', 201, { method: 'PUT' })
+      expectFetch('/api/mock-backend/private/test', 200, { method: 'PUT' })
       await new PutApiRequestBuilder<string, undefined>('test')
         .withStatusCodeErrorMapping({
           400: 'noooooo',
@@ -165,7 +154,7 @@ describe('PutApiRequestBuilder', () => {
           401: 'not you!'
         })
         .sendRequest()
-      await expect(request).rejects.toThrow('noooooo');
+      await expect(request).rejects.toThrow('noooooo')
     })
 
     it('for invalid status code 2', async () => {
@@ -174,8 +163,9 @@ describe('PutApiRequestBuilder', () => {
         .withStatusCodeErrorMapping({
           400: 'noooooo',
           401: 'not you!'
-        }).sendRequest()
-      await expect(request).rejects.toThrow('not you!');
+        })
+        .sendRequest()
+      await expect(request).rejects.toThrow('not you!')
     })
   })
 })

@@ -28,11 +28,9 @@ describe('DeleteApiRequestBuilder', () => {
       expectedHeaders.append('test', 'true')
       expectFetch('/api/mock-backend/private/test', 204, {
         method: 'DELETE',
-        headers: expectedHeaders,
+        headers: expectedHeaders
       })
-      await new DeleteApiRequestBuilder<string, undefined>('test')
-        .withHeader('test', 'true')
-        .sendRequest()
+      await new DeleteApiRequestBuilder<string, undefined>('test').withHeader('test', 'true').sendRequest()
     })
 
     it('with overriding single header', async () => {
@@ -40,7 +38,7 @@ describe('DeleteApiRequestBuilder', () => {
       expectedHeaders.append('test', 'false')
       expectFetch('/api/mock-backend/private/test', 204, {
         method: 'DELETE',
-        headers: expectedHeaders,
+        headers: expectedHeaders
       })
       await new DeleteApiRequestBuilder<string, undefined>('test')
         .withHeader('test', 'true')
@@ -54,7 +52,7 @@ describe('DeleteApiRequestBuilder', () => {
       expectedHeaders.append('test2', 'false')
       expectFetch('/api/mock-backend/private/test', 204, {
         method: 'DELETE',
-        headers: expectedHeaders,
+        headers: expectedHeaders
       })
       await new DeleteApiRequestBuilder<string, undefined>('test')
         .withHeader('test', 'true')
@@ -67,13 +65,11 @@ describe('DeleteApiRequestBuilder', () => {
     const expectedHeaders = new Headers()
     expectedHeaders.append('Content-Type', 'application/json')
 
-    expectFetch('/api/mock-backend/private/test', 204,
-      {
-        method: 'DELETE',
-        headers: expectedHeaders,
-        body: '{"test":true,"foo":"bar"}'
-      }
-    )
+    expectFetch('/api/mock-backend/private/test', 204, {
+      method: 'DELETE',
+      headers: expectedHeaders,
+      body: '{"test":true,"foo":"bar"}'
+    })
     await new DeleteApiRequestBuilder('test')
       .withJsonBody({
         test: true,
@@ -83,33 +79,27 @@ describe('DeleteApiRequestBuilder', () => {
   })
 
   it('sendRequest with other body', async () => {
-    expectFetch('/api/mock-backend/private/test', 204,
-      {
-        method: 'DELETE',
-        body: 'HedgeDoc'
-      }
-    )
-    await new DeleteApiRequestBuilder('test')
-      .withBody('HedgeDoc')
-      .sendRequest()
+    expectFetch('/api/mock-backend/private/test', 204, {
+      method: 'DELETE',
+      body: 'HedgeDoc'
+    })
+    await new DeleteApiRequestBuilder('test').withBody('HedgeDoc').sendRequest()
   })
 
   it('sendRequest with expected status code', async () => {
     expectFetch('/api/mock-backend/private/test', 200, { method: 'DELETE' })
-    await new DeleteApiRequestBuilder<string, undefined>('test')
-      .withExpectedStatusCode(200)
-      .sendRequest()
+    await new DeleteApiRequestBuilder<string, undefined>('test').withExpectedStatusCode(200).sendRequest()
   })
 
-  describe('sendRequest with custom options',  () => {
+  describe('sendRequest with custom options', () => {
     it('with one option', async () => {
       expectFetch('/api/mock-backend/private/test', 204, {
         method: 'DELETE',
-        cache: 'force-cache',
+        cache: 'force-cache'
       })
       await new DeleteApiRequestBuilder<string, undefined>('test')
         .withCustomOptions({
-          cache: 'force-cache',
+          cache: 'force-cache'
         })
         .sendRequest()
     })
@@ -117,14 +107,14 @@ describe('DeleteApiRequestBuilder', () => {
     it('overriding single option', async () => {
       expectFetch('/api/mock-backend/private/test', 204, {
         method: 'DELETE',
-        cache: 'no-store',
+        cache: 'no-store'
       })
       await new DeleteApiRequestBuilder<string, undefined>('test')
         .withCustomOptions({
-          cache: 'force-cache',
+          cache: 'force-cache'
         })
         .withCustomOptions({
-          cache: 'no-store',
+          cache: 'no-store'
         })
         .sendRequest()
     })
@@ -133,12 +123,12 @@ describe('DeleteApiRequestBuilder', () => {
       expectFetch('/api/mock-backend/private/test', 204, {
         method: 'DELETE',
         cache: 'force-cache',
-        integrity: 'test',
+        integrity: 'test'
       })
       await new DeleteApiRequestBuilder<string, undefined>('test')
         .withCustomOptions({
           cache: 'force-cache',
-          integrity: 'test',
+          integrity: 'test'
         })
         .sendRequest()
     })
@@ -163,7 +153,7 @@ describe('DeleteApiRequestBuilder', () => {
           401: 'not you!'
         })
         .sendRequest()
-      await expect(request).rejects.toThrow('noooooo');
+      await expect(request).rejects.toThrow('noooooo')
     })
 
     it('for invalid status code 2', async () => {
@@ -172,8 +162,9 @@ describe('DeleteApiRequestBuilder', () => {
         .withStatusCodeErrorMapping({
           400: 'noooooo',
           401: 'not you!'
-        }).sendRequest()
-      await expect(request).rejects.toThrow('not you!');
+        })
+        .sendRequest()
+      await expect(request).rejects.toThrow('not you!')
     })
   })
 })
