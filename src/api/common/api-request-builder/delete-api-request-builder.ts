@@ -13,7 +13,7 @@ import { ApiRequestBuilderWithBody } from './api-request-builder-with-body'
  * @param RequestBodyType The type of the request body. Defaults to no request body.
  * @see {ApiRequestBuilder}
  */
-export class DeleteApiRequestBuilder<ResponseType = void, RequestBodyType = void> extends ApiRequestBuilderWithBody<
+export class DeleteApiRequestBuilder<ResponseType = void, RequestBodyType = unknown> extends ApiRequestBuilderWithBody<
   ResponseType,
   RequestBodyType
 > {
