@@ -16,7 +16,11 @@ export interface UnitalicBoldContentProps {
  * Renders the children elements in a non-italic but bold style.
  * @param text Optional text content that should be rendered.
  */
-export const UnitalicBoldContent: React.FC<PropsWithChildren<UnitalicBoldContentProps>> = ({ text, children, ...props }) => {
+export const UnitalicBoldContent: React.FC<PropsWithChildren<UnitalicBoldContentProps>> = ({
+  text,
+  children,
+  ...props
+}) => {
   return (
     <strong className={'font-style-normal mr-1'} {...cypressId(props)}>
       {text}
