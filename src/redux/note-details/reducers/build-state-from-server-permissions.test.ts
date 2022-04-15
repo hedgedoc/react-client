@@ -13,14 +13,18 @@ describe('build state from server permissions', () => {
     const state: NoteDetails = { ...initialState }
     const permissions: NotePermissions = {
       owner: 'test-owner',
-      sharedToUsers: [{
-        username: 'test-user',
-        canEdit: true
-      }],
-      sharedToGroups: [{
-        groupName: 'test-group',
-        canEdit: false
-      }]
+      sharedToUsers: [
+        {
+          username: 'test-user',
+          canEdit: true
+        }
+      ],
+      sharedToGroups: [
+        {
+          groupName: 'test-group',
+          canEdit: false
+        }
+      ]
     }
     expect(buildStateFromServerPermissions(state, permissions)).toStrictEqual({ ...state, permissions: permissions })
   })
