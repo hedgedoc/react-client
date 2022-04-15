@@ -2177,10 +2177,10 @@ __metadata:
     "@types/markdown-it-container": 2.0.5
     "@types/markdown-it-plantuml": 1.4.1
     "@types/mermaid": 8.2.9
-    "@types/node": 16.11.26
-    "@types/react": 18.0.1
+    "@types/node": 16.11.27
+    "@types/react": 18.0.5
     "@types/react-bootstrap-typeahead": 5.1.8
-    "@types/react-dom": 18.0.0
+    "@types/react-dom": 18.0.1
     "@types/sass": 1.43.1
     "@types/uuid": 8.3.4
     "@typescript-eslint/eslint-plugin": 5.18.0
@@ -4747,10 +4747,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.11.26, @types/node@npm:^16.0.0":
-  version: 16.11.26
-  resolution: "@types/node@npm:16.11.26"
-  checksum: 57757caaba3f0d95de82198cb276a1002c49b710108c932a1d02d7c91ff2fa57cfe2dd19fde60853b6dd90b0964b3cf35557981d2628e20aed6a909057aedfe6
+"@types/node@npm:16.11.27":
+  version: 16.11.27
+  resolution: "@types/node@npm:16.11.27"
+  checksum: 6ed0c8c4d29a549d0cfd607d19edf9a4668fbd39087701d923b4a04cd760564e47ad27f9403968cb9c11ee006f0ea6ab698b2491b4b2d2dec3f4a53d0fc22df7
   languageName: node
   linkType: hard
 
@@ -4758,6 +4758,13 @@ __metadata:
   version: 14.18.12
   resolution: "@types/node@npm:14.18.12"
   checksum: 8a0273caa0584020adb8802784fc7d4f18f05e6c205335b7f3818a91d6b0c22736b9f51da3428d5bc54076ad47f1a4d6d57990a3ce8489a520ac66b2b3ff24bc
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^16.0.0":
+  version: 16.11.26
+  resolution: "@types/node@npm:16.11.26"
+  checksum: 57757caaba3f0d95de82198cb276a1002c49b710108c932a1d02d7c91ff2fa57cfe2dd19fde60853b6dd90b0964b3cf35557981d2628e20aed6a909057aedfe6
   languageName: node
   linkType: hard
 
@@ -4805,7 +4812,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.0":
+"@types/react-dom@npm:*":
   version: 18.0.0
   resolution: "@types/react-dom@npm:18.0.0"
   dependencies:
@@ -4814,7 +4821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:18.0.1":
   version: 18.0.1
   resolution: "@types/react-dom@npm:18.0.1"
   dependencies:
@@ -4844,7 +4851,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.1, @types/react@npm:>=16.14.8, @types/react@npm:>=16.9.11":
+"@types/react@npm:*, @types/react@npm:>=16.14.8, @types/react@npm:>=16.9.11":
   version: 18.0.1
   resolution: "@types/react@npm:18.0.1"
   dependencies:
@@ -4852,6 +4859,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: ede927ed3766fef5fec513fe75e79180bb3c97d21ca7707321e969193c596bc4a531160238546a845e4131df02ec9be7803277a268bc270156362d16b29b4ffb
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.0.5":
+  version: 18.0.5
+  resolution: "@types/react@npm:18.0.5"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 70d3336d43ef25509fa89ef3278f57fdf1945fc921e69b7890a78ab9a52a55ee38e2f13aa71eb4f6032b7311e7557860ce8836c1acf3028304989571c9736a96
   languageName: node
   linkType: hard
 
