@@ -4,13 +4,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import type { ScrollProps } from '../synced-scroll/scroll-props'
 import { StatusBar } from './status-bar/status-bar'
 import { ToolBar } from './tool-bar/tool-bar'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
-import { setNoteContent } from '../../../redux/note-details/methods'
-import { useNoteMarkdownContent } from '../../../hooks/common/use-note-markdown-content'
 import { MaxLengthWarning } from './max-length-warning/max-length-warning'
 import ReactCodeMirror from '@uiw/react-codemirror'
 import { useApplyScrollState } from './hooks/use-apply-scroll-state'
@@ -29,10 +27,13 @@ import { useCursorActivityCallback } from './hooks/use-cursor-activity-callback'
 import { useCodeMirrorReference, useSetCodeMirrorReference } from '../change-content-context/change-content-context'
 import { useCodeMirrorTablePasteExtension } from './hooks/table-paste/use-code-mirror-table-paste-extension'
 import { useOnImageUploadFromRenderer } from './hooks/image-upload-from-renderer/use-on-image-upload-from-renderer'
+import { useCodeMirrorYjsExtension } from './hooks/yjs/use-code-mirror-yjs-extension'
+import { useYDoc } from './hooks/yjs/use-y-doc'
+import { useAwareness } from './hooks/yjs/use-awareness'
+import { useWebsocketConnection } from './hooks/yjs/use-websocket-connection'
+import { useBindYTextToRedux } from './hooks/yjs/use-bind-y-text-to-redux'
 
 export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMakeScrollSource }) => {
-  const markdownContent = useNoteMarkdownContent()
-
   const ligaturesEnabled = useApplicationState((state) => state.editorConfig.ligatures)
 
   useApplyScrollState(scrollState)
@@ -41,10 +42,6 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   const tablePasteExtensions = useCodeMirrorTablePasteExtension()
   const fileInsertExtension = useCodeMirrorFileInsertExtension()
   const cursorActivityExtension = useCursorActivityCallback()
-
-  const onBeforeChange = useCallback((value: string): void => {
-    setNoteContent(value)
-  }, [])
 
   const codeMirrorRef = useCodeMirrorReference()
   const setCodeMirrorReference = useSetCodeMirrorReference()
@@ -56,6 +53,15 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       }
     })
   }, [codeMirrorRef, setCodeMirrorReference])
+
+  const yDoc = useYDoc()
+  const awareness = useAwareness(yDoc)
+  const yText = useMemo(() => yDoc.getText('markdownContent'), [yDoc])
+
+  useWebsocketConnection(yDoc, awareness)
+  useBindYTextToRedux(yText)
+
+  const yjsExtension = useCodeMirrorYjsExtension(yText, awareness)
 
   const extensions = useMemo(
     () => [
@@ -69,9 +75,17 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       fileInsertExtension,
       autocompletion(),
       cursorActivityExtension,
-      updateViewContext
+      updateViewContext,
+      yjsExtension === undefined ? [] : [yjsExtension]
     ],
-    [cursorActivityExtension, fileInsertExtension, tablePasteExtensions, editorScrollExtension, updateViewContext]
+    [
+      cursorActivityExtension,
+      fileInsertExtension,
+      tablePasteExtensions,
+      editorScrollExtension,
+      updateViewContext,
+      yjsExtension
+    ]
   )
 
   useOnImageUploadFromRenderer()
@@ -102,8 +116,6 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
         basicSetup={true}
         className={codeMirrorClassName}
         theme={oneDark}
-        value={markdownContent}
-        onChange={onBeforeChange}
       />
       <StatusBar />
     </div>
