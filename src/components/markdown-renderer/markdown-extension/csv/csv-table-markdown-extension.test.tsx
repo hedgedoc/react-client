@@ -30,7 +30,7 @@ describe('CSV Table Markdown Extension', () => {
     jest.restoreAllMocks()
   })
 
-  it('renders an abc codeblock', () => {
+  it('renders a csv codeblock', () => {
     const view = render(
       <TestMarkdownRenderer extensions={[new CsvTableMarkdownExtension()]} content={'```csv\na;b;c\nd;e;f\n```'} />
     )
