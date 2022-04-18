@@ -10,6 +10,7 @@ import { useAsync } from 'react-use'
 import { createNote } from '../api/notes'
 import { AsyncLoadingBoundary } from '../components/common/async-loading-boundary'
 import { Redirect } from '../components/common/redirect'
+import { CommonErrorPage } from '../components/error-pages/common-error-page'
 
 /**
  * Creates a new note, optionally including the passed content and redirects to that note.
@@ -22,7 +23,18 @@ export const NewNotePage: NextPage = () => {
   }, [newContent])
 
   return (
-    <AsyncLoadingBoundary loading={loading} componentName={'NewNotePage'} error={error}>
+    <AsyncLoadingBoundary
+      loading={loading}
+      componentName={'NewNotePage'}
+      error={error}
+      errorComponent={
+        <CommonErrorPage
+          title={'errors.noteCreationFailed.title'}
+          description={'errors.noteCreationFailed.description'}
+          titleIsI18nKey={true}
+          descriptionIsI18nKey={true}
+        />
+      }>
       {value ? <Redirect to={`/n/${value.metadata.primaryAddress}`} /> : null}
     </AsyncLoadingBoundary>
   )
