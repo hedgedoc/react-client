@@ -8,7 +8,7 @@ import markdownItRegex from 'markdown-it-regex'
 import type MarkdownIt from 'markdown-it/lib'
 import type { RegexOptions } from '../../../../external-types/markdown-it-regex/interface'
 
-const finalRegex = /^{%pdf ([^ ]*) ?%}$/
+const finalRegex = /^{%pdf (\S*) *%}$/
 
 export const legacyPdfShortCode: MarkdownIt.PluginSimple = (markdownIt) => {
   markdownItRegex(markdownIt, {
