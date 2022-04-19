@@ -3,7 +3,7 @@
 exports[`VimeoFrame renders a click shield 1`] = `
 <div>
   <span>
-    This is a click shield for 
+    This is a click shield for
     <span
       class="embed-responsive embed-responsive-16by9"
     >
@@ -11,7 +11,7 @@ exports[`VimeoFrame renders a click shield 1`] = `
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         class="embed-responsive-item"
         src="https://player.vimeo.com/video/valid youtube id?autoplay=1"
-        title="vimeo video of valid youtube id"
+        title="vimeo video of valid vimeo id"
       />
     </span>
   </span>

@@ -17,7 +17,7 @@ describe('VimeoFrame', () => {
   })
 
   it('renders a click shield', () => {
-    const view = render(<VimeoFrame id={'valid youtube id'} />)
+    const view = render(<VimeoFrame id={'valid vimeo id'} />)
     expect(view.container).toMatchSnapshot()
   })
 })
