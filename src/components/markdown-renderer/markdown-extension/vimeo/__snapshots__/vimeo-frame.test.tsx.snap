@@ -3,7 +3,7 @@
 exports[`VimeoFrame renders a click shield 1`] = `
 <div>
   <span>
-    This is a click shield for
+    This is a click shield for 
     <span
       class="embed-responsive embed-responsive-16by9"
     >
