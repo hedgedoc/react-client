@@ -30,14 +30,7 @@ export const DirectLinkFallback: NextPage = () => {
   })
 
   if (error !== undefined) {
-    return (
-      <CommonErrorPage
-        title={'errors.notFound.title'}
-        description={'errors.notFound.description'}
-        titleIsI18nKey={true}
-        descriptionIsI18nKey={true}
-      />
-    )
+    return <CommonErrorPage titleI18nKey={'errors.notFound.title'} descriptionI18nKey={'errors.notFound.description'} />
   } else if (value !== undefined) {
     return <Redirect to={`/n/${value}`} />
   } else {

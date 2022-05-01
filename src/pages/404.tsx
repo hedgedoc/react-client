@@ -10,13 +10,7 @@ import type { NextPage } from 'next'
  * Renders a hedgedoc themed 404 page
  */
 const Custom404: NextPage = () => {
-  return (
-    <CommonErrorPage
-      title={'errors.notFound.title'}
-      description={'errors.notFound.description'}
-      descriptionIsI18nKey={true}
-    />
-  )
+  return <CommonErrorPage titleI18nKey={'errors.notFound.title'} descriptionI18nKey={'errors.notFound.description'} />
 }
 
 export default Custom404

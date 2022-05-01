@@ -29,10 +29,8 @@ export const NewNotePage: NextPage = () => {
       error={error}
       errorComponent={
         <CommonErrorPage
-          title={'errors.noteCreationFailed.title'}
-          description={'errors.noteCreationFailed.description'}
-          titleIsI18nKey={true}
-          descriptionIsI18nKey={true}
+          titleI18nKey={'errors.noteCreationFailed.title'}
+          descriptionI18nKey={'errors.noteCreationFailed.description'}
         />
       }>
       {value ? <Redirect to={`/n/${value.metadata.primaryAddress}`} /> : null}
