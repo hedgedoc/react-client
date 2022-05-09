@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Note loading boundary loads a note 1`] = `
+<div>
+  <span
+    data-testid="success"
+  >
+    success!
+  </span>
+</div>
+`;
+
+exports[`Note loading boundary shows an error 1`] = `
+<div>
+  <span
+    data-testid="LoadingScreen"
+  >
+    This is a mock for LoadingScreen.
+  </span>
+  <span
+    data-testid="LoadingScreen.Error"
+  >
+     Error message: 
+    Error while fetching note from server.
+CRAAAAASH
+  </span>
+</div>
+`;
