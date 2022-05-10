@@ -22,11 +22,7 @@ export const useLoadNoteFromServer = (): AsyncState<void> => {
     if (id === undefined) {
       throw new Error('Invalid id')
     }
-    try {
-      const noteFromServer = await getNote(id)
-      setNoteDataFromServer(noteFromServer)
-    } catch (error: unknown) {
-      throw new Error('Error while fetching note from server.\n' + (error as Error).message)
-    }
+    const noteFromServer = await getNote(id)
+    setNoteDataFromServer(noteFromServer)
   }, [id])
 }

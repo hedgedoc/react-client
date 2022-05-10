@@ -8,6 +8,7 @@ import type { PropsWithChildren } from 'react'
 import React, { Fragment } from 'react'
 import { useLoadNoteFromServer } from './hooks/use-load-note-from-server'
 import { LoadingScreen } from '../../application-loader/loading-screen/loading-screen'
+import { CommonErrorPage } from '../../error-pages/common-error-page'
 
 /**
  * Loads the note identified by the note-id in the URL.
@@ -19,8 +20,10 @@ import { LoadingScreen } from '../../application-loader/loading-screen/loading-s
 export const NoteLoadingBoundary: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
   const { error, loading } = useLoadNoteFromServer()
 
-  if (loading || error) {
-    return <LoadingScreen errorMessage={error?.message}/>
+  if (loading) {
+    return <LoadingScreen/>
+  } else if (error) {
+    return <CommonErrorPage titleI18nKey={'noteLoadingBoundary.errorWhileLoadingContent'} descriptionI18nKey={error.message}></CommonErrorPage>
   } else {
     return <Fragment>{children}</Fragment>
   }
