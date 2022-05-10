@@ -10,9 +10,11 @@ import type { Note } from '../../../api/notes/types'
 import { Mock } from 'ts-mockery'
 import { render, screen } from '@testing-library/react'
 import { NoteLoadingBoundary } from './note-loading-boundary'
-import * as LoadingScreenModule from '../../../components/application-loader/loading-screen/loading-screen'
 import { testId } from '../../../utils/test-id'
 import { Fragment } from 'react'
+import { mockI18n } from '../../markdown-renderer/test-utils/mock-i18n'
+import * as CommonErrorPageModule from '../../error-pages/common-error-page'
+import * as LoadingScreenModule from '../../../components/application-loader/loading-screen/loading-screen'
 
 describe('Note loading boundary', () => {
   const mockedNoteId = 'mockedNoteId'
@@ -22,12 +24,23 @@ describe('Note loading boundary', () => {
     jest.resetModules()
   })
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await mockI18n()
     jest.spyOn(LoadingScreenModule, 'LoadingScreen').mockImplementation(({ errorMessage }) => {
       return (
         <Fragment>
           <span {...testId('LoadingScreen')}>This is a mock for LoadingScreen.</span>
-          {errorMessage ? <span {...testId('LoadingScreen.Error')}> Error message: {errorMessage}</span> : null}
+          <span>errorMessage: {errorMessage}</span>
+        </Fragment>
+      )
+    })
+    jest.spyOn(CommonErrorPageModule, 'CommonErrorPage').mockImplementation(({ titleI18nKey, descriptionI18nKey, children }) => {
+      return (
+        <Fragment>
+          <span {...testId('CommonErrorPage')}>This is a mock for CommonErrorPage.</span>
+          <span>titleI18nKey: {titleI18nKey}</span>
+          <span>descriptionI18nKey: {descriptionI18nKey}</span>
+          <span>children: {children}</span>
         </Fragment>
       )
     })
@@ -93,7 +106,7 @@ describe('Note loading boundary', () => {
       </NoteLoadingBoundary>
     )
     await screen.findByTestId('LoadingScreen')
-    await screen.findByTestId('LoadingScreen.Error')
+    await screen.findByTestId('CommonErrorPage')
     expect(view.container).toMatchSnapshot()
     expect(setNoteInReduxFunctionMock).not.toBeCalled()
   })

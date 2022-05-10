@@ -23,7 +23,11 @@ export const NoteLoadingBoundary: React.FC<PropsWithChildren<unknown>> = ({ chil
   if (loading) {
     return <LoadingScreen/>
   } else if (error) {
-    return <CommonErrorPage titleI18nKey={'noteLoadingBoundary.errorWhileLoadingContent'} descriptionI18nKey={error.message}></CommonErrorPage>
+    return (
+      <CommonErrorPage
+        titleI18nKey={'noteLoadingBoundary.errorWhileLoadingContent'}
+        descriptionI18nKey={error.message}></CommonErrorPage>
+    )
   } else {
     return <Fragment>{children}</Fragment>
   }

@@ -29,9 +29,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ errorMessage }) =>
         </span>
       </div>
       <ShowIf condition={!!errorMessage}>
-        <Alert variant={'danger'}>
-          {errorMessage}
-        </Alert>
+        <Alert variant={'danger'}>{errorMessage}</Alert>
       </ShowIf>
     </div>
   )
