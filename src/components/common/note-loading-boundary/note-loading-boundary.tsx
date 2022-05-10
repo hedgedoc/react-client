@@ -21,7 +21,7 @@ export const NoteLoadingBoundary: React.FC<PropsWithChildren<unknown>> = ({ chil
   const { error, loading } = useLoadNoteFromServer()
 
   if (loading) {
-    return <LoadingScreen/>
+    return <LoadingScreen />
   } else if (error) {
     return (
       <CommonErrorPage

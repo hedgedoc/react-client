@@ -34,16 +34,18 @@ describe('Note loading boundary', () => {
         </Fragment>
       )
     })
-    jest.spyOn(CommonErrorPageModule, 'CommonErrorPage').mockImplementation(({ titleI18nKey, descriptionI18nKey, children }) => {
-      return (
-        <Fragment>
-          <span {...testId('CommonErrorPage')}>This is a mock for CommonErrorPage.</span>
-          <span>titleI18nKey: {titleI18nKey}</span>
-          <span>descriptionI18nKey: {descriptionI18nKey}</span>
-          <span>children: {children}</span>
-        </Fragment>
-      )
-    })
+    jest
+      .spyOn(CommonErrorPageModule, 'CommonErrorPage')
+      .mockImplementation(({ titleI18nKey, descriptionI18nKey, children }) => {
+        return (
+          <Fragment>
+            <span {...testId('CommonErrorPage')}>This is a mock for CommonErrorPage.</span>
+            <span>titleI18nKey: {titleI18nKey}</span>
+            <span>descriptionI18nKey: {descriptionI18nKey}</span>
+            <span>children: {children}</span>
+          </Fragment>
+        )
+      })
     mockGetNoteIdQueryParameter()
   })
 
