@@ -9,7 +9,8 @@ import * as wrapSelectionModule from './formatters/wrap-selection'
 import { applyFormatTypeToMarkdownLines } from './apply-format-type-to-markdown-lines'
 import type { CursorSelection } from '../../editor/types'
 import { FormatType } from '../types'
-import * as changeCursorsToWholeLineIfNoToCursorModule from './formatters/utils/change-cursors-to-whole-line-if-no-to-cursor'
+import * as changeCursorsToWholeLineIfNoToCursorModule
+  from './formatters/utils/change-cursors-to-whole-line-if-no-to-cursor'
 import * as prependLinesOfSelectionModule from './formatters/prepend-lines-of-selection'
 import * as replaceSelectionModule from './formatters/replace-selection'
 import * as addLinkModule from './formatters/add-link'
@@ -117,7 +118,7 @@ describe('apply format type to markdown lines', () => {
     expect(prependLinesOfSelectionMock).toBeCalledWith(markdownContentMock, cursorSelectionMock, expect.anything())
   })
 
-  it('can process the format type unordered list', () => {
+  it('can process the format type ordered list', () => {
     const result = applyFormatTypeToMarkdownLines(markdownContentMock, cursorSelectionMock, FormatType.ORDERED_LIST)
     expect(result).toEqual(['1. input', cursorSelectionMock])
     expect(prependLinesOfSelectionMock).toBeCalledWith(markdownContentMock, cursorSelectionMock, expect.anything())
