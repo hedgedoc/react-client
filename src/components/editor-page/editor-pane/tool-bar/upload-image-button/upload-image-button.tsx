@@ -7,28 +7,19 @@
 import React, { Fragment, useCallback, useRef } from 'react'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
-import { UploadInput } from '../../sidebar/upload-input'
-import { acceptedMimeTypes } from '../../../common/upload-image-mimetypes'
-import { cypressId } from '../../../../utils/cypress-attribute'
-import { useHandleUpload } from '../hooks/use-handle-upload'
-import { ShowIf } from '../../../common/show-if/show-if'
-import type { CodeMirrorReference } from '../../change-content-context/change-content-context'
-import { useCodeMirrorReference } from '../../change-content-context/change-content-context'
+import { ForkAwesomeIcon } from '../../../../common/fork-awesome/fork-awesome-icon'
+import { UploadInput } from '../../../sidebar/upload-input'
+import { acceptedMimeTypes } from '../../../../common/upload-image-mimetypes'
+import { cypressId } from '../../../../../utils/cypress-attribute'
+import { useHandleUpload } from '../../hooks/use-handle-upload'
+import { ShowIf } from '../../../../common/show-if/show-if'
+import { useCodeMirrorReference } from '../../../change-content-context/change-content-context'
+import { extractSelectedText } from './extract-selected-text'
+import Optional from 'optional-js'
 
-const extractSelectedText = (codeMirror: CodeMirrorReference): string | undefined => {
-  const state = codeMirror?.state
-  if (!state) {
-    return
-  }
-  const from = state.selection.main?.from
-  const to = state.selection.main?.to
-  if (from === undefined || to === undefined || from === to) {
-    return
-  }
-  return state.sliceDoc(from, to)
-}
-
+/**
+ * Shows a button that uploads a chosen file to the backend and adds the link to the note.
+ */
 export const UploadImageButton: React.FC = () => {
   const { t } = useTranslation()
   const clickRef = useRef<() => void>()
@@ -41,7 +32,9 @@ export const UploadImageButton: React.FC = () => {
 
   const onUploadImage = useCallback(
     (file: File) => {
-      const description = extractSelectedText(codeMirror)
+      const description = Optional.ofNullable(codeMirror?.state)
+        .map<string | undefined>((state) => extractSelectedText(state))
+        .orElse(undefined)
       handleUpload(file, undefined, description)
       return Promise.resolve()
     },

@@ -11,25 +11,7 @@ import { UploadInput } from '../upload-input'
 import { cypressId } from '../../../../utils/cypress-attribute'
 import { useChangeEditorContentCallback } from '../../change-content-context/use-change-editor-content-callback'
 import { ShowIf } from '../../../common/show-if/show-if'
-
-/**
- * Reads the given file content as text.
- *
- * @param file The file to read
- * @return the file content
- */
-const readFile = (file: File): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    const fileReader = new FileReader()
-    fileReader.addEventListener('load', () => {
-      resolve(fileReader.result as string)
-    })
-    fileReader.addEventListener('error', (error) => {
-      reject(error)
-    })
-    fileReader.readAsText(file)
-  })
-}
+import { FileContentFormat, readFile } from '../../../../utils/read-file'
 
 export const ImportMarkdownSidebarEntry: React.FC = () => {
   useTranslation()
@@ -37,7 +19,7 @@ export const ImportMarkdownSidebarEntry: React.FC = () => {
 
   const onImportMarkdown = useCallback(
     async (file: File): Promise<void> => {
-      const content = await readFile(file)
+      const content = await readFile(file, FileContentFormat.TEXT)
       changeEditorContent?.(({ markdownContent }) => {
         const newContent = (markdownContent.length === 0 ? '' : '\n') + content
         return [

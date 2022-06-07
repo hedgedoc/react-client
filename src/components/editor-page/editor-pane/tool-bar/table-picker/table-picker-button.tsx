@@ -12,30 +12,14 @@ import { cypressId } from '../../../../../utils/cypress-attribute'
 import { TableSizePickerPopover } from './table-size-picker-popover'
 import { CustomTableSizeModal } from './custom-table-size-modal'
 import type { OverlayInjectedProps } from 'react-bootstrap/Overlay'
-import { createNumberRangeArray } from '../../../../common/number-range/number-range'
 import { replaceSelection } from '../formatters/replace-selection'
 import { useChangeEditorContentCallback } from '../../../change-content-context/use-change-editor-content-callback'
+import { createMarkdownTable } from './create-markdown-table'
 
 enum PickerMode {
   INVISIBLE,
   GRID,
   CUSTOM
-}
-
-/**
- * Creates a markdown table with the given size.
- *
- * @param rows The number of table rows
- * @param columns The number of table columns
- * @return The created markdown table
- */
-const createMarkdownTable = (rows: number, columns: number): string => {
-  const rowArray = createNumberRangeArray(rows)
-  const colArray = createNumberRangeArray(columns).map((col) => col + 1)
-  const head = '|  # ' + colArray.join(' |  # ') + ' |'
-  const divider = '| ' + colArray.map(() => '----').join(' | ') + ' |'
-  const body = rowArray.map(() => '| ' + colArray.map(() => 'Text').join(' | ') + ' |').join('\n')
-  return `${head}\n${divider}\n${body}`
 }
 
 /**

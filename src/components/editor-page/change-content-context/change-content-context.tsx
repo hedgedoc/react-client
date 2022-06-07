@@ -14,7 +14,7 @@ import type { CursorSelection } from '../editor-pane/tool-bar/formatters/types/c
 export type CodeMirrorReference = EditorView | undefined
 type SetCodeMirrorReference = (value: CodeMirrorReference) => void
 
-export type GenerateContentEditsCallback = (parameters: {
+export type ContentFormatter = (parameters: {
   currentSelection: CursorSelection
   markdownContent: string
 }) => [ContentEdits, CursorSelection | undefined]

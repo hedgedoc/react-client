@@ -7,10 +7,10 @@
 import React, { useCallback } from 'react'
 import { ToolbarButton } from '../toolbar-button'
 import { wrapSelection } from '../formatters/wrap-selection'
-import type { GenerateContentEditsCallback } from '../../../change-content-context/change-content-context'
+import type { ContentFormatter } from '../../../change-content-context/change-content-context'
 
 export const ItalicButton: React.FC = () => {
-  const formatter: GenerateContentEditsCallback = useCallback(({ currentSelection }) => {
+  const formatter: ContentFormatter = useCallback(({ currentSelection }) => {
     return wrapSelection(currentSelection, '*', '*')
   }, [])
   return <ToolbarButton i18nKey={'italic'} iconName={'italic'} formatter={formatter}></ToolbarButton>

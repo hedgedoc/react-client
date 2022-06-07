@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -8,7 +8,7 @@ import React, { Fragment, Suspense } from 'react'
 import { ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { TablePickerButton } from './table-picker/table-picker-button'
 import styles from './tool-bar.module.scss'
-import { UploadImageButton } from './upload-image-button'
+import { UploadImageButton } from './upload-image-button/upload-image-button'
 import { BoldButton } from './buttons/bold-button'
 import { ItalicButton } from './buttons/italic-button'
 import { UnderlineButton } from './buttons/underline-button'

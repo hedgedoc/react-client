@@ -7,11 +7,11 @@
 import React, { useCallback } from 'react'
 import { ToolbarButton } from '../toolbar-button'
 import { wrapSelection } from '../formatters/wrap-selection'
-import type { GenerateContentEditsCallback } from '../../../change-content-context/change-content-context'
+import type { ContentFormatter } from '../../../change-content-context/change-content-context'
 import { changeCursorsToWholeLineIfNoToCursor } from '../formatters/utils/change-cursors-to-whole-line-if-no-to-cursor'
 
 export const CodeFenceButton: React.FC = () => {
-  const formatter: GenerateContentEditsCallback = useCallback(({ currentSelection, markdownContent }) => {
+  const formatter: ContentFormatter = useCallback(({ currentSelection, markdownContent }) => {
     return wrapSelection(changeCursorsToWholeLineIfNoToCursor(markdownContent, currentSelection), '```\n', '\n```')
   }, [])
   return <ToolbarButton i18nKey={'code'} iconName={'code'} formatter={formatter}></ToolbarButton>

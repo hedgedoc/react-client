@@ -15,7 +15,7 @@ import { replaceSelection } from '../tool-bar/formatters/replace-selection'
 import { replaceInContent } from '../tool-bar/formatters/replace-in-content'
 import type { CursorSelection } from '../tool-bar/formatters/types/cursor-selection'
 import type { EditorView } from '@codemirror/view'
-import type { GenerateContentEditsCallback } from '../../change-content-context/change-content-context'
+import type { ContentFormatter } from '../../change-content-context/change-content-context'
 import { useCodeMirrorReference } from '../../change-content-context/change-content-context'
 
 /**
@@ -34,7 +34,7 @@ export const handleUpload = (
   description?: string,
   additionalUrlText?: string
 ): void => {
-  const changeContent = (callback: GenerateContentEditsCallback) => changeEditorContent(view, callback)
+  const changeContent = (callback: ContentFormatter) => changeEditorContent(view, callback)
   if (!file || !supportedMimeTypes.includes(file.type) || !changeContent) {
     return
   }
