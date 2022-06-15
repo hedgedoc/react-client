@@ -82,12 +82,13 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       mockContentExtension === undefined ? [] : [mockContentExtension]
     ],
     [
-      cursorActivityExtension,
-      fileInsertExtension,
-      tablePasteExtensions,
       editorScrollExtension,
+      tablePasteExtensions,
+      fileInsertExtension,
+      cursorActivityExtension,
       updateViewContext,
-      yjsExtension
+      yjsExtension,
+      mockContentExtension
     ]
   )
 
