@@ -4,10 +4,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { isMockMode } from '../../../../../utils/test-modes'
 import { getGlobalState } from '../../../../../redux'
 import type { YText } from 'yjs/dist/src/types/YText'
+import type { Extension } from '@codemirror/state'
+import { EditorView } from '@codemirror/view'
 
 /**
  * When in mock mode this hook inserts the current markdown content (that comes from the mock api) into the given yText
@@ -15,18 +17,18 @@ import type { YText } from 'yjs/dist/src/types/YText'
  *
  * @param yText The yText in which the content should be inserted
  */
-export const useInsertNoteContentInMockMode = (yText: YText): void => {
+export const useInsertNoteContentInMockMode = (yText: YText): Extension | undefined => {
+  const [firstUpdateHappened, setFirstUpdateHappened] = useState<boolean>(false)
+
   useEffect(() => {
-    if (isMockMode) {
-      /**
-       * Why a Timeout?
-       * The yjs-codemirror-extension only reacts to yText-updates and doesn't insert the current state when the extension is loaded.
-       * Therefore, we need to insert the text AFTER the extension is loaded.
-       * But we also can't verify when the extension is loaded... so we just wait.
-       */
-      setTimeout(() => {
-        yText.insert(0, getGlobalState().noteDetails.markdownContent.plain)
-      }, 1000)
+    if (firstUpdateHappened) {
+      yText.insert(0, getGlobalState().noteDetails.markdownContent.plain)
     }
-  }, [yText])
+  }, [firstUpdateHappened, yText])
+
+  return useMemo(() => {
+    return isMockMode && !firstUpdateHappened
+      ? EditorView.updateListener.of(() => setFirstUpdateHappened(true))
+      : undefined
+  }, [firstUpdateHappened])
 }

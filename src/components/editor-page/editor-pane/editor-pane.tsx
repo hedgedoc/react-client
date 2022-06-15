@@ -63,7 +63,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   useBindYTextToRedux(yText)
 
   const yjsExtension = useCodeMirrorYjsExtension(yText, awareness)
-  useInsertNoteContentInMockMode(yText)
+  const mockContentExtension = useInsertNoteContentInMockMode(yText)
 
   const extensions = useMemo(
     () => [
@@ -78,7 +78,8 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       autocompletion(),
       cursorActivityExtension,
       updateViewContext,
-      yjsExtension === undefined ? [] : [yjsExtension]
+      yjsExtension === undefined ? [] : [yjsExtension],
+      mockContentExtension === undefined ? [] : [mockContentExtension]
     ],
     [
       cursorActivityExtension,
