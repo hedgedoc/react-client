@@ -17,6 +17,6 @@ import type { YText } from 'yjs/dist/src/types/YText'
  * @param awareness Contains cursor positions and names from other clients that will be shown
  * @return the created extension
  */
-export const useCodeMirrorYjsExtension = (yText: YText, awareness: Awareness): Extension | undefined => {
+export const useCodeMirrorYjsExtension = (yText: YText, awareness: Awareness): Extension => {
   return useMemo(() => yCollab(yText, awareness), [awareness, yText])
 }
