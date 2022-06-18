@@ -12,12 +12,18 @@ import type { Extension } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
 /**
- * When in mock mode this hook inserts the current markdown content (that comes from the mock api) into the given yText
- * to make the editor usable.
+ * When in mock mode this hook inserts the current markdown content into the given yText to write it into the editor.
+ * This happens only one time because after that the editor writes it changes into the yText which writes it into the redux.
+ *
+ * Usually the CodeMirror gets its content from yjs sync via websocket. But in mock mode this connection isn't available.
+ * That's why this hook inserts the current markdown content, that is currently saved in the global application state
+ * and was saved there by the {@link NoteLoadingBoundary note loading boundary}, into the y-text to write it into the codemirror.
+ * This has to be done AFTER the CodeMirror sync extension (yCollab) has been loaded because the extension reacts only to updates of the yText
+ * and doesn't write the existing content into the editor when being loaded.
  *
  * @param yText The yText in which the content should be inserted
  */
-export const useInsertNoteContentInMockMode = (yText: YText): Extension[] => {
+export const useInsertInitialNoteContentIntoEditorInMockMode = (yText: YText): Extension[] => {
   const [firstUpdateHappened, setFirstUpdateHappened] = useState<boolean>(false)
 
   useEffect(() => {

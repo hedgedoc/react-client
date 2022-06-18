@@ -32,7 +32,7 @@ import { useYDoc } from './hooks/yjs/use-y-doc'
 import { useAwareness } from './hooks/yjs/use-awareness'
 import { useWebsocketConnection } from './hooks/yjs/use-websocket-connection'
 import { useBindYTextToRedux } from './hooks/yjs/use-bind-y-text-to-redux'
-import { useInsertNoteContentInMockMode } from './hooks/yjs/use-insert-note-content-in-mock-mode'
+import { useInsertInitialNoteContentIntoEditorInMockMode } from './hooks/yjs/use-insert-initial-note-content-into-editor-in-mock-mode'
 
 export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMakeScrollSource }) => {
   const ligaturesEnabled = useApplicationState((state) => state.editorConfig.ligatures)
@@ -63,7 +63,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   useBindYTextToRedux(yText)
 
   const yjsExtension = useCodeMirrorYjsExtension(yText, awareness)
-  const mockContentExtension = useInsertNoteContentInMockMode(yText)
+  const mockContentExtension = useInsertInitialNoteContentIntoEditorInMockMode(yText)
 
   const extensions = useMemo(
     () => [

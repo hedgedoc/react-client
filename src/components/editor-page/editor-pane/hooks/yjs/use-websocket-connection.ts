@@ -28,14 +28,13 @@ export const useWebsocketConnection = (yDoc: Doc, awareness: Awareness): YDocMes
   }, [awareness, websocketUrl, yDoc])
 
   useEffect(() => {
-    const handler = () => websocketConnection.disconnect()
-    window.addEventListener('beforeunload', handler)
-    return () => window.removeEventListener('beforeunload', handler)
+    const disconnectCallback = () => websocketConnection.disconnect()
+    window.addEventListener('beforeunload', disconnectCallback)
+    return () => {
+      window.removeEventListener('beforeunload', disconnectCallback)
+      disconnectCallback()
+    }
   }, [websocketConnection])
-
-  useEffect(() => {
-    return () => websocketConnection.disconnect()
-  }, [awareness, websocketConnection, websocketUrl, yDoc])
 
   return websocketConnection
 }
