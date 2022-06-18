@@ -21,6 +21,7 @@ interface UserAwarenessState {
   }
 }
 
+// TODO: [mrdrogdrog] move this code to the server for the initial color setting.
 const userColors = [
   { color: '#30bced', light: '#30bced33' },
   { color: '#6eeb83', light: '#6eeb8333' },
