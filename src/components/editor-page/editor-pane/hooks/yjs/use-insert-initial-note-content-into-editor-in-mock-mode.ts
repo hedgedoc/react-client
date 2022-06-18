@@ -23,7 +23,7 @@ import { EditorView } from '@codemirror/view'
  *
  * @param yText The yText in which the content should be inserted
  */
-export const useInsertInitialNoteContentIntoEditorInMockMode = (yText: YText): Extension[] => {
+export const useInsertInitialNoteContentIntoEditorInMockMode = (yText: YText): Extension | undefined => {
   const [firstUpdateHappened, setFirstUpdateHappened] = useState<boolean>(false)
 
   useEffect(() => {
@@ -33,6 +33,8 @@ export const useInsertInitialNoteContentIntoEditorInMockMode = (yText: YText): E
   }, [firstUpdateHappened, yText])
 
   return useMemo(() => {
-    return isMockMode && !firstUpdateHappened ? [EditorView.updateListener.of(() => setFirstUpdateHappened(true))] : []
+    return isMockMode && !firstUpdateHappened
+      ? EditorView.updateListener.of(() => setFirstUpdateHappened(true))
+      : undefined
   }, [firstUpdateHappened])
 }
