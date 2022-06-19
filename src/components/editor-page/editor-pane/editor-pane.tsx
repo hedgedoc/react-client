@@ -110,7 +110,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       onTouchStart={onMakeScrollSource}
       onMouseEnter={onMakeScrollSource}
       {...cypressId('editor-pane')}
-      {...cypressAttribute('editor-ready', String(codeMirrorRef !== undefined))}>
+      {...cypressAttribute('editor-ready', String(firstUpdateHappened && connectionSynced))}>
       <MaxLengthWarning />
       <ToolBar />
       <ReactCodeMirror
