@@ -29,7 +29,7 @@ export const useInsertNoteContentIntoYTextInMockModeEffect = (
 ): void => {
   useEffect(() => {
     if (firstUpdateHappened && isMockMode && connection instanceof MockConnection) {
-      connection.insertContent(getGlobalState().noteDetails.markdownContent.plain)
+      connection.simulateFirstSync(getGlobalState().noteDetails.markdownContent.plain)
     }
   }, [firstUpdateHappened, connection])
 }

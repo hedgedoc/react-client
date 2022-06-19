@@ -35,6 +35,7 @@ import { useBindYTextToRedux } from './hooks/yjs/use-bind-y-text-to-redux'
 import { useInsertNoteContentIntoYTextInMockModeEffect } from './hooks/yjs/use-insert-note-content-into-y-text-in-mock-mode-effect'
 import { useOnFirstEditorUpdateExtension } from './hooks/yjs/use-on-first-editor-update-extension'
 import { useIsConnectionSynced } from './hooks/yjs/use-is-connection-synced'
+import { useMarkdownContentYText } from './hooks/yjs/use-markdown-content-y-text'
 
 export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMakeScrollSource }) => {
   const ligaturesEnabled = useApplicationState((state) => state.editorConfig.ligatures)
@@ -59,7 +60,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
 
   const yDoc = useYDoc()
   const awareness = useAwareness(yDoc)
-  const yText = useMemo(() => yDoc.getText('markdownContent'), [yDoc])
+  const yText = useMarkdownContentYText(yDoc)
   const websocketConnection = useWebsocketConnection(yDoc, awareness)
   const connectionSynced = useIsConnectionSynced(websocketConnection)
   useBindYTextToRedux(yText)
