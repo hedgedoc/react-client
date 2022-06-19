@@ -16,7 +16,17 @@ export class MockConnection extends YDocMessageTransporter {
     super(doc, awareness)
     this.onOpen()
     this.emit('ready')
-    this.markAsSynced()
+  }
+
+  /**
+   * Inserts the given content at position 0 of the editor yText.
+   *
+   * @param content The content to insert
+   */
+  public insertContent(content: string): void {
+    const yText = this.doc.getText('markdownContent')
+    yText.insert(0, content)
+    super.markAsSynced()
   }
 
   disconnect(): void {
