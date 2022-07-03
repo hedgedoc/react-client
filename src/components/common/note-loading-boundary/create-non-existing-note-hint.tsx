@@ -60,7 +60,7 @@ export const CreateNonExistingNoteHint: React.FC = () => {
         <b>
           <Trans i18nKey={'noteLoadingBoundary.createNote.question'} values={{ aliasName: noteIdFromUrl }} />
         </b>
-        <div className={'mt-2'}>
+        <div className={'mt-3'}>
           <Button
             autoFocus
             type='submit'
