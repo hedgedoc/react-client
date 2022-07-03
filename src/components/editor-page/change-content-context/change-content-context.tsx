@@ -24,7 +24,7 @@ type ChangeEditorContentContext = [CodeMirrorReference, SetCodeMirrorReference]
 const changeEditorContentContext = createContext<ChangeEditorContentContext | undefined>(undefined)
 
 /**
- * Extracts the code mirror reference from the parent context
+ * Extracts the code mirror reference from the parent context.
  */
 export const useCodeMirrorReference = (): CodeMirrorReference => {
   const contextContent = Optional.ofNullable(useContext(changeEditorContentContext)).orElseThrow(

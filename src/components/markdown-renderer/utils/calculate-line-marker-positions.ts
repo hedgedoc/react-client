@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -11,7 +11,7 @@ import type { LineMarkerPosition } from '../markdown-extension/linemarker/types'
 import type { LineMarkers } from '../markdown-extension/linemarker/add-line-marker-markdown-it-plugin'
 import useResizeObserver from '@react-hook/resize-observer'
 
-export const calculateLineMarkerPositions = (
+const calculateLineMarkerPositions = (
   documentElement: HTMLDivElement,
   currentLineMarkers: LineMarkers[],
   offset?: number
@@ -47,6 +47,14 @@ export const calculateLineMarkerPositions = (
   return lineMarkerPositions
 }
 
+/**
+ * Hook to calculate {@link LineMarkers}.
+ *
+ * @param documentElement A reference to the rendered document.
+ * @param lineMarkers A list of {@link LineMarkers}
+ * @param onLineMarkerPositionChanged The callback to call with changed {@link LineMarkers}
+ * @param offset The optional offset
+ */
 export const useCalculateLineMarkerPosition = (
   documentElement: RefObject<HTMLDivElement>,
   lineMarkers?: LineMarkers[],

@@ -12,6 +12,12 @@ export interface ActiveIndicatorProps {
   status: ActiveIndicatorStatus
 }
 
+/**
+ * Renders an indicator corresponding to the status.
+ * This is used to indicate if a user is present or not.
+ *
+ * @param status The state of the indicator to render
+ */
 export const ActiveIndicator: React.FC<ActiveIndicatorProps> = ({ status }) => {
   return <span className={`${styles['activeIndicator']} ${status}`} />
 }

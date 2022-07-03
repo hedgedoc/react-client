@@ -11,8 +11,11 @@ import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-ap
 
 /**
  * Retrieves the content and metadata about the specified note.
+ *
  * @param noteIdOrAlias The id or alias of the note.
  * @return Content and metadata of the specified note.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const getNote = async (noteIdOrAlias: string): Promise<Note> => {
   const response = await new GetApiRequestBuilder<Note>('notes/' + noteIdOrAlias)
@@ -23,8 +26,11 @@ export const getNote = async (noteIdOrAlias: string): Promise<Note> => {
 
 /**
  * Returns a list of media objects associated with the specified note.
+ *
  * @param noteIdOrAlias The id or alias of the note.
  * @return List of media object metadata associated with specified note.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const getMediaForNote = async (noteIdOrAlias: string): Promise<MediaUpload[]> => {
   const response = await new GetApiRequestBuilder<MediaUpload[]>(`notes/${noteIdOrAlias}/media`).sendRequest()
@@ -33,8 +39,11 @@ export const getMediaForNote = async (noteIdOrAlias: string): Promise<MediaUploa
 
 /**
  * Creates a new note with a given markdown content.
+ *
  * @param markdown The content of the new note.
  * @return Content and metadata of the new note.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const createNote = async (markdown: string): Promise<Note> => {
   const response = await new PostApiRequestBuilder<Note, void>('notes')
@@ -46,9 +55,12 @@ export const createNote = async (markdown: string): Promise<Note> => {
 
 /**
  * Creates a new note with a given markdown content and a defined primary alias.
+ *
  * @param markdown The content of the new note.
  * @param primaryAlias The primary alias of the new note.
  * @return Content and metadata of the new note.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias: string): Promise<Note> => {
   const response = await new PostApiRequestBuilder<Note, void>('notes/' + primaryAlias)
@@ -60,7 +72,10 @@ export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias:
 
 /**
  * Deletes the specified note.
+ *
  * @param noteIdOrAlias The id or alias of the note to delete.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const deleteNote = async (noteIdOrAlias: string): Promise<void> => {
   await new DeleteApiRequestBuilder('notes/' + noteIdOrAlias).sendRequest()

@@ -12,6 +12,9 @@ import { HelpModal } from './help-modal'
 import { cypressId } from '../../../../utils/cypress-attribute'
 import { useBooleanState } from '../../../../hooks/common/use-boolean-state'
 
+/**
+ * Renders the button in the {@link AppBar} to open the {@link HelpModal}.
+ */
 export const HelpButton: React.FC = () => {
   const { t } = useTranslation()
   const [modalVisibility, showModal, closeModal] = useBooleanState()

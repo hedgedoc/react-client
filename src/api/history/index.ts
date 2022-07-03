@@ -11,7 +11,10 @@ import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-ap
 
 /**
  * Fetches the remote history for the user from the server.
+ *
  * @return The remote history entries of the user.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const getRemoteHistory = async (): Promise<HistoryEntry[]> => {
   const response = await new GetApiRequestBuilder<HistoryEntry[]>('me/history').sendRequest()
@@ -20,7 +23,10 @@ export const getRemoteHistory = async (): Promise<HistoryEntry[]> => {
 
 /**
  * Replaces the remote history of the user with the given history entries.
+ *
  * @param entries The history entries to store remotely.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const setRemoteHistoryEntries = async (entries: HistoryEntryPutDto[]): Promise<void> => {
   await new PostApiRequestBuilder<void, HistoryEntryPutDto[]>('me/history').withJsonBody(entries).sendRequest()
@@ -28,8 +34,11 @@ export const setRemoteHistoryEntries = async (entries: HistoryEntryPutDto[]): Pr
 
 /**
  * Updates a remote history entry's pin state.
+ *
  * @param noteIdOrAlias The note id for which to update the pinning state.
  * @param pinStatus True when the note should be pinned, false otherwise.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const updateRemoteHistoryEntryPinStatus = async (
   noteIdOrAlias: string,
@@ -45,7 +54,10 @@ export const updateRemoteHistoryEntryPinStatus = async (
 
 /**
  * Deletes a remote history entry.
+ *
  * @param noteIdOrAlias The note id or alias of the history entry to remove.
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const deleteRemoteHistoryEntry = async (noteIdOrAlias: string): Promise<void> => {
   await new DeleteApiRequestBuilder('me/history/' + noteIdOrAlias).sendRequest()
@@ -53,6 +65,9 @@ export const deleteRemoteHistoryEntry = async (noteIdOrAlias: string): Promise<v
 
 /**
  * Deletes the complete remote history.
+ *
+ * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
+ *         error mapping.
  */
 export const deleteRemoteHistory = async (): Promise<void> => {
   await new DeleteApiRequestBuilder('me/history').sendRequest()

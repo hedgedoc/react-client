@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -27,6 +27,12 @@ export enum HedgeDocLogoType {
   WB_HORIZONTAL
 }
 
+/**
+ * Renders the HedgeDoc logo in different types.
+ *
+ * @param size Which size should the logo have?
+ * @param logoType Which logo type should be used?
+ */
 export const HedgeDocLogoWithText: React.FC<HedgeDocLogoProps> = ({ size = HedgeDocLogoSize.MEDIUM, logoType }) => {
   const { t } = useTranslation()
   const altText = useMemo(() => t('app.icon'), [t])

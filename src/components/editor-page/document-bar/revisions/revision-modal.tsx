@@ -20,6 +20,7 @@ import { AsyncLoadingBoundary } from '../../../common/async-loading-boundary'
 
 /**
  * Modal that shows the available revisions and allows for comparison between them.
+ *
  * @param show true to show the modal, false otherwise.
  * @param onHide Callback that is fired when the modal is requested to close.
  */

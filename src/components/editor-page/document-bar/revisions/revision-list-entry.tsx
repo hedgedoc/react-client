@@ -26,6 +26,7 @@ export interface RevisionListEntryProps {
 
 /**
  * Renders an entry in the revision list.
+ *
  * @param active true if this is the currently selected revision entry.
  * @param onSelect Callback that is fired  when this revision entry is selected.
  * @param revision The metadata for this revision entry.

@@ -14,6 +14,10 @@ export interface PermissionOwnerChangeProps {
   onConfirmOwnerChange: (newOwner: string) => void
 }
 
+/**
+ *
+ * @param onConfirmOwnerChange
+ */
 export const PermissionOwnerChange: React.FC<PermissionOwnerChangeProps> = ({ onConfirmOwnerChange }) => {
   const { t } = useTranslation()
   const [ownerFieldValue, setOwnerFieldValue] = useState('')

@@ -21,6 +21,7 @@ export interface RevisionViewerProps {
 
 /**
  * Renders the diff viewer for a given revision and its previous one.
+ *
  * @param selectedRevisionId The id of the currently selected revision.
  * @param allRevisions List of metadata for all available revisions.
  */
