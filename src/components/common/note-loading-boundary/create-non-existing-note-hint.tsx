@@ -40,12 +40,10 @@ export const CreateNonExistingNoteHint: React.FC = () => {
     return <Redirect to={`/n/${returnState.value.metadata.primaryAddress}`} />
   } else if (returnState.loading) {
     return (
-      <div className={'d-flex flex-column mt-5'} {...testId('loadingMessage')}>
-        <b>
-          <ForkAwesomeIcon icon={'spinner'} className={'fa-spin mr-2'} />
-          <Trans i18nKey={'noteLoadingBoundary.createNote.creating'} />
-        </b>
-      </div>
+      <Alert variant={'info'} {...testId('loadingMessage')} className={'mt-5'}>
+        <ForkAwesomeIcon icon={'spinner'} className={'fa-spin mr-2'} />
+        <Trans i18nKey={'noteLoadingBoundary.createNote.creating'} />
+      </Alert>
     )
   } else if (returnState.error !== undefined) {
     return (
@@ -56,10 +54,10 @@ export const CreateNonExistingNoteHint: React.FC = () => {
     )
   } else {
     return (
-      <div className={'d-flex flex-column mt-5'}>
-        <b>
+      <Alert variant={'info'} {...testId('failedMessage')} className={'mt-5'}>
+        <span>
           <Trans i18nKey={'noteLoadingBoundary.createNote.question'} values={{ aliasName: noteIdFromUrl }} />
-        </b>
+        </span>
         <div className={'mt-3'}>
           <Button
             autoFocus
@@ -74,7 +72,7 @@ export const CreateNonExistingNoteHint: React.FC = () => {
             <Trans i18nKey={'noteLoadingBoundary.createNote.create'} />
           </Button>
         </div>
-      </div>
+      </Alert>
     )
   }
 }
