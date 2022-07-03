@@ -51,7 +51,6 @@ export const createNote = async (markdown: string): Promise<Note> => {
  * @return Content and metadata of the new note.
  */
 export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias: string): Promise<Note> => {
-  await new Promise((resolve) => setTimeout(resolve, 5000))
   const response = await new PostApiRequestBuilder<Note, void>('notes/' + primaryAlias)
     .withHeader('Content-Type', 'text/markdown')
     .withBody(markdown)

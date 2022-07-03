@@ -15,6 +15,10 @@ import { Redirect } from '../redirect'
 import { ForkAwesomeIcon } from '../fork-awesome/fork-awesome-icon'
 import { testId } from '../../../utils/test-id'
 
+/**
+ * Shows a button that creates an empty note with the alias from the current window URL.
+ * When the button was clicked it also shows the progress.
+ */
 export const CreateNonExistingNoteHint: React.FC = () => {
   useTranslation()
   const noteIdFromUrl = useSingleStringUrlParameter('noteId', undefined)
