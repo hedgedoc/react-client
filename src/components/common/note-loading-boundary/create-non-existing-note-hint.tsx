@@ -49,7 +49,7 @@ export const CreateNonExistingNoteHint: React.FC = () => {
     )
   } else if (returnState.error !== undefined) {
     return (
-      <Alert variant={'danger'} {...testId('failedMessage')}>
+      <Alert variant={'danger'} {...testId('failedMessage')} className={'mt-5'}>
         <ForkAwesomeIcon icon={'exclamation-triangle'} className={'mr-1'} />
         <Trans i18nKey={'noteLoadingBoundary.createNote.error'} />
       </Alert>
