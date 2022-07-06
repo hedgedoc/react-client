@@ -36,9 +36,7 @@ export const RevisionModal: React.FC<ModalVisibilityProps> = ({ show, onHide }) 
       <Modal.Body>
         <Row>
           <Col lg={4} className={styles['scroll-col']}>
-            <RevisionList
-              onRevisionSelect={setSelectedRevisionId}
-              selectedRevisionId={selectedRevisionId}></RevisionList>
+            <RevisionList onRevisionSelect={setSelectedRevisionId} selectedRevisionId={selectedRevisionId} />
           </Col>
           <Col lg={8} className={styles['scroll-col']}>
             <RevisionViewer selectedRevisionId={selectedRevisionId} />
