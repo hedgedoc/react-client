@@ -13,7 +13,7 @@ import { loadDarkMode } from './load-dark-mode'
 import { isDevMode, isTestMode } from '../../../utils/test-modes'
 
 /**
- * Create a custom delay in the
+ * Create a custom delay in the loading of the application.
  */
 const customDelay: () => Promise<void> = async () => {
   if (
