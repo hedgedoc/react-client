@@ -14,8 +14,7 @@ import { DeleteApiRequestBuilder } from '../common/api-request-builder/delete-ap
  *
  * @param noteIdOrAlias The id or alias of the note.
  * @return Content and metadata of the specified note.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const getNote = async (noteIdOrAlias: string): Promise<Note> => {
   const response = await new GetApiRequestBuilder<Note>('notes/' + noteIdOrAlias)
@@ -29,8 +28,7 @@ export const getNote = async (noteIdOrAlias: string): Promise<Note> => {
  *
  * @param noteIdOrAlias The id or alias of the note.
  * @return List of media object metadata associated with specified note.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const getMediaForNote = async (noteIdOrAlias: string): Promise<MediaUpload[]> => {
   const response = await new GetApiRequestBuilder<MediaUpload[]>(`notes/${noteIdOrAlias}/media`).sendRequest()
@@ -42,8 +40,7 @@ export const getMediaForNote = async (noteIdOrAlias: string): Promise<MediaUploa
  *
  * @param markdown The content of the new note.
  * @return Content and metadata of the new note.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const createNote = async (markdown: string): Promise<Note> => {
   const response = await new PostApiRequestBuilder<Note, void>('notes')
@@ -59,8 +56,7 @@ export const createNote = async (markdown: string): Promise<Note> => {
  * @param markdown The content of the new note.
  * @param primaryAlias The primary alias of the new note.
  * @return Content and metadata of the new note.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias: string): Promise<Note> => {
   const response = await new PostApiRequestBuilder<Note, void>('notes/' + primaryAlias)
@@ -74,8 +70,7 @@ export const createNoteWithPrimaryAlias = async (markdown: string, primaryAlias:
  * Deletes the specified note.
  *
  * @param noteIdOrAlias The id or alias of the note to delete.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const deleteNote = async (noteIdOrAlias: string): Promise<void> => {
   await new DeleteApiRequestBuilder('notes/' + noteIdOrAlias).sendRequest()

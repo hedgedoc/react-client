@@ -15,8 +15,7 @@ import { PostApiRequestBuilder } from '../common/api-request-builder/post-api-re
  * @param username The username with which to try the login.
  * @param password The password of the user.
  * @throws {AuthError.INVALID_CREDENTIALS} if the LDAP provider denied the given credentials.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successfull
  */
 export const doLdapLogin = async (provider: string, username: string, password: string): Promise<void> => {
   await new PostApiRequestBuilder<void, LoginDto>('auth/ldap/' + provider)

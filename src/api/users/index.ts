@@ -12,8 +12,7 @@ import { GetApiRequestBuilder } from '../common/api-request-builder/get-api-requ
  *
  * @param username The username of interest.
  * @return Metadata about the requested user.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const getUser = async (username: string): Promise<UserInfo> => {
   const response = await new GetApiRequestBuilder<UserInfo>('users/' + username).sendRequest()

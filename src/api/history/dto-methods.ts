@@ -7,7 +7,7 @@ import type { HistoryEntry, HistoryEntryPutDto, HistoryEntryWithOrigin } from '.
 import { HistoryEntryOrigin } from './types'
 
 /**
- * Transform a {@link HistoryEntry} to a {@link HistoryEntryWithOrigin}.
+ * Transform a {@link HistoryEntry} into a {@link HistoryEntryWithOrigin}.
  *
  * @param entry the entry to build from
  * @return the history entry with an origin

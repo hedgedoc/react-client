@@ -23,8 +23,7 @@ export const getMe = async (): Promise<LoginUserInfo> => {
 /**
  * Deletes the current user from the server.
  *
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const deleteUser = async (): Promise<void> => {
   await new DeleteApiRequestBuilder('me').sendRequest()
@@ -34,8 +33,7 @@ export const deleteUser = async (): Promise<void> => {
  * Changes the display name of the current user.
  *
  * @param displayName The new display name to set.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const updateDisplayName = async (displayName: string): Promise<void> => {
   await new PostApiRequestBuilder<void, ChangeDisplayNameDto>('me/profile')
@@ -49,8 +47,7 @@ export const updateDisplayName = async (displayName: string): Promise<void> => {
  * Retrieves a list of media belonging to the user.
  *
  * @return List of media object information.
- * @throws {Error} when the status code does not match the expected one or is defined as in the custom status code
- *         error mapping.
+ * @throws {Error} when the api request wasn't successful.
  */
 export const getMyMedia = async (): Promise<MediaUpload[]> => {
   const response = await new GetApiRequestBuilder<MediaUpload[]>('me/media').sendRequest()
