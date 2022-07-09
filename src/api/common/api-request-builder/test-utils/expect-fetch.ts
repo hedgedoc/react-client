@@ -12,10 +12,10 @@ import { Mock } from 'ts-mockery'
  * Check that the given url and options are present in the request and return the given status code.
  *
  * @param expectedUrl the url that should be requested
- * @param statusCodeReturned the status code we return
+ * @param requestStatusCode the status code we return
  * @param expectedOptions additional options
  */
-export const expectFetch = (expectedUrl: string, statusCodeReturned: number, expectedOptions: RequestInit): void => {
+export const expectFetch = (expectedUrl: string, requestStatusCode: number, expectedOptions: RequestInit): void => {
   global.fetch = jest.fn((fetchUrl: RequestInfo | URL, fetchOptions?: RequestInit): Promise<Response> => {
     expect(fetchUrl).toEqual(expectedUrl)
     expect(fetchOptions).toStrictEqual({
@@ -26,7 +26,7 @@ export const expectFetch = (expectedUrl: string, statusCodeReturned: number, exp
     })
     return Promise.resolve(
       Mock.of<Response>({
-        status: statusCodeReturned
+        status: requestStatusCode
       })
     )
   })
