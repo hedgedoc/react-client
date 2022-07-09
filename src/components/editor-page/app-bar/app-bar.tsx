@@ -30,7 +30,7 @@ export interface AppBarProps {
 }
 
 /**
- * Renders the app bar for HedgeDoc.
+ * Renders the app bar.
  *
  * @param mode Which mode the app bar should be rendered in. This mainly adds / removes buttons for the editor.
  */
