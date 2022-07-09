@@ -22,7 +22,7 @@ export interface DeletionModalProps extends CommonModalProps {
  * This means in addition to most things for the {@link CommonModal} there is also a button to confirm the deletion and a corresponding callback.
  *
  * @param show If the modal should be shown or not.
- * @param onHide The callback to change hide the modal again
+ * @param onHide The callback to hide the modal again
  * @param title The title in the header of the modal
  * @param onConfirm The callback for the delete button.
  * @param deletionButtonI18nKey The i18n key for the deletion button.

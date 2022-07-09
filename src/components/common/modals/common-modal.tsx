@@ -34,7 +34,7 @@ export type CommonModalProps = PropsWithDataCypressId & ModalVisibilityProps & M
  * Renders a generic modal.
  *
  * @param show If the modal should be shown or not.
- * @param onHide The callback to change hide the modal again
+ * @param onHide The callback to hide the modal again
  * @param title The title in the header of the modal
  * @param showCloseButton If a close button should be shown
  * @param titleIcon An optional title icon
