@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { InternalLink } from './internal-link'
 import type { TranslatedLinkProps } from './types'
 /**
- * An internal link with translated text.
+ * An {@link InternalLink internal link} with translated text.
  *
  * @param i18nKey The key of the translation
  * @param i18nOption The translation options

@@ -10,7 +10,7 @@ import { ExternalLink } from './external-link'
 import type { TranslatedLinkProps } from './types'
 
 /**
- * An external link with translated text.
+ * An {@link ExternalLink external link} with translated text.
  *
  * @param i18nKey The key of the translation
  * @param i18nOption The translation options
