@@ -13,7 +13,7 @@ import type { CursorSelection } from './types/cursor-selection'
  * @param selection If the selection has no to-cursor then text will only be inserted.
  *                  If the selection has a to-cursor then the selection will be replaced.
  * @param insertText The text that should be inserted
- * @param insertNewLine If the selection should be prefixed with a new line.
+ * @param insertNewLine If the selection should be prefixed with a new-line-character.
  * @return The modified state
  */
 export const replaceSelection = (

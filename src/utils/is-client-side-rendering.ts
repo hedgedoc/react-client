@@ -5,7 +5,7 @@
  */
 
 /**
- * Detects if the application is currently renders client side.
+ * Detects if the application is running on client side.
  */
 export const isClientSideRendering = (): boolean => {
   return typeof window !== 'undefined' && typeof window.navigator !== 'undefined'

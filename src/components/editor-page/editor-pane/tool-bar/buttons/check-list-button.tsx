@@ -10,7 +10,7 @@ import type { ContentFormatter } from '../../../change-content-context/change-co
 import { prependLinesOfSelection } from '../formatters/prepend-lines-of-selection'
 
 /**
- * Renders a button to create a checklist.
+ * Renders a button to create a checklist in the {@link Editor editor}.
  */
 export const CheckListButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection, markdownContent }) => {

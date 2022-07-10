@@ -11,7 +11,7 @@ import { changeCursorsToWholeLineIfNoToCursor } from '../formatters/utils/change
 import type { ContentFormatter } from '../../../change-content-context/change-content-context'
 
 /**
- * Renders a button to create a spoiler section.
+ * Renders a button to create a spoiler section in the {@link Editor editor}.
  */
 export const CollapsibleBlockButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection, markdownContent }) => {

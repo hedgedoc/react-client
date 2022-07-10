@@ -15,8 +15,9 @@ export interface PermissionOwnerChangeProps {
 }
 
 /**
+ * Renders an input group to change the permission owner.
  *
- * @param onConfirmOwnerChange
+ * @param onConfirmOwnerChange The callback to call if the owner was changed.
  */
 export const PermissionOwnerChange: React.FC<PermissionOwnerChangeProps> = ({ onConfirmOwnerChange }) => {
   const { t } = useTranslation()

@@ -10,7 +10,7 @@ import { wrapSelection } from '../formatters/wrap-selection'
 import type { ContentFormatter } from '../../../change-content-context/change-content-context'
 
 /**
- * Renders a button to make the selection in the editor into a superscript.
+ * Renders a button to format the selection in the {@link Editor editor} as superscript.
  */
 export const SuperscriptButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection }) => {

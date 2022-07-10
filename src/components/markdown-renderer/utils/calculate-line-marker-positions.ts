@@ -48,11 +48,11 @@ const calculateLineMarkerPositions = (
 }
 
 /**
- * Hook to calculate {@link LineMarkers}.
+ * Calculates the positions of the given {@link LineMarkers} in the given {@link Document}.
  *
  * @param documentElement A reference to the rendered document.
  * @param lineMarkers A list of {@link LineMarkers}
- * @param onLineMarkerPositionChanged The callback to call with changed {@link LineMarkers}
+ * @param onLineMarkerPositionChanged The callback to call if the {@link LineMarkerPosition line marker positions} change e.g. by rendering or resizing.
  * @param offset The optional offset
  */
 export const useCalculateLineMarkerPosition = (

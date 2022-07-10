@@ -12,7 +12,6 @@ import { CommunicationMessageType } from '../window-post-message-communicator/re
 
 /**
  * Generates a callback to send information about a clicked image from the iframe back to the editor.
- * This should open a lightbox with the image in the editor.
  *
  * @param iframeCommunicator The communicator to send the message with.
  * @return The callback to give to on onClick handler

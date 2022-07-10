@@ -10,7 +10,7 @@ import { setEditorMode } from '../../../redux/editor/methods'
 import { useRouter } from 'next/router'
 
 /**
- * Extracts the specified editor mode from the URL query and sets that into the redux.
+ * Extracts the specified editor mode from the URL query and sets that into the global application state.
  */
 export const useEditorModeFromUrl = (): void => {
   const { query } = useRouter()

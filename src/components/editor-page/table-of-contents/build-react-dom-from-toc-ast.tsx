@@ -12,7 +12,7 @@ import { tocSlugify } from './toc-slugify'
 import { JumpAnchor } from '../../markdown-renderer/markdown-extension/link-replacer/jump-anchor'
 
 /**
- * Generates a React DOM part for the TOC (table of contents) of a given AST of the document.
+ * Generates a React DOM part for the table of contents from the given AST of the document.
  *
  * @param toc The abstract syntax tree of the document for TOC generation
  * @param levelsToShowUnderThis The amount of levels which should be shown below this TOC item

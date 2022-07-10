@@ -11,7 +11,7 @@ import type { RegexOptions } from '../../../../external-types/markdown-it-regex/
 const finalRegex = /^{%pdf (\S*) *%}$/
 
 /**
- * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 pdf links.
+ * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 pdf shortcodes as html links.
  *
  * @param markdownIt The {@link MarkdownIt} to configure
  */

@@ -16,7 +16,7 @@ import { NoteType } from '../../../../redux/note-details/types/note-details'
 import { useFrontendBaseUrl } from '../../../../hooks/common/use-frontend-base-url'
 
 /**
- * Renders a modal to get links to share the note with.
+ * Renders a modal which provides shareable URLs of this note.
  *
  * @param show If the modal should be shown
  * @param onHide The callback when the modal should be closed

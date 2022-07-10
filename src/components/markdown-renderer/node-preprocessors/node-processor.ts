@@ -7,7 +7,7 @@
 import type { Document } from 'domhandler'
 
 /**
- * Abstract class for node processors.
+ * Base class for node processors.
  */
 export abstract class NodeProcessor {
   public abstract process(document: Document): Document

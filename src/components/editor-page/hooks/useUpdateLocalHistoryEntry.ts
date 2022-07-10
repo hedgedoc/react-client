@@ -13,7 +13,7 @@ import type { HistoryEntryWithOrigin } from '../../../api/history/types'
 import { HistoryEntryOrigin } from '../../../api/history/types'
 
 /**
- * Effect that uses information of the current note state to update a local {@link HistoryEntryWithOrigin history entry}.
+ * An effect that uses information of the current note state to update a local {@link HistoryEntryWithOrigin history entry}.
  * The entry is updated when the title or tags of the note change.
  */
 export const useUpdateLocalHistoryEntry = (): void => {

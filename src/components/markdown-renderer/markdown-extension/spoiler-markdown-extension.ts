@@ -11,11 +11,9 @@ import type Token from 'markdown-it/lib/token'
 import { escapeHtml } from 'markdown-it/lib/common/utils'
 
 /**
- * Renders the opening and closing token of the container.
+ * Adds support for html spoiler tags.
  *
- * @param tokens The tokens of the document
- * @param index The currently viewed token
- * @return The html rendering of the tokens
+ * @see https://www.w3schools.com/tags/tag_details.asp
  */
 export class SpoilerMarkdownExtension extends MarkdownExtension {
   private static readonly spoilerRegEx = /^spoiler\s+(.*)$/

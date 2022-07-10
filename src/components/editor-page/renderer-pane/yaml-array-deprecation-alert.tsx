@@ -14,7 +14,7 @@ import type { CommonModalProps } from '../../common/modals/common-modal'
 import { cypressId } from '../../../utils/cypress-attribute'
 
 /**
- * Renders an alert if the yaml array is of the wrong format.
+ * Renders an alert that indicated that the front matter tags property is using a deprecated format.
  *
  * @param show If the alert should be shown.
  */

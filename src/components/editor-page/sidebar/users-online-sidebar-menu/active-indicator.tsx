@@ -13,8 +13,7 @@ export interface ActiveIndicatorProps {
 }
 
 /**
- * Renders an indicator corresponding to the status.
- * This is used to indicate if a user is present or not.
+ * Renders an indicator corresponding to the given status.
  *
  * @param status The state of the indicator to render
  */

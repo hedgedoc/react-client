@@ -39,7 +39,6 @@ import { useMarkdownContentYText } from './hooks/yjs/use-markdown-content-y-text
 
 /**
  * Renders the text editor pane of the editor.
- * Normally this pane should be rendered in an iframe.
  * The used editor is {@link ReactCodeMirror code mirror}.
  *
  * @param scrollState The current {@link ScrollState}

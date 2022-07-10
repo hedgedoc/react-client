@@ -50,9 +50,8 @@ const fetchDarkModeFromLocalStorage = (): boolean => {
  * Tries to read the preferred dark mode setting from the browser settings.
  *
  * @return {@link true} if the browser has reported that the user prefers dark mode.
- *         {@link false} if the browser doesn't prefer dark mode or
- *            if the browser doesn't support the `prefers-color-scheme` media query.
- *         {@link undefined} if there was an error getting the media query
+ *         {@link false} if the browser doesn't prefer dark mode.
+ *         {@link undefined} if the browser doesn't support the `prefers-color-scheme` media query.
  */
 const determineDarkModeBrowserSettings = (): DarkModeConfig | undefined => {
   if (!isClientSideRendering()) {

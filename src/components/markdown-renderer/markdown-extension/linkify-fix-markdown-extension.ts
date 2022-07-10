@@ -9,7 +9,7 @@ import linkify from 'markdown-it/lib/rules_core/linkify'
 import type MarkdownIt from 'markdown-it'
 
 /**
- * Adds links to the markdown rendering.
+ * A markdown extension that detects plain text URLs and converts them into links.
  */
 export class LinkifyFixMarkdownExtension extends MarkdownExtension {
   public configureMarkdownItPost(markdownIt: MarkdownIt): void {

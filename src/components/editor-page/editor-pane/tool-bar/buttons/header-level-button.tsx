@@ -10,7 +10,7 @@ import type { ContentFormatter } from '../../../change-content-context/change-co
 import { prependLinesOfSelection } from '../formatters/prepend-lines-of-selection'
 
 /**
- * Renders a button to add a header.
+ * Renders a button to add a header in the {@link Editor editor}.
  */
 export const HeaderLevelButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection, markdownContent }) => {

@@ -11,7 +11,7 @@ import type { ContentFormatter } from '../../../change-content-context/change-co
 import { changeCursorsToWholeLineIfNoToCursor } from '../formatters/utils/change-cursors-to-whole-line-if-no-to-cursor'
 
 /**
- * Renders a button to create a code fence.
+ * Renders a button to create a code fence in the {@link Editor editor}.
  */
 export const CodeFenceButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection, markdownContent }) => {

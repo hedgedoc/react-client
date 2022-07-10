@@ -10,7 +10,7 @@ import type MarkdownIt from 'markdown-it'
 import markdownItRegex from 'markdown-it-regex'
 
 /**
- * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 vimeo links.
+ * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 vimeo short codes as embeddings.
  *
  * @param markdownIt The {@link MarkdownIt} to configure
  */

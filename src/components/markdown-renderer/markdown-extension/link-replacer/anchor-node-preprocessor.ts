@@ -9,7 +9,7 @@ import type { Node } from 'domhandler'
 import { isTag } from 'domhandler'
 
 /**
- * Preprocessor for links.
+ * A preprocessor for links. It filters script and data links, converts relative URLs into absolute URLs and fixes jump marks.
  */
 export class AnchorNodePreprocessor extends TravelerNodeProcessor {
   constructor(private baseUrl: string) {

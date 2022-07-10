@@ -7,7 +7,7 @@
 import type { LineMarkerPosition } from '../../markdown-renderer/markdown-extension/linemarker/types'
 
 /**
- * Finds the surrounding {@link LineMarkerPosition line markers} from a list of line markers and the current line.
+ * Finds the {@link LineMarkerPosition line markers} from a list of given line markers that are the closest to the given line number.
  *
  * @param lineMarks The list of line markers
  * @param lineNumber The current line

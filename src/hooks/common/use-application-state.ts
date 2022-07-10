@@ -13,7 +13,7 @@ import type { ApplicationState } from '../../redux/application-state'
  *
  * @param selector A selector function that extracts the needed information from the state.
  * @param checkForEquality An optional custom equality function. If not provided then {@link equal equal from fast-deep-equal} will be used.
- * @return The request information
+ * @return The requested information
  */
 export const useApplicationState = <TSelected>(
   selector: (state: ApplicationState) => TSelected,

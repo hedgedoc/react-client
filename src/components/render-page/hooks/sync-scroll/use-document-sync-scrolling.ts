@@ -12,16 +12,16 @@ import { useOnUserScroll } from './use-on-user-scroll'
 import { useScrollToLineMark } from './use-scroll-to-line-mark'
 
 /**
- * Generates callback for the sync scrolling in a {@link MarkdownDocument}.
+ * Synchronizes the scroll status of the given container with the given scroll state and posts changes if the user scrolls.
  *
  * @param outerContainerRef A reference for the outer container.
  * @param rendererRef A reference for the renderer
  * @param numberOfLines The number of lines
  * @param scrollState The current {@link ScrollState}
- * @param onScroll A callback to call if scrolling happens.
+ * @param onScroll A callback that posts new scroll states
  * @return A tuple of two callbacks.
- *         The first one can be called with a changed array of {@link LineMarkerPosition}.
- *         The second one can be called when the user is scrolling.
+ *         The first one should be executed if the {@link LineMarkerPosition line marker positions} are updated.
+ *         The second one should be executed if the user actually scrolls. Usually it should be attached to the DOM element that the user scrolls.
  */
 export const useDocumentSyncScrolling = (
   outerContainerRef: React.RefObject<HTMLElement>,

@@ -14,7 +14,7 @@ import type { ScrollState } from '../../../editor-page/synced-scroll/scroll-prop
  *
  * @param lineMarks An array of the current {@link LineMarkerPosition LineMarkerPositions}
  * @param scrollContainer The container to scroll in
- * @param onScroll A callback to call if scrolling happens.
+ * @param onScroll A callback that posts new scroll states.
  * @return A callback that can be called when the user is scrolling.
  */
 export const useOnUserScroll = (

@@ -12,7 +12,7 @@ import { isDevMode } from '../../../utils/test-modes'
 const log = new Logger('DebuggerMarkdownExtension')
 
 /**
- * Adds debug logs to the markdown rendering.
+ * Adds console debug logging to the markdown rendering.
  */
 export class DebuggerMarkdownExtension extends MarkdownExtension {
   public configureMarkdownItPost(markdownIt: MarkdownIt): void {

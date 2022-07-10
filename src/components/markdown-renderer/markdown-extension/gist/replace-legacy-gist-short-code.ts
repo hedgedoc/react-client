@@ -10,7 +10,7 @@ import { GistMarkdownExtension } from './gist-markdown-extension'
 const finalRegex = /^{%gist (\w+\/\w+) ?%}$/
 
 /**
- * Replacer for legacy hedgedoc 1 gist links.
+ * Replacer for legacy hedgedoc 1 gist shortcodes.
  */
 export const replaceLegacyGistShortCode: RegexOptions = {
   name: 'legacy-gist-short-code',

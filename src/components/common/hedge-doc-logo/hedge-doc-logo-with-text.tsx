@@ -28,7 +28,7 @@ export enum HedgeDocLogoType {
 }
 
 /**
- * Renders the HedgeDoc logo in different types.
+ * Renders the HedgeDoc logo with the app name in different types.
  *
  * @param size The size the logo should have.
  * @param logoType The logo type to be used.

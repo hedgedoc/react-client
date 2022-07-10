@@ -17,7 +17,7 @@ import { replaceSelection } from '../formatters/replace-selection'
 import { extractEmojiShortCode } from './extract-emoji-short-code'
 
 /**
- * Renders a button to access the emoji picker.
+ * Renders a button to open the emoji picker.
  * @see EmojiPicker
  */
 export const EmojiPickerButton: React.FC = () => {

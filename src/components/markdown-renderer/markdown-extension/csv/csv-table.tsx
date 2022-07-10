@@ -18,6 +18,7 @@ export interface CsvTableProps {
 
 /**
  * Renders a csv table.
+ *
  * @param code The csv code
  * @param delimiter The delimiter to be used
  * @param showHeader If the header should be shown.

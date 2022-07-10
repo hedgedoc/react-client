@@ -44,9 +44,9 @@ const log = new Logger('RenderIframe')
  * @param markdownContentLines Array of lines of the markdown content
  * @param onTaskCheckedChange Callback that is fired when a task-list item in the iframe is checked
  * @param scrollState The current {@link ScrollState}
- * @param onFirstHeadingChange Callback that is fired when the first heading of the note changed
+ * @param onFirstHeadingChange Callback that is fired when the first heading of the note changes
  * @param onScroll Callback that is fired when the user scrolls in the iframe
- * @param onMakeScrollSource Callback that is fired when the iframe is made to the current scroll source
+ * @param onMakeScrollSource Callback that is fired when the renderer requests to be set as the current scroll source
  * @param frameClasses CSS classes that should be applied to the iframe
  * @param rendererType The {@link RendererType type} of the renderer to use.
  * @param forcedDarkMode If set, the dark mode will be set to the given value. Otherwise, the dark mode won't be changed.

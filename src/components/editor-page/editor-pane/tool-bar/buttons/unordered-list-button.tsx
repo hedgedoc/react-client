@@ -10,7 +10,7 @@ import type { ContentFormatter } from '../../../change-content-context/change-co
 import { prependLinesOfSelection } from '../formatters/prepend-lines-of-selection'
 
 /**
- * Renders a button to insert an unordered list.
+ * Renders a button to insert an unordered list in the {@link Editor editor}.
  */
 export const UnorderedListButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection, markdownContent }) => {

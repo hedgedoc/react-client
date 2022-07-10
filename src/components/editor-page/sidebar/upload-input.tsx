@@ -14,7 +14,7 @@ const log = new Logger('UploadInput')
 
 export interface UploadInputProps extends PropsWithDataCypressId {
   onLoad: (file: File) => Promise<void>
-  acceptableFiles: string
+  allowedFileTypes: string
   onClickRef: MutableRefObject<(() => void) | undefined>
 }
 
@@ -22,11 +22,11 @@ export interface UploadInputProps extends PropsWithDataCypressId {
  * Renders an input field to upload something.
  *
  * @param onLoad The callback to load the file.
- * @param acceptableFiles A string indicating acceptable files
+ * @param allowedFileTypes A string indicating mime-types or file extensions.
  * @param onClickRef A reference for the onClick handler of the input.
  * @param props Additional props given to the input.
  */
-export const UploadInput: React.FC<UploadInputProps> = ({ onLoad, acceptableFiles, onClickRef, ...props }) => {
+export const UploadInput: React.FC<UploadInputProps> = ({ onLoad, allowedFileTypes, onClickRef, ...props }) => {
   const fileInputReference = useRef<HTMLInputElement>(null)
   const onClick = useCallback(() => {
     fileInputReference.current?.click()
@@ -61,7 +61,7 @@ export const UploadInput: React.FC<UploadInputProps> = ({ onLoad, acceptableFile
       type='file'
       ref={fileInputReference}
       className='d-none'
-      accept={acceptableFiles}
+      accept={allowedFileTypes}
     />
   )
 }

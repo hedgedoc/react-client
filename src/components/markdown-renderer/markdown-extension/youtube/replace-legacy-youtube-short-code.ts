@@ -10,7 +10,7 @@ import markdownItRegex from 'markdown-it-regex'
 import type MarkdownIt from 'markdown-it'
 
 /**
- * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 youtube links.
+ * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 youtube short codes as embeddings.
  *
  * @param markdownIt The {@link MarkdownIt} to configure
  */

@@ -15,7 +15,7 @@ import { SignOutDropdownButton } from './sign-out-dropdown-button'
 import Link from 'next/link'
 
 /**
- * Renders a dropdown menu for the user.
+ * Renders a dropdown menu with user-relevant actions.
  */
 export const UserDropdown: React.FC = () => {
   useTranslation()

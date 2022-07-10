@@ -10,7 +10,7 @@ import styles from './notifications.module.scss'
 import { useApplicationState } from '../../hooks/common/use-application-state'
 
 /**
- * Renders notifications in the top right corner.
+ * Renders {@link UiNotification notifications} in the top right corner.
  */
 export const UiNotifications: React.FC = () => {
   const notifications = useApplicationState((state) => state.uiNotifications)

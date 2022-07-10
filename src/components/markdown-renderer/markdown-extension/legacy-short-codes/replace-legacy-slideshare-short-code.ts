@@ -11,7 +11,7 @@ import type { RegexOptions } from '../../../../external-types/markdown-it-regex/
 const finalRegex = /^{%slideshare (\w+\/[\w-]+) ?%}$/
 
 /**
- * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 slideshare links.
+ * Configure the given {@link MarkdownIt} to render legacy hedgedoc 1 slideshare shortcodes as HTML links.
  *
  * @param markdownIt The {@link MarkdownIt} to configure
  */

@@ -11,7 +11,7 @@ import type { YDocMessageTransporter } from '@hedgedoc/realtime'
  * Checks if the given message transporter has received at least one full synchronisation.
  *
  * @param connection The connection whose sync status should be checked
- * @return has at least one full synchronisation occurred?
+ * @return If at least one full synchronisation is occurred.
  */
 export const useIsConnectionSynced = (connection: YDocMessageTransporter): boolean => {
   const [editorEnabled, setEditorEnabled] = useState<boolean>(false)

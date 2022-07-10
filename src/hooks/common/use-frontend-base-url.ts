@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
 /**
- * Retrieves the frontends base url either from an environment variable or from the window location itself.
+ * Retrieves the frontend base url either from an environment variable or from the window location itself.
  *
  * @return The base url of the frontend.
  */

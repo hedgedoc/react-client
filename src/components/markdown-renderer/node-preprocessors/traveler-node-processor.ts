@@ -9,7 +9,7 @@ import type { Document, Node } from 'domhandler'
 import { hasChildren } from 'domhandler'
 
 /**
- * Abstract class for traveler node processors.
+ * Base class for traveler node processors whose processing is executed on the given node and every child.
  */
 export abstract class TravelerNodeProcessor extends NodeProcessor {
   process(nodes: Document): Document {

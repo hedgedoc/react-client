@@ -9,7 +9,7 @@ import type { NodeProcessor } from '../node-preprocessors/node-processor'
 import type { ComponentReplacer } from '../replace-components/component-replacer'
 
 /**
- * Abstract class for Markdown extensions.
+ * Base class for Markdown extensions.
  */
 export abstract class MarkdownExtension {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

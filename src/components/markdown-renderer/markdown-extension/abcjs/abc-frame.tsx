@@ -20,7 +20,7 @@ import { Trans } from 'react-i18next'
 const log = new Logger('AbcFrame')
 
 /**
- * Renders a code block as an abc.js note sheet.
+ * Renders an abc.js note sheet.
  *
  * @param code The code to render.
  * @see https://www.abcjs.net/

@@ -10,7 +10,7 @@ import type { ContentFormatter } from '../../../change-content-context/change-co
 import { replaceSelection } from '../formatters/replace-selection'
 
 /**
- * Renders a button to insert a horizontal line.
+ * Renders a button to insert a horizontal line in the {@link Editor editor}.
  */
 export const HorizontalLineButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection }) => {

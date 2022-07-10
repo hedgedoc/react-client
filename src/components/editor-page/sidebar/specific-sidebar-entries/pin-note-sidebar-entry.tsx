@@ -13,7 +13,7 @@ import { showErrorNotification } from '../../../../redux/ui-notifications/method
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 
 /**
- * Sidebar entry button that allows to toggle the pinned mark in the user's history.
+ * Sidebar entry button that toggles the pinned status of the current note in the history.
  *
  * @param className CSS classes to add to the sidebar button
  * @param hide true when the sidebar button should be hidden, false otherwise

@@ -13,7 +13,7 @@ import type { LinkWithTextProps } from './types'
 
 /**
  * An internal link.
- * This should be used, when linking pages of the HedgeDoc instance.
+ * This should be used for linking pages of the HedgeDoc instance.
  *
  * @param href The links location
  * @param text The links text

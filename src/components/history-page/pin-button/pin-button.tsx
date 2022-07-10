@@ -18,10 +18,10 @@ export interface PinButtonProps {
 }
 
 /**
- * Renders a button to pin a note.
+ * Renders a button with a pin icon.
  *
- * @param isPinned If the note is already pinned
- * @param onPinClick The callback, that is fired when the button is clicked
+ * @param isPinned The initial state of this button.
+ * @param onPinClick The callback, that is fired when the button is clicked.
  * @param isDark If the button should be rendered in dark or not.
  * @param className Additional classes directly given to the button
  */

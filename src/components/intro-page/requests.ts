@@ -8,7 +8,7 @@ import { customizeAssetsUrl } from '../../utils/customize-assets-url'
 import { defaultConfig } from '../../api/common/default-config'
 
 /**
- * Get the intro.md contents from the backend.
+ * Get the intro.md contents from the public directory.
  *
  * @return The content of intro.md
  * @throws {Error} if the content can't be fetched

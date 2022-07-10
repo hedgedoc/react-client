@@ -10,7 +10,7 @@ import type { ContentFormatter } from '../../../change-content-context/change-co
 import { replaceSelection } from '../formatters/replace-selection'
 
 /**
- * Renders a button to create a comment.
+ * Renders a button to create a comment in the {@link Editor editor}.
  */
 export const CommentButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection }) => {

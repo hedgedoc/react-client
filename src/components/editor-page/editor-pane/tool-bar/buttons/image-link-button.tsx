@@ -10,7 +10,7 @@ import type { ContentFormatter } from '../../../change-content-context/change-co
 import { addLink } from '../formatters/add-link'
 
 /**
- * Renders a button to insert an image.
+ * Renders a button to insert an image in the {@link Editor editor}.
  */
 export const ImageLinkButton: React.FC = () => {
   const formatter: ContentFormatter = useCallback(({ currentSelection, markdownContent }) => {

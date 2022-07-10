@@ -16,7 +16,7 @@ import footnote from 'markdown-it-footnote'
 import { imageSize } from '@hedgedoc/markdown-it-image-size'
 
 /**
- * Adds some generic syntax's to the markdown rendering.
+ * Adds some common markdown syntaxes to the markdown rendering.
  */
 export class GenericSyntaxMarkdownExtension extends MarkdownExtension {
   public configureMarkdownIt(markdownIt: MarkdownIt): void {
