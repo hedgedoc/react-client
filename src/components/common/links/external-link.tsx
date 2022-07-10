@@ -12,6 +12,8 @@ import type { LinkWithTextProps } from './types'
 
 /**
  * An external link.
+ * This should be used, when linking pages that are not part of the HedgeDoc instance.
+ * The links will be opened in a new tab.
  *
  * @param href The links location
  * @param text The links text

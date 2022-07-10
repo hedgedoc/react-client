@@ -32,7 +32,7 @@ export const loadDarkMode = async (): Promise<void> => {
  * Tries to read the saved dark mode settings from the browser local storage.
  *
  * @return {@link true} if the local storage has saved that the user prefers dark mode.
- *         {@link false} if the user doesn't or if the value couldn't be read from local storage.
+ *         {@link false} if the user doesn't prefer dark mode or if the value couldn't be read from local storage.
  */
 const fetchDarkModeFromLocalStorage = (): boolean => {
   if (!isClientSideRendering()) {
@@ -50,7 +50,9 @@ const fetchDarkModeFromLocalStorage = (): boolean => {
  * Tries to read the preferred dark mode setting from the browser settings.
  *
  * @return {@link true} if the browser has reported that the user prefers dark mode.
- *         {@link false} if the user doesn't or if the browser doesn't support the `prefers-color-scheme` media query.
+ *         {@link false} if the browser doesn't prefer dark mode or
+ *            if the browser doesn't support the `prefers-color-scheme` media query.
+ *         {@link undefined} if there was an error getting the media query
  */
 const determineDarkModeBrowserSettings = (): DarkModeConfig | undefined => {
   if (!isClientSideRendering()) {

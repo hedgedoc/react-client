@@ -30,8 +30,8 @@ export enum HedgeDocLogoType {
 /**
  * Renders the HedgeDoc logo in different types.
  *
- * @param size Which size should the logo have?
- * @param logoType Which logo type should be used?
+ * @param size The size the logo should have.
+ * @param logoType The logo type to be used.
  */
 export const HedgeDocLogoWithText: React.FC<HedgeDocLogoProps> = ({ size = HedgeDocLogoSize.MEDIUM, logoType }) => {
   const { t } = useTranslation()

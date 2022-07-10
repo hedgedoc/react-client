@@ -5,7 +5,7 @@
  */
 
 /**
- * Generate a download link for a given {@link BlobPart file}.
+ * Download a given {@link BlobPart file} from memory<.
  *
  * @param data The file to download.
  * @param fileName Which filename does the file have.
