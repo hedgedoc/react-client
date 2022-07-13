@@ -58,7 +58,7 @@ export const ImportMarkdownSidebarEntry: React.FC = () => {
         <UploadInput
           onLoad={onImportMarkdown}
           {...cypressId('menu-import-markdown-input')}
-          acceptableFiles={'.md, text/markdown, text/plain'}
+          allowedFileTypes={'.md, text/markdown, text/plain'}
           onClickRef={clickRef}
         />
       </ShowIf>
