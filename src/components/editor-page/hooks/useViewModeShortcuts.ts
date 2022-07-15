@@ -27,6 +27,7 @@ const shortcutHandler = (event: KeyboardEvent): void => {
 
 /**
  * Adds global view mode keyboard shortcuts and removes them again, if the hook is dismissed.
+ *
  * @see shortcutHandler
  */
 export const useViewModeShortcuts = (): void => {
