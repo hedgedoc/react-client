@@ -4,13 +4,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { RevisionListEntry } from './revision-list-entry'
 import { useAsync } from 'react-use'
 import { getAllRevisions } from '../../../../api/revisions'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 import { ListGroup } from 'react-bootstrap'
 import { AsyncLoadingBoundary } from '../../../common/async-loading-boundary'
+import { DateTime } from 'luxon'
+import { Optional } from '@mrdrogdrog/optional'
 
 export interface RevisionListProps {
   selectedRevisionId?: number
@@ -30,9 +32,20 @@ export const RevisionList: React.FC<RevisionListProps> = ({ selectedRevisionId, 
     value: revisions,
     error,
     loading
-  } = useAsync(() => {
-    return getAllRevisions(noteIdentifier)
+  } = useAsync(async () => {
+    const revisions = await getAllRevisions(noteIdentifier)
+    revisions.sort(
+      (revisionA, revisionB) =>
+        DateTime.fromISO(revisionB.createdAt).toMillis() - DateTime.fromISO(revisionA.createdAt).toMillis()
+    )
+    return revisions
   }, [noteIdentifier])
+
+  useEffect(() => {
+    Optional.ofNullable(revisions)
+      .map((revisions) => revisions[0]?.id)
+      .ifPresent(onRevisionSelect)
+  }, [onRevisionSelect, revisions])
 
   const revisionList = useMemo(() => {
     if (loading || !revisions) {
