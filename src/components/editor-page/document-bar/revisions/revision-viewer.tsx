@@ -56,6 +56,7 @@ export const RevisionViewer: React.FC<RevisionViewerProps> = ({ selectedRevision
         oldValue={previousRevisionContent ?? ''}
         newValue={value?.content ?? ''}
         splitView={false}
+        showDiffOnly={false}
         compareMethod={DiffMethod.WORDS}
         useDarkTheme={darkModeEnabled}
       />
