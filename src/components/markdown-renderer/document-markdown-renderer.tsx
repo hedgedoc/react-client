@@ -45,8 +45,7 @@ export const DocumentMarkdownRenderer: React.FC<DocumentMarkdownRendererProps> =
   baseUrl,
   onImageClick,
   outerContainerRef,
-  newlinesAreBreaks,
-  lineOffset
+  newlinesAreBreaks
 }) => {
   const markdownBodyRef = useRef<HTMLDivElement>(null)
   const currentLineMarkers = useRef<LineMarkers[]>()
@@ -55,7 +54,6 @@ export const DocumentMarkdownRenderer: React.FC<DocumentMarkdownRendererProps> =
     baseUrl,
     currentLineMarkers,
     useMemo(() => [new HeadlineAnchorsMarkdownExtension()], []),
-    lineOffset ?? 0,
     onTaskCheckedChange,
     onImageClick,
     onTocChange

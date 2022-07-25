@@ -4,9 +4,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+export type onScroll = (scrollState: ScrollState) => void
+
 export interface ScrollProps {
   scrollState?: ScrollState
-  onScroll?: (scrollState: ScrollState) => void
+  onScroll?: onScroll
   onMakeScrollSource?: () => void
 }
 
