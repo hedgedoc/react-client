@@ -36,6 +36,8 @@ import { useInsertNoteContentIntoYTextInMockModeEffect } from './hooks/yjs/use-i
 import { useOnFirstEditorUpdateExtension } from './hooks/yjs/use-on-first-editor-update-extension'
 import { useIsConnectionSynced } from './hooks/yjs/use-is-connection-synced'
 import { useMarkdownContentYText } from './hooks/yjs/use-markdown-content-y-text'
+import { lintGutter } from '@codemirror/lint'
+import { useLinter } from './linter/linter'
 
 /**
  * Renders the text editor pane of the editor.
@@ -77,9 +79,12 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   const yjsExtension = useCodeMirrorYjsExtension(yText, awareness)
   const [firstEditorUpdateExtension, firstUpdateHappened] = useOnFirstEditorUpdateExtension()
   useInsertNoteContentIntoYTextInMockModeEffect(firstUpdateHappened, websocketConnection)
+  const linter = useLinter()
 
   const extensions = useMemo(
     () => [
+      linter,
+      lintGutter(),
       markdown({
         base: markdownLanguage,
         codeLanguages: (input) => findLanguageByCodeBlockName(languages, input)
@@ -95,6 +100,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       firstEditorUpdateExtension
     ],
     [
+      linter,
       editorScrollExtension,
       tablePasteExtensions,
       fileInsertExtension,
