@@ -25,9 +25,6 @@
     "mermaid": {
       "unknownError": "Unknown rendering error. Please check your browser console."
     },
-    "sequence": {
-      "deprecationWarning": "The use of 'sequence' as code block language is deprecated."
-    },
     "vega-lite": {
       "png": "Save as PNG",
       "svg": "Save as SVG",
@@ -228,6 +225,14 @@
     }
   },
   "editor": {
+    "linter": {
+      "sequence": "The use of 'sequence' as code block language is deprecated.",
+      "youtube": "The youtube short-code is deprecated.",
+      "vimeo": "The vimeo short-code is deprecated",
+      "speakerdeck": "The speakerdeck short-code is deprecated",
+      "slideshare": "The slideshare short-code is deprecated",
+      "pdf": "The pdf short-code is deprecated"
+    },
     "upload": {
       "uploadFile": {
         "withoutDescription": "Uploading file {{fileName}}",

@@ -38,6 +38,10 @@ import { useIsConnectionSynced } from './hooks/yjs/use-is-connection-synced'
 import { useMarkdownContentYText } from './hooks/yjs/use-markdown-content-y-text'
 import { lintGutter } from '@codemirror/lint'
 import { useLinter } from './linter/linter'
+import { YoutubeMarkdownExtension } from '../../markdown-renderer/markdown-extension/youtube/youtube-markdown-extension'
+import { VimeoMarkdownExtension } from '../../markdown-renderer/markdown-extension/vimeo/vimeo-markdown-extension'
+import { SequenceDiagramMarkdownExtension } from '../../markdown-renderer/markdown-extension/sequence-diagram/sequence-diagram-markdown-extension'
+import { LegacyShortcodesMarkdownExtension } from '../../markdown-renderer/markdown-extension/legacy-short-codes/legacy-shortcodes-markdown-extension'
 
 /**
  * Renders the text editor pane of the editor.
@@ -79,7 +83,17 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   const yjsExtension = useCodeMirrorYjsExtension(yText, awareness)
   const [firstEditorUpdateExtension, firstUpdateHappened] = useOnFirstEditorUpdateExtension()
   useInsertNoteContentIntoYTextInMockModeEffect(firstUpdateHappened, websocketConnection)
-  const linter = useLinter()
+
+  // ToDo: Don't initialize new extension array here, instead refactor to global extension array
+  const markdownExtensionsLinters = useMemo(() => {
+    return [
+      new YoutubeMarkdownExtension(),
+      new VimeoMarkdownExtension(),
+      new SequenceDiagramMarkdownExtension(),
+      new LegacyShortcodesMarkdownExtension()
+    ].flatMap((extension) => extension.buildLinter())
+  }, [])
+  const linter = useLinter(markdownExtensionsLinters)
 
   const extensions = useMemo(
     () => [
