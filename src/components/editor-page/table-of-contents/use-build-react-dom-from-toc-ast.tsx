@@ -23,7 +23,7 @@ const buildReactDomFromTocAst = (
   toc: TocAst,
   levelsToShowUnderThis: number,
   headerCounts: Map<string, number>,
-  baseUrl?: string
+  baseUrl: string
 ): ReactElement | null => {
   if (levelsToShowUnderThis < 0) {
     return null
@@ -55,7 +55,7 @@ const buildReactDomFromTocAst = (
   )
 }
 
-export const useBuildReactDomFromTocAst = (toc: TocAst, maxDepth: number, baseUrl?: string) => {
+export const useBuildReactDomFromTocAst = (toc: TocAst, maxDepth: number, baseUrl: string) => {
   return useMemo(
     () => buildReactDomFromTocAst(toc, maxDepth, new Map<string, number>(), baseUrl),
     [toc, maxDepth, baseUrl]
