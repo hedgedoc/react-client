@@ -61,6 +61,5 @@ export enum NoteType {
 export interface RendererFrontmatterInfo {
   lineOffset: number
   frontmatterInvalid: boolean
-  deprecatedSyntax: boolean
   slideOptions: SlideOptions
 }

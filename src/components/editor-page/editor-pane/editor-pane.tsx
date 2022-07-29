@@ -42,6 +42,7 @@ import { YoutubeMarkdownExtension } from '../../markdown-renderer/markdown-exten
 import { VimeoMarkdownExtension } from '../../markdown-renderer/markdown-extension/vimeo/vimeo-markdown-extension'
 import { SequenceDiagramMarkdownExtension } from '../../markdown-renderer/markdown-extension/sequence-diagram/sequence-diagram-markdown-extension'
 import { LegacyShortcodesMarkdownExtension } from '../../markdown-renderer/markdown-extension/legacy-short-codes/legacy-shortcodes-markdown-extension'
+import { FrontmatterLinter } from './linter/frontmatter-linter'
 
 /**
  * Renders the text editor pane of the editor.
@@ -91,7 +92,9 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       new VimeoMarkdownExtension(),
       new SequenceDiagramMarkdownExtension(),
       new LegacyShortcodesMarkdownExtension()
-    ].flatMap((extension) => extension.buildLinter())
+    ]
+      .flatMap((extension) => extension.buildLinter())
+      .concat(new FrontmatterLinter())
   }, [])
   const linter = useLinter(markdownExtensionsLinters)
 
