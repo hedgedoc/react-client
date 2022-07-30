@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import type { CodeProps } from '../../replace-components/code-block-component-replacer'
 import { MermaidChart } from '../mermaid/mermaid-chart'
 
@@ -14,9 +14,5 @@ import { MermaidChart } from '../mermaid/mermaid-chart'
  * @param code the sequence diagram code
  */
 export const SequenceDiagram: React.FC<CodeProps> = ({ code }) => {
-  return (
-    <Fragment>
-      <MermaidChart code={'sequenceDiagram\n' + code} />
-    </Fragment>
-  )
+  return <MermaidChart code={'sequenceDiagram\n' + code} />
 }
