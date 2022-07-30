@@ -5,9 +5,22 @@
  */
 
 import { SingleLineRegexLinter } from './single-line-regex-linter'
-import { mockEditorView } from './util.spec'
 import type { Diagnostic } from '@codemirror/lint'
 import { mockI18n } from '../../../markdown-renderer/test-utils/mock-i18n'
+import type { EditorView } from '@codemirror/view'
+import { Mock } from 'ts-mockery'
+import type { EditorState, Text } from '@codemirror/state'
+
+export const mockEditorView = (content: string): EditorView => {
+  const docMock = Mock.of<Text>()
+  docMock.toString = () => content
+  return Mock.of<EditorView>({
+    state: Mock.of<EditorState>({
+      doc: docMock
+    }),
+    dispatch: jest.fn()
+  })
+}
 
 const testSingleLineRegexLinter = (
   regex: RegExp,

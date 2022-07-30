@@ -5,7 +5,7 @@
  */
 import { mockI18n } from '../../../markdown-renderer/test-utils/mock-i18n'
 import type { Diagnostic } from '@codemirror/lint'
-import { mockEditorView } from './util.spec'
+import { mockEditorView } from './single-line-regex-linter.spec'
 import { FrontmatterLinter } from './frontmatter-linter'
 import { t } from 'i18next'
 
