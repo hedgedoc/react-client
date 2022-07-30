@@ -22,36 +22,9 @@ export class FrontmatterLinter implements Linter {
       return []
     }
     const frontmatterLines = lines.slice(0, frontmatterExtraction.lineOffset + 1)
-    try {
-      const rawNoteFrontmatter = load(frontmatterExtraction.rawText) as RawNoteFrontmatter
-      if (typeof rawNoteFrontmatter.tags === 'string') {
-        const tags: string[] = rawNoteFrontmatter?.tags?.split(',').map((entry) => entry.trim()) ?? []
-        const replacedText = 'tags:\n- ' + tags.join('\n- ')
-        const tagsLine = frontmatterLines.findIndex((value) => value.startsWith('tags: '))
-        const before = frontmatterLines.slice(0, tagsLine)
-        const from = before.join('\n').length
-        const to = from + frontmatterLines[tagsLine].length + 1
-        return [
-          {
-            from: from,
-            to: to,
-            actions: [
-              {
-                name: t('editor.linter.defaultAction'),
-                apply: (view: EditorView, from: number, to: number) => {
-                  view.dispatch({
-                    changes: { from, to, insert: replacedText }
-                  })
-                }
-              }
-            ],
-            message: t('editor.linter.frontmatter-tags'),
-            severity: 'warning'
-          }
-        ]
-      }
-      return []
-    } catch {
+    const rawNoteFrontmatter = this.loadYaml(frontmatterExtraction.rawText)
+    if (rawNoteFrontmatter === undefined) {
+      // Could not parse frontmatter
       return [
         {
           from: 0,
@@ -60,6 +33,41 @@ export class FrontmatterLinter implements Linter {
           severity: 'error'
         }
       ]
+    }
+    if (typeof rawNoteFrontmatter.tags === 'string') {
+      const tags: string[] = rawNoteFrontmatter?.tags?.split(',').map((entry) => entry.trim()) ?? []
+      const replacedText = 'tags:\n- ' + tags.join('\n- ')
+      const tagsLine = frontmatterLines.findIndex((value) => value.startsWith('tags: '))
+      const before = frontmatterLines.slice(0, tagsLine)
+      const from = before.join('\n').length
+      const to = from + frontmatterLines[tagsLine].length + 1
+      return [
+        {
+          from: from,
+          to: to,
+          actions: [
+            {
+              name: t('editor.linter.defaultAction'),
+              apply: (view: EditorView, from: number, to: number) => {
+                view.dispatch({
+                  changes: { from, to, insert: replacedText }
+                })
+              }
+            }
+          ],
+          message: t('editor.linter.frontmatter-tags'),
+          severity: 'warning'
+        }
+      ]
+    }
+    return []
+  }
+
+  loadYaml(raw: string): RawNoteFrontmatter | undefined {
+    try {
+      return load(raw) as RawNoteFrontmatter
+    } catch {
+      return undefined
     }
   }
 }
