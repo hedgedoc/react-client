@@ -9,6 +9,14 @@ import type { EditorView } from '@codemirror/view'
 import type { Diagnostic } from '@codemirror/lint'
 import { t } from 'i18next'
 
+/**
+ * Creates a {@link Linter linter} from {@link RegExp regexps} for single lines.
+ *
+ * @param regex The {@link RegExp regexp} to execute on each line
+ * @param message The message to display if the {@link RegExp regexp} hits
+ * @param replace The function to replace what was found by {@link RegExp regexp}
+ * @param actionLabel The optional label to translate and use as the fix button for the linter.
+ */
 export class SingleLineRegexLinter implements Linter {
   constructor(
     private regex: RegExp,

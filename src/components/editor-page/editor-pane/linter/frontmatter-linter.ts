@@ -11,6 +11,9 @@ import { load } from 'js-yaml'
 import type { RawNoteFrontmatter } from '../../../../redux/note-details/raw-note-frontmatter-parser/types'
 import { t } from 'i18next'
 
+/**
+ * Creates a {@link Linter linter} for the yaml frontmatter.
+ */
 export class FrontmatterLinter implements Linter {
   lint(view: EditorView): Diagnostic[] {
     const lines = view.state.doc.toString().split('\n')
