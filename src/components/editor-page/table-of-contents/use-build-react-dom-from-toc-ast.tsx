@@ -55,6 +55,13 @@ const buildReactDomFromTocAst = (
   )
 }
 
+/**
+ * Generates a React DOM part for the table of contents from the given AST of the document.
+ *
+ * @param toc The abstract syntax tree of the document for TOC generation
+ * @param maxDepth The maximum depth of levels which should be shown in the TOC
+ * @param baseUrl The base URL used for generating absolute links to the note with the correct slug anchor
+ */
 export const useBuildReactDomFromTocAst = (toc: TocAst, maxDepth: number, baseUrl: string) => {
   return useMemo(
     () => buildReactDomFromTocAst(toc, maxDepth, new Map<string, number>(), baseUrl),
