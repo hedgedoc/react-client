@@ -13,6 +13,7 @@ import { CustomTagWithIdComponentReplacer } from '../../replace-components/custo
 import { YouTubeFrame } from './youtube-frame'
 import type { Linter } from '../../../editor-page/editor-pane/linter/linter'
 import { SingleLineRegexLinter } from '../../../editor-page/editor-pane/linter/single-line-regex-linter'
+import { t } from 'i18next'
 
 /**
  * Adds YouTube video embeddings using link detection and the legacy YouTube short code syntax.
@@ -37,7 +38,7 @@ export class YoutubeMarkdownExtension extends MarkdownExtension {
     return [
       new SingleLineRegexLinter(
         legacyYouTubeRegex,
-        'editor.linter.youtube',
+        t('editor.linter.shortcode', { shortcode: 'YouTube' }),
         (match: string) => `https://www.youtube.com/watch?v=${match}`
       )
     ]

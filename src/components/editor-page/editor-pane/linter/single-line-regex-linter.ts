@@ -38,7 +38,7 @@ export class SingleLineRegexLinter implements Linter {
               }
             }
           ],
-          message: t(this.message),
+          message: this.message,
           severity: 'warning'
         })
       }

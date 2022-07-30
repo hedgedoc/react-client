@@ -228,11 +228,7 @@
     "linter": {
       "defaultAction": "Fix",
       "sequence": "The use of 'sequence' as code block language is deprecated and will be removed in a future release.",
-      "youtube": "The youtube short-code is deprecated and will be removed in a future release. Use a single line URL instead.",
-      "vimeo": "The vimeo short-code is deprecated and will be removed in a future release. Use a single line URL instead.",
-      "speakerdeck": "The speakerdeck short-code is deprecated and will be removed in a future release. Use a single line URL instead.",
-      "slideshare": "The slideshare short-code is deprecated and will be removed in a future release. Use a single line URL instead.",
-      "pdf": "The pdf short-code is deprecated and will be removed in a future release. Use a single line URL instead.",
+      "shortcode": "The {{shortcode}} short-code is deprecated and will be removed in a future release. Use a single line URL instead.",
       "frontmatter": "The yaml-metadata is invalid.",
       "frontmatter-tags": "The comma-separated definition of tags in the yaml-metadata is deprecated. Use a yaml-array instead."
     },

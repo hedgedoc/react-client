@@ -13,6 +13,7 @@ import { VimeoFrame } from './vimeo-frame'
 import { legacyVimeoRegex, replaceLegacyVimeoShortCodeMarkdownItPlugin } from './replace-legacy-vimeo-short-code'
 import type { Linter } from '../../../editor-page/editor-pane/linter/linter'
 import { SingleLineRegexLinter } from '../../../editor-page/editor-pane/linter/single-line-regex-linter'
+import { t } from 'i18next'
 
 /**
  * Adds vimeo video embeddings using link detection and the legacy vimeo short code syntax.
@@ -37,7 +38,7 @@ export class VimeoMarkdownExtension extends MarkdownExtension {
     return [
       new SingleLineRegexLinter(
         legacyVimeoRegex,
-        'editor.linter.vimeo',
+        t('editor.linter.shortcode', { shortcode: 'Vimeo' }),
         (match: string) => `https://player.vimeo.com/video/${match}`
       )
     ]

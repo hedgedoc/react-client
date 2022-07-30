@@ -11,6 +11,7 @@ import { legacySlideshareRegex, legacySlideshareShortCode } from './replace-lega
 import { legacySpeakerdeckRegex, legacySpeakerdeckShortCode } from './replace-legacy-speakerdeck-short-code'
 import { SingleLineRegexLinter } from '../../../editor-page/editor-pane/linter/single-line-regex-linter'
 import type { Linter } from '../../../editor-page/editor-pane/linter/linter'
+import { t } from 'i18next'
 
 /**
  * Adds support for legacy shortcodes (pdf, slideshare and speakerdeck) by replacing them with anchor elements.
@@ -26,15 +27,19 @@ export class LegacyShortcodesMarkdownExtension extends MarkdownExtension {
     return [
       new SingleLineRegexLinter(
         legacySpeakerdeckRegex,
-        'editor.linter.speakerdeck',
+        t('editor.linter.shortcode', { shortcode: 'SpeakerDeck' }),
         (match: string) => `https://speakerdeck.com/${match}`
       ),
       new SingleLineRegexLinter(
         legacySlideshareRegex,
-        'editor.linter.slideshare',
+        t('editor.linter.shortcode', { shortcode: 'SlideShare' }),
         (match: string) => `https://www.slideshare.net/${match}`
       ),
-      new SingleLineRegexLinter(legacyPdfRegex, 'editor.linter.pdf', (match: string) => match)
+      new SingleLineRegexLinter(
+        legacyPdfRegex,
+        t('editor.linter.shortcode', { shortcode: 'PDF' }),
+        (match: string) => match
+      )
     ]
   }
 }
