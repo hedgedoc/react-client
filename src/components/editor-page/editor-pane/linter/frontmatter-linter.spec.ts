@@ -9,16 +9,20 @@ import { mockEditorView } from './single-line-regex-linter.spec'
 import { FrontmatterLinter } from './frontmatter-linter'
 import { t } from 'i18next'
 
-const testFrontmatterLinter = (content: string, diagnostics: Partial<Diagnostic>, replace?: string): void => {
+const testFrontmatterLinter = (
+  editorContent: string,
+  expectedDiagnostics: Partial<Diagnostic>,
+  expectedReplacement?: string
+): void => {
   const frontmatterLinter = new FrontmatterLinter()
-  const editorView = mockEditorView(content)
-  const spy = jest.spyOn(editorView, 'dispatch')
+  const editorView = mockEditorView(editorContent)
   const calculatedDiagnostics = frontmatterLinter.lint(editorView)
   expect(calculatedDiagnostics).toHaveLength(1)
-  expect(calculatedDiagnostics[0].from).toEqual(diagnostics.from)
-  expect(calculatedDiagnostics[0].to).toEqual(diagnostics.to)
-  expect(calculatedDiagnostics[0].severity).toEqual(diagnostics.severity)
-  if (replace !== undefined) {
+  expect(calculatedDiagnostics[0].from).toEqual(expectedDiagnostics.from)
+  expect(calculatedDiagnostics[0].to).toEqual(expectedDiagnostics.to)
+  expect(calculatedDiagnostics[0].severity).toEqual(expectedDiagnostics.severity)
+  if (expectedReplacement !== undefined) {
+    const spy = jest.spyOn(editorView, 'dispatch')
     expect(calculatedDiagnostics[0].actions).toHaveLength(1)
     expect(calculatedDiagnostics[0].actions?.[0].name).toEqual(t('editor.linter.defaultAction'))
     calculatedDiagnostics[0].actions?.[0].apply(editorView, calculatedDiagnostics[0].from, calculatedDiagnostics[0].to)
@@ -26,7 +30,7 @@ const testFrontmatterLinter = (content: string, diagnostics: Partial<Diagnostic>
       changes: {
         from: calculatedDiagnostics[0].from,
         to: calculatedDiagnostics[0].to,
-        insert: replace
+        insert: expectedReplacement
       }
     })
   }
@@ -48,7 +52,18 @@ describe('FrontmatterLinter', () => {
         'tags:\n- a'
       )
     })
-    it('(mutliple)', () => {
+    it('(one, but a number)', () => {
+      testFrontmatterLinter(
+        '---\ntags: 1\n---',
+        {
+          from: 3,
+          to: 11,
+          severity: 'warning'
+        },
+        'tags:\n- 1'
+      )
+    })
+    it('(multiple)', () => {
       testFrontmatterLinter(
         '---\ntags: 123, a\n---',
         {

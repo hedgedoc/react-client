@@ -22,7 +22,8 @@ export interface Linter {
 /**
  * The hook to create a single codemirror linter from all our linters.
  *
- * @param linters The {@link Linter linters} to use for the codemirror linters.
+ * @param linters The {@link Linter linters} to use for the codemirror linter.
+ * @return The build codemirror linter
  */
 export const useLinter = (linters: Linter[]): Extension => {
   return useMemo(() => linter((view) => linters.flatMap((aLinter) => aLinter.lint(view))), [linters])

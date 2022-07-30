@@ -13,6 +13,8 @@ import { t } from 'i18next'
 
 /**
  * Creates a {@link Linter linter} for the yaml frontmatter.
+ *
+ * It checks that the yaml is valid and that the tags are not using the deprecated comma-seperated list syntax.
  */
 export class FrontmatterLinter implements Linter {
   lint(view: EditorView): Diagnostic[] {
@@ -22,9 +24,8 @@ export class FrontmatterLinter implements Linter {
       return []
     }
     const frontmatterLines = lines.slice(0, frontmatterExtraction.lineOffset + 1)
-    const rawNoteFrontmatter = this.loadYaml(frontmatterExtraction.rawText)
+    const rawNoteFrontmatter = FrontmatterLinter.loadYaml(frontmatterExtraction.rawText)
     if (rawNoteFrontmatter === undefined) {
-      // Could not parse frontmatter
       return [
         {
           from: 0,
@@ -34,36 +35,40 @@ export class FrontmatterLinter implements Linter {
         }
       ]
     }
-    if (typeof rawNoteFrontmatter.tags === 'string') {
-      const tags: string[] = rawNoteFrontmatter?.tags?.split(',').map((entry) => entry.trim()) ?? []
-      const replacedText = 'tags:\n- ' + tags.join('\n- ')
-      const tagsLine = frontmatterLines.findIndex((value) => value.startsWith('tags: '))
-      const before = frontmatterLines.slice(0, tagsLine)
-      const from = before.join('\n').length
-      const to = from + frontmatterLines[tagsLine].length + 1
-      return [
-        {
-          from: from,
-          to: to,
-          actions: [
-            {
-              name: t('editor.linter.defaultAction'),
-              apply: (view: EditorView, from: number, to: number) => {
-                view.dispatch({
-                  changes: { from, to, insert: replacedText }
-                })
-              }
-            }
-          ],
-          message: t('editor.linter.frontmatter-tags'),
-          severity: 'warning'
-        }
-      ]
+    if (typeof rawNoteFrontmatter.tags !== 'string' && typeof rawNoteFrontmatter.tags !== 'number') {
+      return []
     }
-    return []
+    const tags: string[] =
+      rawNoteFrontmatter?.tags
+        .toString()
+        .split(',')
+        .map((entry) => entry.trim()) ?? []
+    const replacedText = 'tags:\n- ' + tags.join('\n- ')
+    const tagsLineIndex = frontmatterLines.findIndex((value) => value.startsWith('tags: '))
+    const linesBeforeTagsLine = frontmatterLines.slice(0, tagsLineIndex)
+    const from = linesBeforeTagsLine.join('\n').length
+    const to = from + frontmatterLines[tagsLineIndex].length + 1
+    return [
+      {
+        from: from,
+        to: to,
+        actions: [
+          {
+            name: t('editor.linter.defaultAction'),
+            apply: (view: EditorView, from: number, to: number) => {
+              view.dispatch({
+                changes: { from, to, insert: replacedText }
+              })
+            }
+          }
+        ],
+        message: t('editor.linter.frontmatter-tags'),
+        severity: 'warning'
+      }
+    ]
   }
 
-  loadYaml(raw: string): RawNoteFrontmatter | undefined {
+  private static loadYaml(raw: string): RawNoteFrontmatter | undefined {
     try {
       return load(raw) as RawNoteFrontmatter
     } catch {

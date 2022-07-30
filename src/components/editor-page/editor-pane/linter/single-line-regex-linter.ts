@@ -9,8 +9,13 @@ import type { EditorView } from '@codemirror/view'
 import type { Diagnostic } from '@codemirror/lint'
 import { t } from 'i18next'
 
+interface LineWithStartIndex {
+  line: string
+  startIndex: number
+}
+
 /**
- * Creates a {@link Linter linter} from {@link RegExp regexps} for single lines.
+ * Creates a {@link Linter linter} from {@link RegExp regexp} for single lines.
  *
  * @param regex The {@link RegExp regexp} to execute on each line
  * @param message The message to display if the {@link RegExp regexp} hits
@@ -26,27 +31,35 @@ export class SingleLineRegexLinter implements Linter {
   ) {}
 
   lint(view: EditorView): Diagnostic[] {
-    const lines = view.state.doc.toString().split('\n')
-    const diagnostics: Diagnostic[] = []
-    let from = 0
-    lines.forEach((line) => {
-      const found = this.regex.exec(line)
-      if (found !== null && found.length !== 0) {
-        diagnostics.push(this.createDiagnostic(from, found))
-      }
-      from += line.length + 1
-    })
-    return diagnostics
+    return view.state.doc
+      .toString()
+      .split('\n')
+      .reduce(
+        (state, line, lineIndex, lines) => [
+          ...state,
+          {
+            line,
+            startIndex: lineIndex === 0 ? 0 : state[lineIndex - 1].startIndex + lines[lineIndex - 1].length + 1
+          } as LineWithStartIndex
+        ],
+        [] as LineWithStartIndex[]
+      )
+      .map(({ line, startIndex }) => ({
+        lineStartIndex: startIndex,
+        regexResult: this.regex.exec(line)
+      }))
+      .filter(({ regexResult }) => regexResult !== null && regexResult.length !== 0)
+      .map(({ lineStartIndex, regexResult }) => this.createDiagnostic(lineStartIndex, regexResult as RegExpExecArray))
   }
 
-  createDiagnostic(from: number, found: RegExpExecArray): Diagnostic {
+  private createDiagnostic(from: number, found: RegExpExecArray): Diagnostic {
     const replacedText = this.replace(found[1])
     return {
       from: from,
       to: from + found[0].length,
       actions: [
         {
-          name: t(this.actionLabel ?? 'Fix'),
+          name: t(this.actionLabel ?? 'editor.linter.defaultAction'),
           apply: (view: EditorView, from: number, to: number) => {
             view.dispatch({
               changes: { from, to, insert: replacedText }

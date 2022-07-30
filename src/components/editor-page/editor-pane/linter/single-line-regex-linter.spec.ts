@@ -26,20 +26,22 @@ const testSingleLineRegexLinter = (
   regex: RegExp,
   replace: (match: string) => string,
   content: string,
-  diagnostics: Partial<Diagnostic>[]
+  expectedDiagnostics: Partial<Diagnostic>[]
 ): void => {
-  const singleLineRegexLinter = new SingleLineRegexLinter(regex, 'message', replace, 'actionLabel')
+  const testMessage = 'message'
+  const testActionLabel = 'actionLabel'
+  const singleLineRegexLinter = new SingleLineRegexLinter(regex, testMessage, replace, testActionLabel)
   const editorView = mockEditorView(content)
   const calculatedDiagnostics = singleLineRegexLinter.lint(editorView)
-  expect(calculatedDiagnostics).toHaveLength(diagnostics.length)
-  for (let x = 0; x < calculatedDiagnostics.length; x++) {
-    expect(calculatedDiagnostics[x].from).toEqual(diagnostics[x].from)
-    expect(calculatedDiagnostics[x].to).toEqual(diagnostics[x].to)
-    expect(calculatedDiagnostics[x].message).toEqual('message')
-    expect(calculatedDiagnostics[x].severity).toEqual('warning')
-    expect(calculatedDiagnostics[x].actions).toHaveLength(1)
-    expect(calculatedDiagnostics[x].actions?.[0].name).toEqual('actionLabel')
-  }
+  expect(calculatedDiagnostics).toHaveLength(expectedDiagnostics.length)
+  calculatedDiagnostics.forEach((calculatedDiagnostic, index) => {
+    expect(calculatedDiagnostic.from).toEqual(expectedDiagnostics[index].from)
+    expect(calculatedDiagnostic.to).toEqual(expectedDiagnostics[index].to)
+    expect(calculatedDiagnostic.message).toEqual(testMessage)
+    expect(calculatedDiagnostic.severity).toEqual('warning')
+    expect(calculatedDiagnostic.actions).toHaveLength(1)
+    expect(calculatedDiagnostic.actions?.[0].name).toEqual(testActionLabel)
+  })
 }
 
 describe('SingleLineRegexLinter', () => {
