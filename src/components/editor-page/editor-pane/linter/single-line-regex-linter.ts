@@ -24,26 +24,30 @@ export class SingleLineRegexLinter implements Linter {
     lines.forEach((line) => {
       const found = this.regex.exec(line)
       if (found !== null && found.length !== 0) {
-        const replacedText = this.replace(found[1])
-        diagnostics.push({
-          from: from,
-          to: from + found[0].length,
-          actions: [
-            {
-              name: t(this.actionLabel ?? 'Fix'),
-              apply: (view: EditorView, from: number, to: number) => {
-                view.dispatch({
-                  changes: { from, to, insert: replacedText }
-                })
-              }
-            }
-          ],
-          message: this.message,
-          severity: 'warning'
-        })
+        diagnostics.push(this.createDiagnostic(from, found))
       }
       from += line.length + 1
     })
     return diagnostics
+  }
+
+  createDiagnostic(from: number, found: RegExpExecArray): Diagnostic {
+    const replacedText = this.replace(found[1])
+    return {
+      from: from,
+      to: from + found[0].length,
+      actions: [
+        {
+          name: t(this.actionLabel ?? 'Fix'),
+          apply: (view: EditorView, from: number, to: number) => {
+            view.dispatch({
+              changes: { from, to, insert: replacedText }
+            })
+          }
+        }
+      ],
+      message: this.message,
+      severity: 'warning'
+    }
   }
 }
