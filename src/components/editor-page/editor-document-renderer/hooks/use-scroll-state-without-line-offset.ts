@@ -7,7 +7,6 @@
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 import type { ScrollState } from '../../synced-scroll/scroll-props'
 import { useMemo } from 'react'
-import { Optional } from '@mrdrogdrog/optional'
 
 /**
  * Adjusts the given {@link ScrollState scroll state} to exclude the frontmatter line offset.
