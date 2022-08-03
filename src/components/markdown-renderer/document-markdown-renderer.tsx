@@ -33,7 +33,6 @@ export interface DocumentMarkdownRendererProps extends CommonMarkdownRendererPro
  * @param onImageClick The callback to call if a image is clicked
  * @param outerContainerRef A reference for the outer container
  * @param newlinesAreBreaks If newlines are rendered as breaks or not
- * @param lineOffset The line offset
  */
 export const DocumentMarkdownRenderer: React.FC<DocumentMarkdownRendererProps> = ({
   className,

@@ -7,7 +7,7 @@
 import type { ScrollState } from '../../synced-scroll/scroll-props'
 import { getGlobalState } from '../../../../redux'
 import { useMemo } from 'react'
-import type { onScroll } from '../../synced-scroll/scroll-props'
+import type { ScrollCallback } from '../../synced-scroll/scroll-props'
 
 /**
  * Adjusts the given onScroll callback to include the frontmatter line offset.
@@ -15,7 +15,7 @@ import type { onScroll } from '../../synced-scroll/scroll-props'
  * @param onScroll The callback that posts a scroll state
  * @return the modified callback that posts the same scroll state but with line offset
  */
-export const useOnScrollWithLineOffset = (onScroll: onScroll | undefined): onScroll | undefined => {
+export const useOnScrollWithLineOffset = (onScroll: ScrollCallback | undefined): ScrollCallback | undefined => {
   return useMemo(() => {
     if (onScroll === undefined) {
       return undefined
