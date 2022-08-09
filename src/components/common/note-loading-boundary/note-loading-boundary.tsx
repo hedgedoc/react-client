@@ -20,11 +20,11 @@ import { ShowIf } from '../show-if/show-if'
  * @param children The react elements that will be shown when the loading was successful.
  */
 export const NoteLoadingBoundary: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
-  const [{ error, loading }, doFetch] = useLoadNoteFromServer()
+  const [{ error, loading }, loadNoteFromServer] = useLoadNoteFromServer()
 
   useEffect(() => {
-    doFetch()
-  }, [doFetch])
+    loadNoteFromServer()
+  }, [loadNoteFromServer])
 
   if (loading) {
     return <LoadingScreen />
@@ -32,7 +32,7 @@ export const NoteLoadingBoundary: React.FC<PropsWithChildren<unknown>> = ({ chil
     return (
       <CommonErrorPage titleI18nKey={`${error.message}.title`} descriptionI18nKey={`${error.message}.description`}>
         <ShowIf condition={error.message === 'api.note.notFound'}>
-          <CreateNonExistingNoteHint onNoteCreated={doFetch} />
+          <CreateNonExistingNoteHint onNoteCreated={loadNoteFromServer} />
         </ShowIf>
       </CommonErrorPage>
     )
