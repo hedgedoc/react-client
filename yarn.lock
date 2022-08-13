@@ -1376,7 +1376,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.8, @babel/runtime@npm:^7.14.0, @babel/runtime@npm:^7.14.5, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.16.7, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.6, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.8, @babel/runtime@npm:^7.14.0, @babel/runtime@npm:^7.14.5, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.16.7, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.6, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.18.9
   resolution: "@babel/runtime@npm:7.18.9"
   dependencies:
@@ -2016,9 +2016,9 @@ __metadata:
     markdown-it-sup: 1.0.0
     markdown-it-task-lists: 2.1.1
     markdown-it-toc-done-right: 4.2.0
-    markmap-common: 0.13.4
-    markmap-lib: 0.13.5
-    markmap-view: 0.13.5
+    markmap-common: 0.14.0
+    markmap-lib: 0.14.1
+    markmap-view: 0.14.0
     mermaid: 9.1.5
     next: 12.2.2
     prettier: 2.7.1
@@ -9615,7 +9615,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"katex@npm:0.16.0":
+"katex@npm:0.16.0, katex@npm:^0.16.0":
   version: 0.16.0
   resolution: "katex@npm:0.16.0"
   dependencies:
@@ -9623,17 +9623,6 @@ __metadata:
   bin:
     katex: cli.js
   checksum: 0e094523544b3c921e55da8cf1a9ea2718213c621af508af9fc03859b97dc73280f478fbfede5a8b32948210c3596c5a637dd64e0e28e31d6c617b5d50c29762
-  languageName: node
-  linkType: hard
-
-"katex@npm:^0.15.1":
-  version: 0.15.6
-  resolution: "katex@npm:0.15.6"
-  dependencies:
-    commander: ^8.0.0
-  bin:
-    katex: cli.js
-  checksum: 2da808bbd1d3be27715006cd86767dd3fcce3e317fb3bbd64d407328d2d90de17b5d83062b2cfd0e0d0de32e340efbac214862bc96892a5d1492462e553728d4
   languageName: node
   linkType: hard
 
@@ -10040,40 +10029,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markmap-common@npm:0.13.4, markmap-common@npm:^0.13.4":
-  version: 0.13.4
-  resolution: "markmap-common@npm:0.13.4"
+"markmap-common@npm:0.14.0":
+  version: 0.14.0
+  resolution: "markmap-common@npm:0.14.0"
   dependencies:
     "@babel/runtime": ^7.12.1
-  checksum: 6597aa4fb9292f5ace8aceb76d63e1bdad30661e3ad8b7e00ac58e2aedf082d7d217f72960f0e28877efea99a2055b2fd431eda7a2482de2538740a1fbf5a7d7
+  checksum: 7e461ef7177aa3bedec56b424f4d5d90fae784ea42bb9e6507719abc5f00c24caa8ea73246f8d30c0019649554acd9b2effb749723a52d7270007dbf8c258be1
   languageName: node
   linkType: hard
 
-"markmap-lib@npm:0.13.5":
-  version: 0.13.5
-  resolution: "markmap-lib@npm:0.13.5"
+"markmap-lib@npm:0.14.1":
+  version: 0.14.1
+  resolution: "markmap-lib@npm:0.14.1"
   dependencies:
-    "@babel/runtime": ^7.16.3
+    "@babel/runtime": ^7.18.9
     js-yaml: ^4.1.0
-    katex: ^0.15.1
-    markmap-common: ^0.13.4
-    prismjs: ^1.25.0
+    katex: ^0.16.0
+    prismjs: ^1.28.0
     remarkable: ^2.0.1
-    remarkable-katex: ^1.1.8
-  checksum: 469932bba42e5fe466c3451fea1ee741d1f2ac1b5d20df92f620a116d6adc0c49ed5930c483b7d29c70094c6e188b6ce235f1a457cd8dca67b53ead1225bc8f4
+    remarkable-katex: ^1.2.1
+  peerDependencies:
+    markmap-common: "*"
+  checksum: 5ae90b728fff452154c55cfb82fe7db4f34ba7c16bdf4be6fcb5e79aed365447e3ce5be67414594af5588dc8d558c00cac56d958ef11a40f1d6fb5e18c8e7355
   languageName: node
   linkType: hard
 
-"markmap-view@npm:0.13.5":
-  version: 0.13.5
-  resolution: "markmap-view@npm:0.13.5"
+"markmap-view@npm:0.14.0":
+  version: 0.14.0
+  resolution: "markmap-view@npm:0.14.0"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@types/d3": ^6.0.0
     d3: ^6.2.0
     d3-flextree: ^2.1.1
-    markmap-common: ^0.13.4
-  checksum: 86a09552c51c4aae0c477524fe39507bbc298144f0635628fa2016db152ff9703b82759e558224fcde2c1e71d05dea62a2de5d96862ad3eb9cd9d11d9520c283
+  peerDependencies:
+    markmap-common: "*"
+  checksum: b0e31511070b70b71e51b566af9686500d313805eb2f38fba05da51c461869a662330c416ca4a32760f82b03e189e796c4315a56d4b2447efa9122189c765b2e
   languageName: node
   linkType: hard
 
@@ -11016,7 +11007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prismjs@npm:^1.25.0":
+"prismjs@npm:^1.28.0":
   version: 1.28.0
   resolution: "prismjs@npm:1.28.0"
   checksum: bde93fb2beb45b7243219fc53855f59ee54b3fa179f315e8f9d66244d756ef984462e10561bbdc6713d3d7e051852472d7c284f5794a8791eeaefea2fb910b16
@@ -11557,7 +11548,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remarkable-katex@npm:^1.1.8":
+"remarkable-katex@npm:^1.2.1":
   version: 1.2.1
   resolution: "remarkable-katex@npm:1.2.1"
   checksum: 600ee9c6dd2882c80d9a3beaca060ba8740395abb8a8ecfc86a45aa545a8c95073aaf19742e2e8db371bacfc2c47ff56cda989a3442a939858533d78a28ed89c
