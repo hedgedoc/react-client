@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -18,12 +18,12 @@ import { DisplayNameField } from '../components/common/fields/display-name-field
 import { NewPasswordField } from '../components/common/fields/new-password-field'
 import { PasswordAgainField } from '../components/common/fields/password-again-field'
 import { useOnInputChange } from '../hooks/common/use-on-input-change'
-import { RegisterError } from '../components/register-page/register-error/register-error'
 import { LandingLayout } from '../components/landing-layout/landing-layout'
 import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import { Logger } from '../utils/logger'
 import { Redirect } from '../components/common/redirect'
+import { dispatchUiNotification, showErrorNotification } from '../redux/ui-notifications/methods'
 
 const logger = new Logger('register-page')
 
@@ -39,18 +39,29 @@ export const RegisterPage: NextPage = () => {
   const [displayName, setDisplayName] = useState('')
   const [password, setPassword] = useState('')
   const [passwordAgain, setPasswordAgain] = useState('')
-  const [error, setError] = useState<RegisterErrorType>()
+  const [usernameValid, setUsernameValid] = useState<boolean | undefined>(undefined)
 
   const doRegisterSubmit = useCallback(
     (event: FormEvent) => {
       doLocalRegister(username, displayName, password)
-        .then(() => fetchAndSetUser())
+        .then(() => {
+          setUsernameValid(undefined)
+          return fetchAndSetUser()
+        })
         .catch((error: Error) => {
-          setError(
-            Object.values(RegisterErrorType).includes(error.message as RegisterErrorType)
-              ? (error.message as RegisterErrorType)
-              : RegisterErrorType.OTHER
-          )
+          switch (error.message) {
+            case RegisterErrorType.USERNAME_EXISTING:
+              setUsernameValid(false)
+              return dispatchUiNotification('login.register.error.title', 'login.register.error.usernameExisting', {})
+            case RegisterErrorType.REGISTRATION_DISABLED:
+              return dispatchUiNotification(
+                'login.register.error.title',
+                'login.register.error.registrationDisabled',
+                {}
+              )
+            default:
+              showErrorNotification('login.register.error.other')(error)
+          }
         })
       event.preventDefault()
     },
@@ -100,7 +111,7 @@ export const RegisterPage: NextPage = () => {
             <Card className='bg-dark mb-4 text-start'>
               <Card.Body>
                 <Form onSubmit={doRegisterSubmit}>
-                  <UsernameField onChange={onUsernameChange} value={username} />
+                  <UsernameField onChange={onUsernameChange} value={username} valid={usernameValid} />
                   <DisplayNameField onChange={onDisplayNameChange} value={displayName} />
                   <NewPasswordField onChange={onPasswordChange} value={password} />
                   <PasswordAgainField password={password} onChange={onPasswordAgainChange} value={passwordAgain} />
@@ -111,8 +122,6 @@ export const RegisterPage: NextPage = () => {
                     <Trans i18nKey='login.register.title' />
                   </Button>
                 </Form>
-
-                <RegisterError error={error} />
               </Card.Body>
             </Card>
           </Col>

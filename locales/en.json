@@ -557,6 +557,7 @@
       "passwordInfo": "Choose a unique and secure password. It must contain at least 8 characters.",
       "infoTermsPrivacy": "With the registration of my user account I agree to the following terms:",
       "error": {
+        "title": "The registration failed",
         "registrationDisabled": "The registration is disabled",
         "usernameExisting": "There is already an account with this username.",
         "other": "There was an error while registering your account. Just try it again."
