@@ -9,9 +9,12 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /app
 COPY . ./
-RUN yarn install --immutable && \
+ENV NODE_ENV=production
+RUN rm -rf public/public && \
+    rm -rf src/pages/api && \
+    yarn install --immutable && \
     sed -i "s/CLIENT_VERSION_MISSING/${BUILD_VERSION}/" src/version.json && \
-    yarn build:for-real-backend
+    yarn build
 
 # RUNNER
 FROM node:18-alpine
@@ -27,6 +30,6 @@ COPY --from=builder --chown=node:node /app/.next/standalone ./
 
 USER node
 
-ENV PORT 3000
-EXPOSE 3000/tcp
+ENV PORT 3001
+EXPOSE 3001/tcp
 CMD ["node", "server.js"]
