@@ -19,7 +19,6 @@ import { useCodeMirrorScrollWatchExtension } from './hooks/code-mirror-extension
 import { useCodeMirrorFileInsertExtension } from './hooks/code-mirror-extensions/use-code-mirror-file-insert-extension'
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { EditorView } from '@codemirror/view'
-import { autocompletion } from '@codemirror/autocomplete'
 import { cypressAttribute, cypressId } from '../../../utils/cypress-attribute'
 import { findLanguageByCodeBlockName } from '../../markdown-renderer/markdown-extension/code-block-markdown-extension/find-language-by-code-block-name'
 import { languages } from '@codemirror/language-data'
@@ -43,6 +42,7 @@ import { VimeoMarkdownExtension } from '../../markdown-renderer/markdown-extensi
 import { SequenceDiagramMarkdownExtension } from '../../markdown-renderer/markdown-extension/sequence-diagram/sequence-diagram-markdown-extension'
 import { LegacyShortcodesMarkdownExtension } from '../../markdown-renderer/markdown-extension/legacy-short-codes/legacy-shortcodes-markdown-extension'
 import { FrontmatterLinter } from './linter/frontmatter-linter'
+import { useConfiguredAutocompleteExtension } from './hooks/use-configured-autocomplete-extension'
 
 /**
  * Renders the text editor pane of the editor.
@@ -62,6 +62,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
   const tablePasteExtensions = useCodeMirrorTablePasteExtension()
   const fileInsertExtension = useCodeMirrorFileInsertExtension()
   const cursorActivityExtension = useCursorActivityCallback()
+  const autocompletionExtension = useConfiguredAutocompleteExtension()
 
   const codeMirrorRef = useCodeMirrorReference()
   const setCodeMirrorReference = useSetCodeMirrorReference()
@@ -111,7 +112,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       editorScrollExtension,
       tablePasteExtensions,
       fileInsertExtension,
-      autocompletion(),
+      autocompletionExtension,
       cursorActivityExtension,
       updateViewContext,
       yjsExtension,
@@ -123,6 +124,7 @@ export const EditorPane: React.FC<ScrollProps> = ({ scrollState, onScroll, onMak
       editorScrollExtension,
       tablePasteExtensions,
       fileInsertExtension,
+      autocompletionExtension,
       cursorActivityExtension,
       updateViewContext,
       yjsExtension,
