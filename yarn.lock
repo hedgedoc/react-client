@@ -1968,7 +1968,6 @@ __metadata:
     "@types/mermaid": 8.2.9
     "@types/node": 18.0.0
     "@types/react": 18.0.19
-    "@types/react-bootstrap-typeahead": 5.1.8
     "@types/react-dom": 18.0.6
     "@types/sass": 1.43.1
     "@types/testing-library__jest-dom": 5.14.5
@@ -3853,15 +3852,6 @@ __metadata:
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
-  languageName: node
-  linkType: hard
-
-"@types/react-bootstrap-typeahead@npm:5.1.8":
-  version: 5.1.8
-  resolution: "@types/react-bootstrap-typeahead@npm:5.1.8"
-  dependencies:
-    "@types/react": "*"
-  checksum: 46ed6a3117eaf87358d2e58501df623cd77b2ad9464eb829f0fd80d5901b65fae1acc25ec12c87516fdb4f81d67bd0ac018cf77ee631867482e9cbe34bdd07fb
   languageName: node
   linkType: hard
 
