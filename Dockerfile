@@ -4,12 +4,12 @@
 
 # BUILD
 FROM node:18-alpine AS builder
-ARG BUILD_VERSION=CLIENT_VERSION_MISSING
+ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ARG BUILD_VERSION=CLIENT_VERSION_MISSING
 
 WORKDIR /app
 COPY . ./
-ENV NODE_ENV=production
 RUN rm -rf public/public && \
     rm -rf src/pages/api && \
     yarn install --immutable && \
