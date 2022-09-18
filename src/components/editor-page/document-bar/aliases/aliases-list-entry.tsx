@@ -7,11 +7,11 @@ import React, { useCallback } from 'react'
 import { ForkAwesomeIcon } from '../../../common/fork-awesome/fork-awesome-icon'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { showErrorNotification } from '../../../../redux/ui-notifications/methods'
 import { ShowIf } from '../../../common/show-if/show-if'
 import type { Alias } from '../../../../api/alias/types'
 import { deleteAlias, markAliasAsPrimary } from '../../../../api/alias'
 import { updateMetadata } from '../../../../redux/note-details/methods'
+import { useUiNotifications } from '../../../notifications/ui-notification-boundary'
 
 export interface AliasesListEntryProps {
   alias: Alias
@@ -24,18 +24,19 @@ export interface AliasesListEntryProps {
  */
 export const AliasesListEntry: React.FC<AliasesListEntryProps> = ({ alias }) => {
   const { t } = useTranslation()
+  const { showErrorNotification } = useUiNotifications()
 
   const onRemoveClick = useCallback(() => {
     deleteAlias(alias.name)
       .then(updateMetadata)
       .catch(showErrorNotification(t('editor.modal.aliases.errorRemovingAlias')))
-  }, [alias, t])
+  }, [alias, t, showErrorNotification])
 
   const onMakePrimaryClick = useCallback(() => {
     markAliasAsPrimary(alias.name)
       .then(updateMetadata)
       .catch(showErrorNotification(t('editor.modal.aliases.errorMakingPrimary')))
-  }, [alias, t])
+  }, [alias, t, showErrorNotification])
 
   return (
     <li className={'list-group-item d-flex flex-row justify-content-between align-items-center'}>

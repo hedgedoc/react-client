@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next'
 import { useApplicationState } from '../../../../hooks/common/use-application-state'
 import { addAlias } from '../../../../api/alias'
 import { updateMetadata } from '../../../../redux/note-details/methods'
-import { showErrorNotification } from '../../../../redux/ui-notifications/methods'
 import { useOnInputChange } from '../../../../hooks/common/use-on-input-change'
+import { useUiNotifications } from '../../../notifications/ui-notification-boundary'
 
 const validAliasRegex = /^[a-z0-9_-]*$/
 
@@ -21,6 +21,7 @@ const validAliasRegex = /^[a-z0-9_-]*$/
  */
 export const AliasesAddForm: React.FC = () => {
   const { t } = useTranslation()
+  const { showErrorNotification } = useUiNotifications()
   const noteId = useApplicationState((state) => state.noteDetails.id)
   const [newAlias, setNewAlias] = useState('')
 
@@ -34,7 +35,7 @@ export const AliasesAddForm: React.FC = () => {
           setNewAlias('')
         })
     },
-    [noteId, newAlias, setNewAlias]
+    [noteId, newAlias, setNewAlias, showErrorNotification]
   )
 
   const onNewAliasInputChange = useOnInputChange(setNewAlias)

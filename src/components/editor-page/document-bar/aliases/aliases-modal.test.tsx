@@ -10,10 +10,14 @@ import type { CommonModalProps } from '../../../common/modals/common-modal'
 import * as CommonModalModule from '../../../common/modals/common-modal'
 import * as AliasesListModule from './aliases-list'
 import * as AliasesAddFormModule from './aliases-add-form'
+import * as useUiNotificationsModule from '../../../notifications/ui-notification-boundary'
 import { AliasesModal } from './aliases-modal'
 import { mockI18n } from '../../../markdown-renderer/test-utils/mock-i18n'
 
+jest.mock('./aliases-list')
+jest.mock('./aliases-add-form')
 jest.mock('../../../common/modals/common-modal')
+jest.mock('../../../notifications/ui-notification-boundary')
 
 describe('AliasesModal', () => {
   beforeEach(async () => {
@@ -31,6 +35,11 @@ describe('AliasesModal', () => {
     jest.spyOn(AliasesAddFormModule, 'AliasesAddForm').mockImplementation((() => {
       return <span>This is a mock for the AliasesAddForm that is tested separately.</span>
     }) as React.FC)
+    jest.spyOn(useUiNotificationsModule, 'useUiNotifications').mockReturnValue({
+      showErrorNotification: jest.fn(),
+      dismissNotification: jest.fn(),
+      dispatchUiNotification: jest.fn()
+    })
   })
 
   afterAll(() => {

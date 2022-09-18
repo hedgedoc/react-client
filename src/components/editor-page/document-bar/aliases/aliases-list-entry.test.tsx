@@ -11,9 +11,11 @@ import type { Alias } from '../../../../api/alias/types'
 import { AliasesListEntry } from './aliases-list-entry'
 import * as AliasModule from '../../../../api/alias'
 import * as NoteDetailsReduxModule from '../../../../redux/note-details/methods'
+import * as useUiNotificationsModule from '../../../notifications/ui-notification-boundary'
 
 jest.mock('../../../../api/alias')
 jest.mock('../../../../redux/note-details/methods')
+jest.mock('../../../notifications/ui-notification-boundary')
 
 const deletePromise = Promise.resolve()
 const markAsPrimaryPromise = Promise.resolve({ name: 'mock', primaryAlias: true, noteId: 'mock' })
@@ -24,6 +26,11 @@ describe('AliasesListEntry', () => {
     jest.spyOn(AliasModule, 'deleteAlias').mockImplementation(() => deletePromise)
     jest.spyOn(AliasModule, 'markAliasAsPrimary').mockImplementation(() => markAsPrimaryPromise)
     jest.spyOn(NoteDetailsReduxModule, 'updateMetadata').mockImplementation(() => Promise.resolve())
+    jest.spyOn(useUiNotificationsModule, 'useUiNotifications').mockReturnValue({
+      showErrorNotification: jest.fn(),
+      dismissNotification: jest.fn(),
+      dispatchUiNotification: jest.fn()
+    })
   })
 
   afterAll(() => {

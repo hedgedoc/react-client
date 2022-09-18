@@ -12,10 +12,12 @@ import * as AliasModule from '../../../../api/alias'
 import * as NoteDetailsReduxModule from '../../../../redux/note-details/methods'
 import * as useApplicationStateModule from '../../../../hooks/common/use-application-state'
 import { AliasesAddForm } from './aliases-add-form'
+import * as useUiNotificationsModule from '../../../notifications/ui-notification-boundary'
 
 jest.mock('../../../../api/alias')
 jest.mock('../../../../redux/note-details/methods')
 jest.mock('../../../../hooks/common/use-application-state')
+jest.mock('../../../notifications/ui-notification-boundary')
 
 const addPromise = Promise.resolve({ name: 'mock', primaryAlias: true, noteId: 'mock' })
 
@@ -25,6 +27,11 @@ describe('AliasesAddForm', () => {
     jest.spyOn(AliasModule, 'addAlias').mockImplementation(() => addPromise)
     jest.spyOn(NoteDetailsReduxModule, 'updateMetadata').mockImplementation(() => Promise.resolve())
     jest.spyOn(useApplicationStateModule, 'useApplicationState').mockReturnValue('mock-note')
+    jest.spyOn(useUiNotificationsModule, 'useUiNotifications').mockReturnValue({
+      showErrorNotification: jest.fn(),
+      dismissNotification: jest.fn(),
+      dispatchUiNotification: jest.fn()
+    })
   })
 
   afterAll(() => {
