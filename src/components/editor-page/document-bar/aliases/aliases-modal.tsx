@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import React from 'react'
-import { Modal } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Modal } from 'react-bootstrap'
 import type { CommonModalProps } from '../../../common/modals/common-modal'
 import { CommonModal } from '../../../common/modals/common-modal'
 import { Trans, useTranslation } from 'react-i18next'
@@ -26,12 +26,12 @@ export const AliasesModal: React.FC<CommonModalProps> = ({ show, onHide }) => {
         <p>
           <Trans i18nKey={'editor.modal.aliases.explanation'} />
         </p>
-        <ul className={'list-group'}>
+        <ListGroup>
           <AliasesList />
-          <li className={'list-group-item'}>
+          <ListGroupItem>
             <AliasesAddForm />
-          </li>
-        </ul>
+          </ListGroupItem>
+        </ListGroup>
       </Modal.Body>
     </CommonModal>
   )
