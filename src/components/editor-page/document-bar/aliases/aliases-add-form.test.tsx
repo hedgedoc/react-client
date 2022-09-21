@@ -42,9 +42,9 @@ describe('AliasesAddForm', () => {
   it('renders the input form', async () => {
     const view = render(<AliasesAddForm />)
     expect(view.container).toMatchSnapshot()
-    const button = screen.getByTitle('editor.modal.aliases.addAlias')
+    const button = await screen.findByTestId('addAliasButton')
     expect(button).toBeDisabled()
-    const input = screen.getByPlaceholderText('editor.modal.aliases.addAlias')
+    const input = await screen.findByTestId('addAliasInput')
     await testEvent.type(input, 'abc')
     expect(button).toBeEnabled()
     act(() => {

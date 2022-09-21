@@ -13,6 +13,7 @@ import { addAlias } from '../../../../api/alias'
 import { updateMetadata } from '../../../../redux/note-details/methods'
 import { useOnInputChange } from '../../../../hooks/common/use-on-input-change'
 import { useUiNotifications } from '../../../notifications/ui-notification-boundary'
+import { testId } from '../../../../utils/test-id'
 
 const validAliasRegex = /^[a-z0-9_-]*$/
 
@@ -53,13 +54,15 @@ export const AliasesAddForm: React.FC = () => {
           onChange={onNewAliasInputChange}
           isInvalid={!newAliasValid}
           required={true}
+          {...testId('addAliasInput')}
         />
         <Button
           type={'submit'}
           variant='light'
           className={'text-secondary ml-2'}
           disabled={!newAliasValid || newAlias === ''}
-          title={t('editor.modal.aliases.addAlias')}>
+          title={t('editor.modal.aliases.addAlias')}
+          {...testId('addAliasButton')}>
           <ForkAwesomeIcon icon={'plus'} />
         </Button>
       </InputGroup>

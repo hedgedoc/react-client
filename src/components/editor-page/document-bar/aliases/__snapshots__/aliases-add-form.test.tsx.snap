@@ -8,12 +8,14 @@ exports[`AliasesAddForm renders the input form 1`] = `
     >
       <input
         class="form-control"
+        data-testid="addAliasInput"
         placeholder="editor.modal.aliases.addAlias"
         required=""
         value=""
       />
       <button
         class="text-secondary ml-2 btn btn-light"
+        data-testid="addAliasButton"
         disabled=""
         title="editor.modal.aliases.addAlias"
         type="submit"
