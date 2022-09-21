@@ -12,6 +12,7 @@ import type { Alias } from '../../../../api/alias/types'
 import { deleteAlias, markAliasAsPrimary } from '../../../../api/alias'
 import { updateMetadata } from '../../../../redux/note-details/methods'
 import { useUiNotifications } from '../../../notifications/ui-notification-boundary'
+import { testId } from '../../../../utils/test-id'
 
 export interface AliasesListEntryProps {
   alias: Alias
@@ -47,7 +48,8 @@ export const AliasesListEntry: React.FC<AliasesListEntryProps> = ({ alias }) => 
             className={'mr-2 text-warning'}
             variant='light'
             disabled={true}
-            title={t('editor.modal.aliases.isPrimary')}>
+            title={t('editor.modal.aliases.isPrimary')}
+            {...testId('aliasIsPrimary')}>
             <ForkAwesomeIcon icon={'star'} />
           </Button>
         </ShowIf>
@@ -56,7 +58,8 @@ export const AliasesListEntry: React.FC<AliasesListEntryProps> = ({ alias }) => 
             className={'mr-2'}
             variant='light'
             title={t('editor.modal.aliases.makePrimary')}
-            onClick={onMakePrimaryClick}>
+            onClick={onMakePrimaryClick}
+            {...testId('aliasButtonMakePrimary')}>
             <ForkAwesomeIcon icon={'star-o'} />
           </Button>
         </ShowIf>
@@ -64,7 +67,8 @@ export const AliasesListEntry: React.FC<AliasesListEntryProps> = ({ alias }) => 
           variant='light'
           className={'text-danger'}
           title={t('editor.modal.aliases.removeAlias')}
-          onClick={onRemoveClick}>
+          onClick={onRemoveClick}
+          {...testId('aliasButtonRemove')}>
           <ForkAwesomeIcon icon={'times'} />
         </Button>
       </div>

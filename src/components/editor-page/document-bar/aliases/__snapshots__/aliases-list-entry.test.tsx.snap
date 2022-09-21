@@ -9,6 +9,7 @@ exports[`AliasesListEntry renders an AliasesListEntry that is not primary 1`] = 
     <div>
       <button
         class="mr-2 btn btn-light"
+        data-testid="aliasButtonMakePrimary"
         title="editor.modal.aliases.makePrimary"
         type="button"
       >
@@ -18,6 +19,7 @@ exports[`AliasesListEntry renders an AliasesListEntry that is not primary 1`] = 
       </button>
       <button
         class="text-danger btn btn-light"
+        data-testid="aliasButtonRemove"
         title="editor.modal.aliases.removeAlias"
         type="button"
       >
@@ -39,6 +41,7 @@ exports[`AliasesListEntry renders an AliasesListEntry that is primary 1`] = `
     <div>
       <button
         class="mr-2 text-warning btn btn-light"
+        data-testid="aliasIsPrimary"
         disabled=""
         title="editor.modal.aliases.isPrimary"
         type="button"
@@ -49,6 +52,7 @@ exports[`AliasesListEntry renders an AliasesListEntry that is primary 1`] = `
       </button>
       <button
         class="text-danger btn btn-light"
+        data-testid="aliasButtonRemove"
         title="editor.modal.aliases.removeAlias"
         type="button"
       >
