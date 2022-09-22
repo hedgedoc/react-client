@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KaTeX markdown extensions renders a valid block LaTeX expression in a single line 1`] = `
+<div>
+  <div
+    data-testid="katex-block"
+  >
+    <span
+      class="katex-display"
+    >
+      <span
+        class="katex"
+      >
+        <span
+          class="katex-mathml"
+        >
+          <math
+            display="block"
+            xmlns="http://www.w3.org/1998/Math/MathML"
+          >
+            <semantics>
+              <mrow>
+                <mi>
+                  α
+                </mi>
+              </mrow>
+              <annotation
+                encoding="application/x-tex"
+              >
+                \\alpha
+              </annotation>
+            </semantics>
+          </math>
+        </span>
+        <span
+          aria-hidden="true"
+          class="katex-html"
+        >
+          <span
+            class="base"
+          >
+            <span
+              class="strut"
+              style="height: 0.4306em;"
+            />
+            <span
+              class="mord mathnormal"
+              style="margin-right: 0.0037em;"
+            >
+              α
+            </span>
+          </span>
+        </span>
+      </span>
+    </span>
+  </div>
+  
+
+</div>
+`;
+
+exports[`KaTeX markdown extensions renders a valid block LaTeX expression in multi line 1`] = `
+<div>
+  <div
+    data-testid="katex-block"
+  >
+    <span
+      class="katex-display"
+    >
+      <span
+        class="katex"
+      >
+        <span
+          class="katex-mathml"
+        >
+          <math
+            display="block"
+            xmlns="http://www.w3.org/1998/Math/MathML"
+          >
+            <semantics>
+              <mrow>
+                <mi>
+                  α
+                </mi>
+              </mrow>
+              <annotation
+                encoding="application/x-tex"
+              >
+                
+\\alpha
+
+              </annotation>
+            </semantics>
+          </math>
+        </span>
+        <span
+          aria-hidden="true"
+          class="katex-html"
+        >
+          <span
+            class="base"
+          >
+            <span
+              class="strut"
+              style="height: 0.4306em;"
+            />
+            <span
+              class="mord mathnormal"
+              style="margin-right: 0.0037em;"
+            >
+              α
+            </span>
+          </span>
+        </span>
+      </span>
+    </span>
+  </div>
+  
+
+</div>
+`;
+
+exports[`KaTeX markdown extensions renders a valid inline LaTeX expression 1`] = `
+<div>
+  <p>
+    <span
+      data-testid="katex-inline"
+    >
+      <span
+        class="katex"
+      >
+        <span
+          class="katex-mathml"
+        >
+          <math
+            xmlns="http://www.w3.org/1998/Math/MathML"
+          >
+            <semantics>
+              <mrow>
+                <mi>
+                  α
+                </mi>
+              </mrow>
+              <annotation
+                encoding="application/x-tex"
+              >
+                \\alpha
+              </annotation>
+            </semantics>
+          </math>
+        </span>
+        <span
+          aria-hidden="true"
+          class="katex-html"
+        >
+          <span
+            class="base"
+          >
+            <span
+              class="strut"
+              style="height: 0.4306em;"
+            />
+            <span
+              class="mord mathnormal"
+              style="margin-right: 0.0037em;"
+            >
+              α
+            </span>
+          </span>
+        </span>
+      </span>
+    </span>
+  </p>
+  
+
+</div>
+`;
+
+exports[`KaTeX markdown extensions renders an error message for an invalid LaTeX expression 1`] = `
+<div>
+  <p>
+    <span
+      data-testid="katex-inline"
+    >
+      <div
+        class="fade d-inline-block alert alert-danger show"
+        role="alert"
+      >
+        KaTeX parse error: Undefined control sequence: \\a at position 1: \\̲a̲
+      </div>
+    </span>
+  </p>
+  
+
+</div>
+`;
