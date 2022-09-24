@@ -23,7 +23,7 @@ interface KatexFrameProps {
  * @param expression The mathematical expression to render
  * @param block Defines if the output should be a block or inline.
  */
-export const KatexFrame: React.FC<KatexFrameProps> = ({ expression, block }) => {
+export const KatexFrame: React.FC<KatexFrameProps> = ({ expression, block = false }) => {
   const dom = useMemo(() => {
     try {
       const katexHtml = KaTeX.renderToString(expression, {
