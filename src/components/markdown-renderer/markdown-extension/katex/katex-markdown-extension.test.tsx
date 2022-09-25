@@ -8,13 +8,13 @@ import { render, screen } from '@testing-library/react'
 import { KatexMarkdownExtension } from './katex-markdown-extension'
 import { TestMarkdownRenderer } from '../../test-utils/test-markdown-renderer'
 import { Suspense } from 'react'
-import type { KatexOptions } from 'katex';
+import type { KatexOptions } from 'katex'
 import { default as KatexDefault } from 'katex'
 
 jest.mock('katex')
 
 describe('KaTeX markdown extensions', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     jest.spyOn(KatexDefault, 'renderToString').mockImplementation(
       (tex: string, options?: KatexOptions) => `<span>This is a mock for lib katex with this parameters:</span>
 <ul>
@@ -55,6 +55,10 @@ describe('KaTeX markdown extensions', () => {
   })
 
   it('renders an error message for an invalid LaTeX expression', async () => {
+    jest.spyOn(KatexDefault, 'renderToString').mockImplementation(() => {
+      throw new Error('mocked parseerror')
+    })
+
     const view = render(
       <Suspense fallback={null}>
         <TestMarkdownRenderer extensions={[new KatexMarkdownExtension()]} content={'$\\a$'} />

@@ -6,13 +6,13 @@
 
 import { render } from '@testing-library/react'
 import KatexFrame from './katex-frame'
-import type { KatexOptions } from 'katex';
+import type { KatexOptions } from 'katex'
 import { default as KatexDefault } from 'katex'
 
 jest.mock('katex')
 
 describe('katex frame', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     jest.spyOn(KatexDefault, 'renderToString').mockImplementation(
       (tex: string, options?: KatexOptions) => `<span>This is a mock for lib katex with this parameters:</span>
 <ul>
@@ -38,6 +38,12 @@ describe('katex frame', () => {
   })
 
   describe('renders an error for an invalid latex expression', () => {
+    beforeEach(() => {
+      jest.spyOn(KatexDefault, 'renderToString').mockImplementation(() => {
+        throw new Error('mocked parseerror')
+      })
+    })
+
     it('as implicit inline', () => {
       const view = render(<KatexFrame expression={'\\alf'}></KatexFrame>)
       expect(view.container).toMatchSnapshot()
