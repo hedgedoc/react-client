@@ -27,7 +27,7 @@ export const KatexFrame: React.FC<KatexFrameProps> = ({ expression, block = fals
   const dom = useMemo(() => {
     try {
       const katexHtml = KaTeX.renderToString(expression, {
-        displayMode: block !== false,
+        displayMode: block === true,
         throwOnError: true
       })
       return convertHtmlToReact(sanitize(katexHtml, { ADD_TAGS: ['semantics', 'annotation'] }))
