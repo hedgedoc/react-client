@@ -5,54 +5,25 @@ exports[`KaTeX markdown extensions renders a valid block LaTeX expression in a s
   <div
     data-testid="katex-block"
   >
-    <span
-      class="katex-display"
-    >
-      <span
-        class="katex"
-      >
-        <span
-          class="katex-mathml"
-        >
-          <math
-            display="block"
-            xmlns="http://www.w3.org/1998/Math/MathML"
-          >
-            <semantics>
-              <mrow>
-                <mi>
-                  α
-                </mi>
-              </mrow>
-              <annotation
-                encoding="application/x-tex"
-              >
-                \\alpha
-              </annotation>
-            </semantics>
-          </math>
-        </span>
-        <span
-          aria-hidden="true"
-          class="katex-html"
-        >
-          <span
-            class="base"
-          >
-            <span
-              class="strut"
-              style="height: 0.4306em;"
-            />
-            <span
-              class="mord mathnormal"
-              style="margin-right: 0.0037em;"
-            >
-              α
-            </span>
-          </span>
-        </span>
-      </span>
+    <span>
+      This is a mock for lib katex with this parameters:
     </span>
+    
+
+    <ul>
+      
+  
+      <li>
+        tex: \\alpha
+      </li>
+      
+  
+      <li>
+        block: true
+      </li>
+      
+
+    </ul>
   </div>
   
 
@@ -64,56 +35,27 @@ exports[`KaTeX markdown extensions renders a valid block LaTeX expression in mul
   <div
     data-testid="katex-block"
   >
-    <span
-      class="katex-display"
-    >
-      <span
-        class="katex"
-      >
-        <span
-          class="katex-mathml"
-        >
-          <math
-            display="block"
-            xmlns="http://www.w3.org/1998/Math/MathML"
-          >
-            <semantics>
-              <mrow>
-                <mi>
-                  α
-                </mi>
-              </mrow>
-              <annotation
-                encoding="application/x-tex"
-              >
-                
+    <span>
+      This is a mock for lib katex with this parameters:
+    </span>
+    
+
+    <ul>
+      
+  
+      <li>
+        tex: 
 \\alpha
 
-              </annotation>
-            </semantics>
-          </math>
-        </span>
-        <span
-          aria-hidden="true"
-          class="katex-html"
-        >
-          <span
-            class="base"
-          >
-            <span
-              class="strut"
-              style="height: 0.4306em;"
-            />
-            <span
-              class="mord mathnormal"
-              style="margin-right: 0.0037em;"
-            >
-              α
-            </span>
-          </span>
-        </span>
-      </span>
-    </span>
+      </li>
+      
+  
+      <li>
+        block: true
+      </li>
+      
+
+    </ul>
   </div>
   
 
@@ -126,49 +68,25 @@ exports[`KaTeX markdown extensions renders a valid inline LaTeX expression 1`] =
     <span
       data-testid="katex-inline"
     >
-      <span
-        class="katex"
-      >
-        <span
-          class="katex-mathml"
-        >
-          <math
-            xmlns="http://www.w3.org/1998/Math/MathML"
-          >
-            <semantics>
-              <mrow>
-                <mi>
-                  α
-                </mi>
-              </mrow>
-              <annotation
-                encoding="application/x-tex"
-              >
-                \\alpha
-              </annotation>
-            </semantics>
-          </math>
-        </span>
-        <span
-          aria-hidden="true"
-          class="katex-html"
-        >
-          <span
-            class="base"
-          >
-            <span
-              class="strut"
-              style="height: 0.4306em;"
-            />
-            <span
-              class="mord mathnormal"
-              style="margin-right: 0.0037em;"
-            >
-              α
-            </span>
-          </span>
-        </span>
+      <span>
+        This is a mock for lib katex with this parameters:
       </span>
+      
+
+      <ul>
+        
+  
+        <li>
+          tex: \\alpha
+        </li>
+        
+  
+        <li>
+          block: false
+        </li>
+        
+
+      </ul>
     </span>
   </p>
   
@@ -182,12 +100,25 @@ exports[`KaTeX markdown extensions renders an error message for an invalid LaTeX
     <span
       data-testid="katex-inline"
     >
-      <div
-        class="fade d-inline-block alert alert-danger show"
-        role="alert"
-      >
-        KaTeX parse error: Undefined control sequence: \\a at position 1: \\̲a̲
-      </div>
+      <span>
+        This is a mock for lib katex with this parameters:
+      </span>
+      
+
+      <ul>
+        
+  
+        <li>
+          tex: \\a
+        </li>
+        
+  
+        <li>
+          block: false
+        </li>
+        
+
+      </ul>
     </span>
   </p>
   

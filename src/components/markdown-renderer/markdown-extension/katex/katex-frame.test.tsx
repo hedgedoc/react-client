@@ -6,8 +6,22 @@
 
 import { render } from '@testing-library/react'
 import KatexFrame from './katex-frame'
+import type { KatexOptions } from 'katex';
+import { default as KatexDefault } from 'katex'
+
+jest.mock('katex')
 
 describe('katex frame', () => {
+  beforeAll(() => {
+    jest.spyOn(KatexDefault, 'renderToString').mockImplementation(
+      (tex: string, options?: KatexOptions) => `<span>This is a mock for lib katex with this parameters:</span>
+<ul>
+  <li>tex: ${tex}</li>
+  <li>block: ${String(options?.displayMode)}</li>
+</ul>`
+    )
+  })
+
   describe('renders a valid latex expression', () => {
     it('as implicit inline', () => {
       const view = render(<KatexFrame expression={'\\int_0^\\infty x^2 dx'}></KatexFrame>)

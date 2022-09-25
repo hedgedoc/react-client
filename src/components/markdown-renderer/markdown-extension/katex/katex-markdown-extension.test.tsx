@@ -8,8 +8,22 @@ import { render, screen } from '@testing-library/react'
 import { KatexMarkdownExtension } from './katex-markdown-extension'
 import { TestMarkdownRenderer } from '../../test-utils/test-markdown-renderer'
 import { Suspense } from 'react'
+import type { KatexOptions } from 'katex';
+import { default as KatexDefault } from 'katex'
+
+jest.mock('katex')
 
 describe('KaTeX markdown extensions', () => {
+  beforeAll(() => {
+    jest.spyOn(KatexDefault, 'renderToString').mockImplementation(
+      (tex: string, options?: KatexOptions) => `<span>This is a mock for lib katex with this parameters:</span>
+<ul>
+  <li>tex: ${tex}</li>
+  <li>block: ${String(options?.displayMode)}</li>
+</ul>`
+    )
+  })
+
   it('renders a valid inline LaTeX expression', async () => {
     const view = render(
       <Suspense fallback={null}>
