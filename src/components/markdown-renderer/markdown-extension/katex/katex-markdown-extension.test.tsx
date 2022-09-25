@@ -14,6 +14,11 @@ import { default as KatexDefault } from 'katex'
 jest.mock('katex')
 
 describe('KaTeX markdown extensions', () => {
+  afterAll(() => {
+    jest.resetAllMocks()
+    jest.resetModules()
+  })
+
   beforeEach(() => {
     jest.spyOn(KatexDefault, 'renderToString').mockImplementation(
       (tex: string, options?: KatexOptions) => `<span>This is a mock for lib katex with this parameters:</span>
