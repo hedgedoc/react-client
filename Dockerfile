@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-SA-4.0
 
 # BUILD
-FROM node:18-alpine AS builder
+FROM node:19-alpine AS builder
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ARG BUILD_VERSION=CLIENT_VERSION_MISSING
@@ -17,7 +17,7 @@ RUN rm -rf public/public && \
     yarn build
 
 # RUNNER
-FROM node:18-alpine
+FROM node:19-alpine
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
