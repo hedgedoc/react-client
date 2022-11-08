@@ -25,7 +25,7 @@ import { MockConnection } from './mock-connection'
  */
 export const useInsertNoteContentIntoYTextInMockModeEffect = (
   firstUpdateHappened: boolean,
-  connection: YDocMessageTransporter
+  connection: YDocMessageTransporter | null
 ): void => {
   useEffect(() => {
     if (firstUpdateHappened && isMockMode && connection instanceof MockConnection) {

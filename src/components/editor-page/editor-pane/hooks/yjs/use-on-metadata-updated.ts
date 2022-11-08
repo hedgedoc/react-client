@@ -14,12 +14,15 @@ import { useCallback, useEffect } from 'react'
  *
  * @param websocketConnection The websocket connection that emits the metadata changed event
  */
-export const useOnMetadataUpdated = (websocketConnection: YDocMessageTransporter): void => {
+export const useOnMetadataUpdated = (websocketConnection: YDocMessageTransporter | null): void => {
   const updateMetadataHandler = useCallback(async () => {
     await updateMetadata()
   }, [])
 
   useEffect(() => {
+    if (websocketConnection === null) {
+      return
+    }
     websocketConnection.on(MessageType.METADATA_UPDATED, updateMetadataHandler)
     return () => {
       websocketConnection.off(MessageType.METADATA_UPDATED, updateMetadataHandler)

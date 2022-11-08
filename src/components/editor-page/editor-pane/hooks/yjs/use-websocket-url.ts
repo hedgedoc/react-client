@@ -8,13 +8,14 @@ import { useMemo } from 'react'
 import { isMockMode } from '../../../../../utils/test-modes'
 import { useApplicationState } from '../../../../../hooks/common/use-application-state'
 import { useBaseUrl } from '../../../../../hooks/common/use-base-url'
+import { Optional } from '@mrdrogdrog/optional'
 
 const LOCAL_FALLBACK_URL = 'ws://localhost:8080/realtime/'
 
 /**
  * Provides the URL for the realtime endpoint.
  */
-export const useWebsocketUrl = (): URL => {
+export const useWebsocketUrl = (): URL | null => {
   const noteId = useApplicationState((state) => state.noteDetails.id)
   const baseUrl = useBaseUrl()
 
@@ -34,6 +35,10 @@ export const useWebsocketUrl = (): URL => {
   }, [baseUrl])
 
   return useMemo(() => {
+    if (noteId === '') {
+      return null
+    }
+
     const url = new URL(websocketUrl)
     url.search = `?noteId=${noteId}`
     return url

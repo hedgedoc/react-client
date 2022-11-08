@@ -19,7 +19,7 @@ const logger = new Logger('UseOnNoteDeleted')
  *
  * @param websocketConnection The websocket connection that emits the deletion event
  */
-export const useOnNoteDeleted = (websocketConnection: YDocMessageTransporter): void => {
+export const useOnNoteDeleted = (websocketConnection: YDocMessageTransporter | null): void => {
   const router = useRouter()
   const noteTitle = useApplicationState((state) => state.noteDetails.title)
   const { dispatchUiNotification } = useUiNotifications()
@@ -36,6 +36,9 @@ export const useOnNoteDeleted = (websocketConnection: YDocMessageTransporter): v
   }, [router, noteTitle, dispatchUiNotification])
 
   useEffect(() => {
+    if (websocketConnection === null) {
+      return
+    }
     websocketConnection.on(MessageType.DOCUMENT_DELETED, noteDeletedHandler)
     return () => {
       websocketConnection.off(MessageType.DOCUMENT_DELETED, noteDeletedHandler)

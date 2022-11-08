@@ -12,6 +12,7 @@ import type { Awareness } from 'y-protocols/awareness'
 import { isMockMode } from '../../../../../utils/test-modes'
 import { MockConnection } from './mock-connection'
 import type { YDocMessageTransporter } from '@hedgedoc/realtime'
+import type { Optional } from '@mrdrogdrog/optional'
 
 /**
  * Creates a {@link WebsocketConnection websocket connection handler } that handles the realtime communication with the backend.
@@ -20,14 +21,21 @@ import type { YDocMessageTransporter } from '@hedgedoc/realtime'
  * @param awareness The {@link Awareness awareness} that should be synchronized with the backend.
  * @return the created connection handler
  */
-export const useWebsocketConnection = (yDoc: Doc, awareness: Awareness): YDocMessageTransporter => {
+export const useWebsocketConnection = (yDoc: Doc, awareness: Awareness): YDocMessageTransporter | null => {
   const websocketUrl = useWebsocketUrl()
 
-  const websocketConnection: YDocMessageTransporter = useMemo(() => {
-    return isMockMode ? new MockConnection(yDoc, awareness) : new WebsocketConnection(websocketUrl, yDoc, awareness)
+  const websocketConnection: YDocMessageTransporter | null = useMemo(() => {
+    if (websocketUrl === null) {
+      return null
+    } else {
+      return isMockMode ? new MockConnection(yDoc, awareness) : new WebsocketConnection(websocketUrl, yDoc, awareness)
+    }
   }, [awareness, websocketUrl, yDoc])
 
   useEffect(() => {
+    if (websocketConnection === null) {
+      return
+    }
     const disconnectCallback = () => websocketConnection.disconnect()
     window.addEventListener('beforeunload', disconnectCallback)
     return () => {
