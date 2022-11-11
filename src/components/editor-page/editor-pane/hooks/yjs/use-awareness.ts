@@ -42,23 +42,21 @@ const logger = new Logger('useAwareness')
  * @return The created {@link Awareness awareness}
  */
 export const useAwareness = (yDoc: Doc): Awareness => {
-  const ownUsername = useApplicationState((state) => state.user?.username)
+  const ownUsername = useApplicationState((state) => state.user?.username) ?? 'Guest'
   const awareness = useMemo(() => new Awareness(yDoc), [yDoc])
 
   useEffect(() => {
     const userColor = userColors[Math.floor(Math.random() * 8)]
-    if (ownUsername !== undefined) {
-      awareness.setLocalStateField('user', {
-        name: ownUsername,
-        color: userColor.color,
-        colorLight: userColor.light
-      })
-      addOnlineUser(ownAwarenessClientId, {
-        active: ActiveIndicatorStatus.ACTIVE,
-        color: userColor.color,
-        username: ownUsername
-      })
-    }
+    awareness.setLocalStateField('user', {
+      name: ownUsername,
+      color: userColor.color,
+      colorLight: userColor.light
+    })
+    addOnlineUser(ownAwarenessClientId, {
+      active: ActiveIndicatorStatus.ACTIVE,
+      color: userColor.color,
+      username: ownUsername
+    })
 
     const awarenessCallback = ({ added, removed }: { added: number[]; removed: number[] }): void => {
       added.forEach((addedId) => {
