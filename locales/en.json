@@ -145,14 +145,6 @@
       "newGuestNote": "New guest note",
       "newNote": "New note"
     },
-    "footer": {
-      "releases": "Releases",
-      "poweredBy": "Powered by <0></0>",
-      "imprint": "Imprint",
-      "followUs": "Follow us on <0></0>, <1></1>, <2></2>, <3></3>, and <4></4>.",
-      "privacy": "Privacy",
-      "termsOfUse": "Terms of Use"
-    },
     "versionInfo": {
       "issueTracker": "Found a bug? Fill an issue!",
       "sourceCode": "Read the source code",
@@ -535,6 +527,8 @@
   },
   "login": {
     "chooseMethod": "Choose method",
+    "guests": "Guests",
+    "continueAsGuest": "Continue as guest",
     "signInVia": "Sign in via {{service}}",
     "signIn": "Sign In",
     "signOut": "Sign Out",
@@ -551,6 +545,7 @@
       }
     },
     "register": {
+      "intro": "Don't have an account yet?",
       "title": "Register",
       "passwordAgain": "Password (again)",
       "usernameInfo": "The username is your unique identifier for login.",
@@ -584,6 +579,18 @@
     "noteDeleted": {
       "title": "Note '{{noteTitle}}' deleted",
       "text": "You were redirected to the history page, because the note you just edited was deleted."
+    }
+  },
+  "legalMenu": {
+    "legal": {
+      "notice": "Legal notice",
+      "termsOfUse": "Terms of use",
+      "privacyPolicy": "Privacy policy"
+    },
+    "about": {
+      "visitHedgeDoc": "Visit the HedgeDoc project",
+      "showVersion": "Show HedgeDoc version",
+      "openFeaturesPage": "Open features page"
     }
   },
   "settings": {

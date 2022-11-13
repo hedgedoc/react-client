@@ -6,7 +6,7 @@
 import type { AuthProvider } from '../../../../api/config/types'
 import { AuthProviderType } from '../../../../api/config/types'
 import type { IconName } from '../../../common/fork-awesome/types'
-import styles from '../via-one-click.module.scss'
+import styles from './via-one-click.module.scss'
 import { Logger } from '../../../../utils/logger'
 
 export interface OneClickMetadata {

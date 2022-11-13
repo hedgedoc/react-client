@@ -9,11 +9,11 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { updateDisplayName } from '../../../api/me'
-import { fetchAndSetUser } from '../../login-page/auth/utils'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { DisplayNameField } from '../../common/fields/display-name-field'
 import { useOnInputChange } from '../../../hooks/common/use-on-input-change'
 import { useUiNotifications } from '../../notifications/ui-notification-boundary'
+import { fetchAndSetUser } from '../../../redux/user/methods'
 
 /**
  * Profile page section for changing the current display name.

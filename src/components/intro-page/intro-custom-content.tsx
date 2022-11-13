@@ -32,7 +32,6 @@ export const IntroCustomContent: React.FC = () => {
         frameClasses={'w-100 overflow-y-hidden'}
         markdownContentLines={value as string[]}
         rendererType={RendererType.INTRO}
-        forcedDarkMode={true}
         adaptFrameHeightToContent={true}
       />
     </AsyncLoadingBoundary>

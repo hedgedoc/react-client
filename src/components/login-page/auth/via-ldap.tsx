@@ -6,16 +6,16 @@
 
 import type { FormEvent } from 'react'
 import React, { useCallback, useState } from 'react'
-import { Button, Card, Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 
 import { Trans, useTranslation } from 'react-i18next'
 import { doLdapLogin } from '../../../api/auth/ldap'
-import { fetchAndSetUser } from './utils'
 import { AuthError as AuthErrorType } from '../../../api/auth/types'
 import { UsernameField } from './fields/username-field'
 import { PasswordField } from './fields/password-field'
-import { AuthError } from './auth-error/auth-error'
 import { useOnInputChange } from '../../../hooks/common/use-on-input-change'
+import { fetchAndSetUser } from '../../../redux/user/methods'
+import { AuthError } from './auth-error/auth-error'
 
 export interface ViaLdapProps {
   providerName: string
@@ -52,21 +52,19 @@ export const ViaLdap: React.FC<ViaLdapProps> = ({ providerName, identifier }) =>
   const onPasswordChange = useOnInputChange(setPassword)
 
   return (
-    <Card className='bg-dark mb-4'>
-      <Card.Body>
-        <Card.Title>
-          <Trans i18nKey='login.signInVia' values={{ service: providerName }} />
-        </Card.Title>
-        <Form onSubmit={onLoginSubmit}>
-          <UsernameField onChange={onUsernameChange} invalid={!!error} />
-          <PasswordField onChange={onPasswordChange} invalid={!!error} />
-          <AuthError error={error} />
+    <div className={'d-flex flex-column w-100'}>
+      <h5>
+        <Trans i18nKey='login.signInVia' values={{ service: providerName }} />
+      </h5>
+      <Form onSubmit={onLoginSubmit}>
+        <UsernameField onChange={onUsernameChange} invalid={!!error} />
+        <PasswordField onChange={onPasswordChange} invalid={!!error} />
+        <AuthError error={error} />
 
-          <Button type='submit' variant='primary'>
-            <Trans i18nKey='login.signIn' />
-          </Button>
-        </Form>
-      </Card.Body>
-    </Card>
+        <Button type='submit' variant='outline-light'>
+          <Trans i18nKey='login.signIn' />
+        </Button>
+      </Form>
+    </div>
   )
 }

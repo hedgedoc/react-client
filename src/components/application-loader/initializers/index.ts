@@ -6,11 +6,11 @@
 
 import { setUpI18n } from './setupI18n'
 import { refreshHistoryState } from '../../../redux/history/methods'
-import { fetchAndSetUser } from '../../login-page/auth/utils'
 import { fetchFrontendConfig } from './fetch-frontend-config'
 import { loadDarkMode } from './load-dark-mode'
 import { isDevMode, isTestMode } from '../../../utils/test-modes'
 import { Logger } from '../../../utils/logger'
+import { fetchAndSetUser } from '../../../redux/user/methods'
 
 const logger = new Logger('Application Loader')
 

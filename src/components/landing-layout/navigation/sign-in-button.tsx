@@ -12,8 +12,8 @@ import { ShowIf } from '../../common/show-if/show-if'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { cypressId } from '../../../utils/cypress-attribute'
 import Link from 'next/link'
-import { filterOneClickProviders } from '../../login-page/auth/utils'
-import { getOneClickProviderMetadata } from '../../login-page/auth/utils/get-one-click-provider-metadata'
+import { authProviderTypeOneClick } from '../../../api/config/types'
+import { getOneClickProviderMetadata } from '../../login-page/auth/one-click/get-one-click-provider-metadata'
 
 export type SignInButtonProps = Omit<ButtonProps, 'href'>
 
@@ -29,7 +29,7 @@ export const SignInButton: React.FC<SignInButtonProps> = ({ variant, ...props })
   const authProviders = useApplicationState((state) => state.config.authProviders)
 
   const loginLink = useMemo(() => {
-    const oneClickProviders = authProviders.filter(filterOneClickProviders)
+    const oneClickProviders = authProviders.filter((provider) => authProviderTypeOneClick.includes(provider.type))
     if (authProviders.length === 1 && oneClickProviders.length === 1) {
       const metadata = getOneClickProviderMetadata(oneClickProviders[0])
       return metadata.url

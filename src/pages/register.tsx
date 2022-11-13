@@ -10,7 +10,6 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { doLocalRegister } from '../api/auth/local'
 import { useApplicationState } from '../hooks/common/use-application-state'
-import { fetchAndSetUser } from '../components/login-page/auth/utils'
 import { RegisterError as RegisterErrorType } from '../api/auth/types'
 import { RegisterInfos } from '../components/register-page/register-infos/register-infos'
 import { UsernameField } from '../components/common/fields/username-field'
@@ -24,6 +23,7 @@ import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import { Redirect } from '../components/common/redirect'
 import { useUiNotifications } from '../components/notifications/ui-notification-boundary'
+import { fetchAndSetUser } from '../redux/user/methods'
 
 /**
  * Renders the registration page with fields for username, display name, password, password retype and information about terms and conditions.
@@ -76,7 +76,7 @@ export const RegisterPage: NextPage = () => {
   const onPasswordAgainChange = useOnInputChange(setPasswordAgain)
 
   if (userExists) {
-    return <Redirect to={'/intro'} />
+    return <Redirect to={'/history'} />
   }
 
   if (!allowRegister) {

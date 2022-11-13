@@ -8,6 +8,7 @@ import React, { useMemo } from 'react'
 import LogoBwHorizontal from './logo_text_bw_horizontal.svg'
 import LogoColorVertical from './logo_text_color_vertical.svg'
 import LogoWbHorizontal from './logo_text_wb_horizontal.svg'
+import LogoColorHorizontal from './logo_text_color_horizontal.svg'
 import { useTranslation } from 'react-i18next'
 
 export enum HedgeDocLogoSize {
@@ -23,6 +24,7 @@ export interface HedgeDocLogoProps {
 
 export enum HedgeDocLogoType {
   COLOR_VERTICAL,
+  COLOR_HORIZONTAL,
   BW_HORIZONTAL,
   WB_HORIZONTAL
 }
@@ -45,6 +47,8 @@ export const HedgeDocLogoWithText: React.FC<HedgeDocLogoProps> = ({ size = Hedge
       return <LogoBwHorizontal className={'w-auto'} title={altText} style={style} />
     case HedgeDocLogoType.WB_HORIZONTAL:
       return <LogoWbHorizontal className={'w-auto'} title={altText} style={style} />
+    case HedgeDocLogoType.COLOR_HORIZONTAL:
+      return <LogoColorHorizontal className={'w-auto'} title={altText} style={style} />
     default:
       return null
   }

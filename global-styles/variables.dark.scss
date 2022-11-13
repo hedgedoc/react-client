@@ -27,13 +27,17 @@ $green: #00bc8c;
 $teal: #20c997;
 $cyan: #5EB7E0;
 
+$hdBackground: #191919;
+$hdBackgroundLight: #313131;
+$hdAccent: #DCA055;
+
 $primary: $blue;
-$secondary: $white;
+$secondary: $hdBackgroundLight;
 $success: $green;
 $info: $cyan;
 $warning: $yellow;
 $danger: $red;
-$light: $gray-900;
+$light: $hdBackground;
 $dark: $white;
 
 $yiq-contrasted-threshold: 175;
@@ -43,7 +47,7 @@ $body-bg: $light;
 $body-color: $dark;
 
 // Links
-$link-color: $cyan;
+$link-color: $hdAccent;
 
 // Fonts
 $text-muted: $gray-400;

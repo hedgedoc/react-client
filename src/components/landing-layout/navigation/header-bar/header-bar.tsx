@@ -26,9 +26,6 @@ const HeaderBar: React.FC = () => {
   return (
     <Navbar className='justify-content-between'>
       <div className='nav'>
-        <HeaderNavLink to='/intro' {...cypressId('navLinkIntro')}>
-          <Trans i18nKey='landing.navigation.intro' />
-        </HeaderNavLink>
         <HeaderNavLink to='/history' {...cypressId('navLinkHistory')}>
           <Trans i18nKey='landing.navigation.history' />
         </HeaderNavLink>

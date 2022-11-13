@@ -12,18 +12,22 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Dropdown } from 'react-bootstrap'
 import { doLogout } from '../../../api/auth'
 import { useUiNotifications } from '../../notifications/ui-notification-boundary'
+import { useRouter } from 'next/router'
 
 /**
  * Renders a sign-out button as a dropdown item for the user-dropdown.
  */
 export const SignOutDropdownButton: React.FC = () => {
   useTranslation()
+  const router = useRouter()
   const { showErrorNotification } = useUiNotifications()
 
   const onSignOut = useCallback(() => {
     clearUser()
-    doLogout().catch(showErrorNotification('login.logoutFailed'))
-  }, [showErrorNotification])
+    doLogout()
+      .then(() => router.push('/login'))
+      .catch(showErrorNotification('login.logoutFailed'))
+  }, [showErrorNotification, router])
 
   return (
     <Dropdown.Item dir='auto' onClick={onSignOut} {...cypressId('user-dropdown-sign-out-button')}>

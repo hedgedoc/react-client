@@ -6,8 +6,8 @@
 
 import React, { useMemo } from 'react'
 import { SocialLinkButton } from './social-link-button/social-link-button'
-import type { AuthProvider, AuthProviderWithCustomName } from '../../../api/config/types'
-import { getOneClickProviderMetadata } from './utils/get-one-click-provider-metadata'
+import { getOneClickProviderMetadata } from './get-one-click-provider-metadata'
+import type { AuthProvider, AuthProviderWithCustomName } from '../../../../api/config/types'
 
 export interface ViaOneClickProps {
   provider: AuthProvider
