@@ -16,6 +16,7 @@ import { PasswordField } from './fields/password-field'
 import { useOnInputChange } from '../../../hooks/common/use-on-input-change'
 import { fetchAndSetUser } from '../../../redux/user/methods'
 import { AuthError } from './auth-error/auth-error'
+import { useDarkModeState } from '../../../hooks/common/use-dark-mode-state'
 
 export interface ViaLdapProps {
   providerName: string
@@ -27,6 +28,7 @@ export interface ViaLdapProps {
  */
 export const ViaLdap: React.FC<ViaLdapProps> = ({ providerName, identifier }) => {
   useTranslation()
+  const darkModeState = useDarkModeState()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -61,7 +63,7 @@ export const ViaLdap: React.FC<ViaLdapProps> = ({ providerName, identifier }) =>
         <PasswordField onChange={onPasswordChange} invalid={!!error} />
         <AuthError error={error} />
 
-        <Button type='submit' variant='outline-light'>
+        <Button type='submit' variant={'primary'}>
           <Trans i18nKey='login.signIn' />
         </Button>
       </Form>

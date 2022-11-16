@@ -7,12 +7,15 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Trans } from 'react-i18next'
-import { ForkAwesomeIcon } from '../common/fork-awesome/fork-awesome-icon'
+import { useDarkModeState } from '../../../hooks/common/use-dark-mode-state'
+import { ForkAwesomeIcon } from '../fork-awesome/fork-awesome-icon'
 
 export const LegalMenuButton: React.FC = () => {
+  const darkModeState = useDarkModeState()
+
   return (
     <Dropdown>
-      <Dropdown.Toggle variant={'outline-light'}>
+      <Dropdown.Toggle variant={darkModeState ? 'outline-dark' : 'outline-light'}>
         <ForkAwesomeIcon icon={'question-circle'} />
       </Dropdown.Toggle>
       <Dropdown.Menu>

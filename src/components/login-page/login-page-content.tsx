@@ -6,7 +6,6 @@
 
 import { Col, Row } from 'react-bootstrap'
 import { HedgeDocLogoType, HedgeDocLogoWithText } from '../common/hedge-doc-logo/hedge-doc-logo-with-text'
-import { IntroCustomContent } from '../intro-page/intro-custom-content'
 import { EditorToRendererCommunicatorContextProvider } from '../editor-page/render-context/editor-to-renderer-communicator-context-provider'
 import { Branding } from '../common/branding/branding'
 import { Trans, useTranslation } from 'react-i18next'
@@ -16,12 +15,14 @@ import styles from './style.module.scss'
 import { ShowIf } from '../common/show-if/show-if'
 import React, { useMemo } from 'react'
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { LegalMenuButton } from '../legal-menu-button/legal-menu-button'
 import type { AuthProviderWithCustomName } from '../../api/config/types'
 import { AuthProviderType, authProviderTypeOneClick } from '../../api/config/types'
 import { ViaLdap } from './auth/via-ldap'
 import { SettingsButton } from '../layout/settings-dialog/settings-button'
 import { ViaOneClick } from './auth/one-click/via-one-click'
+import { LegalMenuButton } from '../common/legal-menu-button/legal-menu-button'
+import { IntroCustomContent } from './intro-custom-content'
+import { useDarkModeState } from '../../hooks/common/use-dark-mode-state'
 
 export const LoginPageContent: React.FC = () => {
   useTranslation()
@@ -48,6 +49,8 @@ export const LoginPageContent: React.FC = () => {
       })
   }, [authProviders])
 
+  const darkMode = useDarkModeState()
+
   return (
     <Row className={'m-0'}>
       <Col md={7} className={'mvh-100 p-5'}>
@@ -67,7 +70,7 @@ export const LoginPageContent: React.FC = () => {
         <div className={`d-flex flex-column gap-5 ${styles['login-pane']}`}>
           <div className={'d-flex flex-row-reverse gap-2'}>
             <LegalMenuButton />
-            <SettingsButton variant={'outline-light'} />
+            <SettingsButton variant={darkMode ? 'outline-dark' : 'outline-light'} />
           </div>
           <ViaLocal />
           <ShowIf condition={ldapProviders.length > 0}>{ldapProviders}</ShowIf>

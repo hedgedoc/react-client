@@ -10,6 +10,7 @@ import { Container } from 'react-bootstrap'
 import { MotdModal } from '../common/motd-modal/motd-modal'
 import { Footer } from './footer/footer'
 import { HeaderBar } from './navigation/header-bar/header-bar'
+import { useApplyDarkMode } from '../../hooks/common/use-apply-dark-mode'
 
 /**
  * Renders the layout for both intro and history page.
@@ -17,6 +18,8 @@ import { HeaderBar } from './navigation/header-bar/header-bar'
  * @param children The children that should be rendered on the page.
  */
 export const LandingLayout: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
+  useApplyDarkMode()
+
   return (
     <Fragment>
       <MotdModal />

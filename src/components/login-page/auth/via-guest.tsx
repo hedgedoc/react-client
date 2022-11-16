@@ -8,8 +8,10 @@ import React, { useCallback } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Button } from 'react-bootstrap'
 import { useRouter } from 'next/router'
+import { useDarkModeState } from '../../../hooks/common/use-dark-mode-state'
 
 export const ViaGuest: React.FC = () => {
+  const darkModeState = useDarkModeState()
   const router = useRouter()
   useTranslation()
 
@@ -23,7 +25,7 @@ export const ViaGuest: React.FC = () => {
         <Trans i18nKey='login.guests' />
       </h5>
       <div className='flex flex-row' dir='auto'>
-        <Button type='submit' variant='outline-light' onClick={onContinue}>
+        <Button type='submit' variant={'primary'} onClick={onContinue}>
           <Trans i18nKey='login.continueAsGuest' />
         </Button>
       </div>

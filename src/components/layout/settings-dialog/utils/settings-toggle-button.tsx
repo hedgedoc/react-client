@@ -48,7 +48,7 @@ export const SettingsToggleButton = ({
   }, [onSelect, selected, value])
 
   return (
-    <Button {...props} variant={selected ? 'secondary' : 'outline-secondary'} title={title} onClick={onChange}>
+    <Button {...props} variant={selected ? 'dark' : 'outline-dark'} title={title} onClick={onChange}>
       <Trans i18nKey={i18nKeyLabel} />
     </Button>
   )

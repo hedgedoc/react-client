@@ -18,9 +18,11 @@ import { UsernameField } from './fields/username-field'
 import { PasswordField } from './fields/password-field'
 import { AuthError } from './auth-error/auth-error'
 import { fetchAndSetUser } from '../../../redux/user/methods'
+import { useDarkModeState } from '../../../hooks/common/use-dark-mode-state'
 
 export const ViaLocal: React.FC = () => {
   const { t } = useTranslation()
+  const darkModeState = useDarkModeState()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<AuthErrorType>()
@@ -57,7 +59,7 @@ export const ViaLocal: React.FC = () => {
 
         <div className='d-flex flex-row justify-content-between' dir='auto'>
           <div>
-            <Button type='submit' variant='outline-light'>
+            <Button type='submit' variant={'primary'}>
               <Trans i18nKey='login.signIn' />
             </Button>
           </div>
